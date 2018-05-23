@@ -17,9 +17,9 @@
 	
 	// 安装必要的依赖
 	$ sudo npm install gulp -g 
-	$ sudo npm install
+	$ npm i
 
 ### 3. 开发与调试
 	$ git pull (更新代码)
-	$ sudo gulp （启动微信小程序服务）
+	$ gulp （启动微信小程序服务）
 	
