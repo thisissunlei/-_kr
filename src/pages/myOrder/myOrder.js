@@ -1,3 +1,6 @@
+
+import * as CAlculagraph from '../../utils/time.js';
+
 //index.js
 //获取应用实例
 const app = getApp()
@@ -7,15 +10,26 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    minute:'',
+    second:''
   },
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
-      url: '../myOrder/myOrder'
+      url: '../logs/logs'
     })
   },
   onLoad: function () {
+    console.log(CAlculagraph);
+    var aa = CAlculagraph.CAlculagraph()
+    console.log(aa.timerMint,1111)
+    var that = this;
+    aa.timerMint({
+                deadline:new Date().getTime()/1000+300,//最终结束的时间戳,
+                callback:function (){},//时间结束后的方法,
+                that:that,
+            });
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

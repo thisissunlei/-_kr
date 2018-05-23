@@ -1,7 +1,12 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/boardroomList/boardroomList",
+    "pages/meetingDetail/meetingDetail",
+    "pages/myMeeting/myMeeting",
+    "pages/myOrder/myOrder",
+    "pages/orderDetail/orderDetail"
   ],
   "window":{
     "backgroundTextStyle":"light",
