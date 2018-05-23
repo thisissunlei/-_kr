@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    sass = require('gulp-sass'), //sass编译
+    less = require('gulp-less'), //less编译
     autoprefixer = require('gulp-autoprefixer'), //前缀补全
     minifyCss = require('gulp-minify-css'), //css压缩
     rename = require("gulp-rename"), //文件改名
@@ -15,8 +15,8 @@ gulp.task('del', function(cb) {
 })
 
 gulp.task('wxss', function() {
-    return gulp.src(['src/**/*.scss'])
-        .pipe(sass().on('error', sass.logError))
+    return gulp.src(['src/**/*.less'])
+        //.pipe(less().on('error', less.logError))
         .pipe(autoprefixer('> 1%', 'last 9 versions', 'Firefox ESR', 'ios 5', 'android 2'))
         .pipe(minifyCss())
         .pipe(rename({
