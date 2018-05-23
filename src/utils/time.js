@@ -4,26 +4,9 @@ var CAlculagraph = function() {
   return new CAlculagraph.fn.init();
 }
 
-function trigger(triggers){
-    var event = document.createEvent('HTMLEvents');
-    event.initEvent(triggers.evet, true, true);
-    event.eventType = 'message';
-    event.cont =  triggers.cont;
-    for(var i in triggers){
-        if(i!='obj'&&i!='evet'&&i!='cont'){
-            event[i]=triggers[i];
-        }
-    }
-    var objs = triggers.obj?triggers.obj:document;
-    objs.dispatchEvent(event);
-}
+
 CAlculagraph.fn = CAlculagraph.prototype = {
-  /*timeEnd:function (secdom){
-    trigger({
-      evet:'cancle',
-      obj:secdom
-    })
-  },*/
+
   timerMint : timerMint,
   init : function (){
     return CAlculagraph.fn;
@@ -72,7 +55,6 @@ function timerMint(agmt_time){
     }
     
     t=setTimeout(secondRun,1000);
-    //agmt_time.secdom.addEventListener('cancle',cancleTime,false);
   }
   function secondRun(){
       if(second>0){
@@ -91,7 +73,6 @@ function timerMint(agmt_time){
           t=setTimeout(secondRun,1000);
         }else{
           nowtime=agmt_time.deadline-Math.round(new Date().getTime()/1000);
-          //agmt_time.secdom.removeEventListener('cancle',cancleTime,false);
           init();
         }
       }else{
@@ -106,11 +87,11 @@ function timerMint(agmt_time){
           
 
           agmt_time.that.setData({
-          //  minute : '0'+minute;
+            minute : '0'+minute
           });
         }else{
           agmt_time.that.setData({
-          //  minute:minute;
+            minute:minute
           });
         }
         bools[0]=false;
@@ -129,13 +110,6 @@ function timerMint(agmt_time){
       }
     }
   }
-  /*function cancleTime(){
-    //agmt_time.secdom.removeEventListener('cancle',cancleTime,false);
-    if(agmt_time.callback!=''&&agmt_time.callback!=undefined){
-      agmt_time.callback();
-    }
-    clearTimeout(t);
-  }*/
 }
 
 module.exports = {
