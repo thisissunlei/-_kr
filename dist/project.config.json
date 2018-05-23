@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.98",
-	"appid": "touristappid",
+	"appid": "wx23bfec246e5e8b9c",
 	"projectname": "kr_meeting",
 	"condition": {
 		"search": {
@@ -20,6 +20,10 @@
 			"list": []
 		},
 		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
 			"current": -1,
 			"list": []
 		},
