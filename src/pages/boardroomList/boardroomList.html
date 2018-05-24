@@ -1,16 +1,33 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
+  
+  <!-- <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-  <view class="usermotto2">
-    <text>22222</text>
- </view>
+  </view> -->
+  <scroll-view class='list-outer'>
+      <navigator 
+        wx:for="{{boardroomList}}"
+        wx:key="*this"
+        url="/pages/boardroomList/boardroomList" 
+        hover-class="navigator-hover" 
+        class='list-item'
+      > 
+        <view class="top">
+          <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}"></image>
+          <view class="top-right">
+            <view class="first-row">
+                <text>{{item.capacity}}人间 | {{item.roomName}}</text>
+                <text>{{item.floor}}</text>
+            </view>
+            
+          </view> 
+        </view>
+        <view class="bottom"></view>
+        
+      </navigator>
+  </scroll-view>
 </view>
