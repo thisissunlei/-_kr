@@ -7,8 +7,7 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    boardroomList:[{roomName:'A会议室'},{roomName:'B会议室'},{roomName:'C会议室'},{roomName:'D会议室'}],
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
   bindViewTap: function() {
