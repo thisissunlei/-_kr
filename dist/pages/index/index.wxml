@@ -1,51 +1,16 @@
 <!--index.wxml-->
-<view class="idx_header">
-  <view class='hd_title'>
-    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <view>
-      氪空间共享会议室dssd
-    </view>
-  </view>
+<view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <view class="userinfo-nickname">{{userInfo.nickName}}</view>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
   <view class="usermotto2">
-    <navigator url="/pages/boardroomList/boardroomList" hover-class="navigator-hover">进入会议室列表</navigator>
+    <text>22222</text>
  </view>
-
-
-
-
-  
-</view>
-
-<view class='nearby_room'>
-  <view class='rm_title'>周边会议室</view>
-  <view class='community'>
-    <view class='community_pic'>
-      <image></image>
-    </view>
-    <view class='cmty_con'>
-      <view class='cmty_title'>海航实业大厦</view>
-      <view class='location'>
-        <text class='lct_con'>北京市朝阳区建国路108号</text>
-        <text class='lct_distance'>200m</text>
-      </view>
-      <view class='room_num'>22 个可用会议室</view>
-      <view class='price'>限时7折优惠</view>
-    </view>
-  </view>
-</view>
-<view>
-            
-  <text>{{minute}}</text>
-  <text>{{second}}</text>
 </view>

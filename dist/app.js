@@ -5,20 +5,12 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    wx.setEnableDebug({
-      enableDebug: true
-    });
+
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
-    })
-    wx.setTabBarStyle({
-        color: '#000000',
-        selectedColor: '#00FF00',
-        backgroundColor: '#000000',
-        borderStyle: 'black'
     })
     // 获取用户信息
     wx.getSetting({
