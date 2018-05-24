@@ -11,13 +11,20 @@
   <scroll-view class='list-outer'>
       <navigator 
         wx:for="{{boardroomList}}"
+        wx:key="*this"
         url="/pages/boardroomList/boardroomList" 
         hover-class="navigator-hover" 
         class='list-item'
       > 
         <view class="top">
-          <!-- <image class="top-left" src="{{item.imgUrl}}"></image> -->
-          <view class="top-right"><text>{{item.roomName}}</text></view> 
+          <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}"></image>
+          <view class="top-right">
+            <view class="first-row">
+                <text>{{item.capacity}}人间 | {{item.roomName}}</text>
+                <text>{{item.floor}}</text>
+            </view>
+            
+          </view> 
         </view>
         <view class="bottom"></view>
         

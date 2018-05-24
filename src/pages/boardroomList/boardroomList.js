@@ -8,7 +8,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    boardroomList:[{roomName:'A会议室'},{roomName:'B会议室'},{roomName:'C会议室'},{roomName:'D会议室'}],
+    boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F'},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F'},{roomName:'C会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F'},{roomName:'D会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F'}],
   },
   //事件处理函数
   bindViewTap: function() {
