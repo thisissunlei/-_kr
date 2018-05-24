@@ -1,21 +1,84 @@
 /**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.idx_header{
+	overflow: hidden;
 }
-
+.hd_title{
+	float: left;
+}
+.userinfo {
+	float: right;
+}
 .userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
+  width: 72rpx;
+  height: 72rpx;
+  
   border-radius: 50%;
 }
 
 .userinfo-nickname {
-  color: #aaa;
+  color: #ffffff;
+  font-size: 28rpx;
 }
 
-.usermotto {
-  margin-top: 200px;
+
+.nearby_room{
+
+	padding: 0 36rpx;
+	font-family: 'PingFangSC-Medium';
+
+}
+.rm_title{
+	margin-bottom: 40rpx;
+	line-height: 44rpx;
+	font-size: 44rpx;
+	color: #000000;
+}
+.community{
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+}
+.community_pic{
+	border: 1px solid #F3F3F3;
+	border-radius: 16rpx;
+	width: 200rpx;
+	height: 266rpx;
+}
+.cmty_con{
+	flex-grow:1;
+	margin-left: 10rpx;
+}
+.cmty_title{
+	margin-bottom: 24rpx;
+	font-size: 34rpx;
+	color: #333333;
+	line-height: 34rpx;
+}
+.location{
+	margin-bottom: 32rpx;
+	overflow: hidden;
+}
+.lct_con{
+	float: left;
+	font-size: 26rpx;
+	color: #666666;
+	line-height: 26rpx;
+}
+.lct_distance{
+	float: right;
+	display: inline-block;
+	font-size: 26rpx;
+	color: #666666;
+	line-height: 26rpx;
+}
+.room_num{
+	font-size: 26rpx;
+	color: #2A2A2A;
+	line-height: 26rpx;
+}
+.price{
+	margin-top: 88rpx;
+	font-size: 26rpx;
+	color: #FF6868;
+	line-height: 26rpx;
 }
