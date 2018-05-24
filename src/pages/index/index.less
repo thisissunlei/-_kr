@@ -11,7 +11,6 @@
 .userinfo-avatar {
   width: 72rpx;
   height: 72rpx;
-  
   border-radius: 50%;
 }
 
@@ -20,12 +19,33 @@
   font-size: 28rpx;
 }
 
+.title-msg{
+	width: 100%;
 
+}
+.title{
+	
+}
+
+.my-img{
+	width: 72rpx;
+	height: 72rpx;
+	border-raduis:50%;
+}
 .nearby_room{
-
 	padding: 0 36rpx;
 	font-family: 'PingFangSC-Medium';
-
+	position: relative;
+}
+.nearby_room:after{
+	content:" ";
+	position: absolute;
+	height: 1rpx;
+	width: 100%;
+	background: #F3F3F3;
+	top: 400rpx;
+	left: 36rpx;
+	right: 0;
 }
 .rm_title{
 	margin-bottom: 40rpx;
@@ -38,6 +58,7 @@
 	flex-direction: row;
 	overflow: hidden;
 }
+
 .community_pic{
 	border: 1px solid #F3F3F3;
 	border-radius: 16rpx;
@@ -48,6 +69,7 @@
 	flex-grow:1;
 	margin-left: 10rpx;
 }
+
 .cmty_title{
 	margin-bottom: 24rpx;
 	font-size: 34rpx;
@@ -75,10 +97,27 @@
 	font-size: 26rpx;
 	color: #2A2A2A;
 	line-height: 26rpx;
+	position: relative;
+}
+.room_num:after{
+	content:" ";
+	position: absolute;
+	width: 37rpx;
+	height: 16rpx;
+	background-color: #FFE461 ;
+	right: 0;
+	left: 0;
+	top: 12rpx;
+	z-index: -1;
 }
 .price{
+	width: 170rpx;
+	height: 48rpx;
 	margin-top: 88rpx;
 	font-size: 26rpx;
 	color: #FF6868;
 	line-height: 26rpx;
+	background-color: #FFEEEE;
+	line-height: 48rpx;
+	text-align: center;
 }
