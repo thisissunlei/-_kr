@@ -14,6 +14,12 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     })
+    wx.setTabBarStyle({
+        color: '#000000',
+        selectedColor: '#00FF00',
+        backgroundColor: '#000000',
+        borderStyle: 'black'
+    })
     // 获取用户信息
     wx.getSetting({
       success: res => {
