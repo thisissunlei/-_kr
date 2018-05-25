@@ -36,8 +36,9 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "221",
-					"pathName": "pages/personal/personal"
+					"name": "我的",
+					"pathName": "pages/personal/personal",
+					"query": ""
 				}
 			]
 		}
