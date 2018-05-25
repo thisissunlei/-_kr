@@ -4,6 +4,13 @@ const app = getApp()
 
 Page({
   data: {
+    
+    array: [{
+      message: 'foo',
+    }, {
+      message: 'bar'
+    }],
+  
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
