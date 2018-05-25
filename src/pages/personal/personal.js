@@ -11,13 +11,10 @@ Page({
   },
   //事件处理函数
   jumpMyMeet:function() {
-    
-   
-  },
-  bindViewTap: function() {
     wx.navigateTo({
-      url: '../personal/personal'
+      url: '../myMeeting/myMeeting'
     })
+   
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
