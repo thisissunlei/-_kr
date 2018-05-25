@@ -8,7 +8,7 @@
     "pages/myMeeting/myMeeting",
     "pages/myOrder/myOrder",
     "pages/orderDetail/orderDetail",
-    "pages/personal/personal",
+    "pages/my/my",
     "pages/orderConfirmation/orderConfirmation"
   ],
   "window":{
