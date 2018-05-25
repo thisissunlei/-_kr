@@ -1,5 +1,8 @@
 {
   "pages":[
+    "pages/warn/warn",
+    "pages/phone/phone",
+    "pages/meetingTheme/meetingTheme",
     "pages/index/index",
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",
@@ -7,6 +10,7 @@
     "pages/myMeeting/myMeeting",
     "pages/myOrder/myOrder",
     "pages/orderDetail/orderDetail",
+    
     "pages/personal/personal"
   ],
   "window":{
