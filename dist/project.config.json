@@ -35,15 +35,9 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
-					"name": "我的",
-					"pathName": "pages/personal/personal",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "会议室列表",
-					"pathName": "pages/meeting/meeting",
+					"id": 0,
+					"name": "订单确认",
+					"pathName": "pages/orderConfirmation/orderConfirmation",
 					"query": ""
 				}
 			]

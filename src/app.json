@@ -8,7 +8,8 @@
     "pages/myMeeting/myMeeting",
     "pages/myOrder/myOrder",
     "pages/orderDetail/orderDetail",
-    "pages/personal/personal"
+    "pages/personal/personal",
+    "pages/orderConfirmation/orderConfirmation"
   ],
   "window":{
     "backgroundTextStyle":"light",
