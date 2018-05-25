@@ -1,14 +1,21 @@
 {
   "pages":[
-    "pages/meeting/meeting",
+
     "pages/index/index",
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",
     "pages/meetingDetail/meetingDetail",
     "pages/myMeeting/myMeeting",
     "pages/myOrder/myOrder",
+    "pages/meetingTheme/meetingTheme",
+    "pages/phone/phone",
+    "pages/warn/warn",
+    "pages/meeting/meeting",
+    
+    
     "pages/orderDetail/orderDetail",
-    "pages/personal/personal"
+    "pages/my/my",
+    "pages/orderConfirmation/orderConfirmation"
   ],
   "window":{
     "backgroundTextStyle":"light",
