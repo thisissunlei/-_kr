@@ -1,39 +1,163 @@
 /**index.wxss**/
+
 .idx_header{
 	overflow: hidden;
+	width: 100%;
+	height:500rpx;
+	background-image: linear-gradient(0deg, #625C82 15%, #3E3B51 100%);
 }
-.hd_title{
-	float: left;
+.title-msg:after{
+	content:" ";
+	width: 0;
+	height: 0;
+	border-left: 380rpx solid transparent;
+	border-right:380rpx solid transparent;
+	border-bottom: 100rpx  solid #ffffff;
+	position: absolute;
+	top: 401rpx;
+	left: 0;
 }
-.userinfo {
-	float: right;
-}
-.userinfo-avatar {
-  width: 72rpx;
-  height: 72rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #ffffff;
-  font-size: 28rpx;
-}
-
 .title-msg{
 	width: 100%;
-
+	display: flex;
+	flex-direction:row;
 }
 .title{
-	
+	display: flex;
+	flex-direction: column;
+	flex:1;
+	margin-left:36rpx;
 }
-
-.my-img{
+.E-title{
+	font-size: 72rpx;
+	color: #FFFFFF ;
+}
+.C-title{
+	font-size: 36rpx;
+	color: #FFFFFF ;
+}
+.my{
+	width: 72rpx;
+	margin-right:36rpx;
+	padding-bottom: 80rpx;
+	padding-top: 20rpx;
+}
+.my .my-img{
 	width: 72rpx;
 	height: 72rpx;
-	border-raduis:50%;
+	border-radius: 50%;
+	background-color: #F3F3F3;
 }
+.my .my-name{
+	text-align: center;
+	color: #ffffff;
+	font-size: 28rpx;
+	text-align: center;
+	margin-top:15rpx;
+}
+.metting{
+	margin-top:-300rpx;
+	position: relative;
+	z-index: 99999;
+}
+.metting-session .my-metting{
+	width: 680rpx;
+	height: 376rpx;
+	background: #ffffff;
+	box-shadow: 0 1px 8px 0 rgba(149,149,149,0.30);
+	border-radius: 8px;
+	margin: auto;
+}
+.metting-session .metting-mark{
+	width: 44rpx;
+	height: 66rpx;;
+	background-image: linear-gradient(-135deg, #FF7C7E 0%, #FF4648 100%);
+	border-radius: 0 0 1px 0 1px;
+	margin-left: 18rpx;
+	position: relative;
+	color: #ffffff;
+	font-size: 18rpx;
+	text-align: center;
+	line-height: 18rpx;
+}
+.metting-session .metting-mark:after{
+	content:" ";
+	width: 0;
+	height: 0;
+	border-left: 23rpx solid transparent;
+	border-right: 23rpx solid transparent;
+	border-bottom: 18rpx solid #ffffff;
+	
+}
+.metting-session .metting-title{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	font-family: PingFangSC-Medium;
+	font-size: 40rpx;
+	color: #333333;
+	padding-bottom:50rpx;
+	border-bottom: 1rpx dotted #DFDFDF;
+	margin-bottom: 30rpx;
+}
+.metting-session .metting-address{
+	text-align: center;
+	font-family: PingFangSC-Regular;
+	font-size: 30rpx;
+	color: #666666;
+	letter-spacing: 0;
+	line-height: 50rpx;
+}
+.metting-session .metting-map{
+	font-family: PingFangSC-Regular;
+	font-size: 26rpx;
+	color: #9399A5;
+	letter-spacing: 0;
+	line-height: 50rpx;
+}
+.metting-session .map-icon{
+	width: 24rpx;
+	height: 27rpx;
+	display: inline-block;
+}
+.metting-session .map-icon image{
+	width: 100%;
+	height: 100%;
+}
+
+.adver{
+	margin-top: 50rpx;
+}
+.adver1{
+	width: 680rpx;
+	height: 200rpx;
+	border: 1rpx solid #F0AA57;
+	border-radius: 16rpx;
+}
+.adver1 image,.adver2 image,.adver3 image{
+	width: 100%;
+	height: 100%;
+}
+.adver2{
+	margin-top: 50rpx;
+	width: 680rpx;
+	height: 200rpx;
+	display: flex;
+	flex-direction: row;
+}
+.adver2-1,.adver2-2{
+	width: 328rpx;
+	height: 200rpx;
+	border: 1rpx solid #F0AA57;
+	border-radius: 16rpx;
+}
+.adver2-1{
+	margin-right: 24rpx;
+}
+
 .nearby_room{
-	padding: 0 36rpx;
+	width: 750rpx;
+	margin-top: 80rpx;
 	font-family: 'PingFangSC-Medium';
 	position: relative;
 }
@@ -44,16 +168,18 @@
 	width: 100%;
 	background: #F3F3F3;
 	top: 400rpx;
-	left: 36rpx;
+	left: 0;
 	right: 0;
 }
 .rm_title{
+	padding: 0 36rpx;
 	margin-bottom: 40rpx;
 	line-height: 44rpx;
 	font-size: 44rpx;
 	color: #000000;
 }
 .community{
+	padding: 0 36rpx;
 	display: flex;
 	flex-direction: row;
 	overflow: hidden;
@@ -64,6 +190,11 @@
 	border-radius: 16rpx;
 	width: 200rpx;
 	height: 266rpx;
+	
+}
+.community_pic image{
+	width: 100%;
+	height: 100%;
 }
 .cmty_con{
 	flex-grow:1;

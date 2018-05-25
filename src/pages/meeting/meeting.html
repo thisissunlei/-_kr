@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container">
+<!-- <view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
@@ -14,16 +14,38 @@
     <text>会议室列表11111</text>
  </view>
 </view>
+ -->
 
 
-<view wx:for="{{array}}">
-  {{index}}: {{item.message}}
-</view>
-
-<view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="i">
-  <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="j">
-    <view wx:if="{{i <= j}}">
-      {{i}} * {{j}} = {{i * j}}
+    <view>请选择日期</view>
+    <view>{{date_now.value}}</view>
+    <view>
+      <text style='display: inline-block;width: 13%;'>周日</text>
+      <text style='display: inline-block;width: 13%;'>周一</text>
+      <text style='display: inline-block;width: 13%;'>周二</text>
+      <text style='display: inline-block;width: 13%;'>周三</text>
+      <text style='display: inline-block;width: 13%;'>周四</text>
+      <text style='display: inline-block;width: 13%;'>周五</text>
+      <text style='display: inline-block;width: 13%;'>周六</text>
     </view>
-  </view>
-</view>
+    <view  bindtap="dateBtn">
+    <text wx:for="{{date_data1}}" data-value="{{i.value}}" data-bool='{{i.type}}' data-month='{{date_now.month}}' data-year='{{date_now.year}}' wx:for-item="i" style='margin-left:5px;display: inline-block;width: 13%;' class='{{i.type}}'>
+
+      {{i.value}}
+    </text>
+    </view>
+    <view>{{date_next.value}}</view>
+    <view  bindtap="dateBtn">
+      <text style='display: inline-block;width: 13%;'>周日</text>
+      <text style='display: inline-block;width: 13%;'>周一</text>
+      <text style='display: inline-block;width: 13%;'>周二</text>
+      <text style='display: inline-block;width: 13%;'>周三</text>
+      <text style='display: inline-block;width: 13%;'>周四</text>
+      <text style='display: inline-block;width: 13%;'>周五</text>
+      <text style='display: inline-block;width: 13%;'>周六</text>
+    </view>
+    <text wx:for="{{date_data2}}" data-value="{{i.value}}" data-bool='{{i.type}}' data-month='{{date_now.month}}' data-year='{{date_now.year}}' wx:for-item="i" style='margin-left:5px;display: inline-block;width: 13%;' class='{{i.type}}'>
+
+
+      {{i.value}}
+    </text>
