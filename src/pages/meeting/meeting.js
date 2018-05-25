@@ -27,6 +27,7 @@ Page({
     })
   },
   dateBtn :function(e){
+    console.log(1111)
     if(e.target.dataset.bool=='class2'||e.target.dataset.bool=='class3'){
           console.log(e.target.dataset.value,e.target.dataset.bool,e.target.dataset.month,e.target.dataset.year)
 
