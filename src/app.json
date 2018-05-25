@@ -1,10 +1,6 @@
 {
   "pages":[
-
-   
-
-     
-    
+    "pages/meeting/meeting",
     "pages/phone/phone",
     "pages/meetingTheme/meetingTheme",
     "pages/bindPhone/bindPhone",
@@ -14,8 +10,8 @@
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",
     "pages/meetingDetail/meetingDetail",
-    "pages/meeting/meeting",
     "pages/warn/warn",
+   
     
     
     "pages/orderDetail/orderDetail",
@@ -24,8 +20,6 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#fff"
   }
 }
