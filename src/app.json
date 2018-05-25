@@ -1,6 +1,6 @@
 {
   "pages":[
-
+"pages/meeting/meeting",
     "pages/index/index",
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",
@@ -10,7 +10,7 @@
     "pages/meetingTheme/meetingTheme",
     "pages/phone/phone",
     "pages/warn/warn",
-    "pages/meeting/meeting",
+    
     
     
     "pages/orderDetail/orderDetail",

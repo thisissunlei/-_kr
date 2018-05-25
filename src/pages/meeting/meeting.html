@@ -34,8 +34,8 @@
       {{i.value}}
     </text>
     </view>
-    <view>{{date_next}}</view>
-    <view>
+    <view>{{date_next.value}}</view>
+    <view  bindtap="dateBtn">
       <text style='display: inline-block;width: 13%;'>周日</text>
       <text style='display: inline-block;width: 13%;'>周一</text>
       <text style='display: inline-block;width: 13%;'>周二</text>
@@ -44,7 +44,7 @@
       <text style='display: inline-block;width: 13%;'>周五</text>
       <text style='display: inline-block;width: 13%;'>周六</text>
     </view>
-    <text wx:for="{{date_data2}}" wx:for-item="i" style='margin-left:5px;display: inline-block;width: 13%;' class='{{i.type}}'>
+    <text wx:for="{{date_data2}}" data-value="{{i.value}}" data-bool='{{i.type}}' data-month='{{date_now.month}}' data-year='{{date_now.year}}' wx:for-item="i" style='margin-left:5px;display: inline-block;width: 13%;' class='{{i.type}}'>
 
 
       {{i.value}}
