@@ -1,15 +1,39 @@
 /**index.wxss**/
-.userinfo {
+
+.boardroom-list view,.list-outer text,.list-outer navigator{
+  box-sizing:border-box;
+}
+
+.top-date{
+  border-bottom: 1px solid #F6F6F6;
+  height:100rpx;
+}
+
+.top-date .left{
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-date .left .date-item{
+  width: 60rpx;
+  padding-top: 10rpx;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.top-date .left .date-item .week{
+  font-size: 26rpx;
+  color: #F5A623;
+}
+
+
+.top-date .left .date-item .bottom-border{
+  width:40rpx;
+  height: 4rpx;
+  background-image: linear-gradient(57deg, #FAD961 0%, #F79C1C 100%);
+  border-radius: 8rpx;
 }
 
 .list-outer{
@@ -17,6 +41,7 @@
   padding:0 32rpx;
   padding-top:28rpx;
 }
+
 .list-item{
   margin: 0 auto;
   margin-bottom:28rpx;
@@ -29,6 +54,8 @@
 .list-item .top{
   display: flex;
   justify-content: space-between;
+  padding-bottom: 32rpx;
+  border-bottom: 1px dashed #DFDFDF;
 }
 .list-item .top .top-left{
   width: 200rpx;
@@ -36,7 +63,7 @@
   border-radius: 16rpx;
 }
 .list-item .top .top-right{
-  width: 436rpx;
+  width: 420rpx;
   height:150rpx;
   
 }
@@ -49,7 +76,9 @@
 }
 
 .list-item .top .top-right .second-row{
-  
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 
 .list-item .top .top-right .second-row .device{
@@ -70,17 +99,45 @@
 .text12{
   font-size:24rpx;
 }
+
 .time{
   color: #2A2A2A;
 }
+
 .orange{
   color: #FF6868;
 }
+
 .orignal-price{
   font-size: 26rpx;
   color: #666666;
 }
+
 .list-item .top .top-right .third-row .price{
   font-family: PingFang-SC-Medium;
   font-size: 40rpx;
+}
+
+
+.list-item .bottom{
+  display: flex;
+  justify-content: space-between;
+  height:46rpx;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.list-item .bottom .left{
+
+}
+
+.list-item .bottom .right{
+  width:120rpx;
+  height:60rpx; 
+  background-image: linear-gradient(57deg, #FAD961 0%, #F79C1C 100%);
+  border-radius: 8rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #FFFFFF;
 }
