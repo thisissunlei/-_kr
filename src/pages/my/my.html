@@ -1,0 +1,36 @@
+<view class="g-personal">
+    <view class="u-userinfo">
+          <image class="u-userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+          <view class="u-userinfo-nickname">{{userInfo.nickName}}</view>
+          <view class="u-userinfo-phone">185****2930</view>
+    </view>
+    <view class="u-my-order">
+        <view class="u-my-order-head">
+            <image class="u-my-order-icon" src=""></image>
+            <text class="u-my-title">我的订单</text>
+            <view class="u-order-btn" >全部订单 <image src="" ></image></view>
+        </view>
+        <view class="u-order-status-tab">
+            <view class="u-order-tab u-order-tab-right">
+                    <image class="u-my-tab-icon" src=""></image>
+                    <text class="u-my-tab-text">待支付</text>
+            </view>
+            <view class="u-order-tab u-order-tab-right">
+                    <image class="u-my-tab-icon" src=""></image>
+                    <text class="u-my-tab-text">待使用</text>
+            </view>
+            <view class="u-order-tab">
+                    <image class="u-my-tab-icon" src=""></image>
+                    <text class="u-my-tab-text">已使用</text>
+            </view>
+        </view>
+    </view>
+    <view class="u-my-meeting" bindtap="jumpMyMeet" >
+        <image class="u-my-meeting-icon"   src=""></image>
+        <text  class="u-my-meeting-title"  >我的会议</text>
+    </view>
+    <view class="u-contact-service">
+        <image class="u-my-contact-icon" src=""></image>
+        <button class="u-my-contact-btn" open-type="contact">联系客服</button>
+    </view>
+</view>

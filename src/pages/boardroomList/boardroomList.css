@@ -11,7 +11,7 @@
   border-radius: 50%;
 }
 .list-outer {
-  background: #abcdef;
+  background: #fff;
   padding: 0 32rpx;
   padding-top: 28rpx;
 }
@@ -43,4 +43,31 @@
   font-family: PingFang-SC-Medium;
   font-size: 34rpx;
   color: #333333;
+}
+.list-item .top .top-right .second-row .device {
+  display: inline-block;
+  font-size: 24rpx;
+  color: #999999;
+  line-height: 32rpx;
+  border: 0.5px solid #DEDEDE;
+  border-radius: 8rpx;
+  padding: 0 6rpx;
+  margin-right: 10rpx;
+}
+.text12 {
+  font-size: 24rpx;
+}
+.time {
+  color: #2A2A2A;
+}
+.orange {
+  color: #FF6868;
+}
+.orignal-price {
+  font-size: 26rpx;
+  color: #666666;
+}
+.list-item .top .top-right .third-row .price {
+  font-family: PingFang-SC-Medium;
+  font-size: 40rpx;
 }
