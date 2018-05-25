@@ -11,7 +11,7 @@
     "pages/phone/phone",
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
-    "pages/personal/personal"
+    "pages/personal/personal",
     "pages/my/my",
     "pages/orderConfirmation/orderConfirmation"
   ],
