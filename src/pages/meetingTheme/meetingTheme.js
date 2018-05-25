@@ -7,14 +7,21 @@ const app = getApp()
 
 Page({
   data: {
-    bindKeyInput:'技术部集体会议'
+   inputValue:'技术部集体会议'
   },
   bindViewTap(){
     console.log('bindViewTap')
   },
+  bindKeyInput:function(e){
+    let value = e.detail.value;
+    this.setData({
+      inputValue: e.detail.value,
+      inputValues: e.detail.value
+    })
+  },
   clearValue(e){
     this.setData({
-      bindKeyInput: ''
+      inputValue: ''
     })
     console.log('clearValue', this)
   },

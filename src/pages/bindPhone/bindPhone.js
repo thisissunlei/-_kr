@@ -7,10 +7,18 @@ const app = getApp()
 
 Page({
   data: {
-    inputValue:'技术部集体会议'
+    inputValue:'',
+    inputValues:''
   },
   bindViewTap(){
     console.log('bindViewTap')
+  },
+  clearValue(e){
+    this.setData({
+      inputValue: '',
+      inputValues: ''
+    })
+    console.log('clearValue', this)
   },
   bindKeyInput:function(e){
     let value = e.detail.value;
@@ -18,12 +26,6 @@ Page({
       inputValue: e.detail.value,
       inputValues: e.detail.value
     })
-  },
-  clearValue(e){
-    this.setData({
-      inputValue: ''
-    })
-    console.log('clearValue', this)
   },
   formSubmit(e){
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
