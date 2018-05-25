@@ -1,5 +1,8 @@
 {
   "pages":[
+    "pages/meetingTheme/meetingTheme",
+    "pages/phone/phone",
+    "pages/warn/warn",
     "pages/meeting/meeting",
     "pages/index/index",
     "pages/logs/logs",
@@ -7,9 +10,8 @@
     "pages/meetingDetail/meetingDetail",
     "pages/myMeeting/myMeeting",
     "pages/myOrder/myOrder",
-    "pages/warn/warn",
-    "pages/phone/phone",
-    "pages/meetingTheme/meetingTheme",
+    
+    
     "pages/orderDetail/orderDetail",
     "pages/my/my",
     "pages/orderConfirmation/orderConfirmation"

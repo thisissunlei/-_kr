@@ -23,7 +23,4 @@ Page({
   },
   onLoad: function () {
   },
-  formReset: function() {
-    console.log('form发生了reset事件')
-  }
 })
