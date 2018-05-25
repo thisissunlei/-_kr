@@ -6,7 +6,8 @@
     "pages/meetingDetail/meetingDetail",
     "pages/myMeeting/myMeeting",
     "pages/myOrder/myOrder",
-    "pages/orderDetail/orderDetail"
+    "pages/orderDetail/orderDetail",
+    "pages/personal/personal"
   ],
   "window":{
     "backgroundTextStyle":"light",
