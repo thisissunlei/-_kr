@@ -1,14 +1,16 @@
 {
   "pages":[
-    "pages/warn/warn",
-    "pages/phone/phone",
-    "pages/meetingTheme/meetingTheme",
+    
+    
     "pages/index/index",
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",
     "pages/meetingDetail/meetingDetail",
     "pages/myMeeting/myMeeting",
     "pages/myOrder/myOrder",
+    "pages/warn/warn",
+    "pages/phone/phone",
+    "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
     
     "pages/personal/personal"
