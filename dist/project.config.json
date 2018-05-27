@@ -32,14 +32,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
-			"list": [
-				{
-					"id": -1,
-					"name": "list",
-					"pathName": "pages/boardroomList/boardroomList"
-				}
-			]
+			"current": -1,
+			"list": []
 		}
 	}
 }
