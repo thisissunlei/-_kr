@@ -32,7 +32,6 @@
 			"list": []
 		},
 		"miniprogram": {
-<<<<<<< HEAD
 			"current": 0,
 			"list": [
 				{
@@ -41,10 +40,6 @@
 					"pathName": "pages/my/my"
 				}
 			]
-=======
-			"current": -1,
-			"list": []
->>>>>>> 2f0a5ffa0839a3440beafd7aefe5ae0b6f1a4fb9
 		}
 	}
 }
