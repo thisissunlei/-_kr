@@ -7,7 +7,7 @@ Page({
     motto: 'Hello World',
   },
   
-  onLoad: function () {
+  onLoad: function (options) {
    
   },
   
