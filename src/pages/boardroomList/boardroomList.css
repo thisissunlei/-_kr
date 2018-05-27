@@ -16,6 +16,10 @@ page {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  background: #fff;
 }
 .top-date .left {
   display: flex;
@@ -63,6 +67,9 @@ page {
   background: #fff;
   padding: 0 32rpx;
   padding-top: 28rpx;
+  position: absolute;
+  top: 100rpx;
+  height: 1100rpx;
 }
 .list-item {
   margin: 0 auto;
@@ -159,12 +166,12 @@ page {
 .list-item .bottom .right {
   width: 120rpx;
   height: 60rpx;
-  background-image: linear-gradient(57deg, #FAD961 0%, #F79C1C 100%);
-  border-radius: 8rpx;
+  border-radius: 32rpx;
+  border: 1px solid #F5A623;
   line-height: 60rpx;
   text-align: center;
   font-size: 28rpx;
-  color: #FFFFFF;
+  color: #F5A623;
 }
 .select-community {
   position: absolute;
