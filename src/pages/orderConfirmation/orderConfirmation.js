@@ -3,7 +3,7 @@
 const app = getApp()
 var newDate=changeTime();
 var theme=newDate[1]+''+newDate[2]+'会议';
-
+let arr=[20,21,22,23,24,25];
 Page({
   data: {
     motto: 'Hello World',
@@ -11,6 +11,14 @@ Page({
     remind:'提前15分钟',
     phone:'13333333332',
     check:false,
+    capacity:'10人',
+    roomName:'水星会议室1',
+    imgUrl:'',
+    promotionCost:'48',
+    unitCost:'60',
+    hour:getHour(arr),
+    beginTime:getTime('20'),
+    endTime:getTime('25')
   },
   changeCheckbox:function(){
     this.setData({
@@ -33,10 +41,42 @@ Page({
     })
   },
   onLoad: function (options) {
-   
+    
   },
   
 })
+
+function getTime(time){
+  var timeObj={
+    '19':'9:00',
+    '20':'9:30',
+    '21':'10:00',
+    '22':'10:30',
+    '23':'11:00',
+    '24':'11:30',
+    '25':'12:00',
+    '26':'12:30',
+    '27':'13:00',
+    '28':'13:30',
+    '29':'14:00',
+    '30':'14:30',
+    '31':'15:00',
+    '32':'15:30',
+    '33':'16:00',
+    '34':'16:30',
+    '35':'17:00',
+    '36':'17:30',
+    '37':'18:00',
+    '38':'18:30',
+    '39':'19:00'
+  }
+  return timeObj[time];
+}
+
+function getHour(data){
+  var len=data.length-1;
+  return len*0.5;
+}
 
 function changeTime(){
   let  myDate = new Date();
