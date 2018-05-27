@@ -32,14 +32,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
-			"list": [
-				{
-					"id": -1,
-					"name": "my",
-					"pathName": "pages/my/my"
-				}
-			]
+			"current": -1,
+			"list": []
 		}
 	}
 }

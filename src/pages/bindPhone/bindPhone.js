@@ -35,7 +35,8 @@ Page({
       value += ' '
     }
     this.setData({
-      inputValue: value,
+      inputValues: value,
+      inputValue: value.replace(/[^\d]/g,'')
     })
   },
   phoneTest(){
@@ -56,8 +57,7 @@ Page({
   },
   formSubmit(e){
     let that = this;
-    let phone =this.data.inputValue.replace(/[^\d]/g,'');
-    var phoneTest = util.phone(phone)
+    var phoneTest = util.phone(this.data.inputValue)
     this.setData({
       phoneTest:phoneTest
     })
