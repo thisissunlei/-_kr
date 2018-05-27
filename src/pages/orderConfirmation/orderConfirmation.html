@@ -24,23 +24,29 @@
         <view class="u-order-time">
             <view class="u-user-date">
                 <view class="u-time-title">使用日期</view>
-                <view class="u-time-data">2018-05-21</view>
+                <view class="u-time-data">
+                    <view class="u-date-txt"> 2018-05-21</view>
+                    <view class="u-yellow-line"></view>
+                </view>
                 <view class="u-time-txt">今天</view>
             </view>
             <view class="u-user-hour">
                 <view class="u-time-title">使用时段</view>
-                <view class="u-time-data">09:00-10:30</view>
+                <view class="u-time-data">
+                    <view class="u-date-txt"> 09:00-10:30</view>
+                    <view class="u-yellow-line"></view>
+                </view>
                 <view class="u-time-txt">1.5小时</view>
             </view>
             <view class="u-line"></view>
         </view>
     </view>
     <view class="u-meeting-info">
-        <view class="u-meeting-theme">
+        <view class="u-meeting-theme" bindtap="jumpSetTheme">
             <view class="u-meeting-title">
                 会议主题
             </view>
-            <view class="u-meet-text">0510会议</view>
+            <view class="u-meet-text">{{theme}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
