@@ -9,6 +9,22 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40'},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60'}],
     topDate:[],
+    communityList:[{
+      id: 22,
+      name: '美国'
+    },
+    {
+      id: 86,
+      name: '中国'
+    },
+    {
+      id: 33,
+      name: '巴西'
+    },
+    {
+      id: 44,
+      name: '日本'
+    }],
   },
  getMonthDays:function(year,month){
     //判断2月份天数
@@ -109,11 +125,15 @@ Page({
     })
   },
   //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+
+  changeCommunity: function(e) {
+    var communityList = this.data.communityList;
+    var index = e.detail.value;
+    wx.setNavigationBarTitle({
+      title: communityList[index].name
     })
   },
+
   onReady: function () {
     // if (app.globalData.userInfo) {
     //   this.setData({
