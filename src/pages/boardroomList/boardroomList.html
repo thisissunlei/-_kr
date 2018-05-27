@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container">
+<view class="container boardroom-list">
   
   <!-- <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
@@ -8,7 +8,27 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
-  <scroll-view class='list-outer'>
+  <view class="top-date">
+      <view class="left">
+        <view 
+         wx:for="{{topDate}}"
+         wx:key="*this"
+         class="date-item {{item.actived?'date-item-actived':''}}"
+         bindtap="selectTopDate"
+         data-index="{{index}}"
+        >
+            <view class="week">{{item.week}}</view>
+            <view class="week day">{{item.day}}</view>
+            <view class="bottom-border"></view>
+        </view>
+        
+
+      </view>
+      <view class="right">
+        <image src="../images/boardroomList/rili.png"></image>
+      </view>
+  </view>
+  <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom">
       <navigator 
         wx:for="{{boardroomList}}"
         wx:key="*this"
@@ -36,14 +56,30 @@
             </view>
 
             <view class="third-row">
-                <text class="orange text12">￥</text><text class="orange">{{item.unitCost}}</text>
-                <text class="orignal-price" style="text-decoration:line-through">￥60</text><text class="text12" style="color:#2a2a2a;">/半小时</text>
+                <text class="orange text12">￥ </text><text class="orange">{{item.unitCost}} </text>
+                <text class="orignal-price" style="text-decoration:line-through">￥ 60</text><text class="text12" style="color:#2a2a2a;"> / 半小时</text>
             </view>
             
           </view> 
         </view>
-        <view class="bottom"></view>
+        <view class="bottom">
+            <view class="left">
+              <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
+
+              </image>
+              <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
+
+              </image>
+              <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray-actived">
+
+              </image>
+            </view>
+            <view class="right">预订</view>
+        </view>
         
       </navigator>
   </scroll-view>
+  <!-- <picker bindchange="changeCommunity" range-key="name" range="{{communityList}}" value="{{id}}" class="select-community">
+    切换地点
+  </picker> -->
 </view>
