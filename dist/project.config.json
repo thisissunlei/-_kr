@@ -32,19 +32,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 0,
 			"list": [
 				{
 					"id": -1,
-					"name": "我的",
-					"pathName": "pages/my/my",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "订单确认",
-					"pathName": "pages/orderConfirmation/orderConfirmation",
-					"query": ""
+					"pathName": "pages/orderConfirmation/orderConfirmation"
 				}
 			]
 		}
