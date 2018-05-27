@@ -14,6 +14,13 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const phone = n =>{
+  console.log('n--->',n)
+  let phoneTest = /^1[3|4|5|6|7|8][0-9]{9}$/;
+  let value = phoneTest.test(n);
+  return value;
+}
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  phone:phone
 }

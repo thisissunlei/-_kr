@@ -11,6 +11,6 @@
 	</view>
 	<view class="btn-box">
 		<div class="disabled" wx:if="{{!inputValue.length}}">确定</div>
-		<div class="button" wx:if="{{inputValue.length}}">确定</div>
+		<div class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">确定</div>
 	</view>
 </form>

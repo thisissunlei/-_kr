@@ -1,0 +1,10 @@
+
+<view class="warn-chooce">
+	<ul class="tab-list" wx:for="{{cityList}}" wx:for-index="idx" wx:for-item="items" wx:key="{{items.city}}">
+		<li data-city="{{items.code}}" class="{{activeTab==items.code?active:item}}"  bind:touchend="checkWarn"  >
+			<span class="conten" data-city="{{items.code}}">{{items.city}}</span>
+			<span class="conten" data-city="{{items.code}}">{{items.code}}</span>
+			<image wx:if="{{activeTab==items.code}}" class="seleced" src="../images/public/cancle.png" background-size="cover"></image>
+		</li>
+	</ul>
+</view>
