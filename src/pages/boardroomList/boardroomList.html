@@ -64,15 +64,15 @@
         </view>
         <view class="bottom">
             <view class="left">
-              <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
-
+              <image wx:key="*this" wx:for="{{item.rangeTime}}" wx:for-item="rangeTimeItem" mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="{{rangeTimeItem.disabled?'gray-actived gray':'gray'}}">
+                
               </image>
-              <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
+              <!-- <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
 
               </image>
               <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray-actived">
 
-              </image>
+              </image> -->
             </view>
             <view class="right">预订</view>
         </view>
