@@ -27,23 +27,24 @@ Page({
     });
   },
   bindKeyInput:function(e){
-    let value = e.detail.value;
-    if(value.length ==3){
-      value += " ";
-    }
-    if(value.length == 8){
-      value += ' '
-    }
+    let value = e.detail.value.replace(/[^\d]/g,'');
+    let val = this.dealPhone(value)
     this.setData({
-      inputValues: value,
+      inputValues: val,
       inputValue: value.replace(/[^\d]/g,'')
     })
   },
-  phoneTest(){
-    // var phoneTest = util.phone(this.data.inputValue)
-    // this.setData({
-    //   phoneTest:phoneTest
-    // })
+  dealPhone(value){
+    let len = value.length;
+    let val = ''
+    if(len>3 && len<=7){
+      val = value.substr(0,3)+' '+ value.substr(3,len-3);
+    }else if(len>7){
+      val = value.substr(0,3)+' '+ value.substr(3,4)+' '+ value.substr(7,len-7);
+    }else{
+      val = value
+    }
+    return val;
   },
   bindViewTap(){
     console.log('bindViewTap')
