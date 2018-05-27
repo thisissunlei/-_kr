@@ -9,7 +9,13 @@ Page({
     motto: 'Hello World',
     theme:theme,
     remind:'提前15分钟',
-    phone:'13333333332'
+    phone:'13333333332',
+    check:false,
+  },
+  changeCheckbox:function(){
+    this.setData({
+        check:!this.data.check
+    })
   },
   jumpSetTheme:function() {
     wx.navigateTo({

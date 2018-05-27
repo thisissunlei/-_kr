@@ -72,10 +72,11 @@
     </view>
     <view class="u-protocol">
         <view class="u-protocol-content">
-            <view class="u-protocol-image">
-                <image class="u-protocol-checkbox" src="../images/orderconfirmationImg/icon_uncheck.png"></image>
+            <view class="u-protocol-image" bindtap="changeCheckbox">
+                <image class="u-protocol-checkbox" wx:if="{{!check}}"  src="../images/orderconfirmationImg/icon_uncheck.png"></image>
+                <image class="u-protocol-checkbox" wx:if="{{check}}"  src="../images/orderconfirmationImg/icon_check.png"></image>
             </view>
-            <view class="u-protocol-text">我已阅读并同意</view>
+            <view class="u-protocol-text" bindtap="changeCheckbox">我已阅读并同意</view>
             <view class="u-meet-protocol">《KrMeeting服务须知》</view>
         </view>
     </view>
