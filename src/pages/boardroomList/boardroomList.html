@@ -10,13 +10,23 @@
   </view> -->
   <view class="top-date">
       <view class="left">
-        <view class="date-item">
-            <view class="week">今天</view>
-            <view class="week day">20</view>
+        <view 
+         wx:for="{{topDate}}"
+         wx:key="*this"
+         class="date-item {{item.actived?'date-item-actived':''}}"
+         bindtap="selectTopDate"
+         data-index="{{index}}"
+        >
+            <view class="week">{{item.week}}</view>
+            <view class="week day">{{item.day}}</view>
             <view class="bottom-border"></view>
         </view>
+        
+
       </view>
-      <view class="right"></view>
+      <view class="right">
+        <image src="../images/boardroomList/rili.png"></image>
+      </view>
   </view>
   <scroll-view class='list-outer'>
       <navigator 
