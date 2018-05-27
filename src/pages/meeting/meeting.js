@@ -28,7 +28,7 @@ Page({
   },
   dateBtn :function(e){
     console.log(1111)
-    if(e.target.dataset.bool=='class2'||e.target.dataset.bool=='class3'){
+    if(e.target.dataset.bool=='nexts'||e.target.dataset.bool=='now'){
           console.log(e.target.dataset.value,e.target.dataset.bool,e.target.dataset.month,e.target.dataset.year)
 
     }
@@ -51,21 +51,21 @@ Page({
         case i>(today+1)&&bool:
           data.push({
             value:i-week+1,
-            type:'class2'
+            type:'next'
           });
           this.all_day_num++;
           break;
         case i==today&&bool:
           data.push({
             value:'今天',
-            type:'class3'
+            type:'now'
           });
           this.all_day_num++;
           break;
         case (i==(today+1))&&bool:
           data.push({
             value:'明天',
-            type:'class3'
+            type:'now'
           });
           this.all_day_num++;
           break;
@@ -73,13 +73,13 @@ Page({
         
           data.push({
             value:i-week+1,
-            type:'class2'
+            type:'next'
           });
           break;
         default:
           data.push({
             value:i-week+1,
-            type:'class1'
+            type:'before'
           });
           //this.all_day_num++;
         }
