@@ -1,0 +1,23 @@
+<form  class="meeting-form">
+	<view class="title">输入验证码</view>	
+	<view class="info">
+		<span class="phone-info">已发送验证码至   {{phone}}</span>
+		<span class="phone-again" wx:if="{{!time}}" bindtap="sendAgain">重新获取</span>
+		<span class="phone-again" wx:if="{{time}}">{{time}}s</span>
+	</view>	
+	<view class="input-box">
+		<view class="phone-box">
+			<input name="meeting" type="number" placeholder="请输入验证码"  bindinput="bindKeyInput"  value="{{inputValues}}" class="input-style" placeholder-style="color:#CCC;font-size:32rpx"/>
+		</view>
+		<view class="cancel-view" wx:if="{{inputValue.length}}">
+			<image bindtap="clearValue" class="cancel" src="../images/public/cancle.png" background-size="cover"></image>
+		</view>
+	</view>
+	<view class="btn-box">
+		<div class="disabled" wx:if="{{!inputValue.length}}">立即绑定</div>
+		<div class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">立即绑定</div>
+	</view>
+	<view class="last-view">
+		<div class="error-phone" wx:if="{{!phoneTest}}">验证码错误</div>
+	</view>
+</form>
