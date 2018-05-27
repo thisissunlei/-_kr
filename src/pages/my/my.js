@@ -1,4 +1,4 @@
-//index.js
+//personal.js
 //获取应用实例
 const app = getApp()
 
@@ -10,10 +10,11 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
-  bindViewTap: function() {
+  jumpMyMeet:function() {
     wx.navigateTo({
-      url: '../logs/logs'
+      url: '../myMeeting/myMeeting'
     })
+   
   },
   onLoad: function () {
     if (app.globalData.userInfo) {

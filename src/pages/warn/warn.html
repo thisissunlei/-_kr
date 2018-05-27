@@ -1,0 +1,21 @@
+
+<view class="warn-chooce">
+	<ul class="tab-list">
+		<li class="{{activeTab==1?active:item}}" bindtap="checkWarn" data-hi="1">
+			<span class="conten">无提醒</span>
+			<image wx:if="{{activeTab==1}}" class="seleced" src="../images/public/cancle.png" background-size="cover"></image>
+		</li>
+		<li data-hi="2" class="{{activeTab==2?active:item}}" bindtap="checkWarn"  >
+			<span class="conten">提前5分钟</span>
+			<image wx:if="{{activeTab==2}}" class="seleced" src="../images/public/cancle.png" background-size="cover"></image>
+		</li>
+		<li data-hi="3" class="{{activeTab==3?active:item}}" bindtap="checkWarn" >
+			<span class="conten">提前15分钟</span>
+			<image wx:if="{{activeTab==3}}" class="seleced" src="../images/public/cancle.png" background-size="cover"></image>
+		</li>
+		<li class="{{activeTab==4?active:item}}" bindtap="checkWarn" data-hi="4">
+			<span class="conten">提前30分钟</span>
+			<image wx:if="{{activeTab==4}}" class="seleced" src="../images/public/cancle.png" background-size="cover"></image>
+		</li>
+	</ul>
+</view>
