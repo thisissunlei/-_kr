@@ -8,14 +8,23 @@ Page({
   data: {
     motto: 'Hello World',
     theme:theme,
+    remind:'提前15分钟',
+    phone:'13333333332'
   },
-  //事件处理函数
   jumpSetTheme:function() {
-      console.log('---->>>>',this.data)
     wx.navigateTo({
       url: '../meetingTheme/meetingTheme?value='+this.data.theme
     })
-   
+  },
+  jumpSetRemind:function() {
+    wx.navigateTo({
+      url: '../warn/warn?value='+this.data.remind
+    })
+  },
+  jumpSetPhone:function() {
+    wx.navigateTo({
+      url: '../phone/phone?value='+this.data.phone
+    })
   },
   onLoad: function (options) {
    

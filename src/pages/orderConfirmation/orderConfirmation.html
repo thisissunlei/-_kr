@@ -51,21 +51,21 @@
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
         </view>
-        <view class="u-meeting-remind">
+        <view class="u-meeting-remind" bindtap="jumpSetRemind">
             <view class="u-meeting-title">
                 会议提醒
             </view>
-            <view class="u-meet-text">提前15分钟</view>
+            <view class="u-meet-text">{{remind}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
         </view>
     </view>
-    <view class="u-meeting-phone">
+    <view class="u-meeting-phone" bindtap="jumpSetPhone">
         <view class="u-meeting-title">
             联系电话
         </view>
-        <view class="u-meet-text">13333333333</view>
+        <view class="u-meet-text">{{phone}}</view>
         <view class="u-btn-arrow u-phone-btn-arrow">
             <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
         </view>
