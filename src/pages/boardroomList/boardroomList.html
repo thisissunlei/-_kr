@@ -63,10 +63,23 @@
           </view> 
         </view>
         <view class="bottom">
-            <view class="left">sd</view>
+            <view class="left">
+              <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
+
+              </image>
+              <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
+
+              </image>
+              <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray-actived">
+
+              </image>
+            </view>
             <view class="right">订</view>
         </view>
         
       </navigator>
   </scroll-view>
+  <picker bindchange="changeCommunity" range-key="name" range="{{communityList}}" value="{{id}}" class="select-community">
+    切换地点
+  </picker>
 </view>
