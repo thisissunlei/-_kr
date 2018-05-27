@@ -1,14 +1,57 @@
 /**index.wxss**/
-.userinfo {
+.boardroom-list view,
+.list-outer text,
+.list-outer navigator {
+  box-sizing: border-box;
+}
+.top-date {
+  border-bottom: 1px solid #F6F6F6;
+  height: 100rpx;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+.top-date .left {
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+}
+.top-date .right {
+  width: 96rpx;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.top-date .right image {
+  width: 52rpx;
+  height: 52rpx;
+}
+.top-date .left .date-item {
+  width: 60rpx;
+  padding-top: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-date .left .date-item-actived .week {
+  color: #F5A623 !important;
+}
+.top-date .left .date-item .week {
+  font-size: 26rpx;
+  color: #666;
+}
+.top-date .left .date-item .bottom-border {
+  width: 40rpx;
+  height: 4rpx;
+  background-image: linear-gradient(57deg, #FAD961 0%, #F79C1C 100%);
+  border-radius: 8rpx;
+  transform: translateY(1rpx);
+  visibility: hidden;
+}
+.top-date .left .date-item-actived .bottom-border {
+  visibility: visible !important;
 }
 .list-outer {
   background: #fff;
@@ -27,6 +70,8 @@
 .list-item .top {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 32rpx;
+  border-bottom: 1px dashed #DFDFDF;
 }
 .list-item .top .top-left {
   width: 200rpx;
@@ -34,7 +79,7 @@
   border-radius: 16rpx;
 }
 .list-item .top .top-right {
-  width: 436rpx;
+  width: 420rpx;
   height: 150rpx;
 }
 .list-item .top .top-right .first-row {
@@ -43,6 +88,11 @@
   font-family: PingFang-SC-Medium;
   font-size: 34rpx;
   color: #333333;
+}
+.list-item .top .top-right .second-row {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .list-item .top .top-right .second-row .device {
   display: inline-block;
@@ -70,4 +120,21 @@
 .list-item .top .top-right .third-row .price {
   font-family: PingFang-SC-Medium;
   font-size: 40rpx;
+}
+.list-item .bottom {
+  display: flex;
+  justify-content: space-between;
+  height: 46rpx;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.list-item .bottom .right {
+  width: 120rpx;
+  height: 60rpx;
+  background-image: linear-gradient(57deg, #FAD961 0%, #F79C1C 100%);
+  border-radius: 8rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #FFFFFF;
 }

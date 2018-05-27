@@ -1,0 +1,18 @@
+<form bindsubmit="formSubmit"  class="meeting-form">
+	<view class="title">绑定手机号</view>	
+	<view class="input-box">
+		<view class="city-box">
+
+		</view>
+		<view class="phone-box">
+			<input name="meeting" type="number" placeholder="请输入手机号"  bindinput="bindKeyInput" value="{{inputValues}}" class="input-style" placeholder-style="color:#CCC;font-size:32rpx"/>
+		</view>
+		<view class="cancel-view" wx:if="{{inputValue.length}}">
+			<image bindtap="clearValue" class="cancel" src="../images/public/cancle.png" background-size="cover"></image>
+		</view>
+	</view>
+	<view class="btn-box">
+		<div class="disabled" wx:if="{{!inputValue.length}}">确定</div>
+		<div class="button" wx:if="{{inputValue.length}}">确定</div>
+	</view>
+</form>

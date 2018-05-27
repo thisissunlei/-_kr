@@ -32,14 +32,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
-			"list": [
-				{
-					"id": -1,
-					"name": "订单确认",
-					"pathName": "pages/orderConfirmation/orderConfirmation"
-				}
-			]
+			"current": -1,
+			"list": []
 		}
 	}
 }
