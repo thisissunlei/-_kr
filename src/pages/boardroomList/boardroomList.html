@@ -28,7 +28,7 @@
         <image src="../images/boardroomList/rili.png"></image>
       </view>
   </view>
-  <scroll-view class='list-outer'>
+  <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom">
       <navigator 
         wx:for="{{boardroomList}}"
         wx:key="*this"
@@ -74,12 +74,12 @@
 
               </image>
             </view>
-            <view class="right">订</view>
+            <view class="right">预订</view>
         </view>
         
       </navigator>
   </scroll-view>
-  <picker bindchange="changeCommunity" range-key="name" range="{{communityList}}" value="{{id}}" class="select-community">
+  <!-- <picker bindchange="changeCommunity" range-key="name" range="{{communityList}}" value="{{id}}" class="select-community">
     切换地点
-  </picker>
+  </picker> -->
 </view>
