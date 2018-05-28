@@ -1,19 +1,23 @@
 {
   "pages":[
+    "pages/logs/logs",
+    
     "pages/index/index",
     "pages/meetingStatus/meetingStatus",
     "pages/meetingDetail/meetingDetail",
     "pages/meeting/meeting",
-    "pages/logs/logs",
     "pages/boardroomList/boardroomList",
     "pages/myOrder/myOrder",
-    "pages/meetingTheme/meetingTheme",
-    "pages/phone/phone",
-    "pages/myMeeting/myMeeting",
-    "pages/warn/warn",
     "pages/orderDetail/orderDetail",
     "pages/my/my",
-    "pages/orderConfirmation/orderConfirmation"
+    "pages/orderConfirmation/orderConfirmation",
+
+    "pages/provingCode/provingCode",
+    "pages/meetingTheme/meetingTheme",
+    "pages/phone/phone",
+    "pages/warn/warn",
+    "pages/myMeeting/myMeeting",
+    "pages/bindPhone/bindPhone"
   ],
   "window":{
     "backgroundTextStyle":"light",

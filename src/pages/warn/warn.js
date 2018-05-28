@@ -7,24 +7,25 @@ const app = getApp()
 
 Page({
   data: {
-    activeTab:'1',
+    activeTab:'NOALERT',
     item:'item',
     active:'active item'
   },
   onLoad: function (options) {
     this.setData({
-      inputValue: options.value
+      activeTab: options.value || 'NOALERT'
     })
   },
   checkWarn(e){;
+    let that = this;
     var target = e.target.dataset;
-    console.log(target,'checkWarn',target.hi)
+    console.log(target,'checkWarn',target.code)
     this.setData({
-      activeTab:target.hi
+      activeTab:target.code
     })
     setTimeout(function(){
       wx.navigateTo({
-        url: '../logs/logs'
+        url: '../logs/logs?warn='+that.data.activeTab
       });
     },500)
   }
