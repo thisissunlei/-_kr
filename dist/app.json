@@ -1,7 +1,10 @@
 {
   "pages":[
-    "pages/meetingDetail/meetingDetail",
     "pages/index/index",
+    "pages/meetingStatus/meetingStatus",
+    "pages/meetingDetail/meetingDetail",
+    
+    
     "pages/meeting/meeting",
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",

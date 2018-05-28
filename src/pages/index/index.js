@@ -7,7 +7,7 @@ Page({
     duration: 1000,
     buildingList:[],
     myMeeting:[],
-    
+    metting:false
   },
   
   onLoad: function () {
@@ -27,6 +27,12 @@ Page({
           buildingList:res.data.buildingList,
           myMeeting:res.data.myMeeting
         })
+        
+        if(res.data.myMeeting.length>0){
+          this.setData({
+            metting:true
+          })
+        }
       }
     })
   },
