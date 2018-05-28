@@ -9,7 +9,8 @@ Page({
     minute:'',
     second:'',
     detailInfo:{
-      orderShowStatus:'3'
+      orderShowStatus:'3',
+      first:1
     },
     payTitle:''
     
