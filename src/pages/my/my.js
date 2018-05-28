@@ -9,16 +9,21 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     count:0,
+    tipShow:true,
   },
   //事件处理函数
   jumpMyMeet:function() {
     wx.navigateTo({
       url: '../myMeeting/myMeeting'
     })
-   
+  },
+  closeTip:function(){
+    this.setData({
+      tipShow:!this.data.tipShow
+    })
   },
   onLoad: function () {
-    this.getCount()
+    //this.getCount()
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

@@ -36,4 +36,12 @@
         <button class="u-my-contact-btn" open-type="contact">联系客服</button>
         <image class="u-btn-arrow-meet" src="../images/public/icon_arrow-right.png" ></image>
     </view>
+    <view class="u-tip-contact" wx:if="{{tipShow}}">
+        <image class="u-tip-triangle" src="../images/my/triangle.png" ></image>
+        如需开发票，请联系客服
+        <view class="u-close-content" bindtap="closeTip">
+                <image class="u-tip-close" src="../images/my/close.png" ></image>
+        </view>
+       
+    </view>
 </view>
