@@ -1,13 +1,8 @@
 {
   "pages":[
     "pages/index/index",
-<<<<<<< HEAD
-=======
     "pages/meetingStatus/meetingStatus",
     "pages/meetingDetail/meetingDetail",
-    
-    
->>>>>>> 94699f4d6b29d46ad6ffceb6622d4a9ed74fb3f0
     "pages/meeting/meeting",
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",
