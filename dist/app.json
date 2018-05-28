@@ -1,13 +1,12 @@
 {
   "pages":[
+    "pages/myOrder/myOrder",
     "pages/logs/logs",
-    
     "pages/index/index",
     "pages/meetingStatus/meetingStatus",
     "pages/meetingDetail/meetingDetail",
     "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
-    "pages/myOrder/myOrder",
     "pages/orderDetail/orderDetail",
     "pages/my/my",
     "pages/orderConfirmation/orderConfirmation",
@@ -16,7 +15,6 @@
     "pages/meetingTheme/meetingTheme",
     "pages/phone/phone",
     "pages/warn/warn",
-    "pages/myMeeting/myMeeting",
     "pages/bindPhone/bindPhone"
   ],
   "window":{

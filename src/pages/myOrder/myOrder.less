@@ -1,21 +1,43 @@
 /**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+page{
+	background: #F3F3F3;
+	display: block;
+	height: 100%;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.order-type{
+	display: flex;
+	background-color: #fff;
+	height:80rpx;
+	line-height:80rpx;
+	border-top:1px solid #F6F6F6;
+	border-bottom:1px solid #F6F6F6;
+	justify-content:space-around;
+	text-align: center;
+	position: fixed;
+	top: 0;
+	width:100%;
 }
-
-.userinfo-nickname {
-  color: #aaa;
+.tab{
+	flex:1;
+	color:#333333;
+	font-size: 30rpx;
 }
-
-.usermotto {
-  margin-top: 200px;
+.content-list{
+	margin-top:80rpx;
+}
+.order-detail{
+	display: block;
+	padding:40rpx 36rpx;
+	height:252rpx;
+	box-sizing: border-box;
+	background: #FFF;
+}
+.order-img{
+	width: 232rpx;
+	height:172rpx;
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+.order-detail+.order-detail{
+	margin-top:20rpx;
 }
