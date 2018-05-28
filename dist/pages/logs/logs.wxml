@@ -1,0 +1,7 @@
+<!--logs.wxml-->
+<view class="container log-list">
+  <view bindtap="jumpView" data-type="phone">绑定手机</view>
+  <view bindtap="jumpView" data-type="telephone">联系电话</view>
+  <view bindtap="jumpView" data-type="title">会议主题</view>
+  <view bindtap="jumpView" data-type="warn">会议提醒</view>
+</view>
