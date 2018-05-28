@@ -43,7 +43,7 @@ Page({
       title: titleObj[data.orderShowStatus]
     })
 
-
+    //上面是假数据
 
     wx.request({
       url:'/api/gateway/krmting/order/detail',
