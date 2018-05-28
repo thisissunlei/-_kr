@@ -18,7 +18,8 @@ Page({
     unitCost:'60',
     hour:getHour(arr),
     beginTime:getTime('20'),
-    endTime:getTime('25')
+    endTime:getTime('25'),
+    dialogShow:false,
   },
   changeCheckbox:function(){
     this.setData({
