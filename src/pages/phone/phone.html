@@ -3,10 +3,14 @@
 	
 	<view class="section">
 		<view class="input-view">
-			<input name="meeting" type="number" placeholder="联系电话" value="{{bindKeyInput}}" class="input-style"/>
+			<input name="meeting" type="number" placeholder="联系电话" value="{{inputValue}}" class="input-style"  placeholder-style="color:#CCC;font-size:32rpx" bindinput="bindKeyInput"/>
 		</view>
 		<view class="cancel-view">
 			<image bindtap="clearValue" class="cancel" src="../images/public/cancle.png" background-size="cover"></image>
 		</view>
+	</view>
+	<view class="btn-box">
+		<div class="disabled" wx:if="{{!inputValue.length}}">确定</div>
+		<div class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">确定</div>
 	</view>
 </form>

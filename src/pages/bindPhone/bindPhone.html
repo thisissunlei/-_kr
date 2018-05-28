@@ -1,0 +1,23 @@
+<form  class="meeting-form">
+	<view class="title">绑定手机号</view>	
+	<view class="input-box">
+		<view class="city-box" bindtap="opencity">
+			<span style="margin-right:6px">{{phoneRange}}</span>
+			<span><image bindtap="clearValue" style="height:8.5px;width:5px;margin-bottom:2px" src="../images/public/right-arrow.png" ></image></span>
+		</view>
+		<view class="phone-box">
+			<input name="meeting" type="number" placeholder="请输入手机号"  bindinput="bindKeyInput" bindblur="phoneTest" value="{{inputValue}}" class="input-style" placeholder-style="color:#CCC;font-size:32rpx"/>
+		</view>
+		<view class="cancel-view" wx:if="{{inputValue.length}}">
+			<image bindtap="clearValue" class="cancel" src="../images/public/cancle.png" background-size="cover"></image>
+		</view>
+	</view>
+	<view class="btn-box">
+		<div class="disabled" wx:if="{{!inputValue.length}}">确定</div>
+		<div class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">确定</div>
+	</view>
+	<view class="last-view">
+		<div class="error-phone" wx:if="{{!phoneTest}}">手机号格式错误</div>
+		<div class="error-repeat" wx:if="{{!phoneRepeat}}">该手机号已绑定其他微信号</div>
+	</view>
+</form>

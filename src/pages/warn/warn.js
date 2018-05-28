@@ -11,6 +11,11 @@ Page({
     item:'item',
     active:'active item'
   },
+  onLoad: function (options) {
+    this.setData({
+      inputValue: options.value
+    })
+  },
   checkWarn(e){;
     var target = e.target.dataset;
     console.log(target,'checkWarn',target.hi)
@@ -19,7 +24,7 @@ Page({
     })
     setTimeout(function(){
       wx.navigateTo({
-        url: '../meetingTheme/meetingTheme'
+        url: '../logs/logs'
       });
     },500)
   }
