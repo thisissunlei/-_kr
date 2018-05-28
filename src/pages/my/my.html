@@ -28,11 +28,20 @@
     <view class="u-my-meeting" bindtap="jumpMyMeet" >
         <image class="u-my-meeting-icon"   src="../images/my/meet.png"></image>
         <text  class="u-my-meeting-title"  >我的会议</text>
+        <text class="u-meet-count" wx:if="{{count>0}}">{{count}}</text>
         <image class="u-btn-arrow-meet" src="../images/public/icon_arrow-right.png" ></image>
     </view>
     <view class="u-contact-service">
         <image class="u-my-contact-icon" src="../images/my/contact.png"></image>
         <button class="u-my-contact-btn" open-type="contact">联系客服</button>
         <image class="u-btn-arrow-meet" src="../images/public/icon_arrow-right.png" ></image>
+    </view>
+    <view class="u-tip-contact" wx:if="{{tipShow}}">
+        <image class="u-tip-triangle" src="../images/my/triangle.png" ></image>
+        如需开发票，请联系客服
+        <view class="u-close-content" bindtap="closeTip">
+                <image class="u-tip-close" src="../images/my/close.png" ></image>
+        </view>
+       
     </view>
 </view>
