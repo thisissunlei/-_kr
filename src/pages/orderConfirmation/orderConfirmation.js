@@ -20,6 +20,8 @@ Page({
     beginTime:getTime('20'),
     endTime:getTime('25'),
     dialogShow:false,
+    typeStatus:true,
+    message:'用户取消支付'
   },
   changeCheckbox:function(){
     this.setData({
