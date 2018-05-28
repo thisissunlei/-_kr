@@ -7,7 +7,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'06F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',disableTime:['21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['1','12','13','14','15']},{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',disableTime:['4','11','16','19','20']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['21','32','23','14','15']}],
+    boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'06F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',promotionCost:'22',disableTime:['21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['1','12','13','14','15']},{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',disableTime:['4','11','16','19','20']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['21','32','23','14','15']}],
     topDate:[],
     page:1,
     nextPage:2,
@@ -110,6 +110,29 @@ Page({
       id: 44,
       name: '日本'
     }],
+  },
+
+  //获取会议室列表
+  getData:function(){
+    var that = this;
+    wx.request({
+        url:'api/gateway/krmting/room/list',
+        data: {
+          communityId: '' ,
+          date: '2018-05-02'
+        },
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+              console.log(res)
+              that.setData({
+                totalPages:res.data.totalPages,
+                boardroomList:res.data.items
+              })
+        }
+    })
   },
 
   //切换日期后重载数据
@@ -264,6 +287,26 @@ Page({
       // }) 
 
       // });
+
+      wx.request({
+        url:'api/gateway/krmting/room/list',
+        data: {
+          communityId: '' ,
+          date: '2018-05-02'
+        },
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+              console.log(res);
+              that.setData({
+                boardroomList:[].concat(that.data.boardroomList,response.data.items),
+                totalPages:totalPages,
+                nextPage:that.data.nextPage++
+              })
+        }
+    })
   },
   //事件处理函数
 
@@ -280,36 +323,13 @@ Page({
     this.loadNext();
   },
 
+  onLoad:function(){
+    //this.getData();
+  },
 
   onReady: function () {
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // } else if (this.data.canIUse){
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //   })
-    // }
+    var that = this;
     this.getTopDate();
     this.reloadData();
-    console.log();
   },
 })
