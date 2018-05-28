@@ -6,6 +6,8 @@
     
     
     "pages/meeting/meeting",
+    
+    "pages/meetingStatus/meetingStatus",
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",
     "pages/myMeeting/myMeeting",

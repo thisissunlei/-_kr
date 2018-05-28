@@ -125,4 +125,9 @@
             </view>
         </view>
     </view>
+    <view class="u-message" wx:if="{{messageShow}}">
+        <image class="u-message-img"  wx:if="{{!typeStatus}}" src="../images/public/error.png"></image>
+        <image class="u-message-img"  wx:if="{{typeStatus}}" src="../images/public/success.png"></image>
+        <view class="u-message-txt">{{message}}</view>
+    </view>
 </view> 
