@@ -11,7 +11,7 @@ Page({
     detailInfo:{
       orderShowStatus:'3'
     },
-
+    payTitle:''
     
   },
   //事件处理函数
@@ -34,7 +34,7 @@ Page({
   getDetailInfo:function(orderId){
 
     let data={
-      orderShowStatus:3
+      orderShowStatus:1
     }
     let titleObj={
       '1':'待支付订单',
@@ -42,8 +42,16 @@ Page({
       '3':'已使用订单',
       '4':'已取消订单'
     }
-
-
+    let payTitleObj={
+      '1':'应付款',
+      '2':'实付款',
+      '3':'实付款',
+      '4':'应付款'
+    }
+   
+    this.setData({
+      payTitle:payTitleObj[data.orderShowStatus]
+    })
     wx.setNavigationBarTitle({
       title: titleObj[data.orderShowStatus]
     })
@@ -62,16 +70,22 @@ Page({
       success:(res)=>{
           let data=res.data;
             console.log(res)
-            // this.setData({
-            //   count:res.data.count
-            // })
+           
             let titleObj={
               '1':'待支付订单',
               '2':'待使用订单',
               '3':'已使用订单',
               '4':'已取消订单'
             }
-
+            let payTitleObj={
+              '1':'应付款',
+              '2':'实付款',
+              '3':'实付款',
+              '4':'应付款'
+            }
+            this.setData({
+              payTitle:payTitleObj[data.orderShowStatus]
+            })
 
             wx.setNavigationBarTitle({
               title: titleObj[data.orderShowStatus]
