@@ -1,6 +1,5 @@
 {
   "pages":[
-    "pages/myOrder/myOrder",
     "pages/logs/logs",
     "pages/index/index",
     "pages/meetingStatus/meetingStatus",
@@ -14,6 +13,8 @@
     "pages/provingCode/provingCode",
     "pages/meetingTheme/meetingTheme",
     "pages/phone/phone",
+    "pages/myOrder/myOrder",
+    
     "pages/warn/warn",
     "pages/bindPhone/bindPhone"
   ],
