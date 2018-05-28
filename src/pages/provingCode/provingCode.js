@@ -58,16 +58,30 @@ Page({
   },
   formSubmit(e){
     let that = this;
-    var phoneTest = util.phone(this.data.inputValue)
-    this.setData({
-      phoneTest:phoneTest
-    })
-    if(!phoneTest){
-      setTimeout(function(){
-        that.setData({
-          phoneTest:true
-        })
-      },2000)
-    }
+      wx.request({
+        url:'/api/gateway/krmting/bind/phone',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        data:{
+          "code":that.data.inputValues,
+          "phone":that.data.phone
+        },
+        success:(res)=>{
+          cosole.log(res)
+        },
+        fail:(res)=>{
+          that.setData({
+            phoneTest:false
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneTest:true
+            })
+          },2000)
+          
+        }
+      })
   },
 })

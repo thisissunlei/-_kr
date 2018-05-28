@@ -26,7 +26,7 @@ Page({
         url = "../phone/phone?value=联系电话"
         break;
       case 'warn':
-        url = "../warn/warn?value=warn"
+        url = "../warn/warn?value=NOALERT"
         break;
       default:
         url = "../meetingTheme/meetingTheme?value=meetingTheme"
