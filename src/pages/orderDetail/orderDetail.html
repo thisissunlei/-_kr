@@ -5,7 +5,7 @@
       <view class="u-order-info-time">{{detailInfo.ctime}}</view>
   </view>
   <view class="m-order-header">
-      <view class="u-order-detail">
+      <view class="u-order-detail" bindtap="jumpMeetDetail">
           <view class="u-order-left">
               <image class="u-order-img" src="{{detailInfo.imgUrl}}"></image>
           </view>
@@ -71,7 +71,7 @@
                 会议主题
             </view>
             <view class="u-meet-text">{{detailInfo.themeName}}</view>
-            <view class="u-btn-arrow u-meeting-btn-arrow">
+            <view class="u-btn-arrow u-meeting-btn-arrow" wx:if="{{detailInfo.orderShowStatus!=3}}">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
         </view>
@@ -80,7 +80,7 @@
                 会议提醒
             </view>
             <view class="u-meet-text">{{detailInfo.alertTime}}</view>
-            <view class="u-btn-arrow u-meeting-btn-arrow">
+            <view class="u-btn-arrow u-meeting-btn-arrow"  wx:if="{{detailInfo.orderShowStatus!=3}}">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
         </view>
@@ -90,7 +90,7 @@
                 联系电话
             </view>
             <view class="u-meet-text">{{detailInfo.linkPhone}}</view>
-            <view class="u-btn-arrow u-phone-btn-arrow">
+            <view class="u-btn-arrow u-phone-btn-arrow"  wx:if="{{detailInfo.orderShowStatus!=3}}">
                 <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
     </view>

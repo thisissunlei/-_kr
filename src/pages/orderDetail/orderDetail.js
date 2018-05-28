@@ -9,15 +9,45 @@ Page({
     minute:'',
     second:'',
     detailInfo:{
-      orderShowStatus:'3',
+      orderShowStatus:'2',
       first:1
     },
     payTitle:''
     
   },
-  //事件处理函数
-  
-
+  jumpMeetDetail:function() {
+    let detailInfo=this.data.detailInfo;
+    wx.navigateTo({
+      url: '../meetingDetail/meetingDetail?value='+detailInfo.meetingRoomId
+    })
+  },
+  jumpSetTheme:function() {
+    let detailInfo=this.data.detailInfo;
+    if(detailInfo.orderShowStatus==3){
+      return;
+    }
+    wx.navigateTo({
+      url: '../meetingTheme/meetingTheme?value='+detailInfo.themeName
+    })
+  },
+  jumpSetRemind:function() {
+    let detailInfo=this.data.detailInfo;
+    if(detailInfo.orderShowStatus==3){
+      return;
+    }
+    wx.navigateTo({
+      url: '../warn/warn?value='+detailInfo.alertTime
+    })
+  },
+  jumpSetPhone:function() {
+    let detailInfo=this.data.detailInfo;
+    if(detailInfo.orderShowStatus==3){
+      return;
+    }
+    wx.navigateTo({
+      url: '../phone/phone?value='+detailInfo.linkPhone
+    })
+  },
   onLoad: function () {
     console.log(CAlculagraph)
     const time = CAlculagraph.CAlculagraph();
@@ -35,7 +65,7 @@ Page({
   getDetailInfo:function(orderId){
 
     let data={
-      orderShowStatus:1
+      orderShowStatus:3
     }
     let titleObj={
       '1':'待支付订单',
