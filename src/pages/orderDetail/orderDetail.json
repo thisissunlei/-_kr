@@ -1,3 +1,6 @@
 {
-    "navigationBarTitleText": "空气指数"
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor":"#F6F6F6",
+    "navigationBarTextStyle":"black"
 }

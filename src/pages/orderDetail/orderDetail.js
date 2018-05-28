@@ -23,6 +23,9 @@ Page({
       },//时间结束
       that:this
     });
+    wx.setNavigationBarTitle({
+      title: '当前页面'
+    })
   }
    
 })
