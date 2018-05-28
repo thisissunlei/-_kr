@@ -15,7 +15,12 @@ Page({
     payTitle:''
     
   },
-  //事件处理函数
+  jumpMeetDetail:function() {
+    let detailInfo=this.data.detailInfo;
+    wx.navigateTo({
+      url: '../meetingDetail/meetingDetail?value='+detailInfo.meetingRoomId
+    })
+  },
   jumpSetTheme:function() {
     let detailInfo=this.data.detailInfo;
     if(detailInfo.orderShowStatus==3){
