@@ -1,21 +1,166 @@
 /**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.wrapper{
+  padding: 0 20rpx;
+  background: #393F50;
+  position: relative;
+}
+.top{
+ border-radius: 8px;
+ background: #fff;
+ text-align: center;
+ font-size: 14px;
+ overflow: hidden;
+}
+.top .title{
+  padding: 15rpx 0 40rpx;
+  background: #F9F8F8;
+  border-bottom: 1px dotted #DFDFDF;
+}
+.top .title text{
+  display: block;
+  font-size: 18px;
+  color: #2A2A2A;
+}
+.top .title .h1{
+  height: 94rpx;
+  line-height: 94rpx;
+  font-size: 20px;
+  color: #333333;
+  font-weight: 900;
+}
+.pics{
+  padding: 55rpx;
+  border-bottom: 1px dotted #DFDFDF;
+  color: #666666;
+}
+.pics .er{
+  width: 270rpx;
+  height: 270rpx;
+  background: red;
+  margin: 50rpx auto 40rpx;
+}
+.bottom_text{
+  padding: 40rpx 0;
+}
+.metting-house{
+  font-size: 28rpx;
+  color: #333333;
+}
+.bottom_text image{
+  width: 28rpx;
+  height: 30rpx;
+  margin-right: 16rpx;
+  vertical-align: middle;
+}
+.bottom_text .icons text{
+  font-size: 26rpx;
+}
+.conferee{
+  margin-top:40rpx;
+  border-top: 1px solid #2F3543; 
+  border-bottom: 1px solid #2F3543;  
+  position: relative;
+}
+.h2{
+  display: block;
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: 900;
+  height: 120rpx;
+  line-height: 120rpx;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.conferee .list{
+  float: left;
+  margin: 0 22rpx 40rpx;
+  text-align: center;
 }
-
-.userinfo-nickname {
-  color: #aaa;
+.conferee .list .pic{
+  width: 86rpx;
+  height: 86rpx;
+  border-radius:50%;
+  border: 2rpx solid #fff;
+  margin-bottom: 20rpx;
 }
-
-.usermotto {
-  margin-top: 200px;
+.conferee .list text{
+  font-size: 24rpx;
+  color: #FFFFFF; 
+}
+.conferee .originator{
+  width: 32rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 180rpx;
+}
+.hint{
+  padding-bottom: 275rpx;
+}
+.hint h2{
+  font-size: 32rpx;
+}
+.hint text{
+  color: #fff;
+  display: block;
+}
+.hint .list{
+  padding-bottom: 25rpx;
+}
+.hint .list:nth-child(2){
+  border-bottom: 2rpx dotted #2F3543;
+}
+.hint .title{
+  font-size: 28rpx;
+  font-weight: 900;
+  height: 64rpx;
+  line-height: 64rpx;
+}
+.hint .text{
+  padding-left:20rpx; 
+  font-size: 26rpx;
+  color: #D5D8DF;
+}
+.footer{
+  height: 74rpx;
+  line-height: 74rpx;
+  padding: 30rpx 0;
+  background: #fff;
+  font-size: 13px;
+}
+.footer text{
+  display: inline-block;
+  width: 166rpx;
+  text-align: center;
+  border-radius: 8px;
+}
+.footer text.kefu{
+  height: 72rpx;
+  border: 1px solid #333333;
+  margin-right: 20rpx;
+}
+.footer .btns{
+  float: right;
+  margin-right: 32rpx;
+}
+.footer text.yaoqing{
+  background: linear-gradient(51deg, #FFD24C 0%, #F79C1C 89%);
+  color: #fff;
+}
+.tishi{
+  width: 600rpx;
+  height: 108rpx;
+  position: absolute;
+  bottom: 20rpx;
+  right: 32rpx;
+  background: rgba(255,255,255,0.3);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 20rpx 24rpx;
+}
+.tishi text{
+  display: block;
+}
+.clear{
+  clear: both;
 }

@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "空气指数"
+    "navigationBarTitleText": "我的会议",
+    "navigationBarBackgroundColor": "#393F50",
+    "navigationBarTextStyle":"#ffffff"
 }

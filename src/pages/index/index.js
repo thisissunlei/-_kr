@@ -4,23 +4,15 @@ const app = getApp()
 
 Page({
   data: {
+    duration: 1000,
     buildingList:[],
     myMeeting:[],
-    address:'',
-    meetingRoomName:'',
-    meetingTime:'',
-    theme:'',
-    buildAddress:'',
-    buildImgUrl:'',
-    buildName:'',
-    distance:'',
-    distance:'',
-    promotionDescr:''
+    
   },
   
   onLoad: function () {
     wx.request({
-      url:'api/gateway/krmting/home',
+      url:'https://www.easy-mock.com/mock/5b0958295c37757453191ee5/kr/home',
       methods:"GET",
       header:{
         'content-type':"appication/json"
@@ -30,22 +22,15 @@ Page({
         "longitude":"116.46"
       },
       success:(res)=>{
-        cosole.log(res)
+        console.log(res)
         this.setData({
-          address:res.data.myMeeting.address,
-          meetingRoomName:res.data.myMeeting.meetingRoomName,
-          meetingTime:res.data.myMeeting.meetingTime,
-          theme:res.data.myMeeting.theme,
-          buildAddress:res.data.buildingList.buildAddress,
-          buildImgUrl:res.data.buildingList.buildImgUrl,
-          buildName:res.data.buildingList.buildName,
-          // communityId:res.data.buildingList.communityId,
-          distance:res.data.buildingList.distance,
-          meetingCount:res.data.buildingList.meetingCount,
-          promotionDescr:res.data.buildingList.promotionDescr,
+          buildingList:res.data.buildingList,
+          myMeeting:res.data.myMeeting
         })
       }
     })
   },
+  
+  //会议滑动
   
 })

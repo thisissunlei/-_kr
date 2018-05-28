@@ -1,26 +1,23 @@
 {
   "pages":[
-   
-    "pages/logs/logs",
+    "pages/meetingDetail/meetingDetail",
+    "pages/index/index",
     "pages/meeting/meeting",
-    "pages/phone/phone",
-    "pages/meetingTheme/meetingTheme",
+    
+    "pages/meetingStatus/meetingStatus",
+    "pages/logs/logs",
+    "pages/boardroomList/boardroomList",
     "pages/myMeeting/myMeeting",
     "pages/myOrder/myOrder",
-    "pages/index/index",
-    "pages/bindPhone/bindPhone",
-    "pages/boardroomList/boardroomList",
-    "pages/meetingDetail/meetingDetail",
+    "pages/meetingTheme/meetingTheme",
+    "pages/phone/phone",
     "pages/warn/warn",
-    "pages/provingCode/provingCode",
     "pages/orderDetail/orderDetail",
     "pages/my/my",
-    "pages/orderConfirmation/orderConfirmation",
-    "pages/regionList/regionList"
+    "pages/orderConfirmation/orderConfirmation"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#fff"
   }
 }
