@@ -18,6 +18,7 @@ Page({
    
   },
   onLoad: function () {
+    this.getCount()
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -55,19 +56,17 @@ Page({
   },
   getCount:function(){
     wx.request({
-      url:'/api/gateway/krmting/invitee/count',
-      methods:"GET",
-      header:{
-        'content-type':"appication/json"
-      },
-      success:(res)=>{
-        console.log(res)
-          this.setData({
-            count:res.data.count
-          })
-        
-        
-      }
+        url:'/api/gateway/krmting/invitee/count',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+              console.log(res)
+              this.setData({
+                count:res.data.count
+              })
+        }
     })
   }
 })
