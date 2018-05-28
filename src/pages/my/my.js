@@ -7,7 +7,8 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    count:0,
   },
   //事件处理函数
   jumpMyMeet:function() {
@@ -17,6 +18,7 @@ Page({
    
   },
   onLoad: function () {
+    this.getCount()
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -50,6 +52,21 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  getCount:function(){
+    wx.request({
+        url:'/api/gateway/krmting/invitee/count',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+              console.log(res)
+              this.setData({
+                count:res.data.count
+              })
+        }
     })
   }
 })

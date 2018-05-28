@@ -28,6 +28,7 @@
     <view class="u-my-meeting" bindtap="jumpMyMeet" >
         <image class="u-my-meeting-icon"   src="../images/my/meet.png"></image>
         <text  class="u-my-meeting-title"  >我的会议</text>
+        <text class="u-meet-count" wx:if="{{count>0}}">{{count}}</text>
         <image class="u-btn-arrow-meet" src="../images/public/icon_arrow-right.png" ></image>
     </view>
     <view class="u-contact-service">
