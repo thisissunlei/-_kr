@@ -43,8 +43,9 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
-    this.createQrCode('fdfd',"mycanvas",168,168);
+  onLoad: function (options) {
+    console.log('options',options)
+    this.createQrCode('fdfd',"mycanvas",100,200);
   },
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片

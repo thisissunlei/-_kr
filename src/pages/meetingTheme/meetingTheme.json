@@ -1,3 +1,4 @@
 {
-    "navigationBarTitleText": "会议主题"
+    "navigationBarTitleText": "会议主题",
+    "navigationBarTextStyle":"black"
 }
