@@ -23,7 +23,7 @@ Page({
     })
   },
   onLoad: function () {
-    //this.getCount()
+    this.getCount()
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
