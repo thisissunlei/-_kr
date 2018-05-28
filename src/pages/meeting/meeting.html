@@ -17,35 +17,35 @@
  -->
 
 
-    <view>请选择日期</view>
-    <view>{{date_now.value}}</view>
-    <view>
-      <text style='display: inline-block;width: 13%;'>周日</text>
-      <text style='display: inline-block;width: 13%;'>周一</text>
-      <text style='display: inline-block;width: 13%;'>周二</text>
-      <text style='display: inline-block;width: 13%;'>周三</text>
-      <text style='display: inline-block;width: 13%;'>周四</text>
-      <text style='display: inline-block;width: 13%;'>周五</text>
-      <text style='display: inline-block;width: 13%;'>周六</text>
+    <view class="select-data">请会议选择日期</view>
+  
+    <view class="week">
+      <text class="week-day">日</text>
+      <text class="week-day">一</text>
+      <text class="week-day">二</text>
+      <text class="week-day">三</text>
+      <text class="week-day">四</text>
+      <text class="week-day">五</text>
+      <text class="week-day">六</text>
     </view>
+    <view class="now-date">{{date_now.value}}</view>
     <view  bindtap="dateBtn">
-    <text wx:for="{{date_data1}}" data-value="{{i.value}}" data-bool='{{i.type}}' data-month='{{date_now.month}}' data-year='{{date_now.year}}' wx:for-item="i" style='margin-left:5px;display: inline-block;width: 13%;' class='{{i.type}}'>
+    <view wx:for="{{date_data1}}" data-value="{{i.value}}" data-bool='{{i.type}}' data-month='{{date_now.month}}' data-year='{{date_now.year}}' wx:for-item="i" style='display: inline-block;width: 72rpx;height:72rpx;margin:0 17.57rpx;line-height:72rpx;text-align: center;' class='{{i.type}}'>
 
       {{i.value}}
-    </text>
     </view>
-    <view>{{date_next.value}}</view>
-    <view  bindtap="dateBtn">
-      <text style='display: inline-block;width: 13%;'>周日</text>
-      <text style='display: inline-block;width: 13%;'>周一</text>
-      <text style='display: inline-block;width: 13%;'>周二</text>
-      <text style='display: inline-block;width: 13%;'>周三</text>
-      <text style='display: inline-block;width: 13%;'>周四</text>
-      <text style='display: inline-block;width: 13%;'>周五</text>
-      <text style='display: inline-block;width: 13%;'>周六</text>
     </view>
-    <text wx:for="{{date_data2}}" data-value="{{i.value}}" data-bool='{{i.type}}' data-month='{{date_now.month}}' data-year='{{date_now.year}}' wx:for-item="i" style='margin-left:5px;display: inline-block;width: 13%;' class='{{i.type}}'>
-
-
+   
+    <!-- <view  bindtap="dateBtn" class="week">
+      <text class="week-day">日</text>
+      <text class="week-day">一</text>
+      <text class="week-day">二</text>
+      <text class="week-day">三</text>
+      <text class="week-day">四</text>
+      <text class="week-day">五</text>
+      <text class="week-day">六</text>
+    </view> -->
+    <view class="now-date">{{date_next.value}}</view>
+    <view wx:for="{{date_data2}}" data-value="{{i.value}}" data-bool='{{i.type}}' data-month='{{date_now.month}}' data-year='{{date_now.year}}' wx:for-item="i" style='display: inline-block;width:72rpx;height:72rpx;margin:0 17.57rpx;line-height:72rpx;text-align: center;' class='{{i.type}}'>
       {{i.value}}
-    </text>
+    </view>

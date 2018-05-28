@@ -1,12 +1,14 @@
 /**index.wxss**/
-
 .idx_header{
 	overflow: hidden;
 	width: 100%;
-	height:500rpx;
+	height:501rpx;
 	background-image: linear-gradient(0deg, #625C82 15%, #3E3B51 100%);
+	padding-left: 40rpx;
+	padding-right:40rpx;
+	box-sizing: border-box;
 }
-.title-msg:after{
+.idx_header:after{
 	content:" ";
 	width: 0;
 	height: 0;
@@ -18,7 +20,6 @@
 	left: 0;
 }
 .title-msg{
-	width: 100%;
 	display: flex;
 	flex-direction:row;
 }
@@ -26,111 +27,106 @@
 	display: flex;
 	flex-direction: column;
 	flex:1;
-	margin-left:36rpx;
 }
 .E-title{
 	font-size: 72rpx;
 	color: #FFFFFF ;
+	
 }
 .C-title{
 	font-size: 36rpx;
 	color: #FFFFFF ;
+	
 }
 .my{
-	width: 72rpx;
-	margin-right:36rpx;
-	padding-bottom: 80rpx;
-	padding-top: 20rpx;
+	display: flex;
+	flex-direction: column;
+	padding-top: 26rpx;
 }
 .my .my-img{
+	display: inline-block;
 	width: 72rpx;
 	height: 72rpx;
 	border-radius: 50%;
 	background-color: #F3F3F3;
+}
+.my .my-img image{
+	width: 100%;
+	height: 100%;
 }
 .my .my-name{
 	text-align: center;
 	color: #ffffff;
 	font-size: 28rpx;
 	text-align: center;
-	margin-top:15rpx;
+	margin-top: 20.6rpx;
 }
 .metting{
-	margin-top:-300rpx;
+	width: 680rpx;
+	height: 376rpx;
+	margin-top:-291rpx;
 	position: relative;
 	z-index: 99999;
+	margin-bottom:40rpx;
 }
-.metting-session .my-metting{
+.metting .my-metting{
 	width: 680rpx;
 	height: 376rpx;
 	background: #ffffff;
 	box-shadow: 0 1px 8px 0 rgba(149,149,149,0.30);
 	border-radius: 8px;
-	margin: auto;
+
 }
-.metting-session .metting-mark{
-	width: 44rpx;
-	height: 66rpx;;
-	background-image: linear-gradient(-135deg, #FF7C7E 0%, #FF4648 100%);
+.metting .metting-mark{
+	width: 100rpx;
+	height: 44rpx;;
+	background-image: linear-gradient(45deg, #A4DEB3 0%, #28CEAA 100%);
 	border-radius: 0 0 1px 0 1px;
-	margin-left: 18rpx;
-	position: relative;
 	color: #ffffff;
-	font-size: 18rpx;
+	font-size: 24rpx;
 	text-align: center;
-	line-height: 18rpx;
+	line-height: 44rpx;
+	margin-left: 552rpx;
 }
-.metting-session .metting-mark:after{
-	content:" ";
-	width: 0;
-	height: 0;
-	border-left: 23rpx solid transparent;
-	border-right: 23rpx solid transparent;
-	border-bottom: 18rpx solid #ffffff;
-	
-}
-.metting-session .metting-title{
+.metting .metting-title{
 	display: flex;
 	flex-direction: column;
 	text-align: center;
 	font-family: PingFangSC-Medium;
 	font-size: 40rpx;
 	color: #333333;
-	padding-bottom:50rpx;
+	padding-top: 30rpx;
+	padding-bottom: 44rpx;
 	border-bottom: 1rpx dotted #DFDFDF;
-	margin-bottom: 30rpx;
+	
 }
-.metting-session .metting-address{
+
+.metting .metting-address{
 	text-align: center;
 	font-family: PingFangSC-Regular;
 	font-size: 30rpx;
 	color: #666666;
 	letter-spacing: 0;
-	line-height: 50rpx;
+	padding-top: 38rpx;
+	padding-bottom: 40rpx;
 }
-.metting-session .metting-map{
+.metting .metting-map{
 	font-family: PingFangSC-Regular;
 	font-size: 26rpx;
 	color: #9399A5;
 	letter-spacing: 0;
-	line-height: 50rpx;
 }
-.metting-session .map-icon{
+.metting .map-icon{
 	width: 24rpx;
-	height: 27rpx;
+	height: 28rpx;
 	display: inline-block;
-}
-.metting-session .map-icon image{
-	width: 100%;
-	height: 100%;
+	margin-right:16rpx; 
+	vertical-align: middle;
 }
 
-.adver{
-	margin-top: 50rpx;
-}
 .adver1{
 	width: 680rpx;
-	height: 200rpx;
+	height: 198rpx;
 	border: 1rpx solid #F0AA57;
 	border-radius: 16rpx;
 }
@@ -139,7 +135,7 @@
 	height: 100%;
 }
 .adver2{
-	margin-top: 50rpx;
+	margin-top:22rpx;
 	width: 680rpx;
 	height: 200rpx;
 	display: flex;
@@ -152,39 +148,27 @@
 	border-radius: 16rpx;
 }
 .adver2-1{
-	margin-right: 24rpx;
+	margin-right: 22rpx;
 }
 
 .nearby_room{
-	width: 750rpx;
-	margin-top: 80rpx;
+	width:100%;
 	font-family: 'PingFangSC-Medium';
-	position: relative;
 }
-.nearby_room:after{
-	content:" ";
-	position: absolute;
-	height: 1rpx;
-	width: 100%;
-	background: #F3F3F3;
-	top: 400rpx;
-	left: 0;
-	right: 0;
-}
+
 .rm_title{
-	padding: 0 36rpx;
-	margin-bottom: 40rpx;
+	padding: 40rpx 36rpx 0 36rpx;
 	line-height: 44rpx;
 	font-size: 44rpx;
 	color: #000000;
 }
 .community{
-	padding: 0 36rpx;
+	padding:40rpx 36rpx;
 	display: flex;
 	flex-direction: row;
 	overflow: hidden;
+	border-bottom: 2rpx solid #F3F3F3;
 }
-
 .community_pic{
 	border: 1px solid #F3F3F3;
 	border-radius: 16rpx;
@@ -250,5 +234,6 @@
 	line-height: 26rpx;
 	background-color: #FFEEEE;
 	line-height: 48rpx;
+	border-radius: 8rpx;
 	text-align: center;
 }
