@@ -1,23 +1,121 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<view class="g-order-detail">
+  <view class="m-order-info">
+      <view class="u-order-code">订单号：{{detailInfo.orderNo}}</view>
+      <view class="u-order-info-time">{{detailInfo.ctime}}</view>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="m-order-header">
+      <view class="u-order-detail" bindtap="jumpMeetDetail">
+          <view class="u-order-left">
+              <image class="u-order-img" src="{{detailInfo.imgUrl}}"></image>
+          </view>
+          <view class="u-order-right">
+              <text class="u-meet-title">{{detailInfo.capacity}}人 {{detailInfo.meetingRoomName}}</text>
+              <text class="u-meet-address">{{detailInfo.buildName}}</text>
+              <view class="u-meet-price-info">
+                  <view class="u-meet-price">
+                      ￥<text class="u-meet-num">{{detailInfo.promotionCost}} </text>
+                  </view>
+                  <view class="u-meet-uint-info">
+                      <text class="u-cancal-price">￥{{detailInfo.unitCost}} </text>
+                      <text class="u-uint">/ 半小时</text>
+                  </view>
+              </view>
+              <view class="u-btn-arrow u-head-arrow">
+                  <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+              </view>
+          </view>
+      </view>
+      <view class="u-order-time">
+          <view class="u-user-date">
+              <view class="u-time-title">使用日期</view>
+              <view class="u-time-data">
+                  <view class="u-date-txt">{{detailInfo.useDate}}</view>
+                  <view class="u-yellow-line"></view>
+              </view>
+              <view class="u-time-txt">{{detailInfo.dateTxt}}</view>
+          </view>
+          <view class="u-user-hour">
+              <view class="u-time-title">使用时段</view>
+              <view class="u-time-data">
+                  <view class="u-date-txt">{{detailInfo.beginTime}}-{{detailInfo.endTime}}</view>
+                  <view class="u-yellow-line"></view>
+              </view>
+              <view class="u-time-txt">{{detailInfo.hour}}小时</view>
+          </view>
+          <view class="u-line"></view>
+      </view>
   </view>
-  <view class="usermotto2">
-    <text>22222</text>
- </view>
+  <view class="u-pay-info">
+        <view class="u-pay-title">
+           {{payTitle}} 
+        </view>
+        <view class="u-meeting-price" wx:if="{{!detailInfo.first}}">
+            <view class="u-price-unit">￥</view>
+            <view class="u-price-num">{{detailInfo.paidAmount}}</view>
+        </view>
+        <view class="u-meeting-first-price" wx:if="{{detailInfo.first}}">
+           <view class="u-meeting-first-price-detail">
+                <view class="u-meeting-new-price">
+                    <view class="u-price-new-unit">￥</view>
+                    <view class="u-price-new-num">{{detailInfo.paidAmount}}</view>
+                </view>
+                <view class="u-meeting-old-price">￥60 </view>
+           </view>
+           <view class="u-meeting-first-tip">新人专享2小时超值体验</view>
+        </view>
+  </view>
+  <view class="u-meeting-info">
+        <view class="u-meeting-theme" bindtap="jumpSetTheme">
+            <view class="u-meeting-title">
+                会议主题
+            </view>
+            <view class="u-meet-text">{{detailInfo.themeName}}</view>
+            <view class="u-btn-arrow u-meeting-btn-arrow" wx:if="{{detailInfo.orderShowStatus!=3}}">
+                    <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+            </view>
+        </view>
+        <view class="u-meeting-remind" bindtap="jumpSetRemind">
+            <view class="u-meeting-title">
+                会议提醒
+            </view>
+            <view class="u-meet-text">{{detailInfo.alertTime}}</view>
+            <view class="u-btn-arrow u-meeting-btn-arrow"  wx:if="{{detailInfo.orderShowStatus!=3}}">
+                    <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+            </view>
+        </view>
+    </view>
+    <view class="u-meeting-phone" bindtap="jumpSetPhone">
+            <view class="u-meeting-title">
+                联系电话
+            </view>
+            <view class="u-meet-text">{{detailInfo.linkPhone}}</view>
+            <view class="u-btn-arrow u-phone-btn-arrow"  wx:if="{{detailInfo.orderShowStatus!=3}}">
+                <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+            </view>
+    </view>
+    <view class="u-footer">
+        <view class="u-footer-btn-list">
+            <view wx:if="{{detailInfo.orderShowStatus==1}}" class="u-footer-color-btn">
+                立即支付
+            </view>
+            <view wx:if="{{detailInfo.orderShowStatus==2}}" class="u-footer-color-btn">
+                邀请参会人
+            </view>
+            <view wx:if="{{(detailInfo.orderShowStatus==2) || (detailInfo.orderShowStatus==3)}}" class="u-footer-btn">
+                查看会议
+            </view>
+            <button class="u-my-contact-btn" open-type="contact">联系客服</button>
+           
+        </view>
+    </view>
+
+
 </view>
 <!--计时器-->
 
-<view>
+<!-- <view>
             
   <text>{{minute}}</text>
   <text>{{second}}</text>
-</view>
+</view> -->
