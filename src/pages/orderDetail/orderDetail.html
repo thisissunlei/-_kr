@@ -86,13 +86,13 @@
     </view>
     <view class="u-footer">
         <view class="u-footer-btn-list">
-            <!-- <view class="u-footer-color-btn">
+            <view wx:if="{{detailInfo.orderShowStatus==1}}" class="u-footer-color-btn">
                 立即支付
-            </view> -->
-            <view class="u-footer-color-btn">
+            </view>
+            <view wx:if="{{detailInfo.orderShowStatus==2}}" class="u-footer-color-btn">
                 邀请参会人
             </view>
-            <view class="u-footer-btn">
+            <view wx:if="{{(detailInfo.orderShowStatus==2) || (detailInfo.orderShowStatus==3)}}" class="u-footer-btn">
                 查看会议
             </view>
             <button class="u-my-contact-btn" open-type="contact">联系客服</button>

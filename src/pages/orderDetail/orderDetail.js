@@ -7,7 +7,12 @@ const app = getApp()
 Page({
   data: {
     minute:'',
-    second:''
+    second:'',
+    detailInfo:{
+      orderShowStatus:'3'
+    },
+
+    
   },
   //事件处理函数
   
@@ -29,7 +34,7 @@ Page({
   getDetailInfo:function(orderId){
 
     let data={
-      orderShowStatus:2
+      orderShowStatus:3
     }
     let titleObj={
       '1':'待支付订单',
