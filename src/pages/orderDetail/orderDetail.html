@@ -50,9 +50,19 @@
         <view class="u-pay-title">
            {{payTitle}} 
         </view>
-        <view class="u-meeting-price">
-            <view>￥</view>
-            <view>164</view>
+        <view class="u-meeting-price" wx:if="{{!detailInfo.first}}">
+            <view class="u-price-unit">￥</view>
+            <view class="u-price-num">1614</view>
+        </view>
+        <view class="u-meeting-first-price" wx:if="{{detailInfo.first}}">
+           <view class="u-meeting-first-price-detail">
+                <view class="u-meeting-new-price">
+                    <view class="u-price-new-unit">￥</view>
+                    <view class="u-price-new-num">1</view>
+                </view>
+                <view class="u-meeting-old-price">￥60 </view>
+           </view>
+           <view class="u-meeting-first-tip">新人专享2小时超值体验</view>
         </view>
   </view>
   <view class="u-meeting-info">
