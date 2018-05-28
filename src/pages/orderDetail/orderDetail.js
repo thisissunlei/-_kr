@@ -22,7 +22,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../meetingTheme/meetingTheme?value='+this.data.theme
+      url: '../meetingTheme/meetingTheme?value='+detailInfo.themeName
     })
   },
   jumpSetRemind:function() {
@@ -31,7 +31,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../warn/warn?value='+this.data.remind
+      url: '../warn/warn?value='+detailInfo.alertTime
     })
   },
   jumpSetPhone:function() {
@@ -40,7 +40,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../phone/phone?value='+this.data.phone
+      url: '../phone/phone?value='+detailInfo.linkPhone
     })
   },
   onLoad: function () {
