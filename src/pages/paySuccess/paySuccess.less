@@ -1,4 +1,4 @@
-/**meetingdetail.wxss**/
+/**index.wxss**/
 .wrapper{
   padding: 0 20rpx;
   background: #393F50;
@@ -10,8 +10,13 @@
  font-size: 14px;
  overflow: hidden;
 }
+.top-banner{
+  width:355px;
+  height:450px;
+  position: relative;
+}
 .top .title{
-  padding: 26rpx 0 40rpx;
+  padding: 13px 0 20px;
 }
 .top .title text{
   display: block;
@@ -19,42 +24,51 @@
   color: #2A2A2A;
 }
 .top .title .h1{
-  height: 94rpx;
-  line-height: 94rpx;
+  height: 47px;
+  line-height: 47px;
   font-size: 20px;
   color: #333333;
   font-weight: 900;
 }
 .pics{
-  padding-top: 56rpx;
+  padding: 20px 0;
+}
+.pics .code-pic{
+  width: 176px;
+  height: 176px;
+  position: relative;
 }
 .pics .img-box{
-  width: 352rpx;
-  height: 352rpx;
+  width: 176px;
+  height: 176px;
   position: absolute;
   top: 0;
   left: 0;
 }
+.mycanvas{
+  display: block;
+  margin: 8px 8px;
+}
 .pics .code-desc{
-  font-size: 28rpx;
+  font-size: 14px;
   color: #666666;
-  margin-top: 40rpx;
+  margin-top: 20px;
 }
 .bottom_text{
-  padding: 40rpx 0;
+  padding: 20px 0;
 }
-.metting-house{
-  font-size: 28rpx;
+.bottom_text .metting-house{
+  font-size: 14px;
   color: #333333;
 }
 .bottom_text image{
-  width: 28rpx;
-  height: 30rpx;
-  margin-right: 16rpx;
+  width: 14px;
+  height: 15px;
+  margin-right: 8px;
   vertical-align: middle;
 }
 .bottom_text .icons text{
-  font-size: 26rpx;
+  font-size: 13px;
   color: #666666;
 }
 .conferee{
@@ -89,7 +103,7 @@
   color: #FFFFFF; 
 }
 .conferee .originator{
-  width: 32rpx;
+  width: 30rpx;
   height: 30rpx;
   position: absolute;
   top: 180rpx;
@@ -150,19 +164,27 @@
 }
 .tishi{
   width: 600rpx;
-  height: 108rpx;
-  position: absolute;
-  bottom: 20rpx;
-  right: 32rpx;
-  background: rgba(255,255,255,0.3);
-  border-radius: 8px;
-  font-size: 12px;
+  height: 167rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular;
   color: #FFFFFF;
   text-align: center;
-  padding: 20rpx 24rpx;
+  position: absolute;
+  left: 129rpx;
+  bottom: 17rpx;
 }
 .tishi text{
   display: block;
+}
+.tishi .off{
+  width: 40rpx;
+  height: 40rpx;
+  background: transparent;
+  border-radius:50%;
+  position: absolute; 
+  right: 10rpx;
+  top: 5rpx;
+  z-index: 999;
 }
 .clear{
   clear: both;

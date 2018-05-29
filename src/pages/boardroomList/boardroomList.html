@@ -17,6 +17,7 @@
          class="date-item {{item.class_bool}} {{item.actived?'date-item-actived':''}}"
          bindtap="selectTopDate"
          data-index="{{index}}"
+         data-bool="{{item.bool}}"
         >
             <view class="week">{{item.week}}</view>
             <view class="week day">{{item.day}}</view>
