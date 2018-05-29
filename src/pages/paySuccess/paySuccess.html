@@ -1,16 +1,16 @@
-<!--meetingDetail.wxml-->
+<!--index.wxml-->
 <view class='wrapper'>
     <view class='top'>
-      <image src="../images/indexImg/card.png" style="width:710rpx;height:900rpx;position: relative;"></image>
+      <image src="../images/indexImg/card.png" class="top-banner"></image>
       <view style="width:710rpx;height:900rpx;position: absolute;top: 0;left: 20rpx">
         <view class='title'>
           <text class='h1'>11-29 (周三）9:00-10:30</text>
           <text>产品技术部例会</text>
         </view>
         <view class='pics'>
-          <image src="../images/indexImg/code.png" style="width: 352rpx;height: 352rpx;position: relative;">
+          <image src="../images/indexImg/code.png" class="code-pic">
             <view class="img-box">
-                <canvas bindtap="previewImg" hidden="{{canvasHidden}}" style="width: 352rpx;height: 352rpx;" canvas-id="mycanvas"/>
+                <canvas bindtap="previewImg" hidden="{{canvasHidden}}" canvas-id="mycanvas" class='mycanvas'/>
                 <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
               </view>
           </image>
@@ -48,6 +48,16 @@
           <text class='text'>{{item.text}}</text>
         </view>
       </block>
+    </view>
+  
+    <view class='tishi' wx:if="{{off}}">
+      <image src="../images/indexImg/tanchuang.png" style="width: 600rpx;height:167rpx;"></image>
+      <view class="off" bindtap="off"></view>
+      <view style="position: absolute;top: 20rpx;left: 0">
+        <text>还在挨个通知会议信息吗？</text>
+        <text>快来试试KrMeeting的一键“邀请参会人”吧！会议开始前，所有参会人都会收到会议提醒哦！</text>
+      </view>
+      
     </view>
   </view>
   <view class='footer'>

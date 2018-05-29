@@ -42,6 +42,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    KrUrl:"http://itest01.krspace.cn"
   }
 })

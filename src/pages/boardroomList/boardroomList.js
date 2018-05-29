@@ -13,6 +13,7 @@ Page({
     nextPage:2,
     pageSize:10,
     totalPages:10,
+    nowDate:'',
     rangeTime:[{
       disabled:false,
       number:'19'
@@ -179,25 +180,25 @@ Page({
     var week;
     switch (weekParam%7) {
       case 0:
-        week = '日';
+        week = '周日';
         break;
       case 1:
-        week = '一';
+        week = '周一';
         break;
       case 2:
-        week = '二';
+        week = '周二';
         break;
       case 3:
-        week = '三';
+        week = '周三';
         break;
       case 4:
-        week = '四';
+        week = '周四';
         break;
       case 5:
-        week = '五';
+        week = '周五';
         break;
       case 6:
-        week = '六';
+        week = '周六';
         break;                        
            
       default:
@@ -220,11 +221,13 @@ Page({
     var totalDay=this.getMonthDays(year,month+1);
     var todayWeek = today.getDay();
     var topDate = [];
-    for(let i=0;i<6;i++){
+    for(let i=0;i<30;i++){
       var dateItem = {
         week:'',
         day:'',
         actived:false,
+        bool:true,
+        date:`${year}-${month}-${day}`
       };
       if(i==0){
         dateItem.actived = true;
@@ -235,16 +238,23 @@ Page({
         dateItem.week = this.getWeek(todayWeek+i);
       }
       dateItem.day = this.getDay(day+i,totalDay);
+      if((todayWeek+i)%7==0||(todayWeek+i)%7==6){
+        dateItem.class_bool = 'btn_no';
+        dateItem.bool = 'false';
+      }
+
       topDate.push(dateItem);
     }
     // var _this = this;
     this.setData({
-      topDate:topDate
+      topDate:topDate,
+      nowDate:topDate[0].date,
     })
   },
   selectTopDate:function(e){
     var topDate = this.data.topDate;
     var indexParam = e.currentTarget.dataset.index;
+    var date = e.currentTarget.dataset.date;
     var newData = topDate.map((item,index)=>{
       if (index==indexParam) {
         item.actived = true; 
@@ -253,8 +263,10 @@ Page({
       }
       return item;
     })
+    
     this.setData({
-      topDate:newData
+      topDate:newData,
+      nowDate:date
     })
   },
 

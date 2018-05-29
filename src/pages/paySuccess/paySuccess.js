@@ -6,6 +6,7 @@ const app = getApp()
 
 Page({
   data: {
+    off:true,
     conferee:[
       {
         'name':'刘佳佳'
@@ -43,13 +44,20 @@ Page({
       url: '../logs/logs'
     })
   },
-
   onLoad: function () {
-    this.createQrCode('fdfd',"mycanvas",150,150);
+    this.createQrCode('fdfd',"mycanvas",160,160);
+    console.log(22222)
   },
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片
     QR.qrApi.draw(url,canvasId,cavW,cavH);
     var that = this;
-  }
+  },
+
+  //关闭弹层
+  off:function(e){
+    this.setData({
+      off:false
+    })
+  },
 })
