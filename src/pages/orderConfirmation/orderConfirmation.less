@@ -443,7 +443,7 @@ page{
 
 .u-dialog-time .main .row{
     display: flex;
-
+    flex-direction: column;
 }
 
 .u-dialog-time .main .row .time{
@@ -454,6 +454,38 @@ page{
 .u-dialog-time .main .row .time .item{
     width: 168rpx;
     text-align:left;
+    height:40rpx;
+    line-height: 40rpx;
+    font-size: 24rpx;
+    color: rgba(102,102,102,0.80);
+    padding-left:4rpx;
+}
+.u-dialog-time .main .row .square{
+    display: flex;
+    flex-direction: row;
+}
+
+.u-dialog-time .main .row .square .item{
+    width: 84rpx;
+    height: 92rpx;
+    border-radius: 8rpx;
+    margin-right: 2rpx;
+}
+
+.u-dialog-time .main .row .square .item:last-child{
+    margin-right: 0;
+}
+
+.u-dialog-time .main .row .square .item.check{
+    background: #fff;
+}
+
+.u-dialog-time .main .row .square .item.uncheck{
+    background: #EDEDED;
+}
+
+.u-dialog-time .main .row .square .item.checked{
+    background: #FAC367;
 }
 
 .u-dialog-time .tag{

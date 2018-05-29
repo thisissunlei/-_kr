@@ -158,7 +158,6 @@ Page({
     this.setData({
       boardroomList:boardroomList
     })
-    console.log(this.data.boardroomList);
   },
  getMonthDays:function(year,month){
     //判断2月份天数
@@ -330,6 +329,10 @@ Page({
     })
   },
 
+  reserve:function(e) {
+    var indexParam = e.currentTarget.dataset.rangeTime;
+    wx.setStorageSync('rangeTime',rangeTime);
+  },
 
   toBottom: function(e) {
     this.loadNext();
@@ -345,3 +348,5 @@ Page({
     this.reloadData();
   },
 })
+
+
