@@ -21,17 +21,31 @@ page {
   z-index: 100;
   background: #fff;
 }
+.top-date .gray-border {
+  position: absolute;
+  width: 0rpx;
+  height: 50rpx;
+  border: 1px solid #F6F6F6;
+  right: 94rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .top-date .left {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex: 1;
+  height: 100%;
+  padding: 0 20rpx;
 }
 .top-date .right {
   width: 96rpx;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  background: #fff;
 }
 .top-date .right image {
   width: 52rpx;
@@ -39,11 +53,15 @@ page {
 }
 .top-date .left .date-item {
   width: 60rpx;
-  padding-top: 10rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  padding: 0 7.5%;
+}
+.top-date .left .btn_no {
+  background: gray;
+  display: none;
 }
 .top-date .left .date-item-actived .week {
   color: #F5A623 !important;
@@ -51,6 +69,8 @@ page {
 .top-date .left .date-item .week {
   font-size: 26rpx;
   color: #666;
+  width: 88rpx;
+  text-align: center;
 }
 .top-date .left .date-item .bottom-border {
   width: 40rpx;
