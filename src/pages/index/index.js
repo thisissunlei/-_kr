@@ -10,7 +10,9 @@ Page({
     buildingList:[],
     myMeeting:[],
     metting:false,
-    user_info:{}
+    user_info:{
+      
+    },
   },
   //获取地理位置
   getLocation:function(){
@@ -83,18 +85,9 @@ Page({
       console.log(res.userInfo,888888)
       wx.setStorage({
         key:"user_info",
-        user_info:{
-          nickName:res.nickName,
-          avatarUrl:res.avatarUrl,
-          city:res.city,
-          country:res.country,
-          gender:res.gender,
-          language:res.language,
-          province:res.province
+        data: {
+          user_info:res.userInfo
         },
-        success:function(res){
-          console.log(res,"存储成功")
-        }
       })
       wx.request({
         url:'http://itest01.krspace.cn/api/gateway/krmting/common/login'
