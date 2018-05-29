@@ -68,12 +68,14 @@ Page({
     let endArr=changeTime(1396320706000)
     let beginTime=startArr[3]+':'+startArr[4]
     let endTime=endArr[3]+':'+endArr[4];
+    let hour=(1396320706000-1396310706000)
     this.setData({
       payTitle:payTitleObj[data.orderShowStatus],
       detailInfo:{
         useDate:useDate,
         beginTime:beginTime,
-        endTime:endTime
+        endTime:endTime,
+        hour:hour
       }
     })
     wx.setNavigationBarTitle({
@@ -91,7 +93,7 @@ Page({
   },
   getDetailInfo:function(orderId){
       wx.request({
-        url:'/api/gateway/krmting/order/detail',
+        url:app.globalData.KrUrl+'/api/gateway/krmting/order/detail',
         methods:"GET",
         header:{
           'content-type':"appication/json"

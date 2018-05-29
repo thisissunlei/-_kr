@@ -36,26 +36,17 @@ Page({
       var old_data = [];
 
       if(this.last_data!='false'){
-         console.log(111)
-       
-       
         if(this.last_data=='date_data1'){
           old_data = this.data['date_data1'];
-                    old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
-
+          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
           this.setData({
-            
             date_data1:old_data
-
           });
         }else if(this.last_data=='date_data2'){
           old_data = this.data['date_data2'];
-                    old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
-
-          this.setData({
-            
+          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
+          this.setData({            
             date_data2:old_data
-
           });
         }
       }
@@ -66,25 +57,20 @@ Page({
       console.log(e.target.dataset.data)
       if(e.target.dataset.data=='date_data2'){
         this.setData({
-          date_data2:new_data,
-          
-
+          date_data2:new_data,         
         });
       }else if(e.target.dataset.data=='date_data1'){
         this.setData({
-          date_data1:new_data,
-          
+          date_data1:new_data,        
         });
       }
       this.last_btn_num = e.target.dataset.num;
-      this.last_data = e.target.dataset.data;
-      
+      this.last_data = e.target.dataset.data;   
     }
   },
   dealDate:function(today_month,bool){
     const week = today_month.getDay();
     const today = parseInt(new Date().getDate());
-    console.log(week,111)
     today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
     const day_num = today_month.getDate()+week;
@@ -163,24 +149,6 @@ Page({
           //this.all_day_num++;
         }
       }
-      /*if(i<week){
-        
-      }else if(){
-        
-      }else if(){
-        
-      }else if(i==(today+1)&&bool){
-        data.push({
-          value:'明天',
-          type:'class3'
-        });
-      }else{
-        data.push({
-          value:i,
-          type:'class2'
-        });
-      }
-    }*/
     return data;
     
   },
