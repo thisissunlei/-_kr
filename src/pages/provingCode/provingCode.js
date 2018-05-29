@@ -9,17 +9,24 @@ let times;
 Page({
   data: {
     phone:'',
-    inputValues:'',
+    inputValue:'',
     phoneRange:'+86',
     phoneTest:true,
     phoneRepeat:true,
     time:60,
+    code:{
+      value1:'',
+      value2:'',
+      value3:'',
+      value4:''
+    }
+    
   },
   onLoad: function (options) {
     let that = this;
     
     this.setData({
-      phone: options.phone,
+      phone: options.phone || '',
       time:60
     })
     this.countDown()
@@ -45,15 +52,20 @@ Page({
     },1000)
   },
   bindKeyInput:function(e){
+    let value = e.detail.value;
     this.setData({
       inputValue: e.detail.value,
-      inputValues: e.detail.value
+      code:{
+        value1:value.substr(0,1),
+        value2:value.substr(1,1),
+        value3:value.substr(2,1),
+        value4:value.substr(3,1),
+      }
     })
   },
   clearValue(e){
     this.setData({
       inputValue: '',
-      inputValues: ''
     })
   },
   formSubmit(e){
@@ -65,7 +77,7 @@ Page({
           'content-type':"appication/json"
         },
         data:{
-          "code":that.data.inputValues,
+          "code":that.data.inputValue,
           "phone":that.data.phone
         },
         success:(res)=>{

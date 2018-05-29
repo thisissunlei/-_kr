@@ -1,17 +1,18 @@
 {
   "pages":[
-    "pages/myOrder/myOrder",
+    "pages/provingCode/provingCode",
+    
     "pages/logs/logs",
+    "pages/orderDetail/orderDetail",
     "pages/index/index",
+    "pages/myOrder/myOrder",
     "pages/meetingStatus/meetingStatus",
     "pages/meetingDetail/meetingDetail",
     "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
-    "pages/orderDetail/orderDetail",
     "pages/my/my",
     "pages/orderConfirmation/orderConfirmation",
 
-    "pages/provingCode/provingCode",
     "pages/meetingTheme/meetingTheme",
     "pages/phone/phone",
     "pages/regionList/regionList",

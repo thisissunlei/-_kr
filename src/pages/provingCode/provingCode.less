@@ -19,12 +19,10 @@
 	margin-left: 20rpx;
 }
 .input-box{
-	margin:0 48rpx;
-	display: flex;
-	height: 44rpx;
-	align-items: flex-start;
-	padding-bottom:40rpx;
-	border-bottom:1px solid #F3F3F3;
+	position: absolute;
+	width: 100%;
+	height: 100rpx;
+	opacity: 0;
 }
 .city-box{
 	display: inline-block;
@@ -38,12 +36,6 @@
 	display: inline-block;
 	font-size: 14px;
 	color: #333333;
-}
-.phone-box{
-	display: inline-block;
-	flex: 1.5;
-	height: 44rpx;
-	margin-left: 32rpx;
 }
 .cancel-view{
 	width: 40rpx;
@@ -104,6 +96,50 @@
 }
 .last-view{
 	text-align: center;
+}
+
+
+.prove-list{
+	margin-top: 20rpx;
+	text-align: center;
+	vertical-align: top;
+}
+.prove-list>.code{
+	display: inline-block;
+	width:100rpx;
+	height:100rpx;
+	line-height:100rpx;
+	margin:0 16rpx;
+	border:1px solid #DFDFDF;
+	border-radius: 16rpx;
+	vertical-align: top;
+}
+.prove-list>.coding{
+	display: inline-block;
+	width:100rpx;
+	height:100rpx;
+	font-size: 48rpx;
+	line-height:100rpx;
+	margin:0 16rpx;
+	border:1px solid #333;
+	border-radius: 16rpx;
+	vertical-align: top;
+}
+.coding>.line{
+	height: 36rpx;
+	border-right:1px solid #333;
+	line-height:100rpx;
+	animation: glow .5s ease-out infinite alternate;
+	display: inline-block;
+	opacity: 1;
+}
+@keyframes glow {
+    0% {
+    	opacity: 1;
+    }    
+    100% {
+    	opacity: 0;
+    }
 }
 
 
