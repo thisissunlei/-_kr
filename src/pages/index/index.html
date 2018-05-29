@@ -8,11 +8,10 @@
           <text class="E-title">krMeeting</text>
           <text class="C-title">氪空间共享会议室</text>
       </view>
-      <!-- <button open-type="getUserInfo"></button> -->
       <view class="my">
-        <text class="my-img">
-          <image src="{{userInfo.avatarUrl}}"></image>
-        </text>
+        <view class="my-img">
+          <image src="{{avatarUrl}}"></image>
+        </view>
         <button open-type="getUserInfo"></button>
         <text class="my-name">我的</text>
       </view>
@@ -64,7 +63,7 @@
   
   <view class='nearby_room'>
     <view class='rm_title'>周边会议室</view>
-    <view class="community-wrapper">
+    <view class="community-wrapper" data-id="{{item.id}}" bindtap="moveToMeetingRoom">
       <view class='community' wx:for="{{buildingList}}">
         <view class='community_pic'>
           <image src="{{buildImgUrl}}"></image>
