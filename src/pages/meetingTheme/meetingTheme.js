@@ -32,6 +32,12 @@ Page({
     })
   },
   onLoad: function (options) {
+    wx.getStorage({
+      key: 'lat_log',
+      success: function(res) {
+          console.log('===',res.data)
+      } 
+    })
     this.setData({
       inputValue:options.value
     })

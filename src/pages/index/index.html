@@ -75,7 +75,7 @@
             <text class='lct_distance'>{{distance}}200m</text>
           </view>
           <view class='room_num'>{{meetingCount}}22 个可用会议室</view>
-          <view class='price'>{{promotionDescr}}限时7折优惠</view>
+          <view class='price' wx:if="{{promotionDescr}}">{{promotionDescr}}限时7折优惠</view>
         </view>
       </view>
     </view>
@@ -86,5 +86,19 @@
     <image src="../images/indexImg/more.jpg"></image>
   </view>
   
+</view>
+<view class="container log-list">
+  <view>订单详情submit</view>
+  <view bindtap="jumpSubmit" data-type="telephone">联系电话</view>
+  <view bindtap="jumpSubmit" data-type="title">会议主题</view>
+  <view bindtap="jumpSubmit" data-type="warn">会议提醒</view>
+</view>
+
+
+<view class="container log-list">
+  <view>订单确认storage</view>
+  <view bindtap="jumpStorage" data-type="telephone">联系电话</view>
+  <view bindtap="jumpStorage" data-type="title">会议主题</view>
+  <view bindtap="jumpStorage" data-type="warn">会议提醒</view>
 </view>
 

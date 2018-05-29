@@ -6,26 +6,7 @@ const app = getApp()
 
 Page({
   data: {
-    inviteer:[
-      {
-        'wechatNick':'刘佳佳'
-      },
-      {
-        'wechatNick':'molly'
-      },
-      {
-        'wechatNick':'谭烨'
-      },
-      {
-        'wechatNick':'沈美美'
-      },
-      {
-        'wechatNick':'段郝耀'
-      },
-      {
-        'wechatNick':'蒋萌'
-      }
-    ],
+    inviteer:[],
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -51,7 +32,7 @@ Page({
     this.createQrCode('fdfd',"mycanvas",150,150);
     //数据加载
      wx.request({
-      url:app.globalData.KrUrl+"api/gateway/krmting/invitee/detail",
+      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"
@@ -62,12 +43,12 @@ Page({
       success:(res)=>{
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data.meetingTime,
-          themeName:res.data.themeName,
-          meetingRoomName:res.data.meetingRoomName,
-          address:res.data.address,
-          inviteer:res.data.inviteer,
-          limitCount:res.data.limitCount
+          meetingTime:res.data.data.meetingTime,
+          themeName:res.data.data.themeName,
+          meetingRoomName:res.data.data.meetingRoomName,
+          address:res.data.data.address,
+          inviteer:res.data.data.inviteer,
+          limitCount:res.data.data.limitCount
         })
       }
     })
@@ -77,15 +58,16 @@ Page({
     QR.qrApi.draw(url,canvasId,cavW,cavH);
     var that = this;
   },
-   onShareAppMessage: function (res) {
+  onShareAppMessage: function (res) {
     console.log(res,8888)
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
     return {
-      title: '自定义转发标题111',
-      path: '/page/user?id=123'
+      // imageUrl:'',
+      title: 'KrMeeting',
+      path: '/meetingDetail/meetingDetail?inviteeId='+inviteeId
     }
   }
 })

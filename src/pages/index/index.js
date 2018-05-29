@@ -4,12 +4,15 @@ const app = getApp()
 
 Page({
   data: {
-    latitude:'',
-    longitude:'',
+    
     duration: 1000,
     buildingList:[],
     myMeeting:[],
     metting:false,
+  },
+  rq_data:{
+    latitude:'',
+    longitude:'',
   },
   //获取地理位置
   getLocation:function(){
@@ -18,10 +21,10 @@ Page({
       type: 'wgs84',
       success: function(res) {
         console.log(res,"经纬度")
-        _this.setData({
+        _this.rq_data = {
           latitude:res.latitude,
           longitude:res.longitude
-        })
+        };
         wx.setStorage({
           key:"lat_log",
           data: {
@@ -31,13 +34,42 @@ Page({
             }
           },
         })
+        _this.getAllInfo();
       }
     })
   },
   onLoad: function () {
-    this.getLocation()
+    
+
+    const that = this;
+    this.getLocation();
     //页面加载
-    wx.request({
+    wx.login({
+      success: function(res) {
+        //console.log(res)
+        if (res.code) {
+          //发起网络请求
+         // console.log(that.globalData.KrUrl,89773737)
+          wx.request({
+            url: app.globalData.KrUrl+'api/gateway/krmting/common/login',
+            data: {
+              code: res.code
+            },
+            success:function(res){
+              console.log(res.header,res.header['Set-Cookie'],'登陆数据')
+              app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
+              var openId = res.data.data.openid;
+              //console.log(openId)
+              that.getAllInfo();
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+
+    })
+   /* wx.request({
       url:'https://www.easy-mock.com/mock/5b0958295c37757453191ee5/kr/home',
       methods:"GET",
       header:{
@@ -55,49 +87,35 @@ Page({
         if(res.data.myMeeting.length>0){
           this.setData({
             metting:true
+
           })
         }
       }
-    }),
-    wx.login({
-      success: function(res) {
-        //console.log(res)
-        if (res.code) {
-          //发起网络请求
-          wx.request({
-            url: 'http://itest01.krspace.cn/api/gateway/krmting/common/login',
-            data: {
-              code: res.code
-            },
-            success:function(res){
-              //console.log(res,'登陆数据')
-              var openId = res.data.data.openid;
-              //console.log(openId)
-            }
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    }),
-    // 查看是否授权
-    wx.getSetting({
-      success(res) {
-        console.log(res,1444441111)
-        if (!res.authSetting['scope.userInfo','scope.userLocation']) {
-          wx.authorize({
-              scope: 'scope.userInfo',
-              success() {
-                console.log(res,'2223333')
-                  // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-                  // wx.getUserInfo()
-              }
-          })
-        }
-      }
-    })
+    })*/
+    
+    //查看是否授权
+    // wx.getSetting({
+    //   success(res) {
+    //     if (!res.authSetting['scope.userInfo']) {
+          
+    //       wx.authorize({
+    //           scope: 'scope.userInfo',
+    //           success() {
+    //             that.getInfo();
+    //             that.getLocation();
+    //           },
+    //           fail(res){
+    //             console.log(res,999)
+    //           }
+    //       })
+    //     }else{
+    //       that.getInfo();
+    //       that.getLocation();
+    //     }
+    //   }
+    // })
     //获取用户信息
-    this.getInfo();
+    
     //传信息给后台
     // wx.request({
     //   url:'http://itest01.krspace.cn/api/gateway/krmting/user/save',
@@ -109,6 +127,31 @@ Page({
         
     //   },
     // })
+    that.getInfo();
+  },
+  getAllInfo:function (){
+    var that = this;
+    console.log(app,5555,that.data.latitude)
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/home',
+      
+      data:{
+        latitude:that.rq_data.latitude,
+        longitude:that.rq_data.longitude
+      },
+      success:(res)=>{
+        console.log(res,888888881111)
+        that.setData({
+          buildingList:res.data.buildingList,
+          myMeeting:res.data.myMeeting
+        })
+        if(res.data.myMeeting.length>0){
+          that.setData({
+            metting:true
+          })
+        }
+      }
+    });
   },
   //获取用户信息
   getInfo:function(){
@@ -151,5 +194,45 @@ Page({
     wx.navigateTo({
       url:"../my/my"
     })
+  },
+  jumpSubmit(e){
+    var target = e.target.dataset;
+    var type = target.type;
+    console.log(target,'checkWarn',target.type)
+    let url = ''
+    switch (type){
+      case 'telephone':
+        url = "../phone/phone?type=submit&value=120"
+        break;
+      case 'warn':
+        url = "../warn/warn?type=submit&value=NOALERT"
+        break;
+      default:
+        url = "../meetingTheme/meetingTheme?type=submit&value=会议"
+        break;
+    } 
+    wx.navigateTo({
+      url: url
+    });
+  },
+  jumpStorage(e){
+    var target = e.target.dataset;
+    var type = target.type;
+    console.log(target,'checkWarn',target.type)
+    let url = ''
+    switch (type){
+      case 'telephone':
+        url = "../phone/phone?type=storage"
+        break;
+      case 'warn':
+        url = "../warn/warn?type=storage"
+        break;
+      default:
+        url = "../meetingTheme/meetingTheme?type=storage"
+        break;
+    } 
+    wx.navigateTo({
+      url: url
+    });
   }
 })

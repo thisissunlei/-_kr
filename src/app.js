@@ -2,6 +2,7 @@
 App({
   onLaunch: function () {
     // 展示本地存储能力
+    var that = this;
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
@@ -9,11 +10,7 @@ App({
       enableDebug: true
     });
     // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+    
     wx.setTabBarStyle({
         color: '#000000',
         selectedColor: '#00FF00',
@@ -43,6 +40,20 @@ App({
   },
   globalData: {
     userInfo: null,
-    KrUrl:"https://i.krspace.cn/test/"
+    KrUrl:"https://i.krspace.cn/test/",
+    Cookie:''
+  },
+  getRequest:function (data){
+    console.log(this.globalData.Cookie)
+    wx.request({
+      url: data.url,
+      header:{
+        'Content-Type':'application/x-www-form-urlencoded',
+        'Cookie':this.globalData.Cookie
+      },
+      data: data.data,
+      success:data.success,
+      fail:data.fail
+    });
   }
 })

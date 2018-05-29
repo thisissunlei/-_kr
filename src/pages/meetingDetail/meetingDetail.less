@@ -35,6 +35,11 @@
   top: 0;
   left: 0;
 }
+.pic image{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
 .pics .code-desc{
   font-size: 28rpx;
   color: #666666;
@@ -59,7 +64,6 @@
 }
 .conferee{
   margin-top:40rpx;
-  border-top: 1px solid #2F3543; 
   border-bottom: 1px solid #2F3543;  
   position: relative;
 }
@@ -76,6 +80,7 @@
   float: left;
   margin: 0 22rpx 40rpx;
   text-align: center;
+  position: relative;
 }
 .conferee .list .pic{
   width: 86rpx;
@@ -88,12 +93,19 @@
   font-size: 24rpx;
   color: #FFFFFF; 
 }
-.conferee .originator{
+.conferee .list .originator{
   width: 32rpx;
   height: 30rpx;
   position: absolute;
-  top: 180rpx;
-  left: 12rpx;
+  top: 70rpx;
+  left: -4rpx;
+}
+.conferee .list .confirm{
+  width: 32rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 70rpx;
+  left: 74rpx;
 }
 .hint{
   padding-bottom: 275rpx;
@@ -133,10 +145,10 @@
   display: inline-block;
   width: 166rpx;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 5px;
+  color: #666666;
 }
 .footer text.kefu{
-  height: 72rpx;
   border: 1px solid #333333;
   margin-right: 20rpx;
 }
@@ -147,6 +159,7 @@
 .footer text.yaoqing{
   background: linear-gradient(51deg, #FFD24C 0%, #F79C1C 89%);
   color: #fff;
+  border-radius:5px; 
 }
 .tishi{
   width: 600rpx;
@@ -156,7 +169,7 @@
   right: 32rpx;
   background: rgba(255,255,255,0.3);
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 24rpx;
   color: #FFFFFF;
   text-align: center;
   padding: 20rpx 24rpx;
@@ -166,4 +179,12 @@
 }
 .clear{
   clear: both;
+}
+button{
+  font-size: 28rpx;
+  padding-left: 0;
+  padding-right:0;
+  display: inline-block;
+  background-color: transparent;
+  
 }

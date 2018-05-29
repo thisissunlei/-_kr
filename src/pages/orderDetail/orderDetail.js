@@ -9,15 +9,24 @@ Page({
     minute:'',
     second:'',
     detailInfo:{
-      orderShowStatus:'1',
+      orderShowStatus:1,
       first:1,
       useDate:''
     },
     payTitle:''
     
   },
+  payOrder:function(){
+
+  },
   jumpMeetDetail:function() {
    
+  },
+  jumpMeet:function() {
+    let detailInfo=this.data.detailInfo;
+    wx.navigateTo({
+      url: '../paySuccess/paySuccess?inviteeId='+detailInfo.inviteeId
+    })
   },
   jumpSetTheme:function() {
     let detailInfo=this.data.detailInfo;
@@ -76,7 +85,8 @@ Page({
         useDate:useDate,
         beginTime:beginTime,
         endTime:endTime,
-        hour:hour
+        hour:hour,
+        orderShowStatus:2,
       }
     })
     wx.setNavigationBarTitle({
@@ -89,7 +99,7 @@ Page({
 
     
    
-    this.getDetailInfo('2')
+    //this.getDetailInfo('2')
    
   },
   getDetailInfo:function(orderId){
