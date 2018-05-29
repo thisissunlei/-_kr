@@ -16,10 +16,7 @@ Page({
     
   },
   jumpMeetDetail:function() {
-    let detailInfo=this.data.detailInfo;
-    wx.navigateTo({
-      url: '../meetingDetail/meetingDetail?value='+detailInfo.meetingRoomId
-    })
+   
   },
   jumpSetTheme:function() {
     let detailInfo=this.data.detailInfo;
