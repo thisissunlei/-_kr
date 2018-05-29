@@ -5,6 +5,7 @@ dist/app.js
 dist/app.json
 dist/app.wxss
 dist/project.config.json
+src/app.json
 
 npm-debug.log
 npm-debug.log.*
@@ -13,7 +14,7 @@ npm-debug.log.*
 
 *.DS_Store
 node_modules
-src/app.json
+
 npm-debug.log
 
 package-lock.json
