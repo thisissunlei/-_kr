@@ -67,6 +67,7 @@ Page({
           console.log('登录失败！' + res.errMsg)
         }
       }
+
     })
    /* wx.request({
       url:'https://www.easy-mock.com/mock/5b0958295c37757453191ee5/kr/home',
@@ -86,6 +87,7 @@ Page({
         if(res.data.myMeeting.length>0){
           this.setData({
             metting:true
+
           })
         }
       }
@@ -174,7 +176,7 @@ Page({
   //点击会议card
   moveToMeetingDetail:function(e){
     console.log(e)
-    var inviteeId = e.currentTarget.dataset.inviteeId
+    var inviteeId = e.currentTarget.dataset.id
     wx.navigateTo({
       url:"../meetingDetail/meetingDetail?inviteeId="+inviteeId
     })
@@ -182,9 +184,15 @@ Page({
   //点击会议室进入会议室列表
   moveToMeetingRoom:function(e){
     console.log(e)
-    var communityId = e.currentTarget.dataset.communityId
+    var communityId = e.currentTarget.dataset.id
     wx.navigateTo({
       url:"../boardroomList/boardroomList?communityId="+communityId
+    })
+  },
+  //
+  moveToMy:function(){
+    wx.navigateTo({
+      url:"../my/my"
     })
   }
 })

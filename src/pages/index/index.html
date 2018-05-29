@@ -13,7 +13,7 @@
           <image src="{{avatarUrl}}"></image>
         </view>
         <button open-type="getUserInfo"></button>
-        <text class="my-name">我的</text>
+        <text class="my-name" bindtap="moveToMy">我的</text>
       </view>
     </view> 
   
@@ -75,7 +75,7 @@
             <text class='lct_distance'>{{distance}}200m</text>
           </view>
           <view class='room_num'>{{meetingCount}}22 个可用会议室</view>
-          <view class='price'>{{promotionDescr}}限时7折优惠</view>
+          <view class='price' wx:if="{{promotionDescr}}">{{promotionDescr}}限时7折优惠</view>
         </view>
       </view>
     </view>

@@ -19,15 +19,19 @@
     </view>
   
     <view class='conferee'>
-        <text class='h2'>参会人（6/15）</text>
-        <block wx:for="{{conferee}}">
+        <text class='h2'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
+        <block wx:for="{{inviteer}}">
             <view class='list'>
-                <view class='pic'></view>
-                <text>{{item.name}}</text>
+              <view class='pic'>{{item.wechatAvatar}}
+                    <!-- <image src="{{item.wechatAvatar}}"></image> -->
+                </view>
+                <text>{{item.wechatNick}}</text>
+                <image src="../images/indexImg/icon_faqiren.png" class="originator"></image>
+                <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.join===1?true:false}}"></image>
             </view>
         </block>
         <view class='clear'></view>
-        <image src="../images/indexImg/icon_faqiren.png" class="originator"></image>
+        
     </view>
   
     <view class='hint'>
@@ -40,8 +44,8 @@
       </block>
     </view>
     <view style="padding-bottom: 198rpx;">
-        <view class='btn'>
-          我要预定
+        <view class='btn' bindtap="jion">
+          我要参与
         </view>
     </view>
     
