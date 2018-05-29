@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "空气指数"
+    "navigationBarTitleText": "我的订单",
+    "navigationBarTextStyle":"black",
+    "backgroundColor":"#F3F3F3"
 }

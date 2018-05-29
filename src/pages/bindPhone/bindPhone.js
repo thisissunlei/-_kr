@@ -27,11 +27,11 @@ Page({
     });
   },
   bindKeyInput:function(e){
-    let value = e.detail.value.replace(/[^\d]/g,'');
-    let val = this.dealPhone(value)
+    // let value = e.detail.value.replace(/[^\d]/g,'');
+    // let val = this.dealPhone(value)
     this.setData({
-      inputValues: val,
-      inputValue: value.replace(/[^\d]/g,'')
+      inputValues: e.detail.value,
+      inputValue: e.detail.value
     })
   },
   dealPhone(value){

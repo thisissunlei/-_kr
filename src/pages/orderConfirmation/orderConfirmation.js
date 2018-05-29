@@ -23,6 +23,7 @@ Page({
     typeStatus:true,
     message:'用户取消支付',
     messageShow:false,
+    dialogTimeShow:false,
   },
   changeCheckbox:function(){
     this.setData({
