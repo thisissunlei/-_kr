@@ -57,7 +57,7 @@ Page({
             },
             success:function(res){
               console.log(res.header,res.header['Set-Cookie'],'登陆数据')
-              app.globalData.Cookie = res.header['Set-Cookie'];
+              app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
               var openId = res.data.data.openid;
               //console.log(openId)
               that.getAllInfo();
