@@ -24,44 +24,24 @@ Page({
   },
   onLoad: function () {
     this.getCount()
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+    let info=wx.getStorageSync('user_info');
+    let userInfo=Object.assign({},info.user_info);
+    //userInfo.phone='15210095787';
+    if(userInfo.phone){
+      userInfo.phone=this.changePhone(userInfo.phone)
+    } 
+   
+    console.log('userInfo',userInfo)
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      userInfo:userInfo
     })
+
+    
   },
+ 
   getCount:function(){
     wx.request({
-        url:'/api/gateway/krmting/invitee/count',
+        url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',
         methods:"GET",
         header:{
           'content-type':"appication/json"
@@ -73,5 +53,9 @@ Page({
               })
         }
     })
+  },
+  changePhone:function(phone){
+    phone = phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+    return  phone;
   }
 })
