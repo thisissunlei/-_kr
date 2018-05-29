@@ -1,13 +1,19 @@
 {
   "pages":[
+
     "pages/paySuccess/paySuccess",
     "pages/meetingDetail/meetingDetail",
     "pages/meetingStatus/meetingStatus",
+
+    "pages/index/index",
+
     
     "pages/provingCode/provingCode",
     "pages/logs/logs",
+    "pages/meetingTheme/meetingTheme",
+    
     "pages/orderDetail/orderDetail",
-    "pages/index/index",
+    "pages/provingCode/provingCode",
     "pages/myOrder/myOrder",
     
    
@@ -16,12 +22,10 @@
     "pages/my/my",
     "pages/orderConfirmation/orderConfirmation",
 
-    "pages/meetingTheme/meetingTheme",
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",
     "pages/bindPhone/bindPhone"
-    
   ],
   "window":{
     "backgroundTextStyle":"light",

@@ -85,14 +85,20 @@
   <!-- 会议室详情 -->
   <view class="u-meet-detail">
       <view class="u-meet-content">
-          <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
-                autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-                <view wx:for="{{imgUrls}}" wx:key="*this">
-                  <swiper-item>
-                    <image class="u-swiper-img" src="{{item}}"  />
-                  </swiper-item>
-                </view>
-          </swiper>
+          <view class="u-swiper-content">
+            <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
+                  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
+                  bindchange="currentChange"
+                  
+                  >
+                  <view wx:for="{{imgUrls}}" wx:key="*this">
+                    <swiper-item>
+                      <image class="u-swiper-img" src="{{item}}"  />
+                    </swiper-item>
+                  </view>
+            </swiper>
+            <view class="u-img-num">{{currentNum}}/{{imgUrls.length}}</view>
+          </view>
           <image class="u-meet-detail-close" src="../images/public/icon_close.png"></image>
           <view class="u-meeting-info">
               <view class="u-meet-info">

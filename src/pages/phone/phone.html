@@ -13,4 +13,8 @@
 		<div class="disabled" wx:if="{{!inputValue.length}}">确定</div>
 		<div class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">确定</div>
 	</view>
+	<view class="last-view">
+		<div class="error-phone" wx:if="{{!phoneTest}}">手机号格式错误</div>
+		<div class="error-repeat" wx:if="{{!submitError}}">{{errorMessage}}</div>
+	</view>
 </form>
