@@ -237,8 +237,9 @@ Page({
       dateItem.day = this.getDay(day+i,totalDay);
       if((todayWeek+i)%7==0||(todayWeek+i)%7==6){
         dateItem.class_bool = 'btn_no';
+        dateItem.bool = 'false';
       }
-      
+
       topDate.push(dateItem);
     }
     // var _this = this;
