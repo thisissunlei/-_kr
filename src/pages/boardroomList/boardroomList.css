@@ -21,6 +21,15 @@ page {
   z-index: 100;
   background: #fff;
 }
+.top-date .gray-border {
+  position: absolute;
+  width: 0rpx;
+  height: 50rpx;
+  border: 1px solid #F6F6F6;
+  right: 94rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .top-date .left {
   display: flex;
   justify-content: flex-start;
@@ -30,7 +39,6 @@ page {
 }
 .top-date .right {
   width: 96rpx;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
