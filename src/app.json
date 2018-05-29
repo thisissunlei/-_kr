@@ -1,10 +1,9 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/meetingStatus/meetingStatus",
+    "pages/paySuccess/paySuccess",
     "pages/meetingDetail/meetingDetail",
-    
-    
+    "pages/meetingStatus/meetingStatus",
     "pages/meeting/meeting",
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",

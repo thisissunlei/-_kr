@@ -1,13 +1,10 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/meetingStatus/meetingStatus",
+    "pages/paySuccess/paySuccess",
     "pages/meetingDetail/meetingDetail",
-    
-    
-    "pages/meeting/meeting",
-    
     "pages/meetingStatus/meetingStatus",
+    "pages/meeting/meeting",
     "pages/logs/logs",
     "pages/boardroomList/boardroomList",
     "pages/myMeeting/myMeeting",

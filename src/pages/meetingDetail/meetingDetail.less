@@ -1,4 +1,4 @@
-/**index.wxss**/
+/**meetingdetail.wxss**/
 .wrapper{
   padding: 0 20rpx;
   background: #393F50;
@@ -6,15 +6,12 @@
 }
 .top{
  border-radius: 8px;
- background: #fff;
  text-align: center;
  font-size: 14px;
  overflow: hidden;
 }
 .top .title{
-  padding: 15rpx 0 40rpx;
-  background: #F9F8F8;
-  border-bottom: 1px dotted #DFDFDF;
+  padding: 26rpx 0 40rpx;
 }
 .top .title text{
   display: block;
@@ -29,11 +26,20 @@
   font-weight: 900;
 }
 .pics{
-  padding: 55rpx;
-  border-bottom: 1px dotted #DFDFDF;
-  color: #666666;
+  padding-top: 56rpx;
 }
-
+.pics .img-box{
+  width: 352rpx;
+  height: 352rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.pics .code-desc{
+  font-size: 28rpx;
+  color: #666666;
+  margin-top: 40rpx;
+}
 .bottom_text{
   padding: 40rpx 0;
 }
@@ -49,6 +55,7 @@
 }
 .bottom_text .icons text{
   font-size: 26rpx;
+  color: #666666;
 }
 .conferee{
   margin-top:40rpx;
@@ -86,6 +93,7 @@
   height: 30rpx;
   position: absolute;
   top: 180rpx;
+  left: 12rpx;
 }
 .hint{
   padding-bottom: 275rpx;

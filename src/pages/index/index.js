@@ -22,7 +22,6 @@ Page({
         "longitude":"116.46"
       },
       success:(res)=>{
-        console.log(res)
         this.setData({
           buildingList:res.data.buildingList,
           myMeeting:res.data.myMeeting
@@ -37,6 +36,26 @@ Page({
     })
   },
   
-  //会议滑动
+  //点击会议card
+  moveToMeetingDetail:function(e){
+    console.log(e)
+    var id = e.currentTarget.dataset.id;
+    wx.request({
+      url:" api/gateway/krmting/invitee/detail",
+      methods:"GET",
+      header:{
+        "content-type":"application/json"
+      },
+      data:{
+        id : id
+      },
+      success:(res)=>{
+        
+      }
+    })
+    wx.navigateTo({
+      url:"../meetingDetail/meetingDetail"
+    })
+  }
   
 })
