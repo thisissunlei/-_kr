@@ -9,12 +9,12 @@ src/app.json
 
 npm-debug.log
 npm-debug.log.*
-
+dist/project.config.json
 *.DS_STORE
 
 *.DS_Store
 node_modules
-
+app.json
 npm-debug.log
 
 package-lock.json

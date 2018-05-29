@@ -8,11 +8,12 @@
           <text class="E-title">krMeeting</text>
           <text class="C-title">氪空间共享会议室</text>
       </view>
-
+      <!-- <button open-type="getUserInfo"></button> -->
       <view class="my">
         <text class="my-img">
-          <image></image>
+          <image src="{{userInfo.avatarUrl}}"></image>
         </text>
+        <button open-type="getUserInfo"></button>
         <text class="my-name">我的</text>
       </view>
     </view> 
@@ -22,7 +23,7 @@
     <view class="metting" wx:if="{{metting}}">
       <swiper interval="{{interval}}" previous-margin="20rpx" next-margin="20rpx"> 
         <block wx:for="{{myMeeting}}">
-          <swiper-item class="my-metting">
+          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
             <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
             <view style="position: absolute;top: 0;left: 0;">
                 <view class="metting-mark">待入场</view>
@@ -63,21 +64,28 @@
   
   <view class='nearby_room'>
     <view class='rm_title'>周边会议室</view>
-    <view class='community' wx:for="{{buildingList}}">
-      <view class='community_pic'>
-        <image src="{{buildImgUrl}}"></image>
-      </view>
-      <view class='cmty_con'>
-        <view class='cmty_title'>{{buildName}}海航实业大厦</view>
-        <view class='location'>
-          <text class='lct_con'>{{buildAddress}}北京市朝阳区建国路108号</text>
-          <text class='lct_distance'>{{distance}}200m</text>
+    <view class="community-wrapper">
+      <view class='community' wx:for="{{buildingList}}">
+        <view class='community_pic'>
+          <image src="{{buildImgUrl}}"></image>
         </view>
-        <view class='room_num'>{{meetingCount}}22 个可用会议室</view>
-        <view class='price'>{{promotionDescr}}限时7折优惠</view>
+        <view class='cmty_con'>
+          <view class='cmty_title'>{{buildName}}海航实业大厦</view>
+          <view class='location'>
+            <text class='lct_con'>{{buildAddress}}北京市朝阳区建国路108号</text>
+            <text class='lct_distance'>{{distance}}200m</text>
+          </view>
+          <view class='room_num'>{{meetingCount}}22 个可用会议室</view>
+          <view class='price'>{{promotionDescr}}限时7折优惠</view>
+        </view>
       </view>
     </view>
+    
   </view>
- 
+
+  <view class="more">
+    <image src="../images/indexImg/more.jpg"></image>
+  </view>
+  
 </view>
 

@@ -5,13 +5,58 @@
   position: relative;
 }
 .top{
- border-radius: 8px;
- background: #fff;
- text-align: center;
- font-size: 14px;
- overflow: hidden;
+  width: 704rpx;
+  height: 376rpx;
+  border-radius: 8px;
+  background: #fff;
+  text-align: center;
+  font-size: 14px;
+  overflow: hidden;
 }
+.metting-wrapper{
+  width:704rpx;
+  height:376rpx;
+  position: absolute;
+  top: 0;left: 20rpx;
+  padding: 74rpx 20rpx 40rpx 0;
+}
+.top .title{
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px dotted #DFDFDF;
+  padding-bottom: 40rpx;
+}
+.top .metting-content{
+  padding-top: 38rpx;
+}
+.top .title .metting-time{
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #333333;
+}
+.top .title .metting-name{
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #2A2A2A;
+}
+.top .metting-address{
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #666666;
+  letter-spacing: 0;
+}
+.top .metting-map text{
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  color: #9399A5;
 
+}
+.top .map-icon{
+  width: 24rpx;
+  height: 27rpx;
+  vertical-align: middle;
+  margin-right: 20rpx;
+}
 .pics{
   padding: 55rpx;
   border-bottom: 1px dotted #DFDFDF;
@@ -75,6 +120,7 @@
   height: 30rpx;
   position: absolute;
   top: 180rpx;
+  left: 12rpx;
 }
 .hint{
   padding-bottom: 275rpx;
@@ -103,47 +149,16 @@
   font-size: 26rpx;
   color: #D5D8DF;
 }
-.footer{
-  height: 74rpx;
-  line-height: 74rpx;
-  padding: 30rpx 0;
-  background: #fff;
-  font-size: 13px;
-}
-.footer text{
-  display: inline-block;
-  width: 166rpx;
-  text-align: center;
-  border-radius: 8px;
-}
-.footer text.kefu{
-  height: 72rpx;
-  border: 1px solid #333333;
-  margin-right: 20rpx;
-}
-.footer .btns{
-  float: right;
-  margin-right: 32rpx;
-}
-.footer text.yaoqing{
-  background: linear-gradient(51deg, #FFD24C 0%, #F79C1C 89%);
+.btn{
+  width: 288rpx;
+  height: 88rpx;
+  background: linear-gradient(50deg, #FFD24C 0%, #F79C1C 89%);
+  border-radius: 30rpx;
   color: #fff;
-}
-.tishi{
-  width: 600rpx;
-  height: 108rpx;
-  position: absolute;
-  bottom: 20rpx;
-  right: 32rpx;
-  background: rgba(255,255,255,0.3);
-  border-radius: 8px;
-  font-size: 12px;
-  color: #FFFFFF;
+  line-height: 88rpx;
   text-align: center;
-  padding: 20rpx 24rpx;
-}
-.tishi text{
-  display: block;
+  margin: auto;
+  
 }
 .clear{
   clear: both;
