@@ -93,7 +93,7 @@ Page({
   },
   getDetailInfo:function(orderId){
       wx.request({
-        url:'/api/gateway/krmting/order/detail',
+        url:app.globalData.KrUrl+'/api/gateway/krmting/order/detail',
         methods:"GET",
         header:{
           'content-type':"appication/json"
