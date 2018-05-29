@@ -44,9 +44,32 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function (options) {
     this.createQrCode('fdfd',"mycanvas",160,160);
-    console.log(22222)
+    this.getData()
+  },
+  getData(){
+    wx.request({
+      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+      methods:"GET",
+      header:{
+        "content-type":"application/json"
+      },
+      data:{
+        inviteeId:this.data.inviteeId
+      },
+      success:(res)=>{
+        console.log(res,"会议详情")
+        this.setData({
+          meetingTime:res.data.data.meetingTime,
+          themeName:res.data.data.themeName,
+          meetingRoomName:res.data.data.meetingRoomName,
+          address:res.data.data.address,
+          inviteer:res.data.data.inviteer,
+          limitCount:res.data.data.limitCount
+        })
+      }
+    })
   },
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片

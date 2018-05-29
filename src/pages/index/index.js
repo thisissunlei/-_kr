@@ -65,7 +65,7 @@ Page({
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: 'http://itest01.krspace.cn/api/gateway/krmting/common/login',
+            url: app.globalData.KrUrl+'api/gateway/krmting/common/login',
             data: {
               code: res.code
             },
