@@ -64,11 +64,12 @@ Page({
     }
     let dateArr=changeTime(1396310706000)
     let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
-    let startArr=changeTime(1396310706000)
+    let startArr=changeTime(13963100000)
     let endArr=changeTime(1396320706000)
     let beginTime=startArr[3]+':'+startArr[4]
     let endTime=endArr[3]+':'+endArr[4];
-    let hour=(1396320706000-1396310706000)
+    let hour=(1396320706000-1396310006000)/1000/60/60
+
     this.setData({
       payTitle:payTitleObj[data.orderShowStatus],
       detailInfo:{
@@ -86,12 +87,13 @@ Page({
 
 
 
-    this.startcountDate();
+    
    
-    this.getDetailInfo('2')
+    //this.getDetailInfo('2')
    
   },
   getDetailInfo:function(orderId){
+    const _this=this;
       wx.request({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/detail',
         method:"GET",
@@ -127,22 +129,25 @@ Page({
                   detailInfo.useDate=useDate;
                   detailInfo.beginTime=beginTime;
                   detailInfo.endTime=endTime;
+              let hour=(data.endTime-data.beginTime)/1000/60/60
               this.setData({
                 payTitle:payTitleObj[data.orderShowStatus],
-                detailInfo:detailInfo
+                detailInfo:detailInfo,
+                hour:hour
               })
 
               wx.setNavigationBarTitle({
                 title: titleObj[data.orderShowStatus]
               })
+              _this.startcountDate(detailInfo.ctime);
         }
       })
   },
-  startcountDate:function(){
+  startcountDate:function(date){
     const time = CAlculagraph.CAlculagraph();
     const that = this;
     time.timerMint({
-      deadline:new Date().getTime()/1000+300,//最终结束的时间戳,
+      deadline:date/1000+300,//最终结束的时间戳,
       callback:function (){
         console.log(111)
       },//时间结束
