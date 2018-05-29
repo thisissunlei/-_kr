@@ -77,15 +77,16 @@ Page({
     QR.qrApi.draw(url,canvasId,cavW,cavH);
     var that = this;
   },
-   onShareAppMessage: function (res) {
+  onShareAppMessage: function (res) {
     console.log(res,8888)
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
     return {
-      title: '自定义转发标题111',
-      path: '/page/user?id=123'
+      // imageUrl:'',
+      title: 'KrMeeting',
+      path: '/meetingDetail/meetingDetail?inviteeId='+inviteeId
     }
   }
 })

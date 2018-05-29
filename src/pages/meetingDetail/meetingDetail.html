@@ -29,17 +29,18 @@
     </view>
   
     <view class='conferee'>
-        <text class='h2'>参会人（6/{{limitCount}}）</text>
+        <text class='h2'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
         <block wx:for="{{inviteer}}">
             <view class='list'>
-                <view class='pic'>{{item.wechatAvatar}}
-                  <!-- <image src="{{item.wechatAvatar}}"></image> -->
+                <view class='pic'>
+                  <image src="{{item.wechatAvatar}}"></image>
                 </view>
                 <text>{{item.wechatNick}}</text>
             </view>
         </block>
         <view class='clear'></view>
         <image src="../images/indexImg/icon_faqiren.png" class="originator"></image>
+        <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.join===1?true:false}}"></image>
     </view>
   
     <view class='hint'>
@@ -55,7 +56,7 @@
   <view class='footer'>
       <text>取消会议</text>
       <view class='btns'>
-        <text class='kefu'>联系客服</text>
+        <button open-type="contact"><text class='kefu'>联系客服</text></button>
         <button open-type="share"><text class='yaoqing'>邀请参会人</text></button>
       </view>
   </view>
