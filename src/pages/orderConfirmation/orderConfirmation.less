@@ -89,8 +89,6 @@ page{
 }
 .u-user-date,.u-user-hour{
     width: 50%;
-
-    
 }
 .u-line{
    height:80rpx;
@@ -397,4 +395,110 @@ page{
     font-size: 30rpx;
     color: #EDEDED;
     text-align: center;
+}
+
+.u-dialog-time{
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height: 934rpx;
+    background: #fff;
+}
+
+.u-dialog-time .top{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 178rpx;
+    flex-direction: column;
+}
+
+.u-dialog-time .top .first-row{
+    font-size: 26rpx;
+    color: #999999;
+}
+
+.u-dialog-time .top .second-row{
+    font-family: PingFang-SC-Medium;
+    font-size: 36rpx;
+    color: #333333;
+}
+
+.u-dialog-time .top .third-row{
+    font-size: 28rpx;
+    color: #333333;
+}
+
+.u-dialog-time .main{
+    background: #F3F3F3;
+    height: 584rpx;
+    display: flex;
+    flex-direction: column;
+    padding: 0 32rpx;
+    justify-content: space-around;
+}
+
+.u-dialog-time .main .row{
+    display: flex;
+
+}
+
+.u-dialog-time .main .row .time{
+    display: flex;
+
+}
+
+.u-dialog-time .main .row .time .item{
+    width: 168rpx;
+    text-align:left;
+}
+
+.u-dialog-time .tag{
+    text-align: center;
+    height: 60rpx;
+    display: flex;
+    justify-content: center;
+    background: #F3F3F3;
+}
+
+.u-dialog-time .tag view{
+    width: 80rpx;
+    height: 40rpx;
+    border-radius: 8rpx;
+    margin-right: 30rpx;
+    font-size: 20rpx;
+    line-height: 40rpx;
+}
+
+.u-dialog-time .tag .check{
+    background: #fff;
+}
+
+.u-dialog-time .tag .uncheck{
+    background: #EDEDED;
+    border: 1px solid #E5E5E5;
+}
+
+.u-dialog-time .tag .checked{
+    background: #FAC367;
+    margin-right: 0;
+}
+
+.u-dialog-time .unsure{
+    text-align: center;
+    height: 112rpx;
+    line-height: 112rpx;
+    font-size: 36rpx;
+    color: #FFFFFF;
+    background: #D8D8D8;
+}
+
+.u-dialog-time .sured{
+    text-align: center;
+    height: 112rpx;
+    line-height: 112rpx;
+    font-size: 36rpx;
+    color: #FFFFFF;
+    background-image: linear-gradient(50deg, #FFD24C 0%, #F79C1C 89%);
 }

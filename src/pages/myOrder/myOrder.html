@@ -1,22 +1,24 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<view class="my-order">
+  <view class="order-type">
+  	<div class="tab">全部</div>
+  	<div class="tab">待支付</div>
+  	<div class="tab">待使用</div>
+  	<div class="tab">已使用</div>
+  	<div class="tab">已取消</div>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="content-list">
+  	<navigator url="/pages/meetingDetail/meetingDetail?id={{item.id}}" class="order-detail" wx:for="{{orderList}}" wx:key="{{orderId}}">
+  		<view class="left">
+  			<image class="order-img" src="../images/indexImg/dizhi2.png" background-size="cover"></image>
+  		</view>
+  		<view class="right">
+  			<span class="name">{{item.capacity}}人  {{meetingRoomName}}</span>
+  			<span class="name">{{item.meetingTIme}}</span>
+  			<span class="name">{{item.buildName}}</span>
+  			<span class="name">￥143</span>
+  		</view>
+  	</navigator>
   </view>
-  <view class="usermotto2">
-    <text>22222</text>
- </view>
 
-  <view>
-            
-            <text>{{minute}}</text>
-            <text>{{second}}</text>
-        </view>
 </view>

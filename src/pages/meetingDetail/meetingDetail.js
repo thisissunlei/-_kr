@@ -43,6 +43,7 @@ Page({
       url: '../logs/logs'
     })
   },
+
   onLoad: function () {
     this.createQrCode('fdfd',"mycanvas",150,150);
   },

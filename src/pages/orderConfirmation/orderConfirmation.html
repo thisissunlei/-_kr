@@ -90,7 +90,7 @@
                     ¥   
                 </view>
                 <view class="u-price-num">
-                    1
+                    164
                 </view>
                 <view class="u-old-price">
                     ￥60 
@@ -129,5 +129,37 @@
         <image class="u-message-img"  wx:if="{{!typeStatus}}" src="../images/public/error.png"></image>
         <image class="u-message-img"  wx:if="{{typeStatus}}" src="../images/public/success.png"></image>
         <view class="u-message-txt">{{message}}</view>
+    </view>
+    <!-- 时间选择 -->
+    <view class="u-dialog" wx:if="{{!dialogTimeShow}}">
+        <view class="u-dialog-time">
+            <view class="top">
+                <view class="first-row">使用日期</view>
+                <view class="second-row">2018-05-22</view>
+                <view class="third-row">今天</view>
+            </view>
+            <view class="main">
+                <view class="row">
+                    <view class="time">
+                        <view class="item">9:00</view>
+                        <view class="item">10:00</view>
+                        <view class="item">11:00</view>
+                        <view class="item">12:00</view>
+                    </view>
+                    <view class="square">
+                            <view class="item"></view>
+                            <view class="item"></view>
+                            <view class="item"></view>
+                            <view class="item"></view>
+                    </view>
+                </view>
+            </view>
+            <view class="tag">
+                <view class="check">可选</view>
+                <view class="uncheck">不可选</view>
+                <view class="checked">已选</view>
+            </view>
+            <view class="unsure">选择使用时间</view>
+        </view>
     </view>
 </view> 

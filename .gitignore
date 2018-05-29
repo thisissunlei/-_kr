@@ -7,7 +7,7 @@ dist/project.config.json
 
 *.DS_Store
 node_modules
-
+app.json
 npm-debug.log
 
 package-lock.json
