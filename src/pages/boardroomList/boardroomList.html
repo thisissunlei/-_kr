@@ -84,4 +84,34 @@
   <!-- <picker bindchange="changeCommunity" range-key="name" range="{{communityList}}" value="{{id}}" class="select-community">
     切换地点
   </picker> -->
+  <!-- 会议室详情 -->
+  <view class="u-meet-detail">
+      <view class="u-meet-content">
+          <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
+                autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+                <view wx:for="{{imgUrls}}" wx:key="*this">
+                  <swiper-item>
+                    <image class="u-swiper-img" src="{{item}}"  />
+                  </swiper-item>
+                </view>
+          </swiper>
+          <image class="u-meet-detail-close" src="../images/public/icon_close.png"></image>
+          <view class="u-meeting-info">
+              <view class="u-meet-info">
+                  <view></view>
+                  <view></view>
+              </view>
+              <view class="u-meet-address">
+                  <view></view>
+                  <view></view>
+              </view>
+          </view>
+          <view class="u-meet-facility">
+                  
+          </view>
+          <view class="u-meet-btn">
+              立即预订
+          </view>
+      </view>
+  </view>
 </view>

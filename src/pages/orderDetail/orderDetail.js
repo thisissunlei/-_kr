@@ -89,7 +89,7 @@ Page({
 
     
    
-    //this.getDetailInfo('2')
+    this.getDetailInfo('2')
    
   },
   getDetailInfo:function(orderId){
