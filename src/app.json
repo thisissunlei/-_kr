@@ -17,7 +17,8 @@
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",
-    "pages/bindPhone/bindPhone"
+    "pages/bindPhone/bindPhone",
+    "pages/paySuccess/paySuccess"
   ],
   "window":{
     "backgroundTextStyle":"light",
