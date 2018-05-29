@@ -9,11 +9,12 @@
     </block>
   </view> -->
   <view class="top-date">
+    <scroll-view scroll-x >
       <view class="left">
         <view 
          wx:for="{{topDate}}"
          wx:key="*this"
-         class="date-item {{item.actived?'date-item-actived':''}}"
+         class="date-item {{item.class_bool}} {{item.actived?'date-item-actived':''}}"
          bindtap="selectTopDate"
          data-index="{{index}}"
         >
@@ -21,9 +22,8 @@
             <view class="week day">{{item.day}}</view>
             <view class="bottom-border"></view>
         </view>
-        
-
       </view>
+    </scroll-view>
       <view class="right">
         <image src="../images/boardroomList/rili.png"></image>
       </view>
