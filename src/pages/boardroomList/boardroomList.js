@@ -111,6 +111,14 @@ Page({
       id: 44,
       name: '日本'
     }],
+    indicatorDots: true,
+    autoplay: false,
+    duration: 1000,
+    imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
   },
 
   //获取会议室列表
@@ -158,7 +166,6 @@ Page({
     this.setData({
       boardroomList:boardroomList
     })
-    console.log(this.data.boardroomList);
   },
  getMonthDays:function(year,month){
     //判断2月份天数
@@ -330,6 +337,10 @@ Page({
     })
   },
 
+  reserve:function(e) {
+    var rangeTime = e.currentTarget.dataset.rangetime;
+    wx.setStorageSync('rangeTime',rangeTime);
+  },
 
   toBottom: function(e) {
     this.loadNext();
@@ -345,3 +356,5 @@ Page({
     this.reloadData();
   },
 })
+
+

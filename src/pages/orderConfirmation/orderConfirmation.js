@@ -23,7 +23,7 @@ Page({
     typeStatus:true,
     message:'用户取消支付',
     messageShow:false,
-    dialogTimeShow:false,
+    dialogTimeShow:true,
   },
   changeCheckbox:function(){
     this.setData({
@@ -45,7 +45,11 @@ Page({
       url: '../phone/phone?value='+this.data.phone
     })
   },
+  getBoardroomTime:function(){
+    
+  },
   onLoad: function (options) {
+    var rangeTime = wx.getStorageSync('rangeTime');
     
   },
   
