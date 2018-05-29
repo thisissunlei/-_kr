@@ -29,14 +29,20 @@
                     <view class="u-yellow-line"></view>
                 </view>
                 <view class="u-time-txt">今天</view>
+                <image class="u-btn-arrow-bottom u-time-arrow" src="../images/public/icon_arrow_bottom.png"></image>
             </view>
             <view class="u-user-hour">
                 <view class="u-time-title">使用时段</view>
-                <view class="u-time-data">
+                <view class="u-no-time">
+                    请选择使用时间
+                </view>
+                
+                <!-- <view class="u-time-data">
                     <view class="u-date-txt">{{beginTime}}-{{endTime}}</view>
                     <view class="u-yellow-line"></view>
                 </view>
-                <view class="u-time-txt">{{hour}}小时</view>
+                <view class="u-time-txt">{{hour}}小时</view> -->
+                <image class="u-btn-arrow-bottom u-hour-arrow" src="../images/public/icon_arrow_bottom.png"></image>
             </view>
             <view class="u-line"></view>
         </view>
@@ -131,7 +137,7 @@
         <view class="u-message-txt">{{message}}</view>
     </view>
     <!-- 时间选择 -->
-    <view class="u-dialog" wx:if="{{!dialogTimeShow}}">
+    <view class="u-dialog" wx:if="{{dialogTimeShow}}">
         <view class="u-dialog-time">
             <view class="top">
                 <view class="first-row">使用日期</view>
