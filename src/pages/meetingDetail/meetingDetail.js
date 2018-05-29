@@ -51,7 +51,7 @@ Page({
     this.createQrCode('fdfd',"mycanvas",150,150);
     //数据加载
      wx.request({
-      url:app.globalData.KrUrl+"/api/gateway/krmting/invitee/detail",
+      url:app.globalData.KrUrl+"api/gateway/krmting/invitee/detail",
       methods:"GET",
       header:{
         "content-type":"application/json"
