@@ -28,14 +28,20 @@
 	  		</div>
 	  		<div class="button-box">
 	  			<view class="time-section">
-	  				<image class="time-img" src="../images/indexImg/dizhi2.png" mode="aspectFill"></image>
-	  				
+	  				<image class="time-img" src="../images/public/clock_icon.png"></image>
 	  				<span class="time-name">剩余时间：</span>
-	  				<span class="time-down">5:00</span>
+		            <view class="time-down">{{minute}}:</view>
+		            <view class="time-down">{{second}}</view>
 	  			</view>
-	  			<view class="button">立即支付</view>
-	  		</div>
+  				<view class="button">立即支付</view>
+			</div>
   		</div>
+
+  		
+
+
+
+
   		<div wx:if="{{item.orderShowStatus != 1}}" class="box">
 	  		<view class="left">
 	  			<image class="order-img" src="../images/indexImg/dizhi2.png" mode="aspectFill"></image>

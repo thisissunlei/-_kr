@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/myOrder/myOrder",
     "pages/logs/logs",
     "pages/index/index",
     "pages/meetingStatus/meetingStatus",
@@ -15,7 +16,6 @@
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",
-    "pages/myOrder/myOrder",
     "pages/bindPhone/bindPhone"
   ],
   "window":{

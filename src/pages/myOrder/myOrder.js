@@ -1,4 +1,5 @@
 
+import * as CAlculagraph from '../../utils/time.js';
 
 const app = getApp()
 Page({
@@ -85,6 +86,7 @@ Page({
   },
   getData:function(type){
     let that = this;
+    this.startcountDate()
     wx.request({
         url:app.globalData.KrUrl+'/api/gateway/krmting/order/list',
         methods:"GET",
@@ -95,7 +97,7 @@ Page({
           orderShowStatus:type
         },
         success:(res)=>{
-          cosole.log(res)
+          console.log(res)
           // that.setData({
           //   orderList:res.data
           // })

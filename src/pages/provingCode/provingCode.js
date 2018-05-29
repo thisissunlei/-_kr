@@ -59,7 +59,7 @@ Page({
   formSubmit(e){
     let that = this;
       wx.request({
-        url:'/api/gateway/krmting/bind/phone',
+        url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
         methods:"GET",
         header:{
           'content-type':"appication/json"
