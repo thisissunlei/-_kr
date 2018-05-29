@@ -6,24 +6,24 @@ const app = getApp()
 
 Page({
   data: {
-    conferee:[
+    inviteer:[
       {
-        'name':'刘佳佳'
+        'wechatNick':'刘佳佳'
       },
       {
-        'name':'molly'
+        'wechatNick':'molly'
       },
       {
-        'name':'谭烨'
+        'wechatNick':'谭烨'
       },
       {
-        'name':'沈美美'
+        'wechatNick':'沈美美'
       },
       {
-        'name':'段郝耀'
+        'wechatNick':'段郝耀'
       },
       {
-        'name':'蒋萌'
+        'wechatNick':'蒋萌'
       }
     ],
     hint:[
@@ -37,15 +37,40 @@ Page({
       },
     ]
   },
+  // inviteeId:inviteeId,
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
+
   onLoad: function (options) {
-    console.log('options',options)
-    this.createQrCode('fdfd',"mycanvas",100,200);
+    console.log(options)
+    var inviteeId = options.inviteeId
+    this.createQrCode('fdfd',"mycanvas",150,150);
+    //数据加载
+     wx.request({
+      url:app.globalData.KrUrl+"/api/gateway/krmting/invitee/detail",
+      methods:"GET",
+      header:{
+        "content-type":"application/json"
+      },
+      data:{
+        inviteeId:inviteeId
+      },
+      success:(res)=>{
+        console.log(res,"会议详情")
+        this.setData({
+          meetingTime:res.data.meetingTime,
+          themeName:res.data.themeName,
+          meetingRoomName:res.data.meetingRoomName,
+          address:res.data.address,
+          inviteer:res.data.inviteer,
+          limitCount:res.data.limitCount
+        })
+      }
+    })
   },
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片

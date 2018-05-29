@@ -106,7 +106,14 @@
                 查看会议
             </view>
             <button class="u-my-contact-btn" open-type="contact">联系客服</button>
-           
+        </view>
+        <view class="u-count-down">
+            <image class="u-time-icon" src="../images/public/clock_icon.png"></image>
+            <view class="u-count-time-txt">剩余时间</view>
+            <view class="u-count-time">
+                <view class="u-count-minute">{{minute}}:</view>
+                <view class="u-count-second">{{second}}</view>
+            </view>
         </view>
     </view>
 
@@ -114,8 +121,3 @@
 </view>
 <!--计时器-->
 
-<!-- <view>
-            
-  <text>{{minute}}</text>
-  <text>{{second}}</text>
-</view> -->
