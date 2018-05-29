@@ -9,7 +9,7 @@ Page({
     minute:'',
     second:'',
     detailInfo:{
-      orderShowStatus:'2',
+      orderShowStatus:'1',
       first:1
     },
     payTitle:''
@@ -62,7 +62,7 @@ Page({
   getDetailInfo:function(orderId){
 
     let data={
-      orderShowStatus:3
+      orderShowStatus:1
     }
     let titleObj={
       '1':'待支付订单',
