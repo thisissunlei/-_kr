@@ -338,7 +338,7 @@ Page({
   },
 
   reserve:function(e) {
-    var indexParam = e.currentTarget.dataset.rangeTime;
+    var rangeTime = e.currentTarget.dataset.rangetime;
     wx.setStorageSync('rangeTime',rangeTime);
   },
 
