@@ -2,7 +2,7 @@ dist
 dist/pages
 npm-debug.log
 npm-debug.log.*
-
+dist/project.config.json
 *.DS_STORE
 
 *.DS_Store
