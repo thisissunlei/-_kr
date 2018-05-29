@@ -90,7 +90,7 @@ Page({
               success() {
                 console.log(res,'2223333')
                   // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-                  // wx.startRecord()
+                  // wx.getUserInfo()
               }
           })
         }
@@ -133,7 +133,7 @@ Page({
   //点击会议card
   moveToMeetingDetail:function(e){
     console.log(e)
-    var inviteeId = e.currentTarget.dataset.inviteeId
+    var inviteeId = e.currentTarget.dataset.id
     wx.navigateTo({
       url:"../meetingDetail/meetingDetail?inviteeId="+inviteeId
     })
@@ -141,9 +141,15 @@ Page({
   //点击会议室进入会议室列表
   moveToMeetingRoom:function(e){
     console.log(e)
-    var communityId = e.currentTarget.dataset.communityId
+    var communityId = e.currentTarget.dataset.id
     wx.navigateTo({
       url:"../boardroomList/boardroomList?communityId="+communityId
+    })
+  },
+  //
+  moveToMy:function(){
+    wx.navigateTo({
+      url:"../my/my"
     })
   }
 })
