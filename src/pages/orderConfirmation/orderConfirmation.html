@@ -17,7 +17,7 @@
                     </view>
                 </view>
                 <view class="u-btn-arrow u-head-arrow">
-                    <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+                    <image mode="scaleToFill" class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
                 </view>
             </view>
         </view>
@@ -169,23 +169,48 @@
                         <view class="item">12:00</view>
                     </view>
                     <view class="square">
-                        <view class="item check"></view>
-                        <view class="item check"></view>
-                        <view class="item check"></view>
-                        <view class="item check"></view>
-                        <view class="item check"></view>
-                        <view class="item check"></view>
-                        <view class="item check"></view>
-                        <view class="item check"></view>
+                        <view wx:key="*this" data-index="{{item.number}}" bindtap="tapTime" wx:for="{{rangeTime1}}"  class="item {{item.disabled?'uncheck':'check'}} {{item.actived?'checked':''}}">
+                            <image wx:if="{{item.actived}}" class="actived-icon" src="../images/orderconfirmationImg/checked.png"></image>
+                        </view>                        
+                    </view>
+                </view>
+                <view class="row">
+                    <view class="time">
+                        <view class="item">13:00</view>
+                        <view class="item">14:00</view>
+                        <view class="item">15:00</view>
+                        <view class="item">16:00</view>
+                    </view>
+                    <view class="square">
+                        <view wx:key="*this" data-index="{{item.number}}" bindtap="tapTime" wx:for="{{rangeTime2}}"  class="item {{item.disabled?'uncheck':'check'}} {{item.actived?'checked':''}}">
+                            <image wx:if="{{item.actived}}" class="actived-icon" src="../images/orderconfirmationImg/checked.png"></image>
+                        </view>                        
+                    </view>
+                </view>
+                <view class="row">
+                    <view class="time">
+                        <view class="item">17:00</view>
+                        <view class="item">18:00</view>
+                    </view>
+                    <view class="square">
+                        <view wx:key="*this" data-index="{{item.number}}" bindtap="tapTime" wx:for="{{rangeTime3}}"  class="item {{item.disabled?'uncheck':'check'}} {{item.actived?'checked':''}}">
+                            <image wx:if="{{item.actived}}" class="actived-icon" src="../images/orderconfirmationImg/checked.png">
+                                
+                            </image>
+                        </view>
+                        
                     </view>
                 </view>
             </view>
-            <view class="tag">
+            <view wx:if="{{!selectedTime.length>0}}" class="tag">
                 <view class="check">可选</view>
                 <view class="uncheck">不可选</view>
                 <view class="checked">已选</view>
             </view>
-            <view class="unsure">选择使用时间</view>
+            <view wx:if="{{selectedTime.length>0}}" class="show-time">
+                
+            </view>
+            <view class="{{selectedTime.length>0?'sured':'unsure'}}">选择使用时间</view>
         </view>
     </view>
 </view> 
