@@ -111,6 +111,14 @@ Page({
       id: 44,
       name: '日本'
     }],
+    indicatorDots: true,
+    autoplay: false,
+    duration: 1000,
+    imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
   },
 
   //获取会议室列表

@@ -6,13 +6,29 @@
 		<span class="phone-again" wx:if="{{time}}">{{time}}s</span>
 	</view>	
 	<view class="input-box">
-		<view class="phone-box">
-			<input name="meeting" type="number" placeholder="请输入验证码"  bindinput="bindKeyInput"  value="{{inputValues}}" class="input-style" placeholder-style="color:#CCC;font-size:32rpx"/>
-		</view>
-		<view class="cancel-view" wx:if="{{inputValue.length}}">
-			<image bindtap="clearValue" class="cancel" src="../images/public/cancle.png" background-size="cover"></image>
-		</view>
+			<input name="meeting" type="number" placeholder="请输入验证码"  bindinput="bindKeyInput" auto-focus="true" value="{{inputValue}}" class="input-style" maxlength="4"/>
 	</view>
+		<view class="prove-list">
+			<view class="coding">
+				{{code.value1}}
+				<span class="line" wx:if="{{inputValue.length==0}}"></span>
+			</view>
+			<view class="{{code.value1?'coding':'code'}}">
+				{{code.value2}}
+				<span class="line" wx:if="{{inputValue.length==1}}"></span>
+
+			</view>
+			<view class="{{code.value2?'coding':'code'}}">
+				{{code.value3}}
+				<span class="line" wx:if="{{inputValue.length==2}}"></span>
+
+			</view>
+			<view class="{{code.value3?'coding':'code'}}">
+				{{code.value4}}
+				<span class="line" wx:if="{{inputValue.length==3}}"></span>
+
+			</view>
+		</view>
 	<view class="btn-box">
 		<div class="disabled" wx:if="{{!inputValue.length}}">立即绑定</div>
 		<div class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">立即绑定</div>
