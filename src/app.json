@@ -1,10 +1,11 @@
 {
   "pages":[
-    "pages/provingCode/provingCode",
-    
     "pages/logs/logs",
+    "pages/meetingTheme/meetingTheme",
+    
     "pages/orderDetail/orderDetail",
     "pages/index/index",
+    "pages/provingCode/provingCode",
     "pages/myOrder/myOrder",
     "pages/meetingStatus/meetingStatus",
     "pages/meetingDetail/meetingDetail",
@@ -13,7 +14,6 @@
     "pages/my/my",
     "pages/orderConfirmation/orderConfirmation",
 
-    "pages/meetingTheme/meetingTheme",
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",

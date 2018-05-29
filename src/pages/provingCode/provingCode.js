@@ -19,14 +19,23 @@ Page({
       value2:'',
       value3:'',
       value4:''
-    }
+    },
+    user_info:{}
     
   },
   onLoad: function (options) {
     let that = this;
-    
+     wx.getStorage({
+      key: 'user_info',
+      success: function(res) {
+        console.log('--------',res.data)
+        if(res.data){
+          that.user_info = res.data.user_info || {};
+        }
+        }
+      })
     this.setData({
-      phone: options.phone || '',
+      phone: options.phone || '110',
       time:60
     })
     this.countDown()
@@ -70,6 +79,7 @@ Page({
   },
   formSubmit(e){
     let that = this;
+
       wx.request({
         url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
         methods:"GET",
@@ -81,7 +91,15 @@ Page({
           "phone":that.data.phone
         },
         success:(res)=>{
-          cosole.log(res)
+          console.log(that.user_info)
+          that.user_info={
+            phone : that.data.phone
+          }
+          wx.setStorage({
+            key:"user_info",
+            data:that.user_info
+          })
+          console.log(res)
         },
         fail:(res)=>{
           that.setData({
