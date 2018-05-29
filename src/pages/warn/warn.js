@@ -9,24 +9,32 @@ Page({
   data: {
     activeTab:'NOALERT',
     item:'item',
-    active:'active item'
+    active:'active item',
   },
+  button_boolean:true,
   onLoad: function (options) {
     this.setData({
       activeTab: options.value || 'NOALERT'
     })
   },
-  checkWarn(e){;
+  checkWarn(e){
     let that = this;
-    var target = e.target.dataset;
-    console.log(target,'checkWarn',target.code)
-    this.setData({
-      activeTab:target.code
-    })
-    setTimeout(function(){
-      wx.navigateTo({
-        url: '../logs/logs?warn='+that.data.activeTab
-      });
-    },500)
+    if(this.button_boolean){
+      this.button_boolean = false;
+      let that = this;
+      var target = e.target.dataset;
+      console.log(target,'checkWarn',target.code)
+      this.setData({
+        activeTab:target.code
+      })
+      setTimeout(function(){
+        wx.navigateTo({
+          url: '../logs/logs?warn='+that.data.activeTab
+        });
+        that.button_boolean = true;
+      },500)
+    }
+
+    
   }
 })
