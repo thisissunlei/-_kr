@@ -220,7 +220,7 @@ Page({
     var totalDay=this.getMonthDays(year,month+1);
     var todayWeek = today.getDay();
     var topDate = [];
-    for(let i=0;i<6;i++){
+    for(let i=0;i<30;i++){
       var dateItem = {
         week:'',
         day:'',
@@ -235,6 +235,11 @@ Page({
         dateItem.week = this.getWeek(todayWeek+i);
       }
       dateItem.day = this.getDay(day+i,totalDay);
+      if((todayWeek+i)%7==0||(todayWeek+i)%7==6){
+        dateItem.class_bool = 'btn_no';
+        dateItem.bool = 'false';
+      }
+
       topDate.push(dateItem);
     }
     // var _this = this;
