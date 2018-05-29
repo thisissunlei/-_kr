@@ -70,12 +70,9 @@ Page({
   submitPhone:function(){
     let that = this;
     //接口待定
-    wx.request({
+    app.getRequest({
         url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
         methods:"GET",
-        header:{
-          'content-type':"appication/json"
-        },
         data:{
           "code":that.data.inputValue,
           "phone":that.data.phone

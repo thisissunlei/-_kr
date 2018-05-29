@@ -194,5 +194,45 @@ Page({
     wx.navigateTo({
       url:"../my/my"
     })
+  },
+  jumpSubmit(e){
+    var target = e.target.dataset;
+    var type = target.type;
+    console.log(target,'checkWarn',target.type)
+    let url = ''
+    switch (type){
+      case 'telephone':
+        url = "../phone/phone?type=submit&value=120"
+        break;
+      case 'warn':
+        url = "../warn/warn?type=submit&value=NOALERT"
+        break;
+      default:
+        url = "../meetingTheme/meetingTheme?type=submit&value=会议"
+        break;
+    } 
+    wx.navigateTo({
+      url: url
+    });
+  },
+  jumpStorage(e){
+    var target = e.target.dataset;
+    var type = target.type;
+    console.log(target,'checkWarn',target.type)
+    let url = ''
+    switch (type){
+      case 'telephone':
+        url = "../phone/phone?type=storage"
+        break;
+      case 'warn':
+        url = "../warn/warn?type=storage"
+        break;
+      default:
+        url = "../meetingTheme/meetingTheme?type=storage"
+        break;
+    } 
+    wx.navigateTo({
+      url: url
+    });
   }
 })

@@ -1,10 +1,11 @@
 {
   "pages":[
+    "pages/index/index",
+    
     "pages/logs/logs",
     "pages/meetingTheme/meetingTheme",
     
     "pages/orderDetail/orderDetail",
-    "pages/index/index",
     "pages/provingCode/provingCode",
     "pages/myOrder/myOrder",
     "pages/meetingStatus/meetingStatus",
