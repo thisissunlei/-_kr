@@ -26,12 +26,10 @@ Page({
     })
   },
   dateBtn :function(e){
-    console.log(this.last_btn_num)
     
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       const new_data = this.data[e.target.dataset.data];
       var old_data = [];
-
       if(this.last_data!='false'){
         if(this.last_data=='date_data1'){
           old_data = this.data['date_data1'];
@@ -46,12 +44,8 @@ Page({
             date_data2:old_data
           });
         }
-      }
-      console.log(this.last_data)
-      
-      console.log(new_data[parseInt(e.target.dataset.num)])
+      }     
       new_data[parseInt(e.target.dataset.num)]['type'] = 'active ' + new_data[parseInt(e.target.dataset.num)]['type'];
-      console.log(e.target.dataset.data)
       if(e.target.dataset.data=='date_data2'){
         this.setData({
           date_data2:new_data,         
@@ -62,7 +56,11 @@ Page({
         });
       }
       this.last_btn_num = e.target.dataset.num;
-      this.last_data = e.target.dataset.data;   
+      this.last_data = e.target.dataset.data;  
+      console.log(e.target.dataset)
+
+
+
     }
   },
   dealDate:function(today_month,bool){
@@ -124,7 +122,6 @@ Page({
           this.all_day_num++;
           break;
         case i<(30-this.all_day_num+week)&&!bool:
-          console.log(i,8888,i-week+1)
           if(i%7==0||i%7==6){
             data.push({
               value:i-week+1,
@@ -158,7 +155,6 @@ Page({
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
     const date1 = this.dealDate(today_month,true);
     const date2 = this.dealDate(next_month,false); 
-    console.log(date1)
     this.setData({
       date_data1:date1,
       date_data2:date2,

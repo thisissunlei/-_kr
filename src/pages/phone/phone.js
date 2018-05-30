@@ -53,7 +53,7 @@ Page({
     let type = this.data.type;
     let order_pay = this.data.order_pay;
     if(type=='storage'){
-      order_pay.phone = this.data.inputValue;
+      order_pay.linkPhone = this.data.inputValue;
       wx.setStorage({
         key:"order_pay",
         data:order_pay,
@@ -133,7 +133,7 @@ Page({
           if(res.data){
             console.log('order_pay')
             that.setData({
-              inputValue: res.data.phone || '',
+              inputValue: res.data.linkPhone|| '',
               type:type,
               order_pay:res.data
             })

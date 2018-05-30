@@ -8,14 +8,17 @@ Page({
     dialogDate:false,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'06F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',promotionCost:'22',disableTime:['21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['1','12','13','14','15']},{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',disableTime:['4','11','16','19','20']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['21','32','23','14','15']}],
+    boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'06F',meetingRoomId:1,device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',promotionCost:'22',disableTime:['21','24','25','26','27','30','37','38','39','40']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['1','12','13','14','15']},{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',disableTime:['4','11','16','19','20']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['21','32','23','14','15']}],
     topDate:[],
     page:1,
     nextPage:2,
     pageSize:10,
     totalPages:1,
     communityId:'1',
+    dateScrollLeft:0,
     nowDate:'',
+    meetDetailShow:false,
+    meetingRoomId:'',
     rangeTime:[{
       disabled:false,
       number:'19'
@@ -113,7 +116,7 @@ Page({
       id: 44,
       name: '日本'
     }],
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: false,
     duration: 1000,
     currentNum:1,
@@ -122,6 +125,34 @@ Page({
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
     ],
+    meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
+
+
+    // 日历相关
+    array: [{
+      message: 'foo',
+    }, {
+      message: 'bar'
+    }],
+    date_data1:[],
+    date_data2:[],
+    date_now:{month:'',year:'',value:''},
+    date_next:{month:'',year:'',value:''},
+    
+  },
+  
+  openMeetDetail:function(e){
+    let id=e.currentTarget.dataset.item.meetingRoomId;
+    this.setData({
+      meetingRoomId:id,
+      meetDetailShow:!this.data.meetDetailShow
+    })
+  },
+  closeMeetDetail:function(){
+      this.setData({
+        meetingRoomId:'',
+        meetDetailShow:!this.data.meetDetailShow
+      })
   },
   currentChange:function(e){
     if(e.detail.source=="touch"){
@@ -147,10 +178,13 @@ Page({
           that.setData({
             totalPages:res.data.data.totalPages,
             boardroomList:res.data.data.items
+          },function(){
+            that.reloadData();
           })
         }
       })
   },
+
 
   //切换日期后重载数据
   reloadData:function(){
@@ -266,7 +300,7 @@ Page({
       topDate:topDate,
       nowDate:topDate[0].date,
     },function(){
-      that.getData();
+      // that.getData();
       wx.setStorageSync('nowDate',topDate[0].date);
     })
   },
@@ -352,25 +386,196 @@ Page({
 
   reserve:function(e) {
     var rangeTime = e.currentTarget.dataset.rangetime;
+    var detail = e.currentTarget.dataset.detail;
     wx.setStorageSync('rangeTime',rangeTime);
+    wx.setStorageSync('detail',detail);
+    wx.navigateTo({
+      url: '/pages/orderConfirmation/orderConfirmation'
+    })
   },
 
   toBottom: function(e) {
     this.loadNext();
   },
 
+  // 日历相关
+  all_day_num:0,
+  last_btn_num:'false',
+  last_data:'false',
+  dateBtn :function(e){
+    
+    if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
+      const new_data = this.data[e.target.dataset.data];
+      var old_data = [];
+      if(this.last_data!='false'){
+        if(this.last_data=='date_data1'){
+          old_data = this.data['date_data1'];
+          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
+          this.setData({
+            date_data1:old_data
+          });
+        }else if(this.last_data=='date_data2'){
+          old_data = this.data['date_data2'];
+          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
+          this.setData({            
+            date_data2:old_data
+          });
+        }
+      }     
+      new_data[parseInt(e.target.dataset.num)]['type'] = 'active ' + new_data[parseInt(e.target.dataset.num)]['type'];
+      if(e.target.dataset.data=='date_data2'){
+        this.setData({
+          date_data2:new_data,         
+        });
+      }else if(e.target.dataset.data=='date_data1'){
+        this.setData({
+          date_data1:new_data,        
+        });
+      }
+      this.last_btn_num = e.target.dataset.num;
+      this.last_data = e.target.dataset.data; 
+      var timeData =   e.target.dataset;
+      var that = this;
+      this.setData({
+        nowDate:`${timeData.year}-${timeData.month}-${timeData.value}`,
+        dateScrollLeft:100,
+      },function(){
+        wx.setStorageSync('nowDate',that.data.nowDate);
+        that.closeDialogDate();
+      })
+
+
+    }
+  },
+  closeDialogDate:function(){
+    let that = this;
+    that.setData({
+      dialogDate:!that.data.dialogDate
+    })
+  },
+  dealDate:function(today_month,bool){
+    const week = today_month.getDay();
+    const today = parseInt(new Date().getDate());
+    today_month.setMonth(today_month.getMonth() + 1);
+    today_month.setDate(0);
+    const day_num = today_month.getDate()+week;
+    const data = [];
+    for (var i = 0; i < day_num; i++) {
+      switch (true){
+        case i<week:
+          data.push({
+            value:''
+          });
+          break;
+        case i>(today+week)&&bool:
+          if(i%7==0||i%7==6){
+            data.push({
+              value:i-week+1,
+              type:'before'
+            });
+          }else{
+            data.push({
+              value:i-week+1,
+              type:'next'
+            });
+          }
+          
+          this.all_day_num++;
+          break;
+        case i==(today+week-1)&&bool:
+          if(i%7==0||i%7==6){
+            data.push({
+              value:'今天',
+              type:'before'
+            });
+          }else{
+            data.push({
+              value:'今天',
+              type:'now'
+            });
+          }
+          this.all_day_num++;
+          break;
+        case i==(today+week)&&bool:
+          if(i%7==0||i%7==6){
+            data.push({
+              value:'明天',
+              type:'before'
+            });
+          }else{
+            data.push({
+              value:'明天',
+              type:'now'
+            });
+          }
+          
+          this.all_day_num++;
+          break;
+        case i<(30-this.all_day_num+week)&&!bool:
+          if(i%7==0||i%7==6){
+            data.push({
+              value:i-week+1,
+              type:'before'
+            });
+          }else{
+            data.push({
+              value:i-week+1,
+              type:'next'
+            });
+          }
+  
+          break;
+        default:
+          data.push({
+            value:i-week+1,
+            type:'before'
+          });
+          //this.all_day_num++;
+        }
+      }
+    return data;
+    
+  },
+
   onLoad:function(options){
     // console.log("option>>>",options);
-    // if(options.communityId){
-    //   this.setData({
-    //     communityId:options.communityId
-    //   })
-    // } 
+    if(options.communityId){
+      this.setData({
+        communityId:options.communityId
+      })
+    } 
+
+
+    //日历相关
+    const today_date = new Date();
+    
+    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
+    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
+    const date1 = this.dealDate(today_month,true);
+    const date2 = this.dealDate(next_month,false); 
+    this.setData({
+      date_data1:date1,
+      date_data2:date2,
+      date_now:{
+        month:today_date.getMonth()+1,
+        year:today_date.getFullYear(),
+        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',
+        choose:''
+      },
+      date_next:{
+        month:today_date.getMonth()+2,
+        year:today_date.getFullYear(),
+        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
+        choose:''
+      }
+    });
+
   },
 
   onReady: function () {
     var that = this;
     this.getTopDate();
+    this.reloadData();
   },
 })
 
