@@ -27,12 +27,13 @@ Page({
   },
 
   onLoad: function (options) {
-    console.log(options)
+    console.log(options,"options")
     var inviteeId = options.inviteeId
     this.createQrCode('fdfd',"mycanvas",160,160);
     //数据加载
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+    wx.request({
+      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"
@@ -43,13 +44,13 @@ Page({
       success:(res)=>{
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data.meetingTime,
-          themeName:res.data.themeName,
-          meetingRoomName:res.data.meetingRoomName,
-          address:res.data.address,
-          inviteer:res.data.inviteer,
-          limitCount:res.data.limitCount,
-          status:res.data.status
+          meetingTime:res.data.data.meetingTime,
+          themeName:res.data.data.themeName,
+          meetingRoomName:res.data.data.meetingRoomName,
+          address:res.data.data.address,
+          inviteer:res.data.data.inviteer,
+          limitCount:res.data.data.limitCount,
+          status:res.data.data.status
         })
       }
     })
@@ -67,7 +68,7 @@ Page({
     }
     return {
       title: '戳我一键参会！邀请您于“{{this.data.meetingTime}}在"{{this.data.meetingRoomName}}"参加“{{this.data.themeName}}””',
-      path: '/meetingDetail/meetingDetail?inviteeId=',
+      path: '/meetingDetail/meetingDetail?inviteeId='+inviteeId,
       
     }
   }

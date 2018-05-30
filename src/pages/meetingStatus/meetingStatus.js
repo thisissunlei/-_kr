@@ -77,6 +77,11 @@ Page({
         })
       },
     })
+  },
+  //点击我要预定
+  proceed:function(){
+    wx.redirectTo({
+      url:"../index/index"
+    })
   }
-  
 })

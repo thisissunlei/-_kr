@@ -20,7 +20,7 @@
   
   </view>
   <view style="margin-top:-291rpx;">
-    <view class="metting" wx:if="{{metting}}">
+    <view class="metting" wx:if="{{metting.length>0}}">
       <swiper interval="{{interval}}" previous-margin="20rpx" next-margin="20rpx"> 
         <block wx:for="{{myMeeting}}">
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
@@ -70,12 +70,12 @@
           <image src="{{item.buildImgUrl}}"></image>
         </view>
         <view class='cmty_con'>
-          <view class='cmty_title'>{{item.buildName}}海航实业大厦</view>
+          <view class='cmty_title'>{{item.buildName}}</view>
           <view class='location'>
-            <text class='lct_con'>{{item.buildAddress}}北京市朝阳区建国路108号</text>
-            <text class='lct_distance'>{{item.distance}}200m</text>
+            <text class='lct_con'>{{item.buildAddress}}</text>
+            <text class='lct_distance'>{{item.distance}}m</text>
           </view>
-          <view class='room_num'>{{item.meetingCount}}22 个可用会议室</view>
+          <view class='room_num'>{{item.meetingCount}}个可用会议室</view>
           <view class='price'wx:if="{{item.promotionDesor?true:false}}">{{item.promotionDesor}}</view>
         </view>
       </view>
