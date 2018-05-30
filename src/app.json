@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+
     "pages/orderConfirmation/orderConfirmation",
     "pages/paySuccess/paySuccess",
     "pages/meetingDetail/meetingDetail",
@@ -9,6 +10,7 @@
     
 
     
+
     "pages/logs/logs",
     "pages/meetingTheme/meetingTheme",
     

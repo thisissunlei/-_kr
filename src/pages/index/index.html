@@ -26,7 +26,7 @@
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
             <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
             <view style="position: absolute;top: 0;left: 0;">
-                <view class="metting-mark">待入场</view>
+                <view class="metting-mark {{item.status === 0?'wait':item.status === 1?'already':'overdue'}}">{{item.status === 0?'待入场':item.status === 1?'已入场':'已过期'}}</view>
                 <view class="metting-title"> 
                     <text class="metting-time">11-29(周三)9:00-10:30</text>
                     <text class="metting-name">产品技术部例会</text>
@@ -61,22 +61,22 @@
     </view>
   </view>
   
-  
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
+
     <view class='rm_title'>周边会议室</view>
     <view class="community-wrapper" data-id="{{item.id}}" bindtap="moveToMeetingRoom">
       <view class='community' wx:for="{{buildingList}}">
         <view class='community_pic'>
-          <image src="{{buildImgUrl}}"></image>
+          <image src="{{item.buildImgUrl}}"></image>
         </view>
         <view class='cmty_con'>
-          <view class='cmty_title'>{{buildName}}海航实业大厦</view>
+          <view class='cmty_title'>{{item.buildName}}海航实业大厦</view>
           <view class='location'>
-            <text class='lct_con'>{{buildAddress}}北京市朝阳区建国路108号</text>
-            <text class='lct_distance'>{{distance}}200m</text>
+            <text class='lct_con'>{{item.buildAddress}}北京市朝阳区建国路108号</text>
+            <text class='lct_distance'>{{item.distance}}200m</text>
           </view>
-          <view class='room_num'>{{meetingCount}}22 个可用会议室</view>
-          <view class='price' wx:if="{{promotionDescr}}">{{promotionDescr}}限时7折优惠</view>
+          <view class='room_num'>{{item.meetingCount}}22 个可用会议室</view>
+          <view class='price'wx:if="{{item.promotionDesor?true:false}}">{{item.promotionDesor}}</view>
         </view>
       </view>
     </view>
@@ -84,7 +84,7 @@
   </view>
 
   <view class="more">
-    <image src="../images/indexImg/more.jpg"></image>
+    <image src="../images/indexImg/more.png"></image>
   </view>
   
 </view>

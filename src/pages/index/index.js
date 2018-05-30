@@ -16,6 +16,8 @@ Page({
   },
   func_bool_g:false,
   func_bool_l:false,
+  func_bool_l2:false,
+  func_bool_s:false,
   //获取地理位置
   getLocation:function(){
     var _this = this
@@ -41,13 +43,10 @@ Page({
           _this.func_bool_l = false;
           _this.getAllInfo();
         }
-       // _this.getAllInfo();
       }
     })
   },
   onLoad: function () {
-    
-
     const that = this;
     this.getLocation();
     //页面加载
@@ -62,11 +61,17 @@ Page({
             },
             success:function(res){
               that.func_bool_l = true;
+              that.func_bool_l2 = true;
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
               if(that.func_bool_g&&that.func_bool_l){
                 that.func_bool_g = false;
                 that.func_bool_l = false;
                 that.getAllInfo();
+              }
+              if(that.func_bool_l2&&that.func_bool_s){
+                that.func_bool_s = false;
+                that.func_bool_l2 = false;
+                that.getInfo();
               }
             }
           })
@@ -75,30 +80,30 @@ Page({
         }
       }
 
-    })
-   /* wx.request({
-      url:'https://www.easy-mock.com/mock/5b0958295c37757453191ee5/kr/home',
-      methods:"GET",
-      header:{
-        'content-type':"appication/json"
-      },
-      data:{
-        latitude:this.latitude,
-        longitude:this.longitude
-      },
-      success:(res)=>{
-        this.setData({
-          buildingList:res.data.buildingList,
-          myMeeting:res.data.myMeeting
-        })
-        if(res.data.myMeeting.length>0){
-          this.setData({
-            metting:true
+    }),
+  //  wx.request({
+  //     url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/home',
+  //     methods:"GET",
+  //     header:{
+  //       'content-type':"appication/json"
+  //     },
+  //     data:{
+  //       latitude:this.rq_data.latitude,
+  //       longitude:this.rq_data.longitude
+  //     },
+  //     success:(res)=>{
+  //       this.setData({
+  //         buildingList:res.data.buildingList,
+  //         myMeeting:res.data.myMeeting
+  //       })
+  //       if(res.data.myMeeting.length>0){
+  //         this.setData({
+  //           metting:true
 
-          })
-        }
-      }
-    })*/
+  //         })
+  //       }
+  //     }
+  //   })
     
     //查看是否授权
     wx.getSetting({
@@ -116,28 +121,20 @@ Page({
               }
           })*/
         }else{
-          console.log(7366363782)
-          that.getInfo();
+          that.func_bool_s = true;
+          if(that.func_bool_s&&that.func_bool_l2){
+            that.func_bool_s = false;
+            that.func_bool_l2 = false;
+
+            that.getInfo();
+          }
+          
           that.setData({
             btn_bool:false
           });
-          //that.getLocation();
         }
       }
     })
-    //获取用户信息
-    
-    //传信息给后台
-    // wx.request({
-    //   url:'http://itest01.krspace.cn/api/gateway/krmting/user/save',
-    //   methods:"POST",
-    //   header:{
-    //     'content-type':"appication/json"
-    //   },
-    //   data:{
-        
-    //   },
-    // })
     
   },
   getAllInfo:function (){
@@ -166,10 +163,11 @@ Page({
   },
   //获取用户信息
   getInfo:function(){
+    console.log(666666)
     var that = this;
     wx.getUserInfo({
       success: function(res) {
-        console.log(res.userInfo,888888)   
+        console.log(res,888888)   
         that.setData({
           avatarUrl: res.userInfo.avatarUrl,
         })
@@ -179,7 +177,19 @@ Page({
           data: {
             user_info:res.userInfo
           },
-        })
+        });
+        app.getRequest({
+          url:app.globalData.KrUrl+'api/gateway/krmting/user/save',
+          
+          data:{
+            encryptedData:res.encryptedData,
+            iv:res.iv
+          },
+          success:(res)=>{
+            console.log(res,5555888888881111)
+            
+          }
+        });
       }
     })
   },

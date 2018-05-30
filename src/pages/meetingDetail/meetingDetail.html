@@ -1,22 +1,23 @@
 <!--meetingDetail.wxml-->
 <view class='wrapper'>
     <view class='top'>
-      <image src="../images/indexImg/card.png" style="width:710rpx;height:900rpx;position: relative;"></image>
+      <image src="../images/indexImg/card.png" class="top-banner"></image>
+      <image src="../images/indexImg/overdue.png" class="overdue"></image>
       <view style="width:710rpx;height:900rpx;position: absolute;top: 0;left: 20rpx">
         <view class='title'>
           <text class='h1'>{{meetingTime}}11-29 (周三）9:00-10:30</text>
           <text>{{themeName}}产品技术部例会</text>
         </view>
         <view class='pics'>
-          <image src="../images/indexImg/code.png" style="width: 352rpx;height: 352rpx;position: relative;">
+          <image src="../images/indexImg/code.png" class="code-pic">
             <view class="img-box">
-                <canvas bindtap="previewImg" hidden="{{canvasHidden}}" style="width: 352rpx;height: 352rpx;" canvas-id="mycanvas"/>
-                <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
-              </view>
+              <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
+              <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
+            </view>
           </image>
-          
           <view class="code-desc">请入场时出示此二维码</view>
         </view>
+        
         <view class='bottom_text'>
           <text class="metting-house">{{meetingRoomName}}海航实业大厦9层(氪空间) | 水星会议室</text>
           <view class='icons'>
@@ -33,7 +34,7 @@
         <block wx:for="{{inviteer}}">
             <view class='list'>
                 <view class='pic'>
-                  <image src="{{item.wechatAvatar}}"></image>
+                  <!-- <image src="{{item.wechatAvatar}}"></image> -->
                 </view>
                 <text>{{item.wechatNick}}</text>
                 <image src="../images/indexImg/icon_faqiren.png" class="originator"></image>
@@ -54,10 +55,13 @@
       </block>
     </view>
   </view>
-  <view class='footer'>
+  <!-- <view class='footer'>
       <text>取消会议</text>
       <view class='btns'>
-        <button open-type="contact" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
+        <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
         <button open-type="share" style="border:none"><text class='yaoqing'>邀请参会人</text></button>
       </view>
+  </view> -->
+  <view class='footer overdue'>
+      <text>取消会议</text>
   </view>
