@@ -13,6 +13,8 @@ Page({
     phoneRange:'+86',
     phoneTest:true,
     phoneRepeat:true,
+    phoneError:true,
+    errorMessage:''
   },
   onLoad: function (options) {
     this.setData({
@@ -68,30 +70,38 @@ Page({
           phoneTest:true
         })
       },2000)
+      return;
     }
-    if(phoneTest){
-      wx.navigateTo({
-        url: '../provingCode/provingCode?phone='+this.data.inputValue
-      });
-    }
-    // if(this.data.phoneTest){
-    //   wx.request({
-    //     url:'api/gateway/krmting/home',
-    //     methods:"GET",
-    //     header:{
-    //       'content-type':"appication/json"
-    //     },
-    //     data:{
-    //       "atitude":"39.92",
-    //       "longitude":"116.46"
-    //     },
-    //     success:(res)=>{
-    //       cosole.log(res)
-    //     },
-    //     fail:(res)=>{
-    //        console.log('========',res)
-    //     }
-    //   })
-    // }
+
+      wx.request({
+        url:app.globalData.KrUrl+'/api/gateway/krmting/common/get-verify-code',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        data:{
+          "phone":that.data.inputValue
+        },
+        success:(res)=>{
+          wx.navigateTo({
+            url: '../provingCode/provingCode?phone='+that.data.inputValue
+          });
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
   },
 })
