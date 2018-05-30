@@ -13,7 +13,7 @@
   		<span class="status unpay" wx:if="{{item.orderShowStatus == 'OBLIGATION'}}">待支付</span>
 		<span class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已使用</span>
 		<span class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</span>
-		<span class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已关闭</span>
+		<span class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已取消</span>
 		<div wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box">
 			<div class="content-box">
 				<view class="left">
