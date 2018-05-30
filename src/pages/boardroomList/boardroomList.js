@@ -265,7 +265,7 @@ Page({
       nowDate:topDate[0].date,
     },function(){
       that.getData();
-      wx.setStorageSync('nowDate',date);
+      wx.setStorageSync('nowDate',topDate[0].date);
     })
   },
   selectTopDate:function(e){
