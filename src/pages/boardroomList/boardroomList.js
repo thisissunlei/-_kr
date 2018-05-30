@@ -8,7 +8,7 @@ Page({
     dialogDate:false,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'06F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',promotionCost:'22',disableTime:['21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['1','12','13','14','15']},{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',disableTime:['4','11','16','19','20']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['21','32','23','14','15']}],
+    boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'06F',meetingRoomId:1,device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',promotionCost:'22',disableTime:['21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['1','12','13','14','15']},{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',disableTime:['4','11','16','19','20']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['21','32','23','14','15']}],
     topDate:[],
     page:1,
     nextPage:2,
@@ -16,6 +16,8 @@ Page({
     totalPages:1,
     communityId:'1',
     nowDate:'',
+    meetDetailShow:false,
+    meetingRoomId:'',
     rangeTime:[{
       disabled:false,
       number:'19'
@@ -127,6 +129,19 @@ Page({
 
     
   },
+  openMeetDetail:function(e){
+    let id=e.currentTarget.dataset.item.meetingRoomId;
+    this.setData({
+      meetingRoomId:id,
+      meetDetailShow:!this.data.meetDetailShow
+    })
+  },
+  closeMeetDetail:function(){
+      this.setData({
+        meetingRoomId:'',
+        meetDetailShow:!this.data.meetDetailShow
+      })
+  },
   currentChange:function(e){
     if(e.detail.source=="touch"){
       this.setData({
@@ -155,6 +170,7 @@ Page({
         }
       })
   },
+
 
   //切换日期后重载数据
   reloadData:function(){
