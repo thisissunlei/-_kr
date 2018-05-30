@@ -73,19 +73,36 @@ Page({
       return;
     }
 
-      wx.request({
-        url:app.globalData.KrUrl+'/api/gateway/krmting/common/get-verify-code',
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
         methods:"GET",
-        header:{
-          'content-type':"appication/json"
-        },
         data:{
           "phone":that.data.inputValue
         },
         success:(res)=>{
+          console.log('success',res)
           wx.navigateTo({
             url: '../provingCode/provingCode?phone='+that.data.inputValue
           });
+          // if(res.data.code>0){
+          //   wx.navigateTo({
+          //     url: '../provingCode/provingCode?phone='+that.data.inputValue
+          //   });
+          // }else{
+          //   console.log('res.message',res.data.message)
+          //   that.setData({
+          //     phoneError:false,
+          //     errorMessage:res.data.message,
+          //   })
+          //   setTimeout(function(){
+          //     that.setData({
+          //       phoneError:true,
+          //       errorMessage:'',
+                
+          //     })
+          //   },2000)
+          // }
+          
         },
         fail:(res)=>{
 

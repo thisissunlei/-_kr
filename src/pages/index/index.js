@@ -234,5 +234,11 @@ Page({
     wx.navigateTo({
       url: url
     });
+  },
+  bindPhone(){
+    wx.navigateTo({
+      url: "../bindPhone/bindPhone"
+    });
   }
+
 })

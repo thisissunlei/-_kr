@@ -13,6 +13,8 @@ Page({
     phoneRange:'+86',
     phoneTest:true,
     phoneRepeat:true,
+    phoneError:true,
+    errorMessage:'',
     time:60,
     code:{
       value1:'',
@@ -80,7 +82,7 @@ Page({
   formSubmit(e){
     let that = this;
 
-      wx.request({
+      app.getRequest({
         url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
         methods:"GET",
         header:{
@@ -91,25 +93,47 @@ Page({
           "phone":that.data.phone
         },
         success:(res)=>{
-          console.log(that.user_info)
-          that.user_info={
-            phone : that.data.phone
+
+
+          if(res.data.code>0){
+            that.user_info={
+              phone : that.data.phone
+            }
+            wx.setStorage({
+              key:"user_info",
+              data:that.user_info,
+              success:function(){
+                wx.navigateTo({
+                  url: '../index/index'
+                });
+              }
+            })
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
           }
-          wx.setStorage({
-            key:"user_info",
-            data:that.user_info
-          })
-          console.log(res)
         },
         fail:(res)=>{
-          that.setData({
-            phoneTest:false
-          })
-          setTimeout(function(){
             that.setData({
-              phoneTest:true
+              phoneError:false,
+              errorMessage:res.data.message,
             })
-          },2000)
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
           
         }
       })

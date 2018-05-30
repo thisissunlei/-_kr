@@ -78,6 +78,7 @@ Page({
           "phone":that.data.phone
         },
         success:(res)=>{
+          if(res.code>0)
           wx.navigateBack({
             delta: 1
           })
@@ -121,4 +122,6 @@ Page({
       })
     }
   },
+
+
 })
