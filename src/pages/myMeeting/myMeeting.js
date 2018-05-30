@@ -47,17 +47,14 @@ Page({
   },
   onLoad: function () {
     let that = this;
-    wx.request({
-        url:'/api/gateway/krmting/invitee/list',
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/invitee/list',
         methods:"GET",
-        header:{
-          'content-type':"appication/json"
-        },
         data:{
           
         },
         success:(res)=>{
-          cosole.log(res)
+          console.log(res)
           that.setData({
             meetingList:res.data
           })
