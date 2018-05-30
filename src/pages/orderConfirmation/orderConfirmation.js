@@ -42,7 +42,9 @@ Page({
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
     alertTime:'FIFTEEN',
-    order_pay:{}
+    order_pay:{},
+    priceCount:'0',
+    totalCount:'0',
   },
   openMeetDetail:function(e){
     
@@ -169,7 +171,13 @@ Page({
   },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
-    
+    this.setData({
+      order_pay:{
+        themeName:this.data.themeName,
+        alertTime:this.data.alertTime,
+        linkPhone:this.data.phone
+      }
+    })
     
     var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
       // if (index==indexParam) {
@@ -190,6 +198,9 @@ Page({
     
     
   },
+  getIsfirst:function(){
+
+  }
   
 })
 

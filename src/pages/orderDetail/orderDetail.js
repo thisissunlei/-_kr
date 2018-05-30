@@ -27,8 +27,6 @@ Page({
     ],
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
-    priceCount:'0',
-    totalCount:'0',
   },
   payOrder:function(){
     let orderId=this.data.orderId;
