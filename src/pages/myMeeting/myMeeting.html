@@ -1,6 +1,6 @@
 <!--index.wxml-->
-<view class="my-meeting-list">
-	<view wx:for="{{meetingList}}" class="list-box" wx:key="{{item.id}}">
+<view class="my-meeting-list" wx:if="{{meetingList.length}}">
+	<view  wx:for="{{meetingList}}" class="list-box" wx:key="{{item.id}}">
 		<navigator url="/pages/meetingDetail/meetingDetail?id={{item.id}}" class="box" style="background-image: url(../images/my/bg.png)">
 			<span class="status wating" wx:if="{{item.status == 1}}">待入场</span>
 			<span class="status expired" wx:if="{{item.status == 3}}">已过期</span>
@@ -19,4 +19,11 @@
 		</navigator>
 		
 	</view>
+
+</view>
+<view class="my-meeting-list-none" wx:if="{{!meetingList.length}}">
+	<view class="content-none" wx:if="{{!orderList.length}}">
+  		<image class="none-img" src="../images/public/none.png" background-size="cover"></image>
+  		<span class="warn">还没有订单呢~</span>
+  	</view>
 </view>
