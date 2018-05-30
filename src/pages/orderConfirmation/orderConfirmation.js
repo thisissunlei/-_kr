@@ -1,12 +1,11 @@
 //orderConfirmation.js
 //获取应用实例
 const app = getApp()
-var newDate=changeTime();
+var newDate=changeTime(1396310706000);
 var theme=newDate[1]+''+newDate[2]+'会议';
 let arr=[20,21,22,23,24,25];
 Page({
   data: {
-    motto: 'Hello World',
     theme:theme,
     remind:'提前15分钟',
     phone:'13333333332',
@@ -24,6 +23,11 @@ Page({
     message:'用户取消支付',
     messageShow:false,
     dialogTimeShow:true,
+    rangeTime1:[],
+    rangeTime2:[],
+    rangeTime3:[],
+    rangeTime:[],
+    selectedTime:[],
   },
   changeCheckbox:function(){
     this.setData({
@@ -48,9 +52,52 @@ Page({
   getBoardroomTime:function(){
     
   },
-  onLoad: function (options) {
-    var rangeTime = wx.getStorageSync('rangeTime');
+  tapTime:function(e){
+    var indexParam = e.currentTarget.dataset.index;
+    // var selectedTime = this.data.selectedTime;
+    var selectedTime = [];
+    var rangeTime = this.data.rangeTime.map((item,index)=>{
+      //1 判断长度  2 排序  3最小到最大判断  4变色  5 push
+      if(!item.disabled && item.number==indexParam){
+        item.actived = !item.actived; 
+      }
+      if(item.actived){
+        selectedTime.push(item.number);
+      }else{
+        if(selectedTime.indexOf(item.number)>-1){
+          selectedTime.splice(selectedTime.indexOf(item.number), 1);
+        }
+      }
+      return item;
+    })
+    console.log(selectedTime);
+    this.setData({
+      rangeTime1:rangeTime.slice(0,8),
+      rangeTime2:rangeTime.slice(8,16),
+      rangeTime3:rangeTime.slice(16),
+      rangeTime:rangeTime,
+      selectedTime:selectedTime,
+      
+    })
     
+  },
+  onLoad: function (options) {
+    // var rangeTime = wx.getStorageSync('rangeTime');
+    var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
+      // if (index==indexParam) {
+        // item.actived = true; 
+      // }else{
+        item.actived = false; 
+      // }
+      return item;
+    })
+    console.log(rangeTime);
+    this.setData({
+      rangeTime1:rangeTime.slice(0,8),
+      rangeTime2:rangeTime.slice(8,16),
+      rangeTime3:rangeTime.slice(16),
+      rangeTime:rangeTime,
+    })
   },
   
 })
@@ -87,8 +134,8 @@ function getHour(data){
   return len*0.5;
 }
 
-function changeTime(){
-  let  myDate = new Date();
+function changeTime(data){
+  let  myDate = new Date(data)  || new Date();
    var myArray = Array();
    
   let year=myDate.getFullYear();

@@ -1,11 +1,16 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/meetingDetail/meetingDetail",
-  
+
+    "pages/orderConfirmation/orderConfirmation",
     "pages/paySuccess/paySuccess",
-    
+    "pages/meetingDetail/meetingDetail",
     "pages/meetingStatus/meetingStatus",
+
+    
+
+    
+
     "pages/logs/logs",
     "pages/meetingTheme/meetingTheme",
     
@@ -17,7 +22,7 @@
     "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
     "pages/my/my",
-    "pages/orderConfirmation/orderConfirmation",
+    "pages/myMeeting/myMeeting",
 
     "pages/phone/phone",
     "pages/regionList/regionList",

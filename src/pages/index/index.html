@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;width:100%;height:100%;opacity:0;'></button>
 <view class="container">
   
   <view class="idx_header">
@@ -59,8 +60,9 @@
       </view>
     </view>
   </view>
-   
-  <view class='nearby_room'>
+  
+  <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
+
     <view class='rm_title'>周边会议室</view>
     <view class="community-wrapper" data-id="{{item.id}}" bindtap="moveToMeetingRoom">
       <view class='community' wx:for="{{buildingList}}">
@@ -91,6 +93,7 @@
   <view bindtap="jumpSubmit" data-type="telephone">联系电话</view>
   <view bindtap="jumpSubmit" data-type="title">会议主题</view>
   <view bindtap="jumpSubmit" data-type="warn">会议提醒</view>
+  <view bindtap="jumpSubmit" data-type="detail">订单详情</view>
 </view>
 
 
@@ -100,4 +103,5 @@
   <view bindtap="jumpStorage" data-type="title">会议主题</view>
   <view bindtap="jumpStorage" data-type="warn">会议提醒</view>
 </view>
+
 
