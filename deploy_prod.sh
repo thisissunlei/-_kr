@@ -1,4 +1,3 @@
-npm run build
 
 
 if [ $1 = 'prod01' ]; then
