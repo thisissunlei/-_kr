@@ -13,8 +13,8 @@ Page({
       first:1,
       useDate:''
     },
-    payTitle:''
-    
+    payTitle:'',
+    orderId:'',
   },
   payOrder:function(){
 
@@ -55,9 +55,13 @@ Page({
       url: '../phone/phone?value='+detailInfo.linkPhone+'&type=submit'
     })
   },
-  onLoad: function () {
-   
-    this.getDetailInfo('1')
+  onLoad: function (opstion) {
+
+    console.log('opstion----',opstion)
+    this.getDetailInfo(opstion.id)
+    this.setData({
+      orderId:opstion.id
+    })
    
   },
   getDetailInfo:function(orderId){
@@ -130,7 +134,25 @@ Page({
       },//时间结束
       that:this
     });
-  }
+  },
+  goToPay:function(e){
+    let orderId=this.data.orderId;
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+      method:"POST",
+      data:{
+        orderId:orderId
+      },
+      success:(res)=>{
+
+      },
+      fail:(error)=>{
+          
+      }
+    })
+
+
+  },
    
 })
 function changeTime(date){
