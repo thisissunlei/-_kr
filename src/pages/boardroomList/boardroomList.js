@@ -137,7 +137,9 @@ Page({
         methods:"GET",
         data: {
           communityId: '168' ,
-          date: that.data.nowDate
+          date: that.data.nowDate,
+          page:that.data.page,
+          pageSize:that.pageSize
         },
         success:(res)=>{
           that.setData({
@@ -317,25 +319,23 @@ Page({
 
       // });
 
-      wx.request({
-        url:'api/gateway/krmting/room/list',
-        data: {
-          communityId: '' ,
-          date: '2018-05-02'
-        },
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
-        header:{
-          'content-type':"appication/json"
+        data: {
+          communityId: '168' ,
+          date: that.data.nowDate,
+          page:that.data.page,
+          pageSize:that.data.pageSize
         },
         success:(res)=>{
-              console.log(res);
-              that.setData({
-                boardroomList:[].concat(that.data.boardroomList,response.data.items),
-                totalCount:totalCount,
-                nextPage:that.data.nextPage++
-              })
+          that.setData({
+              boardroomList:[].concat(that.data.boardroomList,response.data.items),
+              totalCount:totalCount,
+              nextPage:that.data.nextPage++
+          })
         }
-    })
+      })
   },
   //事件处理函数
 
