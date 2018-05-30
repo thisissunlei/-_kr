@@ -1,6 +1,6 @@
 {
   "pages":[
-
+    "pages/orderConfirmation/orderConfirmation",
     "pages/paySuccess/paySuccess",
     "pages/meetingDetail/meetingDetail",
     "pages/meetingStatus/meetingStatus",
@@ -19,7 +19,7 @@
     "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
     "pages/my/my",
-    "pages/orderConfirmation/orderConfirmation",
+    
 
     "pages/phone/phone",
     "pages/regionList/regionList",

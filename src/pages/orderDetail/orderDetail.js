@@ -104,7 +104,7 @@ Page({
   },
   getDetailInfo:function(orderId){
     const _this=this;
-      wx.request({
+    app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/detail',
         method:"GET",
         header:{
