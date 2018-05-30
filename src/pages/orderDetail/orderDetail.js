@@ -34,7 +34,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../meetingTheme/meetingTheme?value='+detailInfo.themeName
+      url: '../meetingTheme/meetingTheme?value='+detailInfo.themeName+'&type=submit'
     })
   },
   jumpSetRemind:function() {
@@ -43,7 +43,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../warn/warn?value='+detailInfo.alertTime
+      url: '../warn/warn?value='+detailInfo.alertTime+'&type=submit'
     })
   },
   jumpSetPhone:function() {
@@ -52,52 +52,10 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../phone/phone?value='+detailInfo.linkPhone
+      url: '../phone/phone?value='+detailInfo.linkPhone+'&type=submit'
     })
   },
   onLoad: function () {
-    // let data={
-    //   orderShowStatus:1
-    // }
-    // let titleObj={
-    //   '1':'待支付订单',
-    //   '2':'待使用订单',
-    //   '3':'已使用订单',
-    //   '4':'已取消订单'
-    // }
-    // let payTitleObj={
-    //   '1':'应付款',
-    //   '2':'实付款',
-    //   '3':'实付款',
-    //   '4':'应付款'
-    // }
-    // let dateArr=changeTime(1396310706000)
-    // let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
-    // let startArr=changeTime(13963100000)
-    // let endArr=changeTime(1396320706000)
-    // let beginTime=startArr[3]+':'+startArr[4]
-    // let endTime=endArr[3]+':'+endArr[4];
-    // let hour=(1396320706000-1396310006000)/1000/60/60
-
-    // this.setData({
-    //   payTitle:payTitleObj[data.orderShowStatus],
-    //   detailInfo:{
-    //     useDate:useDate,
-    //     beginTime:beginTime,
-    //     endTime:endTime,
-    //     hour:hour,
-    //     orderShowStatus:2,
-    //   }
-    // })
-    // wx.setNavigationBarTitle({
-    //   title: titleObj[data.orderShowStatus]
-    // })
-
-
-
-
-
-    
    
     this.getDetailInfo('1')
    
@@ -112,22 +70,28 @@ Page({
         },
         success:(res)=>{
             let data=res.data.data;
-              console.log('res----',res)
             
               let titleObj={
-                '1':'待支付订单',
-                '2':'待使用订单',
-                '3':'已使用订单',
-                '4':'已取消订单'
+                'OBLIGATION':'待支付订单',
+                'TOBEUSED':'待使用订单',
+                'USED':'已使用订单',
+                'CLOSED':'已取消订单'
               }
               let payTitleObj={
-                '1':'应付款',
-                '2':'实付款',
-                '3':'实付款',
-                '4':'应付款'
+                'OBLIGATION':'应付款',
+                'TOBEUSED':'实付款',
+                'USED':'实付款',
+                'CLOSED':'应付款'
+              }
+              
+              let themeObj={
+                'NOALERT':'无',
+                'FIVE':'提前5分钟',
+                'FIFTEEN':'提前15分钟',
+                'THIRTY':'提前30分钟'
               }
               let detailInfo=Object.assign({},data);
-              console.log('detailInfo---',detailInfo)
+              detailInfo.themeTime=themeObj[data.alertTime];
               let dateArr=changeTime(data.useDate);
               let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
               let startArr=changeTime(data.beginTime)
@@ -137,7 +101,9 @@ Page({
                   detailInfo.useDate=useDate;
                   detailInfo.beginTime=beginTime;
                   detailInfo.endTime=endTime;
-              let hour=(data.endTime-data.beginTime)/1000/60/60
+              let hour=(data.endTime-data.beginTime)/3600000;
+              let Ctime=changeTime(data.ctime);
+              detailInfo.ctime=Ctime[0]+"-"+Ctime[1]+"-"+Ctime[2]+" "+Ctime[3]+":"+Ctime[4]+":"+Ctime[5]
               this.setData({
                 payTitle:payTitleObj[data.orderShowStatus],
                 detailInfo:detailInfo,
@@ -150,7 +116,7 @@ Page({
               _this.startcountDate(detailInfo.ctime);
         },
         fail:(error)=>{
-          consolr.log('error----',error)
+          
         }
       })
   },
@@ -169,14 +135,13 @@ Page({
 })
 function changeTime(date){
   let  myDate =new Date(date) || new Date();
-  console.log('myDate',myDate)
    var myArray =new Array();
-   
   let year=myDate.getFullYear();
   let month =myDate.getMonth()+1;
   let day=myDate.getDate();
   let hour=myDate.getHours();
   let minutes=myDate.getMinutes();
+  let seconds=myDate.getSeconds();
       if(month<10){
         month=`0${month}`
       }
@@ -199,9 +164,8 @@ function changeTime(date){
     myArray[2] = day;
     myArray[3] = hour;
     myArray[4] = minutes;
+    myArray[5] = seconds;
     return myArray;
 }
 
-// function startcountDate(time,callback){
-  
-// }
+ 
