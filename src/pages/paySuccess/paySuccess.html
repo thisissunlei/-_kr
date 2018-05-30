@@ -33,14 +33,15 @@
         <block wx:for="{{inviteer}}">
             <view class='list'>
                 <view class='pic'>
-                  <image src="{{item.wechatAvatar}}"></image>
+                  <!-- <image src="{{item.wechatAvatar}}"></image> -->
                 </view>
                 <text>{{item.wechatNick}}</text>
+                <image src="../images/indexImg/icon_faqiren.png" class="originator"></image>
+                <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.join===1?true:false}}"></image>
             </view>
         </block>
         <view class='clear'></view>
-        <image src="../images/indexImg/icon_faqiren.png" class="originator"></image>
-        <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.join===1?true:false}}"></image>
+        
     </view>
   
     <view class='hint'>
@@ -66,7 +67,7 @@
   <view class='footer'>
       <text>取消会议</text>
       <view class='btns'>
-        <text class='kefu'>联系客服</text>
-        <text class='yaoqing'>邀请参会人</text>
+        <button open-type="contact" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
+        <button open-type="share" style="border:none"><text class='yaoqing'>邀请参会人</text></button>
       </view>
   </view>

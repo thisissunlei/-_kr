@@ -12,24 +12,49 @@ Page({
         return util.formatTime(new Date(log))
       })
     })
+    wx.setStorage({
+      key:"order_pay",
+      data:{
+        phone:'111',
+        title:'会议',
+        warn:'NOALERT'
+      }
+    })
   },
-  jumpView(e){
+  jumpSubmit(e){
     var target = e.target.dataset;
     var type = target.type;
     console.log(target,'checkWarn',target.type)
     let url = ''
     switch (type){
-      case 'phone':
-        url = "../bindPhone/bindPhone?value=绑定数据"
-        break;
       case 'telephone':
-        url = "../phone/phone?value=联系电话"
+        url = "../phone/phone?type=submit&value=120"
         break;
       case 'warn':
-        url = "../warn/warn?value=NOALERT"
+        url = "../warn/warn?type=submit&value=NOALERT"
         break;
       default:
-        url = "../meetingTheme/meetingTheme?value=meetingTheme"
+        url = "../meetingTheme/meetingTheme?type=submit&value=会议"
+        break;
+    } 
+    wx.navigateTo({
+      url: url
+    });
+  },
+  jumpStorage(e){
+    var target = e.target.dataset;
+    var type = target.type;
+    console.log(target,'checkWarn',target.type)
+    let url = ''
+    switch (type){
+      case 'telephone':
+        url = "../phone/phone?type=storage"
+        break;
+      case 'warn':
+        url = "../warn/warn?type=storage"
+        break;
+      default:
+        url = "../meetingTheme/meetingTheme?type=storage"
         break;
     } 
     wx.navigateTo({

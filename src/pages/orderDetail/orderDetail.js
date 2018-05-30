@@ -99,23 +99,20 @@ Page({
 
     
    
-    //this.getDetailInfo('2')
+    this.getDetailInfo('2')
    
   },
   getDetailInfo:function(orderId){
     const _this=this;
-      wx.request({
+    app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/detail',
         method:"GET",
-        header:{
-          'content-type':"appication/json"
-        },
         data:{
           orderId:orderId
         },
         success:(res)=>{
             let data=res.data;
-              console.log(res)
+              console.log('res----',res)
             
               let titleObj={
                 '1':'待支付订单',
@@ -150,6 +147,9 @@ Page({
                 title: titleObj[data.orderShowStatus]
               })
               _this.startcountDate(detailInfo.ctime);
+        },
+        fail:(error)=>{
+          consolr.log('error----',error)
         }
       })
   },

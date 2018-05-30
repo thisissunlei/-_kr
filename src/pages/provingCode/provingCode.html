@@ -30,8 +30,8 @@
 			</view>
 		</view>
 	<view class="btn-box">
-		<div class="disabled" wx:if="{{!inputValue.length}}">立即绑定</div>
-		<div class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">立即绑定</div>
+		<div class="disabled" wx:if="{{inputValue.length!=4}}">立即绑定</div>
+		<div class="button" wx:if="{{inputValue.length==4}}" bindtap="formSubmit">立即绑定</div>
 	</view>
 	<view class="last-view">
 		<div class="error-phone" wx:if="{{!phoneTest}}">验证码错误</div>

@@ -11,11 +11,16 @@ Page({
     count:0,
     tipShow:true,
   },
-  //事件处理函数
   jumpMyMeet:function() {
     wx.navigateTo({
       url: '../myMeeting/myMeeting'
     })
+  },
+  jumpOderList:function(e){
+    let status=e.currentTarget.dataset.status;
+    wx.navigateTo({
+      url: '../myOrder/myOrder?orderShowStatus='+status
+     })
   },
   closeTip:function(){
     this.setData({
@@ -40,7 +45,7 @@ Page({
   },
  
   getCount:function(){
-    wx.request({
+    app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',
         methods:"GET",
         header:{
