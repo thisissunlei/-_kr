@@ -5,6 +5,7 @@ const app = getApp()
 Page({
   data: {
     userInfo: {},
+    dialogDate:false,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'06F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',promotionCost:'22',disableTime:['21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['1','12','13','14','15']},{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',disableTime:['4','11','16','19','20']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['21','32','23','14','15']}],
@@ -13,7 +14,7 @@ Page({
     nextPage:2,
     pageSize:10,
     totalPages:1,
-    communityId:'168',
+    communityId:'1',
     nowDate:'',
     rangeTime:[{
       disabled:false,
@@ -132,7 +133,7 @@ Page({
   //获取会议室列表
   getData:function(){
     let that = this;
-    console.log('getdata');
+    
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
@@ -144,8 +145,8 @@ Page({
         },
         success:(res)=>{
           that.setData({
-            totalPages:res.data.totalPages,
-            boardroomList:res.data.items
+            totalPages:res.data.data.totalPages,
+            boardroomList:res.data.data.items
           })
         }
       })
@@ -230,7 +231,7 @@ Page({
   getTopDate:function(){
     var today = new Date();
     var year=today.getFullYear();
-    var month = today.getMonth();
+    var month = today.getMonth()+1;
     var day = today.getDate();
     var totalDay=this.getMonthDays(year,month+1);
     var todayWeek = today.getDay();
@@ -333,8 +334,7 @@ Page({
         },
         success:(res)=>{
           that.setData({
-              boardroomList:[].concat(that.data.boardroomList,res.data.items),
-              totalPages:totalPages,
+              boardroomList:[].concat(that.data.boardroomList,res.data.data.items),
               nextPage:that.data.nextPage++
           })
         }
@@ -360,7 +360,7 @@ Page({
   },
 
   onLoad:function(options){
-    console.log("option>>>",options);
+    // console.log("option>>>",options);
     // if(options.communityId){
     //   this.setData({
     //     communityId:options.communityId

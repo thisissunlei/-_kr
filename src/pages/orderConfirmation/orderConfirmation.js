@@ -98,7 +98,9 @@ Page({
       rangeTime3:rangeTime.slice(16),
       rangeTime:rangeTime,
     })
-    let order_pay={}
+    let order_pay={
+      
+    }
     wx.setStorage(order_pay)
   },
   
