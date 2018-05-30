@@ -44,7 +44,7 @@ App({
     Cookie:''
   },
   getRequest:function (data){
-    console.log(this.globalData.Cookie)
+    const that = this;
     wx.request({
       url: data.url,
       header:{
@@ -52,8 +52,52 @@ App({
         'Cookie':this.globalData.Cookie
       },
       data: data.data,
-      success:data.success,
+      success:function (data_new){
+        
+        if(data_new.data.code==4011){
+          console.log(data_new,666655555)
+          that.loginAgain()
+        }else {
+          data.success(data_new);
+        }
+        //if()
+        
+      },
       fail:data.fail
     });
+  },
+  loginAgain:function (){
+    const that = this;
+    wx.login({
+      success: function(res) {
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: app.globalData.KrUrl+'api/gateway/krmting/common/login',
+            data: {
+              code: res.code
+            },
+            success:function(res){
+              that.func_bool_l = true;
+              that.func_bool_l2 = true;
+              app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
+              if(that.func_bool_g&&that.func_bool_l){
+                that.func_bool_g = false;
+                that.func_bool_l = false;
+                that.getAllInfo();
+              }
+              if(that.func_bool_l2&&that.func_bool_s){
+                that.func_bool_s = false;
+                that.func_bool_l2 = false;
+                that.getInfo();
+              }
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+
+    })
   }
 })
