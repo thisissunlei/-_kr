@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/provingCode/provingCode",
     "pages/orderConfirmation/orderConfirmation",
     "pages/paySuccess/paySuccess",
     "pages/meetingDetail/meetingDetail",
