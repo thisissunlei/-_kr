@@ -257,12 +257,27 @@ Page({
           errorMessage:''
         })
       },2000)
-
-      
       return
     }
-
-
+    // themeName:this.data.themeName,
+    //     alertTime:this.data.alertTime,
+    //     linkPhone:
+    
+   
+    
+    if(!data.order_pay.linkPhone){
+        this.setData({
+          checkMessage:true,
+          errorMessage:'请填写联系电话'
+        })
+        setTimeout(function(){
+          _this.setData({
+            checkMessage:false,
+            errorMessage:''
+          })
+        },2000)
+        return
+    }
 
 
   },
