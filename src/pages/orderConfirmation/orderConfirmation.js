@@ -6,7 +6,7 @@ var theme=newDate[1]+''+newDate[2]+'会议';
 let arr=[20,21,22,23,24,25];
 Page({
   data: {
-    theme:theme,
+    themeName:theme,
     remind:'提前15分钟',
     phone:'13333333332',
     check:false,
@@ -41,6 +41,8 @@ Page({
     ],
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
+    alertTime:'FIFTEEN',
+    order_pay:{}
   },
   openMeetDetail:function(e){
     
@@ -60,19 +62,71 @@ Page({
         check:!this.data.check
     })
   },
-  jumpSetTheme:function() {
-    wx.navigateTo({
-      url: '../meetingTheme/meetingTheme?value='+this.data.theme
+  getRemind:function(alertTime){
+    let themeObj={
+      'NOALERT':'无',
+      'FIVE':'提前5分钟',
+      'FIFTEEN':'提前15分钟',
+      'THIRTY':'提前30分钟'
+    }
+    this.setData({
+      remind:themeObj[alertTime]
     })
   },
+  jumpSetTheme:function() {
+    this.setData({
+      order_pay:{
+        themeName:this.data.themeName,
+        alertTime:this.data.alertTime,
+        linkPhone:this.data.phone
+      }
+    })
+    wx.setStorage({
+      key:"order_pay",
+      data:this.data.order_pay,
+      success:function(){
+        wx.navigateTo({
+          url: '../meetingTheme/meetingTheme?type="storage"'
+        })
+      }
+    })
+   
+   
+  },
   jumpSetRemind:function() {
-    wx.navigateTo({
-      url: '../warn/warn?value='+this.data.remind
+    this.setData({
+      order_pay:{
+        themeName:this.data.themeName,
+        alertTime:this.data.alertTime,
+        linkPhone:this.data.phone
+      }
+    })
+    wx.setStorage({
+      key:"order_pay",
+      data:this.data.order_pay,
+      success:function(){
+        wx.navigateTo({
+          url: '../warn/warn?type="storage"'
+        })
+      }
     })
   },
   jumpSetPhone:function() {
-    wx.navigateTo({
-      url: '../phone/phone?value='+this.data.phone
+    this.setData({
+      order_pay:{
+        themeName:this.data.themeName,
+        alertTime:this.data.alertTime,
+        linkPhone:this.data.phone
+      }
+    })
+    wx.setStorage({
+      key:"order_pay",
+      data:this.data.order_pay,
+      success:function(){
+        wx.navigateTo({
+          url: '../phone/phone?type="storage"'
+        })
+      }
     })
   },
   getBoardroomTime:function(){
@@ -115,7 +169,8 @@ Page({
   },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
-
+    
+    
     var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
       // if (index==indexParam) {
         // item.actived = true; 
@@ -132,10 +187,8 @@ Page({
       rangeTime:rangeTime,
       nowDate:wx.getStorageSync('nowDate')
     })
-    let order_pay={
-      
-    }
-    wx.setStorage(order_pay)
+    
+    
   },
   
 })
