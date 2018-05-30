@@ -8,13 +8,9 @@ Page({
   data: {
     themeName:theme,
     remind:'提前15分钟',
-    phone:'13333333332',
-    check:false,
-    capacity:'10人',
-    roomName:'水星会议室1',
+    phone:'',
+    check:true,
     imgUrl:'',
-    promotionCost:'48',
-    unitCost:'60',
     hour:getHour(arr),
     beginTime:getTime('20'),
     endTime:getTime('25'),
@@ -45,6 +41,15 @@ Page({
     order_pay:{},
     priceCount:'0',
     totalCount:'0',
+    detailInfo:{},
+    nowDate:'',
+    meeting_time:{
+      time:'10:30-11:30',
+      timeArr:[22,23,24]
+    },
+    isFirst:true,
+    errorMessage:'',
+    checkMessage:false,
   },
   openMeetDetail:function(e){
     
@@ -171,36 +176,111 @@ Page({
   },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
+    this.getIsfirst();
+    let len=this.data.meeting_time.timeArr.length-1;
+    let hour=(len*30)/60
     this.setData({
       order_pay:{
         themeName:this.data.themeName,
         alertTime:this.data.alertTime,
         linkPhone:this.data.phone
+      },
+      hour:hour
+    })
+    var _this=this;
+    wx.getStorage({
+      key:'detail',
+      success:function(res){
+        if(res.data){
+          _this.setData({
+              detailInfo:res.data
+            })
+        }
+      }
+    })
+    wx.getStorage({
+      key:'nowDate',
+      success:function(res){
+        console.log('res----',res)
+        if(res.data){
+          _this.setData({
+              nowDate:res.data,
+            })
+        }
       }
     })
     
-    var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
-      // if (index==indexParam) {
-        // item.actived = true; 
-      // }else{
-        item.actived = false; 
-      // }
-      return item;
-    })
-    console.log(rangeTime);
-    this.setData({
-      rangeTime1:rangeTime.slice(0,8),
-      rangeTime2:rangeTime.slice(8,16),
-      rangeTime3:rangeTime.slice(16),
-      rangeTime:rangeTime,
-      nowDate:wx.getStorageSync('nowDate')
-    })
+    
+    // var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
+    //   // if (index==indexParam) {
+    //     // item.actived = true; 
+    //   // }else{
+    //     item.actived = false; 
+    //   // }
+    //   return item;
+    // })
+    // console.log(rangeTime);
+    // this.setData({
+    //   rangeTime1:rangeTime.slice(0,8),
+    //   rangeTime2:rangeTime.slice(8,16),
+    //   rangeTime3:rangeTime.slice(16),
+    //   rangeTime:rangeTime,
+    //   nowDate:wx.getStorageSync('nowDate')
+    // })
     
     
   },
   getIsfirst:function(){
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/isFirstOrder',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+            console.log('res.data.data',res.data.data)
+             
+        }
+    })
+  },
+  goToPay:function(){
+    let data=this.data;
+    var _this=this;
+    if(!data.check){
+      this.setData({
+        checkMessage:true,
+        errorMessage:'请阅读并同意KrMeeing服务须知'
+      })
+      setTimeout(function(){
+        _this.setData({
+          checkMessage:false,
+          errorMessage:''
+        })
+      },2000)
+      return
+    }
+    // themeName:this.data.themeName,
+    //     alertTime:this.data.alertTime,
+    //     linkPhone:
+    
+   
+    
+    if(!data.order_pay.linkPhone){
+        this.setData({
+          checkMessage:true,
+          errorMessage:'请填写联系电话'
+        })
+        setTimeout(function(){
+          _this.setData({
+            checkMessage:false,
+            errorMessage:''
+          })
+        },2000)
+        return
+    }
 
-  }
+
+  },
   
 })
 
