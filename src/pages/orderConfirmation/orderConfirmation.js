@@ -65,8 +65,8 @@ Page({
       if(item.actived){
         selectedTime.push(item.number);
       }else{
-        if(selectedTime.indexOf(item.number)){
-          selectedTime.splice(index, 1);
+        if(selectedTime.indexOf(item.number)>-1){
+          selectedTime.splice(selectedTime.indexOf(item.number), 1);
         }
       }
       return item;
