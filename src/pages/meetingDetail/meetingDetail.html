@@ -2,19 +2,20 @@
 <view class='wrapper'>
     <view class='top'>
       <image src="../images/indexImg/card.png" class="top-banner"></image>
-      <image src="../images/indexImg/overdue.png" class="overdue"></image>
-      <view style="width:710rpx;height:900rpx;position: absolute;top: 0;left: 20rpx">
+      <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{status===2?true:false}}"></image>
+      <view style="width:303px;height:450px;position: absolute;top: 0;left: 10px">
         <view class='title'>
           <text class='h1'>{{meetingTime}}11-29 (周三）9:00-10:30</text>
           <text>{{themeName}}产品技术部例会</text>
         </view>
         <view class='pics'>
-          <image src="../images/indexImg/code.png" class="code-pic">
+          <image src="../images/indexImg/erweima_hui.png" class="code-pic" wx:if="{{status===2?true:false}}"></image>
+          <image src="../images/indexImg/code.png" class="code-pic" wx:if="{{status===2?false:true}}"></image>
+            <view class="shade" wx:if="{{status===2?true:false}}"></view>
             <view class="img-box">
               <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
               <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
             </view>
-          </image>
           <view class="code-desc">请入场时出示此二维码</view>
         </view>
         
@@ -55,13 +56,16 @@
       </block>
     </view>
   </view>
-  <!-- <view class='footer'>
+  <view class='footer' wx:if="{{status===2?false:true}}">
       <text>取消会议</text>
       <view class='btns'>
         <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
         <button open-type="share" style="border:none"><text class='yaoqing'>邀请参会人</text></button>
       </view>
-  </view> -->
-  <view class='footer overdue'>
-      <text>取消会议</text>
   </view>
+  <view class='footer' wx:if="{{status===2?true:false}}">
+    <view class='btns'>
+      <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
+    </view>
+  </view> 
+  

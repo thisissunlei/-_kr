@@ -35,6 +35,8 @@
         wx:for="{{boardroomList}}"
         wx:key="*this"
         class='list-item'
+        data-item="{{item}}"
+        bindtap="openMeetDetail"
       > 
         <view class="top">
           <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}"></image>
@@ -83,7 +85,7 @@
     切换地点
   </picker> -->
   <!-- 会议室详情 -->
-  <!-- <view class="u-meet-detail">
+  <view class="u-meet-detail" wx:if="{{meetDetailShow}}">
       <view class="u-meet-content">
           <view class="u-swiper-content">
             <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
@@ -99,7 +101,7 @@
             </swiper>
             <view class="u-img-num">{{currentNum}}/{{imgUrls.length}}</view>
           </view>
-          <image class="u-meet-detail-close" src="../images/public/icon_close.png"></image>
+          <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
           <view class="u-meeting-info">
               <view class="u-meet-info">
                   <view class="u-meet-name">
@@ -125,16 +127,21 @@
               </view>
           </view>
           <view class="u-meet-facility">
-              <view  class="u-icon-list">
-                <image class="u-facility-icon"></image>
-                <view class="u-facility-txt">沙发</view>
-              </view>  
+              <view 
+                class="u-icon-list"  
+                wx:for="{{meetInfo}}"
+                wx:key="*this"
+                wx:for-item="meetItem"
+              >
+                  <image class="u-facility-icon"></image>
+                  <view class="u-facility-txt">{{meetItem}}电话会</view>
+              </view> 
           </view>
-          <view class="u-meet-btn">
+          <view class="u-meet-btn" bindtap="">
               立即预订
           </view>
       </view>
-  </view> -->
+  </view>
 
 
   <!-- 日历选择 -->
