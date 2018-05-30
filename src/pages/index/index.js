@@ -39,12 +39,10 @@ Page({
     })
   },
   onLoad: function () {
-    
-
     const that = this;
     this.getLocation();
     //页面加载
-    wx.login({
+   /* wx.login({
       success: function(res) {
         //console.log(res)
         if (res.code) {
@@ -68,30 +66,30 @@ Page({
         }
       }
 
-    })
-   /* wx.request({
-      url:'https://www.easy-mock.com/mock/5b0958295c37757453191ee5/kr/home',
-      methods:"GET",
-      header:{
-        'content-type':"appication/json"
-      },
-      data:{
-        latitude:this.latitude,
-        longitude:this.longitude
-      },
-      success:(res)=>{
-        this.setData({
-          buildingList:res.data.buildingList,
-          myMeeting:res.data.myMeeting
-        })
-        if(res.data.myMeeting.length>0){
-          this.setData({
-            metting:true
+    }),*/
+  //  wx.request({
+  //     url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/home',
+  //     methods:"GET",
+  //     header:{
+  //       'content-type':"appication/json"
+  //     },
+  //     data:{
+  //       latitude:this.rq_data.latitude,
+  //       longitude:this.rq_data.longitude
+  //     },
+  //     success:(res)=>{
+  //       this.setData({
+  //         buildingList:res.data.buildingList,
+  //         myMeeting:res.data.myMeeting
+  //       })
+  //       if(res.data.myMeeting.length>0){
+  //         this.setData({
+  //           metting:true
 
-          })
-        }
-      }
-    })*/
+  //         })
+  //       }
+  //     }
+  //   })
     
     //查看是否授权
     // wx.getSetting({
