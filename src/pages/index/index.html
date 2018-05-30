@@ -64,7 +64,7 @@
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
 
     <view class='rm_title'>周边会议室</view>
-    <view class="community-wrapper" data-id="{{item.id}}" bindtap="moveToMeetingRoom">
+    <view class="community-wrapper" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom">
       <view class='community' wx:for="{{buildingList}}">
         <view class='community_pic'>
           <image src="{{item.buildImgUrl}}"></image>

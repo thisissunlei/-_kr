@@ -32,7 +32,7 @@ Page({
     this.createQrCode('fdfd',"mycanvas",160,160);
     //数据加载
     app.getRequest({
-      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
       methods:"GET",
       header:{
         "content-type":"application/json"
@@ -43,13 +43,13 @@ Page({
       success:(res)=>{
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data.data.meetingTime,
-          themeName:res.data.data.themeName,
-          meetingRoomName:res.data.data.meetingRoomName,
-          address:res.data.data.address,
-          inviteer:res.data.data.inviteer,
-          limitCount:res.data.data.limitCount,
-          status:res.data.data.status
+          meetingTime:res.data.meetingTime,
+          themeName:res.data.themeName,
+          meetingRoomName:res.data.meetingRoomName,
+          address:res.data.address,
+          inviteer:res.data.inviteer,
+          limitCount:res.data.limitCount,
+          status:res.data.status
         })
       }
     })
