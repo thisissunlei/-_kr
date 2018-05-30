@@ -245,12 +245,17 @@ page{
 
 .u-meet-detail{
   width:100%;
-  min-height:100%;
+  height:100%;
   background: rgba(0,0,0,0.80);
-  position: absolute;
+  position: fixed;
   top:0;
   left:0;
   z-index:200;
+}
+.u-meet-detail-content{
+  width:100%;
+  height:100%;
+  overflow: auto;
 }
 .u-meet-detail-close{
   width:48rpx;
@@ -260,10 +265,13 @@ page{
   top:20rpx;
 }
 .u-meet-content{
-  height:1312rpx;
+  width:100%;
+  min-height:800rpx;
   background: #fff;
   margin-top:290rpx;
   position: relative;
+  display: inline-block;
+  bottom:0;
 }
 .u-swiper-content{
   position: relative;
@@ -362,7 +370,6 @@ page{
   height:28rpx;
   display:inline-block;
   margin-right:12rpx;
-  background:  #000;
   vertical-align: -4rpx;
 }
 .u-address-txt{
@@ -371,24 +378,31 @@ page{
   color: #666666;
   display:inline-block;
 }
-.u-icon-list{
+
+.u-meet-facility{
+  min-height:200rpx;
   display: inline-block;
+  border-top:1px solid #F6F6F6;
+  box-sizing: border-box;
+  padding:48rpx 50rpx; 
+}
+.u-icon-list{
+  width:130rpx;
   height:160rpx;
+  display: inline-block;
+  text-align: center;
+  
 }
 .u-facility-icon{
-  width:10rpx;
-  height:10rpx;
+  width:60rpx;
+  height:60rpx;
+  border:1px solid #000;
 }
 .u-facility-txt{
   font-size: 28rpx;
   color: #666666;
 }
 
-.u-meet-facility{
-  height:426rpx;
-  border-top:1px solid #F6F6F6;
-
-}
 .u-meet-btn{
   height:112rpx;
   line-height:112rpx;
@@ -396,4 +410,28 @@ page{
   text-align: center;
   color:#fff;
   font-size: 36rpx;
+}
+
+
+.u-dialog{
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.7);
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:100;
+}
+.u-dialog-content{
+  width:560rpx;
+  height:480rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  position: absolute;
+  left:50%;
+  top:50%;
+  margin-left:-280rpx;
+  margin-top:-240rpx; 
 }

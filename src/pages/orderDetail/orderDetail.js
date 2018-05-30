@@ -15,12 +15,48 @@ Page({
     },
     payTitle:'',
     orderId:'',
+    meetDetailShow:false,
+    indicatorDots: false,
+    autoplay: false,
+    duration: 1000,
+    currentNum:1,
+    imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
+    meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
+    meetingRoomId:'',
   },
   payOrder:function(){
+    let orderId=this.data.orderId;
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+      method:"POST",
+      data:{
+        orderId:orderId
+      },
+      success:(res)=>{
+
+      },
+      fail:(error)=>{
+          
+      }
+    })
 
   },
-  jumpMeetDetail:function() {
-   
+  openMeetDetail:function(e){
+    let detailInfo=this.data.detailInfo;
+    this.setData({
+      meetingRoomId:detailInfo.meetingRoomId,
+      meetDetailShow:!this.data.meetDetailShow
+    })
+  },
+  closeMeetDetail:function(){
+      this.setData({
+        meetingRoomId:'',
+        meetDetailShow:!this.data.meetDetailShow
+      })
   },
   jumpMeet:function() {
     let detailInfo=this.data.detailInfo;
@@ -134,24 +170,6 @@ Page({
       },//时间结束
       that:this
     });
-  },
-  goToPay:function(e){
-    let orderId=this.data.orderId;
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
-      method:"POST",
-      data:{
-        orderId:orderId
-      },
-      success:(res)=>{
-
-      },
-      fail:(error)=>{
-          
-      }
-    })
-
-
   },
    
 })
