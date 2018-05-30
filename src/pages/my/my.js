@@ -40,7 +40,7 @@ Page({
   },
  
   getCount:function(){
-    wx.request({
+    app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',
         methods:"GET",
         header:{
