@@ -106,7 +106,7 @@ Page({
       data:this.data.order_pay,
       success:function(){
         wx.navigateTo({
-          url: '../warn/warn?type="storage"'
+          url: '../warn/warn?type=storage'
         })
       }
     })
@@ -124,7 +124,7 @@ Page({
       data:this.data.order_pay,
       success:function(){
         wx.navigateTo({
-          url: '../phone/phone?type="storage"'
+          url: '../phone/phone?type=storage'
         })
       }
     })
