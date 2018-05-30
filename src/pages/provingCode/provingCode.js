@@ -22,7 +22,8 @@ Page({
       value3:'',
       value4:''
     },
-    user_info:{}
+    user_info:{},
+    success:false
     
   },
   onLoad: function (options) {
@@ -81,7 +82,6 @@ Page({
   },
   formSubmit(e){
     let that = this;
-
       app.getRequest({
         url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
         methods:"GET",
@@ -103,6 +103,9 @@ Page({
               key:"user_info",
               data:that.user_info,
               success:function(){
+                that.setData({
+                  success:true
+                })
                 wx.navigateTo({
                   url: '../index/index'
                 });

@@ -96,13 +96,11 @@
     </view>
     <view class="u-footer">
         <view class="u-footer-btn-list">
-            <view wx:if="{{detailInfo.orderShowStatus==1}}" class="u-footer-color-btn" bindtap="payOrder"> 
+            <view wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}" class="u-footer-color-btn" bindtap="payOrder"> 
                 立即支付
             </view>
-            <view wx:if="{{detailInfo.orderShowStatus==2}}" class="u-footer-color-btn" bindtap="">
-                邀请参会人
-            </view>
-            <view wx:if="{{(detailInfo.orderShowStatus==2) || (detailInfo.orderShowStatus==3)}}" class="u-footer-btn" bindtap="jumpMeet">
+            <button open-type="share" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn" style="border:none">邀请参会人</button>
+            <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
                 查看会议
             </view>
             <button class="u-my-contact-btn" open-type="contact">联系客服</button>
