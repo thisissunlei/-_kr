@@ -8,7 +8,7 @@ Page({
   data: {
     themeName:theme,
     remind:'提前15分钟',
-    phone:'',
+    phone:'13333333333',
     check:true,
     imgUrl:'',
     hour:getHour(arr),
@@ -176,6 +176,7 @@ Page({
   },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
+    this.goToPay();
     this.getIsfirst();
     let len=this.data.meeting_time.timeArr.length-1;
     let hour=(len*30)/60
@@ -244,40 +245,56 @@ Page({
     })
   },
   goToPay:function(){
-    let data=this.data;
-    var _this=this;
-    if(!data.check){
-      this.setData({
-        checkMessage:true,
-        errorMessage:'请阅读并同意KrMeeing服务须知'
-      })
-      setTimeout(function(){
-        _this.setData({
-          checkMessage:false,
-          errorMessage:''
-        })
-      },2000)
-      return
-    }
-    // themeName:this.data.themeName,
-    //     alertTime:this.data.alertTime,
-    //     linkPhone:
-    
-   
-    
-    if(!data.order_pay.linkPhone){
-        this.setData({
-          checkMessage:true,
-          errorMessage:'请填写联系电话'
-        })
-        setTimeout(function(){
-          _this.setData({
-            checkMessage:false,
-            errorMessage:''
-          })
-        },2000)
-        return
-    }
+    //let data=this.data;
+    //var _this=this;
+    // if(!data.check){
+    //   this.setData({
+    //     checkMessage:true,
+    //     errorMessage:'请阅读并同意KrMeeing服务须知'
+    //   })
+    //   setTimeout(function(){
+    //     _this.setData({
+    //       checkMessage:false,
+    //       errorMessage:''
+    //     })
+    //   },2000)
+    //   return
+    // }
+    // if(!data.order_pay.linkPhone){
+    //     this.setData({
+    //       checkMessage:true,
+    //       errorMessage:'请填写联系电话'
+    //     })
+    //     setTimeout(function(){
+    //       _this.setData({
+    //         checkMessage:false,
+    //         errorMessage:''
+    //       })
+    //     },2000)
+    //     return
+    // }
+
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+      methods:"GET",
+      header:{
+        'content-type':"appication/json"
+      },
+      data:{
+        alertTime:'FIFTEEN',
+        beginTime:'2018-04-21 10:30:00',
+        endTime:'2018-04-21 12:30:00',
+        linkPhone:'13323456789',
+        meetingRoomId:'769',
+        themeName:'0421会议'
+      },
+      success:(res)=>{
+          console.log('res.data.data',res.data.data)
+           
+      }
+    })
+
+
 
 
   },
