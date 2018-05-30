@@ -31,7 +31,6 @@ Page({
      wx.getStorage({
       key: 'user_info',
       success: function(res) {
-        console.log('--------',res.data)
         if(res.data){
           that.user_info = res.data.user_info || {};
         }

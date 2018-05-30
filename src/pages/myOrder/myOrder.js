@@ -22,42 +22,6 @@ Page({
         "orderStatusDesc":"测试内容it12",
         "payStatus":"测试内容58w2"
       },
-      {
-        "buildName":"测试内容6n27",
-        "capacity":"20",
-        "ctime":new Date().getTime()/1000+300,
-        "imgUrl":"测试内容5s1e",
-        "meetingRoomName":"测试内容sdqr",
-        "meetingTIme":"测试内容pr46",
-        "orderId":28646,
-        // "orderShowStatus":'OBLIGATION',
-        "orderStatusDesc":"测试内容it12",
-        "payStatus":"测试内容58w2"
-      },
-      {
-        "buildName":"测试内容6n27",
-        "capacity":"20",
-        "ctime":new Date().getTime()/1000+300,
-        "imgUrl":"测试内容5s1e",
-        "meetingRoomName":"测试内容sdqr",
-        "meetingTIme":"测试内容pr46",
-        "orderId":28646,
-        "orderShowStatus":'USED',
-        "orderStatusDesc":"测试内容it12",
-        "payStatus":"测试内容58w2"
-      },
-      {
-        "buildName":"测试内容6n27",
-        "capacity":"20",
-        "ctime":new Date().getTime()/1000+300,
-        "imgUrl":"测试内容5s1e",
-        "meetingRoomName":"测试内容sdqr",
-        "meetingTIme":"测试内容pr46",
-        "orderId":28646,
-        "orderShowStatus":'CLOSED',
-        "orderStatusDesc":"测试内容it12",
-        "payStatus":"测试内容58w2"
-      },
     ],
     type:'',
     number:'0',
