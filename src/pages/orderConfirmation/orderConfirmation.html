@@ -5,14 +5,14 @@
                 <image class="u-order-img" src="../images/boardroomList/guding.png"></image>
             </view>
             <view class="u-order-right">
-                <text class="u-meet-title">15人 水星会议室</text>
-                <text class="u-meet-address">海航实业大厦9层</text>
+                <text class="u-meet-title">{{detailInfo.capacity}}人 {{detailInfo.roomName}}</text>
+                <text class="u-meet-address">{{detailInfo.buildName}} {{detailInfo.floor}}</text>
                 <view class="u-meet-price-info">
                     <view class="u-meet-price">
-                        ￥<text class="u-meet-num">48 </text>
+                        ￥<text class="u-meet-num">{{detailInfo.promotionCost || detailInfo.unitCost}} </text>
                     </view>
                     <view class="u-meet-uint-info">
-                        <text class="u-cancal-price">￥{{unitCost}} </text>
+                        <text class="u-cancal-price">￥{{detailInfo.unitCost}} </text>
                         <text class="u-uint">/ 半小时</text>
                     </view>
                 </view>
@@ -25,7 +25,7 @@
             <view class="u-user-date">
                 <view class="u-time-title">使用日期</view>
                 <view class="u-time-data">
-                    <view class="u-date-txt"> 2018-05-21</view>
+                    <view class="u-date-txt"> {{nowDate}}</view>
                     <view class="u-yellow-line"></view>
                 </view>
                 <view class="u-time-txt">今天</view>
@@ -33,15 +33,14 @@
             </view>
             <view class="u-user-hour">
                 <view class="u-time-title">使用时段</view>
-                <view class="u-no-time">
+                <view class="u-no-time" wx:if="{{meeting_time.timeArr.length==0}}">
                     请选择使用时间
                 </view>
-                
-                <!-- <view class="u-time-data">
-                    <view class="u-date-txt">{{beginTime}}-{{endTime}}</view>
+                <view class="u-time-data" wx:if="{{meeting_time.timeArr.length>0}}">
+                    <view class="u-date-txt">{{meeting_time.time}}</view>
                     <view class="u-yellow-line"></view>
                 </view>
-                <view class="u-time-txt">{{hour}}小时</view> -->
+                <view class="u-time-txt">{{hour}}小时</view>
                 <image class="u-btn-arrow-bottom u-hour-arrow" src="../images/public/icon_arrow_bottom.png"></image>
             </view>
             <view class="u-line"></view>
@@ -87,7 +86,7 @@
         </view>
     </view>
     <view class="u-footer">
-        <!-- <view class="u-footer-left">
+        <view class="u-footer-left" wx:if="{{isFirst}}">
             <view class="u-first-pay-price">
                 <view class="u-price-label">
                     应付：
@@ -96,17 +95,17 @@
                     ¥   
                 </view>
                 <view class="u-price-num">
-                    164
+                    {{priceCount}}
                 </view>
                 <view class="u-old-price">
-                    ￥60 
+                    ￥{{totalCount}}
                 </view>
             </view>
             <view class="u-footer-tip">
               （新人专享）2小时超值体验
             </view>
-        </view> -->
-        <view class="u-footer-left">
+        </view>
+        <view class="u-footer-left" wx:if="{{!isFirst}}">
             <view class="u-pay-price">
                 <view class="u-no-first-price-label">
                     应付：
@@ -122,8 +121,18 @@
                 </view>
             </view>
         </view>
-        <view class="u-footer-right"> 立即支付</view>
+        <view class="u-footer-right" wx:if="{{meeting_time.timeArr.length==0}}" > 立即支付</view>
+        <view 
+            class="u-footer-right u-active-btn" 
+            wx:if="{{meeting_time.timeArr.length>0}}"
+            bindtap="goToPay"
+        > 立即支付</view>
     </view>
+    <view class="last-view">
+        <div class="error-message" wx:if="{{checkMessage}}">{{errorMessage}}</div>
+    </view>
+
+
     <view class="u-dialog" wx:if="{{dialogShow}}">
         <view class="u-dialog-content">
             <view class="u-dialog-title">提示</view>
