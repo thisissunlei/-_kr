@@ -1,26 +1,18 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/orderConfirmation/orderConfirmation",
     "pages/paySuccess/paySuccess",
     "pages/meetingDetail/meetingDetail",
     "pages/meetingStatus/meetingStatus",
-
-    "pages/index/index",
-
-    
     "pages/logs/logs",
     "pages/meetingTheme/meetingTheme",
-    
     "pages/orderDetail/orderDetail",
     "pages/provingCode/provingCode",
     "pages/myOrder/myOrder",
-    
-   
     "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
     "pages/my/my",
-    
-
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",
