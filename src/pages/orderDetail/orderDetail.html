@@ -33,7 +33,7 @@
                   <view class="u-date-txt">{{detailInfo.useDate}}</view>
                   <view class="u-yellow-line"></view>
               </view>
-              <view class="u-time-txt">{{detailInfo.dateTxt}}</view>
+              <view class="u-time-txt">{{detailInfo.dayDesc}}</view>
           </view>
           <view class="u-user-hour">
               <view class="u-time-title">使用时段</view>
@@ -70,7 +70,7 @@
             <view class="u-meeting-title">
                 会议主题
             </view>
-            <view class="u-meet-text">{{detailInfo.themeName}}</view>
+            <view class="u-meet-text">{{detailInfo.theme}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow" wx:if="{{detailInfo.orderShowStatus!=3}}">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>

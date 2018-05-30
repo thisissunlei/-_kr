@@ -64,8 +64,8 @@
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
 
     <view class='rm_title'>周边会议室</view>
-    <view class="community-wrapper" data-id="{{item.id}}" bindtap="moveToMeetingRoom">
-      <view class='community' wx:for="{{buildingList}}">
+    <view class="community-wrapper">
+      <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom">
         <view class='community_pic'>
           <image src="{{item.buildImgUrl}}"></image>
         </view>
@@ -96,6 +96,7 @@
   <view bindtap="jumpSubmit" data-type="title">会议主题</view>
   <view bindtap="jumpSubmit" data-type="warn">会议提醒</view>
   <view bindtap="jumpSubmit" data-type="detail">订单详情</view>
+  <view bindtap="jumpSubmit" data-type="my">my</view>
 </view>
 <view bindtap="myOrder" data-type="telephone">我的订单</view>
 <view bindtap="myMeeting" data-type="telephone">我的会员室</view>
