@@ -243,7 +243,9 @@ Page({
       case 'detail':
         url = "../orderDetail/orderDetail"
       break;
-        
+      case 'my':
+      url = "../my/my"
+      break;
       default:
         url = "../meetingTheme/meetingTheme?type=submit&value=会议"
         break;

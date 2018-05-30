@@ -56,42 +56,42 @@ Page({
     })
   },
   onLoad: function () {
-    let data={
-      orderShowStatus:1
-    }
-    let titleObj={
-      '1':'待支付订单',
-      '2':'待使用订单',
-      '3':'已使用订单',
-      '4':'已取消订单'
-    }
-    let payTitleObj={
-      '1':'应付款',
-      '2':'实付款',
-      '3':'实付款',
-      '4':'应付款'
-    }
-    let dateArr=changeTime(1396310706000)
-    let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
-    let startArr=changeTime(13963100000)
-    let endArr=changeTime(1396320706000)
-    let beginTime=startArr[3]+':'+startArr[4]
-    let endTime=endArr[3]+':'+endArr[4];
-    let hour=(1396320706000-1396310006000)/1000/60/60
+    // let data={
+    //   orderShowStatus:1
+    // }
+    // let titleObj={
+    //   '1':'待支付订单',
+    //   '2':'待使用订单',
+    //   '3':'已使用订单',
+    //   '4':'已取消订单'
+    // }
+    // let payTitleObj={
+    //   '1':'应付款',
+    //   '2':'实付款',
+    //   '3':'实付款',
+    //   '4':'应付款'
+    // }
+    // let dateArr=changeTime(1396310706000)
+    // let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
+    // let startArr=changeTime(13963100000)
+    // let endArr=changeTime(1396320706000)
+    // let beginTime=startArr[3]+':'+startArr[4]
+    // let endTime=endArr[3]+':'+endArr[4];
+    // let hour=(1396320706000-1396310006000)/1000/60/60
 
-    this.setData({
-      payTitle:payTitleObj[data.orderShowStatus],
-      detailInfo:{
-        useDate:useDate,
-        beginTime:beginTime,
-        endTime:endTime,
-        hour:hour,
-        orderShowStatus:2,
-      }
-    })
-    wx.setNavigationBarTitle({
-      title: titleObj[data.orderShowStatus]
-    })
+    // this.setData({
+    //   payTitle:payTitleObj[data.orderShowStatus],
+    //   detailInfo:{
+    //     useDate:useDate,
+    //     beginTime:beginTime,
+    //     endTime:endTime,
+    //     hour:hour,
+    //     orderShowStatus:2,
+    //   }
+    // })
+    // wx.setNavigationBarTitle({
+    //   title: titleObj[data.orderShowStatus]
+    // })
 
 
 
@@ -99,7 +99,7 @@ Page({
 
     
    
-    this.getDetailInfo('2')
+    this.getDetailInfo('1')
    
   },
   getDetailInfo:function(orderId){
@@ -111,7 +111,7 @@ Page({
           orderId:orderId
         },
         success:(res)=>{
-            let data=res.data;
+            let data=res.data.data;
               console.log('res----',res)
             
               let titleObj={
@@ -127,6 +127,7 @@ Page({
                 '4':'应付款'
               }
               let detailInfo=Object.assign({},data);
+              console.log('detailInfo---',detailInfo)
               let dateArr=changeTime(data.useDate);
               let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
               let startArr=changeTime(data.beginTime)
