@@ -83,7 +83,7 @@
     切换地点
   </picker> -->
   <!-- 会议室详情 -->
-  <!-- <view class="u-meet-detail">
+  <view class="u-meet-detail">
       <view class="u-meet-content">
           <view class="u-swiper-content">
             <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
@@ -125,16 +125,21 @@
               </view>
           </view>
           <view class="u-meet-facility">
-              <view  class="u-icon-list">
-                <image class="u-facility-icon"></image>
-                <view class="u-facility-txt">沙发</view>
-              </view>  
+              <view 
+                class="u-icon-list"  
+                wx:for="{{meetInfo}}"
+                wx:key="*this"
+                wx:for-item="meetItem"
+              >
+                  <image class="u-facility-icon"></image>
+                  <view class="u-facility-txt">{{meetItem}}电话会</view>
+              </view> 
           </view>
-          <view class="u-meet-btn">
+          <view class="u-meet-btn" bindtap="">
               立即预订
           </view>
       </view>
-  </view> -->
+  </view>
 
 
   <!-- 日历选择 -->

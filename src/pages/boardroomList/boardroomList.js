@@ -113,7 +113,7 @@ Page({
       id: 44,
       name: '日本'
     }],
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: false,
     duration: 1000,
     currentNum:1,
@@ -122,6 +122,10 @@ Page({
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
     ],
+    meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9]
+      
+
+    
   },
   currentChange:function(e){
     if(e.detail.source=="touch"){
