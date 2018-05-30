@@ -753,6 +753,7 @@ var QR = (function () {
             ctx.clearRect(0, 0, cavW, cavW);
             // ctx.setFillStyle('#ffffff');
             // ctx.rect(0, 0, size, size);
+            
             ctx.setFillStyle('#000000');
 			// ctx.setLineWidth(1);
             for (var i = 0; i < width; i++) {

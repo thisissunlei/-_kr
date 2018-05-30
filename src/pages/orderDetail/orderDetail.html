@@ -115,7 +115,7 @@
         </view>
     </view>
     <!-- 会议室详情 -->
-  <view class="u-meet-detail" wx:if="{{!meetDetailShow}}">
+  <view class="u-meet-detail" wx:if="{{meetDetailShow}}">
     <view class="u-meet-detail-content">
         <view class="u-meet-content">
             <view class="u-swiper-content">
@@ -133,7 +133,7 @@
               <view class="u-img-num">{{currentNum}}/{{imgUrls.length}}</view>
             </view>
             <image class="u-meet-detail-close"  bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
-            <view class="u-meeting-info">
+            <view class="u-meeting-detail-info">
                 <view class="u-meet-info">
                     <view class="u-meet-name">
                       15人间  水星会议室

@@ -6,15 +6,11 @@ var theme=newDate[1]+''+newDate[2]+'会议';
 let arr=[20,21,22,23,24,25];
 Page({
   data: {
-    theme:theme,
+    themeName:theme,
     remind:'提前15分钟',
-    phone:'13333333332',
-    check:false,
-    capacity:'10人',
-    roomName:'水星会议室1',
+    phone:'',
+    check:true,
     imgUrl:'',
-    promotionCost:'48',
-    unitCost:'60',
     hour:getHour(arr),
     beginTime:getTime('20'),
     endTime:getTime('25'),
@@ -28,26 +24,116 @@ Page({
     rangeTime3:[],
     rangeTime:[],
     selectedTime:[],
-    nowDate:''
+    nowDate:'',
+    meetDetailShow:false,
+    indicatorDots: false,
+    autoplay: false,
+    duration: 1000,
+    currentNum:1,
+    imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
+    meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
+    meetingRoomId:'',
+    alertTime:'FIFTEEN',
+    order_pay:{},
+    priceCount:'0',
+    totalCount:'0',
+    detailInfo:{},
+    nowDate:'',
+    meeting_time:{
+      time:'10:30-11:30',
+      timeArr:[22,23,24]
+    },
+    isFirst:true,
+    errorMessage:'',
+    checkMessage:false,
+  },
+  openMeetDetail:function(e){
+    
+    this.setData({
+      meetingRoomId:'',
+      meetDetailShow:!this.data.meetDetailShow
+    })
+  },
+  closeMeetDetail:function(){
+      this.setData({
+        meetingRoomId:'',
+        meetDetailShow:!this.data.meetDetailShow
+      })
   },
   changeCheckbox:function(){
     this.setData({
         check:!this.data.check
     })
   },
-  jumpSetTheme:function() {
-    wx.navigateTo({
-      url: '../meetingTheme/meetingTheme?value='+this.data.theme
+  getRemind:function(alertTime){
+    let themeObj={
+      'NOALERT':'无',
+      'FIVE':'提前5分钟',
+      'FIFTEEN':'提前15分钟',
+      'THIRTY':'提前30分钟'
+    }
+    this.setData({
+      remind:themeObj[alertTime]
     })
   },
+  jumpSetTheme:function() {
+    this.setData({
+      order_pay:{
+        themeName:this.data.themeName,
+        alertTime:this.data.alertTime,
+        linkPhone:this.data.phone
+      }
+    })
+    wx.setStorage({
+      key:"order_pay",
+      data:this.data.order_pay,
+      success:function(){
+        wx.navigateTo({
+          url: '../meetingTheme/meetingTheme?type=storage'
+        })
+      }
+    })
+   
+   
+  },
   jumpSetRemind:function() {
-    wx.navigateTo({
-      url: '../warn/warn?value='+this.data.remind
+    this.setData({
+      order_pay:{
+        themeName:this.data.themeName,
+        alertTime:this.data.alertTime,
+        linkPhone:this.data.phone
+      }
+    })
+    wx.setStorage({
+      key:"order_pay",
+      data:this.data.order_pay,
+      success:function(){
+        wx.navigateTo({
+          url: '../warn/warn?type=storage'
+        })
+      }
     })
   },
   jumpSetPhone:function() {
-    wx.navigateTo({
-      url: '../phone/phone?value='+this.data.phone
+    this.setData({
+      order_pay:{
+        themeName:this.data.themeName,
+        alertTime:this.data.alertTime,
+        linkPhone:this.data.phone
+      }
+    })
+    wx.setStorage({
+      key:"order_pay",
+      data:this.data.order_pay,
+      success:function(){
+        wx.navigateTo({
+          url: '../phone/phone?type=storage'
+        })
+      }
     })
   },
   getBoardroomTime:function(){
@@ -90,27 +176,110 @@ Page({
   },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
-
-    var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
-      // if (index==indexParam) {
-        // item.actived = true; 
-      // }else{
-        item.actived = false; 
-      // }
-      return item;
-    })
-    console.log(rangeTime);
+    this.getIsfirst();
+    let len=this.data.meeting_time.timeArr.length-1;
+    let hour=(len*30)/60
     this.setData({
-      rangeTime1:rangeTime.slice(0,8),
-      rangeTime2:rangeTime.slice(8,16),
-      rangeTime3:rangeTime.slice(16),
-      rangeTime:rangeTime,
-      nowDate:wx.getStorageSync('nowDate')
+      order_pay:{
+        themeName:this.data.themeName,
+        alertTime:this.data.alertTime,
+        linkPhone:this.data.phone
+      },
+      hour:hour
     })
-    let order_pay={
-      
+    var _this=this;
+    wx.getStorage({
+      key:'detail',
+      success:function(res){
+        if(res.data){
+          _this.setData({
+              detailInfo:res.data
+            })
+        }
+      }
+    })
+    wx.getStorage({
+      key:'nowDate',
+      success:function(res){
+        console.log('res----',res)
+        if(res.data){
+          _this.setData({
+              nowDate:res.data,
+            })
+        }
+      }
+    })
+    
+    
+    // var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
+    //   // if (index==indexParam) {
+    //     // item.actived = true; 
+    //   // }else{
+    //     item.actived = false; 
+    //   // }
+    //   return item;
+    // })
+    // console.log(rangeTime);
+    // this.setData({
+    //   rangeTime1:rangeTime.slice(0,8),
+    //   rangeTime2:rangeTime.slice(8,16),
+    //   rangeTime3:rangeTime.slice(16),
+    //   rangeTime:rangeTime,
+    //   nowDate:wx.getStorageSync('nowDate')
+    // })
+    
+    
+  },
+  getIsfirst:function(){
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/isFirstOrder',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+            console.log('res.data.data',res.data.data)
+             
+        }
+    })
+  },
+  goToPay:function(){
+    let data=this.data;
+    var _this=this;
+    if(!data.check){
+      this.setData({
+        checkMessage:true,
+        errorMessage:'请阅读并同意KrMeeing服务须知'
+      })
+      setTimeout(function(){
+        _this.setData({
+          checkMessage:false,
+          errorMessage:''
+        })
+      },2000)
+      return
     }
-    wx.setStorage(order_pay)
+    // themeName:this.data.themeName,
+    //     alertTime:this.data.alertTime,
+    //     linkPhone:
+    
+   
+    
+    if(!data.order_pay.linkPhone){
+        this.setData({
+          checkMessage:true,
+          errorMessage:'请填写联系电话'
+        })
+        setTimeout(function(){
+          _this.setData({
+            checkMessage:false,
+            errorMessage:''
+          })
+        },2000)
+        return
+    }
+
+
   },
   
 })

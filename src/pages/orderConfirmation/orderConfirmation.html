@@ -1,18 +1,18 @@
 <view class="g-order-confirmation">
     <view class="m-order-header">
-        <view class="u-order-detail">
+        <view class="u-order-detail" bindtap="openMeetDetail">
             <view class="u-order-left">
                 <image class="u-order-img" src="../images/boardroomList/guding.png"></image>
             </view>
             <view class="u-order-right">
-                <text class="u-meet-title">15人 水星会议室</text>
-                <text class="u-meet-address">海航实业大厦9层</text>
+                <text class="u-meet-title">{{detailInfo.capacity}}人 {{detailInfo.roomName}}</text>
+                <text class="u-meet-address">{{detailInfo.buildName}} {{detailInfo.floor}}</text>
                 <view class="u-meet-price-info">
                     <view class="u-meet-price">
-                        ￥<text class="u-meet-num">48 </text>
+                        ￥<text class="u-meet-num">{{detailInfo.promotionCost || detailInfo.unitCost}} </text>
                     </view>
                     <view class="u-meet-uint-info">
-                        <text class="u-cancal-price">￥{{unitCost}} </text>
+                        <text class="u-cancal-price">￥{{detailInfo.unitCost}} </text>
                         <text class="u-uint">/ 半小时</text>
                     </view>
                 </view>
@@ -25,7 +25,7 @@
             <view class="u-user-date">
                 <view class="u-time-title">使用日期</view>
                 <view class="u-time-data">
-                    <view class="u-date-txt"> 2018-05-21</view>
+                    <view class="u-date-txt"> {{nowDate}}</view>
                     <view class="u-yellow-line"></view>
                 </view>
                 <view class="u-time-txt">今天</view>
@@ -33,15 +33,14 @@
             </view>
             <view class="u-user-hour">
                 <view class="u-time-title">使用时段</view>
-                <view class="u-no-time">
+                <view class="u-no-time" wx:if="{{meeting_time.timeArr.length==0}}">
                     请选择使用时间
                 </view>
-                
-                <!-- <view class="u-time-data">
-                    <view class="u-date-txt">{{beginTime}}-{{endTime}}</view>
+                <view class="u-time-data" wx:if="{{meeting_time.timeArr.length>0}}">
+                    <view class="u-date-txt">{{meeting_time.time}}</view>
                     <view class="u-yellow-line"></view>
                 </view>
-                <view class="u-time-txt">{{hour}}小时</view> -->
+                <view class="u-time-txt">{{hour}}小时</view>
                 <image class="u-btn-arrow-bottom u-hour-arrow" src="../images/public/icon_arrow_bottom.png"></image>
             </view>
             <view class="u-line"></view>
@@ -52,7 +51,7 @@
             <view class="u-meeting-title">
                 会议主题
             </view>
-            <view class="u-meet-text">{{theme}}</view>
+            <view class="u-meet-text">{{themeName}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
@@ -87,7 +86,7 @@
         </view>
     </view>
     <view class="u-footer">
-        <!-- <view class="u-footer-left">
+        <view class="u-footer-left" wx:if="{{isFirst}}">
             <view class="u-first-pay-price">
                 <view class="u-price-label">
                     应付：
@@ -96,17 +95,17 @@
                     ¥   
                 </view>
                 <view class="u-price-num">
-                    164
+                    {{priceCount}}
                 </view>
                 <view class="u-old-price">
-                    ￥60 
+                    ￥{{totalCount}}
                 </view>
             </view>
             <view class="u-footer-tip">
               （新人专享）2小时超值体验
             </view>
-        </view> -->
-        <view class="u-footer-left">
+        </view>
+        <view class="u-footer-left" wx:if="{{!isFirst}}">
             <view class="u-pay-price">
                 <view class="u-no-first-price-label">
                     应付：
@@ -115,15 +114,25 @@
                     ¥   
                 </view>
                 <view class="u-no-first-price-num">
-                    164
+                    {{priceCount}}
                 </view>
                 <view class="u-old-no-first-price">
-                    ￥60 
+                    ￥{{totalCount}}
                 </view>
             </view>
         </view>
-        <view class="u-footer-right"> 立即支付</view>
+        <view class="u-footer-right" wx:if="{{meeting_time.timeArr.length==0}}" > 立即支付</view>
+        <view 
+            class="u-footer-right u-active-btn" 
+            wx:if="{{meeting_time.timeArr.length>0}}"
+            bindtap="goToPay"
+        > 立即支付</view>
     </view>
+    <view class="last-view">
+        <div class="error-message" wx:if="{{checkMessage}}">{{errorMessage}}</div>
+    </view>
+
+
     <view class="u-dialog" wx:if="{{dialogShow}}">
         <view class="u-dialog-content">
             <view class="u-dialog-title">提示</view>
@@ -153,7 +162,7 @@
         <view class="u-message-txt">{{message}}</view>
     </view>
     <!-- 时间选择 -->
-    <view class="u-dialog" wx:if="{{!dialogTimeShow}}">
+    <view class="u-dialog" wx:if="{{dialogTimeShow}}">
         <view class="u-dialog-time">
             <view class="top">
                 <view class="first-row">使用日期</view>
@@ -212,5 +221,67 @@
             </view>
             <view class="{{selectedTime.length>0?'sured':'unsure'}}">选择使用时间</view>
         </view>
+    </view>
+
+
+    <!-- 会议室详情 -->
+  <view class="u-meet-detail" wx:if="{{meetDetailShow}}">
+        <view class="u-meet-detail-content">
+        <view class="u-meet-content">
+            <view class="u-swiper-content">
+              <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
+                    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
+                    bindchange="currentChange"
+                    
+                    >
+                    <view wx:for="{{imgUrls}}" wx:key="*this">
+                      <swiper-item>
+                        <image class="u-swiper-img" src="{{item}}"  />
+                      </swiper-item>
+                    </view>
+              </swiper>
+              <view class="u-img-num">{{currentNum}}/{{imgUrls.length}}</view>
+            </view>
+            <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
+            <view class="u-meeting-detail-info">
+                <view class="u-meet-info">
+                    <view class="u-meet-name">
+                      15人间  水星会议室
+                    </view>
+                    <view class="u-meet-detail-price-info">
+                        <view class="u-meet-unit">¥</view>
+                        <view class="u-meet-num"> 48</view>
+                        <view class="u-meet-old-num">¥ 60 </view>
+                        <view class="u-meet-old-unit"> / 半小时  </view>
+                    </view>
+                    <view class="u-meet-sale">限时7折优惠</view>
+                </view>
+                <view class="u-meet-detail-address">
+                    <view class="u-address">
+                        <image class="u-address-icon" src="../images/public/icon_dizhi.png"></image>
+                        <view class="u-address-txt">海航实业大厦9层</view>
+                    </view>
+                    <view class="u-address">
+                      <image class="u-address-icon"  src="../images/public/icon_didian.png"></image>
+                      <view class="u-address-txt">北京市朝阳区建国路108号</view>
+                  </view>
+                </view>
+            </view>
+            <view class="u-meet-facility">
+                <view 
+                  class="u-icon-list"  
+                  wx:for="{{meetInfo}}"
+                  wx:key="*this"
+                  wx:for-item="meetItem"
+                >
+                    <image class="u-facility-icon"></image>
+                    <view class="u-facility-txt">{{meetItem}}电话会</view>
+                </view> 
+            </view>
+            <view class="u-meet-btn" bindtap="">
+                立即预订
+            </view>
+        </view>
+      </view>
     </view>
 </view> 

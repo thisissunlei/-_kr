@@ -21,7 +21,9 @@ Page({
     if(type == 'submit'){
       this.setData({
         activeTab: options.value || 'NOALERT',
-        type:options.type
+        type:options.type,
+        orderId:options.orderId || 1
+
       })
     }else if(type == 'storage'){
       wx.getStorage({
@@ -29,9 +31,11 @@ Page({
         success: function(res) {
           if(res.data){
             that.setData({
-              activeTab: res.data.warn || 'NOALERT',
+              activeTab: res.data.alertTime || 'NOALERT',
               type:type,
-              order_pay:res.data
+              order_pay:res.data,
+              orderId:options.orderId || 1
+
             })
           }
         }
@@ -46,7 +50,7 @@ Page({
     let order_pay = this.data.order_pay;
     if(type=='storage' && this.button_boolean){
       this.button_boolean = false;
-      order_pay.warn = target.code;
+      order_pay.alertTime = target.code;
       that.setData({
         activeTab: target.code,
       })
@@ -74,11 +78,11 @@ Page({
     let that = this;
     //接口待定
     app.getRequest({
-        url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
-        methods:"GET",
+        url:app.globalData.KrUrl+'/api/gateway/krmting/order/updateExtInfo',
+        methods:"POST",
         data:{
-          "code":that.data.activeTab,
-          "phone":that.data.phone
+          "orderId":that.data.orderId,
+          "alertTime":that.data.activeTab
         },
         success:(res)=>{
           if(res.data.code>0){
