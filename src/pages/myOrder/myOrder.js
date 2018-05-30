@@ -10,7 +10,7 @@ Page({
       {
         "buildName":"测试内容6n27",
         "capacity":"20",
-        "ctime":{},
+        "ctime":new Date().getTime()/1000+300,
         "imgUrl":"测试内容5s1e",
         "meetingRoomName":"测试内容sdqr",
         "meetingTIme":"测试内容pr46",
@@ -22,7 +22,7 @@ Page({
       {
         "buildName":"测试内容6n27",
         "capacity":"20",
-        "ctime":{},
+        "ctime":new Date().getTime()/1000+300,
         "imgUrl":"测试内容5s1e",
         "meetingRoomName":"测试内容sdqr",
         "meetingTIme":"测试内容pr46",
@@ -34,7 +34,7 @@ Page({
       {
         "buildName":"测试内容6n27",
         "capacity":"20",
-        "ctime":{},
+        "ctime":new Date().getTime()/1000+300,
         "imgUrl":"测试内容5s1e",
         "meetingRoomName":"测试内容sdqr",
         "meetingTIme":"测试内容pr46",
@@ -46,7 +46,7 @@ Page({
       {
         "buildName":"测试内容6n27",
         "capacity":"20",
-        "ctime":{},
+        "ctime":new Date().getTime()/1000+300,
         "imgUrl":"测试内容5s1e",
         "meetingRoomName":"测试内容sdqr",
         "meetingTIme":"测试内容pr46",
@@ -65,17 +65,6 @@ Page({
         'USED':'3',
         'CLOSED':'4'
     }
-  },
-  startcountDate:function(){
-    const time = CAlculagraph.CAlculagraph();
-    const that = this;
-    time.timerMint({
-      deadline:new Date().getTime()/1000+300,//最终结束的时间戳,
-      callback:function (){
-        console.log(111)
-      },//时间结束
-      that:this
-    });
   },
   changeType:function(e){
     let that = this;
@@ -99,9 +88,18 @@ Page({
     })
     this.getData(type)
   },
+  dealTime(e){
+    var dates=new Date();
+    var nowtime=Math.round(e-dates.getTime()/1000);
+    var minute=Math.floor(((nowtime%86400)%3600)/60);
+    var second=Math.floor(((nowtime%86400)%3600)%60);
+    return {
+      minute:minute,
+      second:second
+    }
+  },
   getData:function(type){
     let that = this;
-    // this.startcountDate()
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
         methods:"GET",
@@ -113,18 +111,9 @@ Page({
           let list = []
           list = that.data.orderList.map((item,index)=>{
             if(item.orderShowStatus == 'OBLIGATION'){
-              item.minute='';
-              item.second='';
-              console.log('=======')
-              const time = CAlculagraph.CAlculagraph();
-              const that = this;
-              time.timerMint({
-                deadline:new Date().getTime()/1000+300,//最终结束的时间戳,
-                callback:function (){
-                  console.log(111)
-                },//时间结束
-                that:this
-              });
+              let time = this.dealTime(item.ctime)
+              item.minute=time.minute;
+              item.second=time.second;
             }
             return item;
           })
