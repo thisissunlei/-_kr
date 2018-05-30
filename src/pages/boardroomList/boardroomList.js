@@ -265,6 +265,7 @@ Page({
       nowDate:topDate[0].date,
     },function(){
       that.getData();
+      wx.setStorageSync('nowDate',date);
     })
   },
   selectTopDate:function(e){
@@ -286,6 +287,7 @@ Page({
       nowDate:date
     },function(){
       that.getData();
+      wx.setStorageSync('nowDate',date);
     })
   },
 
@@ -330,7 +332,7 @@ Page({
         },
         success:(res)=>{
           that.setData({
-              boardroomList:[].concat(that.data.boardroomList,response.data.items),
+              boardroomList:[].concat(that.data.boardroomList,res.data.items),
               totalCount:totalCount,
               nextPage:that.data.nextPage++
           })
