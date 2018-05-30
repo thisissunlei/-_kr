@@ -72,16 +72,16 @@ Page({
             let data=res.data.data;
             
               let titleObj={
-                '1':'待支付订单',
-                '2':'待使用订单',
-                '3':'已使用订单',
-                '4':'已取消订单'
+                'OBLIGATION':'待支付订单',
+                'TOBEUSED':'待使用订单',
+                'USED':'已使用订单',
+                'CLOSED':'已取消订单'
               }
               let payTitleObj={
-                '1':'应付款',
-                '2':'实付款',
-                '3':'实付款',
-                '4':'应付款'
+                'OBLIGATION':'应付款',
+                'TOBEUSED':'实付款',
+                'USED':'实付款',
+                'CLOSED':'应付款'
               }
               
               let themeObj={
@@ -101,7 +101,7 @@ Page({
                   detailInfo.useDate=useDate;
                   detailInfo.beginTime=beginTime;
                   detailInfo.endTime=endTime;
-              let hour=(data.endTime-data.beginTime)/1000/60/60;
+              let hour=(data.endTime-data.beginTime)/3600000;
               let Ctime=changeTime(data.ctime);
               detailInfo.ctime=Ctime[0]+"-"+Ctime[1]+"-"+Ctime[2]+" "+Ctime[3]+":"+Ctime[4]+":"+Ctime[5]
               this.setData({
