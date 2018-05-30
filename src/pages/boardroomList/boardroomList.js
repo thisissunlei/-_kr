@@ -12,7 +12,7 @@ Page({
     page:1,
     nextPage:2,
     pageSize:10,
-    totalCount:10,
+    totalPages:1,
     communityId:'168',
     nowDate:'',
     rangeTime:[{
@@ -144,7 +144,7 @@ Page({
         },
         success:(res)=>{
           that.setData({
-            totalCount:res.data.totalCount,
+            totalPages:res.data.totalPages,
             boardroomList:res.data.items
           })
         }
@@ -297,18 +297,18 @@ Page({
     var communityList = this.data.communityList;
     var page = this.data.nextPage;
     var pageSize = this.data.pageSize;
-    var totalCount = this.data.totalCount;
+    var totalPages = this.data.totalPages;
 
-
-    if(page>totalCount){
+    
+    if(page>totalPages){
       return ;
     }
-
+    console.log(page,pageSize);
       var that = this;
 
       // this.$http.get('get-news-list',{page,pageSize}).then(function(response){
 
-      //   var totalCount = response.data.totalCount;
+      //   var totalPages = response.data.totalPages;
 
       //   that.items = [].concat(that.data.boardroomList,response.data.items);
 
@@ -317,7 +317,7 @@ Page({
       // }) 
 
       //   that.setData({
-//            totalCount:totalCount
+//            totalPages:totalPages
       // }) 
 
       // });
@@ -334,7 +334,7 @@ Page({
         success:(res)=>{
           that.setData({
               boardroomList:[].concat(that.data.boardroomList,res.data.items),
-              totalCount:totalCount,
+              totalPages:totalPages,
               nextPage:that.data.nextPage++
           })
         }
