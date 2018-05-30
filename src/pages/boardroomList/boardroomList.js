@@ -389,6 +389,9 @@ Page({
     var detail = e.currentTarget.dataset.detail;
     wx.setStorageSync('rangeTime',rangeTime);
     wx.setStorageSync('detail',detail);
+    wx.navigateTo({
+      url: '/pages/orderConfirmation/orderConfirmation'
+    })
   },
 
   toBottom: function(e) {
