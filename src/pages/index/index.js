@@ -207,9 +207,14 @@ Page({
       case 'warn':
         url = "../warn/warn?type=submit&value=NOALERT"
         break;
+      case 'detail':
+        url = "../orderDetail/orderDetail"
+      break;
+        
       default:
         url = "../meetingTheme/meetingTheme?type=submit&value=会议"
         break;
+      
     } 
     wx.navigateTo({
       url: url
