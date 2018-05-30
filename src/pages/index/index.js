@@ -203,7 +203,7 @@ Page({
     })
    
     wx.navigateTo({
-      url:"../meetingDetail/meetingDetail?inviteeId="+this.data.inviteeId
+      url:"../meetingDetail/meetingDetail?inviteeId="+inviteeId
     })
   },
   //点击会议室进入会议室列表

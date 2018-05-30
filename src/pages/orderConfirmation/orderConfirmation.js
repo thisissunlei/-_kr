@@ -22,12 +22,13 @@ Page({
     typeStatus:true,
     message:'用户取消支付',
     messageShow:false,
-    dialogTimeShow:true,
+    dialogTimeShow:false,
     rangeTime1:[],
     rangeTime2:[],
     rangeTime3:[],
     rangeTime:[],
     selectedTime:[],
+    nowDate:''
   },
   changeCheckbox:function(){
     this.setData({
@@ -53,6 +54,11 @@ Page({
     
   },
   tapTime:function(e){
+    // wx.showToast({
+    //   title: 'asdf',
+    //   icon: 'none',
+    //   duration: 1000
+    // })
     var indexParam = e.currentTarget.dataset.index;
     // var selectedTime = this.data.selectedTime;
     var selectedTime = [];
@@ -64,9 +70,10 @@ Page({
       if(item.actived){
         selectedTime.push(item.number);
       }else{
-        if(selectedTime.indexOf(item.number)>-1){
-          selectedTime.splice(selectedTime.indexOf(item.number), 1);
-        }
+        console.log(selectedTime.indexOf(item.number));
+        // if(selectedTime.indexOf(item.number)>-1){
+        //   selectedTime.splice(selectedTime.indexOf(item.number), 1);
+        // }
       }
       return item;
     })
@@ -83,6 +90,7 @@ Page({
   },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
+
     var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
       // if (index==indexParam) {
         // item.actived = true; 
@@ -97,6 +105,7 @@ Page({
       rangeTime2:rangeTime.slice(8,16),
       rangeTime3:rangeTime.slice(16),
       rangeTime:rangeTime,
+      nowDate:wx.getStorageSync('nowDate')
     })
     let order_pay={
       
