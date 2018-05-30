@@ -29,7 +29,7 @@ Page({
         success: function(res) {
           if(res.data){
             that.setData({
-              activeTab: res.data.warn || 'NOALERT',
+              activeTab: res.data.alertTime || 'NOALERT',
               type:type,
               order_pay:res.data
             })
@@ -46,7 +46,7 @@ Page({
     let order_pay = this.data.order_pay;
     if(type=='storage' && this.button_boolean){
       this.button_boolean = false;
-      order_pay.warn = target.code;
+      order_pay.alertTime = target.code;
       that.setData({
         activeTab: target.code,
       })

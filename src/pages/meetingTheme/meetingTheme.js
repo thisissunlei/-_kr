@@ -46,7 +46,7 @@ Page({
           if(res.data){
             console.log('order_pay')
             that.setData({
-              inputValue: res.data.title || '',
+              inputValue: res.data.themeName || '',
               type:type,
               order_pay:res.data
             })
@@ -62,7 +62,7 @@ Page({
     let type = this.data.type;
     let order_pay = this.data.order_pay;
     if(type=='storage'){
-      order_pay.title = this.data.inputValue;
+      order_pay.themeName = this.data.inputValue;
       wx.setStorage({
         key:"order_pay",
         data:order_pay,

@@ -86,7 +86,7 @@ Page({
       data:this.data.order_pay,
       success:function(){
         wx.navigateTo({
-          url: '../meetingTheme/meetingTheme?type="storage"'
+          url: '../meetingTheme/meetingTheme?type=storage'
         })
       }
     })
