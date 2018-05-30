@@ -35,7 +35,7 @@
 		            <view class="time-down">{{item.minute}}:</view>
 		            <view class="time-down">{{item.second}}</view>
 	  			</view>
-  				<view class="button">立即支付</view>
+  				<view class="button" bindtap="orderPay" data-order="{{item.orderId}}">立即支付</view>
 			</div>
   		</div>
 

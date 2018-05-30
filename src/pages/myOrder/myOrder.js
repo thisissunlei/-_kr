@@ -30,7 +30,7 @@ Page({
         "meetingRoomName":"测试内容sdqr",
         "meetingTIme":"测试内容pr46",
         "orderId":28646,
-        "orderShowStatus":'OBLIGATION',
+        // "orderShowStatus":'OBLIGATION',
         "orderStatusDesc":"测试内容it12",
         "payStatus":"测试内容58w2"
       },
@@ -103,6 +103,20 @@ Page({
   },
   getData:function(type){
     let that = this;
+    let list = []
+            list = this.data.list.map((item,index)=>{
+              if(item.orderShowStatus == 'OBLIGATION'){
+                let time = this.dealTime(item.ctime)
+                item.minute=time.minute;
+                item.second=time.second;
+              }
+              return item;
+            })
+            that.setData({
+              orderList:list
+            })
+
+    return;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
         methods:"GET",
@@ -128,6 +142,32 @@ Page({
             that.setData({
               orderList:that.data.list
             })
+            // that.setData({
+            //   error:false,
+            //   errorMessage:res.data.message
+            // })
+          }
+          
+        },
+        fail:(res)=>{
+           console.log('========',res)
+        }
+      })
+  },
+  orderPay(e){
+    let id = e.target.dataset.order;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+        methods:"GET",
+        data:{
+          orderId:id
+        },
+        success:(res)=>{
+          console.log('res',res)
+          if(res.data.code>0){
+
+          }else{
+
             // that.setData({
             //   error:false,
             //   errorMessage:res.data.message
