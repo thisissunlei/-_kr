@@ -9,7 +9,9 @@ Page({
   data: {
    inputValue:'',
    order_pay:{},
-   type:''
+   type:'',
+   submitError:true,
+   errorMessage:''
   },
   bindViewTap(){
     console.log('bindViewTap')
@@ -86,19 +88,35 @@ Page({
           "phone":that.data.phone
         },
         success:(res)=>{
-          wx.navigateBack({
-            delta: 1
-          })
+          if(res.data.code>0){
+            wx.navigateBack({
+              delta: 1
+            })
+          }else{
+            that.setData({
+              submitError:false,
+              errorMessage:res.data.message
+            })
+            setTimeout(function(){
+              that.setData({
+                submitError:true,
+                errorMessage:''
+              })
+            },2000)
+          }
+          
         },
         fail:(res)=>{
           that.setData({
-            submitError:false
-          })
-          setTimeout(function(){
-            that.setData({
-              submitError:true
+              submitError:false,
+              errorMessage:res.data.message
             })
-          },2000)
+            setTimeout(function(){
+              that.setData({
+                submitError:true,
+                errorMessage:''
+              })
+            },2000)
           
         }
       })
