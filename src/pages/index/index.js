@@ -43,7 +43,6 @@ Page({
           _this.func_bool_l = false;
           _this.getAllInfo();
         }
-       // _this.getAllInfo();
       }
     })
   },
@@ -51,7 +50,7 @@ Page({
     const that = this;
     this.getLocation();
     //页面加载
-   /* wx.login({
+    wx.login({
       success: function(res) {
         if (res.code) {
           //发起网络请求
@@ -81,7 +80,7 @@ Page({
         }
       }
 
-    }),*/
+    }),
   //  wx.request({
   //     url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/home',
   //     methods:"GET",
@@ -126,29 +125,16 @@ Page({
           if(that.func_bool_s&&that.func_bool_l2){
             that.func_bool_s = false;
             that.func_bool_l2 = false;
+
             that.getInfo();
           }
           
           that.setData({
             btn_bool:false
           });
-          //that.getLocation();
         }
       }
     })
-    //获取用户信息
-    
-    //传信息给后台
-    // wx.request({
-    //   url:'http://itest01.krspace.cn/api/gateway/krmting/user/save',
-    //   methods:"POST",
-    //   header:{
-    //     'content-type':"appication/json"
-    //   },
-    //   data:{
-        
-    //   },
-    // })
     
   },
   getAllInfo:function (){
@@ -177,6 +163,7 @@ Page({
   },
   //获取用户信息
   getInfo:function(){
+    console.log(666666)
     var that = this;
     wx.getUserInfo({
       success: function(res) {
