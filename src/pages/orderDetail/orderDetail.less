@@ -1,6 +1,7 @@
 /**index.wxss**/
 page{
   width:100%;
+  position: relative;
 }
 .g-order-detail{
   width:100%;
@@ -472,11 +473,12 @@ page{
 
 .u-meet-detail{
   width:100%;
-  min-height:100%;
+  height:100%;
   background: rgba(0,0,0,0.80);
   position: absolute;
   top:0;
   left:0;
+  bottom:0;
   z-index:200;
 }
 .u-meet-detail-close{
@@ -491,8 +493,9 @@ page{
   min-height:800rpx;
   background: #fff;
   margin-top:290rpx;
-  position: relative;
+  position: absolute;
   display: inline-block;
+  bottom:0;
 }
 .u-swiper-content{
   position: relative;

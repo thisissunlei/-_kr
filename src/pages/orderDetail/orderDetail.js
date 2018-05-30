@@ -46,9 +46,9 @@ Page({
 
   },
   openMeetDetail:function(e){
-    let id=e.currentTarget.dataset.item.meetingRoomId;
+    let detailInfo=this.data.detailInfo;
     this.setData({
-      meetingRoomId:id,
+      meetingRoomId:detailInfo.meetingRoomId,
       meetDetailShow:!this.data.meetDetailShow
     })
   },
