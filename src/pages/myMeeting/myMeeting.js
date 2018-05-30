@@ -55,9 +55,9 @@ Page({
         },
         success:(res)=>{
           console.log(res)
-          that.setData({
-            meetingList:res.data
-          })
+          // that.setData({
+          //   meetingList:res.data
+          // })
         },
         fail:(res)=>{
            console.log('========',res)

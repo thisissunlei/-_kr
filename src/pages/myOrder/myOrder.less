@@ -4,6 +4,9 @@ page{
 	display: block;
 	height: 100%;
 }
+.my-order{
+	position: relative;
+}
 .order-type{
 	display: flex;
 	background-color: #fff;
@@ -16,7 +19,7 @@ page{
 	position: fixed;
 	top: 0;
 	width:100%;
-	position: relative;
+	z-index: 3;
 }
 .active-type{
 	display: inline-block;
@@ -26,6 +29,7 @@ page{
 	height: 4rpx;
 	text-align: center;
 	transition:all .3s;
+
 }
 .active-type>.line{
 	width: 40rpx;
@@ -41,7 +45,9 @@ page{
 	color:#333333;
 	font-size: 30rpx;
 }
-
+.content-list{
+	margin-top: 85rpx;
+}
 .order-detail{
 	display: block;
 	background: #FFF;

@@ -41,7 +41,7 @@
                   <view class="u-date-txt">{{detailInfo.beginTime}}-{{detailInfo.endTime}}</view>
                   <view class="u-yellow-line"></view>
               </view>
-              <view class="u-time-txt">{{detailInfo.hour}}小时</view>
+              <view class="u-time-txt">{{hour}}小时</view>
           </view>
           <view class="u-line"></view>
       </view>
@@ -60,7 +60,7 @@
                     <view class="u-price-new-unit">￥</view>
                     <view class="u-price-new-num">{{detailInfo.paidAmount}}</view>
                 </view>
-                <view class="u-meeting-old-price">￥60 </view>
+                <view class="u-meeting-old-price">￥{{detailInfo.totalamount}} </view>
            </view>
            <view class="u-meeting-first-tip">新人专享2小时超值体验</view>
         </view>
@@ -70,7 +70,7 @@
             <view class="u-meeting-title">
                 会议主题
             </view>
-            <view class="u-meet-text">{{detailInfo.theme}}</view>
+            <view class="u-meet-text">{{detailInfo.themeName}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow" wx:if="{{detailInfo.orderShowStatus!=3}}">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
@@ -79,7 +79,7 @@
             <view class="u-meeting-title">
                 会议提醒
             </view>
-            <view class="u-meet-text">{{detailInfo.alertTime}}</view>
+            <view class="u-meet-text">{{detailInfo.themeTime}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow"  wx:if="{{detailInfo.orderShowStatus!=3}}">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
@@ -96,13 +96,11 @@
     </view>
     <view class="u-footer">
         <view class="u-footer-btn-list">
-            <view wx:if="{{detailInfo.orderShowStatus==1}}" class="u-footer-color-btn" bindtap="payOrder"> 
+            <view wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}" class="u-footer-color-btn" bindtap="payOrder"> 
                 立即支付
             </view>
-            <view wx:if="{{detailInfo.orderShowStatus==2}}" class="u-footer-color-btn" bindtap="">
-                邀请参会人
-            </view>
-            <view wx:if="{{(detailInfo.orderShowStatus==2) || (detailInfo.orderShowStatus==3)}}" class="u-footer-btn" bindtap="jumpMeet">
+            <button open-type="share" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn" style="border:none">邀请参会人</button>
+            <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
                 查看会议
             </view>
             <button class="u-my-contact-btn" open-type="contact">联系客服</button>
