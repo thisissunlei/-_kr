@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    
+    btn_bool:true,
     duration: 1000,
     buildingList:[],
     myMeeting:[],
@@ -14,13 +14,14 @@ Page({
     latitude:'',
     longitude:'',
   },
+  func_bool_g:false,
+  func_bool_l:false,
   //获取地理位置
   getLocation:function(){
     var _this = this
     wx.getLocation({
       type: 'wgs84',
       success: function(res) {
-        console.log(res,"经纬度")
         _this.rq_data = {
           latitude:res.latitude,
           longitude:res.longitude
@@ -33,8 +34,14 @@ Page({
               longitude:res.longitude
             }
           },
-        })
-        _this.getAllInfo();
+        });
+        _this.func_bool_g = true;
+        if(_this.func_bool_g&&_this.func_bool_l){
+          _this.func_bool_g = false;
+          _this.func_bool_l = false;
+          _this.getAllInfo();
+        }
+       // _this.getAllInfo();
       }
     })
   },
@@ -46,21 +53,21 @@ Page({
     //页面加载
     wx.login({
       success: function(res) {
-        //console.log(res)
         if (res.code) {
           //发起网络请求
-         // console.log(that.globalData.KrUrl,89773737)
           wx.request({
             url: app.globalData.KrUrl+'api/gateway/krmting/common/login',
             data: {
               code: res.code
             },
             success:function(res){
-              console.log(res.header,res.header['Set-Cookie'],'登陆数据')
+              that.func_bool_l = true;
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
-              var openId = res.data.data.openid;
-              //console.log(openId)
-              that.getAllInfo();
+              if(that.func_bool_g&&that.func_bool_l){
+                that.func_bool_g = false;
+                that.func_bool_l = false;
+                that.getAllInfo();
+              }
             }
           })
         } else {
@@ -94,26 +101,30 @@ Page({
     })*/
     
     //查看是否授权
-    // wx.getSetting({
-    //   success(res) {
-    //     if (!res.authSetting['scope.userInfo']) {
-          
-    //       wx.authorize({
-    //           scope: 'scope.userInfo',
-    //           success() {
-    //             that.getInfo();
-    //             that.getLocation();
-    //           },
-    //           fail(res){
-    //             console.log(res,999)
-    //           }
-    //       })
-    //     }else{
-    //       that.getInfo();
-    //       that.getLocation();
-    //     }
-    //   }
-    // })
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          console.log(999999776)
+          /*wx.authorize({
+              scope: 'scope.userInfo',
+              success() {
+                that.getInfo();
+                that.getLocation();
+              },
+              fail(res){
+                console.log(res,999)
+              }
+          })*/
+        }else{
+          console.log(7366363782)
+          that.getInfo();
+          that.setData({
+            btn_bool:false
+          });
+          //that.getLocation();
+        }
+      }
+    })
     //获取用户信息
     
     //传信息给后台
@@ -127,7 +138,7 @@ Page({
         
     //   },
     // })
-    that.getInfo();
+    
   },
   getAllInfo:function (){
     var that = this;
@@ -140,12 +151,12 @@ Page({
         longitude:that.rq_data.longitude
       },
       success:(res)=>{
-        console.log(res,888888881111)
+        console.log(res.data.data,888888881111)
         that.setData({
-          buildingList:res.data.buildingList,
-          myMeeting:res.data.myMeeting
+          buildingList:res.data.data.buildingList,
+          myMeeting:res.data.data.myMeeting
         })
-        if(res.data.myMeeting.length>0){
+        if(res.data.data.myMeeting.length>0){
           that.setData({
             metting:true
           })
@@ -194,5 +205,12 @@ Page({
     wx.navigateTo({
       url:"../my/my"
     })
+  },
+  onGotUserInfo:function (e){
+    this.getInfo();
+    this.setData({
+      btn_bool:false
+    });
+    console.log(e,999999)
   }
 })
