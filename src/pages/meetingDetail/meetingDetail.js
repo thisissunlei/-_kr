@@ -33,7 +33,7 @@ Page({
     //数据加载
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+      
       methods:"GET",
       header:{
         "content-type":"application/json"
@@ -44,13 +44,13 @@ Page({
       success:(res)=>{
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data.data.meetingTime,
-          themeName:res.data.data.themeName,
-          meetingRoomName:res.data.data.meetingRoomName,
-          address:res.data.data.address,
-          inviteer:res.data.data.inviteer,
-          limitCount:res.data.data.limitCount,
-          status:res.data.data.status
+          meetingTime:res.data.meetingTime,
+          themeName:res.data.themeName,
+          meetingRoomName:res.data.meetingRoomName,
+          address:res.data.address,
+          inviteer:res.data.inviteer,
+          limitCount:res.data.limitCount,
+          meetingStatus:res.data.meetingStatus
         })
       }
     })
@@ -63,15 +63,30 @@ Page({
     var that = this;
   },
   onShareAppMessage: function (res) {
+    var that = this
     console.log(res,8888)
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
     return {
-      title: '戳我一键参会！邀请您于“{{this.data.meetingTime}}在"{{this.data.meetingRoomName}}"参加“{{this.data.themeName}}””',
-      path: '/meetingDetail/meetingDetail?inviteeId='+inviteeId,
-      
+      title: '戳我一键参会！邀请您于“{{that.data.meetingTime}}在"{{that.data.meetingRoomName}}"参加“{{that.data.themeName}}””',
+      path: 'pages/meetingStatus/meetingStatus', 
     }
+  },
+
+  //点击取消参会
+  cancelMeeting(){
+    wx.getStorage({
+      key: 'user_info',
+      success:(res)=>{
+        console.log(res)
+      },
+    })
+    console.log(this.data.inviteer)
+    console.log(inviteerArr)
+      inviteerArr.forEach((item,index)=>{
+        console.log(item,index)
+      })
   }
 })

@@ -3,7 +3,6 @@
     <view class='top'>
       <view class="top-banner">
         <image src="../images/indexImg/card.png" class="img"></image>
-        <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{status===2?true:false}}"></image>
         <view class="content">
           <view class='title'>
             <text class='h1'>{{meetingTime}}11-29 (周三）9:00-10:30</text>
@@ -11,8 +10,7 @@
           </view>
           <view class='pics'>
             <view class="code-pic">
-              <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{status===2?true:false}}"></image>
-              <image src="../images/indexImg/code.png" wx:if="{{status===2?false:true}}" class="img"></image>
+              <image src="../images/indexImg/code.png"class="img"></image>
               <view class="img-box">
                 <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
                   <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
@@ -42,7 +40,7 @@
                 </view>
                 <text>{{item.wechatNick}}</text>
                 <image src="../images/indexImg/icon_faqiren.png" class="originator"></image>
-                <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.join===1?true:false}}"></image>
+                <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===1?true:false}}"></image>
             </view>
         </block>
         <view class='clear'></view>

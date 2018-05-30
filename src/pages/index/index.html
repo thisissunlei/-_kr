@@ -26,7 +26,7 @@
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
             <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
             <view style="position: absolute;top: 0;left: 0;">
-                <view class="metting-mark {{item.status === 0?'wait':item.status === 1?'already':'overdue'}}">{{item.status === 0?'待入场':item.status === 1?'已入场':'已过期'}}</view>
+                <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':item.meetingStatus === 'ARRVING'?'already':'overdue'}}">{{item.meetingStatus === 'WAIT'?'待入场':item.meetingStatus === 'ARRVING'?'已入场':'已过期'}}</view>
                 <view class="metting-title"> 
                     <text class="metting-time">11-29(周三)9:00-10:30</text>
                     <text class="metting-name">产品技术部例会</text>
