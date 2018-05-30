@@ -13,7 +13,7 @@ Page({
     nextPage:2,
     pageSize:10,
     totalCount:10,
-    communityId:'',
+    communityId:'168',
     nowDate:'',
     rangeTime:[{
       disabled:false,
@@ -361,6 +361,11 @@ Page({
 
   onLoad:function(options){
     console.log("option>>>",options);
+    // if(options.communityId){
+    //   this.setData({
+    //     communityId:options.communityId
+    //   })
+    // } 
   },
 
   onReady: function () {
