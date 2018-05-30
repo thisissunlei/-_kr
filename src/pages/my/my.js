@@ -11,11 +11,16 @@ Page({
     count:0,
     tipShow:true,
   },
-  //事件处理函数
   jumpMyMeet:function() {
     wx.navigateTo({
       url: '../myMeeting/myMeeting'
     })
+  },
+  jumpOderList:function(e){
+    let status=e.currentTarget.dataset.status;
+    wx.navigateTo({
+      url: '../myOrder/myOrder?orderShowStatus='+status
+     })
   },
   closeTip:function(){
     this.setData({
