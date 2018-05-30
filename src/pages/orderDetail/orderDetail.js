@@ -17,6 +17,20 @@ Page({
     orderId:'',
   },
   payOrder:function(){
+    let orderId=this.data.orderId;
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+      method:"POST",
+      data:{
+        orderId:orderId
+      },
+      success:(res)=>{
+
+      },
+      fail:(error)=>{
+          
+      }
+    })
 
   },
   jumpMeetDetail:function() {
@@ -134,24 +148,6 @@ Page({
       },//时间结束
       that:this
     });
-  },
-  goToPay:function(e){
-    let orderId=this.data.orderId;
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
-      method:"POST",
-      data:{
-        orderId:orderId
-      },
-      success:(res)=>{
-
-      },
-      fail:(error)=>{
-          
-      }
-    })
-
-
   },
    
 })
