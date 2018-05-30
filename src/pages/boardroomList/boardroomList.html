@@ -9,7 +9,7 @@
     </block>
   </view> -->
   <view class="top-date">
-    <scroll-view scroll-x >
+    <scroll-view scroll-x scroll-left="{{dateScrollLeft}}">
       <view class="left">
         <view 
          wx:for="{{topDate}}"
@@ -26,7 +26,7 @@
       </view>
     </scroll-view>
       <view class="gray-border"></view>
-      <view class="right">
+      <view bindtap="closeDialogDate" class="right">
         <image src="../images/boardroomList/rili.png"></image>
       </view>
   </view>
@@ -76,7 +76,7 @@
 
               </image> -->
             </view>
-            <view class="right" data-rangetime="{{item.rangeTime}}" bindtap="reserve">预订</view>
+            <view class="right" data-rangetime="{{item.rangeTime}}" catchtap="reserve">预订</view>
         </view>
         
       </view>
@@ -147,10 +147,63 @@
 
 
   <!-- 日历选择 -->
-  <view class="u-dialog" wx:if="{{dialogDate}}">
-      <view class="u-dialog-content">
-          
-          
-      </view>
+  <view class="u-dialog" catchtap="closeDialogDate" wx:if="{{!dialogDate}}">
+      <!-- <view class="wrapper"> -->
+          <view class="date">
+                
+                <view class="select-data">请选择会议日期</view>
+        
+                <view class="week">
+                  <text class="week-day">日</text>
+                  <text class="week-day">一</text>
+                  <text class="week-day">二</text>
+                  <text class="week-day">三</text>
+                  <text class="week-day">四</text>
+                  <text class="week-day">五</text>
+                  <text class="week-day">六</text>
+                </view>
+                <view class="now-date">{{date_now.value}}</view>
+                <view  catchtap="dateBtn">
+                <view wx:for="{{date_data1}}" 
+                      data-value="{{i.value}}" 
+                      data-bool='{{i.type}}' 
+                      data-month='{{date_now.month}}' 
+                      data-year='{{date_now.year}}' 
+                      data-data='date_data1'
+                      data-num='{{index}}'
+                      wx:for-item="i" 
+                      class='{{i.type}} day'>
+            
+                  {{i.value}}
+                </view>
+                </view>
+                 
+                <!-- <view  bindtap="dateBtn" class="week">
+                  <text class="week-day">日</text>
+                  <text class="week-day">一</text>
+                  <text class="week-day">二</text>
+                  <text class="week-day">三</text>
+                  <text class="week-day">四</text>
+                  <text class="week-day">五</text>
+                  <text class="week-day">六</text>
+                </view> -->
+                <view class="now-date">{{date_next.value}}</view>
+                <view  catchtap="dateBtn">
+                  <view  wx:for="{{date_data2}}" 
+                        data-value="{{i.value}}" 
+                        data-bool='{{i.type}}' 
+                        data-month='{{date_now.month}}'
+                        data-year='{{date_now.year}}' 
+                        data-data='date_data2' 
+                        data-num='{{index}}'  
+                        wx:for-item="i"  
+                        class='{{i.type}} day'>
+                    {{i.value}}
+                  </view>
+                </view>
+            
+            
+          <!-- </view> -->
+        </view>
   </view>
 </view>
