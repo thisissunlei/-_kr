@@ -47,6 +47,7 @@ App({
     const that = this;
     wx.request({
       url: data.url,
+      method:data.method||'get',
       header:{
         'Content-Type':'application/x-www-form-urlencoded',
         'Cookie':this.globalData.Cookie
