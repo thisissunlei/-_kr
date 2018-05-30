@@ -19,7 +19,7 @@
 		<div wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box" >
 			<navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
 				<view class="left">
-		  			<image class="order-img" src="../images/indexImg/dizhi2.png" mode="aspectFill"></image>
+		  			<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
 		  		</view>
 		  		<view class="right">
 		  			<span class="content">{{item.capacity}}人  {{meetingRoomName}}</span>

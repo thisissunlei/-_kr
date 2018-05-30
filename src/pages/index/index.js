@@ -197,11 +197,7 @@ Page({
   //点击会议card
   moveToMeetingDetail:function(e){
     console.log(e)
-
-    this.setData({
-      inviteeId:e.currentTarget.dataset.id
-    })
-   
+    var  inviteeId=e.currentTarget.dataset.id
     wx.navigateTo({
       url:"../meetingDetail/meetingDetail?inviteeId="+inviteeId
     })

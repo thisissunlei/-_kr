@@ -28,12 +28,12 @@ Page({
 
   onLoad: function (options) {
     console.log(options,"options")
-    var inviteeId = options.inviteeId
-    this.createQrCode('fdfd',"mycanvas",160,160);
+    var inviteeId = options.id
+    
     //数据加载
-    wx.request({
-      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+      // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"
@@ -54,7 +54,9 @@ Page({
         })
       }
     })
+    this.createQrCode('fdfd',"mycanvas",160,160);
   },
+
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片
     QR.qrApi.draw(url,canvasId,cavW,cavH);

@@ -36,7 +36,9 @@ Page({
     if(type == 'submit'){
       this.setData({
         inputValue: options.value || '',
-        type:options.type
+        type:options.type,
+        orderId:options.orderId || 12
+
       })
     }else if(type == 'storage'){
       wx.getStorage({
@@ -48,7 +50,9 @@ Page({
             that.setData({
               inputValue: res.data.themeName || '',
               type:type,
-              order_pay:res.data
+              order_pay:res.data,
+              orderId:options.orderId || 1
+
             })
           }
         }
@@ -81,11 +85,11 @@ Page({
     let that = this;
     //接口待定
     app.getRequest({
-        url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
+        url:app.globalData.KrUrl+'/api/gateway/krmting/order/updateExtInfo',
         methods:"GET",
         data:{
-          "code":that.data.inputValue,
-          "phone":that.data.phone
+          "orderId":that.data.orderId,
+          "themeName":that.data.inputValue
         },
         success:(res)=>{
           if(res.data.code>0){

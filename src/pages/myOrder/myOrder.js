@@ -129,7 +129,7 @@ Page({
             let list = []
             list = res.data.data.items.map((item,index)=>{
               if(item.orderShowStatus == 'OBLIGATION'){
-                let time = this.dealTime(item.ctime)
+                let time = this.dealTime(item.expiredTime)
                 item.minute=time.minute;
                 item.second=time.second;
               }
