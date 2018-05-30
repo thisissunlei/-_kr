@@ -6,7 +6,10 @@ Page({
   data: {
     minute:'',
     second:'',
-    orderList:[
+    error:true,
+    errorMessage:'',
+    orderList:[],
+    list:[
       {
         "buildName":"测试内容6n27",
         "capacity":"20",
@@ -107,21 +110,30 @@ Page({
           orderShowStatus:type
         },
         success:(res)=>{
-          console.log(res)
-          let list = []
-          list = that.data.orderList.map((item,index)=>{
-            if(item.orderShowStatus == 'OBLIGATION'){
-              let time = this.dealTime(item.ctime)
-              item.minute=time.minute;
-              item.second=time.second;
-            }
-            return item;
-          })
-           console.log('========',list,that.data)
-
-          that.setData({
-            orderList:list
-          })
+          console.log('res',res)
+          if(res.data.code>0){
+            let list = []
+            list = res.data.data.items.map((item,index)=>{
+              if(item.orderShowStatus == 'OBLIGATION'){
+                let time = this.dealTime(item.ctime)
+                item.minute=time.minute;
+                item.second=time.second;
+              }
+              return item;
+            })
+            that.setData({
+              orderList:that.data.list
+            })
+          }else{
+            that.setData({
+              orderList:that.data.list
+            })
+            // that.setData({
+            //   error:false,
+            //   errorMessage:res.data.message
+            // })
+          }
+          
         },
         fail:(res)=>{
            console.log('========',res)
