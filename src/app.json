@@ -9,6 +9,7 @@
     "pages/logs/logs",
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
+    "pages/provingCode/provingCode",
     "pages/myOrder/myOrder",
     "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
