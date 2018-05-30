@@ -13,6 +13,7 @@
     "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
     "pages/my/my",
+    "pages/myMeeting/myMeeting",
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",

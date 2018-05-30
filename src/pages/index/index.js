@@ -239,6 +239,16 @@ Page({
     wx.navigateTo({
       url: "../bindPhone/bindPhone"
     });
+  },
+  myOrder(){
+    wx.navigateTo({
+      url: "../myOrder/myOrder?orderShowStatus=OBLIGATION"
+    });
+  },
+  myMeeting(){
+    wx.navigateTo({
+      url: "../myMeeting/myMeeting"
+    });
   }
 
 })
