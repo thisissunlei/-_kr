@@ -15,6 +15,6 @@
 	</view>
 	<view class="last-view">
 		<div class="error-phone" wx:if="{{!phoneTest}}">手机号格式错误</div>
-		<div class="error-repeat" wx:if="{{!submitError}}">{{errorMessage}}</div>
+		<div class="error-message" wx:if="{{!phoneError}}">{{errorMessage}}</div>
 	</view>
 </form>

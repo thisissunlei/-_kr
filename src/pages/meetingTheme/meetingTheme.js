@@ -7,7 +7,11 @@ const app = getApp()
 
 Page({
   data: {
-   inputValue:''
+   inputValue:'',
+   order_pay:{},
+   type:'',
+   submitError:true,
+   errorMessage:''
   },
   bindViewTap(){
     console.log('bindViewTap')
@@ -25,21 +29,99 @@ Page({
     })
     console.log('clearValue', this)
   },
-  formSubmit(e){
-    console.log('form发生了submit事件，携带数据为：', this.data.inputValue)
-    wx.navigateBack({
-      delta: 1
-    })
-  },
   onLoad: function (options) {
-    wx.getStorage({
-      key: 'lat_log',
-      success: function(res) {
-          console.log('===',res.data)
-      } 
-    })
-    this.setData({
-      inputValue:options.value
-    })
+    let type = options.type;
+    let that = this;
+    console.log('phone-onLoad',type)
+    if(type == 'submit'){
+      this.setData({
+        inputValue: options.value || '',
+        type:options.type
+      })
+    }else if(type == 'storage'){
+      wx.getStorage({
+        key: 'order_pay',
+        success: function(res) {
+          console.log('--------',res.data)
+          if(res.data){
+            console.log('order_pay')
+            that.setData({
+              inputValue: res.data.title || '',
+              type:type,
+              order_pay:res.data
+            })
+          }
+        }
+      })
+    }
   },
+
+  formSubmit(e){
+    let that = this;
+
+    let type = this.data.type;
+    let order_pay = this.data.order_pay;
+    if(type=='storage'){
+      order_pay.title = this.data.inputValue;
+      wx.setStorage({
+        key:"order_pay",
+        data:order_pay,
+        success:function(){
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    }else{
+      this.submitTitle()
+    }
+    
+  },
+  submitTitle:function(){
+    let that = this;
+    //接口待定
+    app.getRequest({
+        url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
+        methods:"GET",
+        data:{
+          "code":that.data.inputValue,
+          "phone":that.data.phone
+        },
+        success:(res)=>{
+          if(res.data.code>0){
+            wx.navigateBack({
+              delta: 1
+            })
+          }else{
+            that.setData({
+              submitError:false,
+              errorMessage:res.data.message
+            })
+            setTimeout(function(){
+              that.setData({
+                submitError:true,
+                errorMessage:''
+              })
+            },2000)
+          }
+          
+        },
+        fail:(res)=>{
+          that.setData({
+              submitError:false,
+              errorMessage:res.data.message
+            })
+            setTimeout(function(){
+              that.setData({
+                submitError:true,
+                errorMessage:''
+              })
+            },2000)
+          
+        }
+      })
+  },
+
+
+
 })

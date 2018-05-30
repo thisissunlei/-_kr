@@ -1,20 +1,20 @@
 <!--index.wxml-->
 <view class="my-order">
   <view class="order-type">
-  	<div class="tab" bindtap="changeType" data-type="0" >全部</div>
-  	<div class="tab" bindtap="changeType" data-type="1">待支付</div>
-  	<div class="tab" bindtap="changeType" data-type="2">待使用</div>
-  	<div class="tab" bindtap="changeType" data-type="3">已使用</div>
-  	<div class="tab" bindtap="changeType" data-type="4">已取消</div>
+  	<div class="tab" bindtap="changeType" data-type="ALL">全部</div>
+  	<div class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</div>
+  	<div class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</div>
+  	<div class="tab" bindtap="changeType" data-type="USED">已使用</div>
+  	<div class="tab" bindtap="changeType" data-type="CLOSED">已取消</div>
   	<div class="active-type" style="left:{{number}}"> <span class="line"></span></div>
   </view>
   <view class="content-list">
-  	<navigator url="/pages/meetingDetail/meetingDetail?id={{item.id}}" class="{{item.orderShowStatus!=1?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList}}" wx:key="{{orderId}}">
-  		<span class="status unpay" wx:if="{{item.orderShowStatus == 1}}">待支付</span>
-		<span class="status used" wx:if="{{item.orderShowStatus == 3}}">已使用</span>
-		<span class="status unused" wx:if="{{item.orderShowStatus == 2}}">待使用</span>
-		<span class="status closed" wx:if="{{item.orderShowStatus == 4}}">已关闭</span>
-		<div wx:if="{{item.orderShowStatus == 1}}" class="unpay-box box">
+  	<navigator url="/pages/meetingDetail/meetingDetail?id={{item.id}}" class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList}}" wx:key="{{orderId}}">
+  		<span class="status unpay" wx:if="{{item.orderShowStatus == 'OBLIGATION'}}">待支付</span>
+		<span class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已使用</span>
+		<span class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</span>
+		<span class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已关闭</span>
+		<div wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box">
 			<div class="content-box">
 				<view class="left">
 		  			<image class="order-img" src="../images/indexImg/dizhi2.png" mode="aspectFill"></image>
@@ -30,8 +30,8 @@
 	  			<view class="time-section">
 	  				<image class="time-img" src="../images/public/clock_icon.png"></image>
 	  				<span class="time-name">剩余时间：</span>
-		            <view class="time-down">{{minute}}:</view>
-		            <view class="time-down">{{second}}</view>
+		            <view class="time-down">{{item.minute}}:</view>
+		            <view class="time-down">{{item.second}}</view>
 	  			</view>
   				<view class="button">立即支付</view>
 			</div>
@@ -42,7 +42,7 @@
 
 
 
-  		<div wx:if="{{item.orderShowStatus != 1}}" class="box">
+  		<div wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box">
 	  		<view class="left">
 	  			<image class="order-img" src="../images/indexImg/dizhi2.png" mode="aspectFill"></image>
 	  		</view>

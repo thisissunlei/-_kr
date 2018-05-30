@@ -13,6 +13,7 @@ Page({
     nextPage:2,
     pageSize:10,
     totalCount:10,
+    communityId:'',
     nowDate:'',
     rangeTime:[{
       disabled:false,
@@ -136,10 +137,10 @@ Page({
         url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
         data: {
-          communityId: '168' ,
+          communityId: that.data.communityId,
           date: that.data.nowDate,
           page:that.data.page,
-          pageSize:that.pageSize
+          pageSize:that.data.pageSize
         },
         success:(res)=>{
           that.setData({
@@ -325,7 +326,7 @@ Page({
         url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
         data: {
-          communityId: '168' ,
+          communityId: that.data.communityId ,
           date: that.data.nowDate,
           page:that.data.page,
           pageSize:that.data.pageSize
@@ -358,8 +359,8 @@ Page({
     this.loadNext();
   },
 
-  onLoad:function(){
-    //this.getData();
+  onLoad:function(options){
+    console.log("option>>>",options);
   },
 
   onReady: function () {
