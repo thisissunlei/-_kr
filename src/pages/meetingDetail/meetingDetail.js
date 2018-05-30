@@ -29,9 +29,9 @@ Page({
   onLoad: function (options) {
     console.log(options)
     var inviteeId = options.inviteeId
-    this.createQrCode('fdfd',"mycanvas",150,150);
+    this.createQrCode('fdfd',"mycanvas",160,160);
     //数据加载
-     wx.request({
+    app.getRequest({
       url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
@@ -48,7 +48,8 @@ Page({
           meetingRoomName:res.data.data.meetingRoomName,
           address:res.data.data.address,
           inviteer:res.data.data.inviteer,
-          limitCount:res.data.data.limitCount
+          limitCount:res.data.data.limitCount,
+          status:res.data.data.status
         })
       }
     })
@@ -65,9 +66,9 @@ Page({
       console.log(res.target)
     }
     return {
-      // imageUrl:'',
-      title: 'KrMeeting',
-      path: '/meetingDetail/meetingDetail?inviteeId='+inviteeId
+      title: '戳我一键参会！邀请您于“{{this.data.meetingTime}}在"{{this.data.meetingRoomName}}"参加“{{this.data.themeName}}””',
+      path: '/meetingDetail/meetingDetail?inviteeId=',
+      
     }
   }
 })

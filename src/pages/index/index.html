@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;width:100%;height:100%;opacity:0;'></button>
 <view class="container">
   
   <view class="idx_header">
@@ -25,7 +26,7 @@
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
             <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
             <view style="position: absolute;top: 0;left: 0;">
-                <view class="metting-mark">待入场</view>
+                <view class="metting-mark {{item.status === 0?'wait':item.status === 1?'already':'overdue'}}">{{item.status === 0?'待入场':item.status === 1?'已入场':'已过期'}}</view>
                 <view class="metting-title"> 
                     <text class="metting-time">11-29(周三)9:00-10:30</text>
                     <text class="metting-name">产品技术部例会</text>
@@ -60,22 +61,22 @@
     </view>
   </view>
   
-  
-  <view class='nearby_room'>
+  <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
+
     <view class='rm_title'>周边会议室</view>
     <view class="community-wrapper" data-id="{{item.id}}" bindtap="moveToMeetingRoom">
       <view class='community' wx:for="{{buildingList}}">
         <view class='community_pic'>
-          <image src="{{buildImgUrl}}"></image>
+          <image src="{{item.buildImgUrl}}"></image>
         </view>
         <view class='cmty_con'>
-          <view class='cmty_title'>{{buildName}}海航实业大厦</view>
+          <view class='cmty_title'>{{item.buildName}}海航实业大厦</view>
           <view class='location'>
-            <text class='lct_con'>{{buildAddress}}北京市朝阳区建国路108号</text>
-            <text class='lct_distance'>{{distance}}200m</text>
+            <text class='lct_con'>{{item.buildAddress}}北京市朝阳区建国路108号</text>
+            <text class='lct_distance'>{{item.distance}}200m</text>
           </view>
-          <view class='room_num'>{{meetingCount}}22 个可用会议室</view>
-          <view class='price' wx:if="{{promotionDescr}}">{{promotionDescr}}限时7折优惠</view>
+          <view class='room_num'>{{item.meetingCount}}22 个可用会议室</view>
+          <view class='price'wx:if="{{item.promotionDesor?true:false}}">{{item.promotionDesor}}</view>
         </view>
       </view>
     </view>
@@ -83,7 +84,7 @@
   </view>
 
   <view class="more">
-    <image src="../images/indexImg/more.jpg"></image>
+    <image src="../images/indexImg/more.png"></image>
   </view>
   
 </view>
@@ -94,6 +95,7 @@
   <view bindtap="jumpSubmit" data-type="telephone">联系电话</view>
   <view bindtap="jumpSubmit" data-type="title">会议主题</view>
   <view bindtap="jumpSubmit" data-type="warn">会议提醒</view>
+  <view bindtap="jumpSubmit" data-type="detail">订单详情</view>
 </view>
 <view bindtap="myOrder" data-type="telephone">我的订单</view>
 <view bindtap="myMeeting" data-type="telephone">我的会员室</view>
@@ -105,4 +107,5 @@
   <view bindtap="jumpStorage" data-type="title">会议主题</view>
   <view bindtap="jumpStorage" data-type="warn">会议提醒</view>
 </view>
+
 

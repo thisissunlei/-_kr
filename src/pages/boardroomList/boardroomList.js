@@ -12,7 +12,8 @@ Page({
     page:1,
     nextPage:2,
     pageSize:10,
-    totalPages:10,
+    totalCount:10,
+    communityId:'',
     nowDate:'',
     rangeTime:[{
       disabled:false,
@@ -130,25 +131,24 @@ Page({
   },
   //获取会议室列表
   getData:function(){
-    var that = this;
-    wx.request({
-        url:'api/gateway/krmting/room/list',
-        data: {
-          communityId: '' ,
-          date: '2018-05-02'
-        },
+    let that = this;
+    console.log('getdata');
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
-        header:{
-          'content-type':"appication/json"
+        data: {
+          communityId: that.data.communityId,
+          date: that.data.nowDate,
+          page:that.data.page,
+          pageSize:that.data.pageSize
         },
         success:(res)=>{
-              console.log(res)
-              that.setData({
-                totalPages:res.data.totalPages,
-                boardroomList:res.data.items
-              })
+          that.setData({
+            totalCount:res.data.totalCount,
+            boardroomList:res.data.items
+          })
         }
-    })
+      })
   },
 
   //切换日期后重载数据
@@ -235,6 +235,7 @@ Page({
     var totalDay=this.getMonthDays(year,month+1);
     var todayWeek = today.getDay();
     var topDate = [];
+    var that = this;
     for(let i=0;i<30;i++){
       var dateItem = {
         week:'',
@@ -263,12 +264,16 @@ Page({
     this.setData({
       topDate:topDate,
       nowDate:topDate[0].date,
+    },function(){
+      that.getData();
+      wx.setStorageSync('nowDate',topDate[0].date);
     })
   },
   selectTopDate:function(e){
     var topDate = this.data.topDate;
     var indexParam = e.currentTarget.dataset.index;
     var date = e.currentTarget.dataset.date;
+    var that = this;
     var newData = topDate.map((item,index)=>{
       if (index==indexParam) {
         item.actived = true; 
@@ -281,6 +286,9 @@ Page({
     this.setData({
       topDate:newData,
       nowDate:date
+    },function(){
+      that.getData();
+      wx.setStorageSync('nowDate',date);
     })
   },
 
@@ -289,10 +297,10 @@ Page({
     var communityList = this.data.communityList;
     var page = this.data.nextPage;
     var pageSize = this.data.pageSize;
-    var totalPages = this.data.totalPages;
+    var totalCount = this.data.totalCount;
 
 
-    if(page>totalPages){
+    if(page>totalCount){
       return ;
     }
 
@@ -300,7 +308,7 @@ Page({
 
       // this.$http.get('get-news-list',{page,pageSize}).then(function(response){
 
-      //   var totalPages = response.data.totalPages;
+      //   var totalCount = response.data.totalCount;
 
       //   that.items = [].concat(that.data.boardroomList,response.data.items);
 
@@ -309,30 +317,28 @@ Page({
       // }) 
 
       //   that.setData({
-//            totalPages:totalPages
+//            totalCount:totalCount
       // }) 
 
       // });
 
-      wx.request({
-        url:'api/gateway/krmting/room/list',
-        data: {
-          communityId: '' ,
-          date: '2018-05-02'
-        },
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
-        header:{
-          'content-type':"appication/json"
+        data: {
+          communityId: that.data.communityId ,
+          date: that.data.nowDate,
+          page:that.data.page,
+          pageSize:that.data.pageSize
         },
         success:(res)=>{
-              console.log(res);
-              that.setData({
-                boardroomList:[].concat(that.data.boardroomList,response.data.items),
-                totalPages:totalPages,
-                nextPage:that.data.nextPage++
-              })
+          that.setData({
+              boardroomList:[].concat(that.data.boardroomList,res.data.items),
+              totalCount:totalCount,
+              nextPage:that.data.nextPage++
+          })
         }
-    })
+      })
   },
   //事件处理函数
 
@@ -353,14 +359,13 @@ Page({
     this.loadNext();
   },
 
-  onLoad:function(){
-    //this.getData();
+  onLoad:function(options){
+    console.log("option>>>",options);
   },
 
   onReady: function () {
     var that = this;
     this.getTopDate();
-    this.reloadData();
   },
 })
 

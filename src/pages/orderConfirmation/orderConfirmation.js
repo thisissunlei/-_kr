@@ -1,12 +1,11 @@
 //orderConfirmation.js
 //获取应用实例
 const app = getApp()
-var newDate=changeTime();
+var newDate=changeTime(1396310706000);
 var theme=newDate[1]+''+newDate[2]+'会议';
 let arr=[20,21,22,23,24,25];
 Page({
   data: {
-    motto: 'Hello World',
     theme:theme,
     remind:'提前15分钟',
     phone:'13333333332',
@@ -99,6 +98,8 @@ Page({
       rangeTime3:rangeTime.slice(16),
       rangeTime:rangeTime,
     })
+    let order_pay={}
+    wx.setStorage(order_pay)
   },
   
 })
@@ -135,8 +136,8 @@ function getHour(data){
   return len*0.5;
 }
 
-function changeTime(){
-  let  myDate = new Date();
+function changeTime(data){
+  let  myDate = new Date(data)  || new Date();
    var myArray = Array();
    
   let year=myDate.getFullYear();
