@@ -188,6 +188,7 @@ Page({
         success:(res)=>{
           if(res.data.code>0){
             let meetingDetail = res.data.data;
+            console.log(meetingDetail.device)
             that.setData({
               meetingDetail:meetingDetail
             })
