@@ -87,8 +87,8 @@ Page({
         console.log(this.data.inviteer)
         that.data.inviteer.forEach((item,index)=>{
           // console.log(item,index)
-          console.log(item.wechatAvatar)
-          console.log(res.data.user_info.avatarUrl)    
+          console.log(item.wechatNick === res.data.user_info.nickName)
+          console.log(item.wechatAvatar === res.data.user_info.avatarUrl)    
           if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
             that.data.inviteer.splice(index, 1)
             console.log(11)
