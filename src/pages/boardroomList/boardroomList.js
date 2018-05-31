@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    meeting_detail:{},
     userInfo: {},
     dialogDate:false,
     hasUserInfo: false,
@@ -160,7 +161,7 @@ Page({
       unitCost:'销售单价'// 销售单价(元
     }
   },
-  
+  button_boolean:true,
   openMeetDetail:function(e){
     let that = this;
     let id=e.currentTarget.dataset.item.meetingRoomId;
@@ -700,6 +701,42 @@ Page({
         }
       })
   },
+  nowReserve(e){
+    let that = this;
+    let meetingRoomId = e.target.dataset.mId;
+    let meetingDetail;
+    if(this.button_boolean){
+      this.button_boolean = false;
+      wx.getStorage({
+        key: 'orderDate',
+        success: function(res) {
+          console.log('res.data',res.data)
+          if(res.data){
+            meetingDetail = Object.assign({},that.data.meetingDetail,res.data);
+            that.setDetail(meetingDetail)
+          }
+        }
+      })
+    }
+    
+    
+
+  },
+  setDetail(arr){
+    wx.setStorage({
+        key:"meeting_detail",
+        data:arr,
+        success:function(){
+          this.button_boolean = true;
+          setTimeout(function(){
+            wx.navigateTo({
+              url: '/pages/orderConfirmation/orderConfirmation'
+            })
+          },500)
+          
+        }
+    })
+  }
 
 
 })
