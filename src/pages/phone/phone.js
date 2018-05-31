@@ -8,7 +8,7 @@ const app = getApp()
 
 Page({
   data: {
-    inputValue:'技术部集体会议',
+    inputValue:'',
     type:'',
     order_pay:{},
     submitError:true,
@@ -47,6 +47,7 @@ Page({
 
     let type = this.data.type;
     let order_pay = this.data.order_pay;
+    console.log('formSubmit===',type)
     if(type=='storage'){
       order_pay.linkPhone = this.data.inputValue;
       wx.setStorage({
@@ -113,6 +114,13 @@ Page({
   },
   onLoad: function (options) {
     let type = options.type;
+    console.log('======',type)
+    let phone = ''
+    if(options.linkPhone=='undefined'){
+      phone = ''
+    }else{
+      phone = options.linkPhone
+    }
     let that = this;
     if(type == 'submit'){
       this.setData({
@@ -125,14 +133,18 @@ Page({
       wx.getStorage({
         key: 'order_pay',
         success: function(res) {
-          if(res.data){
             that.setData({
-              inputValue: options.linkPhone || '',
+              inputValue:phone,
               type:type,
               order_pay:res.data,
-              orderId:options.orderId
             })
-          }
+        },
+        fail:function(){
+          that.setData({
+            inputValue: phone,
+            type:type,
+            order_pay:{},
+          })
         }
       })
     }
