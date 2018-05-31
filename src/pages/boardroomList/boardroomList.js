@@ -228,7 +228,7 @@ Page({
             totalPages:res.data.data.totalPages,
             boardroomList:res.data.data.items
           },function(){
-            // that.reloadData();
+            that.reloadData();
           })
         }
       })
@@ -622,11 +622,7 @@ Page({
       }
       return item;
     })
-//     date.forEach(function(item,index,array){
-//       if(item.value && item.type!='before') {
-//         allDate.push(item);
-//       }
-// 　　 });
+
     this.setData({
       date_data1:date1,
       date_data2:date2,
@@ -649,7 +645,7 @@ Page({
   onReady: function () {
     var that = this;
     this.getTopDate();
-    this.reloadData();
+    // this.reloadData();
   },
   getMeetDetail(){
     let meetingRoomId = this.data.meetingRoomId;

@@ -10,7 +10,7 @@
             <text>{{themeName}}产品技术部例会</text>
           </view>
           <view class='pics'>
-            <view class="shade">
+            <view class="shade {{meetingStatus==='EXPIRED'?'shadeBg':''}}">
               <view class="code-pic">
                 <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
                 <image src="../images/indexImg/code.png" wx:if="{{meetingStatus==='EXPIRED'?false:true}}" class="img"></image>

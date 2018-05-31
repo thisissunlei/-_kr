@@ -8,7 +8,7 @@ Page({
   data: {
     themeName:theme,
     remind:'提前15分钟',
-    phone:'13333333333',
+    phone:'',
     check:true,
     imgUrl:'',
     beginTime:getTime('20'),
@@ -194,9 +194,9 @@ Page({
         rangeTime:[].concat(rangeTime),
         selectedTime:[].concat(selectedTime),
         meeting_time:{
-          time:getTime(selectedTime[0])+(selectedTime.length>1?('-'+getTime(selectedTime[selectedTime.length-1])):''),
-          beginTime:selectedTime[0],
-          endTime:getTime(selectedTime[selectedTime.length]),
+          time:getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1),
+          beginTime:getTime(selectedTime[0]),
+          endTime:getTime(Number(selectedTime[selectedTime.length-1])+1),
           hours:getHour(selectedTime)
         }
       })
@@ -268,7 +268,7 @@ Page({
       }
     })
     
-    var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
+    var rangeTime = wx.getStorageSync('rangeTime',).map((item,index)=>{
       // if (index==indexParam) {
         // item.actived = true; 
       // }else{
