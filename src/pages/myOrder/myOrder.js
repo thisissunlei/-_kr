@@ -86,7 +86,7 @@ Page({
               return item;
             })
             that.setData({
-              orderList:[]
+              orderList:list
             })
           }else{
             that.setData({
