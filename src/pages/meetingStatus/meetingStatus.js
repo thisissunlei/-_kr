@@ -33,8 +33,8 @@ Page({
   //获取数据列表
   getData(){
     app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"
