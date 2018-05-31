@@ -422,21 +422,32 @@ Page({
             themeName:data.order_pay.themeName || data.themeName
           },
           success:(res)=>{
-            if(res.data.code<0){
-                this.setData({
-                  checkMessage:true,
-                  errorMessage:res.data.message
-                })
-                setTimeout(function(){
-                  _this.setData({
-                    checkMessage:false,
-                    errorMessage:''
+            let code=res.data.code;
+
+            switch (code){
+              case -1:
+                  this.setData({
+                    checkMessage:true,
+                    errorMessage:res.data.message
                   })
-                },2000)
-            }else{
-              this.weChatPay(res.data.data)
-              this.closeDialog();
-            }
+                  setTimeout(function(){
+                    _this.setData({
+                      checkMessage:false,
+                      errorMessage:''
+                    })
+                  },2000)
+              break;
+              case -2:
+                  wx.navigateTo({
+                    url: '../bindPhone/bindPhone'
+                  })
+              break;
+              default:
+                    this.weChatPay(res.data.data)
+                    this.closeDialog();
+              break;
+            } 
+           
 
           }
           
