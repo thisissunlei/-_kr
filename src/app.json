@@ -16,6 +16,7 @@
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",
+    "pages/guide/guide",
     "pages/bindPhone/bindPhone"
   ],
   "window":{

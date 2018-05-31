@@ -224,16 +224,32 @@ Page({
   },
   getPrice:function(){
     let data=this.data;
+    let hours=data.meeting_time.hours;
     let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
     let unitCost=data.detailInfo.unitCost;
-    let hours=data.meeting_time.hours;
-    let priceCount=unitCost*hours*2;
     let totalCount=price*hours*2;
+    let priceCount=unitCost*hours*2;
+    console.log('data.isFirst',data.isFirst)
+    if(data.isFirst){
+      if(hours>2){
+        this.setData({
+          totalCount:totalCount,
+          priceCount:priceCount,
+          isFirst:false
+        })
+      }else{
+        this.setData({
+          totalCount:totalCount,
+          priceCount:1
+        })
+      }
+    }else{
+        this.setData({
+          totalCount:totalCount,
+          priceCount:priceCount
+        })
+    }
     
-    this.setData({
-      totalCount:totalCount,
-      priceCount:priceCount
-    })
   },
   onShow:function(){
     var _this=this;
@@ -406,21 +422,32 @@ Page({
             themeName:data.order_pay.themeName || data.themeName
           },
           success:(res)=>{
-            if(res.data.code<0){
-                this.setData({
-                  checkMessage:true,
-                  errorMessage:res.data.message
-                })
-                setTimeout(function(){
-                  _this.setData({
-                    checkMessage:false,
-                    errorMessage:''
+            let code=res.data.code;
+
+            switch (code){
+              case -1:
+                  this.setData({
+                    checkMessage:true,
+                    errorMessage:res.data.message
                   })
-                },2000)
-            }else{
-              this.weChatPay(res.data.data)
-              this.closeDialog();
-            }
+                  setTimeout(function(){
+                    _this.setData({
+                      checkMessage:false,
+                      errorMessage:''
+                    })
+                  },2000)
+              break;
+              case -2:
+                  wx.navigateTo({
+                    url: '../bindPhone/bindPhone'
+                  })
+              break;
+              default:
+                    this.weChatPay(res.data.data)
+                    this.closeDialog();
+              break;
+            } 
+           
 
           }
           
