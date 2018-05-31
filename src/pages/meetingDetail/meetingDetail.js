@@ -63,16 +63,14 @@ Page({
     var that = this;
   },
   onShareAppMessage: function (res) {
-    // var that = this
     console.log(res,8888)
-
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
+    console.log(this.data.meetingRoomName)
     return {
-      
-      title: '戳我一键参会！邀请您于{{this.data.meetingRoomName}}在{{this.data.meetingRoomName}}参加{{this.data.themeName}}',
+      title: '戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
       path: 'pages/meetingStatus/meetingStatus', 
     }
   },
@@ -83,19 +81,14 @@ Page({
     wx.getStorage({
       key: 'user_info',
       success:(res)=>{
-        console.log(res)
-        console.log(this.data.inviteer)
-        that.data.inviteer.forEach((item,index)=>{
-          // console.log(item,index)
-          console.log(item.wechatNick === res.data.user_info.nickName)
-          console.log(item.wechatAvatar === res.data.user_info.avatarUrl)    
+        that.data.inviteer.forEach((item,index)=>{ 
           if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
             that.data.inviteer.splice(index, 1)
-            console.log(11)
-          }
-          
+          }    
         })
-        console.log(that.data.inviteer)
+        this.setData({
+          inviteer:that.data.inviteer
+        })
       },
     })
     app.getRequest({
