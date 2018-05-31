@@ -11,7 +11,6 @@ Page({
     phone:'13333333333',
     check:true,
     imgUrl:'',
-    hour:getHour(arr),
     beginTime:getTime('20'),
     endTime:getTime('25'),
     dialogShow:false,
@@ -43,7 +42,7 @@ Page({
     priceCount:'0',
     totalCount:'0',
     detailInfo:{},
-    nowDate:'',
+    orderDate:{},
     meeting_time:{
       time:'10:30-11:30',
       timeArr:[22,23,24],
@@ -54,6 +53,7 @@ Page({
     errorMessage:'',
     checkMessage:false,
   },
+ 
   openMeetDetail:function(e){
     
     this.setData({
@@ -196,7 +196,7 @@ Page({
         meeting_time:{
           time:getTime(selectedTime[0])+(selectedTime.length>1?('-'+getTime(selectedTime[selectedTime.length-1])):''),
           beginTime:selectedTime[0],
-          endTime:selectedTime.length>1?selectedTime[selectedTime.length-1]:'',
+          endTime:getTime(selectedTime[selectedTime.length]),
           hours:getHour(selectedTime)
         }
       })
@@ -248,17 +248,25 @@ Page({
       }
     })
     wx.getStorage({
-      key:'nowDate',
+      key:'orderDate',
       success:function(res){
-        console.log('res----',res)
         if(res.data){
           _this.setData({
-              nowDate:res.data,
+              orderDate:res.data,
             })
         }
       }
     })
-    
+    wx.getStorage({
+      key:'meeting_time',
+      success:function(res){
+        if(res.data){
+          _this.setData({
+            meeting_time:res.data,
+            })
+        }
+      }
+    })
     
     var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
       // if (index==indexParam) {
@@ -287,8 +295,9 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-            console.log('res.data.data',res.data.data)
-             
+          this.setData({
+            isFirst:res.data.data.first
+          })
         }
     })
   },

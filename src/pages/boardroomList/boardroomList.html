@@ -45,7 +45,7 @@
           <view class="top-right">
             <view class="first-row">
                 <text>{{item.capacity}}人间 | {{item.roomName}}</text>
-                <text>{{item.floor}}</text>
+                <text>{{item.floor}}F</text>
             </view>
 
             <view class="second-row">
@@ -86,6 +86,8 @@
   <!-- <picker bindchange="changeCommunity" range-key="name" range="{{communityList}}" value="{{id}}" class="select-community">
     切换地点
   </picker> -->
+
+  
   <!-- 会议室详情 -->
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}">
       <view class="u-meet-detail-content">

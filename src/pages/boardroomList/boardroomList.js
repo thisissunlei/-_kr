@@ -142,11 +142,59 @@ Page({
   },
   
   openMeetDetail:function(e){
+    let that = this;
     let id=e.currentTarget.dataset.item.meetingRoomId;
     this.setData({
       meetingRoomId:id,
       meetDetailShow:!this.data.meetDetailShow
+    },function(){
+      that.getMeetDetail()
     })
+  },
+  getMeetDetail(){
+    let meetingRoomId = this.data.meetingRoomId;
+    let that = this;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+        methods:"GET",
+        data:{
+          "inviteeId":meetingRoomId
+        },
+        success:(res)=>{
+          console.log('success',res)
+          if(res.data.code>0){
+            let data = res.data.data;
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+          
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
   },
   closeMeetDetail:function(){
       this.setData({
@@ -328,7 +376,7 @@ Page({
       topDate:topDate,
       nowDate:topDate[0].date,
     },function(){
-      // that.getData();
+      that.getData();
       wx.setStorageSync('nowDate',topDate[0].date);
     })
   },
