@@ -196,7 +196,7 @@ Page({
         meeting_time:{
           time:getTime(selectedTime[0])+(selectedTime.length>1?('-'+getTime(selectedTime[selectedTime.length-1])):''),
           beginTime:selectedTime[0],
-          endTime:selectedTime.length>1?selectedTime[selectedTime.length-1]:'',
+          endTime:getTime(selectedTime[selectedTime.length]),
           hours:getHour(selectedTime)
         }
       })
