@@ -1,14 +1,13 @@
 //orderConfirmation.js
 //获取应用实例
 const app = getApp()
-var newDate=changeTime(1396310706000);
 var theme=newDate[1]+''+newDate[2]+'会议';
-let arr=[20,21,22,23,24,25];
+
 Page({
   data: {
     themeName:theme,
     remind:'提前15分钟',
-    phone:'13333333333',
+    phone:'',
     check:true,
     imgUrl:'',
     beginTime:getTime('20'),
@@ -43,12 +42,7 @@ Page({
     totalCount:'0',
     detailInfo:{},
     orderDate:{},
-    meeting_time:{
-      time:'10:30-11:30',
-      timeArr:[22,23,24],
-      beginTime:'',
-      endTime:'',
-    },
+    meeting_time:{},
     isFirst:true,
     errorMessage:'',
     checkMessage:false,
@@ -79,9 +73,9 @@ Page({
       'FIFTEEN':'提前15分钟',
       'THIRTY':'提前30分钟'
     }
-    this.setData({
-      remind:themeObj[alertTime]
-    })
+    
+     return themeObj[alertTime]
+    
   },
   jumpSetTheme:function() {
     this.setData({
@@ -226,15 +220,13 @@ Page({
     // var rangeTime = wx.getStorageSync('rangeTime');
     this.goToPay();
     this.getIsfirst();
-    let len=this.data.meeting_time.timeArr.length-1;
-    let hour=(len*30)/60
+   
     this.setData({
       order_pay:{
         themeName:this.data.themeName,
         alertTime:this.data.alertTime,
         linkPhone:this.data.phone
       },
-      hour:hour
     })
     var _this=this;
     wx.getStorage({
@@ -268,7 +260,22 @@ Page({
       }
     })
     
-    var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
+    wx.getStorage({
+      key:'order_pay',
+      success:function(res){
+        if(res.data){
+          _this.setData({
+              order_pay:res.data,
+              remind:_this.getRemind(res.data.alertTime)
+            })
+        }
+      }
+    })
+
+
+
+
+    var rangeTime = wx.getStorageSync('rangeTime',).map((item,index)=>{
       // if (index==indexParam) {
         // item.actived = true; 
       // }else{
@@ -308,34 +315,34 @@ Page({
     })
   },
   goToPay:function(){
-    //let data=this.data;
-    //var _this=this;
-    // if(!data.check){
-    //   this.setData({
-    //     checkMessage:true,
-    //     errorMessage:'请阅读并同意KrMeeing服务须知'
-    //   })
-    //   setTimeout(function(){
-    //     _this.setData({
-    //       checkMessage:false,
-    //       errorMessage:''
-    //     })
-    //   },2000)
-    //   return
-    // }
-    // if(!data.order_pay.linkPhone){
-    //     this.setData({
-    //       checkMessage:true,
-    //       errorMessage:'请填写联系电话'
-    //     })
-    //     setTimeout(function(){
-    //       _this.setData({
-    //         checkMessage:false,
-    //         errorMessage:''
-    //       })
-    //     },2000)
-    //     return
-    // }
+    let data=this.data;
+    var _this=this;
+    if(!data.check){
+      this.setData({
+        checkMessage:true,
+        errorMessage:'请阅读并同意KrMeeing服务须知'
+      })
+      setTimeout(function(){
+        _this.setData({
+          checkMessage:false,
+          errorMessage:''
+        })
+      },2000)
+      return
+    }
+    if(!data.order_pay.linkPhone){
+        this.setData({
+          checkMessage:true,
+          errorMessage:'请填写联系电话'
+        })
+        setTimeout(function(){
+          _this.setData({
+            checkMessage:false,
+            errorMessage:''
+          })
+        },2000)
+        return
+    }
 
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
@@ -364,35 +371,10 @@ Page({
   
 })
 
-function getTime(time){
-  var timeObj={
-    '19':'9:00',
-    '20':'9:30',
-    '21':'10:00',
-    '22':'10:30',
-    '23':'11:00',
-    '24':'11:30',
-    '25':'12:00',
-    '26':'12:30',
-    '27':'13:00',
-    '28':'13:30',
-    '29':'14:00',
-    '30':'14:30',
-    '31':'15:00',
-    '32':'15:30',
-    '33':'16:00',
-    '34':'16:30',
-    '35':'17:00',
-    '36':'17:30',
-    '37':'18:00',
-    '38':'18:30',
-    '39':'19:00'
-  }
-  return timeObj[time];
-}
+
 
 function getHour(data){
-  var len=data.length-1;
+  var len=data.length;
   return len*0.5;
 }
 
