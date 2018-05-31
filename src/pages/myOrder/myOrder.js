@@ -67,20 +67,6 @@ Page({
   },
   getData:function(type){
     let that = this;
-    let list = []
-            list = this.data.list.map((item,index)=>{
-              if(item.orderShowStatus == 'OBLIGATION'){
-                let time = this.dealTime(item.ctime)
-                item.minute=time.minute;
-                item.second=time.second;
-              }
-              return item;
-            })
-            that.setData({
-              orderList:list
-            })
-
-    return;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
         methods:"GET",
@@ -88,9 +74,9 @@ Page({
           orderShowStatus:type
         },
         success:(res)=>{
-          console.log('res',res)
+          console.log('res',res.data.data.items)
           if(res.data.code>0){
-            let list = []
+            
             list = res.data.data.items.map((item,index)=>{
               if(item.orderShowStatus == 'OBLIGATION'){
                 let time = this.dealTime(item.expiredTime)
@@ -100,16 +86,13 @@ Page({
               return item;
             })
             that.setData({
-              orderList:that.data.list
+              orderList:list
             })
           }else{
             that.setData({
-              orderList:that.data.list
+              error:false,
+              errorMessage:res.data.message
             })
-            // that.setData({
-            //   error:false,
-            //   errorMessage:res.data.message
-            // })
           }
           
         },

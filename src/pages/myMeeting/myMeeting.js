@@ -21,10 +21,22 @@ Page({
           
         },
         success:(res)=>{
-          console.log(res)
-          that.setData({
-            meetingList:res.data.data.items
-          })
+          console.log('res',res.data.data.items)
+          if(res.data.code>0){
+            var list = []
+            list = res.data.data.items.map((item,index)=>{
+              return item;
+            })
+            that.setData({
+              meetingList:list
+            })
+          }else{
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          }
+          
         },
         fail:(res)=>{
            console.log('========',res)
