@@ -351,7 +351,7 @@ Page({
       topDate:topDate,
       nowDate:topDate[0].date,
     },function(){
-      // that.getData();
+      that.getData();
       wx.setStorageSync('nowDate',topDate[0].date);
     })
   },
