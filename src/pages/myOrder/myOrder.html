@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="my-order">
+<view class="my-order"  wx:if="{{orderList.length}}">
   <view class="order-type">
   	<div class="tab" bindtap="changeType" data-type="ALL">全部</div>
   	<div class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</div>
@@ -10,7 +10,7 @@
   </view>
 
 	<!-- 有数据 -->
-  <view class="content-list" wx:if="{{orderList.length}}">
+  <view class="content-list">
   	<div class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList}}" wx:key="{{orderId}}">
   		<span class="status unpay" wx:if="{{item.orderShowStatus == 'OBLIGATION'}}">待支付</span>
 		<span class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已使用</span>
@@ -59,13 +59,27 @@
   </view>
 
 
-  <!-- 无数据 -->
-  <view class="content-none" wx:if="{{!orderList.length}}">
-  		<image class="none-img" src="../images/public/none.png" background-size="cover"></image>
-  		<span class="warn">还没有订单呢~</span>
-  </view>
   <view class="last-view">
 		<div class="error-message" wx:if="{{!error}}">{{errorMessage}}</div>
+  </view>
+
+</view>
+
+
+<view class="my-order-none" wx:if="{{!orderList.length}}">
+  <view class="order-type">
+  	<div class="tab" bindtap="changeType" data-type="ALL">全部</div>
+  	<div class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</div>
+  	<div class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</div>
+  	<div class="tab" bindtap="changeType" data-type="USED">已使用</div>
+  	<div class="tab" bindtap="changeType" data-type="CLOSED">已取消</div>
+  	<div class="active-type" style="left:{{number}}"> <span class="line"></span></div>
+  </view>
+
+  <!-- 无数据 -->
+  <view class="content-none" >
+  		<image class="none-img" src="../images/public/none.png" background-size="cover"></image>
+  		<span class="warn">还没有订单呢~</span>
   </view>
 
 </view>

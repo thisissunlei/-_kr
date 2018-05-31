@@ -70,7 +70,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../meetingTheme/meetingTheme?value='+detailInfo.themeName+'&type=submit'
+      url: '../meetingTheme/meetingTheme?value='+detailInfo.themeName+'&type=submit'+'&orderId='+this.data.orderId
     })
   },
   jumpSetRemind:function() {
@@ -175,7 +175,7 @@ Page({
 })
 function changeTime(date){
   let  myDate =new Date(date) || new Date();
-   var myArray =new Array();
+  var myArray =new Array();
   let year=myDate.getFullYear();
   let month =myDate.getMonth()+1;
   let day=myDate.getDate();
