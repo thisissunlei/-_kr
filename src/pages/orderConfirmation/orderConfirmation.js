@@ -406,6 +406,14 @@ Page({
   },
   createOrder:function(){
     let data=this.data;
+    let orderData = {
+      alertTime:data.order_pay.alertTime || data.alertTime,
+      beginTime:data.meeting_time.beginTime,
+      endTime:data.meeting_time.endTime,
+      linkPhone:data.order_pay.linkPhone,
+      meetingRoomId:data.detailInfo.meetingRoomId,
+      themeName:data.order_pay.themeName || data.themeName
+    }
     var _this=this;
         app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
@@ -413,14 +421,7 @@ Page({
           header:{
             'content-type':"appication/json"
           },
-          data:{
-            alertTime:data.order_pay.alertTime || data.alertTime,
-            beginTime:data.meeting_time.beginTime,
-            endTime:data.meeting_time.endTime,
-            linkPhone:data.order_pay.linkPhone,
-            meetingRoomId:data.detailInfo.meetingRoomId,
-            themeName:data.order_pay.themeName || data.themeName
-          },
+          data:orderData,
           
           success:(res)=>{
             let code=res.data.code;
@@ -441,7 +442,7 @@ Page({
                 wx.setStorage({
                   key:"create_order",
                   data: {
-                    create_order:data
+                    create_order:orderData
                   },
                 })
                   wx.navigateTo({
