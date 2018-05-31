@@ -48,7 +48,7 @@ Page({
           if(res.data){
             console.log('order_pay')
             that.setData({
-              inputValue: res.data.themeName || '',
+              inputValue: options.themeName || '',
               type:type,
               order_pay:res.data,
               orderId:options.orderId || 1

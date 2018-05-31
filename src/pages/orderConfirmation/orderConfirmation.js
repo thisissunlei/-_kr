@@ -49,17 +49,26 @@ Page({
     checkMessage:false,
   },
   onUnload:function(){
+    let _this = this;
     wx.setStorage({
       key:"order_pay",
-      data:{}
+      data:{},
+      success:function(){
+          _this.setData({
+            order_pay:{}
+          })
+      }
     })
     wx.setStorage({
       key:"meeting_time",
       data:{}
     })
     
-    
-    
+  },
+  closeDialog:function(){
+    this.setData({
+        dialogShow:!this.data.dialogShow
+    })
   },
   openMeetDetail:function(e){
     let that = this;
@@ -185,7 +194,7 @@ Page({
         meeting_time:{
           time:getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1),
           beginTime:that.data.nowDate+' '+getTime(selectedTime[0])+':00',
-          endTime:getTime(Number(selectedTime[selectedTime.length-1])+1)+':00',
+          endTime:that.data.nowDate+' '+getTime(Number(selectedTime[selectedTime.length-1])+1)+':00',
           hours:getHour(selectedTime)
         }
       })
@@ -205,17 +214,26 @@ Page({
     return ;
   },
   subTime:function(e){
+    
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
-      // let promotionCost=this.
-      // detailInfo.promotionCost || detailInfo.unitCost
-
-      this.setData({
-
-      })
+      this.getPrice();
       this.closeDialogTime();
     }
     
+  },
+  getPrice:function(){
+    let data=this.data;
+    let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
+    let unitCost=data.detailInfo.unitCost;
+    let hours=data.meeting_time.hours;
+    let priceCount=unitCost*hours*2;
+    let totalCount=price*hours*2;
+    
+    this.setData({
+      totalCount:totalCount,
+      priceCount:priceCount
+    })
   },
   onShow:function(){
     var _this=this;
@@ -226,7 +244,8 @@ Page({
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
               remind:_this.getRemind(res.data.alertTime),
-              linkPhone:res.data.linkPhone || ''
+              linkPhone:res.data.linkPhone || '',
+              order_pay:res.data
             })
         }
       }
@@ -234,7 +253,6 @@ Page({
   },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
-    //this.goToPay();
     this.getIsfirst();
     
     var _this=this;
@@ -367,29 +385,60 @@ Page({
         return
     }
 
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
-      methods:"GET",
-      header:{
-        'content-type':"appication/json"
-      },
-      data:{
-        alertTime:'FIFTEEN',
-        beginTime:'2018-04-21 10:30:00',
-        endTime:'2018-04-21 12:30:00',
-        linkPhone:'13323456789',
-        meetingRoomId:'769',
-        themeName:'0421会议'
-      },
-      success:(res)=>{
-          console.log('res.data.data',res.data.data)
-           
-      }
-    })
+    this.closeDialog();
 
+  },
+  createOrder:function(){
+    let data=this.data;
+    var _this=this;
+        app.getRequest({
+          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          methods:"GET",
+          header:{
+            'content-type':"appication/json"
+          },
+          data:{
+            alertTime:data.order_pay.alertTime || data.alertTime,
+            beginTime:data.meeting_time.beginTime,
+            endTime:data.meeting_time.endTime,
+            linkPhone:data.order_pay.linkPhone,
+            meetingRoomId:data.detailInfo.meetingRoomId,
+            themeName:data.order_pay.themeName || data.themeName
+          },
+          success:(res)=>{
+            if(res.data.code<0){
+                this.setData({
+                  checkMessage:true,
+                  errorMessage:res.data.message
+                })
+                setTimeout(function(){
+                  _this.setData({
+                    checkMessage:false,
+                    errorMessage:''
+                  })
+                },2000)
+            }else{
+              this.weChatPay(res.data.data)
+              this.closeDialog();
+            }
 
+          }
+          
+        })
+  },
+  weChatPay:function(data){
+    // wx.requestPayment({
+    //   'timeStamp':data.timestamp ,
+    //   'nonceStr': data.noncestr,
+    //   'package': data.packages,
+    //   'signType': data.signType,
+    //   'paySign': data.paySign,
+    //   'success':function(res){
 
-
+    //   },
+    //   'fail':function(res){},
+    //   'complete':function(res){},
+    // }）
   },
   getMeetDetail(){
     let that = this;
