@@ -16,9 +16,14 @@
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",
+<<<<<<< HEAD
     "pages/bindPhone/bindPhone",
     "pages/provingCode/provingCode"
 
+=======
+    "pages/guide/guide",
+    "pages/bindPhone/bindPhone"
+>>>>>>> cd24be8b6bf1cd2ea96cf2dc40da503d60bfdfc7
   ],
   "window":{
     "backgroundTextStyle":"light",
