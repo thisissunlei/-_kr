@@ -162,8 +162,8 @@
         <view class="u-message-txt">{{message}}</view>
     </view>
     <!-- 时间选择 -->
-    <view class="u-dialog" wx:if="{{dialogTimeShow}}">
-        <view class="u-dialog-time">
+    <view class="u-dialog" bindtap="closeDialogTime" wx:if="{{!dialogTimeShow}}">
+        <view class="u-dialog-time" catchtap="stopPropagation">
             <view class="top">
                 <view class="first-row">使用日期</view>
                 <view class="second-row">{{nowDate}}</view>
@@ -191,7 +191,7 @@
                         <view class="item">16:00</view>
                     </view>
                     <view class="square">
-                        <view wx:key="*this" data-index="{{item.number}}" bindtap="tapTime" wx:for="{{rangeTime2}}"  class="item {{item.disabled?'uncheck':'check'}} {{item.actived?'checked':''}}">
+                        <view wx:key="*this" data-index="{{item.number}}" catchtap="tapTime" wx:for="{{rangeTime2}}"  class="item {{item.disabled?'uncheck':'check'}} {{item.actived?'checked':''}}">
                             <image wx:if="{{item.actived}}" class="actived-icon" src="../images/orderconfirmationImg/checked.png"></image>
                         </view>                        
                     </view>
@@ -217,9 +217,9 @@
                 <view class="checked">已选</view>
             </view>
             <view wx:if="{{selectedTime.length>0}}" class="show-time">
-                
+                {{meeting_time.time}}
             </view>
-            <view class="{{selectedTime.length>0?'sured':'unsure'}}">选择使用时间</view>
+            <view catchtap="subTime" class="{{selectedTime.length>0?'sured':'unsure'}}">选择使用时间</view>
         </view>
     </view>
 
