@@ -74,6 +74,7 @@ Page({
   },
   jumpMeet:function() {
     let detailInfo=this.data.detailInfo;
+    console.log(detailInfo)
     wx.navigateTo({
       url: '../paySuccess/paySuccess?inviteeId='+detailInfo.inviteeId
     })
@@ -167,7 +168,7 @@ Page({
               wx.setNavigationBarTitle({
                 title: titleObj[data.orderShowStatus]
               })
-              _this.startcountDate(detailInfo.ctime);
+              _this.startcountDate(detailInfo.expiredTime);
         },
         fail:(error)=>{
           

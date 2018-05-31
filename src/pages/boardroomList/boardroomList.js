@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    meeting_detail:{},
     userInfo: {},
     dialogDate:false,
     hasUserInfo: false,
@@ -138,9 +139,29 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    
+    meetingDetail:{},
+    detail:{
+      address:'社区地址',//社区地址
+      buildName:'大厦名称',//大厦名称
+      capacity:'容纳人数',//容纳人数
+      device:[
+        {
+          icon:'',
+          name:'沙发'
+        }
+      ],//设备列表
+      floor:'楼层',//楼层
+      meetingRoomName:'会议室名称',//会议室名称
+      promotionCost:'促销单价',//促销单价
+      promotionDescr:'促销描述',  //促销描述
+      roomImg:[
+        'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+
+      ],//会议室图片
+      unitCost:'销售单价'// 销售单价(元
+    }
   },
-  
+  button_boolean:true,
   openMeetDetail:function(e){
     let that = this;
     let id=e.currentTarget.dataset.item.meetingRoomId;
@@ -150,51 +171,6 @@ Page({
     },function(){
       that.getMeetDetail()
     })
-  },
-  getMeetDetail(){
-    let meetingRoomId = this.data.meetingRoomId;
-    let that = this;
-    app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-        methods:"GET",
-        data:{
-          "inviteeId":meetingRoomId
-        },
-        success:(res)=>{
-          console.log('success',res)
-          if(res.data.code>0){
-            let data = res.data.data;
-          }else{
-            that.setData({
-              phoneError:false,
-              errorMessage:res.data.message,
-            })
-            setTimeout(function(){
-              that.setData({
-                phoneError:true,
-                errorMessage:'',
-                
-              })
-            },2000)
-          }
-          
-        },
-        fail:(res)=>{
-
-          that.setData({
-            phoneError:false,
-            errorMessage:res.message,
-          })
-          setTimeout(function(){
-            that.setData({
-              phoneError:true,
-              errorMessage:'',
-              
-            })
-          },2000)
-          
-        }
-      })
   },
   closeMeetDetail:function(){
       this.setData({
@@ -253,7 +229,7 @@ Page({
             totalPages:res.data.data.totalPages,
             boardroomList:res.data.data.items
           },function(){
-            // that.reloadData();
+            that.reloadData();
           })
         }
       })
@@ -414,42 +390,23 @@ Page({
     var page = this.data.nextPage;
     var pageSize = this.data.pageSize;
     var totalPages = this.data.totalPages;
-
-    
     if(page>totalPages){
       return ;
     }
       var that = this;
-
-      // this.$http.get('get-news-list',{page,pageSize}).then(function(response){
-
-      //   var totalPages = response.data.totalPages;
-
-      //   that.items = [].concat(that.data.boardroomList,response.data.items);
-
-            //   that.setData({
-//            nextPage:nextPage++
-      // }) 
-
-      //   that.setData({
-//            totalPages:totalPages
-      // }) 
-
-      // });
-
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
         data: {
           communityId: that.data.communityId ,
           date: that.data.nowDate,
-          page:that.data.page,
+          page:page,
           pageSize:that.data.pageSize
         },
         success:(res)=>{
           that.setData({
               boardroomList:[].concat(that.data.boardroomList,res.data.data.items),
-              nextPage:that.data.nextPage++
+              nextPage:that.data.nextPage+1
           })
         }
       })
@@ -518,7 +475,7 @@ Page({
       var that = this;
       this.scrollTopDate(timeData.validIndex);
       this.setData({
-        nowDate:`${timeData.year}-${timeData.month}-${timeData.value}`,
+        nowDate:`${timeData.year}-${timeData.month+1}-${timeData.value}`,
       },function(){
         wx.setStorageSync('nowDate',that.data.nowDate);
         that.closeDialogDate();
@@ -647,11 +604,7 @@ Page({
       }
       return item;
     })
-//     date.forEach(function(item,index,array){
-//       if(item.value && item.type!='before') {
-//         allDate.push(item);
-//       }
-// 　　 });
+
     this.setData({
       date_data1:date1,
       date_data2:date2,
@@ -674,8 +627,92 @@ Page({
   onReady: function () {
     var that = this;
     this.getTopDate();
-    this.reloadData();
+    // this.reloadData();
   },
+  getMeetDetail(){
+    let meetingRoomId = this.data.meetingRoomId;
+    let that = this;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
+        method:"GET",
+        data:{
+          "meetingRoomId":meetingRoomId
+        },
+        success:(res)=>{
+          if(res.data.code>0){
+            let meetingDetail = res.data.data;
+            that.setData({
+              meetingDetail:meetingDetail
+            })
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+          
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
+  },
+  nowReserve(e){
+    let that = this;
+    let meetingRoomId = e.target.dataset.mId;
+    let meetingDetail;
+    if(this.button_boolean){
+      this.button_boolean = false;
+      wx.getStorage({
+        key: 'orderDate',
+        success: function(res) {
+          if(res.data){
+            meetingDetail = Object.assign({},that.data.meetingDetail,res.data,{from:'list'});
+            that.setDetail(meetingDetail)
+          }
+        }
+      })
+    }
+    
+    
+
+  },
+  setDetail(arr){
+    wx.setStorage({
+        key:"meeting_detail",
+        data:arr,
+        success:function(){
+          this.button_boolean = true;
+          setTimeout(function(){
+            wx.navigateTo({
+              url: '/pages/orderConfirmation/orderConfirmation'
+            })
+          },500)
+          
+        }
+    })
+  }
+
+
 })
 
 

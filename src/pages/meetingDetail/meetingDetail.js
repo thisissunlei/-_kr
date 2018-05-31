@@ -6,9 +6,7 @@ const app = getApp()
 
 Page({
   data: {
-    inviteer:[
-
-    ],
+    inviteer:[],
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -45,7 +43,7 @@ Page({
       success:(res)=>{
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data.data.meetingTime,
+          meetingTime:res.data,
           themeName:res.data.data.themeName,
           meetingRoomName:res.data.data.meetingRoomName,
           address:res.data.data.address,
@@ -65,14 +63,16 @@ Page({
     var that = this;
   },
   onShareAppMessage: function (res) {
-    var that = this
+    // var that = this
     console.log(res,8888)
+
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
     return {
-      title: '戳我一键参会！邀请您于“{{this.data.meetingTime}}在"{{this.data.meetingRoomName}}"参加“{{this.data.themeName}}””',
+      
+      title: '戳我一键参会！邀请您于{{this.data.meetingRoomName}}在{{this.data.meetingRoomName}}参加{{this.data.themeName}}',
       path: 'pages/meetingStatus/meetingStatus', 
     }
   },
