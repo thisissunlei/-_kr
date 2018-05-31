@@ -8,16 +8,13 @@ const app = getApp()
 
 Page({
   data: {
-    inputValue:'技术部集体会议',
+    inputValue:'',
     type:'',
     order_pay:{},
     submitError:true,
     phoneError:true,
     errorMessage:'',
     phoneTest:true
-  },
-  bindViewTap(){
-    console.log('bindViewTap')
   },
   bindKeyInput:function(e){
     let value = e.detail.value;
@@ -30,11 +27,9 @@ Page({
     this.setData({
       inputValue: ''
     })
-    console.log('clearValue', this)
   },
   formSubmit(e){
     let that = this;
-    console.log('form发生了submit事件，携带数据为：', this.data.inputValue)
     // 校验手机格式--start
     var phoneTest = util.phone(this.data.inputValue)
     this.setData({
@@ -52,6 +47,7 @@ Page({
 
     let type = this.data.type;
     let order_pay = this.data.order_pay;
+    console.log('formSubmit===',type)
     if(type=='storage'){
       order_pay.linkPhone = this.data.inputValue;
       wx.setStorage({
@@ -72,7 +68,7 @@ Page({
     let that = this;
     //接口待定
     app.getRequest({
-        url:app.globalData.KrUrl+'/api/gateway/krmting/order/updateExtInfo',
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/updateExtInfo',
         methods:"GET",
         data:{
           'orderId':that.data.orderId,
@@ -118,8 +114,14 @@ Page({
   },
   onLoad: function (options) {
     let type = options.type;
+    console.log('======',type)
+    let phone = ''
+    if(options.linkPhone=='undefined'){
+      phone = ''
+    }else{
+      phone = options.linkPhone
+    }
     let that = this;
-    console.log('phone-onLoad',type)
     if(type == 'submit'){
       this.setData({
         inputValue: options.value || '',
@@ -131,16 +133,18 @@ Page({
       wx.getStorage({
         key: 'order_pay',
         success: function(res) {
-          console.log('--------',res.data)
-          if(res.data){
-            console.log('order_pay')
             that.setData({
-              inputValue: res.data.linkPhone|| '',
+              inputValue:phone,
               type:type,
               order_pay:res.data,
-              orderId:options.orderId
             })
-          }
+        },
+        fail:function(){
+          that.setData({
+            inputValue: phone,
+            type:type,
+            order_pay:{},
+          })
         }
       })
     }

@@ -7,7 +7,6 @@ const app = getApp()
 Page({
   data: {
     inviteer:[],
-    inviteer:"2",
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -29,8 +28,7 @@ Page({
 
   onLoad: function (options) {
     console.log(options,"options")
-    var inviteeId = options.id
-    
+    var inviteeId = options.inviteeId
     //数据加载
     app.getRequest({
       // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
@@ -51,7 +49,8 @@ Page({
           address:res.data.data.address,
           inviteer:res.data.data.inviteer,
           limitCount:res.data.data.limitCount,
-          meetingStatus:res.data.data.meetingStatus
+          meetingStatus:res.data.data.meetingStatus,
+          inviteeId:res.data.data.inviteeId
         })
       }
     })
@@ -64,29 +63,46 @@ Page({
     var that = this;
   },
   onShareAppMessage: function (res) {
-    var that = this
     console.log(res,8888)
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
+    console.log(this.data.meetingRoomName)
     return {
-      title: '戳我一键参会！邀请您于“{{that.data.meetingTime}}在"{{that.data.meetingRoomName}}"参加“{{that.data.themeName}}””',
+      title: '戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
       path: 'pages/meetingStatus/meetingStatus', 
     }
   },
 
   //点击取消参会
   cancelMeeting(){
+    let that = this;
     wx.getStorage({
       key: 'user_info',
       success:(res)=>{
-        console.log(res)
+        that.data.inviteer.forEach((item,index)=>{ 
+          if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
+            that.data.inviteer.splice(index, 1)
+          }    
+        })
+        this.setData({
+          inviteer:that.data.inviteer
+        })
       },
     })
-    console.log(this.data.inviteer)
-      inviteerArr.forEach((item,index)=>{
-        console.log(item,index)
-      })
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/cancel',
+      methods:"GET",
+      header:{
+        "content-type":"application/json"
+      },
+      data:{
+        inviteeId:this.data.inviteeId
+      },
+      success:(res)=>{
+        console.log(res,"取消参会")
+      }
+    })
   }
 })

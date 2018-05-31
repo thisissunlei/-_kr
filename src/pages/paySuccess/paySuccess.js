@@ -7,7 +7,7 @@ const app = getApp()
 Page({
   data: {
     off:true,
-    conferee:[],
+    inviteer:[],
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -26,13 +26,11 @@ Page({
     })
   },
   onLoad: function (options) {
-    this.createQrCode('fdfd',"mycanvas",160,160);
-    this.getData()
-  },
-  getData(){
+    console.log(options,"options")
+    let inviteeId = options.inviteeId
     app.getRequest({
-      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+      // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"
@@ -52,8 +50,13 @@ Page({
           meetingStatus:res.data.data.meetingStatus
         })
       }
-    })
+    }),
+
+    this.createQrCode('fdfd',"mycanvas",160,160);
   },
+
+    
+
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片
     QR.qrApi.draw(url,canvasId,cavW,cavH);
@@ -66,4 +69,45 @@ Page({
       off:false
     })
   },
+  onShareAppMessage: function (res) {
+    console.log(res,8888)
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '戳我一键参会！邀请您于{{this.data.meetingRoomName}}在{{this.data.meetingRoomName}}参加{{this.data.themeName}}',
+      path: 'pages/meetingStatus/meetingStatus', 
+    }
+  },
+  //点击取消参会
+  cancelMeeting(){
+    let that = this;
+    wx.getStorage({
+      key: 'user_info',
+      success:(res)=>{
+        that.data.inviteer.forEach((item,index)=>{ 
+          if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
+            that.data.inviteer.splice(index, 1)
+          }    
+        })
+        this.setData({
+          inviteer:that.data.inviteer
+        })
+      },
+    })
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/cancel',
+      methods:"GET",
+      header:{
+        "content-type":"application/json"
+      },
+      data:{
+        inviteeId:this.data.inviteeId
+      },
+      success:(res)=>{
+        console.log(res,"取消参会")
+      }
+    })
+  }
 })

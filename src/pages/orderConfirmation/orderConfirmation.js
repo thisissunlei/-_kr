@@ -1,10 +1,11 @@
 //orderConfirmation.js
 //获取应用实例
 const app = getApp()
-//var theme=newDate[1]+''+newDate[2]+'会议';
+
 
 Page({
   data: {
+    meetingDetail:{},
     themeName:'',
     remind:'提前15分钟',
     phone:'',
@@ -48,23 +49,49 @@ Page({
     checkMessage:false,
   },
   onUnload:function(){
+    let _this = this;
     wx.setStorage({
       key:"order_pay",
-      data:{}
+      data:{},
+      success:function(){
+          _this.setData({
+            order_pay:{}
+          })
+      }
     })
     wx.setStorage({
       key:"meeting_time",
       data:{}
     })
     
-    
-    
+  },
+  closeDialog:function(){
+    this.setData({
+        dialogShow:!this.data.dialogShow
+    })
   },
   openMeetDetail:function(e){
-    
+    let that = this;
     this.setData({
       meetingRoomId:'',
       meetDetailShow:!this.data.meetDetailShow
+    },function(){
+      that.getMeetId()
+    })
+  },
+  getMeetId(){
+    let that = this;
+    wx.getStorage({
+        key: 'detail',
+        success: function(res) {
+          if(res.data){
+            that.setData({
+              meetingRoomId:res.data.meetingRoomId
+            },function(){
+              that.getMeetDetail()
+            })
+          }
+        }
     })
   },
   closeMeetDetail:function(){
@@ -85,65 +112,30 @@ Page({
       'FIFTEEN':'提前15分钟',
       'THIRTY':'提前30分钟'
     }
-    
      return themeObj[alertTime]
     
   },
   jumpSetTheme:function() {
-    this.setData({
-      order_pay:{
-        themeName:this.data.themeName,
-        alertTime:this.data.alertTime,
-        linkPhone:this.data.phone
-      }
-    })
-    wx.setStorage({
-      key:"order_pay",
-      data:this.data.order_pay,
-      success:function(){
-        wx.navigateTo({
-          url: '../meetingTheme/meetingTheme?type=storage'
-        })
-      }
+    let data=this.data;
+    wx.navigateTo({
+      url: '../meetingTheme/meetingTheme?type=storage&themeName='+data.themeName
     })
    
    
   },
   jumpSetRemind:function() {
-    this.setData({
-      order_pay:{
-        themeName:this.data.themeName,
-        alertTime:this.data.alertTime,
-        linkPhone:this.data.phone
-      }
+    let data=this.data;
+    wx.navigateTo({
+      url: '../warn/warn?type=storage&alertTime='+data.alertTime
     })
-    wx.setStorage({
-      key:"order_pay",
-      data:this.data.order_pay,
-      success:function(){
-        wx.navigateTo({
-          url: '../warn/warn?type=storage'
-        })
-      }
-    })
+   
   },
   jumpSetPhone:function() {
-    this.setData({
-      order_pay:{
-        themeName:this.data.themeName,
-        alertTime:this.data.alertTime,
-        linkPhone:this.data.phone
-      }
+    let data=this.data;
+    wx.navigateTo({
+      url: '../phone/phone?type=storage&linkPhone='+data.linkPhone
     })
-    wx.setStorage({
-      key:"order_pay",
-      data:this.data.order_pay,
-      success:function(){
-        wx.navigateTo({
-          url: '../phone/phone?type=storage'
-        })
-      }
-    })
+    
   },
   getBoardroomTime:function(){
     
@@ -202,7 +194,7 @@ Page({
         meeting_time:{
           time:getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1),
           beginTime:that.data.nowDate+' '+getTime(selectedTime[0])+':00',
-          endTime:getTime(Number(selectedTime[selectedTime.length-1])+1)+':00',
+          endTime:that.data.nowDate+' '+getTime(Number(selectedTime[selectedTime.length-1])+1)+':00',
           hours:getHour(selectedTime)
         }
       })
@@ -222,26 +214,63 @@ Page({
     return ;
   },
   subTime:function(e){
+    
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
-      // let promotionCost=this.
-      // detailInfo.promotionCost || detailInfo.unitCost
-
-      this.setData({
-
-      })
+      this.getPrice();
       this.closeDialogTime();
     }
     
   },
+  getPrice:function(){
+    let data=this.data;
+    let hours=data.meeting_time.hours;
+    let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
+    let unitCost=data.detailInfo.unitCost;
+    let totalCount=price*hours*2;
+    let priceCount=unitCost*hours*2;
+    console.log('data.isFirst',data.isFirst)
+    if(data.isFirst){
+      if(hours>2){
+        this.setData({
+          totalCount:totalCount,
+          priceCount:priceCount,
+          isFirst:false
+        })
+      }else{
+        this.setData({
+          totalCount:totalCount,
+          priceCount:1
+        })
+      }
+    }else{
+        this.setData({
+          totalCount:totalCount,
+          priceCount:priceCount
+        })
+    }
+    
+  },
+  onShow:function(){
+    var _this=this;
+    wx.getStorage({
+      key:'order_pay',
+      success:function(res){
+        if(res.data){
+          _this.setData({
+              themeName:res.data.themeName || _this.data.themeName,
+              remind:_this.getRemind(res.data.alertTime),
+              linkPhone:res.data.linkPhone || '',
+              order_pay:res.data
+            })
+        }
+      }
+    })
+  },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
-    this.goToPay();
     this.getIsfirst();
-   
-    // this.setData({
-       
-    // })
+    
     var _this=this;
     wx.getStorage({
       key:'detail',
@@ -257,9 +286,22 @@ Page({
       key:'orderDate',
       success:function(res){
         if(res.data){
+          let timeArr=res.data.time.split('-');
+          let month=timeArr[1];
+          let day=timeArr[2];
+          if(month<10){
+            month=`0${month}`
+          }
+          if(day<10){
+            day=`0${day}`
+          }
+          let date=`${month}${day}`;
+          
+          let themeName=date+'会议';
           _this.setData({
               orderDate:res.data,
-            })
+              themeName:themeName
+          })
         }
       }
     })
@@ -268,19 +310,20 @@ Page({
       success:function(res){
         if(res.data){
           _this.setData({
-            meeting_time:res.data,
-            })
+            meeting_time:res.data
+          })
         }
       }
     })
-    
+   
     wx.getStorage({
       key:'order_pay',
       success:function(res){
         if(res.data){
           _this.setData({
-              order_pay:res.data,
-              remind:_this.getRemind(res.data.alertTime)
+              themeName:res.data.themeName || _this.data.themeName,
+              remind:_this.getRemind(res.data.alertTime),
+              linkPhone:res.data.linkPhone || ''
             })
         }
       }
@@ -358,29 +401,153 @@ Page({
         return
     }
 
+    this.closeDialog();
+
+  },
+  createOrder:function(){
+    let data=this.data;
+    let orderData = {
+      alertTime:data.order_pay.alertTime || data.alertTime,
+      beginTime:data.meeting_time.beginTime,
+      endTime:data.meeting_time.endTime,
+      linkPhone:data.order_pay.linkPhone,
+      meetingRoomId:data.detailInfo.meetingRoomId,
+      themeName:data.order_pay.themeName || data.themeName
+    }
+    var _this=this;
+        app.getRequest({
+          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          methods:"GET",
+          header:{
+            'content-type':"appication/json"
+          },
+          data:orderData,
+          
+          success:(res)=>{
+            let code=res.data.code;
+            switch (code){
+              case -1:
+                  this.setData({
+                    checkMessage:true,
+                    errorMessage:res.data.message
+                  })
+                  setTimeout(function(){
+                    _this.setData({
+                      checkMessage:false,
+                      errorMessage:''
+                    })
+                  },2000)
+              break;
+              case -2:
+                wx.setStorage({
+                  key:"create_order",
+                  data: {
+                    create_order:orderData
+                  },
+                })
+                  wx.navigateTo({
+                    url: '../bindPhone/bindPhone'
+                  })
+              break;
+              default:
+                _this.weChatPay(res.data.data);
+                _this.closeDialog();
+                  wx.setStorage({
+                    key:"order_pay",
+                    data:{},
+                    success:function(){
+                        _this.setData({
+                          order_pay:{}
+                        })
+                    }
+                  })
+              break;
+            } 
+
+          },
+          
+        })
+       
+  },
+  weChatPay:function(data){
     app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
-      methods:"GET",
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+      methods:"POST",
       header:{
         'content-type':"appication/json"
       },
       data:{
-        alertTime:'FIFTEEN',
-        beginTime:'2018-04-21 10:30:00',
-        endTime:'2018-04-21 12:30:00',
-        linkPhone:'13323456789',
-        meetingRoomId:'769',
-        themeName:'0421会议'
+        orderId:data.orderId
       },
       success:(res)=>{
-          console.log('res.data.data',res.data.data)
-           
+          wx.requestPayment({
+            'timeStamp':data.timestamp ,
+            'nonceStr': data.noncestr,
+            'package': data.packages,
+            'signType': data.signType,
+            'paySign': data.paySign,
+            'success':function(response){
+      
+            },
+            'fail':function(response){},
+            'complete':function(response){},
+          })
       }
     })
 
 
 
 
+    
+  },
+  getMeetDetail(){
+    let that = this;
+    let meetingRoomId = this.data.meetingRoomId;
+    console.log('=======',meetingRoomId)
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
+        method:"GET",
+        data:{
+          "meetingRoomId":meetingRoomId
+        },
+        success:(res)=>{
+          if(res.data.code>0){
+            let meetingDetail = res.data.data;
+            console.log(meetingDetail.device)
+            that.setData({
+              meetingDetail:meetingDetail
+            })
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+          
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
   },
   
 })
