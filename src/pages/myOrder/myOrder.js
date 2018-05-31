@@ -112,7 +112,18 @@ Page({
         success:(res)=>{
           console.log('res',res)
           if(res.data.code>0){
-
+            wx.requestPayment({
+              'timeStamp': res.data.data.timestamp,
+              'nonceStr': res.data.data.noncestr,
+              'package': res.data.data.packages,
+              'signType':res.data.data.signType,
+              'paySign': res.data.data.paySign,
+              'success':function(res){
+                console.log(res)
+              },
+              'fail':function(res){
+              }
+            })
           }else{
 
             // that.setData({
