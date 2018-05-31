@@ -187,7 +187,8 @@ Page({
     });
   },
 
-    getMeetDetail(){
+
+  getMeetDetail(){
     let meetingRoomId = this.data.meetingRoomId;
     let that = this;
     app.getRequest({

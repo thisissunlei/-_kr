@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+    meetingDetail:{},
     themeName:'',
     remind:'提前15分钟',
     phone:'',
@@ -61,9 +62,27 @@ Page({
     
   },
   openMeetDetail:function(e){
+    let that = this;
     this.setData({
       meetingRoomId:'',
       meetDetailShow:!this.data.meetDetailShow
+    },function(){
+      that.getMeetId()
+    })
+  },
+  getMeetId(){
+    let that = this;
+    wx.getStorage({
+        key: 'detail',
+        success: function(res) {
+          if(res.data){
+            that.setData({
+              meetingRoomId:res.data.meetingRoomId
+            },function(){
+              that.getMeetDetail()
+            })
+          }
+        }
     })
   },
   closeMeetDetail:function(){
@@ -371,6 +390,55 @@ Page({
 
 
 
+  },
+  getMeetDetail(){
+    let that = this;
+    let meetingRoomId = this.data.meetingRoomId;
+    console.log('=======',meetingRoomId)
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
+        method:"GET",
+        data:{
+          "meetingRoomId":meetingRoomId
+        },
+        success:(res)=>{
+          if(res.data.code>0){
+            let meetingDetail = res.data.data;
+            console.log(meetingDetail.device)
+            that.setData({
+              meetingDetail:meetingDetail
+            })
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+          
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
   },
   
 })

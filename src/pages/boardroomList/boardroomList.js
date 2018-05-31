@@ -709,11 +709,12 @@ Page({
 
   },
   setDetail(arr){
+    let that = this;
     wx.setStorage({
         key:"meeting_detail",
         data:arr,
         success:function(){
-          this.button_boolean = true;
+          that.button_boolean = true;
           setTimeout(function(){
             wx.navigateTo({
               url: '/pages/orderConfirmation/orderConfirmation'
