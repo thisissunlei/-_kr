@@ -421,9 +421,9 @@ Page({
             meetingRoomId:data.detailInfo.meetingRoomId,
             themeName:data.order_pay.themeName || data.themeName
           },
+          
           success:(res)=>{
             let code=res.data.code;
-
             switch (code){
               case -1:
                   this.setData({
@@ -438,6 +438,12 @@ Page({
                   },2000)
               break;
               case -2:
+                wx.setStorage({
+                  key:"create_order",
+                  data: {
+                    create_order:data
+                  },
+                })
                   wx.navigateTo({
                     url: '../bindPhone/bindPhone'
                   })
@@ -447,11 +453,11 @@ Page({
                     this.closeDialog();
               break;
             } 
-           
 
-          }
+          },
           
         })
+       
   },
   weChatPay:function(data){
     wx.requestPayment({
