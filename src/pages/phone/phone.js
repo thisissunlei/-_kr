@@ -67,7 +67,7 @@ Page({
     let that = this;
     //接口待定
     app.getRequest({
-        url:app.globalData.KrUrl+'/api/gateway/krmting/order/updateExtInfo',
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/updateExtInfo',
         methods:"GET",
         data:{
           'orderId':that.data.orderId,

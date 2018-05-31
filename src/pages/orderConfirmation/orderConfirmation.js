@@ -224,16 +224,32 @@ Page({
   },
   getPrice:function(){
     let data=this.data;
+    let hours=data.meeting_time.hours;
     let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
     let unitCost=data.detailInfo.unitCost;
-    let hours=data.meeting_time.hours;
-    let priceCount=unitCost*hours*2;
     let totalCount=price*hours*2;
+    let priceCount=unitCost*hours*2;
+    console.log('data.isFirst',data.isFirst)
+    if(data.isFirst){
+      if(hours>2){
+        this.setData({
+          totalCount:totalCount,
+          priceCount:priceCount,
+          isFirst:false
+        })
+      }else{
+        this.setData({
+          totalCount:totalCount,
+          priceCount:1
+        })
+      }
+    }else{
+        this.setData({
+          totalCount:totalCount,
+          priceCount:priceCount
+        })
+    }
     
-    this.setData({
-      totalCount:totalCount,
-      priceCount:priceCount
-    })
   },
   onShow:function(){
     var _this=this;
