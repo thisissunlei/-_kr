@@ -1,7 +1,7 @@
 //orderConfirmation.js
 //获取应用实例
 const app = getApp()
-//var theme=newDate[1]+''+newDate[2]+'会议';
+
 
 Page({
   data: {
@@ -61,7 +61,6 @@ Page({
     
   },
   openMeetDetail:function(e){
-    
     this.setData({
       meetingRoomId:'',
       meetDetailShow:!this.data.meetDetailShow
@@ -85,65 +84,30 @@ Page({
       'FIFTEEN':'提前15分钟',
       'THIRTY':'提前30分钟'
     }
-    
      return themeObj[alertTime]
     
   },
   jumpSetTheme:function() {
-    this.setData({
-      order_pay:{
-        themeName:this.data.themeName,
-        alertTime:this.data.alertTime,
-        linkPhone:this.data.phone
-      }
-    })
-    wx.setStorage({
-      key:"order_pay",
-      data:this.data.order_pay,
-      success:function(){
-        wx.navigateTo({
-          url: '../meetingTheme/meetingTheme?type=storage'
-        })
-      }
+    let data=this.data;
+    wx.navigateTo({
+      url: '../meetingTheme/meetingTheme?type=storage&themeName='+data.themeName
     })
    
    
   },
   jumpSetRemind:function() {
-    this.setData({
-      order_pay:{
-        themeName:this.data.themeName,
-        alertTime:this.data.alertTime,
-        linkPhone:this.data.phone
-      }
+    let data=this.data;
+    wx.navigateTo({
+      url: '../warn/warn?type=storage&alertTime='+data.alertTime
     })
-    wx.setStorage({
-      key:"order_pay",
-      data:this.data.order_pay,
-      success:function(){
-        wx.navigateTo({
-          url: '../warn/warn?type=storage'
-        })
-      }
-    })
+   
   },
   jumpSetPhone:function() {
-    this.setData({
-      order_pay:{
-        themeName:this.data.themeName,
-        alertTime:this.data.alertTime,
-        linkPhone:this.data.phone
-      }
+    let data=this.data;
+    wx.navigateTo({
+      url: '../phone/phone?type=storage&linkPhone='+data.linkPhone
     })
-    wx.setStorage({
-      key:"order_pay",
-      data:this.data.order_pay,
-      success:function(){
-        wx.navigateTo({
-          url: '../phone/phone?type=storage'
-        })
-      }
-    })
+    
   },
   getBoardroomTime:function(){
     
@@ -234,14 +198,26 @@ Page({
     }
     
   },
+  onShow:function(){
+    var _this=this;
+    wx.getStorage({
+      key:'order_pay',
+      success:function(res){
+        if(res.data){
+          _this.setData({
+              themeName:res.data.themeName || _this.data.themeName,
+              remind:_this.getRemind(res.data.alertTime),
+              linkPhone:res.data.linkPhone || ''
+            })
+        }
+      }
+    })
+  },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
-    this.goToPay();
+    //this.goToPay();
     this.getIsfirst();
-   
-    // this.setData({
-       
-    // })
+    
     var _this=this;
     wx.getStorage({
       key:'detail',
@@ -257,9 +233,22 @@ Page({
       key:'orderDate',
       success:function(res){
         if(res.data){
+          let timeArr=res.data.time.split('-');
+          let month=timeArr[1];
+          let day=timeArr[2];
+          if(month<10){
+            month=`0${month}`
+          }
+          if(day<10){
+            day=`0${day}`
+          }
+          let date=`${month}${day}`;
+          
+          let themeName=date+'会议';
           _this.setData({
               orderDate:res.data,
-            })
+              themeName:themeName
+          })
         }
       }
     })
@@ -268,19 +257,20 @@ Page({
       success:function(res){
         if(res.data){
           _this.setData({
-            meeting_time:res.data,
-            })
+            meeting_time:res.data
+          })
         }
       }
     })
-    
+   
     wx.getStorage({
       key:'order_pay',
       success:function(res){
         if(res.data){
           _this.setData({
-              order_pay:res.data,
-              remind:_this.getRemind(res.data.alertTime)
+              themeName:res.data.themeName || _this.data.themeName,
+              remind:_this.getRemind(res.data.alertTime),
+              linkPhone:res.data.linkPhone || ''
             })
         }
       }

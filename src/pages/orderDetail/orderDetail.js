@@ -186,6 +186,56 @@ Page({
       that:this
     });
   },
+
+    getMeetDetail(){
+    let meetingRoomId = this.data.meetingRoomId;
+    let that = this;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
+        method:"GET",
+        data:{
+          "meetingRoomId":meetingRoomId
+        },
+        success:(res)=>{
+          if(res.data.code>0){
+            let meetingDetail = res.data.data;
+            console.log(meetingDetail.device)
+            that.setData({
+              meetingDetail:meetingDetail
+            })
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+          
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
+  },
+
    
 })
 function changeTime(date){

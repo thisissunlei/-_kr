@@ -205,9 +205,11 @@ Page({
     }
     this.setData({
       topDate:newData,
-      dateScrollLeft:validIndex*53
+      dateScrollLeft:validIndex*53,
+      nowDate:topDate[validIndex].date
     },function(){
       that.getData();
+      wx.setStorageSync('nowDate',topDate[validIndex].date);
       wx.setStorageSync('orderDate',orderDate);
     })
   },
@@ -442,6 +444,7 @@ Page({
   dateBtn :function(e){
     
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
+      console.log(e);
       const new_data = this.data[e.target.dataset.data];
       var old_data = [];
       if(this.last_data!='false'){
@@ -474,12 +477,12 @@ Page({
       var timeData =   e.target.dataset;
       var that = this;
       this.scrollTopDate(timeData.validIndex);
-      this.setData({
-        nowDate:`${timeData.year}-${timeData.month+1}-${timeData.value}`,
-      },function(){
-        wx.setStorageSync('nowDate',that.data.nowDate);
+      // this.setData({
+      //   nowDate:`${timeData.year}-${timeData.month+1}-${timeData.day}`,
+      // },function(){
+      //   wx.setStorageSync('nowDate',that.data.nowDate);
         that.closeDialogDate();
-      })
+      // })
 
 
     }
@@ -508,11 +511,13 @@ Page({
           if(i%7==0||i%7==6){
             data.push({
               value:i-week+1,
+              day:i-week+1,
               type:'before'
             });
           }else{
             data.push({
               value:i-week+1,
+              day:i-week+1,
               type:'next'
             });
           }
@@ -523,11 +528,13 @@ Page({
           if(i%7==0||i%7==6){
             data.push({
               value:'今天',
+              day:i-week+1,
               type:'before'
             });
           }else{
             data.push({
               value:'今天',
+              day:i-week+1,
               type:'now'
             });
           }
@@ -537,11 +544,13 @@ Page({
           if(i%7==0||i%7==6){
             data.push({
               value:'明天',
+              day:i-week+1,
               type:'before'
             });
           }else{
             data.push({
               value:'明天',
+              day:i-week+1,
               type:'now'
             });
           }
@@ -552,11 +561,13 @@ Page({
           if(i%7==0||i%7==6){
             data.push({
               value:i-week+1,
+              day:i-week+1,
               type:'before'
             });
           }else{
             data.push({
               value:i-week+1,
+              day:i-week+1,
               type:'next'
             });
           }
@@ -565,6 +576,7 @@ Page({
         default:
           data.push({
             value:i-week+1,
+            day:i-week+1,
             type:'before'
           });
           //this.all_day_num++;
