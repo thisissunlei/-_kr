@@ -450,8 +450,8 @@ Page({
                   })
               break;
               default:
-                    this.weChatPay(res.data.data)
-                    this.closeDialog();
+                _this.weChatPay(res.data.data)
+                _this.closeDialog();
               break;
             } 
 
