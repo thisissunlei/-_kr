@@ -54,6 +54,7 @@ Page({
     errorMessage:'',
     checkMessage:false,
   },
+ 
   openMeetDetail:function(e){
     
     this.setData({
