@@ -3,23 +3,26 @@
     <view class='top'>
       <view class="top-banner">
         <image src="../images/indexImg/card.png" class="img"></image>
-        <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{status===2?true:false}}"></image>
+        <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
         <view class="content">
           <view class='title'>
             <text class='h1'>{{meetingTime}}11-29 (周三）9:00-10:30</text>
             <text>{{themeName}}产品技术部例会</text>
           </view>
           <view class='pics'>
-            <view class="code-pic">
-              <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{status===2?true:false}}"></image>
-              <image src="../images/indexImg/code.png" wx:if="{{status===2?false:true}}" class="img"></image>
-              <view class="img-box">
-                <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
-                  <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
+            <view class="shade">
+              <view class="code-pic">
+                <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
+                <image src="../images/indexImg/code.png" wx:if="{{meetingStatus==='EXPIRED'?false:true}}" class="img"></image>
+                <view class="img-box">
+                  <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
+                    <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
+                </view>
               </view>
-              
-            </view>
+            
+            
             <view class="code-desc">请入场时出示此二维码</view>
+          </view>
           </view>
           
           <view class='bottom_text'>
@@ -44,7 +47,7 @@
                 </view>
                 <text>{{item.wechatNick}}</text>
                 <image src="../images/indexImg/icon_faqiren.png" class="originator"></image>
-                <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.join===1?true:false}}"></image>
+                <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===1?true:false}}"></image>
             </view>
         </block>
         <view class='clear'></view>
@@ -61,14 +64,14 @@
       </block>
     </view>
   </view>
-  <view class='footer' wx:if="{{status===2?false:true}}">
-      <text>取消会议</text>
+  <view class='footer' wx:if="{{meetingStatus==='EXPIRED'?false:true}}">
+      <text bindtap="cancelMeeting">取消会议</text>
       <view class='btns'>
         <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
         <button open-type="share" style="border:none"><text class='yaoqing'>邀请参会人</text></button>
       </view>
   </view>
-  <view class='footer' wx:if="{{status===2?true:false}}">
+  <view class='footer' wx:if="{{meetingStatus==='EXPIRED'?true:false}}">
     <view class='btns'>
       <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
     </view>

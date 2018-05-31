@@ -44,24 +44,15 @@ Page({
       success:(res)=>{
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data.data.meetingTime,
-          themeName:res.data.data.themeName,
-          meetingRoomName:res.data.data.meetingRoomName,
-          address:res.data.data.address,
-          inviteer:res.data.data.inviteer,
-          limitCount:res.data.data.limitCount
+          meetingTime:res.data.meetingTime,
+          themeName:res.data.themeName,
+          meetingRoomName:res.data.meetingRoomName,
+          address:res.data.address,
+          inviteer:res.data.inviteer,
+          limitCount:res.data.limitCount,
+          meetingStatus:res.data.meetingStatus
         })
       }
-    }),
-    
-    wx.setStorage({
-      key:"user_info",
-      data: {
-        user_info:{
-          wechatAvatar:"头像",
-          wechatNick:"xx"
-        }
-      },
     })
   },
   //点击我要参与

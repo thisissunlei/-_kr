@@ -12,7 +12,7 @@
           <view class="u-order-right">
               <text class="u-meet-title">{{detailInfo.capacity}}人 {{detailInfo.meetingRoomName}}</text>
               <text class="u-meet-address">{{detailInfo.buildName}}</text>
-              <view class="u-meet-price-info">
+              <view class="u-meet-detail-price-info">
                   <view class="u-meet-price">
                       ￥<text class="u-meet-num">{{detailInfo.promotionCost}} </text>
                   </view>
@@ -105,7 +105,7 @@
             </view>
             <button class="u-my-contact-btn" open-type="contact">联系客服</button>
         </view>
-        <view class="u-count-down"  wx:if="{{detailInfo.orderShowStatus==1}}">
+        <view class="u-count-down"  wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}">
             <image class="u-time-icon" src="../images/public/clock_icon.png"></image>
             <view class="u-count-time-txt">剩余时间</view>
             <view class="u-count-time">
@@ -146,7 +146,7 @@
                     </view>
                     <view class="u-meet-sale">限时7折优惠</view>
                 </view>
-                <view class="u-meet-address">
+                <view class="u-meet-detail-address">
                     <view class="u-address">
                         <image class="u-address-icon" src="../images/public/icon_dizhi.png"></image>
                         <view class="u-address-txt">海航实业大厦9层</view>
