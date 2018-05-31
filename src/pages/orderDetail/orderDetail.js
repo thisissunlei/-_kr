@@ -223,39 +223,6 @@ Page({
         }
       })
   },
-  nowReserve(e){
-    console.log('======>')
-    let that = this;
-    let meetingRoomId = e.target.dataset.mId;
-    let meetingDetail;
-    if(this.button_boolean){
-      this.button_boolean = false;
-      let data = {
-        time:that.data.detailInfo.useDate,
-        timeText:that.data.detailInfo.dayDesc,
-      }
-      meetingDetail = Object.assign({},that.data.meetingDetail,data,{from:'orderDetai'});
-      that.setDetail(meetingDetail)
-    }
-    
-    
-
-  },
-  setDetail(arr){
-    wx.setStorage({
-        key:"meeting_detail",
-        data:arr,
-        success:function(){
-          this.button_boolean = true;
-          setTimeout(function(){
-            wx.navigateTo({
-              url: '/pages/orderConfirmation/orderConfirmation'
-            })
-          },500)
-          
-        }
-    })
-  }
    
 })
 function changeTime(date){
