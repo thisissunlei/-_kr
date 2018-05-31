@@ -440,7 +440,7 @@ Page({
   // 日历相关
   all_day_num:0,
   last_btn_num:'false',
-  last_data:'false',
+  last_data:'date_data1',
   dateBtn :function(e){
     
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
@@ -450,12 +450,14 @@ Page({
       if(this.last_data!='false'){
         if(this.last_data=='date_data1'){
           old_data = this.data['date_data1'];
+          console.log(old_data);
           old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
           this.setData({
             date_data1:old_data
           });
         }else if(this.last_data=='date_data2'){
           old_data = this.data['date_data2'];
+          console.log(old_data);
           old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
           this.setData({            
             date_data2:old_data
@@ -604,9 +606,18 @@ Page({
     // var date = date1.concat(date2);
     // var allDate=[];
     var validDateNum = 0;
+    var that = this;
     date1 = date1.map((item,index)=>{
       if(item.value && item.type!='before') {
+        // 加颜色
+        if(validDateNum==0){
+          date1[index]['type'] = 'active ' + date1[index]['type'];
+
+          // console.log("item",item,index);
+          that.last_btn_num = index;
+        }
         item.validDateNum = validDateNum++;
+        
       }
       return item;
     })
@@ -616,7 +627,7 @@ Page({
       }
       return item;
     })
-
+    // console.log(date1,date2);
     this.setData({
       date_data1:date1,
       date_data2:date2,
@@ -633,6 +644,7 @@ Page({
         choose:''
       }
     });
+    
 
   },
 
