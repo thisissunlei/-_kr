@@ -32,7 +32,8 @@ Page({
   },
   //获取数据列表
   getData(){
-    wx.request({
+    app.getRequest({
+      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
       url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
@@ -44,13 +45,13 @@ Page({
       success:(res)=>{
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data.meetingTime,
-          themeName:res.data.themeName,
-          meetingRoomName:res.data.meetingRoomName,
-          address:res.data.address,
-          inviteer:res.data.inviteer,
-          limitCount:res.data.limitCount,
-          meetingStatus:res.data.meetingStatus
+          meetingTime:res.data.data.meetingTime,
+          themeName:res.data.data.themeName,
+          meetingRoomName:res.data.data.meetingRoomName,
+          address:res.data.data.address,
+          inviteer:res.data.data.inviteer,
+          limitCount:res.data.data.limitCount,
+          meetingStatus:res.data.data.meetingStatus
         })
       }
     })
@@ -61,12 +62,31 @@ Page({
       key: 'user_info',
       success:(res)=>{
         console.log(res)
-        console.log(this.data.inviteer)
-        this.data.inviteer.push(res.data.user_info)
+        let user_info = {
+          wechatAvatar : res.data.user_info.avatarUrl,
+          wechatNick : res.data.user_info.nickName
+        }
+        this.setData({
+          user_info:user_info
+        })
+        this.data.inviteer.push(user_info)
         this.setData({
           inviteer:this.data.inviteer
         })
       },
+    })
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/confirmArriving',
+      methods:"GET",
+      header:{
+        "content-type":"application/json"
+      },
+      data:{
+        inviteeId:this.data.inviteeId
+      },
+      success:(res)=>{
+        console.log(res,"会议详情")
+      }
     })
   },
   //点击我要预定

@@ -22,8 +22,8 @@
         <text class='h2'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
         <block wx:for="{{inviteer}}">
             <view class='list'>
-              <view class='pic'>{{item.wechatAvatar}}
-                    <!-- <image src="{{item.wechatAvatar}}"></image> -->
+              <view class='pic'>
+                    <image src="{{item.wechatAvatar}}"></image>
                 </view>
                 <text>{{item.wechatNick}}</text>
                 <image src="../images/indexImg/icon_faqiren.png" class="originator"></image>
@@ -43,12 +43,12 @@
         </view>
       </block>
     </view>
-    <!-- <view style="padding-bottom: 198rpx;">
+    <view style="padding-bottom: 198rpx;" wx:if="{{meetingStatus==='EXPIRED'?false:true}}">
       <view class='btn' bindtap="jion">
         我要参与
       </view>
-    </view> -->
-    <view style="padding-bottom: 198rpx;">
+    </view>
+    <view style="padding-bottom: 198rpx;" wx:if="{{meetingStatus==='EXPIRED'?true:false}}">
       <view class='btn' bindtap="proceed">
         我要预定
       </view>

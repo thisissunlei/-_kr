@@ -7,26 +7,7 @@ const app = getApp()
 Page({
   data: {
     off:true,
-    conferee:[
-      {
-        'name':'刘佳佳'
-      },
-      {
-        'name':'molly'
-      },
-      {
-        'name':'谭烨'
-      },
-      {
-        'name':'沈美美'
-      },
-      {
-        'name':'段郝耀'
-      },
-      {
-        'name':'蒋萌'
-      }
-    ],
+    conferee:[],
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -49,7 +30,8 @@ Page({
     this.getData()
   },
   getData(){
-    wx.request({
+    app.getRequest({
+      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
       url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
@@ -61,13 +43,13 @@ Page({
       success:(res)=>{
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data.meetingTime,
-          themeName:res.data.themeName,
-          meetingRoomName:res.data.meetingRoomName,
-          address:res.data.address,
-          inviteer:res.data.inviteer,
-          limitCount:res.data.limitCount,
-          meetingStatus:res.data.meetingStatus
+          meetingTime:res.data.data.meetingTime,
+          themeName:res.data.data.themeName,
+          meetingRoomName:res.data.data.meetingRoomName,
+          address:res.data.data.address,
+          inviteer:res.data.data.inviteer,
+          limitCount:res.data.data.limitCount,
+          meetingStatus:res.data.data.meetingStatus
         })
       }
     })
