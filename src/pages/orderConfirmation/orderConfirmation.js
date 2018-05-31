@@ -8,7 +8,7 @@ Page({
   data: {
     themeName:theme,
     remind:'提前15分钟',
-    phone:'13333333333',
+    phone:'',
     check:true,
     imgUrl:'',
     beginTime:getTime('20'),
@@ -268,7 +268,7 @@ Page({
       }
     })
     
-    var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
+    var rangeTime = wx.getStorageSync('rangeTime',).map((item,index)=>{
       // if (index==indexParam) {
         // item.actived = true; 
       // }else{
