@@ -64,8 +64,11 @@ Page({
       data:{}
     })
     
-    
-    
+  },
+  closeDialog:function(){
+    this.setData({
+        dialogShow:!this.data.dialogShow
+    })
   },
   openMeetDetail:function(e){
     let that = this;
@@ -382,47 +385,45 @@ Page({
         return
     }
 
+    this.closeDialog();
 
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
-      methods:"GET",
-      header:{
-        'content-type':"appication/json"
-      },
-      data:{
-        alertTime:data.order_pay.alertTime || data.alertTime,
-        beginTime:data.meeting_time.beginTime,
-        endTime:data.meeting_time.endTime,
-        linkPhone:data.order_pay.linkPhone,
-        meetingRoomId:data.detailInfo.meetingRoomId,
-        themeName:data.order_pay.themeName || data.themeName
-      },
-      success:(res)=>{
-        if(res.data.code<0){
-            this.setData({
-              checkMessage:true,
-              errorMessage:res.data.message
-            })
-            setTimeout(function(){
-              _this.setData({
-                checkMessage:false,
-                errorMessage:''
-              })
-            },2000)
-        }else{
+  },
+  createOrder:function(){
+    let data=this.data;
+    var _this=this;
+        app.getRequest({
+          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          methods:"GET",
+          header:{
+            'content-type':"appication/json"
+          },
+          data:{
+            alertTime:data.order_pay.alertTime || data.alertTime,
+            beginTime:data.meeting_time.beginTime,
+            endTime:data.meeting_time.endTime,
+            linkPhone:data.order_pay.linkPhone,
+            meetingRoomId:data.detailInfo.meetingRoomId,
+            themeName:data.order_pay.themeName || data.themeName
+          },
+          success:(res)=>{
+            if(res.data.code<0){
+                this.setData({
+                  checkMessage:true,
+                  errorMessage:res.data.message
+                })
+                setTimeout(function(){
+                  _this.setData({
+                    checkMessage:false,
+                    errorMessage:''
+                  })
+                },2000)
+            }else{
 
+            }
 
-        }
-        
-        
-
-      }
-      
-    })
-
-
-
-
+          }
+          
+        })
   },
   getMeetDetail(){
     let that = this;
