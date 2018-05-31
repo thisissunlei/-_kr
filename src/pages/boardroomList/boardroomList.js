@@ -161,6 +161,28 @@ Page({
       })
     }
   },
+  scrollTopDate:function(validIndex){
+    // console.log(validIndex);
+    var topDate = this.data.topDate;
+    var indexParam = validIndex;
+    var that = this;
+    // console.log(topDate);
+    var newData = topDate.map((item,index)=>{
+      if (index==indexParam) {
+        item.actived = true; 
+      }else{
+        item.actived = false; 
+      }
+      return item;
+    })
+    
+    this.setData({
+      topDate:newData,
+      dateScrollLeft:validIndex*53
+    },function(){
+      that.getData();
+    })
+  },
   //获取会议室列表
   getData:function(){
     let that = this;
@@ -179,7 +201,7 @@ Page({
             totalPages:res.data.data.totalPages,
             boardroomList:res.data.data.items
           },function(){
-            that.reloadData();
+            // that.reloadData();
           })
         }
       })
@@ -263,15 +285,16 @@ Page({
     }
   },
   getTopDate:function(){
-    var today = new Date();
-    var year=today.getFullYear();
-    var month = today.getMonth()+1;
-    var day = today.getDate();
-    var totalDay=this.getMonthDays(year,month+1);
-    var todayWeek = today.getDay();
     var topDate = [];
     var that = this;
     for(let i=0;i<30;i++){
+      var today = new Date();
+      today.setDate(today.getDate()+i);
+      var year=today.getFullYear();
+      var month = today.getMonth()+1;
+      var day = today.getDate();
+      var totalDay=this.getMonthDays(year,month);
+      var todayWeek = today.getDay();
       var dateItem = {
         week:'',
         day:'',
@@ -285,15 +308,16 @@ Page({
       if(i<2){
         dateItem.week = (i==0?'今天':'明天');
       }else{
-        dateItem.week = this.getWeek(todayWeek+i);
+        dateItem.week = this.getWeek(todayWeek);
       }
-      dateItem.day = this.getDay(day+i,totalDay);
-      if((todayWeek+i)%7==0||(todayWeek+i)%7==6){
+      dateItem.day = this.getDay(day,totalDay);
+      if((todayWeek)%7==0||(todayWeek)%7==6){
         dateItem.class_bool = 'btn_no';
         dateItem.bool = 'false';
+      }else{
+        topDate.push(dateItem);
       }
-
-      topDate.push(dateItem);
+      
     }
     // var _this = this;
     this.setData({
@@ -338,7 +362,6 @@ Page({
     if(page>totalPages){
       return ;
     }
-    console.log(page,pageSize);
       var that = this;
 
       // this.$http.get('get-news-list',{page,pageSize}).then(function(response){
@@ -436,9 +459,9 @@ Page({
       this.last_data = e.target.dataset.data; 
       var timeData =   e.target.dataset;
       var that = this;
+      this.scrollTopDate(timeData.validIndex);
       this.setData({
         nowDate:`${timeData.year}-${timeData.month}-${timeData.value}`,
-        dateScrollLeft:100,
       },function(){
         wx.setStorageSync('nowDate',that.data.nowDate);
         that.closeDialogDate();
@@ -538,7 +561,6 @@ Page({
   },
 
   onLoad:function(options){
-    // console.log("option>>>",options);
     if(options.communityId){
       this.setData({
         communityId:options.communityId
@@ -551,8 +573,28 @@ Page({
     
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    const date1 = this.dealDate(today_month,true);
-    const date2 = this.dealDate(next_month,false); 
+    var date1 = this.dealDate(today_month,true);
+    var date2 = this.dealDate(next_month,false); 
+    // var date = date1.concat(date2);
+    // var allDate=[];
+    var validDateNum = 0;
+    date1 = date1.map((item,index)=>{
+      if(item.value && item.type!='before') {
+        item.validDateNum = validDateNum++;
+      }
+      return item;
+    })
+    date2 = date2.map((item,index)=>{
+      if(item.value && item.type!='before') {
+        item.validDateNum = validDateNum++;
+      }
+      return item;
+    })
+//     date.forEach(function(item,index,array){
+//       if(item.value && item.type!='before') {
+//         allDate.push(item);
+//       }
+// 　　 });
     this.setData({
       date_data1:date1,
       date_data2:date2,

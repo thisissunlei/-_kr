@@ -142,7 +142,6 @@ Page({
     console.log(app,5555,that.data.latitude)
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/home',
-      
       data:{
         latitude:that.rq_data.latitude,
         longitude:that.rq_data.longitude

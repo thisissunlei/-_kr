@@ -30,6 +30,7 @@ Page({
     autoplay: false,
     duration: 1000,
     currentNum:1,
+    timeText:'',
     imgUrls: [
       'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
@@ -45,7 +46,9 @@ Page({
     nowDate:'',
     meeting_time:{
       time:'10:30-11:30',
-      timeArr:[22,23,24]
+      timeArr:[22,23,24],
+      beginTime:'',
+      endTime:'',
     },
     isFirst:true,
     errorMessage:'',
@@ -140,38 +143,72 @@ Page({
     
   },
   tapTime:function(e){
-    // wx.showToast({
-    //   title: 'asdf',
-    //   icon: 'none',
-    //   duration: 1000
-    // })
+    
     var indexParam = e.currentTarget.dataset.index;
+    console.log(this.data.rangeTime);
+    var test = [].concat(this.data.rangeTime);
+    // console.log(this.data.selectedTime);
     // var selectedTime = this.data.selectedTime;
     var selectedTime = [];
-    var rangeTime = this.data.rangeTime.map((item,index)=>{
-      //1 判断长度  2 排序  3最小到最大判断  4变色  5 push
+    var rangeTime=[];
+    // test.for((item,index)=>{
+      
+    //   //1 判断长度  2 排序  3最小到最大判断  4变色  5 push
+    //   if(!item.disabled && item.number==indexParam){
+    //     item.actived = !item.actived; 
+    //   }
+    //   if(item.actived){
+    //     selectedTime.push(item.number);
+    //   }
+    //   return item;
+    // })
+    for(let i=0; i < test.length; i++){
+      //重点
+      var item=Object.assign({},test[i]);
       if(!item.disabled && item.number==indexParam){
         item.actived = !item.actived; 
       }
       if(item.actived){
         selectedTime.push(item.number);
-      }else{
-        console.log(selectedTime.indexOf(item.number));
-        // if(selectedTime.indexOf(item.number)>-1){
-        //   selectedTime.splice(selectedTime.indexOf(item.number), 1);
-        // }
       }
-      return item;
-    })
-    console.log(selectedTime);
-    this.setData({
-      rangeTime1:rangeTime.slice(0,8),
-      rangeTime2:rangeTime.slice(8,16),
-      rangeTime3:rangeTime.slice(16),
-      rangeTime:rangeTime,
-      selectedTime:selectedTime,
-      
-    })
+      rangeTime.push(item);
+    }
+    var bool = true;
+    if(selectedTime.length>1){
+        for (let i = 0; i < selectedTime.length-1; i++) {
+          var a = selectedTime[i+1]-selectedTime[i];
+          if (Math.abs(a)!=1) {
+            bool = false;
+            break ;
+          }
+        }
+    }
+    var that = this;
+    console.log("all",selectedTime);
+    if(bool){
+      console.log("true");
+      this.setData({
+        rangeTime1:[].concat(rangeTime.slice(0,8)),
+        rangeTime2:[].concat(rangeTime.slice(8,16)),
+        rangeTime3:[].concat(rangeTime.slice(16)),
+        rangeTime:[].concat(rangeTime),
+        selectedTime:[].concat(selectedTime),
+        meeting_time:{
+          time:getTime(selectedTime[0])+(selectedTime.length>1?('-'+getTime(selectedTime[selectedTime.length-1])):''),
+          beginTime:selectedTime[0],
+          endTime:selectedTime.length>1?selectedTime[selectedTime.length-1]:'',
+        }
+      })
+    }else{
+      wx.showToast({
+        title: '请选择连续时间段',
+        icon: 'none',
+        duration: 1000
+      })
+      return ;
+    }
+    console.log("实际",this.data.selectedTime);
+    console.log(this.data.meeting_time);
     
   },
   onLoad: function (options) {
@@ -212,22 +249,22 @@ Page({
     })
     
     
-    // var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
-    //   // if (index==indexParam) {
-    //     // item.actived = true; 
-    //   // }else{
-    //     item.actived = false; 
-    //   // }
-    //   return item;
-    // })
-    // console.log(rangeTime);
-    // this.setData({
-    //   rangeTime1:rangeTime.slice(0,8),
-    //   rangeTime2:rangeTime.slice(8,16),
-    //   rangeTime3:rangeTime.slice(16),
-    //   rangeTime:rangeTime,
-    //   nowDate:wx.getStorageSync('nowDate')
-    // })
+    var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
+      // if (index==indexParam) {
+        // item.actived = true; 
+      // }else{
+        item.actived = false; 
+      // }
+      return item;
+    })
+    console.log(rangeTime);
+    this.setData({
+      rangeTime1:rangeTime.slice(0,8),
+      rangeTime2:rangeTime.slice(8,16),
+      rangeTime3:rangeTime.slice(16),
+      rangeTime:rangeTime,
+      nowDate:wx.getStorageSync('nowDate')
+    })
     
     
   },
