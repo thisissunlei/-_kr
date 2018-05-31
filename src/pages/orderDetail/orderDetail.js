@@ -85,7 +85,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../meetingTheme/meetingTheme?value='+detailInfo.themeName+'&type=submit'+'&orderId='+this.data.orderId
+      url: '../meetingTheme/meetingTheme?themeName='+detailInfo.themeName+'&type=submit'+'&orderId='+this.data.orderId
     })
   },
   jumpSetRemind:function() {
@@ -94,7 +94,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../warn/warn?value='+detailInfo.alertTime+'&type=submit'+'&orderId='+this.data.orderId
+      url: '../warn/warn?alertTime='+detailInfo.alertTime+'&type=submit'+'&orderId='+this.data.orderId
     })
   },
   jumpSetPhone:function() {
@@ -103,7 +103,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../phone/phone?value='+detailInfo.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
+      url: '../phone/phone?linkPhone='+detailInfo.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
     })
   },
   onLoad: function (opstion) {
