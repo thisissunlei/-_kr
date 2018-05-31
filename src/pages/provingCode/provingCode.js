@@ -105,9 +105,7 @@ Page({
                 that.setData({
                   success:true
                 })
-                wx.navigateTo({
-                  url: '../index/index'
-                });
+                that.createOrder();
               }
             })
           }else{
@@ -140,4 +138,100 @@ Page({
         }
       })
   },
+  createOrder:function(){
+    let that = this;
+    let data=this.data;
+    let create_order = {}
+    wx.getStorage({
+      key: 'create_order',
+      success: function(res) {
+        if(res.data){
+          create_order = res.data.create_order;
+        }
+      }
+    })
+    //orderData--->create_order取数据
+    let orderData = create_order;
+    var _this=this;
+        app.getRequest({
+          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          methods:"GET",
+          header:{
+            'content-type':"appication/json"
+          },
+          data:orderData,
+          
+          success:(res)=>{
+            let data = res.data.data;
+            let code=res.data.code;
+            switch (code){
+              case -1:
+                  that.setData({
+                    phoneError:true,
+                    errorMessage:res.data.message
+                  })
+                  setTimeout(function(){
+                    _this.setData({
+                      phoneError:false,
+                      errorMessage:''
+                    })
+                  },2000)
+                break;
+              default:
+                that.weChatPay(data)
+                that.clearStorage()
+                break;
+            } 
+
+          },
+          
+        })
+       
+  },
+  weChatPay:function(data){
+    let id = data.orderId;
+    let that = this;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+        methods:"GET",
+        data:{
+          orderId:id
+        },
+        success:(res)=>{
+          console.log('res',res)
+          if(res.data.code>0){
+            wx.requestPayment({
+              'timeStamp': res.data.data.timestamp,
+              'nonceStr': res.data.data.noncestr,
+              'package': res.data.data.packages,
+              'signType':res.data.data.signType,
+              'paySign': res.data.data.paySign,
+              'success':function(res){
+                console.log(res)
+              },
+              'fail':function(res){
+
+              }
+            })
+          }else{
+            that.setData({
+              phoneError:true,
+              errorMessage:res.data.message
+            })
+          }
+          
+        },
+        fail:(res)=>{
+           console.log('========',res)
+        }
+      })
+   
+  },
+  clearStorage(){
+    let _this = this;
+    wx.setStorage({
+      key:"order_pay",
+      data:{}
+    })
+  }
 })

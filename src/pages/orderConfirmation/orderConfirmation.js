@@ -450,8 +450,17 @@ Page({
                   })
               break;
               default:
-                    this.weChatPay(res.data.data)
-                    this.closeDialog();
+                _this.weChatPay(res.data.data);
+                _this.closeDialog();
+                  wx.setStorage({
+                    key:"order_pay",
+                    data:{},
+                    success:function(){
+                        _this.setData({
+                          order_pay:{}
+                        })
+                    }
+                  })
               break;
             } 
 

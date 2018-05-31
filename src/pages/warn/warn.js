@@ -18,26 +18,38 @@ Page({
   onLoad: function (options) {
     let type = options.type;
     let that = this;
+    let alertTime = ''
+    if(options.alertTime=='undefined'){
+      alertTime = ''
+    }else{
+      alertTime = options.alertTime
+    }
+
     if(type == 'submit'){
       this.setData({
-        activeTab: options.value || 'NOALERT',
+        activeTab: alertTime,
         type:options.type,
-        orderId:options.orderId || 1
+        orderId:options.orderId
 
       })
     }else if(type == 'storage'){
       wx.getStorage({
         key: 'order_pay',
         success: function(res) {
-          if(res.data){
             that.setData({
-              activeTab: options.alertTime || 'NOALERT',
+              activeTab: alertTime,
               type:type,
               order_pay:res.data,
-              orderId:options.orderId 
 
             })
-          }
+        },
+        fail:function(){
+          that.setData({
+              activeTab: alertTime,
+              type:type,
+              order_pay:{},
+
+          })
         }
       })
     }
@@ -78,7 +90,7 @@ Page({
     let that = this;
     //接口待定
     app.getRequest({
-        url:app.globalData.KrUrl+'/api/gateway/krmting/order/updateExtInfo',
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/updateExtInfo',
         method:"POST",
         data:{
           "orderId":that.data.orderId,
