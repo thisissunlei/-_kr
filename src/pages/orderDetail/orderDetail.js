@@ -6,7 +6,6 @@ const app = getApp()
 
 Page({
   data: {
-    meetingDetail:{},
     minute:'',
     second:'',
     detailInfo:{
@@ -29,7 +28,8 @@ Page({
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
   },
-  button_boolean:true,
+
+
   payOrder:function(){
     let orderId=this.data.orderId;
     app.getRequest({
@@ -39,7 +39,19 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-
+        console.log(res)
+        wx.requestPayment({
+          'timeStamp': res.data.data.timestamp,
+          'nonceStr': res.data.data.noncestr,
+          'package': res.data.data.packages,
+          'signType':res.data.data.signType,
+          'paySign': res.data.data.paySign,
+          'success':function(res){
+            console.log(res)
+          },
+          'fail':function(res){
+          }
+        })
       },
       fail:(error)=>{
           
@@ -48,13 +60,10 @@ Page({
 
   },
   openMeetDetail:function(e){
-    let that = this;
     let detailInfo=this.data.detailInfo;
     this.setData({
       meetingRoomId:detailInfo.meetingRoomId,
       meetDetailShow:!this.data.meetDetailShow
-    },function(){
-      that.getMeetDetail()
     })
   },
   closeMeetDetail:function(){
@@ -65,6 +74,7 @@ Page({
   },
   jumpMeet:function() {
     let detailInfo=this.data.detailInfo;
+    console.log(detailInfo)
     wx.navigateTo({
       url: '../paySuccess/paySuccess?inviteeId='+detailInfo.inviteeId
     })
@@ -158,7 +168,7 @@ Page({
               wx.setNavigationBarTitle({
                 title: titleObj[data.orderShowStatus]
               })
-              _this.startcountDate(detailInfo.ctime);
+              _this.startcountDate(detailInfo.expiredTime);
         },
         fail:(error)=>{
           
@@ -169,13 +179,15 @@ Page({
     const time = CAlculagraph.CAlculagraph();
     const that = this;
     time.timerMint({
-      deadline:date/1000+300,//最终结束的时间戳,
+      deadline:date,//最终结束的时间戳,
       callback:function (){
         console.log(111)
       },//时间结束
       that:this
     });
   },
+
+
   getMeetDetail(){
     let meetingRoomId = this.data.meetingRoomId;
     let that = this;
@@ -224,6 +236,7 @@ Page({
         }
       })
   },
+
    
 })
 function changeTime(date){

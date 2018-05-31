@@ -7,7 +7,7 @@ const app = getApp()
 Page({
   data: {
     inviteer:[],
-    inviteeId:'2',
+    inviteeId:'',
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -26,15 +26,15 @@ Page({
     })
   },
   onLoad: function (options) {
-    // console.log(options)
-    // var inviteeId = options.inviteeId
+    console.log(options)
+    var inviteeId = options.inviteeId
     this.getData();
   },
   //获取数据列表
   getData(){
     app.getRequest({
-      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+      // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"

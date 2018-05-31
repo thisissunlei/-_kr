@@ -7,7 +7,7 @@ const app = getApp()
 Page({
   data: {
     off:true,
-    conferee:[],
+    inviteer:[],
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -26,13 +26,11 @@ Page({
     })
   },
   onLoad: function (options) {
-    this.createQrCode('fdfd',"mycanvas",160,160);
-    this.getData()
-  },
-  getData(){
+    console.log(options,"options")
+    let inviteeId = options.inviteeId
     app.getRequest({
-      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+      // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"
@@ -52,8 +50,13 @@ Page({
           meetingStatus:res.data.data.meetingStatus
         })
       }
-    })
+    }),
+
+    this.createQrCode('fdfd',"mycanvas",160,160);
   },
+
+    
+
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片
     QR.qrApi.draw(url,canvasId,cavW,cavH);
