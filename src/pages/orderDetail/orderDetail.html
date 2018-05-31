@@ -103,7 +103,7 @@
             <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
                 查看会议
             </view>
-            <button class="u-my-contact-btn" open-type="contact">联系客服</button>
+            <button class="u-my-contact-btn" open-type="contact" wx:if="{{detailInfo.orderShowStatus=='CLOSED'}}">联系客服</button>
         </view>
         <view class="u-count-down"  wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}">
             <image class="u-time-icon" src="../images/public/clock_icon.png"></image>
