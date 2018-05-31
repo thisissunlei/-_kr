@@ -390,42 +390,23 @@ Page({
     var page = this.data.nextPage;
     var pageSize = this.data.pageSize;
     var totalPages = this.data.totalPages;
-
-    
     if(page>totalPages){
       return ;
     }
       var that = this;
-
-      // this.$http.get('get-news-list',{page,pageSize}).then(function(response){
-
-      //   var totalPages = response.data.totalPages;
-
-      //   that.items = [].concat(that.data.boardroomList,response.data.items);
-
-            //   that.setData({
-//            nextPage:nextPage++
-      // }) 
-
-      //   that.setData({
-//            totalPages:totalPages
-      // }) 
-
-      // });
-
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
         data: {
           communityId: that.data.communityId ,
           date: that.data.nowDate,
-          page:that.data.page,
+          page:page,
           pageSize:that.data.pageSize
         },
         success:(res)=>{
           that.setData({
               boardroomList:[].concat(that.data.boardroomList,res.data.data.items),
-              nextPage:that.data.nextPage++
+              nextPage:that.data.nextPage+1
           })
         }
       })
@@ -494,7 +475,7 @@ Page({
       var that = this;
       this.scrollTopDate(timeData.validIndex);
       this.setData({
-        nowDate:`${timeData.year}-${timeData.month}-${timeData.value}`,
+        nowDate:`${timeData.year}-${timeData.month+1}-${timeData.value}`,
       },function(){
         wx.setStorageSync('nowDate',that.data.nowDate);
         that.closeDialogDate();

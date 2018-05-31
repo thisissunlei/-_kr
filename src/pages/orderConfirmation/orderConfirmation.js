@@ -1,11 +1,11 @@
 //orderConfirmation.js
 //获取应用实例
 const app = getApp()
-var theme=newDate[1]+''+newDate[2]+'会议';
+//var theme=newDate[1]+''+newDate[2]+'会议';
 
 Page({
   data: {
-    themeName:theme,
+    themeName:'',
     remind:'提前15分钟',
     phone:'',
     check:true,
@@ -47,7 +47,19 @@ Page({
     errorMessage:'',
     checkMessage:false,
   },
- 
+  onUnload:function(){
+    wx.setStorage({
+      key:"order_pay",
+      data:{}
+    })
+    wx.setStorage({
+      key:"meeting_time",
+      data:{}
+    })
+    
+    
+    
+  },
   openMeetDetail:function(e){
     
     this.setData({
@@ -189,8 +201,8 @@ Page({
         selectedTime:[].concat(selectedTime),
         meeting_time:{
           time:getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1),
-          beginTime:getTime(selectedTime[0]),
-          endTime:getTime(Number(selectedTime[selectedTime.length-1])+1),
+          beginTime:that.data.nowDate+' '+getTime(selectedTime[0])+':00',
+          endTime:getTime(Number(selectedTime[selectedTime.length-1])+1)+':00',
           hours:getHour(selectedTime)
         }
       })
@@ -221,13 +233,9 @@ Page({
     this.goToPay();
     this.getIsfirst();
    
-    this.setData({
-      order_pay:{
-        themeName:this.data.themeName,
-        alertTime:this.data.alertTime,
-        linkPhone:this.data.phone
-      },
-    })
+    // this.setData({
+       
+    // })
     var _this=this;
     wx.getStorage({
       key:'detail',
@@ -371,7 +379,32 @@ Page({
   
 })
 
-
+function getTime(time){
+    var timeObj={
+      '19':'9:00',
+      '20':'9:30',
+      '21':'10:00',
+      '22':'10:30',
+      '23':'11:00',
+      '24':'11:30',
+      '25':'12:00',
+      '26':'12:30',
+      '27':'13:00',
+      '28':'13:30',
+      '29':'14:00',
+      '30':'14:30',
+      '31':'15:00',
+      '32':'15:30',
+      '33':'16:00',
+      '34':'16:30',
+      '35':'17:00',
+      '36':'17:30',
+      '37':'18:00',
+      '38':'18:30',
+      '39':'19:00'
+    }
+    return timeObj[time];
+  }
 
 function getHour(data){
   var len=data.length;

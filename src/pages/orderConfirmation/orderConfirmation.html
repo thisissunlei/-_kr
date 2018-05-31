@@ -33,14 +33,14 @@
             </view>
             <view class="u-user-hour" bindtap="closeDialogTime">
                 <view class="u-time-title">使用时段</view>
-                <view class="u-no-time" wx:if="{{meeting_time.time.length==0}}">
+                <view class="u-no-time" wx:if="{{!meeting_time.time}}">
                     请选择使用时间
                 </view>
-                <view class="u-time-data" wx:if="{{meeting_time.time.length>0}}">
+                <view class="u-time-data" wx:if="{{meeting_time.time}}">
                     <view class="u-date-txt">{{meeting_time.time}}</view>
                     <view class="u-yellow-line"></view>
                 </view>
-                <view class="u-time-txt">{{meeting_time.hours}}小时</view>
+                <view class="u-time-txt" wx:if="{{meeting_time.time}}">{{meeting_time.hours}}小时</view>
                 <image class="u-btn-arrow-bottom u-hour-arrow" src="../images/public/icon_arrow_bottom.png"></image>
             </view>
             <view class="u-line"></view>
@@ -51,7 +51,7 @@
             <view class="u-meeting-title">
                 会议主题
             </view>
-            <view class="u-meet-text">{{themeName}}</view>
+            <view class="u-meet-text">{{order_pay.themeName}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
@@ -70,7 +70,7 @@
         <view class="u-meeting-title">
             联系电话
         </view>
-        <view class="u-meet-text">{{phone}}</view>
+        <view class="u-meet-text">{{order_pay.linkPhone}}</view>
         <view class="u-btn-arrow u-phone-btn-arrow">
             <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
         </view>
@@ -121,10 +121,10 @@
                 </view>
             </view>
         </view>
-        <view class="u-footer-right" wx:if="{{meeting_time.time.length==0}}" > 立即支付</view>
+        <view class="u-footer-right" wx:if="{{!meeting_time.time}}" > 立即支付</view>
         <view 
             class="u-footer-right u-active-btn" 
-            wx:if="{{meeting_time.time.length>0}}"
+            wx:if="{{meeting_time.time}}"
             bindtap="goToPay"
         > 立即支付</view>
     </view>
