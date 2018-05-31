@@ -197,6 +197,7 @@ Page({
           time:getTime(selectedTime[0])+(selectedTime.length>1?('-'+getTime(selectedTime[selectedTime.length-1])):''),
           beginTime:selectedTime[0],
           endTime:selectedTime.length>1?selectedTime[selectedTime.length-1]:'',
+          hours:getHour(selectedTime)
         }
       })
     }else{
@@ -209,6 +210,16 @@ Page({
     }
     console.log("实际",this.data.selectedTime);
     console.log(this.data.meeting_time);
+    
+  },
+  stopPropagation:function(){
+    return ;
+  },
+  subTime:function(e){
+    if(this.data.selectedTime.length>0){
+      wx.setStorageSync('meeting_time',this.data.meeting_time);
+      this.closeDialogTime();
+    }
     
   },
   onLoad: function (options) {
@@ -279,6 +290,12 @@ Page({
             console.log('res.data.data',res.data.data)
              
         }
+    })
+  },
+  closeDialogTime:function(){
+    var that = this;
+    this.setData({
+      dialogTimeShow:!that.data.dialogTimeShow
     })
   },
   goToPay:function(){
