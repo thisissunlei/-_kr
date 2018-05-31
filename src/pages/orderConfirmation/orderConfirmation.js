@@ -224,6 +224,12 @@ Page({
   subTime:function(e){
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
+      // let promotionCost=this.
+      // detailInfo.promotionCost || detailInfo.unitCost
+
+      this.setData({
+
+      })
       this.closeDialogTime();
     }
     
