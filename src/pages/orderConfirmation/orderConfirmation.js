@@ -47,7 +47,19 @@ Page({
     errorMessage:'',
     checkMessage:false,
   },
- 
+  onUnload:function(){
+    wx.setStorage({
+      key:"order_pay",
+      data:{}
+    })
+    wx.setStorage({
+      key:"meeting_time",
+      data:{}
+    })
+    
+    
+    
+  },
   openMeetDetail:function(e){
     
     this.setData({
@@ -221,13 +233,9 @@ Page({
     this.goToPay();
     this.getIsfirst();
    
-    this.setData({
-      order_pay:{
-        themeName:this.data.themeName,
-        alertTime:this.data.alertTime,
-        linkPhone:this.data.phone
-      },
-    })
+    // this.setData({
+       
+    // })
     var _this=this;
     wx.getStorage({
       key:'detail',
