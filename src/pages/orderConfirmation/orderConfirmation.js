@@ -418,12 +418,27 @@ Page({
                   })
                 },2000)
             }else{
-
+              this.weChatPay(res.data.data)
+              this.closeDialog();
             }
 
           }
           
         })
+  },
+  weChatPay:function(data){
+    // wx.requestPayment({
+    //   'timeStamp':data.timestamp ,
+    //   'nonceStr': data.noncestr,
+    //   'package': data.packages,
+    //   'signType': data.signType,
+    //   'paySign': data.paySign,
+    //   'success':function(res){
+
+    //   },
+    //   'fail':function(res){},
+    //   'complete':function(res){},
+    // }）
   },
   getMeetDetail(){
     let that = this;
