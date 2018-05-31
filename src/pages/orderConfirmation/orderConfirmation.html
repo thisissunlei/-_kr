@@ -162,7 +162,7 @@
         <view class="u-message-txt">{{message}}</view>
     </view>
     <!-- 时间选择 -->
-    <view class="u-dialog" wx:if="{{dialogTimeShow}}">
+    <view class="u-dialog" wx:if="{{!dialogTimeShow}}">
         <view class="u-dialog-time">
             <view class="top">
                 <view class="first-row">使用日期</view>
@@ -217,7 +217,7 @@
                 <view class="checked">已选</view>
             </view>
             <view wx:if="{{selectedTime.length>0}}" class="show-time">
-                
+                {{meeting_time.time}}
             </view>
             <view class="{{selectedTime.length>0?'sured':'unsure'}}">选择使用时间</view>
         </view>
