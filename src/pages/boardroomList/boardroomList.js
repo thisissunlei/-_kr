@@ -632,10 +632,6 @@ Page({
   getMeetDetail(){
     let meetingRoomId = this.data.meetingRoomId;
     let that = this;
-    // that.setData({
-    //   meetingDetail:that.data.detail
-    // })
-    // return;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
         method:"GET",
@@ -643,7 +639,6 @@ Page({
           "meetingRoomId":meetingRoomId
         },
         success:(res)=>{
-          console.log('success',res)
           if(res.data.code>0){
             let meetingDetail = res.data.data;
             that.setData({
@@ -670,7 +665,6 @@ Page({
             phoneError:false,
             errorMessage:res.message,
           })
-          console.log('=======>',that.data.meetingDetail)
           setTimeout(function(){
             that.setData({
               phoneError:true,
@@ -691,9 +685,8 @@ Page({
       wx.getStorage({
         key: 'orderDate',
         success: function(res) {
-          console.log('res.data',res.data)
           if(res.data){
-            meetingDetail = Object.assign({},that.data.meetingDetail,res.data);
+            meetingDetail = Object.assign({},that.data.meetingDetail,res.data,{from:'list'});
             that.setDetail(meetingDetail)
           }
         }

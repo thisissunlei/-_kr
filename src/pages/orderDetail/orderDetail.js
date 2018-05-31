@@ -6,6 +6,7 @@ const app = getApp()
 
 Page({
   data: {
+    meetingDetail:{},
     minute:'',
     second:'',
     detailInfo:{
@@ -28,6 +29,7 @@ Page({
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
   },
+  button_boolean:true,
   payOrder:function(){
     let orderId=this.data.orderId;
     app.getRequest({
@@ -46,10 +48,13 @@ Page({
 
   },
   openMeetDetail:function(e){
+    let that = this;
     let detailInfo=this.data.detailInfo;
     this.setData({
       meetingRoomId:detailInfo.meetingRoomId,
       meetDetailShow:!this.data.meetDetailShow
+    },function(){
+      that.getMeetDetail()
     })
   },
   closeMeetDetail:function(){
@@ -171,6 +176,86 @@ Page({
       that:this
     });
   },
+    getMeetDetail(){
+    let meetingRoomId = this.data.meetingRoomId;
+    let that = this;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
+        method:"GET",
+        data:{
+          "meetingRoomId":meetingRoomId
+        },
+        success:(res)=>{
+          if(res.data.code>0){
+            let meetingDetail = res.data.data;
+            that.setData({
+              meetingDetail:meetingDetail
+            })
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+          
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
+  },
+  nowReserve(e){
+    console.log('======>')
+    let that = this;
+    let meetingRoomId = e.target.dataset.mId;
+    let meetingDetail;
+    if(this.button_boolean){
+      this.button_boolean = false;
+      let data = {
+        time:that.data.detailInfo.useDate,
+        timeText:that.data.detailInfo.dayDesc,
+      }
+      meetingDetail = Object.assign({},that.data.meetingDetail,data,{from:'orderDetai'});
+      that.setDetail(meetingDetail)
+    }
+    
+    
+
+  },
+  setDetail(arr){
+    wx.setStorage({
+        key:"meeting_detail",
+        data:arr,
+        success:function(){
+          this.button_boolean = true;
+          setTimeout(function(){
+            wx.navigateTo({
+              url: '/pages/orderConfirmation/orderConfirmation'
+            })
+          },500)
+          
+        }
+    })
+  }
    
 })
 function changeTime(date){
