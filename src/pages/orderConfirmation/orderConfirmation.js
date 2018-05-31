@@ -1,11 +1,11 @@
 //orderConfirmation.js
 //获取应用实例
 const app = getApp()
-var theme=newDate[1]+''+newDate[2]+'会议';
+//var theme=newDate[1]+''+newDate[2]+'会议';
 
 Page({
   data: {
-    themeName:theme,
+    themeName:'',
     remind:'提前15分钟',
     phone:'',
     check:true,
@@ -371,7 +371,32 @@ Page({
   
 })
 
-
+function getTime(time){
+    var timeObj={
+      '19':'9:00',
+      '20':'9:30',
+      '21':'10:00',
+      '22':'10:30',
+      '23':'11:00',
+      '24':'11:30',
+      '25':'12:00',
+      '26':'12:30',
+      '27':'13:00',
+      '28':'13:30',
+      '29':'14:00',
+      '30':'14:30',
+      '31':'15:00',
+      '32':'15:30',
+      '33':'16:00',
+      '34':'16:30',
+      '35':'17:00',
+      '36':'17:30',
+      '37':'18:00',
+      '38':'18:30',
+      '39':'19:00'
+    }
+    return timeObj[time];
+  }
 
 function getHour(data){
   var len=data.length;
