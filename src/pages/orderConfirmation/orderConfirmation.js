@@ -281,6 +281,12 @@ Page({
         }
     })
   },
+  closeDialogTime:function(){
+    var that = this;
+    this.setData({
+      dialogTimeShow:!that.data.dialogTimeShow
+    })
+  },
   goToPay:function(){
     //let data=this.data;
     //var _this=this;
