@@ -427,18 +427,18 @@ Page({
         })
   },
   weChatPay:function(data){
-    // wx.requestPayment({
-    //   'timeStamp':data.timestamp ,
-    //   'nonceStr': data.noncestr,
-    //   'package': data.packages,
-    //   'signType': data.signType,
-    //   'paySign': data.paySign,
-    //   'success':function(res){
+    wx.requestPayment({
+      'timeStamp':data.timestamp ,
+      'nonceStr': data.noncestr,
+      'package': data.packages,
+      'signType': data.signType,
+      'paySign': data.paySign,
+      'success':function(res){
 
-    //   },
-    //   'fail':function(res){},
-    //   'complete':function(res){},
-    // }）
+      },
+      'fail':function(res){},
+      'complete':function(res){},
+    })
   },
   getMeetDetail(){
     let that = this;
