@@ -64,8 +64,11 @@ Page({
       data:{}
     })
     
-    
-    
+  },
+  closeDialog:function(){
+    this.setData({
+        dialogShow:!this.data.dialogShow
+    })
   },
   openMeetDetail:function(e){
     let that = this;
@@ -221,16 +224,32 @@ Page({
   },
   getPrice:function(){
     let data=this.data;
+    let hours=data.meeting_time.hours;
     let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
     let unitCost=data.detailInfo.unitCost;
-    let hours=data.meeting_time.hours;
-    let priceCount=unitCost*hours*2;
     let totalCount=price*hours*2;
+    let priceCount=unitCost*hours*2;
+    console.log('data.isFirst',data.isFirst)
+    if(data.isFirst){
+      if(hours>2){
+        this.setData({
+          totalCount:totalCount,
+          priceCount:priceCount,
+          isFirst:false
+        })
+      }else{
+        this.setData({
+          totalCount:totalCount,
+          priceCount:1
+        })
+      }
+    }else{
+        this.setData({
+          totalCount:totalCount,
+          priceCount:priceCount
+        })
+    }
     
-    this.setData({
-      totalCount:totalCount,
-      priceCount:priceCount
-    })
   },
   onShow:function(){
     var _this=this;
@@ -382,47 +401,71 @@ Page({
         return
     }
 
+    this.closeDialog();
 
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
-      methods:"GET",
-      header:{
-        'content-type':"appication/json"
+  },
+  createOrder:function(){
+    let data=this.data;
+    var _this=this;
+        app.getRequest({
+          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          methods:"GET",
+          header:{
+            'content-type':"appication/json"
+          },
+          data:{
+            alertTime:data.order_pay.alertTime || data.alertTime,
+            beginTime:data.meeting_time.beginTime,
+            endTime:data.meeting_time.endTime,
+            linkPhone:data.order_pay.linkPhone,
+            meetingRoomId:data.detailInfo.meetingRoomId,
+            themeName:data.order_pay.themeName || data.themeName
+          },
+          success:(res)=>{
+            let code=res.data.code;
+
+            switch (code){
+              case -1:
+                  this.setData({
+                    checkMessage:true,
+                    errorMessage:res.data.message
+                  })
+                  setTimeout(function(){
+                    _this.setData({
+                      checkMessage:false,
+                      errorMessage:''
+                    })
+                  },2000)
+              break;
+              case -2:
+                  wx.navigateTo({
+                    url: '../bindPhone/bindPhone'
+                  })
+              break;
+              default:
+                    this.weChatPay(res.data.data)
+                    this.closeDialog();
+              break;
+            } 
+           
+
+          }
+          
+        })
+  },
+  weChatPay:function(data){
+    wx.requestPayment({
+      'timeStamp':data.timestamp ,
+      'nonceStr': data.noncestr,
+      'package': data.packages,
+      'signType': data.signType,
+      'paySign': data.paySign,
+      'success':function(res){
+
       },
-      data:{
-        alertTime:data.order_pay.alertTime || data.alertTime,
-        beginTime:data.meeting_time.beginTime,
-        endTime:data.meeting_time.endTime,
-        linkPhone:data.order_pay.linkPhone,
-        meetingRoomId:data.detailInfo.meetingRoomId,
-        themeName:data.order_pay.themeName || data.themeName
-      },
-      success:(res)=>{
-        if(res.data.code<0){
-            this.setData({
-              checkMessage:true,
-              errorMessage:res.data.message
-            })
-            setTimeout(function(){
-              _this.setData({
-                checkMessage:false,
-                errorMessage:''
-              })
-            },2000)
-        }else{
-
-
-        }
-        
-        
-
-      }
-      
+      'fail':function(res){},
+      'complete':function(res){},
     })
-
-
-
-
   },
   getMeetDetail(){
     let that = this;

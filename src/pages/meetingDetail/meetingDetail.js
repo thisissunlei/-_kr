@@ -43,7 +43,7 @@ Page({
       success:(res)=>{
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data,
+          meetingTime:res.data.data.meetingTime,
           themeName:res.data.data.themeName,
           meetingRoomName:res.data.data.meetingRoomName,
           address:res.data.data.address,
@@ -79,20 +79,23 @@ Page({
 
   //点击取消参会
   cancelMeeting(){
+    let that = this;
     wx.getStorage({
       key: 'user_info',
       success:(res)=>{
         console.log(res)
         console.log(this.data.inviteer)
-        this.data.inviteer.forEach((item,index)=>{
-          console.log(item,index)    
+        that.data.inviteer.forEach((item,index)=>{
+          // console.log(item,index)
+          console.log(item.wechatNick === res.data.user_info.nickName)
+          console.log(item.wechatAvatar === res.data.user_info.avatarUrl)    
           if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
-            this.data.inviteer.splice(index, 1);
+            that.data.inviteer.splice(index, 1)
+            console.log(11)
           }
+          
         })
-        this.setData({
-          inviteer:this.data.inviteer
-        })
+        console.log(that.data.inviteer)
       },
     })
     app.getRequest({
