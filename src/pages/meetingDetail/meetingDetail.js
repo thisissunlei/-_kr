@@ -6,8 +6,9 @@ const app = getApp()
 
 Page({
   data: {
-    inviteer:[],
-    inviteer:"2",
+    inviteer:[
+
+    ],
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -29,8 +30,7 @@ Page({
 
   onLoad: function (options) {
     console.log(options,"options")
-    var inviteeId = options.id
-    
+    var inviteeId = options.inviteeId
     //数据加载
     app.getRequest({
       // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
@@ -51,7 +51,8 @@ Page({
           address:res.data.data.address,
           inviteer:res.data.data.inviteer,
           limitCount:res.data.data.limitCount,
-          meetingStatus:res.data.data.meetingStatus
+          meetingStatus:res.data.data.meetingStatus,
+          inviteeId:res.data.data.inviteeId
         })
       }
     })
@@ -71,7 +72,7 @@ Page({
       console.log(res.target)
     }
     return {
-      title: '戳我一键参会！邀请您于“{{that.data.meetingTime}}在"{{that.data.meetingRoomName}}"参加“{{that.data.themeName}}””',
+      title: '戳我一键参会！邀请您于“{{this.data.meetingTime}}在"{{this.data.meetingRoomName}}"参加“{{this.data.themeName}}””',
       path: 'pages/meetingStatus/meetingStatus', 
     }
   },
@@ -82,11 +83,30 @@ Page({
       key: 'user_info',
       success:(res)=>{
         console.log(res)
+        console.log(this.data.inviteer)
+        this.data.inviteer.forEach((item,index)=>{
+          console.log(item,index)    
+          if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
+            this.data.inviteer.splice(index, 1);
+          }
+        })
+        this.setData({
+          inviteer:this.data.inviteer
+        })
       },
     })
-    console.log(this.data.inviteer)
-      inviteerArr.forEach((item,index)=>{
-        console.log(item,index)
-      })
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/cancel',
+      methods:"GET",
+      header:{
+        "content-type":"application/json"
+      },
+      data:{
+        inviteeId:this.data.inviteeId
+      },
+      success:(res)=>{
+        console.log(res,"取消参会")
+      }
+    })
   }
 })

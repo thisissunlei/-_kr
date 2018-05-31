@@ -28,6 +28,8 @@ Page({
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
   },
+
+
   payOrder:function(){
     let orderId=this.data.orderId;
     app.getRequest({
@@ -37,7 +39,19 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-
+        console.log(res)
+        wx.requestPayment({
+          'timeStamp': res.data.data.timestamp,
+          'nonceStr': res.data.data.noncestr,
+          'package': res.data.data.packages,
+          'signType':res.data.data.signType,
+          'paySign': res.data.data.paySign,
+          'success':function(res){
+            console.log(res)
+          },
+          'fail':function(res){
+          }
+        })
       },
       fail:(error)=>{
           
@@ -164,7 +178,7 @@ Page({
     const time = CAlculagraph.CAlculagraph();
     const that = this;
     time.timerMint({
-      deadline:date/1000+300,//最终结束的时间戳,
+      deadline:date,//最终结束的时间戳,
       callback:function (){
         console.log(111)
       },//时间结束
