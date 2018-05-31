@@ -211,6 +211,16 @@ Page({
     console.log(this.data.meeting_time);
     
   },
+  stopPropagation:function(){
+    return ;
+  },
+  subTime:function(e){
+    if(this.data.selectedTime.length>0){
+      wx.setStorageSync('meeting_time',this.data.meeting_time);
+      this.closeDialogTime();
+    }
+    
+  },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
     this.goToPay();
