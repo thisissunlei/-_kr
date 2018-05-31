@@ -175,12 +175,16 @@ Page({
       }
       return item;
     })
-    
+    var orderDate = {
+      time:topDate[validIndex].date,
+      timeText:topDate[validIndex].week
+    }
     this.setData({
       topDate:newData,
       dateScrollLeft:validIndex*53
     },function(){
       that.getData();
+      wx.setStorageSync('orderDate',orderDate);
     })
   },
   //获取会议室列表
@@ -332,6 +336,7 @@ Page({
     var topDate = this.data.topDate;
     var indexParam = e.currentTarget.dataset.index;
     var date = e.currentTarget.dataset.date;
+    var week = e.currentTarget.dataset.week;
     var that = this;
     var newData = topDate.map((item,index)=>{
       if (index==indexParam) {
@@ -341,13 +346,17 @@ Page({
       }
       return item;
     })
-    
+    var orderDate = {
+      time:date,
+      timeText:week
+    }
     this.setData({
       topDate:newData,
-      nowDate:date
+      nowDate:date,
     },function(){
       that.getData();
       wx.setStorageSync('nowDate',date);
+      wx.setStorageSync('orderDate',orderDate);
     })
   },
 
