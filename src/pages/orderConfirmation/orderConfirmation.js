@@ -450,8 +450,17 @@ Page({
                   })
               break;
               default:
-                    this.weChatPay(res.data.data)
-                    this.closeDialog();
+                _this.weChatPay(res.data.data);
+                _this.closeDialog();
+                  wx.setStorage({
+                    key:"order_pay",
+                    data:{},
+                    success:function(){
+                        _this.setData({
+                          order_pay:{}
+                        })
+                    }
+                  })
               break;
             } 
 
@@ -461,18 +470,35 @@ Page({
        
   },
   weChatPay:function(data){
-    wx.requestPayment({
-      'timeStamp':data.timestamp ,
-      'nonceStr': data.noncestr,
-      'package': data.packages,
-      'signType': data.signType,
-      'paySign': data.paySign,
-      'success':function(res){
-
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+      methods:"POST",
+      header:{
+        'content-type':"appication/json"
       },
-      'fail':function(res){},
-      'complete':function(res){},
+      data:{
+        orderId:data.orderId
+      },
+      success:(res)=>{
+          wx.requestPayment({
+            'timeStamp':data.timestamp ,
+            'nonceStr': data.noncestr,
+            'package': data.packages,
+            'signType': data.signType,
+            'paySign': data.paySign,
+            'success':function(response){
+      
+            },
+            'fail':function(response){},
+            'complete':function(response){},
+          })
+      }
     })
+
+
+
+
+    
   },
   getMeetDetail(){
     let that = this;
