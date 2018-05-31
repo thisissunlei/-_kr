@@ -27,34 +27,41 @@ Page({
     this.setData({
       inputValue: ''
     })
-    console.log('clearValue', this)
   },
   onLoad: function (options) {
     let type = options.type;
     let that = this;
-    console.log('phone-onLoad',type)
+    let themeName = ''
+    if(options.themeName=='undefined'){
+      themeName = ''
+    }else{
+      themeName = options.themeName
+    }
     if(type == 'submit'){
       this.setData({
-        inputValue: options.value || '',
+        inputValue: themeName,
         type:options.type,
-        orderId:options.orderId || 12
+        orderId:options.orderId
 
       })
     }else if(type == 'storage'){
       wx.getStorage({
         key: 'order_pay',
         success: function(res) {
-          console.log('--------',res.data)
-          if(res.data){
-            console.log('order_pay')
             that.setData({
-              inputValue: options.themeName || '',
+              inputValue:themeName,
               type:type,
               order_pay:res.data,
-              orderId:options.orderId || 1
+              orderId:options.orderId
 
             })
-          }
+        },
+        fail:function(){
+          that.setData({
+              inputValue:themeName,
+              type:type,
+              order_pay:{},
+            })
         }
       })
     }
@@ -85,7 +92,7 @@ Page({
     let that = this;
     //接口待定
     app.getRequest({
-        url:app.globalData.KrUrl+'/api/gateway/krmting/order/updateExtInfo',
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/updateExtInfo',
         method:"GET",
         data:{
           "orderId":that.data.orderId,
