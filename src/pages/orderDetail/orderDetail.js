@@ -74,7 +74,7 @@ Page({
   },
   jumpMeet:function() {
     let detailInfo=this.data.detailInfo;
-    console.log(detailInfo)
+    console.log(detailInfo,'detail')
     wx.navigateTo({
       url: '../paySuccess/paySuccess?inviteeId='+detailInfo.inviteeId
     })
@@ -94,7 +94,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../warn/warn?value='+detailInfo.alertTime+'&type=submit'
+      url: '../warn/warn?value='+detailInfo.alertTime+'&type=submit'+'&orderId='+this.data.orderId
     })
   },
   jumpSetPhone:function() {
@@ -103,7 +103,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../phone/phone?value='+detailInfo.linkPhone+'&type=submit'
+      url: '../phone/phone?value='+detailInfo.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
     })
   },
   onLoad: function (opstion) {
