@@ -195,8 +195,8 @@ Page({
         selectedTime:[].concat(selectedTime),
         meeting_time:{
           time:getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1),
-          beginTime:getTime(selectedTime[0]),
-          endTime:getTime(Number(selectedTime[selectedTime.length-1])+1),
+          beginTime:that.data.nowDate+' '+getTime(selectedTime[0])+':00',
+          endTime:getTime(Number(selectedTime[selectedTime.length-1])+1)+':00',
           hours:getHour(selectedTime)
         }
       })
