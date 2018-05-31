@@ -16,9 +16,6 @@ Page({
     errorMessage:'',
     phoneTest:true
   },
-  bindViewTap(){
-    console.log('bindViewTap')
-  },
   bindKeyInput:function(e){
     let value = e.detail.value;
     this.setData({
@@ -30,11 +27,9 @@ Page({
     this.setData({
       inputValue: ''
     })
-    console.log('clearValue', this)
   },
   formSubmit(e){
     let that = this;
-    console.log('form发生了submit事件，携带数据为：', this.data.inputValue)
     // 校验手机格式--start
     var phoneTest = util.phone(this.data.inputValue)
     this.setData({
@@ -119,7 +114,6 @@ Page({
   onLoad: function (options) {
     let type = options.type;
     let that = this;
-    console.log('phone-onLoad',type)
     if(type == 'submit'){
       this.setData({
         inputValue: options.value || '',
@@ -131,11 +125,9 @@ Page({
       wx.getStorage({
         key: 'order_pay',
         success: function(res) {
-          console.log('--------',res.data)
           if(res.data){
-            console.log('order_pay')
             that.setData({
-              inputValue: res.data.linkPhone|| '',
+              inputValue: options.linkPhone || '',
               type:type,
               order_pay:res.data,
               orderId:options.orderId

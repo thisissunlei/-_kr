@@ -31,10 +31,10 @@ Page({
         success: function(res) {
           if(res.data){
             that.setData({
-              activeTab: res.data.alertTime || 'NOALERT',
+              activeTab: options.alertTime || 'NOALERT',
               type:type,
               order_pay:res.data,
-              orderId:options.orderId || 1
+              orderId:options.orderId 
 
             })
           }
