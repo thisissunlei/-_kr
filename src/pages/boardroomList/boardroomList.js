@@ -142,11 +142,59 @@ Page({
   },
   
   openMeetDetail:function(e){
+    let that = this;
     let id=e.currentTarget.dataset.item.meetingRoomId;
     this.setData({
       meetingRoomId:id,
       meetDetailShow:!this.data.meetDetailShow
+    },function(){
+      that.getMeetDetail()
     })
+  },
+  getMeetDetail(){
+    let meetingRoomId = this.data.meetingRoomId;
+    let that = this;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+        methods:"GET",
+        data:{
+          "inviteeId":meetingRoomId
+        },
+        success:(res)=>{
+          console.log('success',res)
+          if(res.data.code>0){
+            let data = res.data.data;
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+          
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
   },
   closeMeetDetail:function(){
       this.setData({
@@ -175,12 +223,16 @@ Page({
       }
       return item;
     })
-    
+    var orderDate = {
+      time:topDate[validIndex].date,
+      timeText:topDate[validIndex].week
+    }
     this.setData({
       topDate:newData,
       dateScrollLeft:validIndex*53
     },function(){
       that.getData();
+      wx.setStorageSync('orderDate',orderDate);
     })
   },
   //获取会议室列表
@@ -332,6 +384,7 @@ Page({
     var topDate = this.data.topDate;
     var indexParam = e.currentTarget.dataset.index;
     var date = e.currentTarget.dataset.date;
+    var week = e.currentTarget.dataset.week;
     var that = this;
     var newData = topDate.map((item,index)=>{
       if (index==indexParam) {
@@ -341,13 +394,17 @@ Page({
       }
       return item;
     })
-    
+    var orderDate = {
+      time:date,
+      timeText:week
+    }
     this.setData({
       topDate:newData,
-      nowDate:date
+      nowDate:date,
     },function(){
       that.getData();
       wx.setStorageSync('nowDate',date);
+      wx.setStorageSync('orderDate',orderDate);
     })
   },
 

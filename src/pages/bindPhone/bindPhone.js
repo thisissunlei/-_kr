@@ -81,27 +81,26 @@ Page({
         },
         success:(res)=>{
           console.log('success',res)
-          wx.navigateTo({
-            url: '../provingCode/provingCode?phone='+that.data.inputValue
-          });
-          // if(res.data.code>0){
-          //   wx.navigateTo({
-          //     url: '../provingCode/provingCode?phone='+that.data.inputValue
-          //   });
-          // }else{
-          //   console.log('res.message',res.data.message)
-          //   that.setData({
-          //     phoneError:false,
-          //     errorMessage:res.data.message,
-          //   })
-          //   setTimeout(function(){
-          //     that.setData({
-          //       phoneError:true,
-          //       errorMessage:'',
+          // wx.navigateTo({
+          //   url: '../provingCode/provingCode?phone='+that.data.inputValue
+          // });
+          if(res.data.code>0){
+            wx.navigateTo({
+              url: '../provingCode/provingCode?phone='+that.data.inputValue
+            });
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
                 
-          //     })
-          //   },2000)
-          // }
+              })
+            },2000)
+          }
           
         },
         fail:(res)=>{

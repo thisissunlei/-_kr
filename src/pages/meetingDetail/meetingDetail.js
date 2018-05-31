@@ -84,7 +84,6 @@ Page({
       },
     })
     console.log(this.data.inviteer)
-    console.log(inviteerArr)
       inviteerArr.forEach((item,index)=>{
         console.log(item,index)
       })

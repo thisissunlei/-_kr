@@ -18,7 +18,9 @@
          bindtap="selectTopDate"
          data-index="{{index}}"
          data-bool="{{item.bool}}"
-         data-date="{{item.date}}">
+         data-date="{{item.date}}"
+         data-week="{{item.week}}"
+        >
             <view class="week">{{item.week}}</view>
             <view class="week day">{{item.day}}</view>
             <view class="bottom-border"></view>
@@ -84,6 +86,8 @@
   <!-- <picker bindchange="changeCommunity" range-key="name" range="{{communityList}}" value="{{id}}" class="select-community">
     切换地点
   </picker> -->
+
+  
   <!-- 会议室详情 -->
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}">
       <view class="u-meet-detail-content">
