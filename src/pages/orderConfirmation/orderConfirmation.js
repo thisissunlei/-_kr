@@ -236,7 +236,7 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=price*hours*2;
     let priceCount=unitCost*hours*2;
-    console.log('data.isFirst',data.isFirst)
+    
     if(data.isFirst){
       if(hours>2){
         this.setData({
@@ -355,7 +355,7 @@ Page({
     
   },
   getPhone:function(){
-
+    var _this=this;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/getWecharUser',
         methods:"GET",
@@ -364,9 +364,9 @@ Page({
         },
         success:(res)=>{
           let userInfo=Object.assign({},res.data.data);
-          this.setData({
+          _this.setData({
                 linkPhone:userInfo.phone
-            })
+          })
         }
     })
   },
@@ -455,7 +455,8 @@ Page({
       },2000)
       return
     }
-    if(!data.order_pay.linkPhone){
+
+    if(!data.linkPhone){
         this.setData({
           checkMessage:true,
           errorMessage:'请填写联系电话'
@@ -478,7 +479,7 @@ Page({
       alertTime:data.order_pay.alertTime || data.alertTime,
       beginTime:data.meeting_time.beginTime,
       endTime:data.meeting_time.endTime,
-      linkPhone:data.order_pay.linkPhone,
+      linkPhone:data.order_pay.linkPhone || data.linkPhone,
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName
     }
