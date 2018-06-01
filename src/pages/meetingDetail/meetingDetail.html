@@ -1,69 +1,70 @@
 <!--meetingDetail.wxml-->
-<view class='wrapper'>
-    <view class='top'>
-      <view class="top-banner">
-        <image src="../images/indexImg/card.png" class="img"></image>
-        <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
-        <view class="content">
-          <view class='title'>
-            <text class='h1'>{{meetingTime}}</text>
-            <text>{{themeName}}</text>
-          </view>
-          <view class='pics'>
-            <view class="shade {{meetingStatus==='EXPIRED'?'shadeBg':''}}">
-              <view class="code-pic">
-                <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
-                <image src="../images/indexImg/code.png" wx:if="{{meetingStatus==='EXPIRED'?false:true}}" class="img"></image>
-                <view class="img-box">
-                  <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
-                    <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
+<view class="content-wrap">
+    <view class='wrapper'>
+      <view class='top'>
+        <view class="top-banner">
+          <image src="../images/indexImg/card.png" class="img"></image>
+          <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
+          <view class="content">
+            <view class='title'>
+              <text class='h1'>{{meetingTime}}</text>
+              <text>{{themeName}}</text>
+            </view>
+            <view class='pics'>
+              <view class="shade {{meetingStatus==='EXPIRED'?'shadeBg':''}}">
+                <view class="code-pic">
+                  <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
+                  <image src="../images/indexImg/code.png" wx:if="{{meetingStatus==='EXPIRED'?false:true}}" class="img"></image>
+                  <view class="img-box">
+                    <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
+                      <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
+                  </view>
                 </view>
+              
+              
+              <view class="code-desc">请入场时出示此二维码</view>
+            </view>
+            </view>
+            
+            <view class='bottom_text'>
+              <text class="metting-house">{{meetingRoomName}}</text>
+              <view class='icons'>
+                <image src='../images/indexImg/dizhi2.png'></image>
+                <text>{{address}}</text>
               </view>
-            
-            
-            <view class="code-desc">请入场时出示此二维码</view>
-          </view>
-          </view>
-          
-          <view class='bottom_text'>
-            <text class="metting-house">{{meetingRoomName}}</text>
-            <view class='icons'>
-              <image src='../images/indexImg/dizhi2.png'></image>
-              <text>{{address}}</text>
             </view>
           </view>
         </view>
+        
+        
+      </view>
+
+      <view class='conferee'>
+          <text class='h2'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
+          <block wx:for="{{inviteer}}">
+              <view class='list'>
+                  <view class='pic'>
+                    <image src="{{item.wechatAvatar}}"></image>
+                  </view>
+                  <text>{{item.wechatNick}}</text>
+                  <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true?true:false}}"></image>
+                  <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===1?true:false}}"></image>
+              </view>
+          </block>
+          <view class='clear'></view>
       </view>
       
-      
-    </view>
-  
-    <view class='conferee'>
-        <text class='h2'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
-        <block wx:for="{{inviteer}}">
-            <view class='list'>
-                <view class='pic'>
-                  <image src="{{item.wechatAvatar}}"></image>
-                </view>
-                <text>{{item.wechatNick}}</text>
-                <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true?true:false}}"></image>
-                <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===1?true:false}}"></image>
-            </view>
+
+      <view class='hint'>
+        <text class='h2'>参会小贴士</text>
+        <block wx:for="{{hint}}">
+          <view class='list'>
+            <text class='title'>{{index+1}}.{{item.title}}</text>
+            <text class='text'>{{item.text}}</text>
+          </view>
         </block>
-        <view class='clear'></view>
+      </view>
     </view>
-    
-  
-    <view class='hint'>
-      <text class='h2'>参会小贴士</text>
-      <block wx:for="{{hint}}">
-        <view class='list'>
-          <text class='title'>{{index+1}}.{{item.title}}</text>
-          <text class='text'>{{item.text}}</text>
-        </view>
-      </block>
-    </view>
-  </view>
   <view class='footer' wx:if="{{meetingStatus==='EXPIRED'?false:true}}">
       <text bindtap="cancelMeeting">取消会议</text>
       <view class='btns'>
@@ -76,4 +77,5 @@
       <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
     </view>
   </view> 
+ </view>
   
