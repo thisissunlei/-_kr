@@ -7,6 +7,7 @@ const app = getApp()
 Page({
   data: {
     inviteer:[],
+    inviteeId:'',
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -71,7 +72,7 @@ Page({
     console.log(this.data.meetingRoomName)
     return {
       title: '戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
-      path: 'pages/meetingStatus/meetingStatus', 
+      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId, 
     }
   },
 
