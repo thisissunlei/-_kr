@@ -17,7 +17,7 @@ Page({
     typeStatus:true,
     message:'用户取消支付',
     messageShow:false,
-    dialogTimeShow:false,
+    dialogTimeShow:true,
     rangeTime1:[],
     rangeTime2:[],
     rangeTime3:[],
@@ -392,7 +392,7 @@ Page({
   closeDialogTime:function(){
     var that = this;
     if(!that.data.dialogTimeShow){
-      that.getMeetDetail();
+      // that.getMeetDetail();
       that.getNowRangeTime();
     }
     this.setData({

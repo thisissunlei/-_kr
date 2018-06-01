@@ -52,6 +52,7 @@ Page({
     //页面加载
     wx.login({
       success: function(res) {
+
         if (res.code) {
           //发起网络请求
           wx.request({
@@ -60,9 +61,11 @@ Page({
               code: res.code
             },
             success:function(res){
+              console.log(res,88877722)
               that.func_bool_l = true;
               that.func_bool_l2 = true;
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
+              app.globalData.openid = res.data.data['openid'];
               if(that.func_bool_g&&that.func_bool_l){
                 that.func_bool_g = false;
                 that.func_bool_l = false;
