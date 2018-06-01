@@ -270,7 +270,7 @@ Page({
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
     this.getIsfirst();
-    
+    this.getPhone();
     var _this=this;
     wx.getStorage({
       key:'detail',
@@ -515,9 +515,9 @@ Page({
             },
             'fail':function(response){
               console.log('response-----',response)
-                // wx.navigateTo({
-                //   url: '../orderDetail/orderDetail?id='+data.orderId
-                // })
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId
+                })
             },
            
           })
