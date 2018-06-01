@@ -497,8 +497,16 @@ Page({
                   url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
                 })
             },
-            'fail':function(response){},
-            'complete':function(response){},
+            'fail':function(response){
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId
+                })
+            },
+            'complete':function(response){
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId
+                })
+            },
           })
       }
     })
