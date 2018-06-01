@@ -492,7 +492,10 @@ Page({
             'signType': data.signType,
             'paySign': data.paySign,
             'success':function(response){
-      
+              console.log('response----',response)
+                wx.navigateTo({
+                  url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
+                })
             },
             'fail':function(response){},
             'complete':function(response){},
