@@ -3,8 +3,8 @@
   justify-content: flex-start;
 }
 .boardroom-list view,
-.list-outer text,
-.list-outer navigator {
+.boardroom-list .navigator,
+.boardroom-list .list-outer {
   box-sizing: border-box;
 }
 .top-date {
@@ -123,6 +123,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  height: 52rpx;
 }
 .list-item .top .top-right .second-row .device {
   display: inline-block;
@@ -227,13 +228,14 @@
   width: 100%;
   min-height: 800rpx;
   background: #fff;
-  margin-top: 290rpx;
+  margin-top: 300rpx;
   position: relative;
   display: inline-block;
   bottom: 0;
 }
 .u-swiper-content {
   position: relative;
+  background-color: #F3F3F3;
 }
 .u-meet-swiper {
   width: 100%;
@@ -331,11 +333,11 @@
   display: inline-block;
 }
 .u-meet-facility {
-  min-height: 200rpx;
   display: inline-block;
   border-top: 1px solid #F6F6F6;
   box-sizing: border-box;
   padding: 48rpx 50rpx;
+  width: 100%;
 }
 .u-icon-list {
   width: 130rpx;
@@ -346,7 +348,6 @@
 .u-facility-icon {
   width: 60rpx;
   height: 60rpx;
-  border: 1px solid #000;
 }
 .u-facility-txt {
   font-size: 28rpx;

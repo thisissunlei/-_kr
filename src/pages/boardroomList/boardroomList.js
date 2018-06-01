@@ -246,7 +246,7 @@ Page({
       for (let i = 19; i < 39; i++) {
         var rangeTimeItem = {
           disabled:false,
-          number: `${i}`
+          number: i
         };
         rangeTime.push(rangeTimeItem);
       }
