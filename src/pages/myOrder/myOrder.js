@@ -113,6 +113,7 @@ Page({
               return item;
             })
             var allList = [].concat(orderOldList,list)
+            console.log(list.length,'totalCount',allList,allList.length)
             that.setData({
               orderOldList:allList,
               orderList:allList,
