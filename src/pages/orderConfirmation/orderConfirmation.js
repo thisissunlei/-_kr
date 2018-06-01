@@ -497,15 +497,12 @@ Page({
                 })
             },
             'fail':function(response){
-                wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId
-                })
+              console.log('response-----',response)
+                // wx.navigateTo({
+                //   url: '../orderDetail/orderDetail?id='+data.orderId
+                // })
             },
-            'complete':function(response){
-                wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId
-                })
-            },
+           
           })
       }
     })
