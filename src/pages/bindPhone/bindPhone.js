@@ -20,12 +20,12 @@ Page({
     this.setData({
       inputValue: options.value || '',
       inputValues: options.value || '',
-      phoneRange:options.city || '+86'
+      phoneRange:options.city || '86'
     })
   },
   opencity(){
     wx.navigateTo({
-      url: '../regionList/regionList?value=+86'
+      url: '../regionList/regionList?value=中国'
     });
   },
   bindKeyInput:function(e){
@@ -72,6 +72,7 @@ Page({
       },2000)
       return;
     }
+    console.log(that.data)
 
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
@@ -86,7 +87,7 @@ Page({
           // });
           if(res.data.code>0){
             wx.navigateTo({
-              url: '../provingCode/provingCode?phone='+that.data.inputValue+'region='+that.data.phoneRange
+              url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange
             });
           }else{
             that.setData({

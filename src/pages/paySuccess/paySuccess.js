@@ -29,6 +29,9 @@ Page({
   onLoad: function (options) {
     console.log(options,"options")
     let inviteeId = options.inviteeId
+    this.setData({
+      inviteeId:inviteeId
+    })
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
       // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',

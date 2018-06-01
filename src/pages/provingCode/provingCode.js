@@ -23,7 +23,8 @@ Page({
       value4:''
     },
     user_info:{},
-    success:false
+    success:false,
+    areaCode:''
     
   },
   onLoad: function (options) {
@@ -37,7 +38,8 @@ Page({
         }
       })
     this.setData({
-      phone: options.phone || '110',
+      phone: options.phone,
+      areaCode: options.region,
       time:60
     })
     this.countDown()
@@ -45,10 +47,7 @@ Page({
 
   },
   sendAgain(){
-    this.setData({
-      time:60
-    })
-    this.countDown()
+    this.sendPhone() 
   },
   countDown(){
     let that = this;
@@ -89,7 +88,8 @@ Page({
         },
         data:{
           "code":that.data.inputValue,
-          "phone":that.data.phone
+          "phone":that.data.phone,
+          'areaCode':that.data.areaCode
         },
         success:(res)=>{
 
@@ -238,5 +238,56 @@ Page({
       key:"order_pay",
       data:{}
     })
-  }
+  },
+  sendPhone(e){
+    let that = this;
+    console.log(that.data)
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
+        methods:"GET",
+        data:{
+          "phone":that.data.phone
+        },
+        success:(res)=>{
+          if(res.data.code>0){
+            that.setData({
+              time:60
+            },function(){
+              that.countDown()
+            })
+            
+          }
+          console.log('success',res)
+          if(res.data.code<0){
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+          
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
+  },
 })
