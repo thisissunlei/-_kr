@@ -240,7 +240,7 @@
                     </swiper-item>
                   </view>
             </swiper>
-            <view class="u-img-num">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
+            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>0}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
           <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
           <view class="u-meeting-detail-info">
