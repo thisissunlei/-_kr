@@ -34,12 +34,15 @@ Page({
     this.setData({
       inviteeId:inviteeId
     })
-    that.login();
+
+console.log(99999)
     //查看是否授权
     wx.getSetting({
       success(res) {
+        console.log("授权")
         if (!res.authSetting['scope.userInfo']) {
           console.log(999999776)
+          that.login();
         }else{
           that.login();
           that.getUserInfo();
@@ -47,13 +50,17 @@ Page({
             btn_bool:false
           });
         }
+      },
+      fail(err){
+        console.log(err,88888888)
       }
+
     })
     
   },
   onGotUserInfo:function (e){
     console.log(e,"eeeeeee")
-    if(e.detail.inviteeId){
+    if(e.detail.userInfo){
       this.login();
     }
   },
@@ -62,6 +69,7 @@ Page({
     var that = this
     wx.login({
       success: function(res) {
+        console.log(res,"登陆成功")
         if (res.code) {
           //发起网络请求
           wx.request({
@@ -71,6 +79,7 @@ Page({
             },
             success:function(res){
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
+              app.globalData.openid = res.data.data['openid'];
               that.getUserInfo();
               that.detailList();
             }
@@ -98,8 +107,21 @@ Page({
         _this.setData({
           wechatInfo:wechatInfo
         })
+        app.getRequest({
+          url:app.globalData.KrUrl+'api/gateway/krmting/user/save',
+          
+          data:{
+            encryptedData:res.encryptedData,
+            iv:res.iv,
+          
+          },
+          success:(res)=>{
+            console.log(res,5555888888881111)
+            
+          }
+        });
+
       }
-      
     })
   },
   
