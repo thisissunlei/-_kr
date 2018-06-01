@@ -28,6 +28,9 @@ Page({
   onLoad: function (options) {
     console.log(options)
     let inviteeId = options.inviteeId
+    this.setData({
+      inviteeId:inviteeId
+    })
     //获取数据列表
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
