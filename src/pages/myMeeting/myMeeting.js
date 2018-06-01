@@ -18,7 +18,7 @@ Page({
         url:app.globalData.KrUrl+'api/gateway/krmting/invitee/list',
         methods:"GET",
         data:{
-          
+          pageSize:100
         },
         success:(res)=>{
           console.log('res',res.data.data.items)
