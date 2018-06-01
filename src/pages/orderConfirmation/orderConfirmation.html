@@ -22,7 +22,7 @@
             </view>
         </view>
         <view class="u-order-time">
-            <view class="u-user-date" bindtap="">
+            <view class="u-user-date" bindtap="closeDialogDate">
                 <view class="u-time-title">使用日期</view>
                 <view class="u-time-data">
                     <view class="u-date-txt"> {{orderDate.time}}</view>
@@ -162,7 +162,7 @@
         <view class="u-message-txt">{{message}}</view>
     </view>
     <!-- 时间选择 -->
-    <view class="u-dialog" bindtap="closeDialogTime" wx:if="{{!dialogTimeShow}}">
+    <view class="u-dialog" bindtap="closeDialogTime" wx:if="{{dialogTimeShow}}">
         <view class="u-dialog-time" catchtap="stopPropagation">
             <view class="top">
                 <view class="first-row">使用日期</view>
@@ -240,7 +240,7 @@
                     </swiper-item>
                   </view>
             </swiper>
-            <view class="u-img-num">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
+            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>0}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
           <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
           <view class="u-meeting-detail-info">

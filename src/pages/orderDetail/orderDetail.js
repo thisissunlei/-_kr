@@ -73,6 +73,13 @@ Page({
     })
 
   },
+  currentChange:function(e){
+    if(e.detail.source=="touch"){
+      this.setData({
+        currentNum:e.detail.current+1
+      })
+    }
+  },
   openMeetDetail:function(e){
     let detailInfo=this.data.detailInfo;
     this.setData({
