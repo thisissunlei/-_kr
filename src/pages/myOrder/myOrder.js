@@ -152,8 +152,14 @@ Page({
               'paySign': res.data.data.paySign,
               'success':function(res){
                 console.log(res)
+                wx.navigateTo({
+                  url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
+                })
               },
               'fail':function(res){
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId
+                })
               }
             })
           }else{
