@@ -54,7 +54,7 @@ Page({
         success:(res)=>{
               console.log(res)
               this.setData({
-                count:res.data.count
+                count:res.data.data.count
               })
         }
     })

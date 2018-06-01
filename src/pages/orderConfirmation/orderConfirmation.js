@@ -184,7 +184,6 @@ Page({
     var that = this;
     console.log("all",selectedTime);
     if(bool){
-      console.log("true");
       this.setData({
         rangeTime1:[].concat(rangeTime.slice(0,8)),
         rangeTime2:[].concat(rangeTime.slice(8,16)),
@@ -192,10 +191,10 @@ Page({
         rangeTime:[].concat(rangeTime),
         selectedTime:[].concat(selectedTime),
         meeting_time:{
-          time:getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1),
-          beginTime:that.data.nowDate+' '+getTime(selectedTime[0])+':00',
-          endTime:that.data.nowDate+' '+getTime(Number(selectedTime[selectedTime.length-1])+1)+':00',
-          hours:getHour(selectedTime)
+          time:selectedTime[0]?(getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1)):'',
+          beginTime:selectedTime[0]?(that.data.nowDate+' '+getTime(selectedTime[0])+':00'):'',
+          endTime:selectedTime[0]?(that.data.nowDate+' '+getTime(Number(selectedTime[selectedTime.length-1])+1)+':00'):'',
+          hours:selectedTime[0]?getHour(selectedTime):0
         }
       })
     }else{
@@ -351,6 +350,11 @@ Page({
     
     
   },
+  goToGuide:function(){
+    wx.navigateTo({
+      url: '../guide/guide'
+    })
+  },
   getIsfirst:function(){
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/isFirstOrder',
@@ -487,10 +491,21 @@ Page({
             'signType': data.signType,
             'paySign': data.paySign,
             'success':function(response){
-      
+              console.log('response----',response)
+                wx.navigateTo({
+                  url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
+                })
             },
-            'fail':function(response){},
-            'complete':function(response){},
+            'fail':function(response){
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId
+                })
+            },
+            'complete':function(response){
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId
+                })
+            },
           })
       }
     })

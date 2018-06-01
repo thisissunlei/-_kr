@@ -86,7 +86,7 @@ Page({
           // });
           if(res.data.code>0){
             wx.navigateTo({
-              url: '../provingCode/provingCode?phone='+that.data.inputValue
+              url: '../provingCode/provingCode?phone='+that.data.inputValue+'region='+that.data.phoneRange
             });
           }else{
             that.setData({
