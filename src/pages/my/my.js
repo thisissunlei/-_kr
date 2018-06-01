@@ -28,22 +28,39 @@ Page({
     })
   },
   onLoad: function () {
-    this.getCount()
-    let info=wx.getStorageSync('user_info');
-    let userInfo=Object.assign({},info.user_info);
-    //userInfo.phone='15210095787';
-    if(userInfo.phone){
-      userInfo.phone=this.changePhone(userInfo.phone)
-    } 
+    this.getCount();
+    this.getPhone()
+    // let info=wx.getStorageSync('user_info');
+    // let userInfo=Object.assign({},info.user_info);
+    
+    // if(userInfo.phone){
+    //   userInfo.phone=this.changePhone(userInfo.phone)
+    // } 
    
-    console.log('userInfo',userInfo)
-    this.setData({
-      userInfo:userInfo
-    })
+    // console.log('userInfo',userInfo)
+    // this.setData({
+    //   userInfo:userInfo
+    // })
 
     
   },
- 
+  getPhone:function(){
+
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/getWecharUser',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+          let userInfo=Object.assign({},res.data.data);
+              userInfo.phone=this.changePhone(userInfo.phone)
+            this.setData({
+                userInfo:userInfo
+            })
+        }
+    })
+  },
   getCount:function(){
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',
@@ -59,6 +76,7 @@ Page({
         }
     })
   },
+
   changePhone:function(phone){
     phone = phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
     return  phone;
