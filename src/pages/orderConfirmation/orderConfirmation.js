@@ -350,6 +350,11 @@ Page({
     
     
   },
+  goToGuide:function(){
+    wx.navigateTo({
+      url: '../guide/guide'
+    })
+  },
   getIsfirst:function(){
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/isFirstOrder',
@@ -486,10 +491,21 @@ Page({
             'signType': data.signType,
             'paySign': data.paySign,
             'success':function(response){
-      
+              console.log('response----',response)
+                wx.navigateTo({
+                  url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
+                })
             },
-            'fail':function(response){},
-            'complete':function(response){},
+            'fail':function(response){
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId
+                })
+            },
+            'complete':function(response){
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId
+                })
+            },
           })
       }
     })
