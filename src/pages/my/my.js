@@ -30,18 +30,7 @@ Page({
   onLoad: function () {
     this.getCount();
     this.getPhone()
-    // let info=wx.getStorageSync('user_info');
-    // let userInfo=Object.assign({},info.user_info);
-    
-    // if(userInfo.phone){
-    //   userInfo.phone=this.changePhone(userInfo.phone)
-    // } 
    
-    // console.log('userInfo',userInfo)
-    // this.setData({
-    //   userInfo:userInfo
-    // })
-
     
   },
   getPhone:function(){
