@@ -350,12 +350,17 @@ Page({
       
     }
     // var _this = this;
+    var orderDate = {
+      time:topDate[0].date,
+      timeText:topDate[0].week
+    }
     this.setData({
       topDate:topDate,
       nowDate:topDate[0].date,
     },function(){
       that.getData();
       wx.setStorageSync('nowDate',topDate[0].date);
+      wx.setStorageSync('orderDate',orderDate);
     })
   },
   selectTopDate:function(e){

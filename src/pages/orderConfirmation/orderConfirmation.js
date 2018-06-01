@@ -17,7 +17,7 @@ Page({
     typeStatus:true,
     message:'用户取消支付',
     messageShow:false,
-    dialogTimeShow:false,
+    dialogTimeShow:true,
     rangeTime1:[],
     rangeTime2:[],
     rangeTime3:[],
@@ -71,6 +71,13 @@ Page({
         dialogShow:!this.data.dialogShow
     })
   },
+  currentChange:function(e){
+    if(e.detail.source=="touch"){
+      this.setData({
+        currentNum:e.detail.current+1
+      })
+    }
+  },
   openMeetDetail:function(e){
     let that = this;
     this.setData({
@@ -89,7 +96,7 @@ Page({
             that.setData({
               meetingRoomId:res.data.meetingRoomId
             },function(){
-              that.getMeetDetail()
+              that.getMeetDetail();
             })
           }
         }
@@ -270,7 +277,7 @@ Page({
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
     this.getIsfirst();
-    
+    this.getPhone();
     var _this=this;
     wx.getStorage({
       key:'detail',
@@ -329,23 +336,19 @@ Page({
       }
     })
 
-
-
-
-    var rangeTime = wx.getStorageSync('rangeTime',).map((item,index)=>{
-      // if (index==indexParam) {
-        // item.actived = true; 
-      // }else{
-        item.actived = false; 
-      // }
-      return item;
-    })
-    console.log(rangeTime);
+    
+    this.getNowRangeTime();
+    
+    // var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
+    //   item.actived = false; 
+    //   return item;
+    // })
+    // console.log(rangeTime);
     this.setData({
-      rangeTime1:rangeTime.slice(0,8),
-      rangeTime2:rangeTime.slice(8,16),
-      rangeTime3:rangeTime.slice(16),
-      rangeTime:rangeTime,
+    //   rangeTime1:rangeTime.slice(0,8),
+    //   rangeTime2:rangeTime.slice(8,16),
+    //   rangeTime3:rangeTime.slice(16),
+    //   rangeTime:rangeTime,
       nowDate:wx.getStorageSync('nowDate')
     })
     
@@ -388,9 +391,53 @@ Page({
   },
   closeDialogTime:function(){
     var that = this;
+    if(!that.data.dialogTimeShow){
+      // that.getMeetDetail();
+      that.getNowRangeTime();
+    }
     this.setData({
       dialogTimeShow:!that.data.dialogTimeShow
     })
+  },
+  getNowRangeTime:function(){
+    var id = wx.getStorageSync('detail').meetingRoomId;
+    var that = this;
+    var disableTime = [];
+    var newRangeTime = [];
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/room/disableTime',
+      methods:"GET",
+      data:{
+        date:wx.getStorageSync('nowDate'),
+        meetingRoomId:id
+      },
+      header:{
+        'content-type':"appication/json"
+      },
+      success:(res)=>{
+        disableTime = res.data.data.disableTime;
+        for (let i = 19; i < 39; i++) {
+          var rangeTimeItem = {
+            disabled:false,
+            number: i
+          };
+          newRangeTime.push(rangeTimeItem);
+        }
+        newRangeTime.forEach((timeItem,timeIndex) => {
+            if(disableTime.indexOf(timeItem.number)>-1){
+                timeItem.disabled = true;
+            }
+        });
+        that.setData({
+          rangeTime1:newRangeTime.slice(0,8),
+          rangeTime2:newRangeTime.slice(8,16),
+          rangeTime3:newRangeTime.slice(16),
+          rangeTime:newRangeTime,
+        })
+      }
+    })
+    
+    
   },
   goToPay:function(){
     let data=this.data;
@@ -515,9 +562,9 @@ Page({
             },
             'fail':function(response){
               console.log('response-----',response)
-                // wx.navigateTo({
-                //   url: '../orderDetail/orderDetail?id='+data.orderId
-                // })
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId
+                })
             },
            
           })
