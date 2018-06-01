@@ -28,7 +28,18 @@ Page({
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
   },
-
+  //邀请参会人
+  onShareAppMessage: function (res) {
+    console.log(res,8888)
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '戳我一键参会！邀请您于"'+this.data.detailInfo.ctime+'"在"'+this.data.detailInfo.meetingRoomName+'"参加"'+this.data.detailInfo.themeName+'"',
+      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.detailInfo.inviteeId
+    }
+  },
 
   payOrder:function(){
     let orderId=this.data.orderId;
@@ -149,6 +160,7 @@ Page({
                 'THIRTY':'提前30分钟'
               }
               let detailInfo=Object.assign({},data);
+              console.log(detailInfo)
               detailInfo.themeTime=themeObj[data.alertTime];
               let dateArr=changeTime(data.useDate);
               let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
