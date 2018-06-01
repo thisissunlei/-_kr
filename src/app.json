@@ -1,6 +1,5 @@
 {
   "pages":[
-    "pages/provingCode/provingCode",
     "pages/index/index",
     "pages/orderConfirmation/orderConfirmation",
     "pages/paySuccess/paySuccess",
@@ -18,7 +17,7 @@
     "pages/regionList/regionList",
     "pages/warn/warn",
     "pages/guide/guide",
-    
+    "pages/provingCode/provingCode",
     "pages/bindPhone/bindPhone"
   ],
   "window":{
