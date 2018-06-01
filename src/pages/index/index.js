@@ -74,6 +74,7 @@ Page({
               if(that.func_bool_l2&&that.func_bool_s){
                 that.func_bool_s = false;
                 that.func_bool_l2 = false;
+
                 that.getInfo();
               }
             }
@@ -186,7 +187,8 @@ Page({
           
           data:{
             encryptedData:res.encryptedData,
-            iv:res.iv
+            iv:res.iv,
+          
           },
           success:(res)=>{
             console.log(res,5555888888881111)

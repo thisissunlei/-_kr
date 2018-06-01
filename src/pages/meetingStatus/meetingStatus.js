@@ -8,6 +8,8 @@ Page({
   data: {
     inviteer:[],
     inviteeId:'',
+    user_info:{},
+    btn_bool:true,
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -26,21 +28,91 @@ Page({
     })
   },
   onLoad: function (options) {
+    const that = this;
     console.log(options)
     let inviteeId = options.inviteeId
     this.setData({
       inviteeId:inviteeId
     })
-    //获取数据列表
+    that.login();
+    //查看是否授权
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          console.log(999999776)
+        }else{
+          that.login();
+          that.getUserInfo();
+          that.setData({
+            btn_bool:false
+          });
+        }
+      }
+    })
+    
+  },
+  onGotUserInfo:function (e){
+    console.log(e,"eeeeeee")
+    if(e.detail.inviteeId){
+      this.login();
+    }
+  },
+  //登陆
+  login:function(){
+    var that = this
+    wx.login({
+      success: function(res) {
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: app.globalData.KrUrl+'api/gateway/krmting/common/login',
+            data: {
+              code: res.code
+            },
+            success:function(res){
+              app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
+              that.getUserInfo();
+              that.detailList();
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    }),
+    this.setData({
+      btn_bool:false
+    });
+  },
+  
+  //获取用户信息
+  getUserInfo:function(){
+   var _this = this;
+    wx.getUserInfo({
+      success: function(res) {   
+        console.log('===========>>>>',res.userInfo) 
+        var wechatInfo = {
+          wechatAvatar: res.userInfo.avatarUrl,
+          wechatNick:res.userInfo.nickName
+        }
+        _this.setData({
+          wechatInfo:wechatInfo
+        })
+      }
+      
+    })
+  },
+  
+  //获取数据列表
+  detailList:function(){
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"
       },
       data:{
-        inviteeId:inviteeId
+        inviteeId:this.data.inviteeId
       },
       success:(res)=>{
         console.log(res,"会议状态")
@@ -57,25 +129,12 @@ Page({
     })
   },
   
-  
   //点击我要参与
   jion:function(){
-    wx.getStorage({
-      key: 'user_info',
-      success:(res)=>{
-        console.log(res)
-        let user_info = {
-          wechatAvatar : res.data.user_info.avatarUrl,
-          wechatNick : res.data.user_info.nickName
-        }
-        this.setData({
-          user_info:user_info
-        })
-        this.data.inviteer.push(user_info)
-        this.setData({
-          inviteer:this.data.inviteer
-        })
-      },
+    console.log(this.data.wechatInfo)
+    this.data.inviteer.push(this.data.wechatInfo)
+    this.setData({
+      inviteer:this.data.inviteer
     })
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/confirmArriving',
@@ -87,10 +146,11 @@ Page({
         inviteeId:this.data.inviteeId
       },
       success:(res)=>{
-        console.log(res,"会议详情")
+        console.log(res,"确认参加")
       }
     })
-  },
+},
+  
   //点击我要预定
   proceed:function(){
     wx.redirectTo({
