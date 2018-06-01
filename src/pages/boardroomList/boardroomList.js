@@ -361,6 +361,7 @@ Page({
   selectTopDate:function(e){
     var topDate = this.data.topDate;
     var indexParam = e.currentTarget.dataset.index;
+    this.changeTimeColor(indexParam);
     var date = e.currentTarget.dataset.date;
     var week = e.currentTarget.dataset.week;
     var that = this;
@@ -384,6 +385,63 @@ Page({
       wx.setStorageSync('nowDate',date);
       wx.setStorageSync('orderDate',orderDate);
     })
+  },
+
+  changeTimeColor:function(param){
+    console.log(param);
+    var a = false;
+    var dateType = '';
+    var dateIndex = '';
+    this.data.date_data1.forEach((item,index) => {
+      if(item.validDateNum==param){
+        
+        dateIndex = index;
+        a = true;
+        dateType='1';
+      }
+    });
+    // last_btn_num
+    if(!a){
+      this.data.date_data2.forEach((item,index) => {
+        console.log(item);
+        if(item.validDateNum==param){
+          
+          dateIndex = index;
+          a = true;
+          dateType='2';
+        }
+      });
+    }
+    var newDate1 = this.data.date_data1;
+    var newDate2 = this.data.date_data2;
+    if(this.last_data=='date_data1'){
+      newDate1[this.last_btn_num]['type'] = newDate1[this.last_btn_num]['type'].replace('active ','');
+      this.setData({
+        date_data1:newDate1
+      });
+    }else if(this.last_data=='date_data2'){
+      newDate2[this.last_btn_num]['type'] = newDate2[this.last_btn_num]['type'].replace('active ','');
+      this.setData({
+        date_data2:newDate2
+      });
+    }
+    if(dateType=='2'){
+      this.last_btn_num = dateIndex;
+      this.last_data = 'date_data2';
+      newDate2[parseInt(dateIndex)]['type'] = 'active ' + newDate2[parseInt(dateIndex)]['type'];
+      this.setData({
+        date_data2:newDate2
+      });
+    }else{
+      this.last_btn_num = dateIndex;
+      this.last_data = 'date_data1';
+      newDate1[parseInt(dateIndex)]['type'] = 'active ' + newDate1[parseInt(dateIndex)]['type'];
+      this.setData({
+        date_data1:newDate1
+      });
+    }
+    // console.log(dateType[parseInt(dateIndex)]);
+    // dateType[parseInt(dateIndex)]['type'] = 'active ' + dateType[parseInt(dateIndex)]['type'];
   },
 
   //加载下一页会议室列表数据
@@ -440,7 +498,7 @@ Page({
   // 日历相关
   all_day_num:0,
   last_btn_num:'false',
-  last_data:'false',
+  last_data:'date_data1',
   dateBtn :function(e){
     
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
@@ -604,9 +662,18 @@ Page({
     // var date = date1.concat(date2);
     // var allDate=[];
     var validDateNum = 0;
+    var that = this;
     date1 = date1.map((item,index)=>{
       if(item.value && item.type!='before') {
+        // 加颜色
+        if(validDateNum==0){
+          date1[index]['type'] = 'active ' + date1[index]['type'];
+
+          // console.log("item",item,index);
+          that.last_btn_num = index;
+        }
         item.validDateNum = validDateNum++;
+        
       }
       return item;
     })
@@ -616,7 +683,7 @@ Page({
       }
       return item;
     })
-
+    // console.log(date1,date2);
     this.setData({
       date_data1:date1,
       date_data2:date2,
@@ -633,6 +700,7 @@ Page({
         choose:''
       }
     });
+    
 
   },
 

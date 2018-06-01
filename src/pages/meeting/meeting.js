@@ -28,6 +28,7 @@ Page({
   dateBtn :function(e){
     
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
+      console.log(e);
       const new_data = this.data[e.target.dataset.data];
       var old_data = [];
       if(this.last_data!='false'){
