@@ -27,35 +27,34 @@ Page({
   },
   onLoad: function (options) {
     console.log(options)
-    var inviteeId = options.inviteeId
-    this.getData();
-  },
-  //获取数据列表
-  getData(){
+    let inviteeId = options.inviteeId
+    //获取数据列表
     app.getRequest({
-      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+      // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"
       },
       data:{
-        inviteeId:this.data.inviteeId
+        inviteeId:inviteeId
       },
       success:(res)=>{
-        console.log(res,"会议详情")
+        console.log(res,"会议状态")
         this.setData({
           meetingTime:res.data.data.meetingTime,
-          themeName:res.data.data.themeName,
+          themeName:res.data.data.theme,
           meetingRoomName:res.data.data.meetingRoomName,
           address:res.data.data.address,
-          inviteer:res.data.data.inviteer,
+          inviteer:res.data.data.inviteers,
           limitCount:res.data.data.limitCount,
-          meetingStatus:res.data.data.meetingStatus
+          meetingStatus:res.data.data.meetingStatus,
         })
       }
     })
   },
+  
+  
   //点击我要参与
   jion:function(){
     wx.getStorage({
