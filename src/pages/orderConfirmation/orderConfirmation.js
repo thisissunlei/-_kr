@@ -336,21 +336,21 @@ Page({
       }
     })
 
-
-    this.getMeetId();
     
-    // var rangeTime = wx.getStorageSync('rangeTime',).map((item,index)=>{
+    this.getNowRangeTime();
+    
+    // var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
     //   item.actived = false; 
     //   return item;
     // })
     // console.log(rangeTime);
-    // this.setData({
+    this.setData({
     //   rangeTime1:rangeTime.slice(0,8),
     //   rangeTime2:rangeTime.slice(8,16),
     //   rangeTime3:rangeTime.slice(16),
     //   rangeTime:rangeTime,
-    //   nowDate:wx.getStorageSync('nowDate')
-    // })
+      nowDate:wx.getStorageSync('nowDate')
+    })
     
     
   },
@@ -400,29 +400,44 @@ Page({
     })
   },
   getNowRangeTime:function(){
-    var meetingDetail = Object.assign({},this.data.meetingDetail);
-    var disableTime = meetingDetail.disableTime;
-    console.log(meetingDetail);
+    var id = wx.getStorageSync('detail').meetingRoomId;
+    var that = this;
+    var disableTime = [];
     var newRangeTime = [];
-    for (let i = 19; i < 39; i++) {
-      var rangeTimeItem = {
-        disabled:false,
-        number: i
-      };
-      newRangeTime.push(rangeTimeItem);
-    }
-    newRangeTime.forEach((timeItem,timeIndex) => {
-        if(disableTime.indexOf(timeItem.number)>-1){
-            timeItem.disabled = true;
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/room/disableTime',
+      methods:"GET",
+      data:{
+        date:wx.getStorageSync('nowDate'),
+        meetingRoomId:id
+      },
+      header:{
+        'content-type':"appication/json"
+      },
+      success:(res)=>{
+        disableTime = res.data.data.disableTime;
+        for (let i = 19; i < 39; i++) {
+          var rangeTimeItem = {
+            disabled:false,
+            number: i
+          };
+          newRangeTime.push(rangeTimeItem);
         }
-    });
-    this.setData({
-      rangeTime1:newRangeTime.slice(0,8),
-      rangeTime2:newRangeTime.slice(8,16),
-      rangeTime3:newRangeTime.slice(16),
-      rangeTime:newRangeTime,
-      nowDate:wx.getStorageSync('nowDate')
+        newRangeTime.forEach((timeItem,timeIndex) => {
+            if(disableTime.indexOf(timeItem.number)>-1){
+                timeItem.disabled = true;
+            }
+        });
+        that.setData({
+          rangeTime1:newRangeTime.slice(0,8),
+          rangeTime2:newRangeTime.slice(8,16),
+          rangeTime3:newRangeTime.slice(16),
+          rangeTime:newRangeTime,
+        })
+      }
     })
+    
+    
   },
   goToPay:function(){
     let data=this.data;
@@ -578,7 +593,6 @@ Page({
             that.setData({
               meetingDetail:meetingDetail
             })
-            that.getNowRangeTime();
           }else{
             that.setData({
               phoneError:false,
