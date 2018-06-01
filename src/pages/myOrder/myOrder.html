@@ -10,53 +10,57 @@
   </view>
 
 	<!-- 有数据 -->
-  <view class="content-list">
-  	<div class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList}}" wx:key="{{orderId}}">
-  		<span class="status unpay" wx:if="{{item.orderShowStatus == 'OBLIGATION'}}">待支付</span>
-		<span class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已使用</span>
-		<span class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</span>
-		<span class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已取消</span>
-		<div wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box" >
-			<navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
-				<view class="left">
-		  			<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
+	<scroll-view scroll-y style="height: 1136rpx;" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+	    <view id="green" class="scroll-view-item bc_green"></view>
+	  <view class="content-list">
+
+	  	<div class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList}}" wx:key="{{orderId}}">
+	  		<span class="status unpay" wx:if="{{item.orderShowStatus == 'OBLIGATION'}}">待支付</span>
+			<span class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已使用</span>
+			<span class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</span>
+			<span class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已取消</span>
+			<div wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box" >
+				<navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
+					<view class="left">
+			  			<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
+			  		</view>
+			  		<view class="right">
+			  			<span class="content">{{item.capacity}}人  {{item.meetingRoomName}}</span>
+			  			<span class="content">{{item.meetingTIme}}</span>
+			  			<span class="content">{{item.buildName}}</span>
+			  			<span class="content">￥{{item.cost}}</span>
+			  		</view>
+		  		</navigator>
+		  		<div class="button-box">
+		  			<view class="time-section">
+		  				<image class="time-img" src="../images/public/clock_icon.png"></image>
+		  				<span class="time-name">剩余时间：</span>
+			            <view class="time-down">{{item.minute}}:</view>
+			            <view class="time-down">{{item.second}}</view>
+		  			</view>
+	  				<view class="button" bindtap="orderPay" data-order="{{item.orderId}}">立即支付</view>
+				</div>
+	  		</div>
+
+	  		
+
+
+
+
+	  		<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
+		  		<view class="left">
+		  			<image class="order-img" src="../images/indexImg/dizhi2.png" mode="aspectFill"></image>
 		  		</view>
 		  		<view class="right">
-		  			<span class="content">{{item.capacity}}人  {{item.meetingRoomName}}</span>
+		  			<span class="content">{{item.capacity}}人  {{meetingRoomName}}</span>
 		  			<span class="content">{{item.meetingTIme}}</span>
 		  			<span class="content">{{item.buildName}}</span>
-		  			<span class="content">￥{{item.cost}}</span>
+		  			<span class="content">￥143</span>
 		  		</view>
 	  		</navigator>
-	  		<div class="button-box">
-	  			<view class="time-section">
-	  				<image class="time-img" src="../images/public/clock_icon.png"></image>
-	  				<span class="time-name">剩余时间：</span>
-		            <view class="time-down">{{item.minute}}:</view>
-		            <view class="time-down">{{item.second}}</view>
-	  			</view>
-  				<view class="button" bindtap="orderPay" data-order="{{item.orderId}}">立即支付</view>
-			</div>
-  		</div>
-
-  		
-
-
-
-
-  		<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
-	  		<view class="left">
-	  			<image class="order-img" src="../images/indexImg/dizhi2.png" mode="aspectFill"></image>
-	  		</view>
-	  		<view class="right">
-	  			<span class="content">{{item.capacity}}人  {{meetingRoomName}}</span>
-	  			<span class="content">{{item.meetingTIme}}</span>
-	  			<span class="content">{{item.buildName}}</span>
-	  			<span class="content">￥143</span>
-	  		</view>
-  		</navigator>
-  	</div>
-  </view>
+	  	</div>
+	  </view>	
+	</scroll-view>
 
 
   <view class="last-view">
