@@ -784,7 +784,7 @@ Page({
   setDetail(arr){
     let that = this;
     wx.setStorage({
-        key:"meeting_detail",
+        key:"detail",
         data:arr,
         success:function(){
           that.button_boolean = true;

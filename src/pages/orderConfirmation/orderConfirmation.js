@@ -279,6 +279,7 @@ Page({
     this.getIsfirst();
     this.getPhone();
     var _this=this;
+    
     wx.getStorage({
       key:'detail',
       success:function(res){
