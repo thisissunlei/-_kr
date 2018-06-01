@@ -30,10 +30,12 @@ Page({
   onLoad: function (options) {
     console.log(options,"options")
     var inviteeId = options.inviteeId
+    this.setData({
+      inviteeId:inviteeId
+    })
     //数据加载
     app.getRequest({
-      // url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
+      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
       methods:"GET",
       header:{
         "content-type":"application/json"
@@ -45,13 +47,12 @@ Page({
         console.log(res,"会议详情")
         this.setData({
           meetingTime:res.data.data.meetingTime,
-          themeName:res.data.data.themeName,
+          themeName:res.data.data.theme,
           meetingRoomName:res.data.data.meetingRoomName,
           address:res.data.data.address,
-          inviteer:res.data.data.inviteer,
+          inviteer:res.data.data.inviteers,
           limitCount:res.data.data.limitCount,
           meetingStatus:res.data.data.meetingStatus,
-          inviteeId:res.data.data.inviteeId
         })
       }
     })
@@ -69,7 +70,6 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
-    console.log(this.data.meetingRoomName)
     return {
       title: '戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
       path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId, 

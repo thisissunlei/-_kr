@@ -43,12 +43,12 @@ Page({
         console.log(res,"会议详情")
         this.setData({
           meetingTime:res.data.data.meetingTime,
-          themeName:res.data.data.themeName,
+          themeName:res.data.data.theme,
           meetingRoomName:res.data.data.meetingRoomName,
           address:res.data.data.address,
-          inviteer:res.data.data.inviteer,
+          inviteer:res.data.data.inviteers,
           limitCount:res.data.data.limitCount,
-          meetingStatus:res.data.data.meetingStatus
+          meetingStatus:res.data.data.meetingStatus,
         })
       }
     }),

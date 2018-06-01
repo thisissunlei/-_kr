@@ -5,8 +5,8 @@
         <image src="../images/indexImg/card.png" class="img"></image>
         <view class="content">
           <view class='title'>
-            <text class='h1'>{{meetingTime}}11-29 (周三）9:00-10:30</text>
-            <text>{{themeName}}产品技术部例会</text>
+            <text class='h1'>{{meetingTime}}</text>
+            <text>{{themeName}}</text>
           </view>
           <view class='pics'>
             <view class="code-pic">
@@ -21,10 +21,10 @@
           </view>
           
           <view class='bottom_text'>
-            <text class="metting-house">{{meetingRoomName}}海航实业大厦9层(氪空间) | 水星会议室</text>
+            <text class="metting-house">{{meetingRoomName}}}</text>
             <view class='icons'>
               <image src='../images/indexImg/dizhi2.png'></image>
-              <text>{{address}}北京市朝阳区建国路108号</text>
+              <text>{{address}}</text>
             </view>
           </view>
         </view>
@@ -39,7 +39,7 @@
                   <image src="{{item.wechatAvatar}}"></image>
                 </view>
                 <text>{{item.wechatNick}}</text>
-                <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===1?true:false}}"></image>
+                <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true?true:false}}"></image>
                 <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===1?true:false}}"></image>
             </view>
         </block>
@@ -68,7 +68,7 @@
     </view>
   </view>
   <view class='footer'>
-      <text>取消会议</text>
+      <text bindtap="cancelMeeting">取消会议</text>
       <view class='btns'>
         <button open-type="contact" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
         <button open-type="share" style="border:none"><text class='yaoqing'>邀请参会人</text></button>
