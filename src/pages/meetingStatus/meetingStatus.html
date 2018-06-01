@@ -1,58 +1,61 @@
 <!--index.wxml-->
-<view class='wrapper'>
-    <view class='top'>
-      <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
-      <view  class="metting-wrapper">
-        <view class="metting-mark {{item.meetingStatus === 'EXPIRED'?true:false}}">已过期</view>
-        <view class="title">
-          <text class="metting-time">{{meetingTime}}</text>
-          <text class="metting-name">{{themeName}}</text>
+<view class="content-wrapper">
+    <view class='wrapper'>
+        <view class='top'>
+          <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
+          <view  class="metting-wrapper">
+            <view class="metting-mark {{item.meetingStatus === 'EXPIRED'?true:false}}">已过期</view>
+            <view class="title">
+              <text class="metting-time">{{meetingTime}}</text>
+              <text class="metting-name">{{themeName}}</text>
+            </view>
+            <view class="metting-content">
+              <text class="metting-address">{{meetingRoomName}}</text>
+              <view class="metting-map">
+                <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
+                <text>{{address}}</text>
+              </view>
+            </view>
+          </view>
+          
         </view>
-        <view class="metting-content">
-          <text class="metting-address">{{meetingRoomName}}</text>
-          <view class="metting-map">
-            <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
-            <text>{{address}}</text>
+      
+        <view class='conferee'>
+            <text class='h2'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
+            <block wx:for="{{inviteer}}">
+                <view class='list'>
+                  <view class='pic'>
+                        <image src="{{item.wechatAvatar}}"></image>
+                    </view>
+                    <text>{{item.wechatNick}}</text>
+                    <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true?true:false}}"></image>
+                    <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===1?true:false}}"></image>
+                </view>
+            </block>
+            <view class='clear'></view>
+            
+        </view>
+      
+        <view class='hint'>
+          <text class='h2'>参会小贴士</text>
+          <block wx:for="{{hint}}">
+            <view class='list'>
+              <text class='title'>{{index+1}}.{{item.title}}</text>
+              <text class='text'>{{item.text}}</text>
+            </view>
+          </block>
+        </view>
+        <view style="padding-bottom: 198rpx;" wx:if="{{meetingStatus==='EXPIRED'?false:true}}">
+          <view class='btn' bindtap="jion">
+            我要参与
+          </view>
+        </view>
+        <view style="padding-bottom: 198rpx;" wx:if="{{meetingStatus==='EXPIRED'?true:false}}">
+          <view class='btn' bindtap="proceed">
+            我要预定
           </view>
         </view>
       </view>
-      
-    </view>
-  
-    <view class='conferee'>
-        <text class='h2'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
-        <block wx:for="{{inviteer}}">
-            <view class='list'>
-              <view class='pic'>
-                    <image src="{{item.wechatAvatar}}"></image>
-                </view>
-                <text>{{item.wechatNick}}</text>
-                <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true?true:false}}"></image>
-                <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===1?true:false}}"></image>
-            </view>
-        </block>
-        <view class='clear'></view>
-        
-    </view>
-  
-    <view class='hint'>
-      <text class='h2'>参会小贴士</text>
-      <block wx:for="{{hint}}">
-        <view class='list'>
-          <text class='title'>{{index+1}}.{{item.title}}</text>
-          <text class='text'>{{item.text}}</text>
-        </view>
-      </block>
-    </view>
-    <view style="padding-bottom: 198rpx;" wx:if="{{meetingStatus==='EXPIRED'?false:true}}">
-      <view class='btn' bindtap="jion">
-        我要参与
-      </view>
-    </view>
-    <view style="padding-bottom: 198rpx;" wx:if="{{meetingStatus==='EXPIRED'?true:false}}">
-      <view class='btn' bindtap="proceed">
-        我要预定
-      </view>
-    </view>
-  </view>
+</view>
+
   

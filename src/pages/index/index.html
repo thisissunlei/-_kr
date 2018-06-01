@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;width:100%;height:100%;opacity:0;'></button>
-<view class="container">
+<view class="container container-wrapper">
   
   <view class="idx_header">
     <!-- 头部信息 -->
@@ -19,7 +19,7 @@
     </view> 
   
   </view>
-  <view style="margin-top:-291rpx;">
+  <view class="metting-wrap">
     <view class="metting" wx:if="{{metting.length>0}}">
       <swiper interval="{{interval}}" previous-margin="20rpx" next-margin="20rpx"> 
         <block wx:for="{{myMeeting}}">

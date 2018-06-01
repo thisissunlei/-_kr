@@ -131,6 +131,7 @@ Page({
           
           that.setData({
             btn_bool:false
+            
           });
         }
       }
