@@ -9,6 +9,9 @@ Page({
     error:true,
     errorMessage:'',
     orderList:[],
+    page:1,
+    orderOldList:[],
+    totalPages:0,
     list:[
       {
         "buildName":"测试内容6n27",
@@ -31,8 +34,26 @@ Page({
         'TOBEUSED':'2',
         'USED':'3',
         'CLOSED':'4'
-    }
+    },
+    toView: 'red',
+    scrollTop: 0,
+    page:1
   },
+  lower: function(e) {
+    console.log('lower',e)
+    let type=this.data.type;
+    let page = ++this.data.page;
+    let totalPages = this.data.totalPages;
+    console.log(this.data.orderOldList.length,10*page)
+    if(page>totalPages){
+      return
+    }else{
+      this.getData(type,page)
+    }
+    
+    
+  },
+
   changeType:function(e){
     let that = this;
     let data = e.target.dataset;
@@ -41,9 +62,12 @@ Page({
 
     this.setData({
       number:20*number + '%',
-      type:type
+      type:type,
+      page:1,
+      orderList:[],
+      orderOldList:[]
     },function(){
-      that.getData(type)
+      that.getData(type,1)
     })
   },
   onLoad: function (options) {
@@ -65,16 +89,19 @@ Page({
       second:second
     }
   },
-  getData:function(type){
+  getData:function(type,page){
     let that = this;
+    let orderOldList = this.data.orderList;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
         methods:"GET",
         data:{
-          orderShowStatus:type
+          orderShowStatus:type,
+          page:page || 1
         },
         success:(res)=>{
           console.log('res',res.data.data.items)
+          let oldList = []
           if(res.data.code>0){
             var list = []
             list = res.data.data.items.map((item,index)=>{
@@ -85,8 +112,12 @@ Page({
               }
               return item;
             })
+            var allList = [].concat(orderOldList,list)
             that.setData({
-              orderList:list
+              orderOldList:allList,
+              orderList:allList,
+              page:page || 1,
+              totalPages:res.data.data.totalPages
             })
           }else{
             that.setData({
