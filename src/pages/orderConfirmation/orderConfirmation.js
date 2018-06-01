@@ -47,6 +47,7 @@ Page({
     isFirst:true,
     errorMessage:'',
     checkMessage:false,
+    dialogDate:false
   },
   onUnload:function(){
     let _this = this;
