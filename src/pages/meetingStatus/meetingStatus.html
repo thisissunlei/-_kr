@@ -5,14 +5,14 @@
       <view  class="metting-wrapper">
         <view class="metting-mark {{item.meetingStatus === 'EXPIRED'?true:false}}">已过期</view>
         <view class="title">
-          <text class="metting-time">11-29(周三)9:30-10:30</text>
-          <text class="metting-name">产品技术部例会</text>
+          <text class="metting-time">{{meetingTime}}</text>
+          <text class="metting-name">{{themeName}}</text>
         </view>
         <view class="metting-content">
-          <text class="metting-address">海航实业大厦</text>
+          <text class="metting-address">{{meetingRoomName}}</text>
           <view class="metting-map">
             <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
-            <text>北京朝阳区</text>
+            <text>{{address}}</text>
           </view>
         </view>
       </view>
@@ -27,7 +27,7 @@
                     <image src="{{item.wechatAvatar}}"></image>
                 </view>
                 <text>{{item.wechatNick}}</text>
-                <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===1?true:false}}"></image>
+                <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true?true:false}}"></image>
                 <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===1?true:false}}"></image>
             </view>
         </block>

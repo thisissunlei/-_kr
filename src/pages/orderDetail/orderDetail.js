@@ -48,6 +48,9 @@ Page({
           'paySign': res.data.data.paySign,
           'success':function(res){
             console.log(res)
+            wx.navigateTo({
+              url: '../paySuccess/paySuccess?inviteeId='+detailInfo.inviteeId
+            })
           },
           'fail':function(res){
           }
@@ -76,7 +79,7 @@ Page({
     let detailInfo=this.data.detailInfo;
     console.log(detailInfo,'detail')
     wx.navigateTo({
-      url: '../paySuccess/paySuccess?inviteeId='+detailInfo.inviteeId
+      url: '../meetingDetail/meetingDetail?inviteeId='+detailInfo.inviteeId
     })
   },
   jumpSetTheme:function() {

@@ -105,7 +105,7 @@ Page({
                 that.setData({
                   success:true
                 })
-                that.createOrder();
+                that.getOrderData();
               }
             })
           }else{
@@ -138,19 +138,23 @@ Page({
         }
       })
   },
-  createOrder:function(){
+  getOrderData(){
     let that = this;
-    let data=this.data;
     let create_order = {}
     wx.getStorage({
       key: 'create_order',
       success: function(res) {
         if(res.data){
-          create_order = res.data.create_order;
+          that.createOrder(res.data)
         }
       }
     })
     //orderData--->create_order取数据
+  },
+  createOrder:function(create_order){
+    let that = this;
+    let data=this.data;
+    
     let orderData = create_order;
     var _this=this;
         app.getRequest({
@@ -159,7 +163,7 @@ Page({
           header:{
             'content-type':"appication/json"
           },
-          data:orderData,
+          data:orderData.create_order,
           
           success:(res)=>{
             let data = res.data.data;
@@ -188,6 +192,7 @@ Page({
         })
        
   },
+
   weChatPay:function(data){
     let id = data.orderId;
     let that = this;
