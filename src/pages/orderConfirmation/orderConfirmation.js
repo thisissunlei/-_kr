@@ -351,6 +351,11 @@ Page({
     
     
   },
+  goToGuide:function(){
+    wx.navigateTo({
+      url: '../guide/guide'
+    })
+  },
   getIsfirst:function(){
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/isFirstOrder',
