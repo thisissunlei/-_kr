@@ -350,6 +350,22 @@ Page({
     
     
   },
+  getPhone:function(){
+
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/getWecharUser',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+          let userInfo=Object.assign({},res.data.data);
+          this.setData({
+                linkPhone:userInfo.phone
+            })
+        }
+    })
+  },
   goToGuide:function(){
     wx.navigateTo({
       url: '../guide/guide'
