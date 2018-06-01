@@ -218,10 +218,14 @@ Page({
   },
 
   onGotUserInfo:function (e){
-    this.getInfo();
-    this.setData({
-      btn_bool:false
-    });
+    console.log(e.detail.userInfo,333333)
+    if(e.detail.userInfo){
+      this.getInfo();
+      this.setData({
+        btn_bool:false
+      });
+    }
+    
   },
 
   jumpSubmit(e){
