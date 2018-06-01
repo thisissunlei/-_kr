@@ -114,7 +114,6 @@ Page({
   },
   onLoad: function (options) {
     let type = options.type;
-    console.log('======',type)
     let phone = ''
     if(options.linkPhone=='undefined'){
       phone = ''
