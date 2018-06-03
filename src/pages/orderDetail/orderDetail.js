@@ -37,7 +37,7 @@ Page({
     }
     return {
       title: '戳我一键参会！邀请您于"'+this.data.detailInfo.ctime+'"在"'+this.data.detailInfo.meetingRoomName+'"参加"'+this.data.detailInfo.themeName+'"',
-      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.detailInfo.inviteeId
+      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId
     }
   },
 
@@ -60,7 +60,7 @@ Page({
           'success':function(res){
             console.log(res)
             wx.navigateTo({
-              url: '../paySuccess/paySuccess?inviteeId='+detailInfo.inviteeId
+              url: '../paySuccess/paySuccess?inviteeId='+this.data.inviteeId
             })
           },
           'fail':function(res){
@@ -95,9 +95,29 @@ Page({
   },
   jumpMeet:function() {
     let detailInfo=this.data.detailInfo;
-    console.log(detailInfo,'detail')
-    wx.navigateTo({
-      url: '../meetingDetail/meetingDetail?inviteeId='+detailInfo.inviteeId
+    console.log(detailInfo)
+    this.getInviteeId(detailInfo.orderId)
+  },
+  getInviteeId(orderId){
+    wx.request({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
+      methods:"GET",
+      header:{
+        "content-type":"application/json"
+      },
+      data:{
+        orderId:orderId
+      },
+      success:(res)=>{
+        console.log(res,"获取inviteeId")
+        let inviteeId = res.data.data.inviteeId
+        this.setData({
+          inviteeId:inviteeId
+        })
+        wx.navigateTo({
+          url: '../meetingDetail/meetingDetail?inviteeId='+inviteeId
+        })
+      }
     })
   },
   jumpSetTheme:function() {

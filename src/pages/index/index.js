@@ -8,7 +8,6 @@ Page({
     duration: 1000,
     buildingList:[],
     myMeeting:[],
-    metting:false,
   },
   rq_data:{
     latitude:'',
@@ -157,11 +156,11 @@ Page({
           buildingList:res.data.data.buildingList,
           myMeeting:res.data.data.myMeeting
         })
-        if(res.data.data.myMeeting.length>0){
-          that.setData({
-            metting:true
-          })
-        }
+        // if(res.data.data.myMeeting.length>0){
+        //   that.setData({
+        //     metting:true
+        //   })
+        // }
       }
     });
   },
