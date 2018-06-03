@@ -212,10 +212,7 @@ Page({
               'signType':res.data.data.signType,
               'paySign': res.data.data.paySign,
               'success':function(res){
-                console.log(res)
-                wx.navigateTo({
-                  url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
-                })
+                that.getInviteeId(id)
               },
               'fail':function(res){
                 wx.navigateTo({
@@ -294,5 +291,23 @@ Page({
           
         }
       })
+  },
+  getInviteeId(orderId){
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
+      methods:"GET",
+      header:{
+        'content-type':"appication/json"
+      },
+      data:{
+        orderId:orderId
+      },
+      success:(res)=>{
+          wx.navigateTo({
+            url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+          })
+      }
+    })
+    
   },
 })

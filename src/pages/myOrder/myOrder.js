@@ -81,9 +81,10 @@ Page({
   },
   dealTime(e){
     var dates=new Date();
-    var nowtime=Math.round(e-dates.getTime()/1000);
-    var minute=Math.floor(((nowtime%86400)%3600)/60);
-    var second=Math.floor(((nowtime%86400)%3600)%60);
+    var nowtime=Math.round(e-dates.getTime());
+    var minute=Math.floor(nowtime/(60*1000))
+    var leave3=nowtime%(60*1000)      //计算分钟数后剩余的毫秒数  
+    var second=Math.round(leave3/1000)
     return {
       minute:minute,
       second:second
@@ -135,6 +136,7 @@ Page({
   },
   orderPay(e){
     let id = e.target.dataset.order;
+    let that = this;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
         methods:"GET",
@@ -151,18 +153,18 @@ Page({
               'signType':res.data.data.signType,
               'paySign': res.data.data.paySign,
               'success':function(res){
-                console.log(res)
-                wx.navigateTo({
-                  url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
-                })
+                that.getInviteeId(id)
               },
               'fail':function(res){
                 wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId
+                  url: '../orderDetail/orderDetail?id='+id 
                 })
               }
             })
           }else{
+            wx.navigateTo({
+              url: '../orderDetail/orderDetail?id='+id 
+            })
 
             // that.setData({
             //   error:false,
@@ -175,5 +177,23 @@ Page({
            console.log('========',res)
         }
       })
-  }
+  },
+  getInviteeId(orderId){
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
+      methods:"GET",
+      header:{
+        'content-type':"appication/json"
+      },
+      data:{
+        orderId:orderId
+      },
+      success:(res)=>{
+          wx.navigateTo({
+            url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+          })
+      }
+    })
+    
+  },
 })
