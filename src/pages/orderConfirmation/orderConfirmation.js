@@ -148,8 +148,10 @@ Page({
           time:time,
           timeText:day_con,
         },
+        newDate:time
       },function(){
         _this.closeDialogDate();
+        __this.getThemeName();
       })
 
 
@@ -548,24 +550,7 @@ Page({
       key:'orderDate',
       success:function(res){
         if(res.data){
-          let timeArr=res.data.time.split('-');
-          let month=timeArr[1];
-          let day=timeArr[2];
-          if(month<10){
-            month=`0${month}`
-          }
-          if(day<10){
-            day=`0${day}`
-          }
-          let date=`${month}${day}`;
-          
-          let themeName=date+'会议';
-          _this.setData({
-              orderDate:res.data,
-              themeName:themeName
-          });
-          _this.choose_date = res.data.time
-          _this.initDate();
+          _this.getThemeName(res.data)
         }
       }
     })
@@ -612,6 +597,26 @@ Page({
     })
     
     
+  },
+  getThemeName:function(res){
+          let timeArr=res.time.split('-');
+          let month=timeArr[1];
+          let day=timeArr[2];
+          if(month<10){
+            month=`0${month}`
+          }
+          if(day<10){
+            day=`0${day}`
+          }
+          let date=`${month}${day}`;
+          
+          let themeName=date+'会议';
+          this.setData({
+              orderDate:res.data,
+              themeName:themeName
+          });
+          this.choose_date = res.time
+          this.initDate();
   },
 
   initDate:function(){
