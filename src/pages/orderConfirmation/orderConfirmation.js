@@ -279,17 +279,32 @@ Page({
     this.getIsfirst();
     this.getPhone();
     var _this=this;
-    
-    wx.getStorage({
-      key:'detail',
-      success:function(res){
-        if(res.data){
-          _this.setData({
-              detailInfo:res.data
-            })
+    if(options.from=='list'){
+      wx.getStorage({
+        key:'meet_detail',
+        success:function(res){
+          if(res.data){
+            
+            _this.setData({
+                detailInfo:res.data
+              })
+          }
         }
-      }
-    })
+      })
+    }else{
+        wx.getStorage({
+          key:'detail',
+          success:function(res){
+            if(res.data){
+              _this.setData({
+                  detailInfo:res.data
+                })
+            }
+          }
+        })
+    }
+    
+
     wx.getStorage({
       key:'orderDate',
       success:function(res){
@@ -401,7 +416,7 @@ Page({
     })
   },
   getNowRangeTime:function(){
-    var id = wx.getStorageSync('detail').meetingRoomId;
+    var id = wx.getStorageSync('detail').meetingRoomId || wx.getStorageSync('meet_detail').meetingRoomId;
     var that = this;
     var disableTime = [];
     var newRangeTime = [];

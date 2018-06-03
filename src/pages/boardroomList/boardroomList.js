@@ -763,7 +763,8 @@ Page({
   },
   nowReserve(e){
     let that = this;
-    let meetingRoomId = e.target.dataset.mId;
+    console.log(e);
+    let meetingRoomId = e.currentTarget.dataset.mid;
     let meetingDetail;
     if(this.button_boolean){
       this.button_boolean = false;
@@ -771,7 +772,8 @@ Page({
         key: 'orderDate',
         success: function(res) {
           if(res.data){
-            meetingDetail = Object.assign({},that.data.meetingDetail,res.data,{from:'list'});
+            meetingDetail = Object.assign({},that.data.meetingDetail,res.data,{meetingRoomId:meetingRoomId});
+            console.log('meetingDetail----',meetingDetail)
             that.setDetail(meetingDetail)
           }
         }
@@ -784,13 +786,13 @@ Page({
   setDetail(arr){
     let that = this;
     wx.setStorage({
-        key:"detail",
+        key:"meet_detail",
         data:arr,
         success:function(){
           that.button_boolean = true;
           setTimeout(function(){
             wx.navigateTo({
-              url: '/pages/orderConfirmation/orderConfirmation'
+              url: '/pages/orderConfirmation/orderConfirmation?from=list'
             })
           },500)
           
