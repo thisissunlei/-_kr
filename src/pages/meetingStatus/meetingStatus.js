@@ -20,6 +20,7 @@ Page({
       },
     ]
   },
+  flag:true,
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -148,23 +149,40 @@ Page({
   
   //点击我要参与
   jion:function(){
-    this.data.inviteer.push(this.data.wechatInfo)
-    this.setData({
-      inviteer:this.data.inviteer
-    })
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting//invitee/joinInvitee',
-      methods:"GET",
-      header:{
-        "content-type":"application/json"
-      },
-      data:{
-        inviteeId:this.data.inviteeId
-      },
-      success:(res)=>{
-        console.log(res,"确认参加")
-      }
-    })
+    console.log(this.flag)
+    var _this = this
+    if(_this.flag){
+      this.data.inviteer.push(this.data.wechatInfo)
+      this.setData({
+        inviteer:this.data.inviteer
+      })
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting//invitee/joinInvitee',
+        methods:"GET",
+        header:{
+          "content-type":"application/json"
+        },
+        data:{
+          inviteeId:this.data.inviteeId
+        },
+        success:(res)=>{
+          console.log(res,"确认参加")
+         
+        },
+        fail:(res)=>{
+          _this.flag = true
+        }
+      })
+      _this.flag = false
+      
+    }else{
+      wx.showToast({
+        title:"您已经参与！请勿重复点击",
+        icon:'none'
+      })
+    }
+    
+    
 },
   
   //点击我要预定
