@@ -28,12 +28,12 @@
 			  		<view class="right">
 			  			<span class="content">{{item.capacity}}人  {{item.meetingRoomName}}</span>
 			  			<span class="content">{{item.meetingTIme}}</span>
-			  			<span class="content">{{item.buildName}}</span>
+			  			<span class="content">{{item.buildName}}{{item.expiredTime}}</span>
 			  			<span class="content">￥{{item.cost}}</span>
 			  		</view>
 		  		</navigator>
-		  		<div class="button-box">
-		  			<view class="time-section">
+		  		<div class="button-box" >
+		  			<view class="time-section" wx:if="{{item.minute!=-1}}">
 		  				<image class="time-img" src="../images/public/clock_icon.png"></image>
 		  				<span class="time-name">剩余时间：</span>
 			            <view class="time-down">{{item.minute}}:</view>
@@ -53,7 +53,7 @@
 		  			<image class="order-img"  src="{{item.imgUrl}}"  mode="aspectFill"></image>
 		  		</view>
 		  		<view class="right">
-		  			<span class="content">{{item.capacity}}人  {{meetingRoomName}}</span>
+		  			<span class="content">{{item.capacity}}人  {{item.meetingRoomName}}</span>
 		  			<span class="content">{{item.meetingTIme}}</span>
 		  			<span class="content">{{item.buildName}}</span>
 		  			<span class="content">￥{{item.cost}}</span>
