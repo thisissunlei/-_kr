@@ -147,17 +147,19 @@ Page({
           break;
         }
       }
-      let selectedTime=this.data.meeting_time.time.split('-');
-      let startTime="meeting_time.beginTime";
-      let endTime="meeting_time.endTime"
+      //let selectedTime=this.data.meeting_time.time.split('-');
+      //let startTime="meeting_time.beginTime";
+      //let endTime="meeting_time.endTime";
+      let Time="meeting_time.time"
       this.setData({
         orderDate:{
           time:time,
           timeText:day_con,
         },
+        [Time]:'',
         newDate:time,
-        [startTime]:time+' '+selectedTime[0]+':00',
-        [endTime]:time+' '+selectedTime[1]+':00'
+        //[startTime]:time+' '+selectedTime[0]+':00',
+        //[endTime]:time+' '+selectedTime[1]+':00'
         
       },function(){
         _this.closeDialogDate();
