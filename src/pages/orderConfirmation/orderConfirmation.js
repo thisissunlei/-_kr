@@ -147,21 +147,24 @@ Page({
           break;
         }
       }
-       
-
+      let selectedTime=this.data.meeting_time.time.split('-');
+      let startTime="meeting_time.beginTime";
+      let endTime="meeting_time.endTime"
       this.setData({
         orderDate:{
           time:time,
           timeText:day_con,
         },
-        newDate:time
+        newDate:time,
+        [startTime]:time+' '+selectedTime[0]+':00',
+        [endTime]:time+' '+selectedTime[1]+':00'
+        
       },function(){
         _this.closeDialogDate();
-        _this.getThemeName();
+        _this.getThemeName(_this.data.orderDate);
       })
 
 
-      
      
       
 
@@ -618,7 +621,7 @@ Page({
           
           let themeName=date+'会议';
           this.setData({
-              orderDate:res.data,
+              orderDate:res,
               themeName:themeName
           });
           this.choose_date = res.time
