@@ -20,7 +20,7 @@
   
   </view>
   <view class="metting-wrap">
-    <view class="metting" wx:if="{{metting.length>0}}">
+    <view class="metting" wx:if="{{metting.length>0?true:false}}">
       <swiper interval="{{interval}}" previous-margin="20rpx" next-margin="20rpx"> 
         <block wx:for="{{myMeeting}}">
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">

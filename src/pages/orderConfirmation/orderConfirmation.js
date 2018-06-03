@@ -279,16 +279,32 @@ Page({
     this.getIsfirst();
     this.getPhone();
     var _this=this;
-    wx.getStorage({
-      key:'detail',
-      success:function(res){
-        if(res.data){
-          _this.setData({
-              detailInfo:res.data
-            })
+    if(options.from=='list'){
+      wx.getStorage({
+        key:'meet_detail',
+        success:function(res){
+          if(res.data){
+
+            _this.setData({
+                detailInfo:res.data
+              })
+          }
         }
-      }
-    })
+      })
+    }else{
+        wx.getStorage({
+          key:'detail',
+          success:function(res){
+            if(res.data){
+              _this.setData({
+                  detailInfo:res.data
+                })
+            }
+          }
+        })
+    }
+    
+
     wx.getStorage({
       key:'orderDate',
       success:function(res){
@@ -400,7 +416,7 @@ Page({
     })
   },
   getNowRangeTime:function(){
-    var id = wx.getStorageSync('detail').meetingRoomId;
+    var id = wx.getStorageSync('detail').meetingRoomId || wx.getStorageSync('meet_detail').meetingRoomId;
     var that = this;
     var disableTime = [];
     var newRangeTime = [];
@@ -539,6 +555,7 @@ Page({
        
   },
   weChatPay:function(data){
+    var _this=this;
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
       methods:"POST",
@@ -556,13 +573,10 @@ Page({
             'signType': data.signType,
             'paySign': data.paySign,
             'success':function(response){
-              console.log('response----',response)
-                wx.navigateTo({
-                  url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
-                })
+              _this.getInviteeId(data.orderId);
+               
             },
             'fail':function(response){
-              console.log('response-----',response)
                 wx.navigateTo({
                   url: '../orderDetail/orderDetail?id='+data.orderId
                 })
@@ -571,10 +585,24 @@ Page({
           })
       }
     })
-
-
-
-
+    
+  },
+  getInviteeId(orderId){
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
+      methods:"GET",
+      header:{
+        'content-type':"appication/json"
+      },
+      data:{
+        orderId:orderId
+      },
+      success:(res)=>{
+          wx.navigateTo({
+            url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+          })
+      }
+    })
     
   },
   getMeetDetail(){

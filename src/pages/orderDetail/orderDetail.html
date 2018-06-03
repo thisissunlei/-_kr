@@ -99,11 +99,8 @@
             <view wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}" class="u-footer-color-btn" bindtap="payOrder"> 
                 立即支付
             </view>
-            <button open-type="share" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn" style="border:none">邀请参会人</button>
-            <view wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-btn" bindtap="jumpMeet">
-                查看会议
-            </view>
-            <view wx:if="{{detailInfo.orderShowStatus=='USED'}}" class="u-footer-btn" bindtap="jumpMeet">
+            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn" style="border:none">邀请参会人</button>
+            <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
                     查看会议
                 </view>
             <button class="u-my-contact-btn" open-type="contact">联系客服</button>
@@ -133,7 +130,7 @@
                     </swiper-item>
                   </view>
             </swiper>
-            <view class="u-img-num">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
+            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>0}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
           <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
           <view class="u-meeting-info">

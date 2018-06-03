@@ -1,5 +1,6 @@
 {
   "pages":[
+   
     "pages/index/index",
     "pages/orderConfirmation/orderConfirmation",
     "pages/paySuccess/paySuccess",
