@@ -159,6 +159,9 @@ Page({
     })
    
   },
+  onShow:function(){
+    this.getDetailInfo(this.data.orderId)
+  },
   getDetailInfo:function(orderId){
     const _this=this;
     app.getRequest({
@@ -299,7 +302,7 @@ Page({
         }
       })
   },
-
+  
    
 })
 function changeTime(date){
