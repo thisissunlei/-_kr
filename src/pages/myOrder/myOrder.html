@@ -1,6 +1,5 @@
 <!--index.wxml-->
-<view class="my-order"  wx:if="{{orderList.length}}">
-  <view class="order-type">
+<view class="order-type">
   	<div class="tab" bindtap="changeType" data-type="ALL">全部</div>
   	<div class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</div>
   	<div class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</div>
@@ -8,6 +7,8 @@
   	<div class="tab" bindtap="changeType" data-type="CLOSED">已取消</div>
   	<div class="active-type" style="left:{{number}}"> <span class="line"></span></div>
   </view>
+<view class="my-order"  wx:if="{{orderList.length}}">
+  
 
 	<!-- 有数据 -->
 	<scroll-view scroll-y style="height: 1136rpx;" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
@@ -71,14 +72,14 @@
 
 
 <view class="my-order-none" wx:if="{{!orderList.length}}">
-  <view class="order-type">
+ <!--  <view class="order-type">
   	<div class="tab" bindtap="changeType" data-type="ALL">全部</div>
   	<div class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</div>
   	<div class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</div>
   	<div class="tab" bindtap="changeType" data-type="USED">已使用</div>
   	<div class="tab" bindtap="changeType" data-type="CLOSED">已取消</div>
   	<div class="active-type" style="left:{{number}}"> <span class="line"></span></div>
-  </view>
+  </view> -->
 
   <!-- 无数据 -->
   <view class="content-none" >
