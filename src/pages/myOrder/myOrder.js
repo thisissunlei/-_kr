@@ -81,9 +81,10 @@ Page({
   },
   dealTime(e){
     var dates=new Date();
-    var nowtime=Math.round(e-dates.getTime()/1000);
-    var minute=Math.floor(((nowtime%86400)%3600)/60);
-    var second=Math.floor(((nowtime%86400)%3600)%60);
+    var nowtime=Math.round(e-dates.getTime());
+    var minute=Math.floor(nowtime/(60*1000))
+    var leave3=nowtime%(60*1000)      //计算分钟数后剩余的毫秒数  
+    var second=Math.round(leave3/1000)
     return {
       minute:minute,
       second:second
