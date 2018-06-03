@@ -21,7 +21,7 @@
   </view>
   <view class="metting-wrap">
     <view class="metting" wx:if="{{myMeeting.length>0}}">
-      <swiper interval="{{interval}}" previous-margin="20rpx" next-margin="20rpx"> 
+      <swiper interval="{{interval}}" previous-margin="20rpx" next-margin="20rpx" style="height: 376rpx;"> 
         <block wx:for="{{myMeeting}}" >
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
             <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
