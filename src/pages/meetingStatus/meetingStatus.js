@@ -29,24 +29,18 @@ Page({
   },
   onLoad: function (options) {
     const that = this;
-    console.log(options)
     let inviteeId = options.inviteeId
     this.setData({
       inviteeId:inviteeId
-    })
+    });
 
-console.log(99999)
     //查看是否授权
     wx.getSetting({
       success(res) {
-        console.log("授权")
         if (!res.authSetting['scope.userInfo']) {
-          console.log(999999776)
           that.login();
         }else{
-          console.log(11112233)
           that.login();
-          that.getUserInfo();
           that.setData({
             btn_bool:false
           });
@@ -60,7 +54,6 @@ console.log(99999)
     
   },
   onGotUserInfo:function (e){
-    console.log(e,"11111eeeeeee")
     if(e.detail.userInfo){
       this.setData({
         btn_bool:false
@@ -74,7 +67,6 @@ console.log(99999)
     var that = this
     wx.login({
       success: function(res) {
-        console.log(res,"登陆成功")
         if (res.code) {
           //发起网络请求
           wx.request({
@@ -101,8 +93,7 @@ console.log(99999)
   getUserInfo:function(){
    var _this = this;
     wx.getUserInfo({
-      success: function(res) {   
-        console.log('===========>>>>',res.userInfo) 
+      success: function(res) { 
         var wechatInfo = {
           wechatAvatar: res.userInfo.avatarUrl,
           wechatNick:res.userInfo.nickName
@@ -142,14 +133,13 @@ console.log(99999)
         inviteeId:this.data.inviteeId
       },
       success:(res)=>{
-        console.log(res,"会议状态3333333")
         this.setData({
-          meetingTime:res.data.data.meetingTime,
-          themeName:res.data.data.theme,
-          meetingRoomName:res.data.data.meetingRoomName,
-          address:res.data.data.address,
-          inviteer:res.data.data.inviteers,
-          limitCount:res.data.data.limitCount,
+          meetingTime:res.data.data.meetingTime||'',
+          themeName:res.data.data.theme||'',
+          meetingRoomName:res.data.data.meetingRoomName||'',
+          address:res.data.data.address||'',
+          inviteer:res.data.data.inviteers||[],
+          limitCount:res.data.data.limitCount||'',
           meetingStatus:res.data.data.meetingStatus||'',
         })
       }
@@ -158,7 +148,6 @@ console.log(99999)
   
   //点击我要参与
   jion:function(){
-    console.log(this.data.wechatInfo)
     this.data.inviteer.push(this.data.wechatInfo)
     this.setData({
       inviteer:this.data.inviteer
