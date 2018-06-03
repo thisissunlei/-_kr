@@ -521,7 +521,7 @@ Page({
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
               remind:_this.getRemind(res.data.alertTime),
-              linkPhone:res.data.linkPhone || '',
+              linkPhone:res.data.linkPhone || _this.data.linkPhone,
               order_pay:res.data
             })
         }
