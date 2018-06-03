@@ -106,7 +106,13 @@ Page({
       this.last_btn_num = e.target.dataset.num;
       this.last_data = e.target.dataset.data;
       let dataset=e.target.dataset
-      let time=`${dataset.year}-${dataset.month}-${dataset.value}`;
+      let day_nows = dataset.value;
+      if(day_nows == '今天'){
+        day_nows = new Date().getDate();
+      }else if(day_nows == '明天'){
+        day_nows = parseInt(new Date().getDate()) + 1;
+      }
+      let time=`${dataset.year}-${dataset.month}-${day_nows}`;
       //console.log(e.target.dataset,time)
       var _this=this; 
       const time_date = new Date(time);
@@ -148,8 +154,10 @@ Page({
           time:time,
           timeText:day_con,
         },
+        newDate:time
       },function(){
         _this.closeDialogDate();
+        _this.getThemeName();
       })
 
 
@@ -548,24 +556,7 @@ Page({
       key:'orderDate',
       success:function(res){
         if(res.data){
-          let timeArr=res.data.time.split('-');
-          let month=timeArr[1];
-          let day=timeArr[2];
-          if(month<10){
-            month=`0${month}`
-          }
-          if(day<10){
-            day=`0${day}`
-          }
-          let date=`${month}${day}`;
-          
-          let themeName=date+'会议';
-          _this.setData({
-              orderDate:res.data,
-              themeName:themeName
-          });
-          _this.choose_date = res.data.time
-          _this.initDate();
+          _this.getThemeName(res.data)
         }
       }
     })
@@ -612,6 +603,26 @@ Page({
     })
     
     
+  },
+  getThemeName:function(res){
+          let timeArr=res.time.split('-');
+          let month=timeArr[1];
+          let day=timeArr[2];
+          if(month<10){
+            month=`0${month}`
+          }
+          if(day<10){
+            day=`0${day}`
+          }
+          let date=`${month}${day}`;
+          
+          let themeName=date+'会议';
+          this.setData({
+              orderDate:res.data,
+              themeName:themeName
+          });
+          this.choose_date = res.time
+          this.initDate();
   },
 
   initDate:function(){
