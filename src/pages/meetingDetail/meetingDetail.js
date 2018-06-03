@@ -57,8 +57,9 @@ Page({
       }
     })
     this.createQrCode('fdfd',"mycanvas",160,160);
+   
   },
-
+  
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片
     QR.qrApi.draw(url,canvasId,cavW,cavH);
