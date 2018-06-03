@@ -32,7 +32,7 @@
    height: 61px;
    position: absolute;
    top: 3px;
-   right: 8px;
+   right: 1rpx;
  }
  .top .title{
    padding: 13px 0 20px;
@@ -50,16 +50,24 @@
    font-weight: 900;
  }
  .pics{
-   padding: 25px 0 25px 0;
+   padding:25px 20rpx;
    width:710rpx;
    height: 268px;
    position: relative;
    box-sizing: border-box;
  }
+ .shade{
+   width: 670rpx;
+   height: 218px;
+   position: absolute;
+ }
+ .shadeBg{
+  background: rgba(255,255,255,255);
+  opacity: 0.1;
+ }
  .img{
    width: 100%;
    height: 100%;
-   border-radius: 50%;
  }
  .pics .code-pic{
    width: 176px;
@@ -87,20 +95,20 @@
  .content .bottom_text{
    margin-top: 8px;
  }
-.bottom_text .metting-house{
-  font-size: 14px;
-  color: #333333;
-}
-.bottom_text image{
-  width: 14px;
-  height: 15px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-.bottom_text .icons text{
-  font-size: 13px;
-  color: #666666;
-}
+ .bottom_text .metting-house{
+   font-size: 14px;
+   color: #333333;
+ }
+ .bottom_text image{
+   width: 14px;
+   height: 15px;
+   margin-right: 8px;
+   vertical-align: middle;
+ }
+ .bottom_text .icons text{
+   font-size: 13px;
+   color: #666666;
+ }
 .conferee{
   margin-top:40rpx;
   border-top: 1px solid #2F3543; 
@@ -129,7 +137,7 @@
   border: 2rpx solid #fff;
   margin-bottom: 20rpx;
 }
-.conferee .list .pic img{
+.pic image{
   width: 100%;
   height: 100%;
   border-radius:50%;
@@ -138,8 +146,8 @@
   font-size: 24rpx;
   color: #FFFFFF; 
 }
-.conferee .originator{
-  width: 30rpx;
+.conferee .list .originator{
+  width: 32rpx;
   height: 30rpx;
   position: absolute;
   top: 70rpx;
@@ -191,11 +199,13 @@
   width: 166rpx;
   text-align: center;
   border-radius: 5px;
+  color: #666666;
 }
 .footer text.kefu{
   height: 72rpx;
   border: 1px solid #333333;
   margin-right: 20rpx;
+  color: #333333;
 }
 .footer .btns{
   float: right;

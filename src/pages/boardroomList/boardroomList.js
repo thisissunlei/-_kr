@@ -20,6 +20,7 @@ Page({
     nowDate:'',
     meetDetailShow:false,
     meetingRoomId:'',
+    meetDetail:{},
     rangeTime:[{
       disabled:false,
       number:'19'
@@ -165,9 +166,11 @@ Page({
   openMeetDetail:function(e){
     let that = this;
     let id=e.currentTarget.dataset.item.meetingRoomId;
+    let detail=e.currentTarget.dataset.item;
     this.setData({
       meetingRoomId:id,
-      meetDetailShow:!this.data.meetDetailShow
+      meetDetailShow:!this.data.meetDetailShow,
+      meetDetail:detail
     },function(){
       that.getMeetDetail()
     })
@@ -772,7 +775,7 @@ Page({
         key: 'orderDate',
         success: function(res) {
           if(res.data){
-            meetingDetail = Object.assign({},that.data.meetingDetail,res.data,{meetingRoomId:meetingRoomId});
+            meetingDetail = Object.assign({},that.data.meetDetail,res.data,{meetingRoomId:meetingRoomId});
             console.log('meetingDetail----',meetingDetail)
             that.setDetail(meetingDetail)
           }

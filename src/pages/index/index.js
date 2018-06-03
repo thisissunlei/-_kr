@@ -42,6 +42,10 @@ Page({
           _this.func_bool_l = false;
           _this.getAllInfo();
         }
+      },
+      fail:function(res){
+        console.log(res,888888);
+        _this.getAllInfo();
       }
     })
   },
