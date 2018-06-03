@@ -43,6 +43,7 @@ console.log(99999)
           console.log(999999776)
           that.login();
         }else{
+          console.log(11112233)
           that.login();
           that.getUserInfo();
           that.setData({
@@ -58,9 +59,13 @@ console.log(99999)
     
   },
   onGotUserInfo:function (e){
-    console.log(e,"eeeeeee")
+    console.log(e,"11111eeeeeee")
     if(e.detail.userInfo){
-      this.login();
+      this.setData({
+        btn_bool:false
+      });
+      this.getUserInfo();
+
     }
   },
   //登陆
@@ -88,10 +93,8 @@ console.log(99999)
           console.log('登录失败！' + res.errMsg)
         }
       }
-    }),
-    this.setData({
-      btn_bool:false
-    });
+    })
+    
   },
   
   //获取用户信息
@@ -119,9 +122,11 @@ console.log(99999)
             console.log(res,5555888888881111)
             
           }
-        });
-
-      }
+        })
+      },
+      fail:function (err){
+          console.log(888,err)
+        }
     })
   },
   
@@ -137,7 +142,7 @@ console.log(99999)
         inviteeId:this.data.inviteeId
       },
       success:(res)=>{
-        console.log(res,"会议状态")
+        console.log(res,"会议状态3333333")
         this.setData({
           meetingTime:res.data.data.meetingTime,
           themeName:res.data.data.theme,
@@ -145,7 +150,7 @@ console.log(99999)
           address:res.data.data.address,
           inviteer:res.data.data.inviteers,
           limitCount:res.data.data.limitCount,
-          meetingStatus:res.data.data.meetingStatus,
+          meetingStatus:res.data.data.meetingStatus||'',
         })
       }
     })
