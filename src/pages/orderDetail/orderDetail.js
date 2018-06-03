@@ -102,7 +102,7 @@ Page({
     this.getInviteeId(detailInfo.orderId)
   },
   getInviteeId(orderId){
-    wx.request({
+    app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
       methods:"GET",
       header:{
@@ -112,7 +112,6 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-        console.log(res,"获取inviteeId")
         let inviteeId = res.data.data.inviteeId
         this.setData({
           inviteeId:inviteeId
