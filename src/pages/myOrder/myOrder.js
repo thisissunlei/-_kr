@@ -156,13 +156,13 @@ Page({
               },
               'fail':function(res){
                 wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId
+                  url: '../orderDetail/orderDetail?id='+id 
                 })
               }
             })
           }else{
             wx.navigateTo({
-              url: '../orderDetail/orderDetail?id='+data.orderId
+              url: '../orderDetail/orderDetail?id='+id 
             })
 
             // that.setData({
