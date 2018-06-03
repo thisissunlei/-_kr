@@ -254,7 +254,7 @@
                       <view class="u-meet-old-num">¥ {{meetingDetail.unitCost}}</view>
                       <view class="u-meet-old-unit"> / 半小时  </view>
                   </view>
-                  <view class="u-meet-sale">{{meetingDetail.promotionDescr}}</view>
+                  <view class="u-meet-sale" wx:if="{{meetingDetail.promotionDescr!=''}}" >{{meetingDetail.promotionDescr}}</view>
               </view>
               <view class="u-meet-detail-address">
                   <view class="u-address">

@@ -102,7 +102,7 @@ Page({
     this.getInviteeId(detailInfo.orderId)
   },
   getInviteeId(orderId){
-    wx.request({
+    app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
       methods:"GET",
       header:{
@@ -112,7 +112,6 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-        console.log(res,"获取inviteeId")
         let inviteeId = res.data.data.inviteeId
         this.setData({
           inviteeId:inviteeId
@@ -151,7 +150,7 @@ Page({
     })
   },
   onLoad: function (opstion) {
-
+  
     console.log('opstion----',opstion)
     this.getDetailInfo(opstion.id)
     this.setData({
@@ -224,9 +223,9 @@ Page({
     const time = CAlculagraph.CAlculagraph();
     const that = this;
     time.timerMint({
-      deadline:date,//最终结束的时间戳,
+      deadline:date/1000,//最终结束的时间戳,
       callback:function (){
-        console.log(111)
+        that.getDetailInfo(that.data.orderId)
       },//时间结束
       that:this
     });
