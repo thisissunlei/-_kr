@@ -10,9 +10,6 @@ Page({
     remind:'提前15分钟',
     phone:'',
     check:true,
-    imgUrl:'',
-    beginTime:getTime('20'),
-    endTime:getTime('25'),
     dialogShow:false,
     typeStatus:true,
     message:'用户取消支付',
@@ -147,17 +144,19 @@ Page({
           break;
         }
       }
-      let selectedTime=this.data.meeting_time.time.split('-');
-      let startTime="meeting_time.beginTime";
-      let endTime="meeting_time.endTime"
+      //let selectedTime=this.data.meeting_time.time.split('-');
+      //let startTime="meeting_time.beginTime";
+      //let endTime="meeting_time.endTime";
+      let Time="meeting_time.time"
       this.setData({
         orderDate:{
           time:time,
           timeText:day_con,
         },
+        [Time]:'',
         newDate:time,
-        [startTime]:time+' '+selectedTime[0]+':00',
-        [endTime]:time+' '+selectedTime[1]+':00'
+        //[startTime]:time+' '+selectedTime[0]+':00',
+        //[endTime]:time+' '+selectedTime[1]+':00'
         
       },function(){
         _this.closeDialogDate();
