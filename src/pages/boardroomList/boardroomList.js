@@ -335,9 +335,6 @@ Page({
         bool:true,
         date:`${year}-${month}-${day}`
       };
-      if(i==0){
-        dateItem.actived = true;
-      }
       if(i<2){
         dateItem.week = (i==0?'今天':'明天');
       }else{
@@ -349,6 +346,7 @@ Page({
         dateItem.bool = 'false';
       }else{
         topDate.push(dateItem);
+        topDate[0].actived = true;
       }
       
     }
