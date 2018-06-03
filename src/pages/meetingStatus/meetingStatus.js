@@ -27,6 +27,7 @@ Page({
       url: '../logs/logs'
     })
   },
+ 
   onLoad: function (options) {
     const that = this;
     let inviteeId = options.inviteeId
