@@ -162,8 +162,10 @@ Page({
       },function(){
         _this.closeDialogDate();
         _this.getThemeName(_this.data.orderDate);
+        _this.getPrice();
       })
 
+      
 
      
       
@@ -308,6 +310,7 @@ Page({
       key:"meeting_time",
       data:{}
     })
+    
     
   },
   closeDialog:function(){
@@ -476,6 +479,7 @@ Page({
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
       this.closeDialogTime();
+      ;
     }
     
   },
@@ -714,6 +718,7 @@ Page({
     this.setData({
       dialogTimeShow:!that.data.dialogTimeShow
     })
+    this.getPhone()
   },
   getNowRangeTime:function(){
     var id = wx.getStorageSync('detail').meetingRoomId || wx.getStorageSync('meet_detail').meetingRoomId;
