@@ -79,6 +79,15 @@ Page({
     })
     this.getData(type)
   },
+  onShow: function (options) {
+    this.setData({
+      orderOldList:[],
+      orderList:[],
+      page: 1,
+      totalPages:0
+    })
+    this.getData()
+  },
   dealTime(e){
     var dates=new Date();
     var nowtime=Math.round(e-dates.getTime());
@@ -92,6 +101,7 @@ Page({
   },
   getData:function(type,page){
     let that = this;
+    type = type || this.data.type;
     let orderOldList = this.data.orderList;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/list',

@@ -27,6 +27,7 @@ Page({
     ],
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
+    titleObj:{},
   },
   //邀请参会人
   onShareAppMessage: function (res) {
@@ -175,6 +176,9 @@ Page({
                 'USED':'已使用订单',
                 'CLOSED':'已取消订单'
               }
+              this.setData({
+                titleObj:titleObj
+              })
               let payTitleObj={
                 'OBLIGATION':'应付款',
                 'TOBEUSED':'实付款',
@@ -188,8 +192,8 @@ Page({
                 'FIFTEEN':'提前15分钟',
                 'THIRTY':'提前30分钟'
               }
+
               let detailInfo=Object.assign({},data);
-              console.log(detailInfo)
               detailInfo.themeTime=themeObj[data.alertTime];
               let dateArr=changeTime(data.useDate);
               let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
@@ -208,11 +212,11 @@ Page({
                 detailInfo:detailInfo,
                 hour:hour
               })
-
               wx.setNavigationBarTitle({
                 title: titleObj[data.orderShowStatus]
               })
               _this.startcountDate(detailInfo.expiredTime);
+              _this.date();
         },
         fail:(error)=>{
           
@@ -225,12 +229,27 @@ Page({
     time.timerMint({
       deadline:date/1000,//最终结束的时间戳,
       callback:function (){
-        that.getDetailInfo(that.data.orderId)
+       that.date()
       },//时间结束
       that:this
     });
   },
+  //判断时间
+  date:function(){
+    let timestamp=new Date().getTime();
+    if(timestamp>this.data.detailInfo.expiredTime){
+      console.log(this.data.titleObj)
+      wx.setNavigationBarTitle({
+        title:this.data.titleObj.CLOSED
+      })
+       let orderShowStatus = 'detailInfo.orderShowStatus';
+      
+      this.setData({
+        [orderShowStatus]:'CLOSED'
+      })
 
+    }
+  },
 
   getMeetDetail(){
     let meetingRoomId = this.data.meetingRoomId;
