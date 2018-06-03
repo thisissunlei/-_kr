@@ -111,6 +111,9 @@ Page({
       },
       success:(res)=>{
         console.log(res,"取消参会")
+        wx.redirectTo({
+          url:"../index/index"
+        })
       }
     })
   }

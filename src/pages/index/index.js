@@ -88,6 +88,7 @@ Page({
       }
 
     }),
+    
   //  wx.request({
   //     url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/home',
   //     methods:"GET",
@@ -144,6 +145,9 @@ Page({
       }
     })
     
+  },
+  onShow:function(){
+    this.getAllInfo(this.rq_data.latitude,this.rq_data.longitude)
   },
   getAllInfo:function (){
     var that = this;
