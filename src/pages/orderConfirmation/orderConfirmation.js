@@ -147,21 +147,26 @@ Page({
           break;
         }
       }
-       
-
+      let selectedTime=this.data.meeting_time.time.split('-');
+      let startTime="meeting_time.beginTime";
+      let endTime="meeting_time.endTime"
       this.setData({
         orderDate:{
           time:time,
           timeText:day_con,
         },
-        newDate:time
+        newDate:time,
+        [startTime]:time+' '+selectedTime[0]+':00',
+        [endTime]:time+' '+selectedTime[1]+':00'
+        
       },function(){
         _this.closeDialogDate();
-        _this.getThemeName();
+        _this.getThemeName(_this.data.orderDate);
+        _this.getPrice();
       })
 
-
       
+
      
       
 
@@ -305,6 +310,7 @@ Page({
       key:"meeting_time",
       data:{}
     })
+    
     
   },
   closeDialog:function(){
@@ -473,6 +479,7 @@ Page({
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
       this.closeDialogTime();
+      ;
     }
     
   },
@@ -514,7 +521,7 @@ Page({
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
               remind:_this.getRemind(res.data.alertTime),
-              linkPhone:res.data.linkPhone || '',
+              linkPhone:res.data.linkPhone || _this.data.linkPhone,
               order_pay:res.data
             })
         }
@@ -618,7 +625,7 @@ Page({
           
           let themeName=date+'会议';
           this.setData({
-              orderDate:res.data,
+              orderDate:res,
               themeName:themeName
           });
           this.choose_date = res.time
@@ -711,6 +718,7 @@ Page({
     this.setData({
       dialogTimeShow:!that.data.dialogTimeShow
     })
+    this.getPhone()
   },
   getNowRangeTime:function(){
     var id = wx.getStorageSync('detail').meetingRoomId || wx.getStorageSync('meet_detail').meetingRoomId;
