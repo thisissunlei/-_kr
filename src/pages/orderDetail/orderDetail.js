@@ -71,9 +71,12 @@ Page({
   },
   openMeetDetail:function(e){
     let detailInfo=this.data.detailInfo;
+    let that = this;
     this.setData({
       meetingRoomId:detailInfo.meetingRoomId,
       meetDetailShow:!this.data.meetDetailShow
+    },function(){
+      that.getMeetDetail()
     })
   },
   closeMeetDetail:function(){

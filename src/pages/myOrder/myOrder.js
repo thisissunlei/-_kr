@@ -135,6 +135,7 @@ Page({
   },
   orderPay(e){
     let id = e.target.dataset.order;
+    let that = this;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
         methods:"GET",
@@ -151,10 +152,7 @@ Page({
               'signType':res.data.data.signType,
               'paySign': res.data.data.paySign,
               'success':function(res){
-                console.log(res)
-                wx.navigateTo({
-                  url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
-                })
+                that.getInviteeId(id)
               },
               'fail':function(res){
                 wx.navigateTo({
@@ -163,6 +161,9 @@ Page({
               }
             })
           }else{
+            wx.navigateTo({
+              url: '../orderDetail/orderDetail?id='+data.orderId
+            })
 
             // that.setData({
             //   error:false,
@@ -175,5 +176,23 @@ Page({
            console.log('========',res)
         }
       })
-  }
+  },
+  getInviteeId(orderId){
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
+      methods:"GET",
+      header:{
+        'content-type':"appication/json"
+      },
+      data:{
+        orderId:orderId
+      },
+      success:(res)=>{
+          wx.navigateTo({
+            url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+          })
+      }
+    })
+    
+  },
 })
