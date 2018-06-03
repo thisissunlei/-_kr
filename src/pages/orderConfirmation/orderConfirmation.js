@@ -108,17 +108,17 @@ Page({
       let time=`${dataset.year}-${dataset.month}-${dataset.value}`;
       console.log(e.target.dataset,time)
       var _this=this; 
-
-      wx.setStorage({
-        key:"orderDate",
-        data:{
+      this.setData({
+        orderDate:{
           time:time,
-          timeText:'',
+            timeText:'',
         },
-        success:function(){
-          _this.closeDialogDate();
-        }
+      },function(){
+        _this.closeDialogDate();
       })
+
+
+      
      
       
 
