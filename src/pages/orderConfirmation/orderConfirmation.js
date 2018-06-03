@@ -74,13 +74,14 @@ Page({
   dateBtn :function(e){
     
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
-      console.log(e);
+      
       const new_data = this.data[e.target.dataset.data];
       var old_data = [];
       if(this.last_data!='false'){
         if(this.last_data=='date_data1'){
           old_data = this.data['date_data1'];
           old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
+          console.log(old_data[this.last_btn_num]['type'])
           this.setData({
             date_data1:old_data
           });
@@ -106,12 +107,46 @@ Page({
       this.last_data = e.target.dataset.data;
       let dataset=e.target.dataset
       let time=`${dataset.year}-${dataset.month}-${dataset.value}`;
-      console.log(e.target.dataset,time)
+      //console.log(e.target.dataset,time)
       var _this=this; 
+      const time_date = new Date(time);
+      const today_date = new Date();
+      let day_con = '';
+      if(today_date.getDate() == time_date.getDate()){
+        day_con = '今天';
+      }else if(parseInt(today_date.getDate())+1 == time_date.getDate()){
+        day_con = '明天';
+      }else{
+        switch (parseInt(time_date.getDay())){
+          case 0:
+            day_con = '周日';
+          break;
+          case 1:
+            day_con = '周一';
+          break;
+          case 2:
+            day_con = '周二';
+          break;
+          case 3:
+            day_con = '周三';
+          break;
+          case 4:
+            day_con = '周四';
+          break;
+          case 5:
+            day_con = '周五';
+          break;
+          case 6:
+            day_con = '周六';
+          break;
+        }
+      }
+       
+
       this.setData({
         orderDate:{
           time:time,
-            timeText:'',
+          timeText:day_con,
         },
       },function(){
         _this.closeDialogDate();
@@ -125,8 +160,15 @@ Page({
 
     }
   },
-  dealDate:function(today_month,bool){
+  dealDate:function(today_month,bool,choose_date){
+    console.log(choose_date,999999)
+    //const choose_
     const week = today_month.getDay();
+    if(choose_date){
+      this.last_btn_num = parseInt(week)+parseInt(choose_date)-1;
+    }
+    
+    console.log(8888,this.last_btn_num)
     const today = parseInt(new Date().getDate());
     today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
@@ -146,10 +188,18 @@ Page({
               type:'before'
             });
           }else{
-            data.push({
-              value:i-week+1,
-              type:'next'
-            });
+            if(i==(week+choose_date-1)){
+              data.push({
+                value:i-week+1,
+                type:'active next'
+              });
+            }else{
+              data.push({
+                value:i-week+1,
+                type:'next'
+              });
+            }
+            
           }
           
           this.all_day_num++;
@@ -161,10 +211,18 @@ Page({
               type:'before'
             });
           }else{
-            data.push({
-              value:'今天',
-              type:'now'
-            });
+            if(i==(week+choose_date-1)){
+              data.push({
+                value:'今天',
+                type:'now active'
+              });
+            }else{
+              data.push({
+                value:'今天',
+                type:'now'
+              });
+            }
+            
           }
           this.all_day_num++;
           break;
@@ -175,10 +233,18 @@ Page({
               type:'before'
             });
           }else{
-            data.push({
-              value:'明天',
-              type:'now'
-            });
+            if(i==(week+choose_date-1)){
+              data.push({
+                value:'明天',
+                type:'now active'
+              });
+            }else{
+              data.push({
+                value:'明天',
+                type:'now'
+              });
+            }
+            
           }
           
           this.all_day_num++;
@@ -190,12 +256,20 @@ Page({
               type:'before'
             });
           }else{
-            data.push({
-              value:i-week+1,
-              type:'next'
-            });
+            if(i==(week+choose_date-1)){
+              data.push({
+                value:i-week+1,
+                type:'active next'
+              });
+            }else{
+              data.push({
+                value:i-week+1,
+                type:'next'
+              });
+            }
+            
           }
-  
+
           break;
         default:
           data.push({
@@ -316,7 +390,7 @@ Page({
   tapTime:function(e){
     
     var indexParam = e.currentTarget.dataset.index;
-    console.log(this.data.rangeTime);
+    //console.log(this.data.rangeTime);
     var test = [].concat(this.data.rangeTime);
     // console.log(this.data.selectedTime);
     // var selectedTime = this.data.selectedTime;
@@ -355,7 +429,7 @@ Page({
         }
     }
     var that = this;
-    console.log("all",selectedTime);
+    //console.log("all",selectedTime);
     if(bool){
       this.setData({
         rangeTime1:[].concat(rangeTime.slice(0,8)),
@@ -378,8 +452,8 @@ Page({
       })
       return ;
     }
-    console.log("实际",this.data.selectedTime);
-    console.log(this.data.meeting_time);
+    //console.log("实际",this.data.selectedTime);
+    //console.log(this.data.meeting_time);
     
   },
   stopPropagation:function(){
@@ -489,7 +563,9 @@ Page({
           _this.setData({
               orderDate:res.data,
               themeName:themeName
-          })
+          });
+          _this.choose_date = res.data.time
+          _this.initDate();
         }
       }
     })
@@ -519,7 +595,7 @@ Page({
 
     
     this.getNowRangeTime();
-    this.initDate()
+    
 
     
     // var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
@@ -539,12 +615,30 @@ Page({
   },
 
   initDate:function(){
-    const today_date = new Date();
     
+    const choose_date = new Date(this.choose_date).getDate();
+    const choose_month = new Date(this.choose_date).getMonth();
+    
+    
+
+    const today_date = new Date();
+    let date1='',date2='';
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    const date1 = this.dealDate(today_month,true);
-    const date2 = this.dealDate(next_month,false); 
+    if(choose_month == today_date.getMonth()){
+      this.last_data = 'date_data1';
+      date1 = this.dealDate(today_month,true,choose_date);
+      date2 = this.dealDate(next_month,false); 
+    }else if (choose_month == next_month.getMonth()){
+      this.last_data = 'date_data2';
+      date1 = this.dealDate(today_month,true);
+      date2 = this.dealDate(next_month,false,choose_date); 
+    }else{
+      date1 = this.dealDate(today_month,true);
+      date2 = this.dealDate(next_month,false); 
+    }
+    
+    
     this.setData({
       date_data1:date1,
       date_data2:date2,
@@ -800,7 +894,7 @@ Page({
   getMeetDetail(){
     let that = this;
     let meetingRoomId = this.data.meetingRoomId;
-    console.log('=======',meetingRoomId)
+    //console.log('=======',meetingRoomId)
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
         method:"GET",
@@ -810,7 +904,7 @@ Page({
         success:(res)=>{
           if(res.data.code>0){
             let meetingDetail = res.data.data;
-            console.log(meetingDetail.device)
+            //console.log(meetingDetail.device)
             that.setData({
               meetingDetail:meetingDetail
             })
