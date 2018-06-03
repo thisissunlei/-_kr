@@ -8,7 +8,6 @@ Page({
   data: {
     inviteer:[],
     inviteeId:'',
-    user_info:{},
     btn_bool:true,
     hint:[
       {
@@ -83,6 +82,7 @@ console.log(99999)
               code: res.code
             },
             success:function(res){
+              console.log(res,'登陆接口成功')
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
               app.globalData.openid = res.data.data['openid'];
               that.getUserInfo();

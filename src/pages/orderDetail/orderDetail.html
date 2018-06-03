@@ -100,7 +100,7 @@
                 立即支付
             </view>
             <button open-type="share" bindtap="onShareAppMessage" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn" style="border:none">邀请参会人</button>
-            <view wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-btn" bindtap="jumpMeet">
+            <view class="u-footer-btn" bindtap="jumpMeet">
                 查看会议
             </view>
             <view wx:if="{{detailInfo.orderShowStatus=='USED'}}" class="u-footer-btn" bindtap="jumpMeet">
