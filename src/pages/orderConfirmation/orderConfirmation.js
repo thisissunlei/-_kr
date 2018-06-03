@@ -284,7 +284,7 @@ Page({
         key:'meet_detail',
         success:function(res){
           if(res.data){
-            
+
             _this.setData({
                 detailInfo:res.data
               })
@@ -555,6 +555,7 @@ Page({
        
   },
   weChatPay:function(data){
+    var _this=this;
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
       methods:"POST",
@@ -572,13 +573,10 @@ Page({
             'signType': data.signType,
             'paySign': data.paySign,
             'success':function(response){
-              console.log('response----',response)
-                wx.navigateTo({
-                  url: '../paySuccess/paySuccess?inviteeId='+data.inviteeId
-                })
+              _this.getInviteeId(data.orderId);
+               
             },
             'fail':function(response){
-              console.log('response-----',response)
                 wx.navigateTo({
                   url: '../orderDetail/orderDetail?id='+data.orderId
                 })
@@ -587,10 +585,24 @@ Page({
           })
       }
     })
-
-
-
-
+    
+  },
+  getInviteeId(orderId){
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
+      methods:"GET",
+      header:{
+        'content-type':"appication/json"
+      },
+      data:{
+        orderId:orderId
+      },
+      success:(res)=>{
+          wx.navigateTo({
+            url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+          })
+      }
+    })
     
   },
   getMeetDetail(){
