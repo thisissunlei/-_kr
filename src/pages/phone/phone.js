@@ -123,7 +123,7 @@ Page({
     let that = this;
     if(type == 'submit'){
       this.setData({
-        inputValue: options.value || '',
+        inputValue: phone || '',
         type:options.type,
         orderId:options.orderId
 
