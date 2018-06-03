@@ -153,7 +153,7 @@ Page({
       inviteer:this.data.inviteer
     })
     app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/confirmArriving',
+      url:app.globalData.KrUrl+'api/gateway/krmting//invitee/joinInvitee',
       methods:"GET",
       header:{
         "content-type":"application/json"

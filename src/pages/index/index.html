@@ -28,14 +28,14 @@
             <view style="position: absolute;top: 0;left: 0;">
                 <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':item.meetingStatus === 'ARRVING'?'already':'overdue'}}">{{item.meetingStatus === 'WAIT'?'待入场':item.meetingStatus === 'ARRVING'?'已入场':'已过期'}}</view>
                 <view class="metting-title"> 
-                    <text class="metting-time">11-29(周三)9:00-10:30</text>
-                    <text class="metting-name">产品技术部例会</text>
+                    <text class="metting-time">{{item.meetingTime}}</text>
+                    <text class="metting-name">{{item.theme}}</text>
                 </view>
                 <view class="metting-address">
-                  <text>海航实业大厦</text>
+                  <text>{{item.MeetingRoomName}}</text>
                   <view>
                     <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
-                    <text class="metting-map">北京市朝阳区</text>
+                    <text class="metting-map">{{item.address}}</text>
                   </view>
                 </view> 
             </view>
