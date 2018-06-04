@@ -413,7 +413,35 @@ page{
     justify-content: space-around;
     align-items: center;
     height: 178rpx;
+}
+
+.u-dialog-time .top .now-date{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     flex-direction: column;
+}
+
+.u-dialog-time .top .pre-date .pre-icon{
+    transform: rotate(180deg);
+    width:20rpx;
+    height:22rpx;
+    margin-right:14rpx;
+}
+
+.u-dialog-time .top .next-date .next-icon{
+    width:20rpx;
+    height:22rpx;
+    margin-left:14rpx;
+}
+
+
+.u-dialog-time .top .pre-date,.u-dialog-time .top .next-date{
+    font-family: PingFang-SC-Medium;
+    font-size: 26rpx;
+    color: #666666;
+    display:flex;
+    align-items: center;
 }
 
 .u-dialog-time .top .first-row{
@@ -523,16 +551,19 @@ page{
 
 .u-dialog-time .tag .check{
     background: #fff;
+    color: #666666;
 }
 
 .u-dialog-time .tag .uncheck{
     background: #EDEDED;
     border: 1px solid #E5E5E5;
+    color: #666666;
 }
 
 .u-dialog-time .tag .checked{
     background: #FAC367;
     margin-right: 0;
+    color: #724500;
 }
 
 .u-dialog-time .unsure{
@@ -858,6 +889,7 @@ page{
   .active{
     background-image: linear-gradient(57deg, #FAD961 0%, #F79C1C 100%); 
     border-radius: 50%;
+    color:#fff;
   }
   .day{
     display: inline-block;

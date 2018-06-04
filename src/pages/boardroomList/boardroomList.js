@@ -22,6 +22,7 @@ Page({
     meetingRoomId:'',
     meetDetail:{},
     allDays:[],
+    isToday:false,
     nowDateIndex:0,
     rangeTime:[{
       disabled:false,
@@ -191,7 +192,6 @@ Page({
     }
   },
   scrollTopDate:function(validIndex){
-    // console.log(validIndex);
     var topDate = this.data.topDate;
     var indexParam = validIndex;
     var that = this;
@@ -261,6 +261,7 @@ Page({
     let hours = now.getHours();
     let minutes = now.getMinutes();
     let limitTime = 2*hours+1+(minutes>29?1:0);
+    var that = this;
     boardroomList.forEach((item,index) => {
       var rangeTime = [];
       for (let i = 19; i < 39; i++) {
@@ -272,8 +273,13 @@ Page({
       }
       item.rangeTime = rangeTime;
       item.rangeTime.forEach((timeItem,timeIndex) => {
-          if(item.disableTime.indexOf(timeItem.number)>-1 || timeItem.number<limitTime){//过滤已过去的时间
+          if(item.disableTime.indexOf(timeItem.number)>-1){//过滤已过去的时间
               timeItem.disabled = true;
+          }
+          if(that.data.isToday){
+            if(timeItem.number<limitTime){
+              timeItem.disabled = true;
+            }
           }
       });
     });
@@ -366,6 +372,11 @@ Page({
         topDate[0].actived = true;
       }
       
+    }
+    if(topDate[0].week=="今天"){
+      this.setData({
+        // isToday:true
+      })
     }
     // var _this = this;
     var orderDate = {
