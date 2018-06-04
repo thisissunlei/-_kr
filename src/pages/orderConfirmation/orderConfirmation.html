@@ -219,7 +219,7 @@
             <view wx:if="{{selectedTime.length>0}}" class="show-time">
                 {{meeting_time.time}}
             </view>
-            <view catchtap="subTime" class="{{selectedTime.length>0?'sured':'unsure'}}">选择使用时间</view>
+            <view catchtap="subTime" class="{{selectedTime.length>0?'sured':'unsure'}}">{{selectedTime.length>0?'确认使用时间':'选择使用时间'}}</view>
         </view>
     </view>
 

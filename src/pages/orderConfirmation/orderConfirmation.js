@@ -147,23 +147,24 @@ Page({
         }
       }
       let Time="meeting_time.time";
+      
       this.setData({
         orderDate:{
           time:time,
           timeText:day_con,
         },
         [Time]:'',
-        newDate:time,
+        nowDate:time,
         priceCount:0,
         totalCount:0
-       
         
       },function(){
-        console.log('orderDate---->>>',_this.data.orderDate)
+       
         _this.closeDialogDate();
         _this.getThemeName(_this.data.orderDate);
        
       })
+      
 
       
 
@@ -444,6 +445,7 @@ Page({
     }
     var that = this;
     //console.log("all",selectedTime);
+    console.log('that.data.nowDate+',that.data.nowDate)
     if(bool){
       this.setData({
         rangeTime1:[].concat(rangeTime.slice(0,8)),
@@ -725,6 +727,12 @@ Page({
     var that = this;
     var disableTime = [];
     var newRangeTime = [];
+    //过滤已过去的时间
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let limitTime = 2*hours+1+(minutes>29?1:0);
+
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/room/disableTime',
       methods:"GET",
@@ -745,7 +753,7 @@ Page({
           newRangeTime.push(rangeTimeItem);
         }
         newRangeTime.forEach((timeItem,timeIndex) => {
-            if(disableTime.indexOf(timeItem.number)>-1){
+            if(disableTime.indexOf(timeItem.number)>-1 || timeItem.number<limitTime){//过滤已过去的时间
                 timeItem.disabled = true;
             }
         });
@@ -804,6 +812,7 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName
     }
+    
     var _this=this;
         app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/krmting/order/create',

@@ -21,6 +21,8 @@ Page({
     meetDetailShow:false,
     meetingRoomId:'',
     meetDetail:{},
+    allDays:[],
+    nowDateIndex:0,
     rangeTime:[{
       disabled:false,
       number:'19'
@@ -209,11 +211,13 @@ Page({
     this.setData({
       topDate:newData,
       dateScrollLeft:validIndex*53,
-      nowDate:topDate[validIndex].date
+      nowDate:topDate[validIndex].date,
+      nowDateIndex:validIndex
     },function(){
       that.getData();
       wx.setStorageSync('nowDate',topDate[validIndex].date);
       wx.setStorageSync('orderDate',orderDate);
+      wx.setStorageSync('nowDateIndex',validIndex);
     })
   },
   //获取会议室列表
@@ -232,7 +236,9 @@ Page({
         success:(res)=>{
           that.setData({
             totalPages:res.data.data.totalPages,
-            boardroomList:res.data.data.items
+            boardroomList:res.data.data.items,
+            page:1,
+            nextPage:2,
           },function(){
             that.reloadData();
           })
@@ -250,6 +256,11 @@ Page({
   //切换日期后重载数据
   reloadData:function(){
     var boardroomList = this.data.boardroomList;
+    //过滤已过去的时间
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let limitTime = 2*hours+1+(minutes>29?1:0);
     boardroomList.forEach((item,index) => {
       var rangeTime = [];
       for (let i = 19; i < 39; i++) {
@@ -261,7 +272,7 @@ Page({
       }
       item.rangeTime = rangeTime;
       item.rangeTime.forEach((timeItem,timeIndex) => {
-          if(item.disableTime.indexOf(timeItem.number)>-1){
+          if(item.disableTime.indexOf(timeItem.number)>-1 || timeItem.number<limitTime){//过滤已过去的时间
               timeItem.disabled = true;
           }
       });
@@ -364,10 +375,14 @@ Page({
     this.setData({
       topDate:topDate,
       nowDate:topDate[0].date,
+      allDays:topDate,
+      nowDateIndex:0,
     },function(){
       that.getData();
       wx.setStorageSync('nowDate',topDate[0].date);
       wx.setStorageSync('orderDate',orderDate);
+      wx.setStorageSync('topDate',topDate);
+      wx.setStorageSync('nowDateIndex',0);
     })
   },
   selectTopDate:function(e){
@@ -392,15 +407,16 @@ Page({
     this.setData({
       topDate:newData,
       nowDate:date,
+      nowDateIndex:indexParam
     },function(){
       that.getData();
       wx.setStorageSync('nowDate',date);
       wx.setStorageSync('orderDate',orderDate);
+      wx.setStorageSync('nowDateIndex',indexParam);
     })
   },
 
   changeTimeColor:function(param){
-    console.log(param);
     var a = false;
     var dateType = '';
     var dateIndex = '';
@@ -479,6 +495,8 @@ Page({
           that.setData({
               boardroomList:[].concat(that.data.boardroomList,res.data.data.items),
               nextPage:that.data.nextPage+1
+          },function(){
+            that.reloadData();
           })
         }
       })
