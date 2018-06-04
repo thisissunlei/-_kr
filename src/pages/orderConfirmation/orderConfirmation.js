@@ -724,6 +724,12 @@ Page({
     var that = this;
     var disableTime = [];
     var newRangeTime = [];
+    //过滤已过去的时间
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let limitTime = 2*hours+1+(minutes>29?1:0);
+
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/room/disableTime',
       methods:"GET",
@@ -744,7 +750,7 @@ Page({
           newRangeTime.push(rangeTimeItem);
         }
         newRangeTime.forEach((timeItem,timeIndex) => {
-            if(disableTime.indexOf(timeItem.number)>-1){
+            if(disableTime.indexOf(timeItem.number)>-1 || timeItem.number<limitTime){//过滤已过去的时间
                 timeItem.disabled = true;
             }
         });
