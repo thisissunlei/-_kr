@@ -191,7 +191,7 @@ Page({
     }
   },
   scrollTopDate:function(validIndex){
-    // console.log(validIndex);
+    console.log(validIndex);
     var topDate = this.data.topDate;
     var indexParam = validIndex;
     var that = this;
@@ -388,6 +388,7 @@ Page({
   selectTopDate:function(e){
     var topDate = this.data.topDate;
     var indexParam = e.currentTarget.dataset.index;
+    console.log(indexParam);
     this.changeTimeColor(indexParam);
     var date = e.currentTarget.dataset.date;
     var week = e.currentTarget.dataset.week;

@@ -45,8 +45,8 @@ Page({
     errorMessage:'',
     checkMessage:false,
     dialogDate:false,
-
-
+    nowDateIndex:wx.getStorageSync('nowDateIndex'),
+    topDate:wx.getStorageSync('topDate'),
 
     array: [{
       message: 'foo',
@@ -409,17 +409,7 @@ Page({
     // var selectedTime = this.data.selectedTime;
     var selectedTime = [];
     var rangeTime=[];
-    // test.for((item,index)=>{
-      
-    //   //1 判断长度  2 排序  3最小到最大判断  4变色  5 push
-    //   if(!item.disabled && item.number==indexParam){
-    //     item.actived = !item.actived; 
-    //   }
-    //   if(item.actived){
-    //     selectedTime.push(item.number);
-    //   }
-    //   return item;
-    // })
+    
     for(let i=0; i < test.length; i++){
       //重点
       var item=Object.assign({},test[i]);
@@ -465,9 +455,6 @@ Page({
       })
       return ;
     }
-    //console.log("实际",this.data.selectedTime);
-    //console.log(this.data.meeting_time);
-    
   },
   stopPropagation:function(){
     return ;
@@ -589,25 +576,13 @@ Page({
         }
       }
     })
-
     
     this.getNowRangeTime();
-    
-
-    
-    // var rangeTime = wx.getStorageSync('rangeTime').map((item,index)=>{
-    //   item.actived = false; 
-    //   return item;
-    // })
-    // console.log(rangeTime);
     this.setData({
-    //   rangeTime1:rangeTime.slice(0,8),
-    //   rangeTime2:rangeTime.slice(8,16),
-    //   rangeTime3:rangeTime.slice(16),
-    //   rangeTime:rangeTime,
-      nowDate:wx.getStorageSync('nowDate')
+      nowDate:wx.getStorageSync('nowDate'),
+      nowDateIndex:wx.getStorageSync('nowDateIndex'),
+      topDate:wx.getStorageSync('topDate'),
     })
-    
     
   },
   getThemeName:function(res){
