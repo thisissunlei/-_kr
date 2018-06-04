@@ -33,7 +33,7 @@
 			  		</view>
 		  		</navigator>
 		  		<div class="button-box" >
-		  			<view class="time-section" wx:if="{{item.minute!=-1}}">
+		  			<view class="time-section" wx:if="{{item.minute>-1}}">
 		  				<image class="time-img" src="../images/public/clock_icon.png"></image>
 		  				<span class="time-name">剩余时间：</span>
 			            <view class="time-down">{{item.minute}}:</view>
