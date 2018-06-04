@@ -85,6 +85,9 @@ Page({
               app.globalData.openid = res.data.data['openid'];
               that.getUserInfo();
               that.detailList();
+            },
+            fail:function(res){
+              console.log(res,8888887777)
             }
           })
         } else {
