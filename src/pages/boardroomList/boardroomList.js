@@ -333,7 +333,7 @@ Page({
         day:'',
         actived:false,
         bool:true,
-        date:`${year}-${month}-${day}`
+        date:`${year}-${month<10?('0'+month):month}-${day<10?('0'+day):day}`
       };
       if(i<2){
         dateItem.week = (i==0?'今天':'明天');
