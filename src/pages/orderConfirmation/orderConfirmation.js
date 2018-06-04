@@ -728,7 +728,7 @@ Page({
           newRangeTime.push(rangeTimeItem);
         }
         newRangeTime.forEach((timeItem,timeIndex) => {
-            if(disableTime.indexOf(timeItem.number)>-1 || timeItem.number<limitTime){//过滤已过去的时间
+            if(disableTime.indexOf(timeItem.number)>-1){//过滤已过去的时间
                 timeItem.disabled = true;
             }
         });

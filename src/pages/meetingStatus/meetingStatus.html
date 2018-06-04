@@ -5,7 +5,7 @@
       <view class='top'>
         <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
         <view  class="metting-wrapper">
-          <view class="metting-mark" wx:if="{{meetingStatus===EXPIRED?true:false}}">已过期</view>
+          <view class="metting-mark" wx:if="{{status}}">已过期</view>
           <view class="title">
             <text class="metting-time">{{meetingTime}}</text>
             <text class="metting-name">{{themeName}}</text>
@@ -46,12 +46,12 @@
             </view>
           </block>
         </view>
-        <view style="padding-bottom: 198rpx;" wx:if="{{jion===true?false:true}} || {{meetingStatus===EXPIRED?false:true}}">
+        <view style="padding-bottom: 198rpx;" wx:if="{{myjion}}">
           <view class='btn' bindtap="jion">
             我要参与
           </view>
         </view>
-        <view style="padding-bottom: 198rpx;" wx:if="{{meetingStatus===EXPIRED?true:false}}">
+        <view style="padding-bottom: 198rpx;" wx:if="{{advance}}">
           <view class='btn' bindtap="proceed">
             我要预定
           </view>

@@ -86,15 +86,17 @@
  .mycanvas{
    display: block;
    margin: 8px 8px;
+   position: relative;
+   z-index: -999999999;
  }
  .pics .code-desc{
    font-size: 28rpx;
    color: #666666;
    margin-top: 196px;
  }
- /*.content .bottom_text{
+ .content .bottom_text{
    margin-top: 8px;
- }*/
+ }
  .bottom_text .metting-house{
    font-size: 14px;
    color: #333333;
@@ -142,8 +144,13 @@
   border-radius:50%;
 }
 .conferee .list text{
+  width: 86rpx;
+  height: 86rpx;
   font-size: 24rpx;
   color: #FFFFFF; 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .conferee .list .originator{
   width: 32rpx;

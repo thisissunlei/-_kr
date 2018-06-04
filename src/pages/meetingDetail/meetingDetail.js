@@ -8,6 +8,9 @@ Page({
   data: {
     inviteer:[],
     inviteeId:'',
+    footer:'',
+    contact:'',
+    contact:false,
     hint:[
       {
         'title':'到了如何使用会议室？',
@@ -54,6 +57,17 @@ Page({
           limitCount:res.data.data.limitCount,
           meetingStatus:res.data.data.meetingStatus,
         })
+        if(this.data.meetingStatus==='EXPIRED'){
+          this.setData({
+            footer:false,
+            contact:true
+          })
+        }else{
+          this.setData({
+            footer:true,
+            contact:false
+          })
+        }
       }
     })
     this.createQrCode('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",160,160);

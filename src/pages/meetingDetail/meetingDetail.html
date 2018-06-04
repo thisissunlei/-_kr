@@ -65,14 +65,14 @@
         </block>
       </view>
     </view>
-  <view class='footer' wx:if="{{meetingStatus==='EXPIRED'?false:true}}">
+  <view class='footer' wx:if="{{footer}}">
       <text bindtap="cancelMeeting">取消会议</text>
       <view class='btns'>
         <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
         <button open-type="share" bindtap="onShareAppMessage" style="border:none"><text class='yaoqing'>邀请参会人</text></button>
       </view>
   </view>
-  <view class='footer' wx:if="{{meetingStatus==='EXPIRED'?true:false}}">
+  <view class='footer' wx:if="{{contact}}">
     <view class='btns'>
       <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
     </view>
