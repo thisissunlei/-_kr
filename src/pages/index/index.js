@@ -161,6 +161,7 @@ Page({
       success:(res)=>{
         console.log(res.data.data,888888881111)
         let buildingList = res.data.data.buildingList
+        let myMeeting = res.data.data.myMeeting
         buildingList.forEach(element => {
           if(element.distance>1000){
             element.distance = (element.distance/1000).toFixed(2)+'km' 
@@ -173,8 +174,8 @@ Page({
           buildingList:res.data.data.buildingList,
           myMeeting:res.data.data.myMeeting,
         })
-        buildingList.forEach(element => {
-          if(element.meetingStatus == 'EXPIRED'){
+        myMeeting.forEach(element => {
+          if(element.meetingStatus == 'EXPIRED' || myMeeting.length<0){
             that.setData({
               metting:false
             })
