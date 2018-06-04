@@ -147,7 +147,7 @@ Page({
       //let selectedTime=this.data.meeting_time.time.split('-');
       //let startTime="meeting_time.beginTime";
       //let endTime="meeting_time.endTime";
-      let Time="meeting_time.time"
+      let Time="meeting_time.time";
       this.setData({
         orderDate:{
           time:time,
@@ -155,10 +155,13 @@ Page({
         },
         [Time]:'',
         newDate:time,
+        priceCount:0,
+        totalCount:0
         //[startTime]:time+' '+selectedTime[0]+':00',
         //[endTime]:time+' '+selectedTime[1]+':00'
         
       },function(){
+        console.log('orderDate---->>>',this.data.orderDate)
         _this.closeDialogDate();
         _this.getThemeName(_this.data.orderDate);
         _this.getPrice();
