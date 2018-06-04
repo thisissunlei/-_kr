@@ -13,6 +13,7 @@ Page({
     latitude:'',
     longitude:'',
   },
+  
   func_bool_g:false,
   func_bool_l:false,
   func_bool_l2:false,
@@ -160,9 +161,19 @@ Page({
       },
       success:(res)=>{
         console.log(res.data.data,888888881111)
+        let buildingList = res.data.data.buildingList
+        var distanceArr = []
+        buildingList.forEach(element => {
+          if(element.distance>1000){
+            element.distance = (element.distance/1000).toFixed(2)+'km' 
+          }else{
+            element.distance = element.distance+'m'
+          }
+          
+        });
         that.setData({
           buildingList:res.data.data.buildingList,
-          myMeeting:res.data.data.myMeeting
+          myMeeting:res.data.data.myMeeting,
         })
         // if(res.data.data.myMeeting.length>0){
         //   that.setData({
