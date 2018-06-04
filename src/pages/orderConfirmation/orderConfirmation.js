@@ -161,7 +161,7 @@ Page({
         //[endTime]:time+' '+selectedTime[1]+':00'
         
       },function(){
-        console.log('orderDate---->>>',this.data.orderDate)
+        console.log('orderDate---->>>',_this.data.orderDate)
         _this.closeDialogDate();
         _this.getThemeName(_this.data.orderDate);
         _this.getPrice();
