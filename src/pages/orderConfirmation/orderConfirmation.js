@@ -487,9 +487,9 @@ Page({
     let hours=data.meeting_time.hours;
     let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
     let unitCost=data.detailInfo.unitCost;
-    let totalCount=price*hours*2;
-    let priceCount=unitCost*hours*2;
-    
+    let totalCount=unitCost*hours*2;
+    let priceCount=price*hours*2;
+   console.log('data.isFirst----',data.isFirst)
     if(data.isFirst){
       if(hours>2){
         this.setData({
@@ -509,7 +509,7 @@ Page({
           priceCount:priceCount
         })
     }
-    
+   
   },
   onShow:function(){
     var _this=this;
@@ -655,20 +655,20 @@ Page({
       date2 = this.dealDate(next_month,false); 
     }
     
-    
+    const year_value = today_date.getFullYear()==new Date().getFullYear() ? '' : today_date.getFullYear() + '年';
     this.setData({
       date_data1:date1,
       date_data2:date2,
       date_now:{
         month:today_date.getMonth()+1,
         year:today_date.getFullYear(),
-        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',
+        value:year_value+(parseInt(today_date.getMonth())+1) + '月',
         choose:''
       },
       date_next:{
         month:today_date.getMonth()+2,
         year:today_date.getFullYear(),
-        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
+        value:year_value+(parseInt(today_date.getMonth())+2) + '月',
         choose:''
       }
     });
