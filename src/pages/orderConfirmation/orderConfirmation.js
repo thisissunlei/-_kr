@@ -731,6 +731,9 @@ Page({
             if(disableTime.indexOf(timeItem.number)>-1){//过滤已过去的时间
                 timeItem.disabled = true;
             }
+            if(that.data.orderDate.timeText=="今天" && timeItem.number<limitTime){
+                timeItem.disabled = true;
+            }
         });
         that.setData({
           rangeTime1:newRangeTime.slice(0,8),
