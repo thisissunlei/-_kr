@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+    con:1,
     meetingDetail:{},
     themeName:'',
     remind:'提前15分钟',
@@ -146,23 +147,24 @@ Page({
         }
       }
       let Time="meeting_time.time";
+      
       this.setData({
         orderDate:{
           time:time,
           timeText:day_con,
         },
         [Time]:'',
-        newDate:time,
+        nowDate:time,
         priceCount:0,
         totalCount:0
-       
         
       },function(){
-        console.log('orderDate---->>>',_this.data.orderDate)
+       
         _this.closeDialogDate();
         _this.getThemeName(_this.data.orderDate);
        
       })
+      
 
       
 
@@ -433,6 +435,7 @@ Page({
     }
     var that = this;
     //console.log("all",selectedTime);
+    console.log('that.data.nowDate+',that.data.nowDate)
     if(bool){
       this.setData({
         rangeTime1:[].concat(rangeTime.slice(0,8)),
@@ -784,6 +787,7 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName
     }
+    
     var _this=this;
         app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
@@ -863,7 +867,7 @@ Page({
             },
             'fail':function(response){
                 wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId
+                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con='+1
                 })
             },
            

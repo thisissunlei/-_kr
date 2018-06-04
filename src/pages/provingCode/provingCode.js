@@ -33,7 +33,9 @@ Page({
       key: 'user_info',
       success: function(res) {
         if(res.data){
-          that.user_info = res.data.user_info || {};
+          that.setData({
+            user_info : res.data.user_info || {}
+          })
         }
         }
       })
@@ -94,17 +96,22 @@ Page({
         success:(res)=>{
 
 
-          if(res.data.code>0){
+          if(res.data.code!='-1'){
             that.user_info={
               phone : that.data.phone
             }
             wx.setStorage({
               key:"user_info",
-              data:that.user_info,
+              data:that.data.user_info,
               success:function(){
                 that.setData({
                   success:true
                 })
+                setTimeout(function(){
+                  that.setData({
+                    success:false
+                  })
+                },2000)
                 that.getOrderData();
               }
             })
@@ -156,7 +163,6 @@ Page({
     let data=this.data;
     
     let orderData = create_order;
-    var _this=this;
         app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
           methods:"GET",
@@ -166,26 +172,25 @@ Page({
           data:orderData.create_order,
           
           success:(res)=>{
-            let data = res.data.data;
             let code=res.data.code;
-            switch (code){
-              case -1:
-                  that.setData({
-                    phoneError:true,
-                    errorMessage:res.data.message
-                  })
-                  setTimeout(function(){
-                    _this.setData({
-                      phoneError:false,
-                      errorMessage:''
-                    })
-                  },2000)
-                break;
-              default:
-                that.weChatPay(data)
-                that.clearStorage()
-                break;
-            } 
+            if(code==-1){
+              that.setData({
+                phoneError:false,
+                success:false,
+                errorMessage:res.data.message
+              })
+              setTimeout(function(){
+                that.setData({
+                  phoneError:true,
+                  errorMessage:'',
+
+                  
+                })
+              },2000)
+            }else{
+              that.weChatPay(data)
+              that.clearStorage()
+            }
 
           },
           

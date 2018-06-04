@@ -16,7 +16,7 @@
                   <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
                   <image src="../images/indexImg/code.png" wx:if="{{meetingStatus==='EXPIRED'?false:true}}" class="img"></image>
                   <view class="img-box">
-                    <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
+                      <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
                       <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
                   </view>
                 </view>
