@@ -517,6 +517,26 @@ Page({
       }
     })
   },
+  bool:true,
+  //前一天  后一天
+  toPreDay:function(e){
+    console.log(e);
+    var that = this;
+    if(this.bool){
+      this.bool = false;
+      var length = this.data.topDate.length;
+      var nowDateIndex = this.data.nowDateIndex;
+      if(nowDateIndex>length-1){
+        return ;
+      }
+      this.setData({
+        nowDateIndex:nowDateIndex-1,
+      },function(){
+        that.bool = true;
+      })
+    }
+    
+  },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
     this.getIsfirst();
