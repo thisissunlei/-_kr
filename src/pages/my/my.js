@@ -43,7 +43,7 @@ Page({
         },
         success:(res)=>{
           let userInfo=Object.assign({},res.data.data);
-              userInfo.phone=this.changePhone(userInfo.phone)
+              userInfo.phone=userInfo.phone
             this.setData({
                 userInfo:userInfo
             })
@@ -66,8 +66,5 @@ Page({
     })
   },
 
-  changePhone:function(phone){
-    phone = phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
-    return  phone;
-  }
+ 
 })
