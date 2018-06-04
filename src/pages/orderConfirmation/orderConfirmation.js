@@ -487,9 +487,9 @@ Page({
     let hours=data.meeting_time.hours;
     let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
     let unitCost=data.detailInfo.unitCost;
-    let totalCount=price*hours*2;
-    let priceCount=unitCost*hours*2;
-    
+    let totalCount=unitCost*hours*2;
+    let priceCount=price*hours*2;
+   console.log('data.isFirst----',data.isFirst)
     if(data.isFirst){
       if(hours>2){
         this.setData({
@@ -509,7 +509,7 @@ Page({
           priceCount:priceCount
         })
     }
-    
+   
   },
   onShow:function(){
     var _this=this;
