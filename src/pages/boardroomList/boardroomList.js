@@ -204,6 +204,15 @@ Page({
       }
       return item;
     })
+    if(validIndex==0 && topDate[0].week=="今天"){
+      this.setData({
+        isToday:true
+      })
+    }else{
+      this.setData({
+        isToday:false
+      })
+    }
     var orderDate = {
       time:topDate[validIndex].date,
       timeText:topDate[validIndex].week
@@ -375,7 +384,11 @@ Page({
     }
     if(topDate[0].week=="今天"){
       this.setData({
-        // isToday:true
+        isToday:true
+      })
+    }else{
+      this.setData({
+        isToday:false
       })
     }
     // var _this = this;
@@ -411,6 +424,15 @@ Page({
       }
       return item;
     })
+    if(indexParam==0 && topDate[0].week=="今天"){
+      this.setData({
+        isToday:true
+      })
+    }else{
+      this.setData({
+        isToday:false
+      })
+    }
     var orderDate = {
       time:date,
       timeText:week
