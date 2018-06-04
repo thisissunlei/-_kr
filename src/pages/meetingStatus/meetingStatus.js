@@ -6,7 +6,7 @@ const app = getApp()
 
 Page({
   data: {
-    myjion:'',
+    myjion:true,
     advance:'',
     status:'',
     inviteer:[],

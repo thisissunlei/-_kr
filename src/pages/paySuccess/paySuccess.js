@@ -80,7 +80,7 @@ Page({
       console.log(res.target)
     }
     return {
-      title: '戳我一键参会！邀请您于{{this.data.meetingRoomName}}在{{this.data.meetingRoomName}}参加{{this.data.themeName}}',
+      title:'戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
       path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId, 
     }
   },
