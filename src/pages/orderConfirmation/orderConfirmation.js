@@ -106,7 +106,13 @@ Page({
       this.last_btn_num = e.target.dataset.num;
       this.last_data = e.target.dataset.data;
       let dataset=e.target.dataset
-      let time=`${dataset.year}-${dataset.month}-${dataset.value}`;
+      let day_nows = dataset.value;
+      if(day_nows == '今天'){
+        day_nows = new Date().getDate();
+      }else if(day_nows == '明天'){
+        day_nows = parseInt(new Date().getDate()) + 1;
+      }
+      let time=`${dataset.year}-${dataset.month}-${day_nows}`;
       //console.log(e.target.dataset,time)
       var _this=this; 
       const time_date = new Date(time);
@@ -151,7 +157,7 @@ Page({
         newDate:time
       },function(){
         _this.closeDialogDate();
-        __this.getThemeName();
+        _this.getThemeName();
       })
 
 
