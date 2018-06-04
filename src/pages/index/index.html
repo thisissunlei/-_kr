@@ -76,7 +76,10 @@
             <text class='lct_con'>{{item.buildAddress}}</text>
             <text class='lct_distance'>{{item.distance}}</text>
           </view>
-          <view class='room_num'>{{item.meetingCount}}个可用会议室</view>
+          <view class='room_num'>
+            <text class="num_num">{{item.meetingCount}}</text>
+            <text class="num_text">个可用会议室</text>
+            </view>
           <view class='price'wx:if="{{item.promotionDesor?true:false}}">{{item.promotionDesor}}</view>
         </view>
       </view>

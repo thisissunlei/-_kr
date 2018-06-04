@@ -6,6 +6,9 @@ const app = getApp()
 
 Page({
   data: {
+    myjion:'',
+    advance:'',
+    status:'',
     inviteer:[],
     inviteeId:'',
     btn_bool:true,
@@ -34,7 +37,7 @@ Page({
     this.setData({
       inviteeId:inviteeId
     });
-
+    
     //查看是否授权
     wx.getSetting({
       success(res) {
@@ -78,6 +81,7 @@ Page({
             success:function(res){
               console.log(res,'登陆接口成功')
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
+              console.log(app.globalData.Cookie,'cookie')
               app.globalData.openid = res.data.data['openid'];
               that.getUserInfo();
               that.detailList();
@@ -125,6 +129,7 @@ Page({
   
   //获取数据列表
   detailList:function(){
+    let that = this
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
       methods:"GET",
@@ -135,6 +140,7 @@ Page({
         inviteeId:this.data.inviteeId
       },
       success:(res)=>{
+        console.log(res,2222222222)
         this.setData({
           meetingTime:res.data.data.meetingTime||'',
           themeName:res.data.data.theme||'',
@@ -143,7 +149,20 @@ Page({
           inviteer:res.data.data.inviteers||[],
           limitCount:res.data.data.limitCount||'',
           meetingStatus:res.data.data.meetingStatus||'',
+          join:res.data.data.join||''
         })
+        console.log(res.data.data.meetingStatus)
+        if(res.data.data.meetingStatus==='EXPIRED'){
+          this.setData({
+            status:true,
+            advance:true
+          })
+        }else{
+          this.setData({
+            status:false,
+            advance:false
+          })
+        }
       }
     })
   },
@@ -168,13 +187,22 @@ Page({
         },
         success:(res)=>{
           console.log(res,"确认参加")
-          
+          _this.flag = false
+          console.log(this.data.join,'join')
+          if( _this.data.join==='true'){
+            _this.setData({
+              myjion:false,
+            })
+          }else{
+            _this.setData({
+              myjion:true,
+            })
+          }
         },
         fail:(res)=>{
           _this.flag = true
         }
       })
-      _this.flag = false
       
     }
 },
