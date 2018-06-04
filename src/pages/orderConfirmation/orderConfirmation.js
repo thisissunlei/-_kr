@@ -164,7 +164,7 @@ Page({
         console.log('orderDate---->>>',_this.data.orderDate)
         _this.closeDialogDate();
         _this.getThemeName(_this.data.orderDate);
-        _this.getPrice();
+       
       })
 
       
