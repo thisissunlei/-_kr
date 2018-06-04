@@ -70,11 +70,19 @@ page{
   background: gray;
   display: none;
 }
-.top-date .left .date-item-actived .week{
+.top-date .left .date-item-actived .week,.top-date .left .date-item-actived .day{
   color: #F5A623 !important;
 }
 
 .top-date .left .date-item .week{
+  font-size: 24rpx;
+  color:#666;
+  width:88rpx;
+  text-align: center;
+  font-family: PingFang-SC-Medium;
+}
+
+.top-date .left .date-item .day{
   font-size: 30rpx;
   color:#666;
   width:88rpx;
@@ -486,13 +494,15 @@ page{
 .active{
   background-image: linear-gradient(57deg, #FAD961 0%, #F79C1C 100%); 
   border-radius: 50%;
+  color:#fff;
+
 }
-.day{
+.select-data .day{
   display: inline-block;
   width: 72rpx;
   height:68rpx;
   margin:0 17.57rpx;
-  line-height:52rpx;
+  line-height:72rpx;
   text-align: center;
 }
 .wrapper{

@@ -165,9 +165,20 @@
     <view class="u-dialog" bindtap="closeDialogTime" wx:if="{{dialogTimeShow}}">
         <view class="u-dialog-time" catchtap="stopPropagation">
             <view class="top">
-                <view class="first-row">使用日期</view>
-                <view class="second-row">{{topDate[nowDateIndex].date}}</view>
-                <view class="third-row">{{orderDate.timeText}}</view>
+                <view class="pre-date">
+                    <image class="pre-icon" src="../images/orderconfirmationImg/next.png"></image>
+                    <view> 前一天</view>
+                </view>
+                <view class="now-date">
+                    <view class="first-row">使用日期</view>
+                    <view class="second-row">{{topDate[nowDateIndex].date}}</view>
+                    <view class="third-row">{{orderDate.timeText}}</view>
+                </view>
+                
+                <view class="next-date">
+                    <view>后一天 </view>
+                    <image class="next-icon" src="../images/orderconfirmationImg/next.png"></image>
+                </view>
             </view>
             <view class="main">
                 <view class="row">
