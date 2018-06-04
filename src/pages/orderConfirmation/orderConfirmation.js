@@ -109,8 +109,9 @@ Page({
       }else if(day_nows == '明天'){
         day_nows = parseInt(new Date().getDate()) + 1;
       }
-      let time=`${dataset.year}-${dataset.month}-${day_nows}`;
-      //console.log(e.target.dataset,time)
+      let month=dataset.month>9?dataset.month:`0${dataset.month}`;
+      let day=day_nows>9?day_nows:`0${day_nows}`;
+      let time=`${dataset.year}-${month}-${day}`;
       var _this=this; 
       const time_date = new Date(time);
       const today_date = new Date();
@@ -144,9 +145,6 @@ Page({
           break;
         }
       }
-      //let selectedTime=this.data.meeting_time.time.split('-');
-      //let startTime="meeting_time.beginTime";
-      //let endTime="meeting_time.endTime";
       let Time="meeting_time.time";
       this.setData({
         orderDate:{
@@ -157,8 +155,7 @@ Page({
         newDate:time,
         priceCount:0,
         totalCount:0
-        //[startTime]:time+' '+selectedTime[0]+':00',
-        //[endTime]:time+' '+selectedTime[1]+':00'
+       
         
       },function(){
         console.log('orderDate---->>>',_this.data.orderDate)
@@ -490,9 +487,9 @@ Page({
     let hours=data.meeting_time.hours;
     let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
     let unitCost=data.detailInfo.unitCost;
-    let totalCount=price*hours*2;
-    let priceCount=unitCost*hours*2;
-    
+    let totalCount=unitCost*hours*2;
+    let priceCount=price*hours*2;
+   console.log('data.isFirst----',data.isFirst)
     if(data.isFirst){
       if(hours>2){
         this.setData({
@@ -512,7 +509,7 @@ Page({
           priceCount:priceCount
         })
     }
-    
+   
   },
   onShow:function(){
     var _this=this;
@@ -617,12 +614,12 @@ Page({
           let timeArr=res.time.split('-');
           let month=timeArr[1];
           let day=timeArr[2];
-          if(month<10){
-            month=`0${month}`
-          }
-          if(day<10){
-            day=`0${day}`
-          }
+          // if(month<10){
+          //   month=`0${month}`
+          // }
+          // if(day<10){
+          //   day=`0${day}`
+          // }
           let date=`${month}${day}`;
           
           let themeName=date+'会议';
@@ -658,20 +655,20 @@ Page({
       date2 = this.dealDate(next_month,false); 
     }
     
-    
+    const year_value = today_date.getFullYear()==new Date().getFullYear() ? '' : today_date.getFullYear() + '年';
     this.setData({
       date_data1:date1,
       date_data2:date2,
       date_now:{
         month:today_date.getMonth()+1,
         year:today_date.getFullYear(),
-        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',
+        value:year_value+(parseInt(today_date.getMonth())+1) + '月',
         choose:''
       },
       date_next:{
         month:today_date.getMonth()+2,
         year:today_date.getFullYear(),
-        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
+        value:year_value+(parseInt(today_date.getMonth())+2) + '月',
         choose:''
       }
     });
@@ -727,6 +724,12 @@ Page({
     var that = this;
     var disableTime = [];
     var newRangeTime = [];
+    //过滤已过去的时间
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let limitTime = 2*hours+1+(minutes>29?1:0);
+
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/room/disableTime',
       methods:"GET",
@@ -747,7 +750,7 @@ Page({
           newRangeTime.push(rangeTimeItem);
         }
         newRangeTime.forEach((timeItem,timeIndex) => {
-            if(disableTime.indexOf(timeItem.number)>-1){
+            if(disableTime.indexOf(timeItem.number)>-1 || timeItem.number<limitTime){//过滤已过去的时间
                 timeItem.disabled = true;
             }
         });

@@ -168,7 +168,7 @@ Page({
         },
         success:(res)=>{
           console.log(res,"确认参加")
-         
+          
         },
         fail:(res)=>{
           _this.flag = true
@@ -176,14 +176,7 @@ Page({
       })
       _this.flag = false
       
-    }else{
-      wx.showToast({
-        title:"您已经参与！请勿重复点击",
-        icon:'none'
-      })
     }
-    
-    
 },
   
   //点击我要预定

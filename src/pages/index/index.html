@@ -23,7 +23,7 @@
     <view class="metting" wx:if="{{myMeeting.length>0}}">
       <swiper interval="{{interval}}" previous-margin="20rpx" next-margin="20rpx" style="height: 376rpx;"> 
         <block wx:for="{{myMeeting}}" >
-          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
+          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail" wx:if="{{item.meetingStatus === 'EXPIRED'?false:true}}">
             <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
             <view class="metting-content">
                 <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':item.meetingStatus === 'ARRVING'?'already':'overdue'}}">{{item.meetingStatus === 'WAIT'?'待入场':item.meetingStatus === 'ARRVING'?'已入场':'已过期'}}</view>
@@ -49,14 +49,14 @@
 
     <view class="adver">
       <view class="adver1">
-        <image></image>
+        <image src="../images/indexImg/banner1.png"></image>
       </view>
       <view class="adver2">
         <view class="adver2-1">
-          <image></image>
+          <image src="../images/indexImg/banner2.png"></image>
         </view>
         <view class="adver2-2">
-          <image></image>
+          <image src="../images/indexImg/banner3.png"></image>
         </view>
       </view>
     </view>
@@ -74,7 +74,7 @@
           <view class='cmty_title'>{{item.buildName}}</view>
           <view class='location'>
             <text class='lct_con'>{{item.buildAddress}}</text>
-            <text class='lct_distance'>{{item.distance}}m</text>
+            <text class='lct_distance'>{{item.distance}}</text>
           </view>
           <view class='room_num'>{{item.meetingCount}}个可用会议室</view>
           <view class='price'wx:if="{{item.promotionDesor?true:false}}">{{item.promotionDesor}}</view>
@@ -89,25 +89,6 @@
   </view>
   
 </view>
-<view class="container log-list">
-  <view>订单详情submit</view>
-  <view bindtap="bindPhone">绑定手机</view>
 
-  <view bindtap="jumpSubmit" data-type="telephone">联系电话</view>
-  <view bindtap="jumpSubmit" data-type="title">会议主题</view>
-  <view bindtap="jumpSubmit" data-type="warn">会议提醒</view>
-  <view bindtap="jumpSubmit" data-type="detail">订单详情</view>
-  <view bindtap="jumpSubmit" data-type="my">my</view>
-</view>
-<view bindtap="myOrder" data-type="telephone">我的订单</view>
-<view bindtap="myMeeting" data-type="telephone">我的会员室</view>
-
-
-<view class="container log-list">
-  <view>订单确认storage</view>
-  <view bindtap="jumpStorage" data-type="telephone">联系电话</view>
-  <view bindtap="jumpStorage" data-type="title">会议主题</view>
-  <view bindtap="jumpStorage" data-type="warn">会议提醒</view>
-</view>
 
 

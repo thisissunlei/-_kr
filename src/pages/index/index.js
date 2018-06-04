@@ -55,7 +55,6 @@ Page({
     //页面加载
     wx.login({
       success: function(res) {
-
         if (res.code) {
           //发起网络请求
           wx.request({
@@ -160,9 +159,18 @@ Page({
       },
       success:(res)=>{
         console.log(res.data.data,888888881111)
+        let buildingList = res.data.data.buildingList
+        buildingList.forEach(element => {
+          if(element.distance>1000){
+            element.distance = (element.distance/1000).toFixed(2)+'km' 
+          }else{
+            element.distance = element.distance+'m'
+          }
+          
+        });
         that.setData({
           buildingList:res.data.data.buildingList,
-          myMeeting:res.data.data.myMeeting
+          myMeeting:res.data.data.myMeeting,
         })
         // if(res.data.data.myMeeting.length>0){
         //   that.setData({
@@ -240,67 +248,5 @@ Page({
     
   },
 
-  jumpSubmit(e){
-    var target = e.target.dataset;
-    var type = target.type;
-    console.log(target,'checkWarn',target.type)
-    let url = ''
-    switch (type){
-      case 'telephone':
-        url = "../phone/phone?type=submit&value=120"
-        break;
-      case 'warn':
-        url = "../warn/warn?type=submit&value=NOALERT"
-        break;
-      case 'detail':
-        url = "../orderDetail/orderDetail"
-      break;
-      case 'my':
-      url = "../my/my"
-      break;
-      default:
-        url = "../meetingTheme/meetingTheme?type=submit&value=会议"
-        break;
-      
-    } 
-    wx.navigateTo({
-      url: url
-    });
-  },
-  jumpStorage(e){
-    var target = e.target.dataset;
-    var type = target.type;
-    console.log(target,'checkWarn',target.type)
-    let url = ''
-    switch (type){
-      case 'telephone':
-        url = "../phone/phone?type=storage"
-        break;
-      case 'warn':
-        url = "../warn/warn?type=storage"
-        break;
-      default:
-        url = "../meetingTheme/meetingTheme?type=storage"
-        break;
-    } 
-    wx.navigateTo({
-      url: url
-    });
-  },
-  bindPhone(){
-    wx.navigateTo({
-      url: "../bindPhone/bindPhone"
-    });
-  },
-  myOrder(){
-    wx.navigateTo({
-      url: "../myOrder/myOrder?orderShowStatus=OBLIGATION"
-    });
-  },
-  myMeeting(){
-    wx.navigateTo({
-      url: "../myMeeting/myMeeting"
-    });
-  }
 
 })
