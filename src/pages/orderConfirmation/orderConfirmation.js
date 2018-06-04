@@ -655,20 +655,20 @@ Page({
       date2 = this.dealDate(next_month,false); 
     }
     
-    
+    const year_value = today_date.getFullYear()==new Date().getFullYear() ? '' : today_date.getFullYear() + '年';
     this.setData({
       date_data1:date1,
       date_data2:date2,
       date_now:{
         month:today_date.getMonth()+1,
         year:today_date.getFullYear(),
-        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',
+        value:year_value+(parseInt(today_date.getMonth())+1) + '月',
         choose:''
       },
       date_next:{
         month:today_date.getMonth()+2,
         year:today_date.getFullYear(),
-        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
+        value:year_value+(parseInt(today_date.getMonth())+2) + '月',
         choose:''
       }
     });
