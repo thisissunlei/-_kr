@@ -56,7 +56,7 @@ Page({
       }
     }),
 
-    this.createQrCode('fdfd',"mycanvas",160,160);
+    this.createQrCode('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",160,160);
   },
 
     

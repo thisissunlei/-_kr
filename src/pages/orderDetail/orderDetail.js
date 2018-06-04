@@ -6,6 +6,7 @@ const app = getApp()
 
 Page({
   data: {
+    con:'',
     minute:'',
     second:'',
     detailInfo:{
@@ -151,17 +152,25 @@ Page({
     })
   },
   onLoad: function (opstion) {
-  
+    
     console.log('opstion----',opstion)
-    this.getDetailInfo(opstion.id)
     this.setData({
-      orderId:opstion.id
+      orderId:opstion.id,
+      con:opstion.con
     })
    
+  },
+  onUnload:function(){
+    if(this.data.con==1){
+      wx.navigateTo({
+        url: '../index/index'
+      })
+    }
   },
   onShow:function(){
     this.getDetailInfo(this.data.orderId)
   },
+  
   getDetailInfo:function(orderId){
     const _this=this;
     app.getRequest({

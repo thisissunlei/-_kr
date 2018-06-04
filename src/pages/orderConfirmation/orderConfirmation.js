@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+    con:1,
     meetingDetail:{},
     themeName:'',
     remind:'提前15分钟',
@@ -882,7 +883,7 @@ Page({
             },
             'fail':function(response){
                 wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId
+                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con='+1
                 })
             },
            

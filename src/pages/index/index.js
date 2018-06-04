@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    metting:false,
     btn_bool:true,
     duration: 1000,
     buildingList:[],
@@ -172,11 +173,19 @@ Page({
           buildingList:res.data.data.buildingList,
           myMeeting:res.data.data.myMeeting,
         })
-        // if(res.data.data.myMeeting.length>0){
-        //   that.setData({
-        //     metting:true
-        //   })
-        // }
+        buildingList.forEach(element => {
+          if(element.meetingStatus == 'EXPIRED'){
+            that.setData({
+              metting:false
+            })
+          }else{
+            that.setData({
+              metting:true
+            })
+          }
+          
+        });
+        
       }
     });
   },
