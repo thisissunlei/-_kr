@@ -236,6 +236,12 @@ Page({
           },function(){
             that.reloadData();
           })
+          this.data.boardroomList.forEach(element=>{
+            console.log(element.buildName)
+            wx.setNavigationBarTitle({
+              title:element.buildName
+            })
+          })
         }
       })
   },
