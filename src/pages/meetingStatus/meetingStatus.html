@@ -30,7 +30,7 @@
                     </view>
                     <text>{{item.wechatNick}}</text>
                     <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true?true:false}}"></image>
-                    <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===1?true:false}}"></image>
+                    <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===true?true:false}}"></image>
                 </view>
             </block>
             <view class='clear'></view>
@@ -47,7 +47,7 @@
           </block>
         </view>
         <view style="padding-bottom: 198rpx;" wx:if="{{meetingStatus==='EXPIRED'?false:true}}">
-          <view class='btn' bindtap="jion">
+          <view class='btn' bindtap="jion" wx:if="{{join===true?false:true}}">
             我要参与
           </view>
           <!-- <button class="btn" bindtap="jion">我要参与</button> -->
