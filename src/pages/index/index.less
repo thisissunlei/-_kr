@@ -82,7 +82,16 @@
 	background: #fff;
 	box-shadow: 0 1px 8px 0 rgba(149,149,149,0.30);
 	border-radius: 8px;
-
+}
+.metting-content{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 640rpx;
+	height: 376rpx;
+	padding-top:58rpx;
+	padding-bottom:40rpx;
+	box-sizing: border-box;
 }
 .metting .metting-mark{
 	width: 100rpx;
@@ -92,7 +101,10 @@
 	font-size: 24rpx;
 	text-align: center;
 	line-height: 44rpx;
-	margin-left: 552rpx;
+	position: absolute;
+	left: 500rpx;
+	top: 0;
+	
 }
 .metting .metting-title{
 	display: flex;
@@ -101,8 +113,7 @@
 	font-family: PingFangSC-Medium;
 	font-size: 40rpx;
 	color: #333333;
-	padding-top: 14rpx;
-	padding-bottom: 44rpx;
+	padding-bottom: 36rpx;
 	border-bottom: 1rpx dotted #DFDFDF;
 }
 
@@ -112,8 +123,7 @@
 	font-size: 30rpx;
 	color: #666666;
 	letter-spacing: 0;
-	padding-top: 38rpx;
-	padding-bottom: 40rpx;
+	padding-top: 36rpx;
 }
 .metting .wait{
 	background-image: linear-gradient(-134deg, #A4DEB3 0%, #28CEAA 100%);
@@ -188,7 +198,7 @@
 	display: flex;
 	flex-direction: row;
 	overflow: hidden;
-	border-bottom: 2rpx solid #F3F3F3;
+	border-bottom: 1px solid #F3F3F3;
 	padding: 40rpx 40rpx;
 }
 .community_pic{
@@ -196,11 +206,14 @@
 	height: 266rpx;
 	box-sizing: border-box;
 	border-radius: 16rpx;
-	border: 1rpx solid #F3F3F3;
+	border-width: thin;
+	border-style: solid;
+	border-color: #F3F3F3;
 }
 .community_pic image{
-	width: 100%;
-	height: 100%;
+	width: 200rpx;
+	height: 266rpx;
+	border-radius: 16rpx;
 }
 .cmty_con{
 	flex-grow:1;
