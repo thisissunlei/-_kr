@@ -121,6 +121,7 @@ Page({
                 item.minute=time.minute;
                 item.second=time.second;
               }
+              console.log('=item.minute>-1',item.minute>-1,item.minute)
               return item;
             })
             var allList = [].concat(orderOldList,list)
