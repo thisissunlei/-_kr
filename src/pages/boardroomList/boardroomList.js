@@ -8,11 +8,9 @@ Page({
   },
   data: {
     meeting_detail:{},
-    userInfo: {},
     dialogDate:false,
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    boardroomList:[{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'06F',meetingRoomId:1,device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',promotionCost:'22',disableTime:['21','24','25','26','27','30','37','38','39','40']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['1','12','13','14','15']},{roomName:'A会议室',imgUrl:'../images/boardroomList/guding.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'白板'},{name:'电话会议'},{name:'视频投影'},{name:'洗衣机'},{name:'洗衣机'}],unitCost:'40',disableTime:['4','11','16','19','20']},{roomName:'B会议室',imgUrl:'../images/boardroomList/duli.png',capacity:'3',floor:'03F',device:[{name:'电视'},{name:'空调'},{name:'洗衣机'}],unitCost:'60',disableTime:['21','32','23','14','15']}],
+    boardroomList:[],
     topDate:[],
     page:1,
     nextPage:2,
@@ -27,103 +25,7 @@ Page({
     allDays:[],
     isToday:false,
     nowDateIndex:0,
-    rangeTime:[{
-      disabled:false,
-      number:'19'
-    },
-    {
-      disabled:false,
-      number:'20'
-    },
-    {
-      disabled:false,
-      number:'21'
-    },
-    {
-      disabled:false,
-      number:'22'
-    },
-    {
-      disabled:false,
-      number:'23'
-    },
-    {
-      disabled:false,
-      number:'24'
-    },
-    {
-      disabled:false,
-      number:'25'
-    },
-    {
-      disabled:false,
-      number:'26'
-    },
-    {
-      disabled:false,
-      number:'27'
-    },
-    {
-      disabled:false,
-      number:'28'
-    },
-    {
-      disabled:false,
-      number:'29'
-    },
-    {
-      disabled:false,
-      number:'30'
-    },
-    {
-      disabled:false,
-      number:'31'
-    },
-    {
-      disabled:false,
-      number:'32'
-    },
-    {
-      disabled:false,
-      number:'33'
-    },
-    {
-      disabled:false,
-      number:'34'
-    },
-    {
-      disabled:false,
-      number:'35'
-    },
-    {
-      disabled:false,
-      number:'36'
-    },
-    {
-      disabled:false,
-      number:'37'
-    },
-    {
-      disabled:false,
-      number:'38'
-    }
-  ],
-    communityList:[{
-      id: 22,
-      name: '美国'
-    },
-    {
-      id: 86,
-      name: '中国'
-    },
-    {
-      id: 33,
-      name: '巴西'
-    },
-    {
-      id: 44,
-      name: '日本'
-    }],
+    communityList:[],
     indicatorDots: false,
     autoplay: false,
     duration: 1000,
