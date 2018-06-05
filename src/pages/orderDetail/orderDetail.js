@@ -44,6 +44,7 @@ Page({
   },
 
   payOrder:function(){
+    wx.reportAnalytics('enterPage')
     let orderId=this.data.orderId;
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
