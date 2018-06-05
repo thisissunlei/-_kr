@@ -165,8 +165,8 @@
     <view class="u-dialog" bindtap="closeDialogTime" wx:if="{{dialogTimeShow}}">
         <view class="u-dialog-time" catchtap="stopPropagation">
             <view class="top">
-                <view class="pre-date">
-                    <image class="pre-icon" src="../images/orderconfirmationImg/next.png"></image>
+                <view class="pre-date {{nowDateIndex==0?'banned':''}}" catchtap="{{nowDateIndex==0?'':'toPreDay'}}">
+                    <image class="pre-icon" src="{{nowDateIndex==0?'../images/orderconfirmationImg/prev-banned.png':'../images/orderconfirmationImg/next.png'}}"></image>
                     <view> 前一天</view>
                 </view>
                 <view class="now-date">
@@ -175,9 +175,9 @@
                     <view class="third-row">{{orderDate.timeText}}</view>
                 </view>
                 
-                <view class="next-date">
+                <view class="next-date {{nowDateIndex+2>topDate.length?'banned':''}}" catchtap="{{nowDateIndex+2>topDate.length?'':'toNextDay'}}">
                     <view>后一天 </view>
-                    <image class="next-icon" src="../images/orderconfirmationImg/next.png"></image>
+                    <image class="next-icon" src="{{nowDateIndex+2>topDate.length?'../images/orderconfirmationImg/prev-banned.png':'../images/orderconfirmationImg/next.png'}}"></image>
                 </view>
             </view>
             <view class="main">
