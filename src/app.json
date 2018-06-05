@@ -19,7 +19,8 @@
     "pages/warn/warn",
     "pages/guide/guide",
     "pages/provingCode/provingCode",
-    "pages/bindPhone/bindPhone"
+    "pages/bindPhone/bindPhone",
+    "pages/point/point"
   ],
   "window":{
     "backgroundTextStyle":"light",
