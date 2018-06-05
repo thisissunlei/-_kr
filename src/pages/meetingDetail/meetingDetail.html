@@ -7,8 +7,8 @@
           <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
           <view class="content">
             <view class='title'>
-              <text class='h1'>{{meetingTime}}</text>
-              <text>{{themeName}}</text>
+              <text class='meetingTime'>{{meetingTime}}</text>
+              <text class="themeName">{{themeName}}</text>
             </view>
             <view class='pics'>
               <view class="shade {{meetingStatus==='EXPIRED'?'shadeBg':''}}">
@@ -40,7 +40,7 @@
       </view>
 
       <view class='conferee'>
-          <text class='h2'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
+          <text class='conferee-title'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
           <block wx:for="{{inviteer}}">
               <view class='list'>
                   <view class='pic'>
@@ -56,7 +56,7 @@
       
 
       <view class='hint'>
-        <text class='h2'>参会小贴士</text>
+        <text class='hint_title'>参会小贴士</text>
         <block wx:for="{{hint}}">
           <view class='list'>
             <text class='title'>{{index+1}}.{{item.title}}</text>
@@ -68,8 +68,8 @@
   <view class='footer' wx:if="{{footer}}">
       <text bindtap="cancelMeeting">取消会议</text>
       <view class='btns'>
-        <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
-        <button open-type="share" bindtap="onShareAppMessage" style="border:none"><text class='yaoqing'>邀请参会人</text></button>
+        <button open-type="contact" session-from="weapp" class='kefu'><text>联系客服</text></button>
+        <button open-type="share" bindtap="onShareAppMessage" style="border-style:none;border-width: 0px;"><text class='yaoqing'>邀请参会人</text></button>
       </view>
   </view>
   <view class='footer' wx:if="{{contact}}">
