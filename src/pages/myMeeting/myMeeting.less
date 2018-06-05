@@ -14,8 +14,8 @@ page{
 	background: #FFFFFF;
 	box-shadow: 0 12rpx 24rpx 0 rgba(149,149,149,0.30);
 	border-radius: 16rpx;
-	height: 376rpx;
-	display: block;
+	min-height: 376rpx;
+	display: inline-block;
 	text-align: center;
 	background-size:cover;
 }
@@ -37,35 +37,42 @@ page{
 .meeting-time{
 	display: block;
 	font-size: 40rpx;
-	padding-top:74rpx;
+	padding-top:65rpx;
 	color: #333333;
 	line-height: 40rpx;
 	margin-bottom:32rpx;
+	font-weight: 600;
 }
 .meeting-address{
 	color:#666666;
 	font-size: 30rpx;
+	display: inline-block;
+	
 }
 .address{
-	display: block;
-	height:46rpx;
+	display: inline-block;
+	min-height:46rpx;
 	line-height: 30rpx;
 	color:#9399A5;
 	font-size:26rpx;
+	
 
 }
 .location{
-	width:24rpx;
-	height:24rpx;
-	margin-right: 16rpx;
+	width:28rpx;
+	height:30rpx;
+	margin-right: 10rpx;
+	vertical-align:-6rpx;
+
 }
 .address-box{
 	display:flex;
-	height: 160rpx;
+	min-height: 160rpx;
 	flex-direction:column;
 	padding:24rpx 46rpx;
 	box-sizing:border-box;
 	justify-content:space-around;
+	display:inline-block;
 }
 .status{
 	width:100rpx;

@@ -107,10 +107,21 @@ Page({
         meetDetailShow:!this.data.meetDetailShow
       })
   },
+  jumpMeetingStatus:function(inviteeId){
+      wx.navigateTo({
+        url: '../meetingStatus/meetingStatus?inviteeId='+inviteeId
+      })
+  },
   jumpMeet:function() {
     let detailInfo=this.data.detailInfo;
-    console.log(detailInfo)
-    this.getInviteeId(detailInfo.orderId,this.jumpMeetingDetail)
+   
+    if(detailInfo.join){
+      this.getInviteeId(detailInfo.orderId,this.jumpMeetingDetail)
+    }else{
+      this.getInviteeId(detailInfo.orderId,this.jumpMeetingStatus)
+    }
+   
+    
   },
   getInviteeId(orderId,callback){
     app.getRequest({

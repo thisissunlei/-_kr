@@ -172,7 +172,7 @@ Page({
           myMeeting:res.data.data.myMeeting,
         })
        console.log(this.data.myMeeting)
-        if(this.data.myMeeting.length<0){
+        if(this.data.myMeeting.length<=0){
           that.setData({
             metting:false
           })
