@@ -240,6 +240,7 @@
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
           <view class="u-swiper-content">
+            <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
             <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
                   bindchange="currentChange"
