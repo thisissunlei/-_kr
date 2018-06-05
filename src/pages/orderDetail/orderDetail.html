@@ -89,7 +89,7 @@
             <view class="u-meeting-title"  style="line-height:114rpx">
                 联系电话
             </view>
-            <view class="u-meet-text">{{detailInfo.linkPhone}}</view>
+            <view class="u-meet-text"  style="line-height:114rpx">{{detailInfo.linkPhone}}</view>
             <view class="u-btn-arrow u-phone-btn-arrow"  wx:if="{{detailInfo.orderShowStatus!=3}}">
                 <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
@@ -118,6 +118,7 @@
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}">
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
+          <view class="u-content-meet">
           <view class="u-swiper-content">
             <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
             <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
@@ -135,7 +136,7 @@
             <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
           <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
-          <view class="u-meeting-info">
+          <view class="u-meeting-detail-info">
               <view class="u-meet-info">
                   <view class="u-meet-name">
                     {{meetingDetail.capacity}}人间  {{meetingDetail.meetingRoomName}}
@@ -171,6 +172,9 @@
               </view> 
           </view>
       </view>
+
+    </view>
+
     </view>
   </view>
 
