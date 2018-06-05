@@ -99,7 +99,7 @@ Page({
         success:(res)=>{
 
 
-          if(res.data.code!='-1'){
+          if(res.data.code!=-1){
             that.user_info={
               phone : that.data.phone
             }
@@ -176,6 +176,7 @@ Page({
           
           success:(res)=>{
             let code=res.data.code;
+            let rsData = res.data.data;
             if(code==-1){
               that.setData({
                 phoneError:false,
@@ -191,7 +192,7 @@ Page({
                 })
               },2000)
             }else{
-              that.weChatPay(data)
+              that.weChatPay(rsData)
               that.clearStorage()
             }
 
@@ -229,9 +230,8 @@ Page({
               }
             })
           }else{
-            that.setData({
-              phoneError:true,
-              errorMessage:res.data.message
+            wx.navigateTo({
+              url: '../orderDetail/orderDetail?id='+data.orderId
             })
           }
           
