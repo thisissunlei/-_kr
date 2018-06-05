@@ -23,7 +23,7 @@
     <view class="metting" wx:if="{{metting}}">
       <swiper interval="{{interval}}" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF" indicator-active-color='rgba(255,198,52,100)' style="height: 396rpx;border-radius: 16rpx"> 
         <block wx:for="{{myMeeting}}" >
-          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail" wx:if="{{item.meetingStatus === 'EXPIRED'?false:true}}">
+          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
             <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
             <view class="metting-content">
                 <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':item.meetingStatus === 'ARRVING'?'already':'overdue'}}">{{item.meetingStatus === 'WAIT'?'待入场':item.meetingStatus === 'ARRVING'?'已入场':'已过期'}}</view>
