@@ -53,6 +53,9 @@ Page({
     
     
   },
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
 
   changeType:function(e){
     let that = this;

@@ -9,10 +9,10 @@
                 <text class="u-meet-address">{{detailInfo.buildName}}{{detailInfo.floor}}层</text>
                 <view class="u-meet-price-info">
                     <view class="u-meet-price">
-                        ￥<text class="u-meet-num">{{detailInfo.promotionCost || detailInfo.unitCost}} </text>
+                        ￥<text class="u-meet-num">{{detailInfo.promotionCost}} </text>
                     </view>
-                    <view class="u-meet-uint-info" wx:if="{{detailInfo.promotionCost!=0}}">
-                        <text class="u-cancal-price">￥{{detailInfo.unitCost}} </text>
+                    <view class="u-meet-uint-info" >
+                        <text class="u-cancal-price" wx:if="{{detailInfo.promotionCost!=detailInfo.unitCost}}">￥{{detailInfo.unitCost}} </text>
                         <text class="u-uint">/ 半小时</text>
                     </view>
                 </view>
@@ -116,7 +116,7 @@
                 <view class="u-no-first-price-num">
                     {{priceCount}}
                 </view>
-                <view class="u-old-no-first-price">
+                <view class="u-old-no-first-price" wx:if="{{detailInfo.promotionCost!=detailInfo.unitCost}}">
                     ￥{{totalCount}}
                 </view>
             </view>
@@ -165,8 +165,8 @@
     <view class="u-dialog" bindtap="closeDialogTime" wx:if="{{dialogTimeShow}}">
         <view class="u-dialog-time" catchtap="stopPropagation">
             <view class="top">
-                <view class="pre-date">
-                    <image class="pre-icon" src="../images/orderconfirmationImg/next.png"></image>
+                <view class="pre-date {{nowDateIndex==0?'banned':''}}" catchtap="{{nowDateIndex==0?'':'toPreDay'}}">
+                    <image class="pre-icon" src="{{nowDateIndex==0?'../images/orderconfirmationImg/prev-banned.png':'../images/orderconfirmationImg/next.png'}}"></image>
                     <view> 前一天</view>
                 </view>
                 <view class="now-date">
@@ -175,9 +175,9 @@
                     <view class="third-row">{{orderDate.timeText}}</view>
                 </view>
                 
-                <view class="next-date">
+                <view class="next-date {{nowDateIndex+2>topDate.length?'banned':''}}" catchtap="{{nowDateIndex+2>topDate.length?'':'toNextDay'}}">
                     <view>后一天 </view>
-                    <image class="next-icon" src="../images/orderconfirmationImg/next.png"></image>
+                    <image class="next-icon" src="{{nowDateIndex+2>topDate.length?'../images/orderconfirmationImg/prev-banned.png':'../images/orderconfirmationImg/next.png'}}"></image>
                 </view>
             </view>
             <view class="main">
@@ -262,7 +262,7 @@
                   <view class="u-meet-detail-price-info">
                       <view class="u-meet-unit">¥</view>
                       <view class="u-meet-num"> {{meetingDetail.promotionCost}}</view>
-                      <view class="u-meet-old-num">¥ {{meetingDetail.unitCost}}</view>
+                      <view class="u-meet-old-num" wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost}}">¥ {{meetingDetail.unitCost}}</view>
                       <view class="u-meet-old-unit"> / 半小时  </view>
                   </view>
                   <view class="u-meet-sale" wx:if="{{meetingDetail.promotionDescr!=''}}" >{{meetingDetail.promotionDescr}}</view>

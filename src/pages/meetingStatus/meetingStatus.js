@@ -7,8 +7,8 @@ const app = getApp()
 Page({
   data: {
     myjion:true,
-    advance:'',
-    status:'',
+    advance:false,
+    status:false,
     inviteer:[],
     inviteeId:'',
     btn_bool:true,
@@ -37,6 +37,7 @@ Page({
     this.setData({
       inviteeId:inviteeId
     });
+    
     
     //查看是否授权
     wx.getSetting({
@@ -154,16 +155,17 @@ Page({
           meetingStatus:res.data.data.meetingStatus||'',
           join:res.data.data.join||''
         })
-        console.log(res.data.data.meetingStatus)
+       console.log(new Date(),res.data.data.join)
+        if(this.data.join===true){
+          this.setData({
+            myjion:false,
+          })
+        }
         if(res.data.data.meetingStatus==='EXPIRED'){
           this.setData({
             status:true,
-            advance:true
-          })
-        }else{
-          this.setData({
-            status:false,
-            advance:false
+            advance:true,
+            myjion:false
           })
         }
       }
@@ -172,7 +174,6 @@ Page({
   
   //点击我要参与
   jion:function(){
-    console.log(this.flag)
     var _this = this
     if(_this.flag){
       this.data.inviteer.push(this.data.wechatInfo)
@@ -191,14 +192,11 @@ Page({
         success:(res)=>{
           console.log(res,"确认参加")
           _this.flag = false
-          console.log(this.data.join,'join')
-          if( _this.data.join==='true'){
+          console.log(this.data.join,'点击后')
+
+          if( _this.data.join===true){
             _this.setData({
               myjion:false,
-            })
-          }else{
-            _this.setData({
-              myjion:true,
             })
           }
         },

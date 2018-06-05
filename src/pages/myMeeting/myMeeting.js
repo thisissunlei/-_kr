@@ -6,6 +6,9 @@ Page({
   data: {
     meetingList:[]
   },
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({

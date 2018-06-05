@@ -16,6 +16,9 @@ Page({
     phoneError:true,
     errorMessage:''
   },
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
   onLoad: function (options) {
     this.setData({
       inputValue: options.value || '',

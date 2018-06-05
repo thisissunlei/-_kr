@@ -167,7 +167,7 @@ Page({
         let myMeeting = res.data.data.myMeeting
         buildingList.forEach(element => {
           if(element.distance>1000){
-            element.distance = (element.distance/1000).toFixed(2)+'km' 
+            element.distance = (element.distance/1000).toFixed(1)+'km' 
           }else{
             element.distance = element.distance+'m'
           }
@@ -226,7 +226,12 @@ Page({
       }
     })
   },
-
+  //跳转新人指导
+  point:function(){
+    wx.navigateTo({
+      url:"../point/point"
+    })
+  },
   //点击会议card
   moveToMeetingDetail:function(e){
     console.log(e)
