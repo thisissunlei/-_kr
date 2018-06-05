@@ -21,7 +21,7 @@
   </view>
   <view class="metting-wrap">
     <view class="metting" wx:if="{{metting}}">
-      <swiper interval="{{interval}}" previous-margin="20rpx" next-margin="20rpx" style="height: 376rpx;"> 
+      <swiper interval="{{interval}}" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF" indicator-active-color='rgba(255,198,52,100)' style="height: 396rpx;border-radius: 16rpx"> 
         <block wx:for="{{myMeeting}}" >
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail" wx:if="{{item.meetingStatus === 'EXPIRED'?false:true}}">
             <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
@@ -67,9 +67,9 @@
     <view class='rm_title'>周边会议室</view>
     <view class="community-wrapper">
       <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom">
-        <view class='community_pic'>
-          <image src="{{item.buildImgUrl}}"></image>
-        </view>
+  
+          <image src="{{item.buildImgUrl}}" class="community_pic"></image>
+        
         <view class='cmty_con'>
           <view class='cmty_title'>{{item.buildName}}</view>
           <view class='location'>

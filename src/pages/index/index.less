@@ -72,27 +72,30 @@
 }
 .metting{
 	width: 680rpx;
-	height: 376rpx;
+	height: 396rpx;
 	position: relative;
 	z-index: 99999;
 	margin-bottom:40rpx;
+	background: #FFFFFF;
+	box-shadow: 0 6px 12px 0 rgba(149,149,149,0.30);
+	border-radius: 16rpx;
 }
 .metting .my-metting{
 	width: 680rpx;
-	height: 376rpx;
+	height: 396rpx;
 	background: #fff;
-	box-shadow: 0 1px 8px 0 rgba(149,149,149,0.30);
-	border-radius: 8px;
+	border-radius: 16rpx;
 }
 .metting-content{
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 640rpx;
-	height: 376rpx;
+	width: 680rpx;
+	height: 396rpx;
 	padding-top:58rpx;
 	padding-bottom:40rpx;
 	box-sizing: border-box;
+	border-radius: 16rpx;
 }
 .metting .metting-mark{
 	width: 100rpx;
@@ -103,10 +106,15 @@
 	text-align: center;
 	line-height: 44rpx;
 	position: absolute;
-	left: 500rpx;
+	left: 552rpx;
 	top: 0;
-	
+	border-bottom-left-radius: 8rpx;
+	border-bottom-right-radius: 8rpx;
 }
+.swiper-container .dots .dot{  
+	width: 10rpx;  
+	height: 10rpx;  
+  } 
 .metting .metting-title{
 	display: flex;
 	flex-direction: column;
@@ -117,7 +125,12 @@
 	padding-bottom: 28rpx;
 	border-bottom: 1rpx dotted #DFDFDF;
 }
-
+.metting .metting-title .metting-name{
+	font-family: 'PingFang-SC-Regular';
+	font-size: 36rpx;
+	color: #666666;
+	letter-spacing: 0;
+}
 .metting .metting-address{
 	text-align: center;
 	font-family: PingFangSC-Regular;
@@ -132,8 +145,7 @@
 	line-height: 28rpx;
 }
 .address-wrapper{
-	height: 26rpx;
-	margin-top: 26rpx;
+	padding: 0 50rpx;
 }
 .metting .wait{
 	background-image: linear-gradient(-134deg, #A4DEB3 0%, #28CEAA 100%);
@@ -209,14 +221,13 @@
 	height: 266rpx;
 	box-sizing: border-box;
 	border-radius: 16rpx;
-	border-width: thin;
-	border-style: solid;
-	border-color: #F3F3F3;
+	border: 1px solid #F3F3F3;
 }
 .community_pic image{
-	width: 200rpx;
-	height: 266rpx;
+	width: 100%;
+	height: 100%;
 	border-radius: 16rpx;
+  	border: 1px solid #F3F3F3;
 }
 .cmty_con{
 	flex-grow:1;

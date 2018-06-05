@@ -9,6 +9,7 @@ Page({
   },
   
   data: {
+    indicatorDots:true,
     metting:false,
     btn_bool:true,
     duration: 1000,
@@ -170,19 +171,19 @@ Page({
           buildingList:res.data.data.buildingList,
           myMeeting:res.data.data.myMeeting,
         })
-        myMeeting.forEach(element => {
-          if(element.meetingStatus == 'EXPIRED' || myMeeting.length<0){
-            that.setData({
-              metting:false
-            })
-          }else{
-            that.setData({
-              metting:true
-            })
-          }
+       console.log(this.data.myMeeting)
+        if(this.data.myMeeting.length<0){
+          that.setData({
+            metting:false
+          })
+        }else{
+          that.setData({
+            metting:true
+          })
+        }
           
-        });
         
+        console.log(that.data.metting)
       }
     });
   },
