@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   onShareAppMessage: function() {
-    wx.reportAnalytics('share')
+    wx.reportAnalytics('Share KrMeeting')
     return app.globalData.share_data;
   },
   
@@ -219,7 +219,7 @@ Page({
   },
   //跳转新人指导
   point:function(){
-    wx.reportAnalytics('click')
+    wx.reportAnalytics('View Guide')
     wx.navigateTo({
       url:"../point/point"
     })
@@ -240,7 +240,7 @@ Page({
   },
   //
   moveToMy:function(){
-    wx.reportAnalytics('click')
+    wx.reportAnalytics('View User Center')
     wx.navigateTo({
       url:"../my/my"
     })
