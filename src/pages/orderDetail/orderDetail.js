@@ -227,8 +227,11 @@ Page({
               wx.setNavigationBarTitle({
                 title: titleObj[data.orderShowStatus]
               })
-              _this.startcountDate(detailInfo.expiredTime);
-              _this.date();
+              if(data.orderShowStatus=='OBLIGATION'){
+                  _this.startcountDate(detailInfo.expiredTime);
+              }
+              
+             
         },
         fail:(error)=>{
           
@@ -255,7 +258,7 @@ Page({
         title:this.data.titleObj.CLOSED
       })
        let orderShowStatus = 'detailInfo.orderShowStatus';
-      
+        console.log('77777777')
       this.setData({
         [orderShowStatus]:'CLOSED'
       })
