@@ -774,6 +774,9 @@ Page({
     var that = this;
     var disableTime = [];
     var newRangeTime = [];
+    wx.showLoading({
+      title: '加载中',
+    })
     console.log(that.data.orderDate);
     //过滤已过去的时间
     let now = new Date();
@@ -817,6 +820,8 @@ Page({
           rangeTime2:newRangeTime.slice(8,16),
           rangeTime3:newRangeTime.slice(16),
           rangeTime:newRangeTime,
+        },function(){
+          wx.hideLoading();
         })
       }
     })
