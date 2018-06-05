@@ -93,7 +93,8 @@
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
           <view class="u-swiper-content">
-            <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
+            <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
+            <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
                   bindchange="currentChange"
                   
@@ -104,7 +105,7 @@
                     </swiper-item>
                   </view>
             </swiper>
-            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>0}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
+            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
           <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
           <view class="u-meeting-info">
