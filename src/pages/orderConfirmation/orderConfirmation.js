@@ -475,11 +475,10 @@ Page({
   getPrice:function(){
     let data=this.data;
     let hours=data.meeting_time.hours;
-    let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
+    let price=data.detailInfo.promotionCost;
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
-   console.log('data.isFirst----',data.isFirst)
     if(data.isFirst){
       if(hours>2){
         this.setData({
@@ -516,6 +515,54 @@ Page({
         }
       }
     })
+  },
+  bool:true,
+  //前一天  后一天
+  toPreDay:function(e){
+    console.log(e);
+    var that = this;
+    if(this.bool){
+      var topDate = this.data.topDate;
+      this.bool = false;
+      var length = this.data.topDate.length;
+      var nowDateIndex = this.data.nowDateIndex;
+      if(nowDateIndex<1){
+        return ;
+      }
+      var orderDate = {
+        time:topDate[nowDateIndex-1].date,
+        timeText:topDate[nowDateIndex-1].week
+      }
+      this.setData({
+        nowDateIndex:nowDateIndex-1,
+        orderDate:orderDate
+      },function(){
+        that.bool = true;
+      })
+    }
+  },
+  toNextDay:function(e){
+    console.log(e);
+    var that = this;
+    if(this.bool){
+      this.bool = false;
+      var topDate = this.data.topDate;
+      var length = this.data.topDate.length;
+      var nowDateIndex = this.data.nowDateIndex;
+      if(nowDateIndex>length-1){
+        return ;
+      }
+      var orderDate = {
+        time:topDate[nowDateIndex+1].date,
+        timeText:topDate[nowDateIndex+1].week
+      }
+      this.setData({
+        nowDateIndex:nowDateIndex+1,
+        orderDate:orderDate
+      },function(){
+        that.bool = true;
+      })
+    }
   },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');

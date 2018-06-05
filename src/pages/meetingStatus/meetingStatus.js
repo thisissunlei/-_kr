@@ -38,6 +38,7 @@ Page({
       inviteeId:inviteeId
     });
     
+    
     //查看是否授权
     wx.getSetting({
       success(res) {
@@ -154,7 +155,7 @@ Page({
           meetingStatus:res.data.data.meetingStatus||'',
           join:res.data.data.join||''
         })
-       
+       console.log(new Date(),res.data.data.join)
         if(this.data.join===true){
           this.setData({
             myjion:false,
@@ -191,7 +192,8 @@ Page({
         success:(res)=>{
           console.log(res,"确认参加")
           _this.flag = false
-          console.log(this.data.join,'join')
+          console.log(this.data.join,'点击后')
+
           if( _this.data.join===true){
             _this.setData({
               myjion:false,
