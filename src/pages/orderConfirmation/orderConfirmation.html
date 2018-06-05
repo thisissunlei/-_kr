@@ -11,8 +11,8 @@
                     <view class="u-meet-price">
                         ￥<text class="u-meet-num">{{detailInfo.promotionCost}} </text>
                     </view>
-                    <view class="u-meet-uint-info" wx:if="{{detailInfo.promotionCost!=detailInfo.unitCost}}">
-                        <text class="u-cancal-price">￥{{detailInfo.unitCost}} </text>
+                    <view class="u-meet-uint-info" >
+                        <text class="u-cancal-price" wx:if="{{detailInfo.promotionCost!=detailInfo.unitCost}}">￥{{detailInfo.unitCost}} </text>
                         <text class="u-uint">/ 半小时</text>
                     </view>
                 </view>
