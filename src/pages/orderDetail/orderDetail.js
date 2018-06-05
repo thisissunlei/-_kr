@@ -52,6 +52,7 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
+        var _this=this;
         console.log(res)
         wx.requestPayment({
           'timeStamp': res.data.data.timestamp,
@@ -61,9 +62,8 @@ Page({
           'paySign': res.data.data.paySign,
           'success':function(res){
             console.log(res)
-            wx.navigateTo({
-              url: '../paySuccess/paySuccess?inviteeId='+this.data.inviteeId
-            })
+            _this.getInviteeId(orderId,_this.jumpPaySuccess)
+          
           },
           'fail':function(res){
           }
@@ -74,6 +74,11 @@ Page({
       }
     })
 
+  },
+  jumpPaySuccess:function(inviteeId){
+    wx.navigateTo({
+      url: '../paySuccess/paySuccess?inviteeId='+inviteeId
+    })
   },
   currentChange:function(e){
     if(e.detail.source=="touch"){
@@ -101,9 +106,9 @@ Page({
   jumpMeet:function() {
     let detailInfo=this.data.detailInfo;
     console.log(detailInfo)
-    this.getInviteeId(detailInfo.orderId)
+    this.getInviteeId(detailInfo.orderId,this.jumpMeetingDetail)
   },
-  getInviteeId(orderId){
+  getInviteeId(orderId,callback){
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
       methods:"GET",
@@ -114,14 +119,19 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-        let inviteeId = res.data.data.inviteeId
-        this.setData({
-          inviteeId:inviteeId
-        })
-        wx.navigateTo({
-          url: '../meetingDetail/meetingDetail?inviteeId='+inviteeId
-        })
+        console.log('callback---',callback)
+        callback && callback(res.data.data.inviteeId);
+       //let inviteeId = res.data.data.inviteeId
+        // this.setData({
+        //   inviteeId:inviteeId
+        // })
+        
       }
+    })
+  },
+  jumpMeetingDetail:function(inviteeId){
+    wx.navigateTo({
+      url: '../meetingDetail/meetingDetail?inviteeId='+inviteeId
     })
   },
   jumpSetTheme:function() {

@@ -467,7 +467,6 @@ Page({
     return ;
   },
   subTime:function(e){
-      console.log('this.',this.data.order_pay)
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
@@ -523,7 +522,6 @@ Page({
   bool:true,
   //前一天  后一天
   toPreDay:function(e){
-    console.log(e);
     var that = this;
     if(this.bool){
       var topDate = this.data.topDate;
@@ -539,7 +537,14 @@ Page({
       }
       this.setData({
         nowDateIndex:nowDateIndex-1,
-        orderDate:orderDate
+        orderDate:orderDate,
+        selectedTime:[],
+        meeting_time:{
+          time:'',
+          beginTime:'',
+          endTime:'',
+          hours:0,
+        }
       },function(){
         that.bool = true;
         that.getNowRangeTime();
@@ -547,7 +552,6 @@ Page({
     }
   },
   toNextDay:function(e){
-    console.log(e);
     var that = this;
     if(this.bool){
       this.bool = false;
@@ -563,7 +567,14 @@ Page({
       }
       this.setData({
         nowDateIndex:nowDateIndex+1,
-        orderDate:orderDate
+        orderDate:orderDate,
+        selectedTime:[],
+        meeting_time:{
+          time:'',
+          beginTime:'',
+          endTime:'',
+          hours:0,
+        }
       },function(){
         that.bool = true;
         that.getNowRangeTime();
