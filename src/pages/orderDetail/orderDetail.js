@@ -44,7 +44,7 @@ Page({
   },
 
   payOrder:function(){
-    wx.reportAnalytics('enterPage')
+    
     let orderId=this.data.orderId;
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
@@ -55,6 +55,7 @@ Page({
       success:(res)=>{
         var _this=this;
         console.log(res)
+        wx.reportAnalytics('Confirm Order')
         wx.requestPayment({
           'timeStamp': res.data.data.timestamp,
           'nonceStr': res.data.data.noncestr,
@@ -91,6 +92,8 @@ Page({
   openMeetDetail:function(e){
     let detailInfo=this.data.detailInfo;
     let that = this;
+    wx.reportAnalytics('View Goods Details')
+
     this.setData({
       meetingRoomId:detailInfo.meetingRoomId,
       meetDetailShow:!this.data.meetDetailShow

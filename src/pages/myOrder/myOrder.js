@@ -149,7 +149,7 @@ Page({
       })
   },
   orderPay(e){
-    wx.reportAnalytics('enterPage')
+   
     let id = e.target.dataset.order;
     let that = this;
     app.getRequest({
@@ -161,6 +161,7 @@ Page({
         success:(res)=>{
           console.log('res',res)
           if(res.data.code>0){
+             wx.reportAnalytics('Confirm Order')
             wx.requestPayment({
               'timeStamp': res.data.data.timestamp,
               'nonceStr': res.data.data.noncestr,

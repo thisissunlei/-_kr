@@ -178,6 +178,8 @@ Page({
   //点击我要参与
   jion:function(){
     var _this = this
+        wx.reportAnalytics('Accept Invitation')
+    
     if(_this.flag){
       this.data.inviteer.push(this.data.wechatInfo)
       this.setData({

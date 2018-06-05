@@ -332,6 +332,8 @@ Page({
   },
   openMeetDetail:function(e){
     let that = this;
+    wx.reportAnalytics('View Goods Details')
+
     this.setData({
       meetingRoomId:'',
       meetDetailShow:!this.data.meetDetailShow
@@ -402,6 +404,7 @@ Page({
   },
   closeDialogDate:function(){
     let that = this;
+    wx.reportAnalytics('Choose Date')
     that.setData({
       dialogDate:!that.data.dialogDate
     })
@@ -467,7 +470,7 @@ Page({
     return ;
   },
   subTime:function(e){
-    wx.reportAnalytics('click')
+    wx.reportAnalytics('Choose Time')
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
@@ -756,6 +759,8 @@ Page({
   },
   closeDialogTime:function(){
     var that = this;
+    wx.reportAnalytics('Choose Time')
+
     if(!that.data.dialogTimeShow){
       // that.getMeetDetail();
       that.getNowRangeTime();
@@ -928,6 +933,8 @@ Page({
                   },2000)
               break;
               default:
+                wx.reportAnalytics('Confirm Order')
+
                 _this.weChatPay(res.data.data);
                 _this.closeDialog();
                   wx.setStorage({
