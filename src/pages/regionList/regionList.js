@@ -71,6 +71,9 @@ Page({
       activeTab: options.value
     })
   },
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
   checkWarn:function(e){;
     var target = e.target.dataset;
     console.log(target,'checkWarn',target.city)

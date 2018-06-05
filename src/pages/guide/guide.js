@@ -8,5 +8,8 @@ const app = getApp()
 Page({
   data: {
   },
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
   
 })

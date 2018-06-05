@@ -14,7 +14,9 @@ Page({
     submitError:true
   },
   button_boolean:true,
-
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
   onLoad: function (options) {
     let type = options.type;
     let that = this;

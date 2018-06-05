@@ -16,6 +16,9 @@ Page({
     errorMessage:'',
     phoneTest:true
   },
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
   bindKeyInput:function(e){
     let value = e.detail.value;
     this.setData({
