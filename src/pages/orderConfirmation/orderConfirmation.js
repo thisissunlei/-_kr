@@ -523,19 +523,47 @@ Page({
     console.log(e);
     var that = this;
     if(this.bool){
+      var topDate = this.data.topDate;
       this.bool = false;
+      var length = this.data.topDate.length;
+      var nowDateIndex = this.data.nowDateIndex;
+      if(nowDateIndex<1){
+        return ;
+      }
+      var orderDate = {
+        time:topDate[nowDateIndex-1].date,
+        timeText:topDate[nowDateIndex-1].week
+      }
+      this.setData({
+        nowDateIndex:nowDateIndex-1,
+        orderDate:orderDate
+      },function(){
+        that.bool = true;
+      })
+    }
+  },
+  toNextDay:function(e){
+    console.log(e);
+    var that = this;
+    if(this.bool){
+      this.bool = false;
+      var topDate = this.data.topDate;
       var length = this.data.topDate.length;
       var nowDateIndex = this.data.nowDateIndex;
       if(nowDateIndex>length-1){
         return ;
       }
+      var orderDate = {
+        time:topDate[nowDateIndex+1].date,
+        timeText:topDate[nowDateIndex+1].week
+      }
       this.setData({
-        nowDateIndex:nowDateIndex-1,
+        nowDateIndex:nowDateIndex+1,
+        orderDate:orderDate
       },function(){
         that.bool = true;
       })
     }
-    
   },
   onLoad: function (options) {
     // var rangeTime = wx.getStorageSync('rangeTime');
