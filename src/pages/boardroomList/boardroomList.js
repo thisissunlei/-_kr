@@ -3,6 +3,9 @@
 const app = getApp()
 
 Page({
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
   data: {
     meeting_detail:{},
     userInfo: {},

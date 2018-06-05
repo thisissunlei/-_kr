@@ -4,6 +4,9 @@ const app = getApp()
 
 
 Page({
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
   data: {
     con:1,
     meetingDetail:{},
@@ -298,6 +301,7 @@ Page({
   },
   onUnload:function(){
     let _this = this;
+    
     wx.setStorage({
       key:"order_pay",
       data:{},
@@ -463,12 +467,11 @@ Page({
     return ;
   },
   subTime:function(e){
-    
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
       this.closeDialogTime();
-      ;
+      
     }
     
   },
@@ -519,7 +522,6 @@ Page({
   bool:true,
   //前一天  后一天
   toPreDay:function(e){
-    console.log(e);
     var that = this;
     if(this.bool){
       var topDate = this.data.topDate;
@@ -535,14 +537,21 @@ Page({
       }
       this.setData({
         nowDateIndex:nowDateIndex-1,
-        orderDate:orderDate
+        orderDate:orderDate,
+        selectedTime:[],
+        meeting_time:{
+          time:'',
+          beginTime:'',
+          endTime:'',
+          hours:0,
+        }
       },function(){
         that.bool = true;
+        that.getNowRangeTime();
       })
     }
   },
   toNextDay:function(e){
-    console.log(e);
     var that = this;
     if(this.bool){
       this.bool = false;
@@ -558,9 +567,17 @@ Page({
       }
       this.setData({
         nowDateIndex:nowDateIndex+1,
-        orderDate:orderDate
+        orderDate:orderDate,
+        selectedTime:[],
+        meeting_time:{
+          time:'',
+          beginTime:'',
+          endTime:'',
+          hours:0,
+        }
       },function(){
         that.bool = true;
+        that.getNowRangeTime();
       })
     }
   },
@@ -621,7 +638,7 @@ Page({
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
               remind:_this.getRemind(res.data.alertTime),
-              linkPhone:res.data.linkPhone || ''
+              linkPhone:res.data.linkPhone || _this.data.linkPhone
             })
         }
       }
@@ -708,8 +725,9 @@ Page({
         },
         success:(res)=>{
           let userInfo=Object.assign({},res.data.data);
+          let linkPhone=_this.data.linkPhone;
           _this.setData({
-                linkPhone:userInfo.phone
+              linkPhone:userInfo.phone || linkPhone
           })
         }
     })
@@ -738,11 +756,15 @@ Page({
     if(!that.data.dialogTimeShow){
       // that.getMeetDetail();
       that.getNowRangeTime();
+
     }
     this.setData({
       dialogTimeShow:!that.data.dialogTimeShow
     })
-    this.getPhone()
+    if(!this.data.dialogTimeShow){
+      this.getPhone()
+    }
+    
   },
   getNowRangeTime:function(){
     var id = wx.getStorageSync('detail').meetingRoomId || wx.getStorageSync('meet_detail').meetingRoomId;
@@ -759,7 +781,7 @@ Page({
       url:app.globalData.KrUrl+'api/gateway/krmting/room/disableTime',
       methods:"GET",
       data:{
-        date:wx.getStorageSync('nowDate'),
+        date:wx.getStorageSync('orderDate').time,
         meetingRoomId:id
       },
       header:{

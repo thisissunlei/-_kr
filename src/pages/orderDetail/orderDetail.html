@@ -12,7 +12,7 @@
           <view class="u-order-right">
               <text class="u-meet-title">{{detailInfo.capacity}}人 {{detailInfo.meetingRoomName}}</text>
               <text class="u-meet-address">{{detailInfo.buildName}}</text>
-              <view class="u-meet-detail-price-info">
+              <view class="u-meet-price-info">
                   <view class="u-meet-price">
                       ￥<text class="u-meet-num">{{detailInfo.promotionCost}} </text>
                   </view>
@@ -140,7 +140,7 @@
                   </view>
                   <view class="u-meet-detail-price-info">
                       <view class="u-meet-unit">¥</view>
-                      <view class="u-meet-num"> {{meetingDetail.promotionCost}}</view>
+                      <view class="u-meet-detail-num"> {{meetingDetail.promotionCost}}</view>
                       <view class="u-meet-old-num"  wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost}}">¥ {{meetingDetail.unitCost}}</view>
                       <view class="u-meet-old-unit"> / 半小时  </view>
                   </view>
