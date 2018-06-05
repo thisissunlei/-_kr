@@ -51,6 +51,7 @@ Page({
     ]
   },
   flag:true,
+  join:true,
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -217,12 +218,9 @@ Page({
             inviteer:_this.data.inviteer
           })
           _this.data.inviteer.push(_this.data.wechatInfo)
-          _this.setData({
-            join:true
-          })
           _this.flag = false
           console.log(_this.data.join,'点击后')
-          if( _this.data.join===true){
+          if(_this.join===true){
             _this.setData({
               myjion:false,
             })
