@@ -27,6 +27,9 @@ Page({
     areaCode:''
     
   },
+  onShareAppMessage: function() {
+    return app.globalData.share_data;
+  },
   onLoad: function (options) {
     let that = this;
      wx.getStorage({
