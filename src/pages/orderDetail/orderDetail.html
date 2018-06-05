@@ -118,6 +118,7 @@
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}">
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
+          <view class="u-content-meet">
           <view class="u-swiper-content">
             <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
             <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
@@ -171,6 +172,9 @@
               </view> 
           </view>
       </view>
+
+    </view>
+
     </view>
   </view>
 
