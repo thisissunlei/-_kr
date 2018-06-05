@@ -908,6 +908,25 @@ Page({
                     url: '../bindPhone/bindPhone'
                   })
               break;
+              case -3:
+                  this.setData({
+                    checkMessage:true,
+                    errorMessage:res.data.message,
+                    selectedTime:[],
+                    meeting_time:{
+                      time:'',
+                      beginTime:'',
+                      endTime:'',
+                      hours:0,
+                    }
+                  })
+                  setTimeout(function(){
+                    _this.setData({
+                      checkMessage:false,
+                      errorMessage:''
+                    })
+                  },2000)
+              break;
               default:
                 _this.weChatPay(res.data.data);
                 _this.closeDialog();
