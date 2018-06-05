@@ -214,12 +214,13 @@ Page({
         },
         success:(res)=>{
           console.log(res,"确认参加")
+          _this.data.inviteer.push(_this.data.wechatInfo)
           _this.setData({
             inviteer:_this.data.inviteer
           })
-          _this.data.inviteer.push(_this.data.wechatInfo)
+          
           _this.flag = false
-          console.log(_this.data.join,'点击后')
+          console.log(_this.join,'点击后')
           if(_this.join===true){
             _this.setData({
               myjion:false,
