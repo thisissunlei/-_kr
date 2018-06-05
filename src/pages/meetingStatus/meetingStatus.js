@@ -35,6 +35,7 @@ Page({
   },
  
   onLoad: function (options) {
+    wx.reportAnalytics('viewinvitation')
     const that = this;
     let inviteeId = options.inviteeId
     this.setData({
