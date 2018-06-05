@@ -518,7 +518,8 @@ Page({
     }
   },
   closeDialogDate:function(){
-    wx.reportAnalytics('click')
+    //未知，待定
+    // wx.reportAnalytics('click')
     let that = this;
     that.setData({
       dialogDate:!that.data.dialogDate
@@ -618,7 +619,7 @@ Page({
   },
 
   onLoad:function(options){
-    wx.reportAnalytics('enterPage')
+    wx.reportAnalytics('community')
     if(options.communityId){
       this.setData({
         communityId:options.communityId
@@ -685,7 +686,7 @@ Page({
     // this.reloadData();
   },
   getMeetDetail(){
-    wx.reportAnalytics('enterPage')
+    wx.reportAnalytics('goodsdetails')
     let meetingRoomId = this.data.meetingRoomId;
     let that = this;
     app.getRequest({

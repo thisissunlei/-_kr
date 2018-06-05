@@ -61,6 +61,7 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
+    ifFirst:true,
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -332,6 +333,7 @@ Page({
   },
   openMeetDetail:function(e){
     let that = this;
+
     this.setData({
       meetingRoomId:'',
       meetDetailShow:!this.data.meetDetailShow
@@ -402,6 +404,7 @@ Page({
   },
   closeDialogDate:function(){
     let that = this;
+    wx.reportAnalytics('choosedate')
     that.setData({
       dialogDate:!that.data.dialogDate
     })
@@ -467,7 +470,7 @@ Page({
     return ;
   },
   subTime:function(e){
-    wx.reportAnalytics('click')
+    wx.reportAnalytics('choosetime')
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
@@ -483,7 +486,7 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
-    if(data.isFirst){
+    if(data.ifFirst){
       if(hours>2){
         this.setData({
           totalCount:totalCount,
@@ -493,7 +496,8 @@ Page({
       }else{
         this.setData({
           totalCount:totalCount,
-          priceCount:1
+          priceCount:1,
+          isFirst:true
         })
       }
     }else{
@@ -749,13 +753,14 @@ Page({
         },
         success:(res)=>{
           this.setData({
-            isFirst:res.data.data.first
+            ifFirst:res.data.data.first
           })
         }
     })
   },
   closeDialogTime:function(){
     var that = this;
+
     if(!that.data.dialogTimeShow){
       // that.getMeetDetail();
       that.getNowRangeTime();
@@ -928,6 +933,8 @@ Page({
                   },2000)
               break;
               default:
+                wx.reportAnalytics('confirmorder')
+
                 _this.weChatPay(res.data.data);
                 _this.closeDialog();
                   wx.setStorage({

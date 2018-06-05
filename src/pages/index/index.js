@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   onShareAppMessage: function() {
-    wx.reportAnalytics('share')
+    wx.reportAnalytics('sharekrmeeting')
     return app.globalData.share_data;
   },
   
@@ -219,7 +219,7 @@ Page({
   },
   //跳转新人指导
   point:function(){
-    wx.reportAnalytics('click')
+    wx.reportAnalytics('viewguide')
     wx.navigateTo({
       url:"../point/point"
     })
@@ -227,12 +227,16 @@ Page({
   //点击会议card
   moveToMeetingDetail:function(e){
     var  inviteeId=e.currentTarget.dataset.id
+    // wx.reportAnalytics('goodsdetails')
+
     wx.navigateTo({
       url:"../meetingDetail/meetingDetail?inviteeId="+inviteeId
     })
   },
   //点击会议室进入会议室列表
   moveToMeetingRoom:function(e){
+    wx.reportAnalytics('viewcommunity')
+
     var communityId = e.currentTarget.dataset.id
     wx.navigateTo({
       url:"../boardroomList/boardroomList?communityId="+communityId
@@ -240,7 +244,7 @@ Page({
   },
   //
   moveToMy:function(){
-    wx.reportAnalytics('click')
+    wx.reportAnalytics('viewusercenter')
     wx.navigateTo({
       url:"../my/my"
     })

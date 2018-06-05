@@ -60,6 +60,8 @@ Page({
   },
   onLoad: function (options) {
     console.log(options,"options")
+    wx.reportAnalytics('viewmeeting')
+
     let inviteeId = options.inviteeId
     this.setData({
       inviteeId:inviteeId
@@ -111,6 +113,9 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
+        wx.reportAnalytics('sharemeeting')
+
+   
     return {
       title:'戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
       path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId, 
@@ -119,6 +124,9 @@ Page({
   //点击取消参会
   cancelMeeting(){
     let that = this;
+    
+        wx.reportAnalytics('cancelmeeting')
+    
     wx.getStorage({
       key: 'user_info',
       success:(res)=>{

@@ -37,6 +37,8 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
+        wx.reportAnalytics('sharemeeting')
+    
     return {
       title: '戳我一键参会！邀请您于"'+this.data.detailInfo.ctime+'"在"'+this.data.detailInfo.meetingRoomName+'"参加"'+this.data.detailInfo.themeName+'"',
       path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId
@@ -44,7 +46,7 @@ Page({
   },
 
   payOrder:function(){
-    wx.reportAnalytics('enterPage')
+    
     let orderId=this.data.orderId;
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
@@ -55,6 +57,7 @@ Page({
       success:(res)=>{
         var _this=this;
         console.log(res)
+        wx.reportAnalytics('confirmorder')
         wx.requestPayment({
           'timeStamp': res.data.data.timestamp,
           'nonceStr': res.data.data.noncestr,
@@ -91,6 +94,8 @@ Page({
   openMeetDetail:function(e){
     let detailInfo=this.data.detailInfo;
     let that = this;
+    // wx.reportAnalytics('goodsdetails')
+
     this.setData({
       meetingRoomId:detailInfo.meetingRoomId,
       meetDetailShow:!this.data.meetDetailShow
