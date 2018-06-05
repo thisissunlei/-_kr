@@ -54,7 +54,7 @@ Page({
     })
   },
   onUnload:function(){
-    wx.navigateTo({
+    wx.reLaunch({
       url:"../index/index"
     })
   },
@@ -151,7 +151,7 @@ Page({
       },
       success:(res)=>{
         console.log(res,"取消参会")
-        wx.redirectTo({
+        wx.reLaunch({
           url:"../index/index"
         })
       }
