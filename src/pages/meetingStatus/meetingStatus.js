@@ -64,7 +64,18 @@ Page({
     this.setData({
       inviteeId:inviteeId
     });
-    
+    if(this.data.join===true){
+      this.setData({
+        myjion:false,
+      })
+    }
+    if(res.data.data.meetingStatus==='EXPIRED'){
+      this.setData({
+        status:true,
+        advance:true,
+        myjion:false
+      })
+    }
     
     //查看是否授权
     wx.getSetting({
@@ -183,18 +194,7 @@ Page({
           join:res.data.data.join||''
         })
        console.log(new Date(),res.data.data.join)
-        if(this.data.join===true){
-          this.setData({
-            myjion:false,
-          })
-        }
-        if(res.data.data.meetingStatus==='EXPIRED'){
-          this.setData({
-            status:true,
-            advance:true,
-            myjion:false
-          })
-        }
+        
       }
     })
   },
@@ -203,10 +203,6 @@ Page({
   jion:function(){
     var _this = this
     if(_this.flag){
-      this.data.inviteer.push(this.data.wechatInfo)
-      this.setData({
-        inviteer:this.data.inviteer
-      })
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting//invitee/joinInvitee',
         methods:"GET",
@@ -218,6 +214,10 @@ Page({
         },
         success:(res)=>{
           console.log(res,"确认参加")
+          _this.setData({
+            inviteer:this.data.inviteer
+          })
+          _this.data.inviteer.push(this.data.wechatInfo)
           _this.setData({
             join:true
           })
