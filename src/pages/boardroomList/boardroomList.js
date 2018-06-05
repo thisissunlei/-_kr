@@ -612,6 +612,7 @@ Page({
     }
   },
   closeDialogDate:function(){
+    wx.reportAnalytics('click')
     let that = this;
     that.setData({
       dialogDate:!that.data.dialogDate
@@ -711,6 +712,7 @@ Page({
   },
 
   onLoad:function(options){
+    wx.reportAnalytics('enterPage')
     if(options.communityId){
       this.setData({
         communityId:options.communityId
@@ -777,6 +779,7 @@ Page({
     // this.reloadData();
   },
   getMeetDetail(){
+    wx.reportAnalytics('enterPage')
     let meetingRoomId = this.data.meetingRoomId;
     let that = this;
     app.getRequest({

@@ -4,8 +4,10 @@ const app = getApp()
 
 Page({
   onShareAppMessage: function() {
+    wx.reportAnalytics('share')
     return app.globalData.share_data;
   },
+  
   data: {
     metting:false,
     btn_bool:true,
@@ -228,6 +230,7 @@ Page({
   },
   //跳转新人指导
   point:function(){
+    wx.reportAnalytics('click')
     wx.navigateTo({
       url:"../point/point"
     })
@@ -242,6 +245,7 @@ Page({
   },
   //点击会议室进入会议室列表
   moveToMeetingRoom:function(e){
+  
     console.log(e)
     var communityId = e.currentTarget.dataset.id
     wx.navigateTo({
@@ -250,6 +254,7 @@ Page({
   },
   //
   moveToMy:function(){
+    wx.reportAnalytics('click')
     wx.navigateTo({
       url:"../my/my"
     })

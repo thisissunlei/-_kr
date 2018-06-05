@@ -210,7 +210,7 @@
 }
 .cmty_con{
 	flex-grow:1;
-	margin-left: 20rpx;
+	margin-left: 30rpx;
 }
 .num_text{
 	font-family: PingFang-SC-Medium;
@@ -227,6 +227,7 @@
 	margin-right: 8rpx;
 }
 .cmty_title{
+	font-family: PingFangSC-Medium;
 	margin-bottom: 24rpx;
 	font-size: 34rpx;
 	color: #333333;
@@ -237,6 +238,8 @@
 	overflow: hidden;
 }
 .lct_con{
+	width: 340rpx;
+	height: 80rpx;
 	display: inline-block;
 	float: left;
 	font-size: 26rpx;
@@ -244,6 +247,10 @@
 	line-height: 40rpx;
 	font-family: PingFangSC-Regular;
 	font-weight: normal;
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+	line-clamp: 2;  //这里是在第二行有省略号
 }
 .lct_distance{
 	display: inline-block;
@@ -251,7 +258,7 @@
 	display: inline-block;
 	font-size: 26rpx;
 	color: #666666;
-	line-height: 26rpx;
+	line-height: 40rpx;
 }
 .room_num{
 	font-size: 26rpx;
