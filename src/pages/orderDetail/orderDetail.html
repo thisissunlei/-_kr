@@ -86,10 +86,10 @@
         </view>
     </view>
     <view class="u-meeting-phone" bindtap="jumpSetPhone">
-            <view class="u-meeting-title">
+            <view class="u-meeting-title"  style="line-height:114rpx">
                 联系电话
             </view>
-            <view class="u-meet-text">{{detailInfo.linkPhone}}</view>
+            <view class="u-meet-text"  style="line-height:114rpx">{{detailInfo.linkPhone}}</view>
             <view class="u-btn-arrow u-phone-btn-arrow"  wx:if="{{detailInfo.orderShowStatus!=3}}">
                 <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
@@ -118,10 +118,13 @@
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}">
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
+          <view class="u-content-meet">
           <view class="u-swiper-content">
+            <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
             <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
                   bindchange="currentChange"
+                  wx:if="{{meetingDetail.roomImg.length>1}}"
                   
                   >
                   <view wx:for="{{meetingDetail.roomImg}}" wx:key="*this">
@@ -130,10 +133,10 @@
                     </swiper-item>
                   </view>
             </swiper>
-            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>0}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
+            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
           <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
-          <view class="u-meeting-info">
+          <view class="u-meeting-detail-info">
               <view class="u-meet-info">
                   <view class="u-meet-name">
                     {{meetingDetail.capacity}}人间  {{meetingDetail.meetingRoomName}}
@@ -148,11 +151,11 @@
               </view>
               <view class="u-meet-detail-address">
                   <view class="u-address">
-                      <image class="u-address-icon" src="../images/public/icon_dizhi.png"></image>
+                      <image class="u-address-icon" src="../images/public/icon_didian.png"></image>
                       <view class="u-address-txt">{{meetingDetail.buildName}} {{meetingDetail.floor}}层</view>
                   </view>
                   <view class="u-address" style="margin-top: 24rpx">
-                    <image class="u-address-icon"  src="../images/public/icon_didian.png"  style="vertical-align: top"></image>
+                    <image class="u-address-icon" src="../images/public/icon_dizhi.png"  style="vertical-align: top;width:28rpx;height:30rpx"></image>
                     <view class="u-address-txt" style="width:90%;vertical-align: top;line-height: 32rpx">{{meetingDetail.address}}</view>
                 </view>
               </view>
@@ -169,6 +172,9 @@
               </view> 
           </view>
       </view>
+
+    </view>
+
     </view>
   </view>
 

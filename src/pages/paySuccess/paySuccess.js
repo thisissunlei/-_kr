@@ -29,6 +29,11 @@ Page({
       url: '../logs/logs'
     })
   },
+  onUnload:function(){
+    wx.navigateTo({
+      url:"../index/index"
+    })
+  },
   onLoad: function (options) {
     console.log(options,"options")
     let inviteeId = options.inviteeId

@@ -3,26 +3,27 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  
 }
 .wrapper{
-  padding: 0 20rpx;
+  padding-top: 20rpx;
   background: #393f50;
   position: relative;
 }
 .top{
   width:710rpx;
-  height:450px;
- 
+  height:465px;
+  padding: 0 20rpx;
  }
  .top-banner{
    width:710rpx;
-   height:450px;
+   height:465px;
    position: relative;
    
  }
  .content{
   width:710rpx;
-  height:450px;
+  height:465px;
   position: absolute;
   top: 0;
   left: 0;
@@ -41,15 +42,18 @@
  }
  .top .title text{
    display: block;
-   font-size: 36rpx;
-   color: #2A2A2A;
  }
- .top .title .h1{
+ .top .title .meetingTime{
    height: 47px;
    line-height: 47px;
    font-size: 40rpx;
    color: #333333;
    font-weight: 900;
+ }
+ .top .title .themeName{
+   color: #666666;
+   font-size: 36rpx;
+   font-weight: 600;
  }
  .pics{
    padding:25px 20rpx;
@@ -85,31 +89,31 @@
    position: absolute;
    top: 0;
    left: 0;
-   z-index:-999999999;
  }
  .mycanvas{
    display: block;
-   margin: 8px 8px;
-   position: absolute;
-   z-index: -99999999999;
+   margin: 26rpx;
  }
  .pics .code-desc{
    font-size: 28rpx;
    color: #666666;
-   margin-top: 196px;
+   margin-top: 200px;
  }
  .content .bottom_text{
-   margin-top: 8px;
+   margin-top: 14px;
    padding-left: 24rpx;
    padding-right:24rpx;
  }
  .bottom_text .metting-house{
+   display: inline-block;
    font-size: 14px;
    color: #333333;
+   height:14px;
+  margin-bottom:13px;
  }
  .bottom_text image{
-   width: 14px;
-   height: 15px;
+   width: 12px;
+   height: 14px;
    margin-right: 8px;
    vertical-align: middle;
  }
@@ -122,14 +126,22 @@
   border-top: 1px solid #2F3543; 
   border-bottom: 1px solid #2F3543;  
   position: relative;
+  padding: 0 20rpx;
 }
-.h2{
+.conferee-title{
   display: block;
   font-size: 32rpx;
   color: #fff;
-  font-weight: 900;
+  font-weight: 600;
   height: 120rpx;
   line-height: 120rpx;
+}
+.hint_title{
+  display: block;
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: 600;
+  margin-top: 40rpx;
 }
 
 .conferee .list{
@@ -142,7 +154,9 @@
   width: 86rpx;
   height: 86rpx;
   border-radius:50%;
-  border: 2rpx solid #fff;
+  border-width: thin;
+	border-style: solid;
+	border-color: #F6F6F6;
   margin-bottom: 20rpx;
 }
 .pic image{
@@ -151,6 +165,7 @@
   border-radius:50%;
 }
 .conferee .list text{
+  display: inline-block;
   width: 86rpx;
   height: 86rpx;
   font-size: 24rpx;
@@ -174,7 +189,7 @@
   left: 74rpx;
 }
 .hint{
-  padding-bottom: 406rpx;
+  padding: 0 20rpx 406rpx 20rpx;
 }
 .hint h2{
   font-size: 32rpx;
@@ -184,7 +199,8 @@
   display: block;
 }
 .hint .list{
-  padding-bottom: 25rpx;
+  padding-bottom: 40rpx;
+  margin-top: 40rpx;
 }
 .hint .list:nth-child(2){
   border-bottom: 2rpx dotted #2F3543;
@@ -218,7 +234,7 @@
   border-radius: 5px;
   color: #666666;
 }
-.footer text.kefu{
+.footer .btns .kefu{
   border: 1px solid #333333;
   margin-right: 20rpx;
   color: #333333;
@@ -232,22 +248,6 @@
   color: #fff;
   border-radius:5px; 
 }
-.tishi{
-  width: 600rpx;
-  height: 108rpx;
-  position: absolute;
-  bottom: 20rpx;
-  right: 32rpx;
-  background: rgba(255,255,255,0.3);
-  border-radius: 8px;
-  font-size: 24rpx;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 20rpx 24rpx;
-}
-.tishi text{
-  display: block;
-}
 .clear{
   clear: both;
 }
@@ -257,7 +257,8 @@ button{
   padding-right:0;
   display: inline-block;
   background-color: transparent;
-  
+  border-style: none;
+  border-width: 0px;
 }
 .overdue{
   text-align: right;

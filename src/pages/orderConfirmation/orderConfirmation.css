@@ -57,7 +57,7 @@ page {
 }
 .u-meet-price-info {
   font-size: 26rpx;
-  margin-top: 24rpx;
+  margin-top: 40rpx;
 }
 .u-meet-price {
   color: #151515;
@@ -68,10 +68,13 @@ page {
 }
 .u-meet-num {
   font-size: 34rpx;
+  color: #333333;
+  font-weight: 600;
 }
 .u-meet-uint-info {
   display: inline;
-  color: #3F3F3F;
+  color: #999999;
+  font-weight: 500;
 }
 .u-order-time {
   width: 680rpx;
@@ -124,7 +127,7 @@ page {
   height: 124rpx;
   font-size: 32rpx;
   color: #333333;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #F6F6F6;
   position: relative;
 }
 .u-meeting-remind {
@@ -187,7 +190,7 @@ page {
   color: #FFFFFF;
 }
 .u-active-btn {
-  background-image: linear-gradient(50deg, #FFD24C 0%, #F79C1C 89%);
+  background-image: linear-gradient(50deg, #F79C1C 0%, #FFD24C 89%);
 }
 .u-first-pay-price {
   width: 100%;
@@ -258,7 +261,7 @@ page {
 }
 .u-time-title {
   font-size: 28rpx;
-  color: #666666;
+  color: #999;
   text-align: center;
   margin-top: 22rpx;
   margin-bottom: 10rpx;
@@ -412,25 +415,25 @@ page {
 }
 .u-dialog-time .top .pre-date.banned .pre-icon {
   transform: none;
-  width: 20rpx;
-  height: 22rpx;
+  width: 30rpx;
+  height: 30rpx;
   margin-right: 14rpx;
 }
 .u-dialog-time .top .pre-date .pre-icon {
   transform: rotate(180deg);
-  width: 20rpx;
-  height: 22rpx;
+  width: 30rpx;
+  height: 30rpx;
   margin-right: 14rpx;
 }
 .u-dialog-time .top .next-date .next-icon {
-  width: 20rpx;
-  height: 22rpx;
+  width: 30rpx;
+  height: 30rpx;
   margin-left: 14rpx;
 }
 .u-dialog-time .top .next-date.banned .next-icon {
   transform: rotate(180deg);
-  width: 20rpx;
-  height: 22rpx;
+  width: 30rpx;
+  height: 30rpx;
   margin-right: 14rpx;
 }
 .u-dialog-time .top .pre-date,
@@ -488,6 +491,9 @@ page {
   border-radius: 8rpx;
   margin-right: 2rpx;
 }
+.u-dialog-time .main .row .square .item:nth-of-type(even) {
+  margin-right: 4rpx;
+}
 .u-dialog-time .main .row .square .item:last-child {
   margin-right: 0;
 }
@@ -525,7 +531,7 @@ page {
   border-radius: 8rpx;
   margin-right: 30rpx;
   font-size: 20rpx;
-  line-height: 40rpx;
+  line-height: 42rpx;
 }
 .u-dialog-time .tag .check {
   background: #fff;
@@ -555,7 +561,7 @@ page {
   line-height: 112rpx;
   font-size: 36rpx;
   color: #FFFFFF;
-  background-image: linear-gradient(50deg, #FFD24C 0%, #F79C1C 89%);
+  background-image: linear-gradient(50deg, #F79C1C 0%, #FFD24C 89%);
 }
 .u-no-time {
   font-size: 30rpx;
@@ -641,6 +647,11 @@ page {
 }
 .u-swiper-content {
   position: relative;
+  height: 420rpx;
+}
+.u-meet-img-only {
+  width: 100%;
+  height: 100%;
 }
 .u-meet-swiper {
   width: 100%;
@@ -689,7 +700,7 @@ page {
   color: #FF6868;
   padding-right: 8rpx;
 }
-.u-meet-num {
+.u-meet-detail-num {
   display: inline-block;
   font-size: 44rpx;
   color: #FF6868;
@@ -763,7 +774,7 @@ page {
 .u-meet-btn {
   height: 112rpx;
   line-height: 112rpx;
-  background-image: linear-gradient(50deg, #FFD24C 0%, #F79C1C 89%);
+  background-image: linear-gradient(50deg, #F79C1C 0%, #FFD24C 89%);
   text-align: center;
   color: #fff;
   font-size: 36rpx;
@@ -814,7 +825,6 @@ page {
   color: #333333;
   padding-left: 40rpx;
   padding-right: 40rpx;
-  padding-top: 20rpx;
 }
 .before {
   font-family: PingFang-SC-Regular;
@@ -833,7 +843,7 @@ page {
   color: #F5A623;
 }
 .active {
-  background-image: linear-gradient(57deg, #FAD961 0%, #F79C1C 100%);
+  background-image: linear-gradient(57deg, #F79C1C 0%, #FAD961 100%);
   border-radius: 50%;
   color: #fff;
 }
