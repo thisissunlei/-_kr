@@ -191,9 +191,11 @@ Page({
         },
         success:(res)=>{
           console.log(res,"确认参加")
+          _this.setData({
+            join:true
+          })
           _this.flag = false
-          console.log(this.data.join,'点击后')
-
+          console.log(_this.data.join,'点击后')
           if( _this.data.join===true){
             _this.setData({
               myjion:false,
