@@ -67,6 +67,9 @@ Page({
   last_btn_num:'false',
   last_data:'false',
   choose_date:'',
+  rangeTime:[],
+  selectedTime:[],
+  isSubTime:false,
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -470,12 +473,13 @@ Page({
     return ;
   },
   subTime:function(e){
-    wx.reportAnalytics('choosetime')
+    this.isSubTime = true;
+    wx.reportAnalytics('choosetime');
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
       this.closeDialogTime();
-      
+      console.log("all",this.data.selectedTime); 
     }
     
   },
@@ -760,11 +764,30 @@ Page({
   },
   closeDialogTime:function(){
     var that = this;
-
     if(!that.data.dialogTimeShow){
       // that.getMeetDetail();
       that.getNowRangeTime();
-
+      this.isSubTime = false;
+      this.rangeTime = [].concat(this.data.rangeTime);
+      this.selectedTime = [].concat(this.data.selectedTime);
+    }else{
+      if(!this.isSubTime){
+        var rangeTime = this.rangeTime;
+        var selectedTime = this.selectedTime;
+        this.setData({
+          rangeTime1:[].concat(rangeTime.slice(0,8)),
+          rangeTime2:[].concat(rangeTime.slice(8,16)),
+          rangeTime3:[].concat(rangeTime.slice(16)),
+          rangeTime:[].concat(rangeTime),
+          selectedTime:[].concat(selectedTime),
+          meeting_time:{
+            time:selectedTime[0]?(getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1)):'',
+            beginTime:selectedTime[0]?(that.data.orderDate.time+' '+getTime(selectedTime[0])+':00'):'',
+            endTime:selectedTime[0]?(that.data.orderDate.time+' '+getTime(Number(selectedTime[selectedTime.length-1])+1)+':00'):'',
+            hours:selectedTime[0]?getHour(selectedTime):0
+          }
+        })
+      }
     }
     this.setData({
       dialogTimeShow:!that.data.dialogTimeShow
