@@ -86,7 +86,7 @@
         </view>
     </view>
     <view class="u-meeting-phone" bindtap="jumpSetPhone">
-            <view class="u-meeting-title">
+            <view class="u-meeting-title"  style="line-height:114rpx">
                 联系电话
             </view>
             <view class="u-meet-text">{{detailInfo.linkPhone}}</view>
@@ -119,9 +119,11 @@
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
           <view class="u-swiper-content">
+            <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
             <swiper class="u-meet-swiper" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
                   bindchange="currentChange"
+                  wx:if="{{meetingDetail.roomImg.length>1}}"
                   
                   >
                   <view wx:for="{{meetingDetail.roomImg}}" wx:key="*this">
@@ -130,7 +132,7 @@
                     </swiper-item>
                   </view>
             </swiper>
-            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>0}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
+            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
           <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
           <view class="u-meeting-info">

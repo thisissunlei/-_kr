@@ -4,8 +4,10 @@ const app = getApp()
 
 Page({
   onShareAppMessage: function() {
+    wx.reportAnalytics('share')
     return app.globalData.share_data;
   },
+  
   data: {
     metting:false,
     btn_bool:true,
@@ -48,12 +50,15 @@ Page({
         }
       },
       fail:function(res){
-        console.log(res,888888);
         _this.getAllInfo();
       }
     })
   },
   onLoad: function () {
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     const that = this;
     this.getLocation();
     //页面加载
@@ -67,7 +72,7 @@ Page({
               code: res.code
             },
             success:function(res){
-              console.log(res,88877722)
+              wx.hideLoading();
               that.func_bool_l = true;
               that.func_bool_l2 = true;
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
@@ -120,17 +125,7 @@ Page({
     wx.getSetting({
       success(res) {
         if (!res.authSetting['scope.userInfo']) {
-          console.log(999999776)
-          /*wx.authorize({
-              scope: 'scope.userInfo',
-              success() {
-                that.getInfo();
-                that.getLocation();
-              },
-              fail(res){
-                console.log(res,999)
-              }
-          })*/
+          console.log('用户没有授权：用户信息！')
         }else{
           that.func_bool_s = true;
           if(that.func_bool_s&&that.func_bool_l2){
@@ -154,7 +149,6 @@ Page({
   },
   getAllInfo:function (){
     var that = this;
-    console.log(app,5555,that.data.latitude)
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/home',
       data:{
@@ -162,7 +156,6 @@ Page({
         longitude:that.rq_data.longitude
       },
       success:(res)=>{
-        console.log(res.data.data,888888881111)
         let buildingList = res.data.data.buildingList
         let myMeeting = res.data.data.myMeeting
         buildingList.forEach(element => {
@@ -195,11 +188,9 @@ Page({
   },
   //获取用户信息
   getInfo:function(){
-    console.log(666666)
     var that = this;
     wx.getUserInfo({
-      success: function(res) {
-        console.log(res,888888)   
+      success: function(res) { 
         that.setData({
           avatarUrl: res.userInfo.avatarUrl,
         })
@@ -219,7 +210,6 @@ Page({
           
           },
           success:(res)=>{
-            console.log(res,5555888888881111)
             
           }
         });
@@ -228,13 +218,13 @@ Page({
   },
   //跳转新人指导
   point:function(){
+    wx.reportAnalytics('click')
     wx.navigateTo({
       url:"../point/point"
     })
   },
   //点击会议card
   moveToMeetingDetail:function(e){
-    console.log(e)
     var  inviteeId=e.currentTarget.dataset.id
     wx.navigateTo({
       url:"../meetingDetail/meetingDetail?inviteeId="+inviteeId
@@ -242,7 +232,6 @@ Page({
   },
   //点击会议室进入会议室列表
   moveToMeetingRoom:function(e){
-    console.log(e)
     var communityId = e.currentTarget.dataset.id
     wx.navigateTo({
       url:"../boardroomList/boardroomList?communityId="+communityId
@@ -250,13 +239,13 @@ Page({
   },
   //
   moveToMy:function(){
+    wx.reportAnalytics('click')
     wx.navigateTo({
       url:"../my/my"
     })
   },
 
   onGotUserInfo:function (e){
-    console.log(e.detail.userInfo,333333)
     if(e.detail.userInfo){
       this.getInfo();
       this.setData({

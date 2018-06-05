@@ -57,6 +57,7 @@ Page({
     }
   },
   checkWarn:function(e){
+    wx.reportAnalytics('click')
     let that = this;
     let type = this.data.type;
     var target = e.target.dataset;
