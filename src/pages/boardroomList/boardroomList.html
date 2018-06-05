@@ -60,8 +60,8 @@
             </view>
 
             <view class="third-row">
-                <text class="orange text12">￥ </text><text class="orange">{{item.promotionCost}} </text>
-                <text wx:if="{{item.promotionCost!=item.unitCost}}" class="orignal-price" style="text-decoration:line-through">￥ {{item.unitCost}}</text><text class="text12" style="color:#2a2a2a;"> / 半小时</text>
+                <text class="orange text12" style="margin-left:-2rpx;">￥ </text><text class="orange" style="font-weight:600;">{{item.promotionCost}} </text>
+                <text wx:if="{{item.promotionCost!=item.unitCost}}" class="orignal-price" style="text-decoration:line-through">￥ {{item.unitCost}}</text><text class="text12" style="color:#999;"> / 半小时</text>
             </view>
             
           </view> 
