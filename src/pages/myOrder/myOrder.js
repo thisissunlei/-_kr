@@ -161,7 +161,7 @@ Page({
         success:(res)=>{
           console.log('res',res)
           if(res.data.code>0){
-             wx.reportAnalytics('Confirm Order')
+             // wx.reportAnalytics('confirmorder')
             wx.requestPayment({
               'timeStamp': res.data.data.timestamp,
               'nonceStr': res.data.data.noncestr,

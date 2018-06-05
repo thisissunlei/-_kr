@@ -619,7 +619,7 @@ Page({
   },
 
   onLoad:function(options){
-    wx.reportAnalytics('View Community')
+    wx.reportAnalytics('community')
     if(options.communityId){
       this.setData({
         communityId:options.communityId
@@ -686,7 +686,7 @@ Page({
     // this.reloadData();
   },
   getMeetDetail(){
-    wx.reportAnalytics('View Goods Details')
+    wx.reportAnalytics('goodsdetails')
     let meetingRoomId = this.data.meetingRoomId;
     let that = this;
     app.getRequest({

@@ -17,7 +17,7 @@ Page({
   },
   onLoad: function () {
     let that = this;
-    wx.reportAnalytics('View Meeting')
+    wx.reportAnalytics('viewmeeting')
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/invitee/list',
         methods:"GET",

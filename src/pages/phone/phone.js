@@ -32,7 +32,7 @@ Page({
     })
   },
   formSubmit(e){
-    wx.reportAnalytics('Edite phone')
+    wx.reportAnalytics('editephone')
     let that = this;
     // 校验手机格式--start
     var phoneTest = util.phone(this.data.inputValue)

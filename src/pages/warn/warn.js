@@ -57,7 +57,7 @@ Page({
     }
   },
   checkWarn:function(e){
-    wx.reportAnalytics('Edite Notice')
+    wx.reportAnalytics('editenotice')
     let that = this;
     let type = this.data.type;
     var target = e.target.dataset;

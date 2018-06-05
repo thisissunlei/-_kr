@@ -69,7 +69,7 @@ Page({
 
   formSubmit(e){
     let that = this;
-    wx.reportAnalytics('Edite Title')
+    wx.reportAnalytics('editetitle')
     let type = this.data.type;
     let order_pay = this.data.order_pay;
     if(type=='storage'){

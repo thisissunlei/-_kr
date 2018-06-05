@@ -60,7 +60,7 @@ Page({
   },
   onLoad: function (options) {
     console.log(options,"options")
-    wx.reportAnalytics('View Meeting')
+    wx.reportAnalytics('viewmeeting')
 
     let inviteeId = options.inviteeId
     this.setData({
@@ -113,7 +113,7 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
-        wx.reportAnalytics('Share Meeting')
+        wx.reportAnalytics('sharemeeting')
 
    
     return {
@@ -125,7 +125,7 @@ Page({
   cancelMeeting(){
     let that = this;
     
-        wx.reportAnalytics('Cancel Meeting')
+        wx.reportAnalytics('cancelmeeting')
     
     wx.getStorage({
       key: 'user_info',
