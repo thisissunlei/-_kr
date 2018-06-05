@@ -54,7 +54,7 @@ Page({
     })
   },
   onUnload:function(){
-    wx.navigateTo({
+    wx.reLaunch({
       url:"../index/index"
     })
   },
@@ -123,38 +123,51 @@ Page({
   },
   //点击取消参会
   cancelMeeting(){
+    wx.reportAnalytics('cancelmeeting')
     let that = this;
-    
-        wx.reportAnalytics('cancelmeeting')
-    
-    wx.getStorage({
-      key: 'user_info',
-      success:(res)=>{
-        that.data.inviteer.forEach((item,index)=>{ 
-          if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
-            that.data.inviteer.splice(index, 1)
-          }    
-        })
-        this.setData({
-          inviteer:that.data.inviteer
-        })
-      },
-    })
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/cancel',
-      methods:"GET",
-      header:{
-        "content-type":"application/json"
-      },
-      data:{
-        inviteeId:this.data.inviteeId
-      },
-      success:(res)=>{
-        console.log(res,"取消参会")
-        wx.redirectTo({
-          url:"../index/index"
-        })
+    wx.showModal({
+      title: '提示',
+      content: '取消参会后，会议开始前您可以从我的订单或会议邀请中，再次参加会议哦～',
+      success: function(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          app.getRequest({
+            url:app.globalData.KrUrl+'api/gateway/krmting/invitee/cancel',
+            methods:"GET",
+            header:{
+              "content-type":"application/json"
+            },
+            data:{
+              inviteeId:that.data.inviteeId
+            },
+            success:(res)=>{
+              console.log(res,"取消参会")
+
+              wx.getStorage({
+                key: 'user_info',
+                success:(res)=>{
+                  that.data.inviteer.forEach((item,index)=>{ 
+                    if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
+                      that.data.inviteer.splice(index, 1)
+                    }    
+                  })
+                  that.setData({
+                    inviteer:that.data.inviteer
+                  })
+                },
+              })
+              
+            }
+          })
+          wx.reLaunch({
+            url:"../index/index"
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+          
+        }
+
       }
-    })
+    }) 
   }
 })

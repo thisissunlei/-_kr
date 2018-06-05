@@ -181,7 +181,11 @@ Page({
             metting:true
           })
         }
-          
+        if(this.data.myMeeting.length==1){
+          that.setData({
+            indicatorDots:false
+          })
+        } 
         
         console.log(that.data.metting)
       }

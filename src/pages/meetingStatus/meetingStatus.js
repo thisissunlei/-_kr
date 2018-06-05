@@ -228,6 +228,10 @@ Page({
               })
             }
           }else{
+            wx.showToast({
+              title: res.data.msg,
+              duration: 2000
+            })
             if(_this.join===true){
               _this.setData({
                 myjion:false,
