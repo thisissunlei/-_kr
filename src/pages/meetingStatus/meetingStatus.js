@@ -59,24 +59,11 @@ Page({
   },
  
   onLoad: function (options) {
-    wx.reportAnalytics('viewinvitation')
     const that = this;
     let inviteeId = options.inviteeId
-    this.setData({
+    that.setData({
       inviteeId:inviteeId
     });
-    if(this.data.join===true){
-      this.setData({
-        myjion:false,
-      })
-    }
-    if(res.data.data.meetingStatus==='EXPIRED'){
-      this.setData({
-        status:true,
-        advance:true,
-        myjion:false
-      })
-    }
     
     //查看是否授权
     wx.getSetting({
@@ -195,7 +182,18 @@ Page({
           join:res.data.data.join||''
         })
        console.log(new Date(),res.data.data.join)
-        
+       if(this.data.join===true){
+        this.setData({
+          myjion:false,
+        })
+      }
+      if(res.data.data.meetingStatus==='EXPIRED'){
+        this.setData({
+          status:true,
+          advance:true,
+          myjion:false
+        })
+      }
       }
     })
   },
@@ -203,8 +201,6 @@ Page({
   //点击我要参与
   jion:function(){
     var _this = this
-        wx.reportAnalytics('acceptinvitation')
-    
     if(_this.flag){
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting//invitee/joinInvitee',
@@ -213,14 +209,14 @@ Page({
           "content-type":"application/json"
         },
         data:{
-          inviteeId:this.data.inviteeId
+          inviteeId:_this.data.inviteeId
         },
         success:(res)=>{
           console.log(res,"确认参加")
           _this.setData({
-            inviteer:this.data.inviteer
+            inviteer:_this.data.inviteer
           })
-          _this.data.inviteer.push(this.data.wechatInfo)
+          _this.data.inviteer.push(_this.data.wechatInfo)
           _this.setData({
             join:true
           })
@@ -234,6 +230,9 @@ Page({
         },
         fail:(res)=>{
           _this.flag = true
+          _this.setData({
+            myjion:true,
+          })
         }
       })
       
