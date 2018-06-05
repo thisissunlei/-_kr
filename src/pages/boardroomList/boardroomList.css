@@ -75,7 +75,6 @@
   color: #666;
   width: 88rpx;
   text-align: center;
-  font-family: PingFang-SC-Medium;
 }
 .top-date .left .date-item .bottom-border {
   width: 40rpx;
@@ -99,7 +98,7 @@
   height: 352rpx;
   background: #fff;
   padding: 40rpx;
-  margin-bottom: 10rpx;
+  margin-bottom: 20rpx;
   border-bottom: 1px solid #F3F3F3;
 }
 .list-item .top {
@@ -121,12 +120,12 @@
 .list-item .top .top-right .first-row {
   display: flex;
   justify-content: space-between;
-  font-family: PingFang-SC-Medium;
+  font-weight: 600;
   font-size: 34rpx;
   color: #333333;
 }
 .list-item .top .top-right .first-row .room-size {
-  font-family: PingFang-SC-Medium;
+  font-weight: 600;
   font-size: 34rpx;
   color: #333333;
 }
@@ -164,7 +163,7 @@
   color: #666666;
 }
 .list-item .top .top-right .third-row .price {
-  font-family: PingFang-SC-Medium;
+  font-weight: 600;
   font-size: 40rpx;
 }
 .list-item .bottom {
@@ -296,6 +295,7 @@
   font-size: 44rpx;
   color: #333333;
   margin: 0 0 10rpx;
+  font-weight: 600;
 }
 .u-meet-unit {
   display: inline-block;
@@ -330,7 +330,7 @@
   padding: 0 12rpx;
   color: #FF6868;
   position: absolute;
-  right: 32rpx;
+  right: 0;
   bottom: 40rpx;
   font-size: 26rpx;
 }
@@ -439,7 +439,7 @@
   line-height: 48rpx;
 }
 .next {
-  font-family: PingFang-SC-Medium;
+  font-weight: 600;
   font-size: 26rpx;
   color: #222222;
 }

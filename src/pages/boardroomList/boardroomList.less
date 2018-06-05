@@ -86,7 +86,6 @@ page{
   color:#666;
   width:88rpx;
   text-align: center;
-  font-family: PingFang-SC-Medium;
 }
 
 
@@ -115,7 +114,7 @@ page{
   height:352rpx;
   background: #fff;
   padding: 40rpx;
-  margin-bottom: 10rpx;
+  margin-bottom: 20rpx;
   border-bottom:1px solid #F3F3F3;
 }
 .list-item .top{
@@ -131,20 +130,21 @@ page{
   border: 1px solid #F3F3F3;
 }
 .list-item .top .top-right{
-  width: 420rpx;
+  width: 484rpx;
   height:150rpx;
+  padding-left:32rpx;
+  box-sizing: border-box;
   
 }
 .list-item .top .top-right .first-row{
   display: flex;
   justify-content: space-between;
-  font-family: PingFang-SC-Medium;
   font-size: 34rpx;
   color: #333333;
 }
 
 .list-item .top .top-right .first-row .room-size{
-  font-family: PingFang-SC-Medium;
+  font-weight: 600;
   font-size: 34rpx;
   color: #333333;
 }
@@ -190,11 +190,12 @@ page{
 
 .orignal-price{
   font-size: 26rpx;
-  color: #666666;
+  color: #999;
+  
 }
 
 .list-item .top .top-right .third-row .price{
-  font-family: PingFang-SC-Medium;
+  font-weight: 600;
   font-size: 40rpx;
 }
 
@@ -283,12 +284,13 @@ page{
 }
 .u-meet-content{
   width:100%;
-  min-height:800rpx;
   background: #fff;
-  margin-top:300rpx;
-  position: relative;
-  display: inline-block;
+  position: absolute;
   bottom:0;
+}
+.u-content-meet{
+  display: inline-block;
+  width:100%;
 }
 .u-swiper-content{
   position: relative;
@@ -497,7 +499,7 @@ page{
   line-height: 48rpx;
 }
 .next{
-  font-family: PingFang-SC-Medium;
+  font-weight: 600;
   font-size: 26rpx;
   color: #222222;
 }

@@ -137,7 +137,10 @@ Page({
   //获取会议室列表
   getData:function(){
     let that = this;
-    
+    wx.showLoading({
+      title: '加载中',
+    })
+
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
@@ -155,6 +158,7 @@ Page({
             nextPage:2,
           },function(){
             that.reloadData();
+            wx.hideLoading();
           })
           this.data.boardroomList.forEach(element=>{
             console.log(element.buildName)
