@@ -490,6 +490,9 @@ page {
   border-radius: 8rpx;
   margin-right: 2rpx;
 }
+.u-dialog-time .main .row .square .item:nth-of-type(even) {
+  margin-right: 4rpx;
+}
 .u-dialog-time .main .row .square .item:last-child {
   margin-right: 0;
 }
@@ -643,6 +646,11 @@ page {
 }
 .u-swiper-content {
   position: relative;
+  height: 420rpx;
+}
+.u-meet-img-only {
+  width: 100%;
+  height: 100%;
 }
 .u-meet-swiper {
   width: 100%;
