@@ -32,6 +32,7 @@
 	display: flex;
 	flex-direction: column;
 	flex:1;
+	letter-spacing: 0;
 }
 .E-title{
 	font-size: 72rpx;
@@ -213,7 +214,7 @@
 	margin-left: 30rpx;
 }
 .num_text{
-	font-family: PingFang-SC-Medium;
+	font-family: 'PingFang-SC-Medium';
 	font-size: 26rpx;
 	color: #666666;
 }
@@ -221,17 +222,18 @@
 	display: inline-block;
 	width: 48rpx;
 	text-align: center;
-	font-family: PingFang-SC-Medium;
+	font-family: 'PingFang-SC-Medium';
 	font-size: 17px;
 	color: #333333;
 	margin-right: 8rpx;
 }
 .cmty_title{
-	font-family: PingFangSC-Medium;
+	font-family: 'PingFangSC-Medium';
 	margin-bottom: 24rpx;
 	font-size: 34rpx;
 	color: #333333;
 	line-height: 34rpx;
+	font-weight: 600;
 }
 .location{
 	margin-bottom: 32rpx;
@@ -240,17 +242,16 @@
 .lct_con{
 	width: 340rpx;
 	height: 80rpx;
-	display: inline-block;
 	float: left;
 	font-size: 26rpx;
 	color: #666666;
 	line-height: 40rpx;
 	font-family: PingFangSC-Regular;
 	font-weight: normal;
-	white-space: nowrap;
-  	overflow: hidden;
-  	text-overflow: ellipsis;
-	line-clamp: 2;  //这里是在第二行有省略号
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;  
 }
 .lct_distance{
 	display: inline-block;
