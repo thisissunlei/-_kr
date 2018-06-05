@@ -54,7 +54,7 @@ Page({
     })
   },
   onUnload:function(){
-    wx.navigateTo({
+    wx.reLaunch({
       url:"../index/index"
     })
   },
@@ -159,13 +159,14 @@ Page({
               
             }
           })
-          wx.relaunch({
+          wx.reLaunch({
             url:"../index/index"
           })
         } else if (res.cancel) {
           console.log('用户点击取消')
           
         }
+
       }
     }) 
   }
