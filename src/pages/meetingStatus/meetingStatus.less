@@ -5,7 +5,6 @@
   overflow: hidden;
 }
 .wrapper{
-  padding: 0 20rpx;
   background: #393F50;
   position: relative;
 }
@@ -114,15 +113,22 @@
   border-top: 1px solid #2F3543; 
   border-bottom: 1px solid #2F3543;  
   position: relative;
+  padding: 0 20rpx;
 }
-
-.h2{
+.conferee-title{
   display: block;
   font-size: 32rpx;
   color: #fff;
-  font-weight: 900;
+  font-weight: 600;
   height: 120rpx;
   line-height: 120rpx;
+}
+.hint_title{
+  display: block;
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: 600;
+  margin-top: 40rpx;
 }
 
 .conferee .list{
@@ -135,10 +141,12 @@
   width: 86rpx;
   height: 86rpx;
   border-radius:50%;
-  border: 2rpx solid #fff;
+  border-width: thin;
+	border-style: solid;
+	border-color: #F6F6F6;
   margin-bottom: 20rpx;
 }
-.conferee .list .pic img{
+.pic image{
   width: 100%;
   height: 100%;
   border-radius:50%;
@@ -168,7 +176,7 @@
   left: 74rpx;
 }
 .hint{
-  padding-bottom: 275rpx;
+  padding: 0 20rpx 406rpx 20rpx;
 }
 .hint h2{
   font-size: 32rpx;
@@ -178,7 +186,8 @@
   display: block;
 }
 .hint .list{
-  padding-bottom: 25rpx;
+  padding-bottom: 40rpx;
+  margin-top: 40rpx;
 }
 .hint .list:nth-child(2){
   border-bottom: 2rpx dotted #2F3543;
