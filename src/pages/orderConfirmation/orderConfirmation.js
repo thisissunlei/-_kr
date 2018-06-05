@@ -475,11 +475,10 @@ Page({
   getPrice:function(){
     let data=this.data;
     let hours=data.meeting_time.hours;
-    let price=data.detailInfo.promotionCost || data.detailInfo.unitCost;
+    let price=data.detailInfo.promotionCost;
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
-   console.log('data.isFirst----',data.isFirst)
     if(data.isFirst){
       if(hours>2){
         this.setData({
