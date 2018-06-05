@@ -538,6 +538,7 @@ Page({
         orderDate:orderDate
       },function(){
         that.bool = true;
+        that.getNowRangeTime();
       })
     }
   },
@@ -561,6 +562,7 @@ Page({
         orderDate:orderDate
       },function(){
         that.bool = true;
+        that.getNowRangeTime();
       })
     }
   },
@@ -759,7 +761,7 @@ Page({
       url:app.globalData.KrUrl+'api/gateway/krmting/room/disableTime',
       methods:"GET",
       data:{
-        date:wx.getStorageSync('nowDate'),
+        date:wx.getStorageSync('orderDate').time,
         meetingRoomId:id
       },
       header:{
