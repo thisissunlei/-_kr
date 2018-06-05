@@ -772,17 +772,18 @@ Page({
     var that = this;
     var disableTime = [];
     var newRangeTime = [];
+    console.log(that.data.orderDate);
     //过滤已过去的时间
     let now = new Date();
     let hours = now.getHours();
     let minutes = now.getMinutes();
     let limitTime = 2*hours+1+(minutes>29?1:0);
-
+    var selectedTime = this.data.selectedTime;
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/room/disableTime',
       methods:"GET",
       data:{
-        date:wx.getStorageSync('orderDate').time,
+        date:that.data.orderDate.time,
         meetingRoomId:id
       },
       header:{
@@ -793,7 +794,8 @@ Page({
         for (let i = 19; i < 39; i++) {
           var rangeTimeItem = {
             disabled:false,
-            number: i
+            number: i,
+            actived:false,
           };
           newRangeTime.push(rangeTimeItem);
         }
@@ -803,6 +805,9 @@ Page({
             }
             if(that.data.orderDate.timeText=="今天" && timeItem.number<limitTime){
                 timeItem.disabled = true;
+            }
+            if(selectedTime.indexOf(timeItem.number)>-1){
+                timeItem.actived = true;
             }
         });
         that.setData({
