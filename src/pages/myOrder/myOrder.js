@@ -149,6 +149,7 @@ Page({
       })
   },
   orderPay(e){
+    wx.reportAnalytics('enterPage')
     let id = e.target.dataset.order;
     let that = this;
     app.getRequest({

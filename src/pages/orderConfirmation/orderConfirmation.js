@@ -467,6 +467,7 @@ Page({
     return ;
   },
   subTime:function(e){
+    wx.reportAnalytics('click')
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();

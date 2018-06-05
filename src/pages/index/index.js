@@ -4,8 +4,10 @@ const app = getApp()
 
 Page({
   onShareAppMessage: function() {
+    wx.reportAnalytics('share')
     return app.globalData.share_data;
   },
+  
   data: {
     metting:false,
     btn_bool:true,
@@ -216,6 +218,7 @@ Page({
   },
   //跳转新人指导
   point:function(){
+    wx.reportAnalytics('click')
     wx.navigateTo({
       url:"../point/point"
     })
@@ -236,6 +239,7 @@ Page({
   },
   //
   moveToMy:function(){
+    wx.reportAnalytics('click')
     wx.navigateTo({
       url:"../my/my"
     })
