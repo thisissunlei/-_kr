@@ -180,11 +180,11 @@ Page({
           inviteer:res.data.data.inviteers||[],
           limitCount:res.data.data.limitCount||'',
           meetingStatus:res.data.data.meetingStatus||'',
-          join:res.data.data.join||''
+          
         })
        console.log(new Date(),res.data.data.join)
-       if(this.data.join===true){
-        this.setData({
+       if(res.data.data.join===true){
+        that.setData({
           myjion:false,
         })
       }
@@ -214,18 +214,27 @@ Page({
         },
         success:(res)=>{
           console.log(res,"确认参加")
-          _this.data.inviteer.push(_this.data.wechatInfo)
-          _this.setData({
-            inviteer:_this.data.inviteer
-          })
-          
-          _this.flag = false
-          console.log(_this.join,'点击后')
-          if(_this.join===true){
+          if(res.data.code==1){
+            _this.data.inviteer.push(_this.data.wechatInfo)
             _this.setData({
-              myjion:false,
+              inviteer:_this.data.inviteer
             })
+            
+            _this.flag = false
+            console.log(_this.join,'点击后')
+            if(_this.join===true){
+              _this.setData({
+                myjion:false,
+              })
+            }
+          }else{
+            if(_this.join===true){
+              _this.setData({
+                myjion:false,
+              })
+            }
           }
+         
         },
         fail:(res)=>{
           _this.flag = true
