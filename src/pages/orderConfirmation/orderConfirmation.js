@@ -449,8 +449,8 @@ Page({
         selectedTime:[].concat(selectedTime),
         meeting_time:{
           time:selectedTime[0]?(getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1)):'',
-          beginTime:selectedTime[0]?(that.data.nowDate+' '+getTime(selectedTime[0])+':00'):'',
-          endTime:selectedTime[0]?(that.data.nowDate+' '+getTime(Number(selectedTime[selectedTime.length-1])+1)+':00'):'',
+          beginTime:selectedTime[0]?(that.data.orderDate.time+' '+getTime(selectedTime[0])+':00'):'',
+          endTime:selectedTime[0]?(that.data.orderDate.time+' '+getTime(Number(selectedTime[selectedTime.length-1])+1)+':00'):'',
           hours:selectedTime[0]?getHour(selectedTime):0
         }
       })
@@ -617,7 +617,8 @@ Page({
       key:'orderDate',
       success:function(res){
         if(res.data){
-          _this.getThemeName(res.data)
+          _this.getThemeName(res.data);
+          _this.getNowRangeTime();
         }
       }
     })
@@ -645,7 +646,7 @@ Page({
       }
     })
     
-    this.getNowRangeTime();
+    
     this.setData({
       nowDate:wx.getStorageSync('nowDate'),
       nowDateIndex:wx.getStorageSync('nowDateIndex'),
@@ -670,6 +671,7 @@ Page({
               orderDate:res,
               themeName:themeName
           });
+          console.log('111', this.data.orderDate)
           this.choose_date = res.time
           this.initDate();
   },
@@ -768,21 +770,22 @@ Page({
     
   },
   getNowRangeTime:function(){
-    var id = wx.getStorageSync('detail').meetingRoomId || wx.getStorageSync('meet_detail').meetingRoomId;
+    var id = this.data.detailInfo.meetingRoomId;
     var that = this;
     var disableTime = [];
     var newRangeTime = [];
+    console.log(that.data.orderDate);
     //过滤已过去的时间
     let now = new Date();
     let hours = now.getHours();
     let minutes = now.getMinutes();
     let limitTime = 2*hours+1+(minutes>29?1:0);
-
+    var selectedTime = this.data.selectedTime;
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/room/disableTime',
       methods:"GET",
       data:{
-        date:wx.getStorageSync('orderDate').time,
+        date:that.data.orderDate.time,
         meetingRoomId:id
       },
       header:{
@@ -793,7 +796,8 @@ Page({
         for (let i = 19; i < 39; i++) {
           var rangeTimeItem = {
             disabled:false,
-            number: i
+            number: i,
+            actived:false,
           };
           newRangeTime.push(rangeTimeItem);
         }
@@ -803,6 +807,9 @@ Page({
             }
             if(that.data.orderDate.timeText=="今天" && timeItem.number<limitTime){
                 timeItem.disabled = true;
+            }
+            if(selectedTime.indexOf(timeItem.number)>-1){
+                timeItem.actived = true;
             }
         });
         that.setData({
