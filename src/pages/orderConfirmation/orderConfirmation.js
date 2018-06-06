@@ -8,6 +8,8 @@ Page({
     return app.globalData.share_data;
   },
   data: {
+    showError:true,
+    errorMessage:'',
     con:1,
     meetingDetail:{},
     themeName:'',
@@ -462,11 +464,21 @@ Page({
         }
       })
     }else{
-      wx.showToast({
-        title: '请选择连续时间段',
-        icon: 'none',
-        duration: 1000
+      this.setData({
+        showError:false,
+        errorMessage:'请选择连续时间段'
       })
+      setTimeout(function(){
+        that.setData({
+          showError:true,
+          errorMessage:''
+        })
+      },2000)
+      // wx.showToast({
+      //   title: '请选择连续时间段',
+      //   icon: 'none',
+      //   duration: 1000
+      // })
       return ;
     }
   },
