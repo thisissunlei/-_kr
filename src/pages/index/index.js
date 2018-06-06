@@ -168,8 +168,8 @@ Page({
           
         });
         that.setData({
-          buildingList:res.data.data.buildingList,
-          myMeeting:res.data.data.myMeeting,
+          buildingList:res.data.data.buildingList||[],
+          myMeeting:res.data.data.myMeeting||[],
         })
        console.log(this.data.myMeeting)
         if(this.data.myMeeting.length<=0){
