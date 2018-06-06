@@ -266,7 +266,7 @@
                       <view class="u-meet-old-num" wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost}}">¥ {{meetingDetail.unitCost}}</view>
                       <view class="u-meet-old-unit"> / 半小时  </view>
                   </view>
-                  <view class="u-meet-sale" wx:if="{{meetingDetail.promotionDescr}}" >{{meetingDetail.promotionDescr}}</view>
+                  <view class="u-meet-sale" wx:if="{{meetingDetail.promotionDescr && meetingDetail.promotionDescr.length}}" >{{meetingDetail.promotionDescr}}</view>
               </view>
               <view class="u-meet-detail-address">
                   <view class="u-address">
@@ -360,5 +360,9 @@
               
             <!-- </view> -->
           </view>
+    </view>
+    <!-- 报错信息 -->
+    <view class="last-view">
+        <div class="error-message" wx:if="{{!showError}}">{{errorMessage}}</div>
     </view>
 </view> 
