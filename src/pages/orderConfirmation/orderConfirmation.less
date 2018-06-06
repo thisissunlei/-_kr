@@ -705,9 +705,14 @@ page{
   
   .u-meet-content{
     width:100%;
+    max-height: 1120rpx;
     background: #fff;
     position: absolute;
     bottom:0;
+  }
+  .scroll-box{
+    max-height: 500rpx;
+    overflow-y: auto;
   }
   .u-content-meet{
     display: inline-block;
@@ -835,7 +840,8 @@ page{
     display: inline-block;
     border-top:1px solid #F6F6F6;
     box-sizing: border-box;
-    padding:48rpx 50rpx; 
+    padding:40rpx 50rpx; 
+    padding-bottom: 0;
     width:100%;
   }
   .u-icon-list{
