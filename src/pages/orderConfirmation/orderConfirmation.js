@@ -916,6 +916,10 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName
     }
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     
     var _this=this;
         app.getRequest({
@@ -928,6 +932,9 @@ Page({
           
           success:(res)=>{
             let code=res.data.code;
+            setTimeout(function(){
+              wx.hideLoading();
+            },1500)
             switch (code){
               case -1:
                   this.setData({
