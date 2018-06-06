@@ -92,28 +92,15 @@ Page({
           limitCount:res.data.data.limitCount,
           meetingStatus:res.data.data.meetingStatus,
         })
-        if(this.data.meetingStatus==='EXPIRED'){
+        if(this.data.meetingStatus==='EXPIRED' || this.data.meetingStatus==='ARRVING'){
           this.setData({
             footer:false,
             contact:true,
-            codeShade:true
           })
         }else{
           this.setData({
             footer:true,
             contact:false,
-            codeShade:false
-          })
-        }
-        if(this.data.meetingStatus==='ARRVING'){
-          this.setData({
-            footer:false,
-            contact:true
-          })
-        }else{
-          this.setData({
-            footer:true,
-            contact:false
           })
         }
       }
