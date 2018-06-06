@@ -79,7 +79,9 @@ Page({
         inviteeId:inviteeId
       },
       success:(res)=>{
-        wx.hideLoading();
+        setTimeout(function(){
+          wx.hideLoading();
+        },2000)
         console.log(res,"会议详情")
         this.setData({
           meetingTime:res.data.data.meetingTime,

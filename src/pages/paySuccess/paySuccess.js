@@ -72,7 +72,6 @@ Page({
     })
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      // url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/meetingdetail',
       methods:"GET",
       header:{
         "content-type":"application/json"
@@ -81,7 +80,10 @@ Page({
         inviteeId:inviteeId
       },
       success:(res)=>{
-        wx.hideLoading();
+        setTimeout(function(){
+          wx.hideLoading();
+        },2000)
+        
         console.log(res,"会议详情")
         this.setData({
           meetingTime:res.data.data.meetingTime,
