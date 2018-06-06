@@ -555,6 +555,8 @@ Page({
           hours:0,
         }
       },function(){
+        that.rangeTime = [];
+        that.selectedTime = [];
         that.bool = true;
         that.getNowRangeTime();
       })
@@ -585,6 +587,8 @@ Page({
           hours:0,
         }
       },function(){
+        that.rangeTime = [];
+        that.selectedTime = [];
         that.bool = true;
         that.getNowRangeTime();
       })
