@@ -518,10 +518,11 @@ Page({
     wx.getStorage({
       key:'order_pay',
       success:function(res){
-        if(res.data){
+        if(Object.keys(res.data).length === 0){
+          console.log('77777799999')
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
-              remind:_this.getRemind(res.data.alertTime),
+              remind:_this.getRemind(res.data.alertTime) || '',
               linkPhone:res.data.linkPhone || _this.data.linkPhone,
               order_pay:res.data
             })
@@ -649,7 +650,7 @@ Page({
     wx.getStorage({
       key:'order_pay',
       success:function(res){
-        if(res.data){
+        if(Object.keys(res.data).length === 0){
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
               remind:_this.getRemind(res.data.alertTime),
@@ -1002,14 +1003,19 @@ Page({
             'signType': data.signType,
             'paySign': data.paySign,
             'success':function(response){
-              wx.showLoading({
-                title: '加载中',
-                mask:true
-              })
-              setTimeout(function(){
-                 _this.getInviteeId(data.orderId);
-                 wx.hideLoading();
-              },1500)
+              if(response.data.data.code>1){
+                  wx.showLoading({
+                    title: '加载中',
+                    mask:true
+                  })
+                  setTimeout(function(){
+                    _this.getInviteeId(data.orderId);
+                    wx.hideLoading();
+                  },1500)
+              }else{
+
+              }
+             
                
             },
             'fail':function(response){
