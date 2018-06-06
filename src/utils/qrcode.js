@@ -733,7 +733,8 @@ var QR = (function () {
             return genframe(string);
         },
 
-        draw: function (string, canvas, cavW, cavH, ecc) {
+        draw: function (string, canvas, cavW, cavH, ecc,color_opacity) {
+
             ecclevel = ecc || ecclevel;
             canvas = canvas || _canvas;
             if (!canvas) {
@@ -754,7 +755,7 @@ var QR = (function () {
             // ctx.setFillStyle('#ffffff');
             // ctx.rect(0, 0, size, size);
             
-            ctx.setFillStyle('#000000');
+            ctx.setFillStyle(color_opacity||'#000000');
 			// ctx.setLineWidth(1);
             for (var i = 0; i < width; i++) {
                 for (var j = 0; j < width; j++) {
