@@ -490,9 +490,8 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
-    console.log('data.ifFirst',data.ifFirst)
     if(data.ifFirst){
-      if(hours>2 && hours>0){
+      if(hours>2 ){
         this.setData({
           totalCount:totalCount,
           priceCount:priceCount,
