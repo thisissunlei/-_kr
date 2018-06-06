@@ -1073,6 +1073,9 @@ Page({
     })
     
   },
+  preventTouchMove(){
+
+  },
   getMeetDetail(){
     let that = this;
     let meetingRoomId = this.data.meetingRoomId;

@@ -745,7 +745,7 @@ Page({
         success: function(res) {
           if(res.data){
             meetingDetail = Object.assign({},that.data.meetDetail,res.data,{meetingRoomId:meetingRoomId});
-            console.log('meetingDetail----',meetingDetail)
+           
             that.setDetail(meetingDetail)
           }
         }
@@ -755,6 +755,9 @@ Page({
     
 
   },
+  preventTouchMove(){},
+    
+  
   setDetail(arr){
     let that = this;
     wx.setStorage({
