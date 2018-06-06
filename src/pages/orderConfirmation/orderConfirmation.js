@@ -4,9 +4,9 @@ const app = getApp()
 
 
 Page({
-  onShareAppMessage: function() {
+  /*onShareAppMessage: function() {
     return app.globalData.share_data;
-  },
+  },*/
   data: {
     showError:true,
     errorMessage:'',
