@@ -81,16 +81,16 @@ Page({
       success:(res)=>{
         setTimeout(function(){
           wx.hideLoading();
-        },1500)
+        },2000)
         console.log(res,"会议详情")
         this.setData({
-          meetingTime:res.data.data.meetingTime,
-          themeName:res.data.data.theme,
-          meetingRoomName:res.data.data.meetingRoomName,
-          address:res.data.data.address,
-          inviteer:res.data.data.inviteers,
-          limitCount:res.data.data.limitCount,
-          meetingStatus:res.data.data.meetingStatus,
+          meetingTime:res.data.data.meetingTime||'',
+          themeName:res.data.data.theme||'',
+          meetingRoomName:res.data.data.meetingRoomName||'',
+          address:res.data.data.address||'',
+          inviteer:res.data.data.inviteers||[],
+          limitCount:res.data.data.limitCount||'',
+          meetingStatus:res.data.data.meetingStatus||'',
         })
         if(this.data.meetingStatus==='EXPIRED' || this.data.meetingStatus==='ARRVING'){
           this.setData({

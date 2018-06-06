@@ -113,7 +113,7 @@ Page({
             success:function(res){
               setTimeout(function(){
                 wx.hideLoading();
-              },1500)
+              },2000)
               console.log(res,'登陆接口成功')
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
               console.log(app.globalData.Cookie,'cookie')
