@@ -1,21 +1,22 @@
 <!--index.wxml-->
 <view class="my-meeting-list" wx:if="{{meetingList.length}}">
 	<view  wx:for="{{meetingList}}"  style="display: inline-block;" class="list-box" wx:key="{{item.id}}">
-		<navigator url="/pages/meetingDetail/meetingDetail?inviteeId={{item.id}}" class="box" style="background-image: url({{bg}})">
+		<navigator url="/pages/meetingDetail/meetingDetail?inviteeId={{item.id}}" class="box">
+			<image class="bgc" src="../images/my/bg.png" background-size="cover"></image>
 			<span class="status wating" wx:if="{{item.meetingStatus == 'WAIT'}}">待入场</span>
 			<span class="status expired" wx:if="{{item.meetingStatus == 'EXPIRED'}}">已过期</span>
 			<span class="status used" wx:if="{{item.meetingStatus == 'ARRVING'}}">已入场</span>
-			<div class="detail" >
+			<view class="detail" >
 				<span class="meeting-time">{{item.meetingTime}}</span>
 				<span class="theme-name">{{item.theme}}</span>
-			</div>
-			<div class="address-box">
+			</view>
+			<view class="address-box">
 				<span class="meeting-address">{{item.meetingRoomName}}</span>
 				
 				<span class="address">
 					<image class="location" src="../images/indexImg/dizhi2.png" background-size="cover"></image>{{item.address}}
 				</span>
-			</div>
+			</view>
 		</navigator>
 		
 	</view>
