@@ -157,10 +157,13 @@ Page({
         longitude:that.rq_data.longitude
       },
       success:(res)=>{
+        console.log(res,'列表')
         let buildingList = res.data.data.buildingList
         let myMeeting = res.data.data.myMeeting
         buildingList.forEach(element => {
-          if(element.distance>1000){
+          if(element.distance>10000){
+            element.distance =  Math.floor(element.distance/10000)+'w'+' '+'km'
+          }else if(element.distance>1000){
             element.distance = (element.distance/1000).toFixed(1)+'km' 
           }else{
             element.distance = element.distance+'m'
@@ -168,8 +171,8 @@ Page({
           
         });
         that.setData({
-          buildingList:res.data.data.buildingList,
-          myMeeting:res.data.data.myMeeting,
+          buildingList:res.data.data.buildingList||[],
+          myMeeting:res.data.data.myMeeting||[],
         })
        console.log(this.data.myMeeting)
         if(this.data.myMeeting.length<=0){

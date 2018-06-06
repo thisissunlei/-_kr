@@ -94,6 +94,8 @@
                 <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
     </view>
+    <view style="height:320rpx;background:#F6F6F6">
+    </view>
     <view class="u-footer">
         <view class="u-footer-btn-list">
             <view wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}" class="u-footer-color-btn" bindtap="payOrder"> 
@@ -147,7 +149,7 @@
                       <view class="u-meet-old-num"  wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost}}">¥ {{meetingDetail.unitCost}}</view>
                       <view class="u-meet-old-unit"> / 半小时  </view>
                   </view>
-                  <view class="u-meet-sale" wx:if="{{meetingDetail.promotionDescr}}">{{meetingDetail.promotionDescr}}</view>
+                  <view class="u-meet-sale" wx:if="{{meetingDetail.promotionDescr && meetingDetail.promotionDescr.length}}">{{meetingDetail.promotionDescr}}</view>
               </view>
               <view class="u-meet-detail-address">
                   <view class="u-address">
