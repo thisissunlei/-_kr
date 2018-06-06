@@ -23,6 +23,7 @@ Page({
     rangeTime2:[],
     rangeTime3:[],
     rangeTime:[],
+    linkPhone:'',
     selectedTime:[],
     nowDate:'',
     meetDetailShow:false,
