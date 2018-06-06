@@ -13,7 +13,7 @@
 }
 .top{
   width: 704rpx;
-  height: 376rpx;
+  height: 396rpx;
   border-radius: 8px;
   background: #fff;
   text-align: center;
@@ -23,9 +23,9 @@
 }
 .metting-wrapper{
   width:704rpx;
-  height:376rpx;
+  height:396rpx;
   position: absolute;
-  top: 0;
+  top: 20rpx;
   left: 20rpx;
   padding: 58rpx 20rpx 24rpx 18rpx;
   box-sizing: border-box;
@@ -124,8 +124,8 @@
   font-size: 32rpx;
   color: #fff;
   font-weight: 600;
-  height: 120rpx;
-  line-height: 120rpx;
+  padding-top: 40rpx;
+  padding-bottom:40rpx;
 }
 .hint_title{
   display: block;
@@ -158,7 +158,6 @@
 .conferee .list text{
   display: inline-block;
   width: 86rpx;
-  height: 86rpx;
   font-size: 24rpx;
   color: #FFFFFF; 
   overflow: hidden;
@@ -182,9 +181,6 @@
 .hint{
   padding: 0 20rpx 406rpx 20rpx;
 }
-.hint h2{
-  font-size: 32rpx;
-}
 .hint text{
   color: #fff;
   display: block;
@@ -192,13 +188,14 @@
 .hint .list{
   padding-bottom: 40rpx;
   margin-top: 40rpx;
-}
-.hint .list:nth-child(2){
   border-bottom: 2rpx dotted #2F3543;
+}
+.hint .list:last-child{
+  border-bottom: none;
 }
 .hint .title{
   font-size: 28rpx;
-  font-weight: 900;
+  font-weight: 600;
 }
 .hint .text{
   padding-left:20rpx; 
@@ -208,8 +205,8 @@
 .btn{
   width: 288rpx;
   height: 88rpx;
-  background: linear-gradient(50deg, #FFD24C 0%, #F79C1C 89%);
-  border-radius: 30rpx;
+  background-image: linear-gradient(50deg, #F79C1C 0%, #FFD24C 89%);
+  border-radius: 16rpx;
   color: #fff;
   line-height: 88rpx;
   text-align: center;
