@@ -72,6 +72,15 @@
   background: rgba(255,255,255,255);
   opacity: 0.1;
  }
+ .img-box .code-shade{
+   width: 160px;
+   height: 160px;
+   background: rgba(255,255,255,255);
+  opacity: 0.1;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+ }
  .img{
    width: 100%;
    height: 100%;
@@ -93,9 +102,6 @@
  .mycanvas{
    display: block;
    margin: 26rpx;
- }
- .opacity{
-   opacity: 0.1;
  }
  .pics .code-desc{
    font-size: 28rpx;
@@ -135,8 +141,8 @@
   font-size: 32rpx;
   color: #fff;
   font-weight: 600;
-  height: 120rpx;
-  line-height: 120rpx;
+  padding-top: 40rpx;
+  padding-bottom:40rpx;
 }
 .hint_title{
   display: block;
@@ -169,7 +175,6 @@
 .conferee .list text{
   display: inline-block;
   width: 86rpx;
-  height: 86rpx;
   font-size: 24rpx;
   color: #FFFFFF; 
   overflow: hidden;
@@ -203,9 +208,10 @@
 .hint .list{
   padding-bottom: 40rpx;
   margin-top: 40rpx;
-}
-.hint .list:nth-child(2){
   border-bottom: 2rpx dotted #2F3543;
+}
+.hint .list:last-child{
+  border-bottom: none;
 }
 .hint .title{
   font-size: 28rpx;

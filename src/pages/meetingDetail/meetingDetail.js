@@ -9,6 +9,7 @@ Page({
     return app.globalData.share_data;
   },
   data: {
+    codeShade:false,
     inviteer:[],
     inviteeId:'',
     footer:'',
@@ -87,12 +88,14 @@ Page({
         if(this.data.meetingStatus==='EXPIRED'){
           this.setData({
             footer:false,
-            contact:true
+            contact:true,
+            codeShade:true
           })
         }else{
           this.setData({
             footer:true,
-            contact:false
+            contact:false,
+            codeShade:false
           })
         }
       }
@@ -116,6 +119,7 @@ Page({
     return {
       title: '戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
       path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId, 
+      imageUrl:'../images/indexImg/statusbg.png'
     }
   },
 

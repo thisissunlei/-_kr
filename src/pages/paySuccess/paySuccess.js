@@ -119,6 +119,7 @@ Page({
     return {
       title:'戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
       path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId, 
+      imageUrl:'../images/indexImg/statusbg.png'
     }
   },
   //点击取消参会
