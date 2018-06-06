@@ -30,6 +30,10 @@ Page({
     meetingRoomId:'',
     titleObj:{},
   },
+
+  preventTouchMove(){
+    
+  },
   //邀请参会人
   onShareAppMessage: function (res) {
     console.log(res,8888)
@@ -182,10 +186,18 @@ Page({
     })
   },
   onLoad: function (opstion) {
-    this.setData({
-      orderId:opstion.id,
-      con:opstion.con
-    })
+    
+    if(opstion.con){
+      this.setData({
+        orderId:opstion.id,
+        con:opstion.con
+      })
+    }else{
+      this.setData({
+        orderId:opstion.id
+      })
+    }
+    
    
   },
   onUnload:function(){
@@ -292,7 +304,7 @@ Page({
 
     }
   },
-
+ 
   getMeetDetail(){
     let meetingRoomId = this.data.meetingRoomId;
     let that = this;
