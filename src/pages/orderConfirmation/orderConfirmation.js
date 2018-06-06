@@ -61,12 +61,15 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    ifFirst:true,
+    ifFirst:false,
   },
   all_day_num:0,
   last_btn_num:'false',
   last_data:'false',
   choose_date:'',
+  rangeTime:[],
+  selectedTime:[],
+  isSubTime:false,
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -470,12 +473,13 @@ Page({
     return ;
   },
   subTime:function(e){
-    wx.reportAnalytics('choosetime')
+    this.isSubTime = true;
+    wx.reportAnalytics('choosetime');
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
       this.closeDialogTime();
-      
+      console.log("all",this.data.selectedTime); 
     }
     
   },
@@ -487,7 +491,7 @@ Page({
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
     if(data.ifFirst){
-      if(hours>2){
+      if(hours>2 ){
         this.setData({
           totalCount:totalCount,
           priceCount:priceCount,
@@ -503,7 +507,8 @@ Page({
     }else{
         this.setData({
           totalCount:totalCount,
-          priceCount:priceCount
+          priceCount:priceCount,
+          isFirst:false
         })
     }
    
@@ -551,6 +556,8 @@ Page({
           hours:0,
         }
       },function(){
+        that.rangeTime = [];
+        that.selectedTime = [];
         that.bool = true;
         that.getNowRangeTime();
       })
@@ -581,6 +588,8 @@ Page({
           hours:0,
         }
       },function(){
+        that.rangeTime = [];
+        that.selectedTime = [];
         that.bool = true;
         that.getNowRangeTime();
       })
@@ -753,18 +762,38 @@ Page({
         },
         success:(res)=>{
           this.setData({
-            ifFirst:res.data.data.first
+            ifFirst:res.data.data.first,
+            isFirst:res.data.data.first
           })
         }
     })
   },
   closeDialogTime:function(){
     var that = this;
-
     if(!that.data.dialogTimeShow){
       // that.getMeetDetail();
       that.getNowRangeTime();
-
+      this.isSubTime = false;
+      this.rangeTime = [].concat(this.data.rangeTime);
+      this.selectedTime = [].concat(this.data.selectedTime);
+    }else{
+      if(!this.isSubTime){
+        var rangeTime = this.rangeTime;
+        var selectedTime = this.selectedTime;
+        this.setData({
+          rangeTime1:[].concat(rangeTime.slice(0,8)),
+          rangeTime2:[].concat(rangeTime.slice(8,16)),
+          rangeTime3:[].concat(rangeTime.slice(16)),
+          rangeTime:[].concat(rangeTime),
+          selectedTime:[].concat(selectedTime),
+          meeting_time:{
+            time:selectedTime[0]?(getTime(selectedTime[0])+'-'+getTime(Number(selectedTime[selectedTime.length-1])+1)):'',
+            beginTime:selectedTime[0]?(that.data.orderDate.time+' '+getTime(selectedTime[0])+':00'):'',
+            endTime:selectedTime[0]?(that.data.orderDate.time+' '+getTime(Number(selectedTime[selectedTime.length-1])+1)+':00'):'',
+            hours:selectedTime[0]?getHour(selectedTime):0
+          }
+        })
+      }
     }
     this.setData({
       dialogTimeShow:!that.data.dialogTimeShow
