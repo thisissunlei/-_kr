@@ -1012,19 +1012,14 @@ Page({
             'signType': data.signType,
             'paySign': data.paySign,
             'success':function(response){
-              if(response.data.data.code>1){
-                  wx.showLoading({
-                    title: '加载中',
-                    mask:true
-                  })
-                  setTimeout(function(){
-                    _this.getInviteeId(data.orderId);
-                    wx.hideLoading();
-                  },1500)
-              }else{
-
-              }
-             
+                wx.showLoading({
+                  title: '加载中',
+                  mask:true
+                })
+                setTimeout(function(){
+                  _this.getInviteeId(data.orderId);
+                  wx.hideLoading();
+                },1500)
                
             },
             'fail':function(response){
@@ -1049,9 +1044,16 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
+        if(res.data.data.inviteeId){
+            wx.navigateTo({
+              url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+            })
+        }else{
           wx.navigateTo({
-            url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+            url: '../orderDetail/orderDetail?id='+orderId+'&con='+1
           })
+        }
+          
       }
     })
     
