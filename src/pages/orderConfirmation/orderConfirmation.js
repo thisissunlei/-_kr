@@ -491,21 +491,28 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
+   
     if(data.ifFirst){
-      if(hours>2 ){
+      if(hours>2){
         this.setData({
           totalCount:totalCount,
           priceCount:priceCount,
           isFirst:false
         })
-      }else{
+      }else if(hours>0 && hours<=2){
         this.setData({
           totalCount:totalCount,
           priceCount:1,
           isFirst:true
         })
+      }else{
+        this.setData({
+          totalCount:totalCount,
+          priceCount:priceCount,
+          isFirst:true
+        })
       }
-    }else{
+    }else {
         this.setData({
           totalCount:totalCount,
           priceCount:priceCount,
