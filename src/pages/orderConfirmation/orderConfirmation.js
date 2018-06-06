@@ -87,7 +87,7 @@ Page({
         if(this.last_data=='date_data1'){
           old_data = this.data['date_data1'];
           old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
-          console.log(old_data[this.last_btn_num]['type'])
+         
           this.setData({
             date_data1:old_data
           });
@@ -183,14 +183,14 @@ Page({
     }
   },
   dealDate:function(today_month,bool,choose_date){
-    console.log(choose_date,999999)
+    
     //const choose_
     const week = today_month.getDay();
     if(choose_date){
       this.last_btn_num = parseInt(week)+parseInt(choose_date)-1;
     }
     
-    console.log(8888,this.last_btn_num)
+  
     const today = parseInt(new Date().getDate());
     today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
@@ -416,9 +416,9 @@ Page({
   tapTime:function(e){
     
     var indexParam = e.currentTarget.dataset.index;
-    //console.log(this.data.rangeTime);
+   
     var test = [].concat(this.data.rangeTime);
-    // console.log(this.data.selectedTime);
+   
     // var selectedTime = this.data.selectedTime;
     var selectedTime = [];
     var rangeTime=[];
@@ -445,8 +445,8 @@ Page({
         }
     }
     var that = this;
-    //console.log("all",selectedTime);
-    console.log('that.data.nowDate+',that.data.nowDate)
+    
+    
     if(bool){
       this.setData({
         rangeTime1:[].concat(rangeTime.slice(0,8)),
@@ -480,7 +480,7 @@ Page({
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
       this.closeDialogTime();
-      console.log("all",this.data.selectedTime); 
+     
     }
     
   },
@@ -561,6 +561,7 @@ Page({
         that.selectedTime = [];
         that.bool = true;
         that.getNowRangeTime();
+        that.getPrice();
       })
     }
   },
@@ -593,6 +594,7 @@ Page({
         that.selectedTime = [];
         that.bool = true;
         that.getNowRangeTime();
+        that.getPrice();
       })
     }
   },
@@ -685,7 +687,7 @@ Page({
               orderDate:res,
               themeName:themeName
           });
-          console.log('111', this.data.orderDate)
+         
           this.choose_date = res.time
           this.initDate();
   },
@@ -812,7 +814,7 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    console.log(that.data.orderDate);
+   
     //过滤已过去的时间
     let now = new Date();
     let hours = now.getHours();
@@ -1050,7 +1052,7 @@ Page({
   getMeetDetail(){
     let that = this;
     let meetingRoomId = this.data.meetingRoomId;
-    //console.log('=======',meetingRoomId)
+   
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
         method:"GET",
@@ -1060,7 +1062,7 @@ Page({
         success:(res)=>{
           if(res.data.code>0){
             let meetingDetail = res.data.data;
-            //console.log(meetingDetail.device)
+           
             that.setData({
               meetingDetail:meetingDetail
             })
