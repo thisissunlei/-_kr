@@ -30,9 +30,10 @@
             
             <view class='bottom_text'>
               <text class="metting-house">{{meetingRoomName}}</text>
-              <view class='icons'>
+              <view class='icons address-detail'>
                 <image src='../images/indexImg/dizhi2.png'></image>
-                <text>{{address}}</text>
+                {{address}}
+                <!-- <span class="address-detail"></span> -->
               </view>
             </view>
           </view>
@@ -61,7 +62,7 @@
         <text class='hint_title'>参会小贴士</text>
         <block wx:for="{{hint}}">
           <view class='list'>
-            <text class='title'>{{item.title}}</text>
+            <text class='title'>{{index+1}}. {{item.title}}</text>
             <text class='text'>{{item.text}}</text>
           </view>
         </block>
