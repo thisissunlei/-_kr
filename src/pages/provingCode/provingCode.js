@@ -221,7 +221,15 @@ Page({
               'signType':res.data.data.signType,
               'paySign': res.data.data.paySign,
               'success':function(res){
-                that.getInviteeId(id)
+                wx.showLoading({
+                  title: '加载中',
+                  mask:true
+                })
+
+                setTimeout(function(){
+                  that.getInviteeId(id)
+                },2000)
+                
               },
               'fail':function(res){
                 wx.navigateTo({
