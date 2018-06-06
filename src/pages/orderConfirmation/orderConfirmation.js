@@ -1030,9 +1030,17 @@ Page({
                
             },
             'fail':function(response){
+              wx.showLoading({
+                title: '加载中',
+                mask:true
+              })
+              setTimeout(function(){
+                wx.hideLoading();
                 wx.navigateTo({
                   url: '../orderDetail/orderDetail?id='+data.orderId+'&con='+1
                 })
+              },1500)
+               
             },
            
           })
