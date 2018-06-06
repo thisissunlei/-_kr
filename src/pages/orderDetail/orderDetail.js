@@ -66,9 +66,15 @@ Page({
           'signType':res.data.data.signType,
           'paySign': res.data.data.paySign,
           'success':function(res){
-            
-            _this.getInviteeId(orderId,_this.jumpPaySuccess)
-          
+            wx.showLoading({
+              title: '加载中',
+              mask:true
+            })
+            setTimeout(
+              function(){
+                _this.getInviteeId(orderId,_this.jumpPaySuccess)
+                wx.hideLoading()
+              },1500)
           },
           'fail':function(res){
           }
