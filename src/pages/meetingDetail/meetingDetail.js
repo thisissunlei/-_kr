@@ -17,36 +17,36 @@ Page({
     contact:false,
     hint:[
       {
-        'title':'Q：我订了会议室，要提前多久入场呀？',
-        'text':'A：会议室使用时间前10分钟可以进入大厅哦，如果订的会议室没有人就可以提前进入啦～'
+        'title':'我订了会议室，要提前多久入场呀？',
+        'text':'会议室使用时间前10分钟可以进入大厅哦，如果订的会议室没有人就可以提前进入啦～'
       },
       {
-        'title':'Q：到了KrMeeting，怎么入场呀？',
-        'text':'A：出示入场二维码（在小程序的“我的会议”里），保安小哥哥验证后就可以入场啦～'
+        'title':'到了KrMeeting，怎么入场呀？',
+        'text':'出示入场二维码（在小程序的“我的会议”里），保安小哥哥验证后就可以入场啦～'
       },
       {
-        'title':'Q：可以订一个小一点的会议室、多一些人入场吗？',
-        'text':'A：前台小姐姐会在会议开始前协调，保证亲的会议顺利开始，不用担心呢～！'
+        'title':'可以订一个小一点的会议室、多一些人入场吗？',
+        'text':'入场人数不能超过所订会议室的可容纳人数哦！！'
       },
       {
-        'title':'Q：我订的会议室被别人占用怎么办？',
-        'text':'A：出示入场二维码（在小程序的“我的会议”里），保安小哥哥验证后就可以入场啦～'
+        'title':'我订的会议室被别人占用怎么办？',
+        'text':'前台小姐姐会在会议开始前协调，保证亲的会议顺利开始，不用担心呢～'
       },
       {
-        'title':'Q：水吧台的茶饮和咖啡看起来好赞，取用需要付费吗？',
-        'text':'A：都是免费的、而且不限量哦，自助取用就可以啦～'
+        'title':'水吧台的茶饮和咖啡看起来好赞，取用需要付费吗？',
+        'text':'都是免费的、而且不限量哦，自助取用就可以啦～'
       },
       {
-        'title':'Q：会议室的无线投屏设备好先进，使用需要额外付费吗？',
-        'text':'A：也是免费的哦，找前台小姐姐登记领取就可以啦（使用方法见会议桌上的提示卡，很简单呢），离开时记得归还哦~'
+        'title':'会议室的无线投屏设备好先进，使用需要额外付费吗？',
+        'text':'也是免费的哦，找前台小姐姐登记领取就可以啦（使用方法见会议桌上的提示卡，很简单呢），离开时记得归还哦~'
       },
       {
-        'title':'Q：订的使用时段结束了，会还没开完怎么办呢？',
-        'text':'A：可以在KrMeeting小程序续订哦～'
+        'title':'订的使用时段结束了，会还没开完怎么办呢？',
+        'text':'可以在KrMeeting小程序续订哦～'
       },
       {
-        'title':'Q：大厅环境太好了，开完会想多待会儿可以吗？',
-        'text':'A：所订时段结束后的10分钟内可以在大厅休整啦，之后前台小姐姐会依依不舍的送亲离开哦！'
+        'title':'大厅环境太好了，开完会想多待会儿可以吗？',
+        'text':'所订时段结束后的10分钟内可以在大厅休整啦，之后前台小姐姐会依依不舍的送亲离开哦！'
       },
     ]
   },
@@ -92,28 +92,15 @@ Page({
           limitCount:res.data.data.limitCount,
           meetingStatus:res.data.data.meetingStatus,
         })
-        if(this.data.meetingStatus==='EXPIRED'){
+        if(this.data.meetingStatus==='EXPIRED' || this.data.meetingStatus==='ARRVING'){
           this.setData({
             footer:false,
             contact:true,
-            codeShade:true
           })
         }else{
           this.setData({
             footer:true,
             contact:false,
-            codeShade:false
-          })
-        }
-        if(this.data.meetingStatus==='ARRVING'){
-          this.setData({
-            footer:false,
-            contact:true
-          })
-        }else{
-          this.setData({
-            footer:true,
-            contact:false
           })
         }
       }

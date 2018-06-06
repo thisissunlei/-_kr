@@ -66,7 +66,7 @@
     <view class="community-wrapper">
       <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom">
   
-          <image src="{{item.buildImgUrl}}" class="community_pic"></image>
+        <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50" class="community_pic"></image>
         
         <view class='cmty_con'>
           <view class='cmty_title'>{{item.buildName}}</view>
