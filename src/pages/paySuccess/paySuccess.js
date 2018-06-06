@@ -59,6 +59,10 @@ Page({
     })
   },
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     console.log(options,"options")
     wx.reportAnalytics('viewmeeting')
 
@@ -77,6 +81,7 @@ Page({
         inviteeId:inviteeId
       },
       success:(res)=>{
+        wx.hideLoading();
         console.log(res,"会议详情")
         this.setData({
           meetingTime:res.data.data.meetingTime,

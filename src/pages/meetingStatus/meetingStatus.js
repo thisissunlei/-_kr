@@ -60,6 +60,10 @@ Page({
   },
  
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     const that = this;
     let inviteeId = options.inviteeId
     that.setData({
@@ -107,6 +111,7 @@ Page({
               code: res.code
             },
             success:function(res){
+              wx.hideLoading();
               console.log(res,'登陆接口成功')
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
               console.log(app.globalData.Cookie,'cookie')
