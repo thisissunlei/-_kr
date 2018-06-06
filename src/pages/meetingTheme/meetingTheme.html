@@ -5,7 +5,7 @@
 		<view class="input-view">
 			<input maxlength="15" name="meeting" type="text" class="input-style" placeholder="会议主题" value="{{inputValue}}" auto-focus="true"  placeholder-style="color:#CCC;font-size:32rpx" bindinput="bindKeyInput"/>
 		</view>
-		<view class="cancel-view">
+		<view class="cancel-view" wx:if="{{inputValue.length}}">
 			<image bindtap="clearValue" class="cancel" src="../images/public/cancle.png" background-size="cover"></image>
 		</view>
 	</view>

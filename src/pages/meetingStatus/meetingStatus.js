@@ -229,7 +229,7 @@ Page({
             }
           }else{
             wx.showToast({
-              title: res.data.msg,
+              title: res.data.message,
               duration: 2000
             })
             if(_this.join===true){

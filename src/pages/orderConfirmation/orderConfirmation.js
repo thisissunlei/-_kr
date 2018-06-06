@@ -61,7 +61,7 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    ifFirst:true,
+    ifFirst:false,
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -491,7 +491,7 @@ Page({
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
     if(data.ifFirst){
-      if(hours>2){
+      if(hours>2 ){
         this.setData({
           totalCount:totalCount,
           priceCount:priceCount,
@@ -507,7 +507,8 @@ Page({
     }else{
         this.setData({
           totalCount:totalCount,
-          priceCount:priceCount
+          priceCount:priceCount,
+          isFirst:false
         })
     }
    
@@ -761,7 +762,8 @@ Page({
         },
         success:(res)=>{
           this.setData({
-            ifFirst:res.data.data.first
+            ifFirst:res.data.data.first,
+            isFirst:res.data.data.first
           })
         }
     })
