@@ -49,7 +49,7 @@
       </swiper>  
 
       <block wx:for="{{myMeeting}}" wx:if="{{noSwiper}}">
-        <view class="metting-content">
+        <view class="metting-content" bindtap="jumpToMeetingDetail">
           <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'待入场':item.meetingStatus === 'ARRVING'?'已入场':'已过期'}}</view>
           <view class="metting-title"> 
             <text class="metting-time">{{item.meetingTime}}</text>
@@ -110,7 +110,7 @@
     </view>
 
     <!-- 未开放 -->
-    <view class='community noopen' wx:for="{{noOpenBuilding}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom">
+    <view class='community noopen' wx:for="{{noOpenBuilding}}" data-id="{{item.communityId}}">
       <view class="buildImg">
         <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50" class="community_pic"></image>
         <image src="../images/indexImg/open.png" class="open"></image>

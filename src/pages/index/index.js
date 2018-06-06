@@ -345,12 +345,20 @@ Page({
   },
   //点击会议card
   moveToMeetingDetail:function(e){
+    console.log(e)
     var  inviteeId=e.currentTarget.dataset.id
     // wx.reportAnalytics('goodsdetails')
 
     wx.navigateTo({
       url:"../meetingDetail/meetingDetail?inviteeId="+inviteeId
     })
+  },
+
+  jumpToMeetingDetail:function(){
+   var inviteeId = this.data.myMeeting[0].id
+   wx.navigateTo({
+    url:"../meetingDetail/meetingDetail?inviteeId="+inviteeId
+  })
   },
   //点击会议室进入会议室列表
   moveToMeetingRoom:function(e){
