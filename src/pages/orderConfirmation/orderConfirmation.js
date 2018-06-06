@@ -519,8 +519,7 @@ Page({
     wx.getStorage({
       key:'order_pay',
       success:function(res){
-        if(Object.keys(res.data).length === 0){
-          console.log('77777799999')
+        if(Object.keys(res.data).length !=0){
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
               remind:_this.getRemind(res.data.alertTime) || '',
@@ -651,7 +650,7 @@ Page({
     wx.getStorage({
       key:'order_pay',
       success:function(res){
-        if(Object.keys(res.data).length === 0){
+        if(Object.keys(res.data).length != 0){
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
               remind:_this.getRemind(res.data.alertTime),
