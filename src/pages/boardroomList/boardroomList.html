@@ -108,6 +108,7 @@
             <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
           <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
+          <scroll-view scroll-y class="scroll-box">
           <view class="u-meeting-info">
               <view class="u-meet-info">
                   <view class="u-meet-name">
@@ -143,6 +144,7 @@
                   <view class="u-facility-txt">{{meetItem.name}}</view>
               </view> 
           </view>
+        </scroll-view>
           <view class="u-meet-btn" bindtap="nowReserve" data-mId="{{meetingRoomId}}">
               立即预订
           </view>
