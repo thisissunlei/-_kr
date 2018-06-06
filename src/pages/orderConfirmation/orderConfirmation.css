@@ -1,6 +1,8 @@
 page {
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 .g-order-confirmation {
   width: 100%;
@@ -24,6 +26,11 @@ page {
   border-radius: 16rpx;
   border: 1px solid #DFDFDF;
   overflow: hidden;
+}
+.meet-theme {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .u-order-img {
   width: 100%;
@@ -74,7 +81,7 @@ page {
 .u-meet-uint-info {
   display: inline;
   color: #999999;
-  font-weight: 500;
+  font-weight: 400;
 }
 .u-order-time {
   width: 680rpx;
@@ -107,6 +114,9 @@ page {
 .u-meeting-phone {
   height: 114rpx;
   background: #fff;
+  padding: 0 36rpx;
+  box-sizing: border-box;
+  position: relative;
 }
 .u-btn-arrow {
   width: 14rpx;
@@ -137,11 +147,6 @@ page {
   color: #333333;
   position: relative;
 }
-.u-meeting-phone {
-  padding: 0 36rpx;
-  box-sizing: border-box;
-  position: relative;
-}
 .u-meeting-title {
   line-height: 124rpx;
   font-size: 32rpx;
@@ -155,7 +160,7 @@ page {
 }
 .u-phone-btn-arrow {
   right: 36rpx;
-  top: 50rpx;
+  top: 44rpx;
 }
 .u-meet-text {
   width: 400rpx;
@@ -173,6 +178,10 @@ page {
 .u-footer {
   height: 112rpx;
   background: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 .u-footer-left {
   width: 430rpx;
@@ -223,6 +232,7 @@ page {
   float: left;
   margin-top: 4rpx;
   height: 42rpx;
+  font-weight: 600;
 }
 .u-old-price {
   font-size: 24rpx;
@@ -439,7 +449,7 @@ page {
 .u-dialog-time .top .pre-date,
 .u-dialog-time .top .next-date {
   font-family: PingFang-SC-Medium;
-  font-size: 26rpx;
+  font-size: 28rpx;
   color: #666666;
   display: flex;
   align-items: center;
@@ -524,6 +534,8 @@ page {
   text-align: center;
   line-height: 60rpx;
   height: 60rpx;
+  color: #666;
+  font-size: 28rpx;
 }
 .u-dialog-time .tag view {
   width: 80rpx;
@@ -575,7 +587,7 @@ page {
 }
 .u-time-arrow {
   right: 35rpx ;
-  top: 90rpx;
+  top: 93rpx;
 }
 .u-hour-arrow {
   right: 35rpx ;
@@ -606,6 +618,7 @@ page {
   color: #FF6868;
   float: left;
   line-height: 100rpx;
+  font-weight: 600;
 }
 .u-old-no-first-price {
   font-size: 24rpx;
@@ -638,12 +651,13 @@ page {
 }
 .u-meet-content {
   width: 100%;
-  min-height: 800rpx;
   background: #fff;
-  margin-top: 383rpx;
-  position: relative;
-  display: inline-block;
+  position: absolute;
   bottom: 0;
+}
+.u-content-meet {
+  display: inline-block;
+  width: 100%;
 }
 .u-swiper-content {
   position: relative;
@@ -677,7 +691,7 @@ page {
   bottom: 32rpx;
 }
 .u-meeting-detail-info {
-  height: 352rpx;
+  min-height: 352rpx;
   padding: 0 32rpx;
   box-sizing: border-box;
 }
@@ -693,18 +707,21 @@ page {
   font-size: 44rpx;
   color: #333333;
   margin: 0 0 10rpx;
+  font-weight: 600;
 }
 .u-meet-unit {
   display: inline-block;
   font-size: 28rpx;
   color: #FF6868;
   padding-right: 8rpx;
+  font-weight: 600;
 }
 .u-meet-detail-num {
   display: inline-block;
   font-size: 44rpx;
   color: #FF6868;
   padding-right: 12rpx;
+  font-weight: 600;
 }
 .u-meet-old-num {
   display: inline-block;
@@ -725,16 +742,16 @@ page {
   padding: 0 12rpx;
   color: #FF6868;
   position: absolute;
-  right: 32rpx;
+  right: 0;
   bottom: 40rpx;
   font-size: 26rpx;
 }
 .u-meet-detail-address {
-  height: 150rpx;
+  min-height: 150rpx;
 }
 .u-address {
-  height: 40rpx;
-  margin: 18rpx 0;
+  min-height: 40rpx;
+  margin: 24rpx 0;
 }
 .u-address-icon {
   width: 26rpx;
@@ -819,12 +836,11 @@ page {
   font-size: 28rpx;
   color: #666666;
 }
-.now-date {
+.date .now-date {
   font-family: PingFang-SC-Light;
   font-size: 40rpx;
   color: #333333;
-  padding-left: 40rpx;
-  padding-right: 40rpx;
+  padding: 50rpx 40rpx 0;
 }
 .before {
   font-family: PingFang-SC-Regular;
@@ -850,10 +866,11 @@ page {
 .day {
   display: inline-block;
   width: 72rpx;
-  height: 68rpx;
+  height: 64rpx;
   margin: 0 17.57rpx;
-  line-height: 72rpx;
+  line-height: 64rpx;
   text-align: center;
+  vertical-align: top;
 }
 .wrapper {
   width: 100%;
