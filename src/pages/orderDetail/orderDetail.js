@@ -66,7 +66,7 @@ Page({
           'signType':res.data.data.signType,
           'paySign': res.data.data.paySign,
           'success':function(res){
-            console.log(res)
+            
             _this.getInviteeId(orderId,_this.jumpPaySuccess)
           
           },
@@ -137,13 +137,9 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-        console.log('callback---',callback)
-        callback && callback(res.data.data.inviteeId);
-       //let inviteeId = res.data.data.inviteeId
-        // this.setData({
-        //   inviteeId:inviteeId
-        // })
-        
+        if(res.data.data.inviteeId){
+            callback && callback(res.data.data.inviteeId);
+        }
       }
     })
   },
@@ -180,8 +176,6 @@ Page({
     })
   },
   onLoad: function (opstion) {
-    
-    console.log('opstion----',opstion)
     this.setData({
       orderId:opstion.id,
       con:opstion.con
@@ -286,7 +280,6 @@ Page({
         title:this.data.titleObj.CLOSED
       })
        let orderShowStatus = 'detailInfo.orderShowStatus';
-        console.log('77777777')
       this.setData({
         [orderShowStatus]:'CLOSED'
       })
