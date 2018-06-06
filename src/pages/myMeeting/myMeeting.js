@@ -1,10 +1,10 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
-    meetingList:[]
+    meetingList:[],
+    bg:'../images/my/bg.png'
   },
   onShareAppMessage: function() {
     return app.globalData.share_data;
