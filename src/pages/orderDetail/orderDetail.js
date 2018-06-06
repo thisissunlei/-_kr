@@ -189,7 +189,7 @@ Page({
   },
   onUnload:function(){
     if(this.data.con==1){
-      wx.navigateTo({
+      wx.reLaunch({
         url: '../index/index'
       })
     }

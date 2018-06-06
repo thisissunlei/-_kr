@@ -97,7 +97,7 @@
                 <view class="u-price-num">
                     {{priceCount}}
                 </view>
-                <view class="u-old-price">
+                <view class="u-old-price" wx:if="{{totalCount>0}}">
                     ￥{{totalCount}}
                 </view>
             </view>
@@ -116,7 +116,7 @@
                 <view class="u-no-first-price-num">
                     {{priceCount}}
                 </view>
-                <view class="u-old-no-first-price" wx:if="{{detailInfo.promotionCost!=detailInfo.unitCost}}">
+                <view class="u-old-no-first-price" wx:if="{{detailInfo.promotionCost!=detailInfo.unitCost && totalCount>0}}">
                     ￥{{totalCount}}
                 </view>
             </view>

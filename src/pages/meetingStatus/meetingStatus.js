@@ -51,6 +51,7 @@ Page({
     ]
   },
   flag:true,
+  join:true,
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -59,13 +60,11 @@ Page({
   },
  
   onLoad: function (options) {
-    wx.reportAnalytics('viewinvitation')
     const that = this;
     let inviteeId = options.inviteeId
-    this.setData({
+    that.setData({
       inviteeId:inviteeId
     });
-    
     
     //查看是否授权
     wx.getSetting({
@@ -181,21 +180,21 @@ Page({
           inviteer:res.data.data.inviteers||[],
           limitCount:res.data.data.limitCount||'',
           meetingStatus:res.data.data.meetingStatus||'',
-          join:res.data.data.join||''
+          
         })
        console.log(new Date(),res.data.data.join)
-        if(this.data.join===true){
-          this.setData({
-            myjion:false,
-          })
-        }
-        if(res.data.data.meetingStatus==='EXPIRED'){
-          this.setData({
-            status:true,
-            advance:true,
-            myjion:false
-          })
-        }
+       if(res.data.data.join===true){
+        that.setData({
+          myjion:false,
+        })
+      }
+      if(res.data.data.meetingStatus==='EXPIRED'){
+        this.setData({
+          status:true,
+          advance:true,
+          myjion:false
+        })
+      }
       }
     })
   },
@@ -203,13 +202,7 @@ Page({
   //点击我要参与
   jion:function(){
     var _this = this
-        wx.reportAnalytics('acceptinvitation')
-    
     if(_this.flag){
-      this.data.inviteer.push(this.data.wechatInfo)
-      this.setData({
-        inviteer:this.data.inviteer
-      })
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting//invitee/joinInvitee',
         methods:"GET",
@@ -217,23 +210,41 @@ Page({
           "content-type":"application/json"
         },
         data:{
-          inviteeId:this.data.inviteeId
+          inviteeId:_this.data.inviteeId
         },
         success:(res)=>{
           console.log(res,"确认参加")
-          _this.setData({
-            join:true
-          })
-          _this.flag = false
-          console.log(_this.data.join,'点击后')
-          if( _this.data.join===true){
+          if(res.data.code==1){
+            _this.data.inviteer.push(_this.data.wechatInfo)
             _this.setData({
-              myjion:false,
+              inviteer:_this.data.inviteer
             })
+            
+            _this.flag = false
+            console.log(_this.join,'点击后')
+            if(_this.join===true){
+              _this.setData({
+                myjion:false,
+              })
+            }
+          }else{
+            wx.showToast({
+              title: res.data.message,
+              duration: 2000
+            })
+            if(_this.join===true){
+              _this.setData({
+                myjion:false,
+              })
+            }
           }
+         
         },
         fail:(res)=>{
           _this.flag = true
+          _this.setData({
+            myjion:true,
+          })
         }
       })
       
