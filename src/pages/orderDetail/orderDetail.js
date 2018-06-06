@@ -41,7 +41,8 @@ Page({
     
     return {
       title: '戳我一键参会！邀请您于"'+this.data.detailInfo.ctime+'"在"'+this.data.detailInfo.meetingRoomName+'"参加"'+this.data.detailInfo.themeName+'"',
-      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId
+      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId,
+      imageUrl:'../images/indexImg/statusbg.png'
     }
   },
 

@@ -6,7 +6,7 @@
     <!-- 头部信息 -->
     <view class="title-msg">
       <view class="title">
-          <text class="E-title">krMeeting</text>
+          <text class="E-title">KrMeeting</text>
           <text class="C-title">氪空间共享会议室</text>
       </view>
       <view class="my" bindtap="moveToMy">
@@ -21,7 +21,7 @@
   </view>
   <view class="metting-wrap">
     <view class="metting" wx:if="{{metting}}">
-      <swiper interval="{{interval}}" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF" indicator-active-color='rgba(255,198,52,100)' style="height: 396rpx;border-radius: 16rpx"> 
+      <swiper interval="{{interval}}" circular="true" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF" indicator-active-color='rgba(255,198,52,100)' style="height: 396rpx;border-radius: 16rpx"> 
         <block wx:for="{{myMeeting}}" >
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
             <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>

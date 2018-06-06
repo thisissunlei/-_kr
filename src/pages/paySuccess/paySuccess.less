@@ -128,15 +128,21 @@
   position: relative;
   padding: 0 20rpx;
 }
-.h2{
+.conferee-title{
   display: block;
   font-size: 32rpx;
   color: #fff;
-  font-weight: 900;
-  height: 120rpx;
-  line-height: 120rpx;
+  font-weight: 600;
+  padding-top: 40rpx;
+  padding-bottom:40rpx;
 }
-
+.hint_title{
+  display: block;
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: 600;
+  margin-top: 40rpx;
+}
 .conferee .list{
   float: left;
   margin: 0 22rpx 40rpx;
@@ -161,7 +167,6 @@
 .conferee .list text{
   display: inline-block;
   width: 86rpx;
-  height: 86rpx;
   font-size: 24rpx;
   color: #FFFFFF; 
   overflow: hidden;
@@ -194,10 +199,12 @@
   display: block;
 }
 .hint .list{
-  padding-bottom: 25rpx;
-}
-.hint .list:nth-child(2){
+  padding-bottom: 40rpx;
+  margin-top: 40rpx;
   border-bottom: 2rpx dotted #2F3543;
+}
+.hint .list:last-child{
+  border-bottom: none;
 }
 .hint .title{
   font-size: 28rpx;
