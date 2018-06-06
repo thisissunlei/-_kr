@@ -391,6 +391,7 @@ Page({
   },
   jumpSetRemind:function() {
     let data=this.data;
+    console.log('alertTime----',data.alertTime)
     wx.navigateTo({
       url: '../warn/warn?type=storage&alertTime='+data.alertTime
     })
@@ -529,9 +530,10 @@ Page({
         if(Object.keys(res.data).length !=0){
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
-              remind:_this.getRemind(res.data.alertTime) || '',
+              remind:_this.getRemind(res.data.alertTime) || _this.getRemind('FIFTEEN'),
               linkPhone:res.data.linkPhone || _this.data.linkPhone,
-              order_pay:res.data
+              order_pay:res.data,
+              alertTime:res.data.alertTime || 'FIFTEEN'
             })
         }
       }
