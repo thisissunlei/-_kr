@@ -1003,14 +1003,7 @@ Page({
             'signType': data.signType,
             'paySign': data.paySign,
             'success':function(response){
-              wx.showLoading({
-                title: '加载中',
-                mask:true
-              })
-              setTimeout(function(){
-                 _this.getInviteeId(data.orderId);
-                 wx.hideLoading();
-              },1500)
+              _this.getInviteeId(data.orderId);
                
             },
             'fail':function(response){
