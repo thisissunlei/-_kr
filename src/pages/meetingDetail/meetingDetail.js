@@ -103,6 +103,17 @@ Page({
             codeShade:false
           })
         }
+        if(this.data.meetingStatus==='ARRVING'){
+          this.setData({
+            footer:false,
+            contact:true
+          })
+        }else{
+          this.setData({
+            footer:true,
+            contact:false
+          })
+        }
       }
     })
     this.createQrCode('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
