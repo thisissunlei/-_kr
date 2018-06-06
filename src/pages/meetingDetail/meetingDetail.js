@@ -110,11 +110,10 @@ Page({
   },
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片
-    QR.qrApi.draw(url,canvasId,cavW,cavH);
+    QR.qrApi.draw(url,canvasId,cavW,cavH,null,'rgba(0,0,0,0.6)');
     var that = this;
   },
   onShareAppMessage: function (res) {
-    console.log(res,8888)
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)

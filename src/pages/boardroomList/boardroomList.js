@@ -72,6 +72,9 @@ Page({
   },
   button_boolean:true,
   openMeetDetail:function(e){
+    wx.showLoading({
+      title: '加载中',
+    })
     let that = this;
     let id=e.currentTarget.dataset.item.meetingRoomId;
     let detail=e.currentTarget.dataset.item;
@@ -714,6 +717,7 @@ Page({
               })
             },2000)
           }
+          wx.hideLoading();
           
         },
         fail:(res)=>{
