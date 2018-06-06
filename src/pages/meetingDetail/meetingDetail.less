@@ -63,6 +63,7 @@
    height: 268px;
    position: relative;
    box-sizing: border-box;
+   opacity:0.6;
  }
  .shade{
    width: 670rpx;
@@ -72,16 +73,16 @@
  }
  .shadeBg{
   background: rgba(255,255,255,255);
-  opacity: 0.1;
  }
  .img-box .code-shade{
    width: 160px;
    height: 160px;
    background: rgba(255,255,255,255);
-  opacity: 0.1;
+  opacity: 0.9;
   position: absolute;
   top: 10px;
   left: 10px;
+  z-index: 9000;
  }
  .img{
    width: 100%;
@@ -105,12 +106,16 @@
    display: block;
    margin: 26rpx;
  }
+ .over-date{
+  opacity: .4;
+ }
  .pics .code-desc{
    font-size: 28rpx;
    color: #666666;
    margin-top: 200px;
  }
  .content .bottom_text{
+   margin-top: 18rpx;
    margin-top: 4px;
    padding-left: 30rpx;
    padding-right:30rpx;
@@ -124,8 +129,9 @@
  .bottom_text image{
    width: 12px;
    height: 14px;
-   margin-right: 10rpx;
-   vertical-align: middle;
+   margin-right: 0rpx;
+   vertical-align: top;
+   margin-top: 4rpx;
  }
  .bottom_text .icons text{
    font-size: 26rpx;
@@ -274,5 +280,5 @@ button{
 .address-detail{
   color:#666;
   font-size:26rpx;
-  margin-top: 10rpx;
+  margin-top: 6rpx;
 }

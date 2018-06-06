@@ -8,6 +8,8 @@ Page({
     return app.globalData.share_data;
   },
   data: {
+    showError:true,
+    errorMessage:'',
     con:1,
     meetingDetail:{},
     themeName:'',
@@ -391,6 +393,7 @@ Page({
   },
   jumpSetRemind:function() {
     let data=this.data;
+    console.log('alertTime----',data.alertTime)
     wx.navigateTo({
       url: '../warn/warn?type=storage&alertTime='+data.alertTime
     })
@@ -462,11 +465,21 @@ Page({
         }
       })
     }else{
-      wx.showToast({
-        title: '请选择连续时间段',
-        icon: 'none',
-        duration: 1000
+      this.setData({
+        showError:false,
+        errorMessage:'请选择连续时间段'
       })
+      setTimeout(function(){
+        that.setData({
+          showError:true,
+          errorMessage:''
+        })
+      },2000)
+      // wx.showToast({
+      //   title: '请选择连续时间段',
+      //   icon: 'none',
+      //   duration: 1000
+      // })
       return ;
     }
   },
@@ -529,9 +542,10 @@ Page({
         if(Object.keys(res.data).length !=0){
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
-              remind:_this.getRemind(res.data.alertTime) || '',
+              remind:_this.getRemind(res.data.alertTime) || _this.getRemind('FIFTEEN'),
               linkPhone:res.data.linkPhone || _this.data.linkPhone,
-              order_pay:res.data
+              order_pay:res.data,
+              alertTime:res.data.alertTime || 'FIFTEEN'
             })
         }
       }
