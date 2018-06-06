@@ -1,14 +1,14 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
-    meetingList:[]
+    meetingList:[],
+    bg:'../images/my/bg.png'
   },
-  onShareAppMessage: function() {
+  /*onShareAppMessage: function() {
     return app.globalData.share_data;
-  },
+  },*/
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
