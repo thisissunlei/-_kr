@@ -555,6 +555,7 @@ Page({
   //前一天  后一天
   toPreDay:function(e){
     var that = this;
+    
     if(this.bool){
       var topDate = this.data.topDate;
       this.bool = false;
@@ -583,6 +584,8 @@ Page({
         that.bool = true;
         that.getNowRangeTime();
         that.getPrice();
+        that.getThemeName(orderDate)
+        console.log(orderDate.time)
       })
     }
   },
@@ -616,6 +619,7 @@ Page({
         that.bool = true;
         that.getNowRangeTime();
         that.getPrice();
+        that.getThemeName(orderDate)
       })
     }
   },
