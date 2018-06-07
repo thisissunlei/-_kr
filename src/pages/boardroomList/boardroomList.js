@@ -12,6 +12,7 @@ Page({
     };
   },
   data: {
+    ifFixed:false,
     meeting_detail:{},
     dialogDate:false,
     hasUserInfo: false,
@@ -76,6 +77,22 @@ Page({
     }
   },
   button_boolean:true,
+
+  scrollTopEvent(e){
+    let top=e.detail.scrollTop;
+    
+    if(top>=145){
+      this.setData({
+        ifFixed:true
+      })
+    }else{
+      this.setData({
+        ifFixed:false
+       })
+    }
+    
+  },
+  
   openMeetDetail:function(e){
     wx.showLoading({
       title: '加载中',
@@ -91,6 +108,7 @@ Page({
       that.getMeetDetail()
     })
   },
+
   closeMeetDetail:function(){
       this.setData({
         meetingRoomId:'',

@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container boardroom-list">
+<view class="container boardroom-list" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
   
   <!-- <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
@@ -92,7 +92,10 @@
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}" catchtouchmove="preventTouchMove">
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
-          <view class="u-swiper-content">
+          <scroll-view scroll-y class="scroll-box" upper-threshold="10" bindscroll="scrollTopEvent">
+            <view class="u-meet-top"></view>
+            <view class="u-content-meet">
+            <view class="u-swiper-content">
             <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
             <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
@@ -107,7 +110,7 @@
             </swiper>
             <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
-          <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
+          <image class="u-meet-detail-close" style="{{ifFixed?'position: fixed;':''}}" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
           <scroll-view scroll-y class="scroll-box">
           <view class="u-meeting-info">
               <view class="u-meet-info">
@@ -149,6 +152,8 @@
               立即预订
           </view>
           
+        </view>
+        </scroll-view>
       </view>
     </view>
   </view>

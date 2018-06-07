@@ -268,7 +268,6 @@ page{
 .u-meet-detail{
   width:100%;
   height:100%;
-  background: rgba(0,0,0,0.80);
   position: fixed;
   top:0;
   left:0;
@@ -278,6 +277,7 @@ page{
   width:100%;
   height:100%;
   overflow: auto;
+  background: rgba(0,0,0,0.80);
 }
 .u-meet-detail-close{
   width:48rpx;
@@ -285,21 +285,31 @@ page{
   position: absolute;
   right:20rpx;
   top:20rpx;
+  z-index:100;
 }
 .u-meet-content{
   width:100%;
-  max-height: 1120rpx;
-  background: #fff;
+  height:100%;
   position: absolute;
   bottom:0;
 }
+.u-meet-top{
+  width:100%;
+  height:290rpx;
+  background:transparent;
+}
 .scroll-box{
-  max-height: 500rpx;
+  height: 100%;
   overflow-y: auto;
+  background: transparent;
+ 
 }
 .u-content-meet{
   display: inline-block;
   width:100%;
+  background: #fff;
+  position: relative;
+  padding-bottom:112rpx;
 }
 .u-swiper-content{
   position: relative;
@@ -442,12 +452,17 @@ page{
 }
 
 .u-meet-btn{
+  width:100%;
   height:112rpx;
   line-height:112rpx;
   background-image: linear-gradient(50deg, #FFD24C 0%, #F79C1C 89%);
   text-align: center;
   color:#fff;
   font-size: 36rpx;
+  position: fixed;
+  left:0;
+  bottom:0;
+
 }
 
 
