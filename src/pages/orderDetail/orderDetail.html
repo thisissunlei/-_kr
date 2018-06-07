@@ -117,9 +117,10 @@
         </view>
     </view>
    <!-- 会议室详情 -->
+
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}"  catchtouchmove="preventTouchMove">
-      <view class="u-meet-detail-content" >
     <scroll-view scroll-y class="scroll-box">
+      <view class="u-meet-detail-content">
             <view class="u-meet-content">
                 <view class="u-content-meet">
                 <view class="u-swiper-content">
@@ -175,16 +176,11 @@
                         <view class="u-facility-txt">{{meetItem.name}}</view>
                     </view> 
                 </view>
-            
             </view>
-
-            </view>
-    </scroll-view>
-
-
-
-
+        </view>
     </view>
+    
+    </scroll-view>
   </view>
 
   
