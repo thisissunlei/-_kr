@@ -6,9 +6,9 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    wx.setEnableDebug({
+    /*wx.setEnableDebug({
       enableDebug: true
-    });
+    });*/
     // 登录
     
     wx.setTabBarStyle({
@@ -40,11 +40,11 @@ App({
   },
   globalData: {
     userInfo: null,
-    KrUrl:"https://i.krspace.cn/test/",
+    KrUrl:"https://i.krspace.cn/",
     Cookie:'',
     share_data:{
-      title: 'KrMeeting会议室',
-      desc: 'KrMeeting会议室，让会议更轻松、更简单',
+      title: 'KrMeeting会议室，让会议更轻松、更简单',
+      desc: 'KrMeeting会议室',
       path: "pages/index/index"
     }
   },

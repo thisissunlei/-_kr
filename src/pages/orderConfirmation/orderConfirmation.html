@@ -129,7 +129,7 @@
         > 立即支付</view>
     </view>
     <view class="last-view">
-        <div class="error-message" wx:if="{{checkMessage}}">{{errorMessage}}</div>
+        <view class="error-message" wx:if="{{checkMessage}}">{{errorMessage}}</view>
     </view>
 
 
@@ -315,7 +315,7 @@
                     <text class="week-day">五</text>
                     <text class="week-day">六</text>
                   </view>
-                  <view class="now-date">{{date_now.value}}</view>
+                  <view class="now-date" style="padding-top:30rpx">{{date_now.value}}</view>
                   <view  catchtap="dateBtn">
                   <view wx:for="{{date_data1}}" 
                         data-value="{{i.value}}" 
@@ -365,6 +365,6 @@
     </view>
     <!-- 报错信息 -->
     <view class="last-view">
-        <div class="error-message" wx:if="{{!showError}}">{{errorMessage}}</div>
+        <view class="error-message" wx:if="{{!showError}}">{{errorMessage}}</view>
     </view>
 </view> 

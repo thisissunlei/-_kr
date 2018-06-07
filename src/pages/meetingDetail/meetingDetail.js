@@ -92,7 +92,7 @@ Page({
           limitCount:res.data.data.limitCount||'',
           meetingStatus:res.data.data.meetingStatus||'',
         })
-        if(this.data.meetingStatus==='EXPIRED' || this.data.meetingStatus==='ARRVING'){
+        if(res.data.data.meetingStatus==='EXPIRED' || res.data.data.meetingStatus==='ARRVING'){
           this.setData({
             footer:false,
             contact:true,
@@ -103,15 +103,22 @@ Page({
             contact:false,
           })
         }
+        console.log(res.data.data.meetingStatus)
+        if(res.data.data.meetingStatus==='EXPIRED'){
+          console.log(1)
+          QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
+        }else{
+          console.log(2)
+          QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
+        }
       }
     })
-    this.createQrCode('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
+    
+    //this.createQrCode('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
    
   },
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片
-    QR.qrApi.draw(url,canvasId,cavW,cavH,null,'rgba(0,0,0,0.6)');
-    var that = this;
   },
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
