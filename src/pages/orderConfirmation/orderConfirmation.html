@@ -239,7 +239,10 @@
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}" catchtouchmove="preventTouchMove">
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
-          <view class="u-swiper-content">
+        <scroll-view scroll-y class="scroll-box" upper-threshold="10" bindscroll="scrollTopEvent">
+            <view class="u-meet-top"></view>
+            <view class="u-content-meet">
+            <view class="u-swiper-content">
             <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
             <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
@@ -254,8 +257,9 @@
             </swiper>
             <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
-          <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
-          <scroll-view scroll-y class="scroll-box">
+       
+          <image class="u-meet-detail-close"  style="{{ifFixed?'position: fixed;':''}}"  bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
+         
           <view class="u-meeting-detail-info">
               <view class="u-meet-info">
                   <view class="u-meet-name">
@@ -291,7 +295,8 @@
                   <view class="u-facility-txt">{{meetItem.name}}</view>
               </view> 
           </view>
-      </scroll-view>
+        </view>
+        </scroll-view>
       </view>
     </view>
   </view>
