@@ -105,10 +105,8 @@ Page({
         }
         console.log(res.data.data.meetingStatus)
         if(res.data.data.meetingStatus==='EXPIRED'){
-          console.log(1)
           QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
         }else{
-          console.log(2)
           QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
         }
       }
