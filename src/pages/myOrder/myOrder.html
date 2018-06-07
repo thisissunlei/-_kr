@@ -1,11 +1,11 @@
 <!--index.wxml-->
 <view class="order-type">
-  	<div class="tab" bindtap="changeType" data-type="ALL">全部</div>
-  	<div class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</div>
-  	<div class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</div>
-  	<div class="tab" bindtap="changeType" data-type="USED">已使用</div>
-  	<div class="tab" bindtap="changeType" data-type="CLOSED">已取消</div>
-  	<div class="active-type" style="left:{{number}}"> <span class="line"></span></div>
+  	<view class="tab" bindtap="changeType" data-type="ALL">全部</view>
+  	<view class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</view>
+  	<view class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</view>
+  	<view class="tab" bindtap="changeType" data-type="USED">已使用</view>
+  	<view class="tab" bindtap="changeType" data-type="CLOSED">已取消</view>
+  	<view class="active-type" style="left:{{number}}"> <span class="line"></span></view>
   </view>
 <view class="my-order"  wx:if="{{orderList.length}}">
   
@@ -15,12 +15,12 @@
 	    <view id="green" class="scroll-view-item bc_green"></view>
 	  <view class="content-list">
 
-	  	<div class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList}}" wx:key="{{orderId}}">
+	  	<view class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList}}" wx:key="{{orderId}}">
 	  		<span class="status unpay" wx:if="{{item.orderShowStatus == 'OBLIGATION'}}">待支付</span>
 			<span class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已使用</span>
 			<span class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</span>
 			<span class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已取消</span>
-			<div wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box" >
+			<view wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box" >
 				<navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
 					<view class="left">
 			  			<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
@@ -32,7 +32,7 @@
 			  			<span class="content">￥<span style="font-size:34rpx;">{{item.cost}}</span></span>
 			  		</view>
 		  		</navigator>
-		  		<div class="button-box" >
+		  		<view class="button-box" >
 		  			<view class="time-section" wx:if="{{item.minute>-1}}">
 		  				<image class="time-img" src="../images/public/clock_icon.png"></image>
 		  				<span class="time-name">剩余时间  </span>
@@ -40,8 +40,8 @@
 			            <view class="time-down">{{item.second}}</view>
 		  			</view>
 	  				<view class="button" bindtap="orderPay" data-order="{{item.orderId}}">立即支付</view>
-				</div>
-	  		</div>
+				</view>
+	  		</view>
 
 	  		
 
@@ -59,13 +59,13 @@
 		  			<span class="content">￥<span style="font-size:34rpx;">{{item.cost}}</span></span>
 		  		</view>
 	  		</navigator>
-	  	</div>
+	  	</view>
 	  </view>	
 	</scroll-view>
 
 
   <view class="last-view">
-		<div class="error-message" wx:if="{{!error}}">{{errorMessage}}</div>
+		<view class="error-message" wx:if="{{!error}}">{{errorMessage}}</view>
   </view>
 
 </view>
@@ -73,12 +73,12 @@
 
 <view class="my-order-none" wx:if="{{!orderList.length}}">
  <!--  <view class="order-type">
-  	<div class="tab" bindtap="changeType" data-type="ALL">全部</div>
-  	<div class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</div>
-  	<div class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</div>
-  	<div class="tab" bindtap="changeType" data-type="USED">已使用</div>
-  	<div class="tab" bindtap="changeType" data-type="CLOSED">已取消</div>
-  	<div class="active-type" style="left:{{number}}"> <span class="line"></span></div>
+  	<view class="tab" bindtap="changeType" data-type="ALL">全部</view>
+  	<view class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</view>
+  	<view class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</view>
+  	<view class="tab" bindtap="changeType" data-type="USED">已使用</view>
+  	<view class="tab" bindtap="changeType" data-type="CLOSED">已取消</view>
+  	<view class="active-type" style="left:{{number}}"> <span class="line"></span></viewview>
   </view> -->
 
   <!-- 无数据 -->

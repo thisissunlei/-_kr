@@ -30,15 +30,15 @@
 			</view>
 		</view>
 	<view class="btn-box">
-		<div class="disabled" wx:if="{{inputValue.length!=4}}">立即绑定</div>
-		<div class="button" wx:if="{{inputValue.length==4}}" bindtap="formSubmit">立即绑定</div>
+		<view class="disabled" wx:if="{{inputValue.length!=4}}">立即绑定</view>
+		<view class="button" wx:if="{{inputValue.length==4}}" bindtap="formSubmit">立即绑定</view>
 	</view>
 	<view class="last-view">
-		<div class="error-phone" wx:if="{{!phoneTest}}">验证码错误</div>
-		<div class="error-message" wx:if="{{!phoneError}}">{{errorMessage}}</div>
-		<div class="success" wx:if="{{success}}">
+		<view class="error-phone" wx:if="{{!phoneTest}}">验证码错误</view>
+		<view class="error-message" wx:if="{{!phoneError}}">{{errorMessage}}</view>
+		<view class="success" wx:if="{{success}}">
 			<image class="success-icon" src="../images/public/success.png" background-size="cover"></image>
-			<div>绑定成功</div>
-		</div>
+			<view>绑定成功</view>
+		</view>
 	</view>
 </form>
