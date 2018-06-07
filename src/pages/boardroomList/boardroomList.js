@@ -75,6 +75,7 @@ Page({
       ],//会议室图片
       unitCost:'销售单价'// 销售单价(元
     }
+   
   },
   button_boolean:true,
 
@@ -92,7 +93,7 @@ Page({
     }
     
   },
-  
+ 
   openMeetDetail:function(e){
     wx.showLoading({
       title: '加载中',
