@@ -2,8 +2,8 @@
 <view class="warn-chooce">
 	<ul class="tab-list" wx:for="{{cityList}}" wx:for-index="idx" wx:for-item="items" wx:key="{{items.city}}">
 		<li data-city="{{items.code}}" class="{{activeTab==items.city?active:item}}"  bind:touchend="checkWarn"   data-name="{{items.city}}">
-			<span class="conten" data-city="{{items.code}}" data-name="{{items.city}}">{{items.city}}</span>
-			<span class="conten" data-city="{{items.code}}" data-name="{{items.city}}"> +{{items.code}}</span>
+			<text class="conten" data-city="{{items.code}}" data-name="{{items.city}}">{{items.city}}</text>
+			<text class="conten" data-city="{{items.code}}" data-name="{{items.city}}"> +{{items.code}}</text>
 			<image wx:if="{{activeTab==items.city}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
 		</li>
 	</ul>
