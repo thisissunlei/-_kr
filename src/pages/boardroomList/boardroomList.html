@@ -93,7 +93,7 @@
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
           <scroll-view scroll-y class="scroll-box"  bindscroll="scrollTopEvent" bindscrolltolower="scrollLowerEvent">
-            <view class="u-meet-top"></view>
+            <view class="u-meet-top" bindtap="closeMeetDetail"></view>
             <view class="u-content-meet">
             <view class="u-swiper-content">
             <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
@@ -148,13 +148,13 @@
               </view> 
           </view>
         </view>
-        <view class="u-meet-btn" bindtap="nowReserve" data-mId="{{meetingRoomId}}">
-            立即预订
-        </view>
+        
         </scroll-view>
       </view>
     </view>
-   
+    <view class="u-meet-btn" bindtap="nowReserve" data-mId="{{meetingRoomId}}">
+        立即预订
+    </view>
   </view>
 
 
