@@ -10,37 +10,37 @@
             <text class='meetingTime'>{{meetingTime}}</text>
             <text class="themeName">{{themeName}}</text>
           </view>
-              <view class='pics' style='overflow: hidden;'>
-                <view class="code-pic">
-                  <image src="../images/indexImg/code.png" class="img"></image>
-                  <view class="img-box">
-                    <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
-                      <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
-                  </view>
-                  
-                </view>
-                <view class="code-desc">请入场时出示此二维码</view>
+          <view class='pics' style='overflow: hidden;'>
+            <view class="code-pic">
+              <image src="../images/indexImg/code.png" class="img"></image>
+              <view class="img-box">
+                <canvas bindtap="previewImg" hidden="{{canvasHidden}}" class='mycanvas' canvas-id="mycanvas"/>
+                  <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
               </view>
               
-              <view class='bottom_text'>
-                <text class="metting-house">{{meetingRoomName}}</text>
-                <view class='icons'>
-                  <image src='../images/indexImg/dizhi2.png'></image>
-                  <text>{{address}}</text>
-                </view>
-              </view>
             </view>
-          </view>   
+            <view class="code-desc">请入场时出示此二维码</view>
+          </view>
+              
+          <view class='bottom_text'>
+            <text class="metting-house">{{meetingRoomName}}</text>
+            <view class='icons'>
+              <image src='../images/indexImg/dizhi2.png'></image>
+              <text>{{address}}</text>
+            </view>
+          </view>
         </view>
+      </view>   
+    </view>
       
-        <view class='conferee'>
-            <text class='conferee-title'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
-            <block wx:for="{{inviteer}}">
-                <view class='list'>
-                    <view class='pic'>
-                      <image src="{{item.wechatAvatar}}"></image>
-                    </view>
-                    <text>{{item.wechatNick}}</text>
+    <view class='conferee'>
+      <text class='conferee-title'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
+        <block wx:for="{{inviteer}}">
+          <view class='list'>
+            <view class='pic'>
+              <image src="{{item.wechatAvatar}}"></image>
+            </view>
+            <text>{{item.wechatNick}}</text>
                     <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true?true:false}}"></image>
                     <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===true?true:false}}"></image>
                 </view>

@@ -31,7 +31,7 @@
         <block wx:for="{{myMeeting}}">
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
             <view class="metting-content">
-                <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':item.meetingStatus === 'ARRVING'?'already':'overdue'}}">{{item.meetingStatus === 'WAIT'?'待入场':item.meetingStatus === 'ARRVING'?'已入场':'已过期'}}</view>
+                <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'待入场':'已入场'}}</view>
                 <view class="metting-title"> 
                     <text class="metting-time">{{item.meetingTime}}</text>
                     <text class="metting-name">{{item.theme}}</text>
@@ -50,7 +50,7 @@
 
       <block wx:for="{{myMeeting}}" wx:if="{{noSwiper}}">
         <view class="metting-content" bindtap="jumpToMeetingDetail">
-          <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'待入场':item.meetingStatus === 'ARRVING'?'已入场':'已过期'}}</view>
+          <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'待入场':'已入场'}}</view>
           <view class="metting-title"> 
             <text class="metting-time">{{item.meetingTime}}</text>
             <text class="metting-name">{{item.theme}}</text>
