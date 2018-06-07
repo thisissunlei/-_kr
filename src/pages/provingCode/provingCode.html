@@ -1,9 +1,9 @@
 <form  class="meeting-form">
 	<view class="title">输入验证码</view>	
 	<view class="info">
-		<span class="phone-info">已发送验证码至   {{phone}}</span>
-		<span class="phone-again" wx:if="{{!time}}" bindtap="sendAgain">重新获取</span>
-		<span class="phone-again" wx:if="{{time}}">{{time}}s</span>
+		<text class="phone-info">已发送验证码至   {{phone}}</text>
+		<text class="phone-again" wx:if="{{!time}}" bindtap="sendAgain">重新获取</text>
+		<text class="phone-again" wx:if="{{time}}">{{time}}s</text>
 	</view>	
 	<view class="input-box">
 			<input name="meeting" type="number" placeholder=""  bindinput="bindKeyInput" focus="true" value="{{inputValue}}" class="input-style" maxlength="4"></input>
@@ -11,34 +11,34 @@
 		<view class="prove-list">
 			<view class="coding">
 				{{code.value1}}
-				<span class="line" wx:if="{{inputValue.length==0}}"></span>
+				<text class="line" wx:if="{{inputValue.length==0}}"></text>
 			</view>
 			<view class="{{code.value1?'coding':'code'}}">
 				{{code.value2}}
-				<span class="line" wx:if="{{inputValue.length==1}}"></span>
+				<text class="line" wx:if="{{inputValue.length==1}}"></text>
 
 			</view>
 			<view class="{{code.value2?'coding':'code'}}">
 				{{code.value3}}
-				<span class="line" wx:if="{{inputValue.length==2}}"></span>
+				<text class="line" wx:if="{{inputValue.length==2}}"></text>
 
 			</view>
 			<view class="{{code.value3?'coding':'code'}}">
 				{{code.value4}}
-				<span class="line" wx:if="{{inputValue.length==3}}"></span>
+				<text class="line" wx:if="{{inputValue.length==3}}"></text>
 
 			</view>
 		</view>
 	<view class="btn-box">
-		<div class="disabled" wx:if="{{inputValue.length!=4}}">立即绑定</div>
-		<div class="button" wx:if="{{inputValue.length==4}}" bindtap="formSubmit">立即绑定</div>
+		<view class="disabled" wx:if="{{inputValue.length!=4}}">立即绑定</view>
+		<view class="button" wx:if="{{inputValue.length==4}}" bindtap="formSubmit">立即绑定</view>
 	</view>
 	<view class="last-view">
-		<div class="error-phone" wx:if="{{!phoneTest}}">验证码错误</div>
-		<div class="error-message" wx:if="{{!phoneError}}">{{errorMessage}}</div>
-		<div class="success" wx:if="{{success}}">
+		<view class="error-phone" wx:if="{{!phoneTest}}">验证码错误</view>
+		<view class="error-message" wx:if="{{!phoneError}}">{{errorMessage}}</view>
+		<view class="success" wx:if="{{success}}">
 			<image class="success-icon" src="../images/public/success.png" background-size="cover"></image>
-			<div>绑定成功</div>
-		</div>
+			<view>绑定成功</view>
+		</view>
 	</view>
 </form>

@@ -10,10 +10,10 @@
 		</view>
 	</view>
 	<view class="btn-box">
-		<div class="disabled" wx:if="{{!inputValue.length}}">确 定</div>
-		<div class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">确 定</div>
+		<view class="disabled" wx:if="{{!inputValue.length}}">确 定</view>
+		<view class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">确 定</view>
 	</view>
 	<view class="last-view">
-		<div class="error-message" wx:if="{{!submitError}}">{{errorMessage}}</div>
+		<view class="error-message" wx:if="{{!submitError}}">{{errorMessage}}</view>
 	</view>
 </form>

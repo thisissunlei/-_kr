@@ -28,105 +28,105 @@ Page({
         buildAddress:"北京市朝阳区东三环中路甲10号",
         buildImgUrl:"../images/indexImg/wk.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"5"
       },
       {
         buildName:"海峡国际大厦",
         buildAddress:"北京市西城区三里河东路30号院1号楼海峡国际大厦",
         buildImgUrl:"../images/indexImg/hxgj.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"18"
       },
       {
         buildName:"创业大街",
         buildAddress:"北京市海淀区中关村创业大街2号楼",
         buildImgUrl:"../images/indexImg/cydj.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"6"
       },
       {
         buildName:"吉祥大厦",
         buildAddress:"北京市东城区王府井大街88号",
         buildImgUrl:"../images/indexImg/jxds.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"6"
       },
       {
         buildName:"虹桥绿谷广场",
         buildAddress:"上海市闵行区甬虹路69号虹桥绿谷广场G栋",
         buildImgUrl:"../images/indexImg/hqlg.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"14"
       },
       {
         buildName:"世纪汇",
         buildAddress:"上海市浦东新区世纪大道1196号世纪汇办公楼二座",
         buildImgUrl:"../images/indexImg/sjh.jpg",
         distance:"200m",
-        meetingCount:"22"
+        meetingCount:"12"
       },
       {
         buildName:"海洋大厦",
         buildAddress:"上海市黄浦区延安东路550号海洋大厦",
         buildImgUrl:"../images/indexImg/hyds.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"16"
       },
       {
         buildName:"华山路",
         buildAddress:"上海市静安区华山路328号",
         buildImgUrl:"../images/indexImg/hsl.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"18"
       },
       {
         buildName:"凯旋路",
         buildAddress:"上海市长宁区凯旋路399号1幢",
         buildImgUrl:"../images/indexImg/kxl.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"18"
       },
       {
         buildName:"由由国际",
         buildAddress:"上海市浦东新区浦建路76号由由国际广场写字楼",
         buildImgUrl:"../images/indexImg/zygj.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"6"
       },
       {
         buildName:"由由世纪",
         buildAddress:"上海市浦东新区杨高南路428号由由世纪1号楼写字楼名义楼层",
         buildImgUrl:"../images/indexImg/zysj.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"6"
       },
       {
         buildName:"裕徳路",
         buildAddress:"上海市徐汇区裕德路126号",
         buildImgUrl:"../images/indexImg/ydl.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"18"
       },
       {
         buildName:"田林路",
         buildAddress:"上海市徐汇区田林路130号20号楼",
         buildImgUrl:"../images/indexImg/tll.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"8"
       },
       {
         buildName:"TIT创意园",
         buildAddress:"广州市海珠区新港中路397号T.I.T创意园自编3-9号",
         buildImgUrl:"../images/indexImg/TIT.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"6"
       },
       {
         buildName:"保利国际中心",
         buildAddress:"武汉市东湖新技术开发区关山大道332号保利国际中心",
         buildImgUrl:"../images/indexImg/blgj.jpg",
         distance:"200m",
-        meetingCount:"?"
+        meetingCount:"8"
       },
     ]
   },

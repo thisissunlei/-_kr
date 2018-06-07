@@ -80,7 +80,7 @@ Page({
     })
   },
   dateBtn :function(e){
-    
+    console.log(e);
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       
       const new_data = this.data[e.target.dataset.data];
@@ -163,10 +163,13 @@ Page({
           time:time,
           timeText:day_con,
         },
+        nowDateIndex:e.target.dataset.validIndex,
         [Time]:'',
         nowDate:time,
         priceCount:0,
-        totalCount:0
+        totalCount:0,
+        selectedTime:[],
+
         
       },function(){
        
@@ -555,6 +558,7 @@ Page({
   //前一天  后一天
   toPreDay:function(e){
     var that = this;
+    
     if(this.bool){
       var topDate = this.data.topDate;
       this.bool = false;
@@ -583,6 +587,8 @@ Page({
         that.bool = true;
         that.getNowRangeTime();
         that.getPrice();
+        that.getThemeName(orderDate)
+        console.log(orderDate.time)
       })
     }
   },
@@ -616,6 +622,7 @@ Page({
         that.bool = true;
         that.getNowRangeTime();
         that.getPrice();
+        that.getThemeName(orderDate)
       })
     }
   },
@@ -736,6 +743,20 @@ Page({
       date1 = this.dealDate(today_month,true);
       date2 = this.dealDate(next_month,false); 
     }
+    var validDateNum = 0;
+    var that = this;
+    date1 = date1.map((item,index)=>{
+      if(item.value && item.type!='before') {
+        item.validDateNum = validDateNum++;
+      }
+      return item;
+    })
+    date2 = date2.map((item,index)=>{
+      if(item.value && item.type!='before') {
+        item.validDateNum = validDateNum++;
+      }
+      return item;
+    })
     
     const year_value = today_date.getFullYear()==new Date().getFullYear() ? '' : today_date.getFullYear() + '年';
     this.setData({

@@ -1,4 +1,7 @@
 /**index.wxss**/
+page {
+  background-color: #F3F3F3;
+}
 .container {
   justify-content: flex-start;
 }
@@ -75,6 +78,7 @@
   color: #666;
   width: 88rpx;
   text-align: center;
+  font-weight: 600;
 }
 .top-date .left .date-item .bottom-border {
   width: 40rpx;
@@ -98,7 +102,7 @@
   height: 352rpx;
   background: #fff;
   padding: 40rpx;
-  margin-bottom: 20rpx;
+  margin-bottom: 12rpx;
   border-bottom: 1px solid #F3F3F3;
 }
 .list-item .top {
@@ -114,15 +118,19 @@
   border: 1px solid #F3F3F3;
 }
 .list-item .top .top-right {
-  width: 420rpx;
+  width: 484rpx;
   height: 150rpx;
+  padding-left: 32rpx;
+  box-sizing: border-box;
 }
 .list-item .top .top-right .first-row {
   display: flex;
   justify-content: space-between;
-  font-weight: 600;
   font-size: 34rpx;
   color: #333333;
+}
+.list-item:last-child {
+  margin-bottom: 120rpx;
 }
 .list-item .top .top-right .first-row .room-size {
   font-weight: 600;
@@ -160,7 +168,7 @@
 }
 .orignal-price {
   font-size: 26rpx;
-  color: #666666;
+  color: #999;
 }
 .list-item .top .top-right .third-row .price {
   font-weight: 600;
@@ -240,12 +248,18 @@
 }
 .u-meet-content {
   width: 100%;
-  min-height: 800rpx;
+  max-height: 1120rpx;
   background: #fff;
-  margin-top: 300rpx;
-  position: relative;
-  display: inline-block;
+  position: absolute;
   bottom: 0;
+}
+.scroll-box {
+  max-height: 500rpx;
+  overflow-y: auto;
+}
+.u-content-meet {
+  display: inline-block;
+  width: 100%;
 }
 .u-swiper-content {
   position: relative;
@@ -358,8 +372,10 @@
   display: inline-block;
   border-top: 1px solid #F6F6F6;
   box-sizing: border-box;
-  padding: 48rpx 50rpx;
+  padding: 40rpx 50rpx;
+  padding-bottom: 0;
   width: 100%;
+  margin-top: 20rpx;
 }
 .u-icon-list {
   width: 130rpx;
@@ -428,9 +444,7 @@
   font-family: PingFang-SC-Light;
   font-size: 40rpx;
   color: #333333;
-  padding-left: 40rpx;
-  padding-right: 40rpx;
-  padding-top: 20rpx;
+  padding: 50rpx 40rpx 0rpx;
 }
 .before {
   font-family: PingFang-SC-Regular;
@@ -456,10 +470,11 @@
 .date .day {
   display: inline-block;
   width: 72rpx;
-  height: 68rpx;
+  height: 64rpx;
   margin: 0 17.57rpx;
-  line-height: 72rpx;
+  line-height: 64rpx;
   text-align: center;
+  vertical-align: top;
 }
 .wrapper {
   width: 100%;
