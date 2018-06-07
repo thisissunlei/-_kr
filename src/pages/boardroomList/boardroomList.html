@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container boardroom-list">
+<view class="container boardroom-list" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
   
   <!-- <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
@@ -8,7 +8,7 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
-  <view class="top-date">
+  <view class="top-date" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
     <scroll-view style="width:656rpx" scroll-x scroll-left="{{dateScrollLeft}}">
       <view class="left">
         <view 
@@ -92,7 +92,10 @@
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}" catchtouchmove="preventTouchMove">
       <view class="u-meet-detail-content">
       <view class="u-meet-content">
-          <view class="u-swiper-content">
+          <scroll-view scroll-y class="scroll-box"  bindscroll="scrollTopEvent" bindscrolltolower="scrollLowerEvent">
+            <view class="u-meet-top" bindtap="closeMeetDetail"></view>
+            <view class="u-content-meet">
+            <view class="u-swiper-content">
             <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
             <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
@@ -107,8 +110,8 @@
             </swiper>
             <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
           </view>
-          <image class="u-meet-detail-close" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
-          <scroll-view scroll-y class="scroll-box">
+          <image class="u-meet-detail-close" style="{{ifFixed?'position: fixed;':''}}" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
+         
           <view class="u-meeting-info">
               <view class="u-meet-info">
                   <view class="u-meet-name">
@@ -144,11 +147,13 @@
                   <view class="u-facility-txt">{{meetItem.name}}</view>
               </view> 
           </view>
+        </view>
+        
         </scroll-view>
-          <view class="u-meet-btn" bindtap="nowReserve" data-mId="{{meetingRoomId}}">
-              立即预订
-          </view>
       </view>
+    </view>
+    <view class="u-meet-btn" bindtap="nowReserve" data-mId="{{meetingRoomId}}">
+        立即预订
     </view>
   </view>
 
