@@ -9,6 +9,7 @@ Page({
     return app.globalData.share_data;
   },
   data: {
+    status:'',
     codeShade:false,
     inviteer:[],
     inviteeId:'',
@@ -65,9 +66,16 @@ Page({
     })
     console.log(options,"options")
     var inviteeId = options.inviteeId
-    this.setData({
-      inviteeId:inviteeId
-    })
+    if(options.status){
+      this.setData({
+        inviteeId:inviteeId,
+        status:opstion.status
+      })
+    }else{
+      this.setData({
+        inviteeId:inviteeId
+      })
+    }
     //数据加载
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
@@ -105,15 +113,22 @@ Page({
         }
         console.log(res.data.data.meetingStatus)
         if(res.data.data.meetingStatus==='EXPIRED'){
-          QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
+          QR.qrApi.draw('http://cdntest01.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
         }else{
-          QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
+          QR.qrApi.draw('http://cdntest01.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
         }
       }
     })
     
     //this.createQrCode('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
    
+  },
+  onUnload:function(){
+    if(this.data.status==1){
+      wx.reLaunch({
+        url: '../index/index'
+      })
+    }
   },
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片

@@ -234,6 +234,10 @@ Page({
                 myjion:false,
               })
             }
+            wx.reLaunch({
+              url:"../meetingDetail/meetingDetail?status=1"
+            })
+
           }else{
             wx.showToast({
               title: res.data.message,
