@@ -233,13 +233,13 @@ Page({
               },
               'fail':function(res){
                 wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId
+                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
                 })
               }
             })
           }else{
             wx.navigateTo({
-              url: '../orderDetail/orderDetail?id='+data.orderId
+              url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
             })
           }
           
