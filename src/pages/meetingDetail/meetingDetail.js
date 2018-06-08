@@ -13,9 +13,12 @@ Page({
     codeShade:false,
     inviteer:[],
     inviteeId:'',
-    footer:'',
-    contact:'',
+    footer:true,
     contact:false,
+    overdue:false,
+    expired:false,
+    NotExpired:true,
+    sponsor:false,
     hint:[
       {
         'title':'1. 我订了会议室，要提前多久入场呀？',
@@ -100,18 +103,31 @@ Page({
           limitCount:res.data.data.limitCount||'',
           meetingStatus:res.data.data.meetingStatus||'',
         })
-        if(res.data.data.meetingStatus==='EXPIRED' || res.data.data.meetingStatus==='ARRVING'){
+        if(res.data.data.meetingStatus==='EXPIRED'){
           this.setData({
             footer:false,
             contact:true,
+            overdue:true,
+            expired:true,
+            NotExpired:false
+          })
+        }else if(res.data.data.meetingStatus==='ARRVING'){
+          this.setData({
+            footer:false,
+            contact:true,
+            overdue:false,
+            expired:false,
+            NotExpired:true
           })
         }else{
           this.setData({
             footer:true,
             contact:false,
+            overdue:false,
+            expired:false,
+            NotExpired:true
           })
         }
-        console.log(res.data.data.meetingStatus)
         if(res.data.data.meetingStatus==='EXPIRED'){
           QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
         }else{

@@ -13,7 +13,6 @@ Page({
     advance:false,
     status:false,
     inviteer:[],
-    inviteeId:'',
     btn_bool:true,
     hint:[
       {
@@ -52,24 +51,20 @@ Page({
   },
   flag:true,
   join:true,
+  inviteeId:'',
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
- 
   onLoad: function (options) {
     wx.showLoading({
       title: '加载中',
       mask:true
     })
     const that = this;
-    let inviteeId = options.inviteeId
-    that.setData({
-      inviteeId:inviteeId
-    });
-    
+    this.inviteeId = options.inviteeId
     //查看是否授权
     wx.getSetting({
       success(res) {
@@ -167,7 +162,7 @@ Page({
   
   //获取数据列表
   detailList:function(){
-    let that = this
+    
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
       methods:"GET",
@@ -175,7 +170,7 @@ Page({
         "content-type":"application/json"
       },
       data:{
-        inviteeId:this.data.inviteeId
+        inviteeId:this.inviteeId
       },
       success:(res)=>{
         console.log(res,2222222222)
@@ -189,7 +184,7 @@ Page({
           meetingStatus:res.data.data.meetingStatus||'',
           
         })
-       console.log(new Date(),res.data.data.join)
+
        if(res.data.data.join===true){
         that.setData({
           myjion:false,
@@ -217,7 +212,7 @@ Page({
           "content-type":"application/json"
         },
         data:{
-          inviteeId:_this.data.inviteeId
+          inviteeId:_this.inviteeId
         },
         success:(res)=>{
           console.log(res,"确认参加")
@@ -228,15 +223,15 @@ Page({
             })
             
             _this.flag = false
-            console.log(_this.join,'点击后')
             if(_this.join===true){
               _this.setData({
                 myjion:false,
               })
             }
-            wx.navigateTo({
-              url:'../meetingDetail/meetingDetail?inviteeId='+_this.data.inviteeId+'&status=1'
-            })
+          console.log(_this.inviteeId,'传到metail的inviteeId11111')
+          wx.navigateTo({
+            url:'../meetingDetail/meetingDetail?inviteeId='+_this.inviteeId+'&status=1'
+          })
           }else{
             wx.showToast({
               title: res.data.message,
@@ -248,7 +243,9 @@ Page({
               })
             }
           }
+          
         },
+        
         fail:(res)=>{
           _this.flag = true
           _this.setData({
