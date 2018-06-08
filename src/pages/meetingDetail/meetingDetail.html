@@ -5,7 +5,7 @@
           <view class='top'>
             <view class="top-banner">
               <image src="../images/indexImg/card.png" class="img"></image>
-              <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
+              <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{overdue}}"></image>
               <view class="content">
                 <view class='title'>
                   <text class='meetingTime'>{{meetingTime}}</text>
@@ -14,8 +14,8 @@
                 <view class='pics'>
                   <view class="shade {{meetingStatus==='EXPIRED'?'shadeBg':''}}">
                     <view class="code-pic">
-                      <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{meetingStatus==='EXPIRED'?true:false}}"></image>
-                      <image src="../images/indexImg/code.png" wx:if="{{meetingStatus==='EXPIRED'?false:true}}" class="img"></image>
+                      <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{expired}}"></image>
+                      <image src="../images/indexImg/code.png" wx:if="{{NotExpired}}" class="img"></image>
                       <view class="img-box">
                           <canvas bindtap="previewImg" hidden="{{canvasHidden}}" canvas-id="mycanvas" class="mycanvas"/>
                           <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
