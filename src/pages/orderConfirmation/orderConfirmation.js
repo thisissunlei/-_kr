@@ -73,6 +73,7 @@ Page({
   rangeTime:[],
   selectedTime:[],
   isSubTime:false,
+  ifFixed:false,
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -307,6 +308,20 @@ Page({
         }
       }
     return data;
+    
+  },
+  scrollTopEvent(e){
+    let top=e.detail.scrollTop;
+    
+    if(top>=145){
+      this.setData({
+        ifFixed:true
+      })
+    }else{
+      this.setData({
+        ifFixed:false
+       })
+    }
     
   },
   onUnload:function(){

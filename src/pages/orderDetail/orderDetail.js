@@ -29,11 +29,24 @@ Page({
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
     titleObj:{},
+    ifFixed:false,
+   
   },
-
-  preventTouchMove(){
+  scrollTopEvent(e){
+    let top=e.detail.scrollTop;
+    
+    if(top>=145){
+      this.setData({
+        ifFixed:true
+      })
+    }else{
+      this.setData({
+        ifFixed:false
+       })
+    }
     
   },
+  
   //邀请参会人
   onShareAppMessage: function (res) {
     console.log(res,8888)
