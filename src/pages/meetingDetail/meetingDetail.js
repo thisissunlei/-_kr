@@ -113,9 +113,9 @@ Page({
         }
         console.log(res.data.data.meetingStatus)
         if(res.data.data.meetingStatus==='EXPIRED'){
-          QR.qrApi.draw('http://cdntest01.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
+          QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
         }else{
-          QR.qrApi.draw('http://cdntest01.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
+          QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
         }
       }
     })
