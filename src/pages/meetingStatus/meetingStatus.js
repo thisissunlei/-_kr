@@ -162,7 +162,7 @@ Page({
   
   //获取数据列表
   detailList:function(){
-    
+    var that = this
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
       methods:"GET",
@@ -170,11 +170,11 @@ Page({
         "content-type":"application/json"
       },
       data:{
-        inviteeId:this.inviteeId
+        inviteeId:that.inviteeId
       },
       success:(res)=>{
-        console.log(res,2222222222)
-        this.setData({
+        console.log(that,res,2222222222)
+        that.setData({
           meetingTime:res.data.data.meetingTime||'',
           themeName:res.data.data.theme||'',
           meetingRoomName:res.data.data.meetingRoomName||'',
@@ -191,7 +191,7 @@ Page({
         })
       }
       if(res.data.data.meetingStatus==='EXPIRED'){
-        this.setData({
+        that.setData({
           status:true,
           advance:true,
           myjion:false
@@ -217,11 +217,11 @@ Page({
         success:(res)=>{
           console.log(res,"确认参加")
           if(res.data.code==1){
+            console.log(1111)
             _this.data.inviteer.push(_this.data.wechatInfo)
             _this.setData({
               inviteer:_this.data.inviteer
             })
-            
             _this.flag = false
             if(_this.join===true){
               _this.setData({
