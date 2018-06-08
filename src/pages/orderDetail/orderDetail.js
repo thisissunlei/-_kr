@@ -58,7 +58,7 @@ Page({
     
     return {
       title: '戳我一键参会！邀请您于"'+this.data.detailInfo.ctime+'"在"'+this.data.detailInfo.meetingRoomName+'"参加"'+this.data.detailInfo.themeName+'"',
-      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId,
+      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.detailInfo.inviteeId,
       imageUrl:'../images/indexImg/statusbg.png'
     }
   },
@@ -163,6 +163,7 @@ Page({
         if(res.data.data.inviteeId){
             callback && callback(res.data.data.inviteeId);
         }
+        
       }
     })
   },
@@ -233,6 +234,7 @@ Page({
           orderId:orderId
         },
         success:(res)=>{
+          
             let data=res.data.data;
             
               let titleObj={

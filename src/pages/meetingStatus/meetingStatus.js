@@ -234,10 +234,9 @@ Page({
                 myjion:false,
               })
             }
-            wx.reLaunch({
-              url:"../meetingDetail/meetingDetail?status=1"
+            wx.navigateTo({
+              url:'../meetingDetail/meetingDetail?inviteeId='+_this.data.inviteeId+'&status=1'
             })
-
           }else{
             wx.showToast({
               title: res.data.message,
@@ -249,7 +248,6 @@ Page({
               })
             }
           }
-         
         },
         fail:(res)=>{
           _this.flag = true
