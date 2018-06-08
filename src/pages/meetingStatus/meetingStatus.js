@@ -234,7 +234,7 @@ Page({
                 myjion:false,
               })
             }
-            wx.reLaunch({
+            wx.navigateTo({
               url:'../meetingDetail/meetingDetail?inviteeId='+_this.data.inviteeId+'&status=1'
             })
           }else{

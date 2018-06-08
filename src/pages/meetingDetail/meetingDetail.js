@@ -69,7 +69,7 @@ Page({
     if(options.status){
       this.setData({
         inviteeId:inviteeId,
-        status:opstion.status
+        status:options.status
       })
     }else{
       this.setData({
