@@ -169,7 +169,11 @@ Page({
       }
     })
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    console.log(options,options.id,11111111)
+    wx.reportAnalytics('idx_channel',{
+      channelname: options.id,
+  });
     wx.showLoading({
       title: '加载中',
       mask:true
