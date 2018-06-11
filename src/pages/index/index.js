@@ -284,7 +284,7 @@ Page({
           }else if(element.distance>1000){
             element.distance = (element.distance/1000).toFixed(1)+'km' 
           }else{
-            element.distance = element.distance+'m'
+            element.distance = Math.round((element.distance)*10)/10+'m'
           }
           
         });
