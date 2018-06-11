@@ -34,7 +34,7 @@ Page({
   },
   scrollTopEvent(e){
     let top=e.detail.scrollTop;
-    
+    console.log('top------',top)
     if(top>=145){
       this.setData({
         ifFixed:true
