@@ -447,7 +447,7 @@ page {
 }
 .date .week .week-day {
   display: inline-block;
-  width: 72rpx;
+  width: 70rpx;
   margin: 0 17.57rpx;
   text-align: center;
   font-family: PingFang-SC-Regular;
@@ -483,10 +483,10 @@ page {
 }
 .date .day {
   display: inline-block;
-  width: 72rpx;
-  height: 64rpx;
+  width: 70rpx;
+  height: 70rpx;
   margin: 0 17.57rpx;
-  line-height: 64rpx;
+  line-height: 70rpx;
   text-align: center;
   vertical-align: top;
 }
