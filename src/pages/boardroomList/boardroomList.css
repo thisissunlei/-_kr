@@ -96,7 +96,7 @@ page {
   padding: 0;
   position: absolute;
   top: 100rpx;
-  height: 1100rpx;
+  bottom: 0;
 }
 .list-item {
   height: 352rpx;
@@ -146,7 +146,7 @@ page {
   text-overflow: ellipsis;
   white-space: nowrap;
   height: 52rpx;
-  padding-right: 20rpx;
+  padding-right: 30rpx;
 }
 .list-item .top .top-right .second-row .device {
   display: inline-block;
