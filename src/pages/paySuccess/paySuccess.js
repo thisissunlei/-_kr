@@ -139,7 +139,7 @@ Page({
       content: '取消参会后，会议开始前您可以从我的订单或会议邀请中，再次参加会议哦～',
       cancelText:'暂不取消',
       confirmText:'无情走开',
-      confirmColor:'#F5A623 ',
+      confirmColor:'#F5A623',
       success: function(res) {
         if (res.confirm) {
           console.log('用户点击确定')

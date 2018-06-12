@@ -169,16 +169,41 @@ Page({
       }
     })
   },
+  getURLParam:function(deal_url,paramName){
+          var paramValue = "";
+          var isFound = false;
+          deal_url=decodeURIComponent(deal_url).substring(1,deal_url.length).split("?")[1];
+          if ( deal_url.indexOf("=")>1){
+              let arrSource = deal_url.split("&");
+              let i = 0;
+              while (i < arrSource.length && !isFound){
+                  if (arrSource[i].indexOf("=") > 0){
+                       if (arrSource[i].split("=")[0].toLowerCase()==paramName.toLowerCase()){
+                          paramValue = arrSource[i].split("=")[1];
+                          isFound = true;
+                       }
+                  }
+                  i++;
+              }   
+          }
+          
+          return paramValue;
+  },
   onLoad: function (options) {
-    console.log(options,options.id,11111111)
-    wx.reportAnalytics('idx_channel',{
-      channelname: options.id,
-  });
+    const that = this;
+        console.log(options.q)
+    if(options.q){
+      
+      wx.reportAnalytics('idx_channel',{
+        channelname: that.getURLParam(options.q,'id'),
+      });
+      console.log(that.getURLParam('https%3A%2F%2Fi.krspace.cn%2Fchannelname%3Fid%3Dhaihang','id'),11111)
+    }    
     wx.showLoading({
       title: '加载中',
       mask:true
     })
-    const that = this;
+    
     this.getLocation();
     //页面加载
     wx.login({
