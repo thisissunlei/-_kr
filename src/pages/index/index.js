@@ -193,11 +193,11 @@ Page({
     const that = this;
         console.log(options.q)
     if(options.q){
-      
+      const channelname_v = that.getURLParam(options.q,'id')
       wx.reportAnalytics('idx_channel',{
-        channelname: that.getURLParam(options.q,'id'),
+        channelname: channelname_v,
       });
-      console.log(that.getURLParam('https%3A%2F%2Fi.krspace.cn%2Fchannelname%3Fid%3Dhaihang','id'),11111)
+      console.log(channelname_v,11111)
     }    
     wx.showLoading({
       title: '加载中',
