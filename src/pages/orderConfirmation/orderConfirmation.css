@@ -648,16 +648,29 @@ page {
   position: absolute;
   right: 20rpx;
   top: 20rpx;
+  z-index: 100;
 }
 .u-meet-content {
   width: 100%;
-  background: #fff;
+  height: 100%;
   position: absolute;
   bottom: 0;
+}
+.u-meet-top {
+  width: 100%;
+  height: 402rpx;
+  background: transparent;
+}
+.scroll-box {
+  height: 100%;
+  overflow-y: auto;
+  background: transparent;
 }
 .u-content-meet {
   display: inline-block;
   width: 100%;
+  background: #fff;
+  position: relative;
 }
 .u-swiper-content {
   position: relative;
@@ -771,7 +784,8 @@ page {
   display: inline-block;
   border-top: 1px solid #F6F6F6;
   box-sizing: border-box;
-  padding: 48rpx 50rpx;
+  padding: 40rpx 50rpx;
+  padding-bottom: 0;
   width: 100%;
 }
 .u-icon-list {
@@ -829,7 +843,7 @@ page {
 }
 .date .week .week-day {
   display: inline-block;
-  width: 72rpx;
+  width: 70rpx;
   margin: 0 17.57rpx;
   text-align: center;
   font-family: PingFang-SC-Regular;
@@ -865,10 +879,10 @@ page {
 }
 .day {
   display: inline-block;
-  width: 72rpx;
-  height: 64rpx;
+  width: 70rpx;
+  height: 70rpx;
   margin: 0 17.57rpx;
-  line-height: 64rpx;
+  line-height: 70rpx;
   text-align: center;
   vertical-align: top;
 }
