@@ -1,17 +1,17 @@
 //index.js
 //获取应用实例
 var QR = require("../../utils/qrcode.js");
-
+var meetingData = require("../../utils/meeting.js");
 const app = getApp()
 
 Page({
   data: {
+    meetingDetailData:{},
+    inviteers:[],
     onShareAppMessage: function() {
       return app.globalData.share_data;
     },
     off:true,
-    inviteer:[],
-    inviteeId:'',
     hint:[
       {
         'title':'1. 我订了会议室，要提前多久入场呀？',
@@ -47,7 +47,7 @@ Page({
       },
     ]
   },
-  
+  inviteeId:'',
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -66,43 +66,17 @@ Page({
     })
     console.log(options,"options")
     wx.reportAnalytics('viewmeeting')
+    this.inviteeId = options.inviteeId
 
-    let inviteeId = options.inviteeId
-    this.setData({
-      inviteeId:inviteeId
-    })
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      methods:"GET",
-      header:{
-        "content-type":"application/json"
-      },
-      data:{
-        inviteeId:inviteeId
-      },
-      success:(res)=>{
-        setTimeout(function(){
-          wx.hideLoading();
-        },2000)
-        
-        console.log(res,"会议详情")
-        this.setData({
-          meetingTime:res.data.data.meetingTime||'',
-          themeName:res.data.data.theme||'',
-          meetingRoomName:res.data.data.meetingRoomName||'',
-          address:res.data.data.address||'',
-          inviteer:res.data.data.inviteers||'',
-          limitCount:res.data.data.limitCount||'',
-          meetingStatus:res.data.data.meetingStatus||'',
-        })
-      }
-    }),
-
-    this.createQrCode('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
+    var _this=this;
+    meetingData.meetingData(this.inviteeId,function(meetingObj){
+      _this.setData({
+        meetingDetailData:meetingObj.meetingDetailData,
+        inviteers:meetingObj.inviteers
+      })
+    },this)
+    QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150);
   },
-
-    
-
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片
     QR.qrApi.draw(url,canvasId,cavW,cavH);
@@ -123,60 +97,15 @@ Page({
     }
         wx.reportAnalytics('sharemeeting')
 
-   
     return {
-      title:'戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
-      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId, 
+      title: '戳我一键参会！邀请您于"'+this.data.meetingDetailData.meetingTime+'"在"'+this.data.meetingDetailData.meetingRoomName+'"参加"'+this.data.meetingDetailData.theme+'"',
+      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.inviteeId, 
       imageUrl:'../images/indexImg/statusbg.png'
     }
   },
   //点击取消参会
   cancelMeeting(){
     wx.reportAnalytics('cancelmeeting')
-    let that = this;
-    wx.showModal({
-      title: '提示',
-      content: '取消参会后，会议开始前您可以从我的订单或会议邀请中，再次参加会议哦～',
-      success: function(res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          app.getRequest({
-            url:app.globalData.KrUrl+'api/gateway/krmting/invitee/cancel',
-            methods:"GET",
-            header:{
-              "content-type":"application/json"
-            },
-            data:{
-              inviteeId:that.data.inviteeId
-            },
-            success:(res)=>{
-              console.log(res,"取消参会")
-
-              wx.getStorage({
-                key: 'user_info',
-                success:(res)=>{
-                  that.data.inviteer.forEach((item,index)=>{ 
-                    if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
-                      that.data.inviteer.splice(index, 1)
-                    }    
-                  })
-                  that.setData({
-                    inviteer:that.data.inviteer
-                  })
-                },
-              })
-              
-            }
-          })
-          wx.reLaunch({
-            url:"../index/index"
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-          
-        }
-
-      }
-    }) 
+    meetingData.cancelMeeting(this.inviteeId,this.data.inviteers,this)
   }
 })

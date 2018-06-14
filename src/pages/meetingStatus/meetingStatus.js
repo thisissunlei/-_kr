@@ -1,18 +1,19 @@
 //index.js
 //获取应用实例
 var QR = require("../../utils/qrcode.js");
-
+var meetingData = require("../../utils/meeting.js");
 const app = getApp()
 
 Page({
   data: {
+    meetingDetailData:{},
+    inviteers:[],
     onShareAppMessage: function() {
       return app.globalData.share_data;
     },
     myjion:true,
     advance:false,
     status:false,
-    inviteer:[],
     btn_bool:true,
     hint:[
       {
@@ -63,8 +64,8 @@ Page({
       title: '加载中',
       mask:true
     })
-    const that = this;
-    this.inviteeId = options.inviteeId
+    let that = this;
+    that.inviteeId = options.inviteeId
     //查看是否授权
     wx.getSetting({
       success(res) {
@@ -115,6 +116,7 @@ Page({
               app.globalData.openid = res.data.data['openid'];
               that.getUserInfo();
               that.detailList();
+            
             },
             fail:function(res){
               console.log(res,8888887777)
@@ -162,43 +164,59 @@ Page({
   
   //获取数据列表
   detailList:function(){
-    var that = this
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      methods:"GET",
-      header:{
-        "content-type":"application/json"
-      },
-      data:{
-        inviteeId:that.inviteeId
-      },
-      success:(res)=>{
-        console.log(that,res,2222222222)
-        that.setData({
-          meetingTime:res.data.data.meetingTime||'',
-          themeName:res.data.data.theme||'',
-          meetingRoomName:res.data.data.meetingRoomName||'',
-          address:res.data.data.address||'',
-          inviteer:res.data.data.inviteers||[],
-          limitCount:res.data.data.limitCount||'',
-          meetingStatus:res.data.data.meetingStatus||'',
-          
-        })
-
-       if(res.data.data.join===true){
-        that.setData({
+    var _this=this;
+    meetingData.meetingData(this.inviteeId,function(meetingObj){
+      _this.setData({
+        meetingDetailData:meetingObj.meetingDetailData,
+        inviteers:meetingObj.inviteers
+      })
+      if(_this.data.meetingDetailData.join===true){
+        _this.setData({
           myjion:false,
         })
       }
-      if(res.data.data.meetingStatus==='EXPIRED'){
-        that.setData({
+      if(_this.data.meetingDetailData.meetingStatus==='EXPIRED'){
+        _this.setData({
           status:true,
           advance:true,
           myjion:false
         })
       }
-      }
-    })
+    },this)
+  //   var that = this
+  //   app.getRequest({
+  //     url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+  //     methods:"GET",
+  //     header:{
+  //       "content-type":"application/json"
+  //     },
+  //     data:{
+  //       inviteeId:that.inviteeId
+  //     },
+  //     success:(res)=>{
+  //       console.log(that,res,2222222222)
+  //       let data = res.data.data
+  //       let meetingDetailData = Object.assign({},data)
+  //       console.log(meetingDetailData)
+  //       this.setData({
+  //         meetingDetailData:meetingDetailData,
+  //         inviteers:res.data.data.inviteers
+  //       })
+
+  //      if(res.data.data.join===true){
+  //       that.setData({
+  //         myjion:false,
+  //       })
+  //     }
+  //     if(res.data.data.meetingStatus==='EXPIRED'){
+  //       that.setData({
+  //         status:true,
+  //         advance:true,
+  //         myjion:false
+  //       })
+  //     }
+  //     }
+  //   })
   },
   
   //点击我要参与
@@ -217,11 +235,14 @@ Page({
         success:(res)=>{
           console.log(res,"确认参加")
           if(res.data.code==1){
-            console.log(1111)
-            _this.data.inviteer.push(_this.data.wechatInfo)
+            console.log( _this.data.inviteers)
+            _this.data.meetingDetailData.inviteers.push(_this.data.wechatInfo)
+            _this.data.inviteers.push(_this.data.wechatInfo)
             _this.setData({
-              inviteer:_this.data.inviteer
+              meetingDetailData: _this.data.meetingDetailData,
+              inviteers:_this.data.inviteers
             })
+            
             _this.flag = false
             if(_this.join===true){
               _this.setData({

@@ -1,4 +1,5 @@
 /**index.wxss**/
+@import "../meetingTem/meetingTem.less";
 .content-wrapper{
   width: 100%;
   height: 100%;
@@ -12,7 +13,7 @@
 .top-wrapper{
   padding: 20rpx 20rpx 0 20rpx;
 }
-.top{
+.meeting-card{
   width: 704rpx;
   height: 396rpx;
   border-radius: 8px;
@@ -45,38 +46,38 @@
   border-bottom-left-radius: 10rpx;
   border-bottom-right-radius: 10rpx;
 }
-.top .title{
+.meeting-card .title{
   display: flex;
   flex-direction: column;
   padding-bottom: 24rpx;
   border-bottom: 2rpx dashed #DFDFDF;
 }
-.top .metting-content{
+.meeting-card .metting-content{
   padding-top: 40rpx;
 }
-.top .title .metting-time{
+.meeting-card .title .metting-time{
   font-family: PingFangSC-Medium;
   font-size: 40rpx;
   color: #333333;
 }
-.top .title .metting-name{
+.meeting-card .title .metting-name{
   font-family: PingFangSC-Medium;
   font-size: 36rpx;
   color: #2A2A2A;
 }
-.top .metting-address{
+.meeting-card .metting-address{
   font-family: PingFangSC-Regular;
   font-size: 30rpx;
   color: #666666;
   letter-spacing: 0;
 }
-.top .metting-map text{
+.meeting-card .metting-map text{
   font-family: PingFangSC-Regular;
   font-size: 26rpx;
   color: #9399A5;
 
 }
-.top .map-icon{
+.meeting-card .map-icon{
   width: 24rpx;
   height: 27rpx;
   vertical-align: middle;
@@ -114,97 +115,6 @@
 .bottom_text .icons text{
   font-size: 26rpx;
  
-}
-.conferee{
-  margin-top:40rpx;
-  border-top: 1px solid #2F3543; 
-  border-bottom: 1px solid #2F3543;  
-  position: relative;
-  padding: 0 20rpx;
-}
-.conferee-title{
-  display: block;
-  font-size: 32rpx;
-  color: #fff;
-  font-weight: 600;
-  padding-top: 40rpx;
-  padding-bottom:40rpx;
-}
-.hint_title{
-  display: block;
-  font-size: 32rpx;
-  color: #fff;
-  font-weight: 600;
-  margin-top: 40rpx;
-}
-
-.conferee .list{
-  float: left;
-  margin: 0 22rpx 40rpx;
-  text-align: center;
-  position: relative;
-}
-.conferee .list .pic{
-  width: 86rpx;
-  height: 86rpx;
-  border-radius:50%;
-  border-width: thin;
-	border-style: solid;
-	border-color: #F6F6F6;
-  margin-bottom: 20rpx;
-}
-.pic image{
-  width: 100%;
-  height: 100%;
-  border-radius:50%;
-}
-.conferee .list text{
-  display: inline-block;
-  width: 86rpx;
-  font-size: 24rpx;
-  color: #FFFFFF; 
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.conferee .list .originator{
-  width: 32rpx;
-  height: 30rpx;
-  position: absolute;
-  top: 70rpx;
-  left: -4rpx;
-}
-.conferee .list .confirm{
-  width: 32rpx;
-  height: 30rpx;
-  position: absolute;
-  top: 70rpx;
-  left: 60rpx;
-}
-.hint{
-  padding: 0 20rpx 60rpx 20rpx;
-}
-.hint text{
-  color: #fff;
-  display: block;
-}
-.hint .list{
-  padding-bottom: 40rpx;
-  margin-top: 40rpx;
-  border-bottom: 2rpx dotted #2F3543;
-}
-.hint .list:last-child{
-  border-bottom: none;
-}
-.hint .title{
-  font-size: 28rpx;
-  font-weight: 600;
-}
-.hint .text{
-  padding-top:20rpx; 
-  font-size: 26rpx;
-  color: #D5D8DF;
-  padding-left:28rpx;
 }
 .btn{
   width: 288rpx;

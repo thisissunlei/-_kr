@@ -28,7 +28,7 @@ Page({
     let url = ''
     switch (type){
       case 'telephone':
-        url = "../meetingStatus/meetingStatus?inviteeId=202"
+        url = "../meetingStatus/meetingStatus?inviteeId=71"
         break;
       case 'warn':
         url = "../warn/warn?type=submit&value=NOALERT"

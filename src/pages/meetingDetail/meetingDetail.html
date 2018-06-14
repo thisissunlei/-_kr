@@ -1,86 +1,31 @@
 <!--meetingDetail.wxml-->
-
-    <view class="content-wrap">
-        <view class='wrapper'>
-          <view class='top'>
-            <view class="top-banner">
-              <image src="../images/indexImg/card.png" class="img"></image>
-              <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{overdue}}"></image>
-              <view class="content">
-                <view class='title'>
-                  <text class='meetingTime'>{{meetingTime}}</text>
-                  <text class="themeName">{{themeName}}</text>
-                </view>
-                <view class='pics'>
-                  <view class="shade {{meetingStatus==='EXPIRED'?'shadeBg':''}}">
-                    <view class="code-pic">
-                      <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{expired}}"></image>
-                      <image src="../images/indexImg/code.png" wx:if="{{NotExpired}}" class="img"></image>
-                      <view class="img-box">
-                          <canvas bindtap="previewImg" hidden="{{canvasHidden}}" canvas-id="mycanvas" class="mycanvas"/>
-                          <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
-    
-                      </view>
-                    </view>
-                  
-                  
-                  <view class="code-desc">请入场时出示此二维码</view>
-                </view>
-                </view>
-                
-                <view class='bottom_text'>
-                  <text class="metting-house">{{meetingRoomName}}</text>
-                  <view class='icons address-detail'>
-                    <image src='../images/indexImg/dizhi2.png'></image>
-                    {{address}}
-                    <!-- <span class="address-detail"></span> -->
-                  </view>
-                </view>
-              </view>
+<import src="../meetingTem/meetingTem.wxml" />
+<view class="content-wrap">
+    <view class='wrapper'>
+        <template is="code-wrapper" data="{{meetingDetailData}}"></template>
+        <view class='conferee'>
+            <text class='conferee-title'>参会人（{{inviteers.length}}/{{meetingDetailData.limitCount}}）</text>
+            <template is="conferee" data="{{inviteers}}"></template>
+            <view class='clear'></view>
+        </view>
+        <template is="hint" data="{{hint}}"></template>
+        <view class='footer' wx:if="{{meetingDetailData.meetingStatus==='WAIT'}}">
+            <text class="cancel-meeting" bindtap="cancelMeeting">取消参会</text>
+            <view class='btns'>
+                <button open-type="contact" session-from="weapp" class='kefu'>
+                    <text>联系客服</text>
+                </button>
+                <button open-type="share" bindtap="onShareAppMessage" style="border-style:none;border-width: 0px;">
+                    <text class='yaoqing'>邀请参会人</text>
+                </button>
             </view>
-            
-            
-          </view>
-    
-          <view class='conferee'>
-              <text class='conferee-title'>参会人（{{inviteer.length}}/{{limitCount}}）</text>
-              <block wx:for="{{inviteer}}">
-                  <view class='list'>
-                      <view class='pic'>
-                        <image src="{{item.wechatAvatar}}"></image>
-                      </view>
-                      <text>{{item.wechatNick}}</text>
-                      <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true}}"></image>
-                      <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===true}}"></image>
-                  </view>
-              </block>
-              <view class='clear'></view>
-          </view>
-          
-    
-          <view class='hint'>
-            <text class='hint_title'>参会小贴士</text>
-            <block wx:for="{{hint}}">
-              <view class='list'>
-                <text class='title'>{{item.title}}</text>
-                <text class='text'>{{item.text}}</text>
-              </view>
-            </block>
-          </view>
         </view>
-      <view class='footer' wx:if="{{footer}}">
-          <text class="cancel-meeting" bindtap="cancelMeeting">取消参会</text>
-          <view class='btns'>
-            <button open-type="contact" session-from="weapp" class='kefu'><text>联系客服</text></button>
-            <button open-type="share" bindtap="onShareAppMessage" style="border-style:none;border-width: 0px;"><text class='yaoqing'>邀请参会人</text></button>
-          </view>
-      </view>
-      <view class='footer' wx:if="{{contact}}">
-        <view class='btns'>
-          <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;"><text>联系客服</text></button>
+        <view class='footer' wx:if="{{meetingDetailData.meetingStatus==='EXPIRED' || meetingDetailData.meetingStatus==='ARRVING'}}">
+            <view class='btns'>
+                <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;">
+                    <text>联系客服</text>
+                </button>
+            </view>
         </view>
-      </view> 
-     </view>
-
-
-  
+    </view>
+</view>

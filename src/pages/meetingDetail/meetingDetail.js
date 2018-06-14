@@ -1,7 +1,7 @@
 //index.js
-//获取应用实例
+// 获取应用实例
 var QR = require("../../utils/qrcode.js");
-
+var meetingData = require("../../utils/meeting.js");
 const app = getApp()
 
 Page({
@@ -9,16 +9,8 @@ Page({
     return app.globalData.share_data;
   },
   data: {
-    status:'',
-    codeShade:false,
-    inviteer:[],
-    inviteeId:'',
-    footer:true,
-    contact:false,
-    overdue:false,
-    expired:false,
-    NotExpired:true,
-    sponsor:false,
+    meetingDetailData:{},
+    inviteers:[],
     hint:[
       {
         'title':'1. 我订了会议室，要提前多久入场呀？',
@@ -54,7 +46,8 @@ Page({
       },
     ]
   },
-  // inviteeId:inviteeId,
+  inviteeId:'',
+  status:'',
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -62,85 +55,64 @@ Page({
     })
   },
 
-  onLoad: function (options) {
+  onLoad: function (options) { 
     wx.showLoading({
       title: '加载中',
       mask:true
     })
     console.log(options,"options")
-    var inviteeId = options.inviteeId
     if(options.status){
-      this.setData({
-        inviteeId:inviteeId,
-        status:options.status
-      })
+      this.inviteeId = options.inviteeId
+      this.status = options.status
     }else{
-      this.setData({
-        inviteeId:inviteeId
-      })
+      this.inviteeId = options.inviteeId
     }
     //数据加载
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
-      methods:"GET",
-      header:{
-        "content-type":"application/json"
-      },
-      data:{
-        inviteeId:inviteeId
-      },
-      success:(res)=>{
-        setTimeout(function(){
-          wx.hideLoading();
-        },2000)
-        console.log(res,"会议详情")
-        this.setData({
-          meetingTime:res.data.data.meetingTime||'',
-          themeName:res.data.data.theme||'',
-          meetingRoomName:res.data.data.meetingRoomName||'',
-          address:res.data.data.address||'',
-          inviteer:res.data.data.inviteers||[],
-          limitCount:res.data.data.limitCount||'',
-          meetingStatus:res.data.data.meetingStatus||'',
-        })
-        if(res.data.data.meetingStatus==='EXPIRED'){
-          this.setData({
-            footer:false,
-            contact:true,
-            overdue:true,
-            expired:true,
-            NotExpired:false
-          })
-        }else if(res.data.data.meetingStatus==='ARRVING'){
-          this.setData({
-            footer:false,
-            contact:true,
-            overdue:false,
-            expired:false,
-            NotExpired:true
-          })
-        }else{
-          this.setData({
-            footer:true,
-            contact:false,
-            overdue:false,
-            expired:false,
-            NotExpired:true
-          })
-        }
-        if(res.data.data.meetingStatus==='EXPIRED'){
-          QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
-        }else{
-          QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
-        }
+    var _this=this;
+    meetingData.meetingData(this.inviteeId,function(meetingObj){
+      _this.setData({
+        meetingDetailData:meetingObj.meetingDetailData,
+        inviteers:meetingObj.inviteers
+      })
+      if(_this.data.meetingDetailData.meetingStatus==='EXPIRED'){
+        QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
+      }else{
+        QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150);
       }
-    })
-    
-    //this.createQrCode('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.data.inviteeId,"mycanvas",150,150);
+    },this)
+   
+    // app.getRequest({
+    //   url:app.globalData.KrUrl+'api/gateway/krmting/invitee/detail',
+    //   methods:"GET",
+    //   header:{
+    //     "content-type":"application/json"
+    //   },
+    //   data:{
+    //     inviteeId:this.inviteeId
+    //   },
+    //   success:(res)=>{
+    //     setTimeout(function(){
+    //       wx.hideLoading();
+    //     },2000)
+    //     console.log(res,"会议详情")
+    //     let data = res.data.data
+    //     let meetingDetailData = Object.assign({},data)
+    //     console.log(meetingDetailData)
+    //     this.setData({
+    //       meetingDetailData:meetingDetailData,
+    //       inviteers:res.data.data.inviteers,
+    //     })
+        // if(res.data.data.meetingStatus==='EXPIRED'){
+        //   QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
+        // }else{
+        //   QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+this.inviteeId,"mycanvas",150,150);
+        // }
+    //   }
+    // })
    
   },
   onUnload:function(){
-    if(this.data.status==1){
+    if(this.status==1){
       wx.reLaunch({
         url: '../index/index'
       })
@@ -157,8 +129,8 @@ Page({
         wx.reportAnalytics('sharemeeting')
 
     return {
-      title: '戳我一键参会！邀请您于"'+this.data.meetingTime+'"在"'+this.data.meetingRoomName+'"参加"'+this.data.themeName+'"',
-      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.inviteeId, 
+      title: '戳我一键参会！邀请您于"'+this.data.meetingDetailData.meetingTime+'"在"'+this.data.meetingDetailData.meetingRoomName+'"参加"'+this.data.meetingDetailData.theme+'"',
+      path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.inviteeId, 
       imageUrl:'../images/indexImg/statusbg.png'
     }
   },
@@ -166,50 +138,54 @@ Page({
   //点击取消参会
   cancelMeeting(){
     wx.reportAnalytics('cancelmeeting')
-    let that = this;
-    wx.showModal({
-      title: '提示',
-      content: '取消参会后，会议开始前您可以从我的订单或会议邀请中，再次参加会议哦～',
-      success: function(res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          app.getRequest({
-            url:app.globalData.KrUrl+'api/gateway/krmting/invitee/cancel',
-            methods:"GET",
-            header:{
-              "content-type":"application/json"
-            },
-            data:{
-              inviteeId:that.data.inviteeId
-            },
-            success:(res)=>{
-              console.log(res,"取消参会")
+    meetingData.cancelMeeting(this.inviteeId,this.data.inviteers,this)
+    // let that = this;
+    // wx.showModal({
+    //   title: '提示',
+    //   content: '取消参会后，会议开始前您可以从我的订单或会议邀请中，再次参加会议哦～',
+    //   cancelText:'暂不取消',
+    //   confirmText:'无情走开',
+    //   confirmColor:'#F5A623',
+    //   success: function(res) {
+    //     if (res.confirm) {
+    //       app.getRequest({
+    //         url:app.globalData.KrUrl+'api/gateway/krmting/invitee/cancel',
+    //         methods:"GET",
+    //         header:{
+    //           "content-type":"application/json"
+    //         },
+    //         data:{
+    //           inviteeId:that.inviteeId
+    //         },
+    //         success:(res)=>{
+    //           console.log(res,"取消参会")
 
-              wx.getStorage({
-                key: 'user_info',
-                success:(res)=>{
-                  that.data.inviteer.forEach((item,index)=>{ 
-                    if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
-                      that.data.inviteer.splice(index, 1)
-                    }    
-                  })
-                  that.setData({
-                    inviteer:that.data.inviteer
-                  })
-                },
-              })
+    //           wx.getStorage({
+    //             key: 'user_info',
+    //             success:(res)=>{
+    //               that.data.inviteers.forEach((item,index)=>{ 
+    //                 if(item.wechatAvatar === res.data.user_info.avatarUrl && item.wechatNick === res.data.user_info.nickName){
+    //                   // that.data.meetingDetailData.inviteers.splice(index, 1)
+    //                   that.data.inviteers.splice(index,1)
+    //                 }    
+    //               })
+    //               that.setData({
+    //                 // meetingDetailData: that.data.meetingDetailData,
+    //                 inviteers:that.data.inviteers
+    //               })
+    //             },
+    //           })
               
-            }
-          })
-          wx.reLaunch({
-            url:"../index/index"
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+    //         }
+    //       })
+    //       wx.reLaunch({
+    //         url:"../index/index"
+    //       })
+    //     } else if (res.cancel) {
           
-        }
-      }
-    })
+    //     }
+    //   }
+    // })
     
     
     
