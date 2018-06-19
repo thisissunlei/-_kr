@@ -1052,49 +1052,37 @@ Page({
   },
   weChatPay:function(data){
     var _this=this;
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
-      methods:"POST",
-      header:{
-        'content-type':"appication/json"
-      },
-      data:{
-        orderId:data.orderId
-      },
-      success:(res)=>{
-          wx.requestPayment({
-            'timeStamp':data.timestamp ,
-            'nonceStr': data.noncestr,
-            'package': data.packages,
-            'signType': data.signType,
-            'paySign': data.paySign,
-            'success':function(response){
-                wx.showLoading({
-                  title: '加载中',
-                  mask:true
-                })
-                setTimeout(function(){
-                  _this.getInviteeId(data.orderId);
-                  wx.hideLoading();
-                },1500)
-               
-            },
-            'fail':function(response){
-              wx.showLoading({
-                title: '加载中',
-                mask:true
-              })
-              setTimeout(function(){
-                wx.hideLoading();
-                wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con='+1
-                })
-              },1500)
-               
-            },
-           
+    wx.requestPayment({
+      'timeStamp':data.timestamp ,
+      'nonceStr': data.noncestr,
+      'package': data.packages,
+      'signType': data.signType,
+      'paySign': data.paySign,
+      'success':function(response){
+          wx.showLoading({
+            title: '加载中',
+            mask:true
           })
-      }
+          setTimeout(function(){
+            _this.getInviteeId(data.orderId);
+            wx.hideLoading();
+          },1500)
+         
+      },
+      'fail':function(response){
+        wx.showLoading({
+          title: '加载中',
+          mask:true
+        })
+        setTimeout(function(){
+          wx.hideLoading();
+          wx.navigateTo({
+            url: '../orderDetail/orderDetail?id='+data.orderId+'&con='+1
+          })
+        },1500)
+         
+      },
+     
     })
     
   },
