@@ -66,13 +66,6 @@ Page({
         meetingCount:"12"
       },
       {
-        buildName:"海洋大厦",
-        buildAddress:"上海市黄浦区延安东路550号海洋大厦",
-        buildImgUrl:"../images/indexImg/hyds.jpg",
-        distance:"",
-        meetingCount:"16"
-      },
-      {
         buildName:"华山路",
         buildAddress:"上海市静安区华山路328号",
         buildImgUrl:"../images/indexImg/hsl.jpg",
@@ -99,13 +92,6 @@ Page({
         buildImgUrl:"../images/indexImg/zysj.jpg",
         distance:"",
         meetingCount:"6"
-      },
-      {
-        buildName:"裕徳路",
-        buildAddress:"上海市徐汇区裕德路126号",
-        buildImgUrl:"../images/indexImg/ydl.jpg",
-        distance:"",
-        meetingCount:"18"
       },
       {
         buildName:"田林路",
