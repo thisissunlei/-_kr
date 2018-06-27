@@ -24,13 +24,6 @@ Page({
     myMeeting:[],
     noOpenBuilding:[
       {
-        buildName:"万科大都会",
-        buildAddress:"北京市朝阳区东三环中路甲10号",
-        buildImgUrl:"../images/indexImg/wk.jpg",
-        distance:"",
-        meetingCount:"5"
-      },
-      {
         buildName:"海峡国际大厦",
         buildAddress:"北京市西城区三里河东路30号院1号楼海峡国际大厦",
         buildImgUrl:"../images/indexImg/hxgj.jpg",
@@ -50,13 +43,6 @@ Page({
         buildImgUrl:"../images/indexImg/jxds.jpg",
         distance:"",
         meetingCount:"6"
-      },
-      {
-        buildName:"虹桥绿谷广场",
-        buildAddress:"上海市闵行区甬虹路69号虹桥绿谷广场G栋",
-        buildImgUrl:"../images/indexImg/hqlg.jpg",
-        distance:"",
-        meetingCount:"14"
       },
       {
         buildName:"世纪汇",
