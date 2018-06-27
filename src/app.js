@@ -40,7 +40,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    KrUrl:"https://i.krspace.cn/test",
+    KrUrl:"https://i.krspace.cn/test/",
     Cookie:'',
     share_data:{
       title: 'KrMeeting会议室，让会议更轻松、更简单',
