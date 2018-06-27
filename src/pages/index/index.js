@@ -101,13 +101,6 @@ Page({
         meetingCount:"8"
       },
       {
-        buildName:"TIT创意园",
-        buildAddress:"广州市海珠区新港中路397号T.I.T创意园自编3-9号",
-        buildImgUrl:"../images/indexImg/TIT.jpg",
-        distance:"",
-        meetingCount:"6"
-      },
-      {
         buildName:"保利国际中心",
         buildAddress:"武汉市东湖新技术开发区关山大道332号保利国际中心",
         buildImgUrl:"../images/indexImg/blgj.jpg",
