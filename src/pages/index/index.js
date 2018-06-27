@@ -304,9 +304,7 @@ Page({
         let buildingList = res.data.data.buildingList
         let myMeeting = res.data.data.myMeeting
         buildingList.forEach(element => {
-          if(element.distance>10000){
-            element.distance =  Math.floor(element.distance/10000)+'w'+' '+'km'
-          }else if(element.distance>1000){
+          if(element.distance>1000){
             element.distance = (element.distance/1000).toFixed(1)+'km' 
           }else{
             element.distance = Math.round((element.distance)*10)/10+'m'
