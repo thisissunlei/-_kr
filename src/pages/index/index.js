@@ -14,7 +14,6 @@ Page({
   },
   
   data: {
-    noSwiper:true,
     swiper:true,
     indicatorDots:true,
     metting:false,
@@ -233,7 +232,9 @@ Page({
     
   },
   onShow:function(){
-    this.getAllInfo(this.rq_data.latitude,this.rq_data.longitude)
+    if(this.rq_data.latitude && this.rq_data.longitude){
+      this.getAllInfo(this.rq_data.latitude,this.rq_data.longitude);
+    }
   },
   getAllInfo:function (){
     var that = this;
@@ -259,7 +260,7 @@ Page({
           buildingList:res.data.data.buildingList||[],
           myMeeting:res.data.data.myMeeting||[],
         })
-        //白屏问题代码-------
+       
         if(that.data.myMeeting.length==0){
           that.setData({
             metting:false
@@ -268,18 +269,16 @@ Page({
           that.setData({
             metting:true,
             indicatorDots:false,
-            noSwiper:true,
             swiper:false,
           })
         }else{
           that.setData({
             metting:true,
-            noSwiper:false,
+            indicatorDots:true,
             swiper:true,
           })
         }
-        //-------白屏问题代码
-        console.log(that.data.metting)
+        
       }
     });
   },
