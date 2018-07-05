@@ -48,7 +48,7 @@
         </block>
       </swiper>  
 
-      <block wx:for="{{myMeeting}}" wx:if="{{noSwiper}}" wx:key="{{myMeeting}}">
+      <block wx:for="{{myMeeting}}" wx:if="{{!swiper}}" wx:key="{{myMeeting}}">
         <view class="metting-content" bindtap="jumpToMeetingDetail">
           <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'待入场':'已入场'}}</view>
           <view class="metting-title"> 
