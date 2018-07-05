@@ -31,25 +31,11 @@ Page({
         meetingCount:"18"
       },
       {
-        buildName:"创业大街",
-        buildAddress:"北京市海淀区中关村创业大街2号楼",
-        buildImgUrl:"../images/indexImg/cydj.jpg",
-        distance:"",
-        meetingCount:"6"
-      },
-      {
         buildName:"吉祥大厦",
         buildAddress:"北京市东城区王府井大街88号",
         buildImgUrl:"../images/indexImg/jxds.jpg",
         distance:"",
         meetingCount:"6"
-      },
-      {
-        buildName:"世纪汇",
-        buildAddress:"上海市浦东新区世纪大道1196号世纪汇办公楼二座",
-        buildImgUrl:"../images/indexImg/sjh.jpg",
-        distance:"",
-        meetingCount:"12"
       },
       {
         buildName:"华山路",
@@ -83,13 +69,6 @@ Page({
         buildName:"田林路",
         buildAddress:"上海市徐汇区田林路130号20号楼",
         buildImgUrl:"../images/indexImg/tll.jpg",
-        distance:"",
-        meetingCount:"8"
-      },
-      {
-        buildName:"保利国际中心",
-        buildAddress:"武汉市东湖新技术开发区关山大道332号保利国际中心",
-        buildImgUrl:"../images/indexImg/blgj.jpg",
         distance:"",
         meetingCount:"8"
       },
@@ -280,6 +259,7 @@ Page({
           buildingList:res.data.data.buildingList||[],
           myMeeting:res.data.data.myMeeting||[],
         })
+        //白屏问题代码-------
         if(that.data.myMeeting.length==0){
           that.setData({
             metting:false
@@ -298,7 +278,7 @@ Page({
             swiper:true,
           })
         }
-        
+        //-------白屏问题代码
         console.log(that.data.metting)
       }
     });
