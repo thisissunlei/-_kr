@@ -75,6 +75,15 @@
             <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
         </view>
     </view>
+    <view class="u-meeting-phone" bindtap="jumpSetRecommendedPhone">
+            <view class="u-meeting-title" style="line-height:114rpx">
+                推荐人电话
+            </view>
+            <view class="u-meet-text" style="line-height:114rpx">{{recommendedPhone || '无'}}</view>
+            <view class="u-btn-arrow u-phone-btn-arrow">
+                <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+            </view>
+    </view>
     <view class="u-protocol">
         <view class="u-protocol-content">
             <view class="u-protocol-image" bindtap="changeCheckbox">
