@@ -16,6 +16,7 @@ Page({
     remind:'提前15分钟',
     phone:'',
     check:true,
+    recommendedPhone:'',
     dialogShow:false,
     typeStatus:true,
     message:'用户取消支付',
@@ -424,6 +425,13 @@ Page({
     })
     
   },
+  jumpSetRecommendedPhone:function() {
+    let data=this.data;
+    wx.navigateTo({
+      url: '../recommendedPhone/recommendedPhone?type=storage&recommendedPhone='+data.recommendedPhone
+    })
+    
+  },
   getBoardroomTime:function(){
     
   },
@@ -563,7 +571,8 @@ Page({
               remind:_this.getRemind(res.data.alertTime) || _this.getRemind('FIFTEEN'),
               linkPhone:res.data.linkPhone || _this.data.linkPhone,
               order_pay:res.data,
-              alertTime:res.data.alertTime || 'FIFTEEN'
+              alertTime:res.data.alertTime || 'FIFTEEN',
+              recommendedPhone:res.data.recommendedPhone
             })
         }
       }
@@ -699,7 +708,8 @@ Page({
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
               remind:_this.getRemind(res.data.alertTime),
-              linkPhone:res.data.linkPhone || _this.data.linkPhone
+              linkPhone:res.data.linkPhone || _this.data.linkPhone,
+              recommendedPhone:''
             })
         }
       }
@@ -958,19 +968,22 @@ Page({
   },
   createOrder:function(){
     let data=this.data;
+    //需要添加推荐人电话字段
     let orderData = {
       alertTime:data.order_pay.alertTime || data.alertTime,
       beginTime:data.meeting_time.beginTime,
       endTime:data.meeting_time.endTime,
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       meetingRoomId:data.detailInfo.meetingRoomId,
-      themeName:data.order_pay.themeName || data.themeName
+      themeName:data.order_pay.themeName || data.themeName,
+      referrerPhone:data.order_pay.recommendedPhone || ''
     }
     wx.showLoading({
       title: '加载中',
       mask:true
     })
     
+   
     var _this=this;
         app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/krmting/order/create',

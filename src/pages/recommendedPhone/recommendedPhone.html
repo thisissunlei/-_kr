@@ -1,0 +1,21 @@
+
+<form bindsubmit="formSubmit"  class="meeting-form">
+	
+        <view class="section">
+            <view class="input-view">
+                <input name="meeting" id="phone" type="number" placeholder="推荐人电话" auto-focus="true"  value="{{inputValue}}" class="input-style"  placeholder-style="color:#CCC;font-size:32rpx" bindinput="bindKeyInput"/>
+            </view>
+            <view class="cancel-view"  wx:if="{{inputValue.length}}">
+                <image bindtap="clearValue" class="cancel" src="../images/public/cancle.png" background-size="cover"></image>
+            </view>
+        </view>
+        <view class="btn-box">
+            <view class="disabled" wx:if="{{!inputValue.length}}">确 定</view>
+            <view class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">确 定</view>
+        </view>
+        <view class="last-view">
+            <view class="error-phone" wx:if="{{!phoneTest}}">手机号格式错误</view>
+            <view class="error-message" wx:if="{{!phoneError}}">{{errorMessage}}</view>
+        </view>
+    </form>
+    
