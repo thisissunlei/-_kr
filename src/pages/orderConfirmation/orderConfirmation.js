@@ -975,13 +975,17 @@ Page({
       endTime:data.meeting_time.endTime,
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       meetingRoomId:data.detailInfo.meetingRoomId,
-      themeName:data.order_pay.themeName || data.themeName
+      themeName:data.order_pay.themeName || data.themeName,
+      referrerPhone:data.order_pay.recommendedPhone || ''
     }
+    console.log('orderData----',orderData)
+    return;
     wx.showLoading({
       title: '加载中',
       mask:true
     })
     
+   
     var _this=this;
         app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/krmting/order/create',

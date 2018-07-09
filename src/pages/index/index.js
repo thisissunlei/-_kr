@@ -233,7 +233,7 @@ Page({
   },
   onShow:function(){
     if(this.rq_data.latitude && this.rq_data.longitude){
-      this.getAllInfo(this.rq_data.latitude,this.rq_data.longitude);
+         this.getAllInfo(this.rq_data.latitude,this.rq_data.longitude);
     }
   },
   getAllInfo:function (){
