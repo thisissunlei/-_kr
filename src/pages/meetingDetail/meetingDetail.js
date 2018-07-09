@@ -76,11 +76,9 @@ Page({
         inviteers:meetingObj.inviteers
       })
       if(_this.data.meetingDetailData.meetingStatus==='EXPIRED'){
-       // QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
-       QR.qrApi.draw('http://cdntest01.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
+        QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150,null,'rgba(0,0,0,0.6)');
       }else{
-       // QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150);
-       QR.qrApi.draw('http://cdntest01.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150);
+        QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150);
       }
     },this)
    
