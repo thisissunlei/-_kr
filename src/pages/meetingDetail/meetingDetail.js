@@ -45,7 +45,6 @@ Page({
         'text':'所订时段结束后的10分钟内可以在大厅休整啦，之后前台小姐姐会依依不舍的送亲离开哦！'
       },
     ],
-    ifCancel:false,
   },
   inviteeId:'',
   status:'',
