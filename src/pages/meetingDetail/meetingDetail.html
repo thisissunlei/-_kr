@@ -15,7 +15,7 @@
                 <button open-type="contact" session-from="weapp" class='kefu'>
                     <text>联系客服</text>
                 </button>
-                <button  wx:if="meetingDetailData.canInvite==1" open-type="share" bindtap="onShareAppMessage" style="border-style:none;border-width: 0px;">
+                <button  wx:if="{{meetingDetailData.canInvite==1}}" open-type="share" bindtap="onShareAppMessage" style="border-style:none;border-width: 0px;">
                     <text class='yaoqing'>邀请参会人</text>
                 </button>
             </view>
