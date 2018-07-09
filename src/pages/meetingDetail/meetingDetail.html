@@ -9,8 +9,8 @@
             <view class='clear'></view>
         </view>
         <template is="hint" data="{{hint}}"></template>
-        <view class='footer' wx:if="{{meetingDetailData.meetingStatus==='WAIT'}}">
-            <text class="cancel-meeting" bindtap="cancelMeeting">取消参会</text>
+        <view class='footer' wx:if="{{meetingDetailData.meetingStatus!='EXPIRED'}}">
+            <text class="cancel-meeting"  bindtap="cancelMeeting">取消参会</text>
             <view class='btns'>
                 <button open-type="contact" session-from="weapp" class='kefu'>
                     <text>联系客服</text>
@@ -20,7 +20,7 @@
                 </button>
             </view>
         </view>
-        <view class='footer' wx:if="{{meetingDetailData.meetingStatus==='EXPIRED' || meetingDetailData.meetingStatus==='ARRVING'}}">
+        <view class='footer' wx:if="{{meetingDetailData.meetingStatus==='EXPIRED'}}">
             <view class='btns'>
                 <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;">
                     <text>联系客服</text>
