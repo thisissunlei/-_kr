@@ -978,8 +978,6 @@ Page({
       themeName:data.order_pay.themeName || data.themeName,
       referrerPhone:data.order_pay.recommendedPhone || ''
     }
-    console.log('orderData----',orderData)
-    return;
     wx.showLoading({
       title: '加载中',
       mask:true
