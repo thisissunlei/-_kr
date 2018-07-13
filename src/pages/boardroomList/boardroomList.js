@@ -12,6 +12,29 @@ Page({
     };
   },
   data: {
+    //数据模拟
+    arr:[
+          {
+            imgUrl:'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+            buildName:"散座",
+            rangeBegin:9,
+            device:['撒谎','尘世','安徽','少女','asd','还是说'],
+            promotionCost:666,
+            unitCost:666,
+            capacity:10
+          },
+          {
+            imgUrl:'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+            buildName:"散座",
+            rangeBegin:10,
+            device:['沙发','吧椅','卡座','电话间','办公桌','拉大'],
+            promotionCost:666,
+            unitCost:666,
+            capacity:5
+          }
+        ],
+
+    show:['散座','会议','会议','散座','散座','会议'],
     ifFixed:false,
     meeting_detail:{},
     dialogDate:false,
@@ -41,8 +64,10 @@ Page({
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
     ],
+    number:10,
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
-
+    list:['沙发','吧椅','卡座','电话间','办公桌'],
+    splice:"666",
 
     // 日历相关
     array: [{
@@ -93,7 +118,13 @@ Page({
     }
     
   },
- 
+  //预定跳转页面
+  list(){
+    wx.navigateTo({
+      url: '/pages/seatorderConfirmation/seatorderConfirmation'
+    })
+  },
+
   openMeetDetail:function(e){
     wx.showLoading({
       title: '加载中',
@@ -167,8 +198,9 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-
+    let arr = []
     app.getRequest({
+      
         url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
         data: {
@@ -178,7 +210,16 @@ Page({
           pageSize:that.data.pageSize
         },
         success:(res)=>{
+
+          res.data.data.items.forEach((element,index)=>{
+            res.data.data.items[index].fenl = that.data.show[index]
+            if(res.data.data.items[index].fenl == '散座'){
+              that.data.arr.push(res.data.data.items[index])
+            }
+          })
+          console.log(that.data.arr)
           that.setData({
+            arr:that.data.arr,
             totalPages:res.data.data.totalPages,
             boardroomList:res.data.data.items,
             page:1,
@@ -346,7 +387,8 @@ Page({
     })
   },
   selectTopDate:function(e){
-    var topDate = this.data.topDate;
+    console.log(e)
+    var topDate = this.data.topDate;//[]
     var indexParam = e.currentTarget.dataset.index;
     this.changeTimeColor(indexParam);
     var date = e.currentTarget.dataset.date;
@@ -486,8 +528,7 @@ Page({
     wx.setStorageSync('rangeTime',rangeTime);
     wx.setStorageSync('detail',detail);
     wx.navigateTo({
-      // url: '/pages/orderConfirmation/orderConfirmation'
-      url: '/pages/seatorderConfirmation/seatorderConfirmation'
+      url: '/pages/orderConfirmation/orderConfirmation'
     })
   },
 
@@ -500,7 +541,8 @@ Page({
   last_btn_num:'false',
   last_data:'date_data1',
   dateBtn :function(e){
-    
+    console.log(e)
+    //亮的或者今天  明天
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       console.log(e);
       const new_data = this.data[e.target.dataset.data];
@@ -647,6 +689,7 @@ Page({
   },
 
   onLoad:function(options){
+    this.getData()
     wx.reportAnalytics('community')
     if(options.communityId){
       this.setData({

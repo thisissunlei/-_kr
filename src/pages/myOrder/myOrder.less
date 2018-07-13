@@ -68,7 +68,6 @@ page{
 	background: #FFF;
 	position: relative;
 	margin-bottom:20rpx;
-	height: 252rpx;
 }
 .order-unpay-detail{
 	display: block;
@@ -76,7 +75,6 @@ page{
 	box-sizing: border-box;
 	position: relative;
 	margin-bottom:20rpx;
-	height:330rpx;
 }
 .box{
 	height:172rpx;
@@ -117,11 +115,13 @@ page{
 .button-box>.button{
 	float: right;
 	text-align: center;
-	border: 1px solid #F5A623;
+	background-color: #FFDF00;
+	border: 1px solid #FFDF00;
 	border-radius: 8px;
 	width:158rpx;
 	height: 64rpx;
-	color:#F5A623;
+	font-size: 28rpx;
+	color:#624D17;
 	margin-right: 36rpx;
 }
 .time-img{
@@ -197,28 +197,25 @@ page{
 }
 
 .status{
-	position: absolute;
-	top: 0;
-	right: 0;
+	
 	width:100rpx;
 	height: 44rpx;
-	line-height: 44rpx;
-	color:#fff;
+	line-height: 4	4rpx;
 	display: inline-block;
 	text-align: center;
 	font-size: 26rpx; 
 }
 .unpay{
-	background-image: linear-gradient(134deg, #FF6868 0%, #FFAC96 100%);
+	color:#FF6868 
 }
 .used{
-	background-image: linear-gradient(-134deg, #B1B3C9 0%, #7C7890 100%);
+	color:#999999
 }
 .unused{
-	background-image: linear-gradient(-134deg, #A4DEB3 0%, #28CEAA 100%);
+	color:#F5A623;
 }
 .closed{
-	background-image: linear-gradient(-134deg, #B1B3C9 0%, #7C7890 100%);
+	color:#999999
 }
 .u-count-down{
   position: absolute;
@@ -279,6 +276,32 @@ page{
 	font-size: 30rpx;
 	color:#666;
 }
+.oder-top{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	box-sizing: border-box;
+	align-items: center;
+	font-size: 26rpx;
+	color: #666666;
+	padding: 20rpx 20rpx;
+	border-bottom: 1px solid darkgray;
+}
 
-
-
+.box-san{
+	position: absolute;
+	right: 0%;
+	width: 0;
+	height: 0;
+    border: 20px solid orange;
+    border-left: 50rpx solid transparent;
+	border-bottom: 50rpx solid transparent;
+	box-sizing: border-box;
+}
+.box-text{
+	position: relative;
+	right: 0%;
+	margin-top: -22rpx;
+	display: inline-block;
+	font-size: 28rpx;
+}

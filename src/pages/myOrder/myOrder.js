@@ -10,6 +10,7 @@ Page({
     errorMessage:'',
     orderList:[],
     page:1,
+    arr:['散座','会议','散座','会议','会议','散座','散座'],
     orderOldList:[],
     totalPages:0,
     list:[
@@ -115,6 +116,10 @@ Page({
         },
         success:(res)=>{
           console.log('res',res.data.data.items)
+          res.data.data.items.forEach((element,index) => {
+            res.data.data.items[index].ff = this.data.arr[index]
+          });
+          console.log(res.data.data.items)
           let oldList = []
           if(res.data.code>0){
             var list = []

@@ -185,15 +185,16 @@
       </view>
     </view>
   </view>
+
   <!--底部-->
   <view class="u-footer">
         <view class="u-footer-btn-list">
             <view  class="u-footer-color-btn" bindtap="payOrder"> 
                 立即支付
             </view>
-            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn yaoqing" style="border:none">邀请参会人</button>
+            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn yaoqing" style="border:none">赠送入场券</button>
             <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
-                    查看会议
+                    查看散座
             </view>
             <button class="u-my-contact-btn" open-type="contact">联系客服</button>
         </view>
