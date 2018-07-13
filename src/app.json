@@ -33,15 +33,10 @@
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
-<<<<<<< HEAD
-    "pages/logs/logs",
     "pages/orderseatDetail/orderseatDetail",
     "pages/seatorderConfirmation/seatorderConfirmation"
     
    
-=======
-    "pages/orderseatDetail/orderseatDetail"
->>>>>>> acd5b62b098397b5f9dad1ee066763a92e7acef2
   ],
   "window": {
     "backgroundTextStyle": "light",

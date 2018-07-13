@@ -56,6 +56,7 @@
                   wx:key="*this"
                   class="device"
                   wx:for-item="deviceItem"
+                  wx:key
                 >
                   {{deviceItem}}
                 </view>
@@ -70,7 +71,7 @@
         </view>
         <view class="bottom">
             <view class="left">
-              <image wx:key="*this" wx:for="{{item.rangeTime}}" wx:for-item="rangeTimeItem" mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="{{rangeTimeItem.disabled?'gray-actived gray':'gray'}}">
+              <image wx:key="*this" wx:for="{{item.rangeTime}}"  wx:key wx:for-item="rangeTimeItem" mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="{{rangeTimeItem.disabled?'gray-actived gray':'gray'}}">
                 
               </image>
               <!-- <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
@@ -179,6 +180,7 @@
                 <view class="now-date" style="padding-top:30rpx">{{date_now.value}}</view>
                 <view  catchtap="dateBtn">
                 <view wx:for="{{date_data1}}" 
+                      wx:key
                       data-value="{{i.value}}" 
                       data-bool='{{i.type}}' 
                       data-day='{{i.day}}' 
@@ -206,6 +208,7 @@
                 <view class="now-date">{{date_next.value}}</view>
                 <view  catchtap="dateBtn">
                   <view  wx:for="{{date_data2}}" 
+                        wx:key
                         data-value="{{i.value}}" 
                         data-bool='{{i.type}}' 
                         data-day='{{i.day}}' 

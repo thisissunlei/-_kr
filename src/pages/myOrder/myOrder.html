@@ -21,6 +21,7 @@
 			<text class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</text>
 			<text class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已取消</text>
 			<view wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box" >
+				<!-- <navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}"> -->
 				<navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
 					<view class="left">
 			  			<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
@@ -48,7 +49,8 @@
 
 
 
-	  		<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
+	  		<!-- <navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}"> -->
+	  		<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
 		  		<view class="left">
 		  			<image class="order-img"  src="{{item.imgUrl}}"  mode="aspectFill"></image>
 		  		</view>
