@@ -90,9 +90,9 @@
 
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
     <view class='rm_title'>周边会议室</view>
-    <view class="community-wrapper"  wx:for="{{buildingList}}" data-id="{{item.communityId}}" wx:key="{{buildingList}}">
+    <view class="community-wrapper"  wx:for="{{buildingList}}" wx:key="{{buildingList}}">
           <!-- 已开放 -->
-          <view class='community' wx:if="{{item.published}}"  bindtap="moveToMeetingRoom" >
+          <view class='community' wx:if="{{item.published}}"   data-id="{{item.communityId}}" bindtap="moveToMeetingRoom" >
               <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50" class="community_pic"></image>
               <view class='cmty_con'>
                 <view class='cmty_title'>{{item.buildName}}</view>
