@@ -6,16 +6,20 @@
 			<image wx:if="{{activeTab=='NOALERT'}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
 		</li>
 		<li data-code="FIVE" class="{{activeTab=='FIVE'?active:item}}" bindtap="checkWarn"  >
-			<text class="conten" data-code="FIVE">提前5分钟</text>
+			<text class="conten" data-code="FIVE">提前1个小时</text>
 			<image wx:if="{{activeTab=='FIVE'}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
 		</li>
 		<li data-code="FIFTEEN" class="{{activeTab=='FIFTEEN'?active:item}}" bindtap="checkWarn" >
-			<text class="conten" data-code="FIFTEEN">提前15分钟</text>
+			<text class="conten" data-code="FIFTEEN">提前2个小时</text>
 			<image wx:if="{{activeTab=='FIFTEEN'}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
 		</li>
 		<li class="{{activeTab=='THIRTY'?active:item}}" bindtap="checkWarn" data-code="THIRTY">
-			<text class="conten" data-code="THIRTY">提前30分钟</text>
+			<text class="conten" data-code="THIRTY">提前一天</text>
 			<image wx:if="{{activeTab=='THIRTY'}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
+		</li>
+		<li class="{{activeTab=='THIRTYS'?active:item}}" bindtap="checkWarn" data-code="THIRTYS">
+			<text class="conten" data-code="THIRTYS">提前两天</text>
+			<image wx:if="{{activeTab=='THIRTYS'}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
 		</li>
 	</ul>
 

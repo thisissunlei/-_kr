@@ -1,5 +1,6 @@
 {
   "pages":[
+    
     "pages/index/index",
     "pages/meetingTem/meetingTem",
     "pages/meetingStatus/meetingStatus",
@@ -21,7 +22,9 @@
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/orderseatDetail/orderseatDetail",
+    
   ],
   "window":{
     "backgroundTextStyle":"light",
