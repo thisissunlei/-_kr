@@ -1,0 +1,37 @@
+<!-- <view class="my-sanzuo"></view> -->
+    <!-- <view class="my-box" wx:for='{{arr}}'>
+        <view class="my-one">{{item.time}}</view>
+        <view class="my-two">{{item.oder}}</view>
+        <view class="my-three"></view>
+        <view class="my-four">{{item.map}}</view>
+    </view> -->
+<!-- </view>  -->
+<view class="my-meeting-list" wx:if="{{meetingList.length}}">
+        <view  wx:for="{{meetingList}}"  style="display: inline-block;" class="list-box" wx:key="{{item.id}}">
+            <navigator url="/pages/meetingDetail/meetingDetail?inviteeId={{item.id}}" class="box">
+                <image class="bgc" src="../images/my/bg.png" background-size="cover"></image>
+                <text class="status wating" wx:if="{{item.meetingStatus == 'WAIT'}}">待入场</text>
+                <text class="status expired" wx:if="{{item.meetingStatus == 'EXPIRED'}}">已过期</text>
+                <text class="status used" wx:if="{{item.meetingStatus == 'ARRVING'}}">已入场</text>
+                <view class="detail" >
+                    <text class="meeting-time">{{item.meetingTime}}</text>
+                    <text class="theme-name">{{item.theme}}</text>
+                </view>
+                <view class="address-box">
+                    <text class="meeting-address">{{item.meetingRoomName}}</text>
+                    
+                    <text class="address">
+                        <image class="location" src="../images/indexImg/dizhi2.png" background-size="cover"></image>{{item.address}}
+                    </text>
+                </view>
+            </navigator>
+            
+        </view>
+    
+    </view>
+    <view class="my-meeting-list-none" wx:if="{{!meetingList.length}}">
+        <view class="content-none" wx:if="{{!orderList.length}}">
+              <image class="none-img" src="../images/public/none.png" background-size="cover"></image>
+              <text class="warn">还没有会散座呢~</text>
+          </view>
+    </view>

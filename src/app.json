@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/mysanzuo/mysanzuo",
     "pages/meetingTem/meetingTem",
     "pages/meetingStatus/meetingStatus",
     "pages/paySuccess/paySuccess",
@@ -21,7 +22,8 @@
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/component/component"
   ],
   "window":{
     "backgroundTextStyle":"light",

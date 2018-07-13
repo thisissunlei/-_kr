@@ -8,11 +8,14 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
+  <!-- 图片 -->
+  <view><image src='{{boardroomList[0].imgUrl}}'></image></view>
+  <!-- 日历部分 -->
   <view class="top-date" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
     <scroll-view style="width:656rpx" scroll-x scroll-left="{{dateScrollLeft}}">
       <view class="left">
         <view 
-         wx:for="{{topDate}}"
+         wx:for="{{topDate}}" 
          wx:key="*this"
          class="date-item {{item.class_bool}} {{item.actived?'date-item-actived':''}}"
          bindtap="selectTopDate"
@@ -32,6 +35,27 @@
         <image src="../images/boardroomList/rili.png"></image>
       </view>
   </view>
+
+  <view class="san-zuo">散座</view>
+  <view class="san-zuo-one" wx:for='{{arr}}'>
+    <image src='{{item.imgUrl}}' class="sanzuo-img"></image>
+    <view class="sanzuo-box">
+      <view class="sanzuo-one"> <text>{{item.buildName}}</text> <view class="sanzuo-jiu">{{item.capacity}}F</view> </view>
+      <view class="sanzuo-list">
+        <view class="sanzuo-child" wx:for='{{item.device}}' wx:key="this" wx:if="{{index<5}}">{{item}}</view>
+      </view>
+      <view>
+        <text class="sanzuo-red">￥{{item.promotionCost}}</text> <text class="sanzuo-splice">￥{{item.unitCost}}/个·天</text> 
+      </view>
+    </view>
+    <view class="sanzuo-view">
+      <view></view>
+      <text class="sanzuo-xiao"> 可预订 <text class="sanzuo-da">{{item.rangeBegin}}</text> 个 </text>
+      <view class="sanzuo-yu" bindtap='list'>预定</view>
+    </view>
+    
+  </view>
+  <view class="san-zuo">会议室</view>
   <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom">
       <view 
         wx:for="{{boardroomList}}"

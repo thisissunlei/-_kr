@@ -11,8 +11,14 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    count:0,
+    count:2,
+    number:2,
     tipShow:true,
+  },
+  mysan(){
+    wx.navigateTo({
+      url: '../mysanzuo/mysanzuo'
+    })
   },
   jumpMyMeet:function() {
     wx.navigateTo({
@@ -32,8 +38,8 @@ Page({
   },
   onLoad: function () {
     this.getCount();
-    this.getPhone()
-   
+    this.getPhone();
+    this.getCounts()
     
   },
   getPhone:function(){
@@ -68,6 +74,20 @@ Page({
         }
     })
   },
-
+  getCounts:function(){
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+              console.log(res)
+              this.setData({
+                number:res.data.data.count
+              })
+        }
+    })
+  },
  
 })

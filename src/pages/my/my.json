@@ -2,5 +2,8 @@
     "navigationBarTitleText": "",
     "navigationBarBackgroundColor": "#fff",
     "backgroundColor":"#F6F6F6",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "usingComponents": {
+        "dialog": "../component/component"
+      }
 }
