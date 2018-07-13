@@ -620,6 +620,7 @@ Page({
 
 
   onLoad: function (options) {
+    console.log(options)
     this.getPhone();
     var _this=this;
     if(options.from=='list'){

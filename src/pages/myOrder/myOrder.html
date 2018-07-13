@@ -15,7 +15,7 @@
 		
 	  	<view class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList}}" wx:key="{{orderId}}">
 			<view class="oder-top">
-					<view>订单号:{{item.ctime}}</view>
+					<view>订单号:{{item.orderId}}</view>
 					<text class="status unpay" wx:if="{{item.orderShowStatus == 'OBLIGATION'}}">待支付</text>
 					<text class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已完成</text>
 					<text class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</text>

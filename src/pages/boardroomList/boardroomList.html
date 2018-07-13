@@ -37,7 +37,7 @@
   </view>
 
   <view class="san-zuo">散座</view>
-  <view class="san-zuo-one" wx:for='{{arr}}'>
+  <!-- <view class="san-zuo-one" wx:for='{{arr}}'>
     <image src='{{item.imgUrl}}' class="sanzuo-img"></image>
     <view class="sanzuo-box">
       <view class="sanzuo-one"> <text>{{item.buildName}}</text> <view class="sanzuo-jiu">{{item.capacity}}F</view> </view>
@@ -54,7 +54,67 @@
       <view class="sanzuo-yu" bindtap='list'>预定</view>
     </view>
     
-  </view>
+  </view> -->
+  <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom">
+    <view 
+      wx:for="{{arr}}"
+      wx:key="*this"
+      class='list-item'
+      data-item="{{item}}"
+      bindtap="openMeetDetail"
+    > 
+      <view class="top" style="border:none;">
+        <view>
+            <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_10"></image>
+        </view>
+        <view class="top-right">
+          <view class="first-row">
+              <text class="room-size">{{item.buildName}}散座</text>
+              <text class="room-floor room-a">{{item.floor}}F</text>
+          </view>
+
+          <view class="second-row">
+              <view 
+                wx:for="{{item.device}}"
+                wx:key="*this"
+                class="device"
+                wx:for-item="deviceItem"
+                wx:if='{{index<5}}'
+              >
+                {{deviceItem}}
+              </view>
+          </view>
+
+          <view class="third-row">
+              <text class="orange text12" style="margin-left:-2rpx;">￥ </text><text class="orange" style="font-weight:600;">{{item.promotionCost}} </text>
+              <text wx:if="{{item.promotionCost!=item.unitCost}}" class="orignal-price" style="text-decoration:line-through">￥ {{item.unitCost}}</text><text class="text12" style="color:#999;"> / 个天</text>
+          </view>
+          
+        </view> 
+      </view>
+      <view class="bottom" style="margin-top:0%;">
+          <!-- <view class="left">
+            <image wx:key="*this" wx:for="{{item.rangeTime}}" wx:for-item="rangeTimeItem" mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="{{rangeTimeItem.disabled?'gray-actived gray':'gray'}}">
+              
+            </image> -->
+            <!-- <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
+
+            </image>
+            <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray-actived">
+
+            </image> -->
+          <!-- </view> -->
+         
+            <view style="width:35%;"></view>
+            <view class="san-you">
+              <text class="sanzuo-xiao"> 可预订 <text class="sanzuo-da">{{item.rangeBegin}}</text> 个 </text>
+              
+              <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}" bindtap='list'>预订</view>
+            </view>
+      </view>
+      
+    </view>
+</scroll-view>
   <view class="san-zuo">会议室</view>
   <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom">
       <view 
@@ -179,7 +239,7 @@
       </view>
     </view>
     <view class="u-meet-btn" bindtap="nowReserve" data-mId="{{meetingRoomId}}">
-        立即预订
+        立即预订2121
     </view>
   </view>
 

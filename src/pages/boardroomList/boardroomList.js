@@ -13,26 +13,7 @@ Page({
   },
   data: {
     //数据模拟
-    arr:[
-          {
-            imgUrl:'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-            buildName:"散座",
-            rangeBegin:9,
-            device:['撒谎','尘世','安徽','少女','asd','还是说'],
-            promotionCost:666,
-            unitCost:666,
-            capacity:10
-          },
-          {
-            imgUrl:'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-            buildName:"散座",
-            rangeBegin:10,
-            device:['沙发','吧椅','卡座','电话间','办公桌','拉大'],
-            promotionCost:666,
-            unitCost:666,
-            capacity:5
-          }
-        ],
+    arr:[],
 
     show:['散座','会议','会议','散座','散座','会议'],
     ifFixed:false,
@@ -121,7 +102,7 @@ Page({
   //预定跳转页面
   list(){
     wx.navigateTo({
-      url: '/pages/setaorderConfirmation/seatorderConfirmation'
+      url: '/pages/seatorderConfirmation/seatorderConfirmation'
     })
   },
 
@@ -840,7 +821,7 @@ Page({
           that.button_boolean = true;
           setTimeout(function(){
             wx.navigateTo({
-              url: '/pages/orderConfirmation/orderConfirmation?from=list'
+              url: '/pages/seatorderConfirmation/seatorderConfirmation?from=list'
             })
           },500)
           
