@@ -15,6 +15,7 @@ Page({
     totalPages:0,
     list:[
       {
+
         "buildName":"测试内容6n27",
         "capacity":"20",
         "ctime":new Date().getTime()/1000+300,
@@ -115,11 +116,15 @@ Page({
           page:page || 1
         },
         success:(res)=>{
+          //自己加的
+          
           console.log('res',res.data.data.items)
           res.data.data.items.forEach((element,index) => {
             res.data.data.items[index].ff = this.data.arr[index]
           });
           console.log(res.data.data.items)
+
+
           let oldList = []
           if(res.data.code>0){
             var list = []
