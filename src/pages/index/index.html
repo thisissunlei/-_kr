@@ -91,7 +91,13 @@
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
     <view class='rm_title'>
       <text style="margin-left: 36rpx;">周边大厦</text>
-      <text bindtap="openmap" style="margin-right: 36rpx; display: inline-block;width: 20px;height: 15px;border-radius: 20px;border: 1px solid #333;"></text>
+      <view class="page-box" bindtap="openmap">
+        <text class="page-map">
+          <text class="page-water"></text>
+          <text class="page-point"></text>
+        </text>
+      </view>
+
     </view>
     <view class="community-wrapper">
       <!-- 已开放 -->
