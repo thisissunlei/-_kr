@@ -8,15 +8,21 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    timeweekArr:{},
+    month:"",
+    day:"",
+    week:"",
+    sankeNum:1,
+    time: '11:00',
+    timeFlag:false,
     showError:true,
     errorMessage:'',
     con:1,
     meetingDetail:{},
     themeName:'',
-    remind:'提前15分钟',
+    remind:'提前1天',
     phone:'',
     check:true,
-    recommendedPhone:'',
     dialogShow:false,
     typeStatus:true,
     message:'用户取消支付',
@@ -42,7 +48,7 @@ Page({
     ],
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
-    alertTime:'FIFTEEN',
+    alertTime:'THIRTY',
     order_pay:{},
     priceCount:'0',
     totalCount:'0',
@@ -75,14 +81,111 @@ Page({
   selectedTime:[],
   isSubTime:false,
   ifFixed:false,
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+  //   散座详情弹窗
+  openMeetDetail:function(e){
+    let that = this;
+    this.setData({
+      meetingRoomId:'',
+      meetDetailShow:!this.data.meetDetailShow
+    },function(){
+      that.getMeetId()
     })
   },
+  
+  // 预计到场时间选择
+  jumpSetTheme:function() {
+    this.setData({
+      timeFlag:!this.data.timeFlag
+    }) 
+   },
+   //  预计到场时间
+  bindTimeChange: function (e) {
+    this.setData({
+      time: e.detail.value
+    })
+  },
+  //  数量日历显示与隐藏
+   closeDialogDate:function(){
+     let that = this;
+     that.setData({
+       dialogDate:!that.data.dialogDate
+     })
+   },
+  //  散客数量加
+  add:function(){
+    this.setData({
+      sankeNum:this.data.sankeNum+=1
+    })
+    wx.setStorageSync("num",this.data.sankeNum)
+   
+  },
+  //  散客数量减
+  jian:function(){
+    let num=this.data.sankeNum-=1
+    if(num<1){
+      num=1
+    }
+    this.setData({
+      sankeNum:num
+    })
+    wx.setStorageSync("num",this.data.sankeNum)
+  },
+   // 我在想想的弹窗显示隐藏
+   closeDialog:function(){
+    this.setData({
+        dialogShow:!this.data.dialogShow,
+        messageShow:true    
+    })
+    let that=this
+    setTimeout(function(){
+      that.setData({
+        messageShow:false  
+    })  
+    },2000)
+  },
+    // 立即支付按钮
+    goToPay:function(){
+      let data=this.data;
+      var _this=this;
+  
+      if(!data.linkPhone){
+          this.setData({
+            checkMessage:true,
+            errorMessage:'请填写联系电话'
+          })
+          setTimeout(function(){
+            _this.setData({
+              checkMessage:false,
+              errorMessage:''
+            })
+          },2000)
+          return
+      }
+      this.closeDialog();
+    },
+  //  日历选择
   dateBtn :function(e){
-    console.log(e);
+    let month=e.target.dataset.month
+    let day=e.target.dataset.num+1
+    
+    this.setData({
+      month:month,
+      day:day
+    })
+   
+    if(wx.getStorageSync("arr")){
+      var arr = wx.getStorageSync("arr");
+      arr.push({month:month,day:day,week:wx.getStorageSync("week")})
+
+      wx.setStorageSync("arr",arr)
+    }else{
+      var arr=[]
+      arr.push({month:month,day:day,week:wx.getStorageSync("week"),})
+      wx.setStorageSync("arr",arr)
+    }
+    
+    wx.setStorageSync("arr",arr)
+    
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       
       const new_data = this.data[e.target.dataset.data];
@@ -158,6 +261,7 @@ Page({
           break;
         }
       }
+     
       let Time="meeting_time.time";
       
       this.setData({
@@ -180,24 +284,29 @@ Page({
        
       })
       
-
-      
-
+      wx.setStorageSync("week",this.data.orderDate.timeText)
      
-      
-
-
     }
   },
-  dealDate:function(today_month,bool,choose_date){
+  scrollTopEvent(e){
+    let top=e.detail.scrollTop;
     
-    //const choose_
+    if(top>=145){
+      this.setData({
+        ifFixed:true
+      })
+    }else{
+      this.setData({
+        ifFixed:false
+       })
+    }
+    
+  },
+  dealDate:function(today_month,bool,choose_date){
     const week = today_month.getDay();
     if(choose_date){
       this.last_btn_num = parseInt(week)+parseInt(choose_date)-1;
     }
-    
-  
     const today = parseInt(new Date().getDate());
     today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
@@ -311,20 +420,8 @@ Page({
     return data;
     
   },
-  scrollTopEvent(e){
-    let top=e.detail.scrollTop;
-    
-    if(top>=145){
-      this.setData({
-        ifFixed:true
-      })
-    }else{
-      this.setData({
-        ifFixed:false
-       })
-    }
-    
-  },
+
+  
   onUnload:function(){
     let _this = this;
     
@@ -342,13 +439,8 @@ Page({
       data:{}
     })
     
-    
   },
-  closeDialog:function(){
-    this.setData({
-        dialogShow:!this.data.dialogShow
-    })
-  },
+ 
   currentChange:function(e){
     if(e.detail.source=="touch"){
       this.setData({
@@ -356,16 +448,7 @@ Page({
       })
     }
   },
-  openMeetDetail:function(e){
-    let that = this;
-
-    this.setData({
-      meetingRoomId:'',
-      meetDetailShow:!this.data.meetDetailShow
-    },function(){
-      that.getMeetId()
-    })
-  },
+  
   getMeetId(){
     let that = this;
     wx.getStorage({
@@ -395,24 +478,21 @@ Page({
   getRemind:function(alertTime){
     let themeObj={
       'NOALERT':'无',
-      'FIVE':'提前5分钟',
-      'FIFTEEN':'提前15分钟',
-      'THIRTY':'提前30分钟'
+      'FIVE':'提前一小时',
+      'FIFTEEN':'提前两小时',
+      'THIRTY':'提前一天',
+      'THIRTYS':'提前两天',
     }
      return themeObj[alertTime]
     
   },
-  jumpSetTheme:function() {
-    let data=this.data;
-    wx.navigateTo({
-      url: '../meetingTheme/meetingTheme?type=storage&themeName='+data.themeName
-    })
-   
-   
+  jumpSetTime:function() {
+   this.setData({
+     timeFlag:!this.data.timeFlag
+   }) 
   },
   jumpSetRemind:function() {
     let data=this.data;
-    console.log('alertTime----',data.alertTime)
     wx.navigateTo({
       url: '../warn/warn?type=storage&alertTime='+data.alertTime
     })
@@ -422,13 +502,6 @@ Page({
     let data=this.data;
     wx.navigateTo({
       url: '../phone/phone?type=storage&linkPhone='+data.linkPhone
-    })
-    
-  },
-  jumpSetRecommendedPhone:function() {
-    let data=this.data;
-    wx.navigateTo({
-      url: '../recommendedPhone/recommendedPhone?type=storage&recommendedPhone='+data.recommendedPhone
     })
     
   },
@@ -512,147 +585,29 @@ Page({
   stopPropagation:function(){
     return ;
   },
-  subTime:function(e){
-    this.isSubTime = true;
-    wx.reportAnalytics('choosetime');
-    if(this.data.selectedTime.length>0){
-      wx.setStorageSync('meeting_time',this.data.meeting_time);
-      this.getPrice();
-      this.closeDialogTime();
-     
-    }
-    
-  },
-  getPrice:function(){
-    let data=this.data;
-    let hours=data.meeting_time.hours;
-    let price=data.detailInfo.promotionCost;
-    let unitCost=data.detailInfo.unitCost;
-    let totalCount=unitCost*hours*2;
-    let priceCount=price*hours*2;
-   
-    if(data.ifFirst){
-      if(hours>2){
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:false
-        })
-      }else if(hours>0 && hours<=2){
-        this.setData({
-          totalCount:totalCount,
-          priceCount:1,
-          isFirst:true
-        })
-      }else{
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:true
-        })
-      }
-    }else {
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:false
-        })
-    }
-   
-  },
+ 
   onShow:function(){
     var _this=this;
+    this.getMeetId()
     wx.getStorage({
       key:'order_pay',
       success:function(res){
         if(Object.keys(res.data).length !=0){
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
-              remind:_this.getRemind(res.data.alertTime) || _this.getRemind('FIFTEEN'),
+              remind:_this.getRemind(res.data.alertTime) || _this.getRemind('THIRTY'),
               linkPhone:res.data.linkPhone || _this.data.linkPhone,
               order_pay:res.data,
-              alertTime:res.data.alertTime || 'FIFTEEN',
-              recommendedPhone:res.data.recommendedPhone
+              alertTime:res.data.alertTime || 'THIRTY'
             })
         }
       }
     })
   },
   bool:true,
-  //前一天  后一天
-  toPreDay:function(e){
-    var that = this;
-    
-    if(this.bool){
-      var topDate = this.data.topDate;
-      this.bool = false;
-      var length = this.data.topDate.length;
-      var nowDateIndex = this.data.nowDateIndex;
-      if(nowDateIndex<1){
-        return ;
-      }
-      var orderDate = {
-        time:topDate[nowDateIndex-1].date,
-        timeText:topDate[nowDateIndex-1].week
-      }
-      this.setData({
-        nowDateIndex:nowDateIndex-1,
-        orderDate:orderDate,
-        selectedTime:[],
-        meeting_time:{
-          time:'',
-          beginTime:'',
-          endTime:'',
-          hours:0,
-        }
-      },function(){
-        that.rangeTime = [];
-        that.selectedTime = [];
-        that.bool = true;
-        that.getNowRangeTime();
-        that.getPrice();
-        that.getThemeName(orderDate)
-        console.log(orderDate.time)
-      })
-    }
-  },
-  toNextDay:function(e){
-    var that = this;
-    if(this.bool){
-      this.bool = false;
-      var topDate = this.data.topDate;
-      var length = this.data.topDate.length;
-      var nowDateIndex = this.data.nowDateIndex;
-      if(nowDateIndex>length-1){
-        return ;
-      }
-      var orderDate = {
-        time:topDate[nowDateIndex+1].date,
-        timeText:topDate[nowDateIndex+1].week
-      }
-      this.setData({
-        nowDateIndex:nowDateIndex+1,
-        orderDate:orderDate,
-        selectedTime:[],
-        meeting_time:{
-          time:'',
-          beginTime:'',
-          endTime:'',
-          hours:0,
-        }
-      },function(){
-        that.rangeTime = [];
-        that.selectedTime = [];
-        that.bool = true;
-        that.getNowRangeTime();
-        that.getPrice();
-        that.getThemeName(orderDate)
-      })
-    }
-  },
+
+
   onLoad: function (options) {
-    // var rangeTime = wx.getStorageSync('rangeTime');
-    this.getIsfirst();
     this.getPhone();
     var _this=this;
     if(options.from=='list'){
@@ -708,8 +663,7 @@ Page({
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
               remind:_this.getRemind(res.data.alertTime),
-              linkPhone:res.data.linkPhone || _this.data.linkPhone,
-              recommendedPhone:''
+              linkPhone:res.data.linkPhone || _this.data.linkPhone
             })
         }
       }
@@ -720,7 +674,10 @@ Page({
       nowDate:wx.getStorageSync('nowDate'),
       nowDateIndex:wx.getStorageSync('nowDateIndex'),
       topDate:wx.getStorageSync('topDate'),
+      timeweekArr:wx.getStorageSync("arr")
     })
+
+
     
   },
   getThemeName:function(res){
@@ -818,26 +775,8 @@ Page({
         }
     })
   },
-  goToGuide:function(){
-    wx.navigateTo({
-      url: '../guide/guide'
-    })
-  },
-  getIsfirst:function(){
-      app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/isFirstOrder',
-        methods:"GET",
-        header:{
-          'content-type':"appication/json"
-        },
-        success:(res)=>{
-          this.setData({
-            ifFirst:res.data.data.first,
-            isFirst:res.data.data.first
-          })
-        }
-    })
-  },
+
+
   closeDialogTime:function(){
     var that = this;
     if(!that.data.dialogTimeShow){
@@ -878,9 +817,9 @@ Page({
     var that = this;
     var disableTime = [];
     var newRangeTime = [];
-    wx.showLoading({
-      title: '加载中',
-    })
+    // wx.showLoading({
+    //   title: '加载中',
+    // })
    
     //过滤已过去的时间
     let now = new Date();
@@ -932,58 +871,26 @@ Page({
     
     
   },
-  goToPay:function(){
-    let data=this.data;
-    var _this=this;
-    if(!data.check){
-      this.setData({
-        checkMessage:true,
-        errorMessage:'请阅读并同意KrMeeing服务须知'
-      })
-      setTimeout(function(){
-        _this.setData({
-          checkMessage:false,
-          errorMessage:''
-        })
-      },2000)
-      return
-    }
-
-    if(!data.linkPhone){
-        this.setData({
-          checkMessage:true,
-          errorMessage:'请填写联系电话'
-        })
-        setTimeout(function(){
-          _this.setData({
-            checkMessage:false,
-            errorMessage:''
-          })
-        },2000)
-        return
-    }
-
-    this.closeDialog();
-
-  },
   createOrder:function(){
+
+    wx.navigateTo({
+      url: '../orderseatDetail/orderseatDetail'
+    })
+
     let data=this.data;
-    //需要添加推荐人电话字段
     let orderData = {
       alertTime:data.order_pay.alertTime || data.alertTime,
       beginTime:data.meeting_time.beginTime,
       endTime:data.meeting_time.endTime,
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       meetingRoomId:data.detailInfo.meetingRoomId,
-      themeName:data.order_pay.themeName || data.themeName,
-      referrerPhone:data.order_pay.recommendedPhone || ''
+      themeName:data.order_pay.themeName || data.themeName
     }
     wx.showLoading({
       title: '加载中',
       mask:true
     })
     
-   
     var _this=this;
         app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
@@ -1065,37 +972,49 @@ Page({
   },
   weChatPay:function(data){
     var _this=this;
-    wx.requestPayment({
-      'timeStamp':data.timestamp ,
-      'nonceStr': data.noncestr,
-      'package': data.packages,
-      'signType': data.signType,
-      'paySign': data.paySign,
-      'success':function(response){
-          wx.showLoading({
-            title: '加载中',
-            mask:true
-          })
-          setTimeout(function(){
-            _this.getInviteeId(data.orderId);
-            wx.hideLoading();
-          },1500)
-         
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+      methods:"POST",
+      header:{
+        'content-type':"appication/json"
       },
-      'fail':function(response){
-        wx.showLoading({
-          title: '加载中',
-          mask:true
-        })
-        setTimeout(function(){
-          wx.hideLoading();
-          wx.navigateTo({
-            url: '../orderDetail/orderDetail?id='+data.orderId+'&con='+1
-          })
-        },1500)
-         
+      data:{
+        orderId:data.orderId
       },
-     
+      success:(res)=>{
+          wx.requestPayment({
+            'timeStamp':data.timestamp ,
+            'nonceStr': data.noncestr,
+            'package': data.packages,
+            'signType': data.signType,
+            'paySign': data.paySign,
+            'success':function(response){
+                wx.showLoading({
+                  title: '加载中',
+                  mask:true
+                })
+                setTimeout(function(){
+                  _this.getInviteeId(data.orderId);
+                  wx.hideLoading();
+                },1500)
+               
+            },
+            'fail':function(response){
+              wx.showLoading({
+                title: '加载中',
+                mask:true
+              })
+              setTimeout(function(){
+                wx.hideLoading();
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con='+1
+                })
+              },1500)
+               
+            },
+           
+          })
+      }
     })
     
   },
@@ -1125,7 +1044,6 @@ Page({
     
   },
   preventTouchMove(){
-
   },
   getMeetDetail(){
     let that = this;
@@ -1175,8 +1093,7 @@ Page({
           
         }
       })
-  },
-  
+  }, 
 })
 
 function getTime(time){
@@ -1205,12 +1122,10 @@ function getTime(time){
     }
     return timeObj[time];
   }
-
 function getHour(data){
   var len=data.length;
   return len*0.5;
 }
-
 function changeTime(data){
   let  myDate = new Date(data)  || new Date();
    var myArray = Array();

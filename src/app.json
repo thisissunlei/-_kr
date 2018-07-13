@@ -31,7 +31,10 @@
     "pages/guide/guide",
     "pages/provingCode/provingCode",
     "pages/bindPhone/bindPhone",
-    "pages/point/point"
+    "pages/point/point",
+    "pages/recommendedPhone/recommendedPhone",
+    "pages/logs/logs",
+    "pages/orderseatDetail/orderseatDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
