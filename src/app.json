@@ -24,7 +24,9 @@
     "pages/recommendedPhone/recommendedPhone",
     "pages/logs/logs",
     "pages/orderseatDetail/orderseatDetail",
+    "pages/seatorderConfirmation/seatorderConfirmation"
     
+   
   ],
   "window":{
     "backgroundTextStyle":"light",
