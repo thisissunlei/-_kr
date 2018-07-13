@@ -1,0 +1,48 @@
+<!--index.wxml-->
+<view class="page-body">
+    <view class="page-section">
+        <map id="myMap" style="width: 100%;height:100%;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}"
+            show-location></map>
+    </view>
+    <!-- <view class="city">
+        <view class="page-icom">
+            <image src="../images/indexImg/icon_loation.png"></image>
+        </view>
+        <text class="city-name">乌鲁木齐市</text>
+        <view class="city-san"></view>
+    </view> -->
+    <cover-view class="city" bindtap="selectCity">
+        <cover-view class="page-icom">
+            <cover-image src="../images/indexImg/icon_loation.png"></cover-image>
+        </cover-view>
+        <cover-view class="city-name">乌鲁木齐市</cover-view>
+        <cover-view class="city-san"></cover-view>
+    </cover-view>
+    <view class="page-bottom">
+        <view class="page-image">
+            <image src="https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg"></image>
+        </view>
+        <view class="page-right">
+            <text class="page-name">海航实业大厦</text>
+            <view class="page-address">
+                <text class="page-site">北京市朝阳区建国路</text>
+                <text class="page-distance">2.1km</text>
+            </view>
+            <view class="page-num">
+                <text class="num-num">12</text>
+                <text class="num-text" style="margin-right: 62rpx;">个会议室</text>
+                <text class="num-arr">6</text>
+                <text class="num-text">个散座</text>
+            </view>
+            <view class="page-see">
+                <view class="price">限时5折优惠</view>
+                <view class="page-look">
+                    <text style="margin-left: -20rpx;">去看看</text>
+                    <text class="gl"></text>
+                </view>
+
+
+            </view>
+        </view>
+    </view>
+</view>

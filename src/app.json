@@ -1,12 +1,23 @@
 {
-  "pages":[
-    
+  "pages": [
     "pages/index/index",
+
+    "pages/city/city",
+
+    "pages/map/map",
+
+    "pages/logs/logs",
+
     "pages/meetingTem/meetingTem",
+
     "pages/meetingStatus/meetingStatus",
+
     "pages/paySuccess/paySuccess",
+
     "pages/orderConfirmation/orderConfirmation",
+
     "pages/meetingDetail/meetingDetail",
+
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
     "pages/myOrder/myOrder",
@@ -22,14 +33,18 @@
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
+<<<<<<< HEAD
     "pages/logs/logs",
     "pages/orderseatDetail/orderseatDetail",
     "pages/seatorderConfirmation/seatorderConfirmation"
     
    
+=======
+    "pages/orderseatDetail/orderseatDetail"
+>>>>>>> acd5b62b098397b5f9dad1ee066763a92e7acef2
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff"
   }
 }

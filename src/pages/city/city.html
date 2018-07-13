@@ -1,0 +1,9 @@
+<!--index.wxml-->
+<view class="page-city-list">
+    <view class="page-city-choice" wx:for="{{cityList}}" wx:key="{{item.id}}" data-city="{{item}}" bindtap="choiceCity">
+        <text>{{item.name}}</text>
+        <text class="page-city-icom" class="{{item.flag ? 'page-city-icom' :''}}">
+            <text class="{{item.flag ? 'city-selected' :''}}"></text>
+        </text>
+    </view>
+</view>
