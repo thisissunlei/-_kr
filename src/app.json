@@ -1,9 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    
-    "pages/orderseatDetail/orderseatDetail",
-
     "pages/mysanzuo/mysanzuo",
     "pages/city/city",
     "pages/map/map",
@@ -29,8 +26,8 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
+    "pages/orderseatDetail/orderseatDetail",
     "pages/seatorderConfirmation/seatorderConfirmation"
-
   ],
   "window": {
     "backgroundTextStyle": "light",

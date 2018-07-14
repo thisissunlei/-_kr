@@ -59,6 +59,7 @@ Page({
         }
     })
   },
+  //我的会议的length
   getCount:function(){
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',
@@ -74,6 +75,7 @@ Page({
         }
     })
   },
+  //我的散座的length
   getCounts:function(){
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',

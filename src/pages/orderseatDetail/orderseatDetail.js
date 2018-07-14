@@ -64,7 +64,7 @@ Page({
 
     meetInfo: ['1', '2', '3', 4, 5, 7, 9, 9, 4, 5, 7, 9, 9],
     meetingRoomId: '',
-    alertTime: 'FIFTEEN',
+    alertTime: 'THIRTY',
     order_pay: {},
     priceCount: '0',
     totalCount: '0',
@@ -628,10 +628,10 @@ Page({
         if (Object.keys(res.data).length != 0) {
           _this.setData({
             themeName: res.data.themeName || _this.data.themeName,
-            remind: _this.getRemind(res.data.alertTime) || _this.getRemind('FIFTEEN'),
+            remind: _this.getRemind(res.data.alertTime) || _this.getRemind('THIRTY'),
             linkPhone: res.data.linkPhone || _this.data.linkPhone,
             order_pay: res.data,
-            alertTime: res.data.alertTime || 'FIFTEEN'
+            alertTime: res.data.alertTime || 'THIRTY'
             })
         }
       }
@@ -641,16 +641,21 @@ Page({
 
 
   onLoad: function (options) {
-    if(opstion.con){
-      this.setData({
-        orderId:opstion.id,
-        con:opstion.con
-      })
-    }else{
-      this.setData({
-        orderId:opstion.id
-      })
-    }
+    console.log(options)
+    // if(options.con){
+    //   this.setData({
+    //     orderId:options.id,
+    //     con:options.con
+    //   })
+    // }else{
+    //   this.setData({
+    //     orderId:options.id
+    //   })
+    // }
+    this.setData({
+          orderId:options.id,
+          con:options.con
+        })
 
 
     let num = wx.getStorageSync("num")
@@ -714,18 +719,18 @@ Page({
       }
     })
    
-    wx.getStorage({
-      key: 'order_pay',
-      success: function (res) {
-        if (Object.keys(res.data).length != 0) {
-          _this.setData({
-            themeName: res.data.themeName || _this.data.themeName,
-            remind: _this.getRemind(res.data.alertTime),
-            linkPhone: res.data.linkPhone || _this.data.linkPhone
-            })
-        }
-      }
-    })
+    // wx.getStorage({
+    //   key: 'order_pay',
+    //   success: function (res) {
+    //     if (Object.keys(res.data).length != 0) {
+    //       _this.setData({
+    //         themeName: res.data.themeName || _this.data.themeName,
+    //         remind: _this.getRemind(res.data.alertTime),
+    //         linkPhone: res.data.linkPhone || _this.data.linkPhone
+    //         })
+    //     }
+    //   }
+    // })
     
     
     this.setData({
@@ -1143,10 +1148,11 @@ Page({
               }
               
               let themeObj={
-                'NOALERT':'无',
-                'FIVE':'提前5分钟',
-                'FIFTEEN':'提前15分钟',
-                'THIRTY':'提前30分钟'
+                'NOALERT': '无',
+                'FIVE': '提前一小时',
+                'FIFTEEN': '提前两小时',
+                'THIRTY': '提前一天',
+                'THIRTYS': '提前两天',
               }
 
               let detailInfo=Object.assign({},data);

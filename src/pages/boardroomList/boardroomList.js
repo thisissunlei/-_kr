@@ -13,27 +13,8 @@ Page({
   },
   data: {
     //数据模拟
-    arr:[
-          {
-            imgUrl:'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-            buildName:"散座",
-            rangeBegin:9,
-            device:['撒谎','尘世','安徽','少女','asd','还是说'],
-            promotionCost:666,
-            unitCost:666,
-            capacity:10
-          },
-          {
-            imgUrl:'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-            buildName:"散座",
-            rangeBegin:10,
-            device:['沙发','吧椅','卡座','电话间','办公桌','拉大'],
-            promotionCost:666,
-            unitCost:666,
-            capacity:5
-          }
-        ],
-
+    arr:[],
+    arr_arr:[],
     show:['散座','会议','会议','散座','散座','会议'],
     ifFixed:false,
     meeting_detail:{},
@@ -119,13 +100,34 @@ Page({
     
   },
   //预定跳转页面
-  list(){
+  list(e){
+    let rangeTime = e.currentTarget.dataset.rangetime;
+    let detail = e.currentTarget.dataset.detail;
+    wx.setStorageSync('rangeTime-c',rangeTime);
+    wx.setStorageSync('detail-c',detail);
     wx.navigateTo({
       url: '/pages/seatorderConfirmation/seatorderConfirmation'
     })
   },
+  openMeetDetail1:function(e){
+    console.log(e)
+    wx.showLoading({
+      title: '加载中',
+    })
+    let that = this;
+    let id=e.currentTarget.dataset.item.meetingRoomId;
+    let detail=e.currentTarget.dataset.item;
+    this.setData({
+      meetingRoomId:id,
+      meetDetailShow:!this.data.meetDetailShow,
+      meetDetail:detail
+    },function(){
+      that.getMeetDetail()
+    })
+  },
 
   openMeetDetail:function(e){
+    console.log(e)
     wx.showLoading({
       title: '加载中',
     })
@@ -209,8 +211,15 @@ Page({
           page:that.data.page,
           pageSize:that.data.pageSize
         },
+        
         success:(res)=>{
-
+          console.log({
+            communityId: that.data.communityId,
+            date: that.data.nowDate,
+            page:that.data.page,
+            pageSize:that.data.pageSize
+          },)
+          console.log(res)
           res.data.data.items.forEach((element,index)=>{
             res.data.data.items[index].fenl = that.data.show[index]
             if(res.data.data.items[index].fenl == '散座'){
@@ -238,6 +247,42 @@ Page({
       })
   },
 
+  //获取散座列表
+  // getData1:function(){
+  //   let that = this;
+  //   wx.showLoading({
+  //     title: '加载中',
+  //   })
+  //   let arr = []
+  //   app.getRequest({
+      
+  //       url:app.globalData.KrUrl+'api/gateway/krseat/seat/list',
+  //       methods:"GET",
+  //       data: {
+  //         communityId: that.data.communityId,
+  //         date: that.data.nowDate
+  //       },
+  //       success:(res)=>{
+  //         console.log(res)
+  //         that.setData({
+  //           arr_arr:that.data.arr,
+  //           totalPages:res.data.data.totalPages,
+  //           boardroomList:res.data.data.items,
+  //           page:1,
+  //           nextPage:2,
+  //         },function(){
+  //           that.reloadData();
+  //           wx.hideLoading();
+  //         })
+  //         this.data.boardroomList.forEach(element=>{
+  //           console.log(element.buildName)
+  //           wx.setNavigationBarTitle({
+  //             title:element.buildName
+  //           })
+  //         })
+  //       }
+  //     })
+  // },
 
   //切换日期后重载数据
   reloadData:function(){
@@ -485,6 +530,7 @@ Page({
 
   //加载下一页会议室列表数据
   loadNext: function() {
+    
     var communityList = this.data.communityList;
     var page = this.data.nextPage;
     var pageSize = this.data.pageSize;
@@ -529,6 +575,7 @@ Page({
     wx.setStorageSync('detail',detail);
     wx.navigateTo({
       url: '/pages/orderConfirmation/orderConfirmation'
+      // url: '/pages/seatorderConfirmation/seatorderConfirmation'
     })
   },
 
@@ -689,7 +736,9 @@ Page({
   },
 
   onLoad:function(options){
+    console.log(options)
     this.getData()
+    // this.getData1()
     wx.reportAnalytics('community')
     if(options.communityId){
       this.setData({
@@ -839,7 +888,7 @@ Page({
           that.button_boolean = true;
           setTimeout(function(){
             wx.navigateTo({
-              url: '/pages/orderConfirmation/orderConfirmation?from=list'
+              url: '/pages/seatorderConfirmation/seatorderConfirmation?from=list'
             })
           },500)
           
