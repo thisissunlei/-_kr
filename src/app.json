@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/index/index",
+    
     "pages/orderseatDetail/orderseatDetail",
 
-    "pages/index/index",
     "pages/mysanzuo/mysanzuo",
     "pages/city/city",
     "pages/map/map",

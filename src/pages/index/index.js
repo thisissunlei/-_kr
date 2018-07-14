@@ -31,7 +31,7 @@ Page({
           "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
         buildName: "创业大街",
         communityId: 1,
-        distance: "12228.9km",
+        distance: "28.9km",
         meetingCount: 6, //会议室
         promotionDescr: "限时 5 折优惠"
       },
@@ -41,7 +41,7 @@ Page({
           "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
         buildName: "创业大街",
         communityId: 173,
-        distance: "12228.9km",
+        distance: "218.9km",
         meetingCount: 12
       },
       {
@@ -50,7 +50,7 @@ Page({
           "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
         buildName: "创业大街",
         communityId: 175,
-        distance: "12228.9km",
+        distance: "28.9km",
         meetingCount: 13
       }
     ],
