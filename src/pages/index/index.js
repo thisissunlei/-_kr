@@ -19,7 +19,7 @@ Page({
     autoplbuildAddressay: true,
     interval: 5000,
     duration: 1000,
-    // swiper: true,
+    // swiper: false,
     indicatorDots: true,
     metting: true,
     btn_bool: true,
