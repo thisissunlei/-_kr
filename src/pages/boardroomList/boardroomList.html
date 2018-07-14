@@ -60,10 +60,8 @@
       wx:for="{{arr}}"
       wx:key="*this"
       class='list-item'
-      data-item="{{item}}"
-      
     > 
-      <view class="top" bindtap="openMeetDetail">
+      <view class="top" bindtap="openMeetDetail1" data-item="{{item}}">
         <view>
             <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_10"></image>
         </view>

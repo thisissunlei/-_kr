@@ -109,6 +109,22 @@ Page({
       url: '/pages/seatorderConfirmation/seatorderConfirmation'
     })
   },
+  openMeetDetail1:function(e){
+    console.log(e)
+    wx.showLoading({
+      title: '加载中',
+    })
+    let that = this;
+    let id=e.currentTarget.dataset.item.meetingRoomId;
+    let detail=e.currentTarget.dataset.item;
+    this.setData({
+      meetingRoomId:id,
+      meetDetailShow:!this.data.meetDetailShow,
+      meetDetail:detail
+    },function(){
+      that.getMeetDetail()
+    })
+  },
 
   openMeetDetail:function(e){
     console.log(e)
@@ -195,7 +211,14 @@ Page({
           page:that.data.page,
           pageSize:that.data.pageSize
         },
+        
         success:(res)=>{
+          console.log({
+            communityId: that.data.communityId,
+            date: that.data.nowDate,
+            page:that.data.page,
+            pageSize:that.data.pageSize
+          },)
           console.log(res)
           res.data.data.items.forEach((element,index)=>{
             res.data.data.items[index].fenl = that.data.show[index]
