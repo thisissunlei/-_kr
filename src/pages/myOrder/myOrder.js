@@ -8,24 +8,76 @@ Page({
     second:'',
     error:true,
     errorMessage:'',
-    orderList:[],
+    arr:['第四','第二','第一','第三','第二','第三','第四','第一','第四','第一','第二'],
     page:1,
-    arr:['散座','会议','散座','会议','会议','散座','散座'],
+    // arr:['散座','会议','散座','会议','会议','散座','散座'],
     orderOldList:[],
     totalPages:0,
     list:[
+      // {
+      //   "buildName":"测试内容6n27",
+      //   "capacity":"20",
+      //   "ctime":new Date().getTime()/1000+300,new Date().getTime()/1000+300,
+      //   "imgUrl":"测试内容5s1e",
+      //   "meetingRoomName":"测试内容sdqr",
+      //   "meetingTIme":"测试内容pr46111",
+      //   "orderId":1,
+      //   "orderShowStatus":'TOBEUSED',
+      //   "orderStatusDesc":"测试内容it12",
+      //   "payStatus":"测试内容58w2",
+      //   "ctime":"1531459166000"
+      // },
       {
-
-        "buildName":"测试内容6n27",
-        "capacity":"20",
-        "ctime":new Date().getTime()/1000+300,
-        "imgUrl":"测试内容5s1e",
-        "meetingRoomName":"测试内容sdqr",
-        "meetingTIme":"测试内容pr46111",
-        "orderId":1,
-        "orderShowStatus":'OBLIGATION',
-        "orderStatusDesc":"测试内容it12",
-        "payStatus":"测试内容58w2"
+        "bulidName": "测试内容154h",
+        "capacity": "测试内容v2th",
+        "cost": "测试内容gyh3",
+        "ctime": 1531459166000,
+        "expiredTime": {},
+        "floor": "测试内容euyp",
+        "imgUrl": "测试内容4812",
+        "meetingRoomName": "测试内容2j2j",
+        "meetingTIme": "测试内容2367",
+        "orderId": 37455,
+        "orderShowStatus": 47475,
+        "orderStatusDesc": "测试内容1e92",
+        "orderType": {name:"会议室"},
+        "payStatus": "REFUND",
+        "seatNum": 13053,
+        "seatTime": "测试内容p1du"
+      },{
+        "bulidName": "测试内容154h",
+        "capacity": "测试内容v2th",
+        "cost": "测试内容gyh3",
+        "ctime": 1531459166000,
+        "expiredTime": {},
+        "floor": "测试内容euyp",
+        "imgUrl": "测试内容4812",
+        "meetingRoomName": "测试内容2j2j",
+        "meetingTIme": "测试内容2367",
+        "orderId": 37455,
+        "orderShowStatus": 47475,
+        "orderStatusDesc": "测试内容1e92",
+        "orderType": {name:"散座"},
+        "payStatus": "PAID",
+        "seatNum": 13053,
+        "seatTime": "测试内容p1du"
+      },{
+        "bulidName": "测试内容154h",
+        "capacity": "测试内容v2th",
+        "cost": "测试内容gyh3",
+        "ctime": 1531459166000,
+        "expiredTime": {},
+        "floor": "测试内容euyp",
+        "imgUrl": "测试内容4812",
+        "meetingRoomName": "测试内容2j2j",
+        "meetingTIme": "测试内容2367",
+        "orderId": 37455,
+        "orderShowStatus": 47475,
+        "orderStatusDesc": "测试内容1e92",
+        "orderType": {name:"会议室"},
+        "payStatus": "WAIT",
+        "seatNum": 13053,
+        "seatTime": "测试内容p1du"
       },
     ],
     type:'',
@@ -116,14 +168,15 @@ Page({
           page:page || 1
         },
         success:(res)=>{
-          //自己加的
+          console.log(res)
+          //自己加的-------
           
           console.log('res',res.data.data.items)
           res.data.data.items.forEach((element,index) => {
             res.data.data.items[index].ff = this.data.arr[index]
           });
           console.log(res.data.data.items)
-
+        //---------------
 
           let oldList = []
           if(res.data.code>0){

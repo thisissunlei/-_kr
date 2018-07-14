@@ -14,7 +14,7 @@ Page({
   data: {
     //数据模拟
     arr:[],
-
+    arr_arr:[],
     show:['散座','会议','会议','散座','散座','会议'],
     ifFixed:false,
     meeting_detail:{},
@@ -107,6 +107,7 @@ Page({
   },
 
   openMeetDetail:function(e){
+    console.log(e)
     wx.showLoading({
       title: '加载中',
     })
@@ -191,7 +192,7 @@ Page({
           pageSize:that.data.pageSize
         },
         success:(res)=>{
-
+          console.log(res)
           res.data.data.items.forEach((element,index)=>{
             res.data.data.items[index].fenl = that.data.show[index]
             if(res.data.data.items[index].fenl == '散座'){
@@ -219,6 +220,42 @@ Page({
       })
   },
 
+  //获取散座列表
+  // getData1:function(){
+  //   let that = this;
+  //   wx.showLoading({
+  //     title: '加载中',
+  //   })
+  //   let arr = []
+  //   app.getRequest({
+      
+  //       url:app.globalData.KrUrl+'api/gateway/krseat/seat/list',
+  //       methods:"GET",
+  //       data: {
+  //         communityId: that.data.communityId,
+  //         date: that.data.nowDate
+  //       },
+  //       success:(res)=>{
+  //         console.log(res)
+  //         that.setData({
+  //           arr_arr:that.data.arr,
+  //           totalPages:res.data.data.totalPages,
+  //           boardroomList:res.data.data.items,
+  //           page:1,
+  //           nextPage:2,
+  //         },function(){
+  //           that.reloadData();
+  //           wx.hideLoading();
+  //         })
+  //         this.data.boardroomList.forEach(element=>{
+  //           console.log(element.buildName)
+  //           wx.setNavigationBarTitle({
+  //             title:element.buildName
+  //           })
+  //         })
+  //       }
+  //     })
+  // },
 
   //切换日期后重载数据
   reloadData:function(){
@@ -466,6 +503,7 @@ Page({
 
   //加载下一页会议室列表数据
   loadNext: function() {
+    
     var communityList = this.data.communityList;
     var page = this.data.nextPage;
     var pageSize = this.data.pageSize;
@@ -671,7 +709,9 @@ Page({
   },
 
   onLoad:function(options){
+    console.log(options)
     this.getData()
+    // this.getData1()
     wx.reportAnalytics('community')
     if(options.communityId){
       this.setData({

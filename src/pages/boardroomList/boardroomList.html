@@ -9,7 +9,7 @@
     </block>
   </view> -->
   <!-- 图片 -->
-  <view><image src='{{boardroomList[0].imgUrl}}'></image></view>
+  <view><image src='{{boardroomList[0].imgUrl}}' style="height:374rpx"></image></view>
   <!-- 日历部分 -->
   <view class="top-date" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
     <scroll-view style="width:656rpx" scroll-x scroll-left="{{dateScrollLeft}}">
@@ -63,14 +63,14 @@
       data-item="{{item}}"
       bindtap="openMeetDetail"
     > 
-      <view class="top" style="border:none;">
+      <view class="top">
         <view>
             <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_10"></image>
         </view>
         <view class="top-right">
-          <view class="first-row">
+          <view class="first-row" style=" display:flex; justify-content: center;align-items: center;">
               <text class="room-size">{{item.buildName}}散座</text>
-              <text class="room-floor room-a">{{item.floor}}F</text>
+              <text class="room-floor" style="font-size:32rpx;">{{item.floor}}</text><text class="cente">层</text>
           </view>
 
           <view class="second-row">
@@ -92,7 +92,7 @@
           
         </view> 
       </view>
-      <view class="bottom" style="margin-top:0%;">
+      <view class="bottom">
           <!-- <view class="left">
             <image wx:key="*this" wx:for="{{item.rangeTime}}" wx:for-item="rangeTimeItem" mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="{{rangeTimeItem.disabled?'gray-actived gray':'gray'}}">
               
@@ -105,12 +105,12 @@
             </image> -->
           <!-- </view> -->
          
-            <view style="width:35%;"></view>
-            <view class="san-you">
-              <text class="sanzuo-xiao"> 可预订 <text class="sanzuo-da">{{item.rangeBegin}}</text> 个 </text>
+            
+            
+              <view class="sanzuo-xiao"> 剩余可订 <text class="sanzuo-da">{{item.rangeBegin}}</text> 个 </view>
               
               <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}" bindtap='list'>预订</view>
-            </view>
+            
       </view>
       
     </view>
@@ -129,9 +129,9 @@
               <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_10"></image>
           </view>
           <view class="top-right">
-            <view class="first-row">
+            <view class="first-row" style=" display:flex; justify-content: center;align-items: center;">
                 <text class="room-size">{{item.capacity}}人间 | {{item.roomName}}会议室</text>
-                <text class="room-floor">{{item.floor}}F</text>
+                <text class="room-floor">{{item.floor}}</text><text class="cente">层</text>
             </view>
 
             <view class="second-row">
@@ -239,7 +239,7 @@
       </view>
     </view>
     <view class="u-meet-btn" bindtap="nowReserve" data-mId="{{meetingRoomId}}">
-        立即预订2121
+        立即预订
     </view>
   </view>
 
