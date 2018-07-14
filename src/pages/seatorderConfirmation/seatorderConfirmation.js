@@ -110,6 +110,12 @@ Page({
       that.getMeetId()
     })
   },
+  // 预计到场时间选择
+  jumpSetTheme: function () {
+    this.setData({
+      timeFlag: !this.data.timeFlag
+    }) 
+   },
 
   // 预计到场时间
   bindTimeChange: function (e) {
@@ -159,18 +165,33 @@ Page({
   },
   // 立即支付按钮
   goToPay: function () {
-    this.setData({
-      messageShow: true
-    })
-    let that = this
-    setTimeout(function () {
-      that.setData({
-        messageShow: false
-      })
-    }, 2000)
+    // this.setData({
+    //   messageShow: true
+    // })
+    // let that = this
+    
+    // setTimeout(function () {
+    //   that.setData({
+    //     messageShow: false
+    //   })
+    // }, 2000)
 
     let data = this.data;
     var _this = this;
+    if(!data.check){
+      this.setData({
+        checkMessage:true,
+        errorMessage:'请阅读并同意KrMeeing服务须知'
+      })
+      setTimeout(function(){
+        _this.setData({
+          checkMessage:false,
+          errorMessage:''
+        })
+      },2000)
+      return
+    }
+    
     if (!data.linkPhone) {
       this.setData({
         checkMessage: true,
@@ -482,6 +503,11 @@ Page({
   changeCheckbox: function () {
     this.setData({
       check: !this.data.check
+    })
+  },
+  goToGuide:function(){
+    wx.navigateTo({
+      url: '../guide/guide'
     })
   },
   getRemind: function (alertTime) {

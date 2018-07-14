@@ -145,15 +145,15 @@ Page({
 
   },
   //   散座详情弹窗
-  openMeetDetail: function (e) {
-    let that = this;
-    this.setData({
-      meetingRoomId: '',
-      meetDetailShow: !this.data.meetDetailShow
-    }, function () {
-      that.getMeetId()
-    })
-  },
+  // openMeetDetail: function (e) {
+  //   let that = this;
+  //   this.setData({
+  //     meetingRoomId: '',
+  //     meetDetailShow: !this.data.meetDetailShow
+  //   }, function () {
+  //     that.getMeetId()
+  //   })
+  // },
   
   // 预计到场时间选择
   jumpSetTheme: function () {
@@ -167,13 +167,7 @@ Page({
       time: e.detail.value
     })
   },
-  //  数量日历显示与隐藏
-   closeDialogDate:function(){
-     let that = this;
-     that.setData({
-       dialogDate:!that.data.dialogDate
-     })
-   },
+
   //  散客数量加
   add:function(){
     this.setData({
@@ -392,12 +386,7 @@ Page({
         }
     })
   },
-  closeMeetDetail: function () {
-      this.setData({
-      meetingRoomId: '',
-      meetDetailShow: !this.data.meetDetailShow
-      })
-  },
+
   changeCheckbox: function () {
     this.setData({
       check: !this.data.check
@@ -436,13 +425,7 @@ Page({
   getBoardroomTime: function () {
     
   },
-  closeDialogDate: function () {
-    let that = this;
-    wx.reportAnalytics('choosedate')
-    that.setData({
-      dialogDate: !that.data.dialogDate
-    })
-  },
+
   tapTime: function (e) {
     
     var indexParam = e.currentTarget.dataset.index;
@@ -618,47 +601,13 @@ Page({
      
       
     },
-    getInviteeId(orderId,callback){
-      app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
-        methods:"GET",
-        header:{
-          "content-type":"application/json"
-        },
-        data:{
-          orderId:orderId
-        },
-        success:(res)=>{
-          if(res.data.data.inviteeId){
-              callback && callback(res.data.data.inviteeId);
-          }
-          
-        }
-      })
-    },
+  
     jumpMeetingDetail:function(inviteeId){
       wx.navigateTo({
         url: '../meetingDetail/meetingDetail?inviteeId='+inviteeId
       })
     },
-    jumpSetTheme:function() {
-      let detailInfo=this.data.detailInfo;
-      if(detailInfo.orderShowStatus==3){
-        return;
-      }
-      wx.navigateTo({
-        url: '../meetingTheme/meetingTheme?themeName='+detailInfo.themeName+'&type=submit'+'&orderId='+this.data.orderId
-      })
-    },
-    jumpSetRemind:function() {
-      let detailInfo=this.data.detailInfo;
-      if(detailInfo.orderShowStatus==3){
-        return;
-      }
-      wx.navigateTo({
-        url: '../warn/warn?alertTime='+detailInfo.alertTime+'&type=submit'+'&orderId='+this.data.orderId
-      })
-    },
+   
     jumpSetPhone:function() {
       let detailInfo=this.data.detailInfo;
       if(detailInfo.orderShowStatus==3){
@@ -1145,56 +1094,26 @@ Page({
     })
 
   },
+    // getInviteeId(orderId,callback){
+    //   app.getRequest({
+    //     url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
+    //     methods:"GET",
+    //     header:{
+    //       "content-type":"application/json"
+    //     },
+    //     data:{
+    //       orderId:orderId
+    //     },
+    //     success:(res)=>{
+    //       if(res.data.data.inviteeId){
+    //           callback && callback(res.data.data.inviteeId);
+    //       }
+          
+    //     }
+    //   })
+    // },
   preventTouchMove() {},
-  getMeetDetail() {
-    let that = this;
-    let meetingRoomId = this.data.meetingRoomId;
 
-    app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krmting/room/detail',
-      method: "GET",
-      data: {
-        "meetingRoomId": meetingRoomId
-      },
-      success: (res) => {
-        if (res.data.code > 0) {
-          let meetingDetail = res.data.data;
-
-          that.setData({
-            meetingDetail: meetingDetail
-          })
-        } else {
-          that.setData({
-            phoneError: false,
-            errorMessage: res.data.message,
-          })
-          setTimeout(function () {
-            that.setData({
-              phoneError: true,
-              errorMessage: '',
-
-            })
-          }, 2000)
-        }
-
-      },
-      fail: (res) => {
-
-        that.setData({
-          phoneError: false,
-          errorMessage: res.message,
-        })
-        setTimeout(function () {
-          that.setData({
-            phoneError: true,
-            errorMessage: '',
-
-          })
-        }, 2000)
-
-      }
-    })
-      },
   getDetailInfo:function(orderId){
     const _this=this;
     app.getRequest({
@@ -1289,55 +1208,56 @@ Page({
     
     }
   },
- 
-  getMeetDetail(){
-    let meetingRoomId = this.data.meetingRoomId;
+  getMeetDetail() {
     let that = this;
+    let meetingRoomId = this.data.meetingRoomId;
+
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
-        method:"GET",
-        data:{
-          "meetingRoomId":meetingRoomId
-        },
-        success:(res)=>{
-          if(res.data.code>0){
-            let meetingDetail = res.data.data;
-            console.log(meetingDetail.device)
-            that.setData({
-              meetingDetail:meetingDetail
-            })
-          }else{
-            that.setData({
-              phoneError:false,
-              errorMessage:res.data.message,
-            })
-            setTimeout(function(){
-              that.setData({
-                phoneError:true,
-                errorMessage:'',
-                
-              })
-            },2000)
-          }
-          
-        },
-        fail:(res)=>{
+      url: app.globalData.KrUrl + 'api/gateway/krmting/room/detail',
+      method: "GET",
+      data: {
+        "meetingRoomId": meetingRoomId
+      },
+      success: (res) => {
+        if (res.data.code > 0) {
+          let meetingDetail = res.data.data;
 
           that.setData({
-            phoneError:false,
-            errorMessage:res.message,
+            meetingDetail: meetingDetail
           })
-          setTimeout(function(){
+        } else {
+          that.setData({
+            phoneError: false,
+            errorMessage: res.data.message,
+          })
+          setTimeout(function () {
             that.setData({
-              phoneError:true,
-              errorMessage:'',
-              
+              phoneError: true,
+              errorMessage: '',
+
             })
-          },2000)
-          
+          }, 2000)
         }
-      })
-  }, 
+
+      },
+      fail: (res) => {
+
+        that.setData({
+          phoneError: false,
+          errorMessage: res.message,
+        })
+        setTimeout(function () {
+          that.setData({
+            phoneError: true,
+            errorMessage: '',
+
+          })
+        }, 2000)
+
+      }
+    })
+      },
+
 })
 
 function getTime(time) {
