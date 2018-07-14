@@ -61,9 +61,9 @@
       wx:key="*this"
       class='list-item'
       data-item="{{item}}"
-      bindtap="openMeetDetail"
+      
     > 
-      <view class="top">
+      <view class="top" bindtap="openMeetDetail">
         <view>
             <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_10"></image>
         </view>

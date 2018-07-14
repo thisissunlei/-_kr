@@ -100,7 +100,11 @@ Page({
     
   },
   //预定跳转页面
-  list(){
+  list(e){
+    let rangeTime = e.currentTarget.dataset.rangetime;
+    let detail = e.currentTarget.dataset.detail;
+    wx.setStorageSync('rangeTime-c',rangeTime);
+    wx.setStorageSync('detail-c',detail);
     wx.navigateTo({
       url: '/pages/seatorderConfirmation/seatorderConfirmation'
     })
@@ -547,8 +551,8 @@ Page({
     wx.setStorageSync('rangeTime',rangeTime);
     wx.setStorageSync('detail',detail);
     wx.navigateTo({
-      // url: '/pages/orderConfirmation/orderConfirmation'
-      url: '/pages/seatorderConfirmation/seatorderConfirmation'
+      url: '/pages/orderConfirmation/orderConfirmation'
+      // url: '/pages/seatorderConfirmation/seatorderConfirmation'
     })
   },
 
