@@ -547,8 +547,7 @@ Page({
     wx.setStorageSync('rangeTime',rangeTime);
     wx.setStorageSync('detail',detail);
     wx.navigateTo({
-      // url: '/pages/orderConfirmation/orderConfirmation'
-      url: '/pages/seatorderConfirmation/seatorderConfirmation'
+      url: '/pages/orderConfirmation/orderConfirmation'
     })
   },
 
