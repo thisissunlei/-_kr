@@ -1,9 +1,8 @@
 <!--index.wxml-->
 <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;width:100%;height:100%;opacity:0;'></button>
 <view class="container container-wrapper">
-
+  <!-- 头部信息 -->
   <view class="idx_header">
-    <!-- 头部信息 -->
     <view class="title-msg">
       <view class="E-title">
         <view style="display: flex;">
@@ -22,10 +21,11 @@
     </view>
 
   </view>
+  <!-- 轮播图 -->
   <view class="metting-wrap">
 
     <view class="metting" wx:if="{{metting}}">
-      <!-- <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image> -->
+      <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
       <swiper interval="{{interval}}" autoplay="true" circular="true" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF"
         indicator-active-color='rgba(255,198,52,100)' class="swiper-box">
         <block wx:for="{{myMeeting}}" wx:key="{{item.id}}">
@@ -69,7 +69,7 @@
 
 
     </view>
-
+    <!-- 新人引导 -->
     <view class="adver">
       <view class="adver1" bindtap="point">
         <image src="../images/indexImg/banner1.png"></image>
@@ -100,7 +100,7 @@
 
     </view>
     <view class="community-wrapper">
-      <!-- 已开放 -->
+      <!-- 已开放大厦 -->
       <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom" wx:key="{{buildingList}}">
         <view class="community_pic">
           <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50"></image>
@@ -128,7 +128,7 @@
       </view>
     </view>
 
-    <!-- 未开放 -->
+    <!-- 未开放大厦 -->
     <view class='community noopen' wx:for="{{noOpenBuilding}}" data-id="{{item.communityId}}" wx:key="{{noOpenBuilding}}">
       <view class="buildImg">
         <image src="{{item.buildImgUrl}}" class="community_pic"></image>
