@@ -2,23 +2,14 @@
   "pages": [
     "pages/index/index",
     "pages/mysanzuo/mysanzuo",
-
     "pages/city/city",
-
     "pages/map/map",
-
     "pages/logs/logs",
-
     "pages/meetingTem/meetingTem",
-
     "pages/meetingStatus/meetingStatus",
-
     "pages/paySuccess/paySuccess",
-
     "pages/orderConfirmation/orderConfirmation",
-
     "pages/meetingDetail/meetingDetail",
-
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
     "pages/myOrder/myOrder",

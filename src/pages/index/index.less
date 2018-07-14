@@ -185,10 +185,10 @@
   padding: 0 50rpx;
 }
 .metting .wait {
-  background-image: linear-gradient(46deg, #f79c1c 0%, #fad961 100%);
+  background-image: linear-gradient(46deg, #fad961 0%, #f79c1c 100%);
 }
 .metting .already {
-  background-image: linear-gradient(45deg, #6176ff 0%, #96cbff 100%);
+  background-image: linear-gradient(45deg, #96cbff 0%, #6176ff 100%);
 }
 .metting .overdue {
   background-image: linear-gradient(44deg, #b1b3c9 0%, #7c7890 100%);
@@ -319,27 +319,28 @@
 }
 .location {
   margin-bottom: 24rpx;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
 }
 .lct_con {
-  width: 320rpx;
-  height: 79rpx;
+  width: 340rpx;
+  height: 60rpx;
   font-size: 26rpx;
   color: #666666;
+  line-height: 40rpx;
   font-family: PingFangSC-Regular;
+  font-weight: normal;
   display: flex;
   align-items: center;
 }
 .lct_txt {
-  display: block;
-  width: inherit;
-  height: inherit;
+  width: 270rpx;
+  height: 60rpx;
+  line-height: 60rpx;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  white-space: nowrap;
 }
 .lct_distance {
   font-family: PingFangSC-Regular;
@@ -347,8 +348,7 @@
   color: #666666;
   letter-spacing: 0;
   height: 60rpx;
-  width: 80rpx;
-  display: block;
+  line-height: 60rpx;
 }
 .room_num {
   font-size: 26rpx;
@@ -392,7 +392,7 @@
 .price {
   width: 170rpx;
   height: 48rpx;
-  margin-top: 32rpx;
+  margin-top: 24rpx;
   font-size: 26rpx;
   color: #ff6868;
   line-height: 26rpx;

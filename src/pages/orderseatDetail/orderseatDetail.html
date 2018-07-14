@@ -1,7 +1,7 @@
 <view class="g-order-confirmation" :style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
     <!--订单号-->
     <view class="m-order-info">
-        <view class="u-order-code">订单号：{{detailInfo.orderNo}}</view>
+        <view class="u-order-code">订单号：{{orderId}}</view>
         <view class="u-order-info-time">{{detailInfo.ctime}}</view>
     </view>
     <view class="m-order-header">
@@ -25,6 +25,7 @@
             <view class="u-user-date" bindtap="closeDialogDate">
                 <view class="u-time-title">数量</view>
                 <view class="u-no-time u-no-num">{{num}}个</view>
+                <view class="u-time-d"></view>
             </view>
             <view class="u-user-hour" bindtap="closeDialogDate">
                 <view class="u-time-title">使用日期</view>
@@ -49,7 +50,20 @@
            
           </view>
           <!--应付款-->
-          <view class="u-meeting-theme" bindtap="jumpSetTheme">
+          <view class="u-meeting">
+            <view class="u-left">应付款</view>
+            <view class="u-right">
+                <view class="u-right-top">
+                    <view class="u-right-top-left" style="font-size: 38rpx">¥ {{meetingDetail.promotionCost * num}} </view>
+                    <view class="u-right-top-right">¥ {{meetingDetail.unitCost * num}} </view>
+                </view>
+                <view wx:if="{{dialogShow}}" class="u-bottom">
+                        （新人专享）2小时超值体验
+                </view>
+            </view>
+
+          </view>
+          <!-- <view class="u-meeting-theme">
                 <view class="u-meeting-title u-meeting-titles">
                          应付款
                 </view>
@@ -58,9 +72,13 @@
                         <view class="u-meet-unit">¥</view>
                         <view class="u-meet-detail-num"> {{meetingDetail.promotionCost * num}}</view>
                         <view class="u-meet-old-num">¥ {{meetingDetail.unitCost * num}}</view>
+                        <view  wx:if="{{!dialogShow}}">
+                                （新人专享）2小时超值体验
+                        </view>
                 </view>
+               
                 </view>
-            </view>
+          </view> -->
 
     </view>
     
@@ -99,6 +117,7 @@
             <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
         </view>
     </view>
+    
 
     <!-- 隐藏的 预计到场时间 -->
     <view class="section" wx:if="{{timeFlag}}">
@@ -185,19 +204,20 @@
       </view>
     </view>
   </view>
+
   <!--底部-->
   <view class="u-footer">
         <view class="u-footer-btn-list">
-            <view  class="u-footer-color-btn" bindtap="payOrder"> 
+            <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}"> 
                 立即支付
             </view>
-            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn yaoqing" style="border:none">邀请参会人</button>
+            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn yaoqing" style="border:none">赠送入场券</button>
             <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
-                    查看会议
+                    查看散座
             </view>
             <button class="u-my-contact-btn" open-type="contact">联系客服</button>
         </view>
-        <view class="u-count-down" >
+        <view class="u-count-down" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}">
             <image class="u-time-icon" src="../images/public/clock_icon.png"></image>
             <view class="u-count-time-txt">剩余时间</view>
             <view class="u-count-time">
