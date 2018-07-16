@@ -8,79 +8,11 @@ Page({
     second:'',
     error:true,
     errorMessage:'',
-    arr:['第四','第二','第一','第三','第二','第三','第四','第一','第四','第一','第二'],
     page:1,
-    // arr:['散座','会议','散座','会议','会议','散座','散座'],
     orderOldList:[],
     totalPages:0,
-    list:[
-      // {
-      //   "buildName":"测试内容6n27",
-      //   "capacity":"20",
-      //   "ctime":new Date().getTime()/1000+300,new Date().getTime()/1000+300,
-      //   "imgUrl":"测试内容5s1e",
-      //   "meetingRoomName":"测试内容sdqr",
-      //   "meetingTIme":"测试内容pr46111",
-      //   "orderId":1,
-      //   "orderShowStatus":'TOBEUSED',
-      //   "orderStatusDesc":"测试内容it12",
-      //   "payStatus":"测试内容58w2",
-      //   "ctime":"1531459166000"
-      // },
-      {
-        "bulidName": "测试内容154h",
-        "capacity": "测试内容v2th",
-        "cost": "测试内容gyh3",
-        "ctime": 1531459166000,
-        "expiredTime": {},
-        "floor": "测试内容euyp",
-        "imgUrl": "测试内容4812",
-        "meetingRoomName": "测试内容2j2j",
-        "meetingTIme": "测试内容2367",
-        "orderId": 37455,
-        "orderShowStatus": 47475,
-        "orderStatusDesc": "测试内容1e92",
-        "orderType": {name:"会议室"},
-        "payStatus": "REFUND",
-        "seatNum": 13053,
-        "seatTime": "测试内容p1du"
-      },{
-        "bulidName": "测试内容154h",
-        "capacity": "测试内容v2th",
-        "cost": "测试内容gyh3",
-        "ctime": 1531459166000,
-        "expiredTime": {},
-        "floor": "测试内容euyp",
-        "imgUrl": "测试内容4812",
-        "meetingRoomName": "测试内容2j2j",
-        "meetingTIme": "测试内容2367",
-        "orderId": 37455,
-        "orderShowStatus": 47475,
-        "orderStatusDesc": "测试内容1e92",
-        "orderType": {name:"散座"},
-        "payStatus": "PAID",
-        "seatNum": 13053,
-        "seatTime": "测试内容p1du"
-      },{
-        "bulidName": "测试内容154h",
-        "capacity": "测试内容v2th",
-        "cost": "测试内容gyh3",
-        "ctime": 1531459166000,
-        "expiredTime": {},
-        "floor": "测试内容euyp",
-        "imgUrl": "测试内容4812",
-        "meetingRoomName": "测试内容2j2j",
-        "meetingTIme": "测试内容2367",
-        "orderId": 37455,
-        "orderShowStatus": 47475,
-        "orderStatusDesc": "测试内容1e92",
-        "orderType": {name:"会议室"},
-        "payStatus": "WAIT",
-        "seatNum": 13053,
-        "seatTime": "测试内容p1du"
-      },
-    ],
     type:'',
+    list:[],
     number:'0',
     tabList:{
         'ALL':'0',
@@ -89,14 +21,78 @@ Page({
         'USED':'3',
         'CLOSED':'4'
     },
+    push:[
+      {
+        buildName:"散座测试兆泰国际中心 3层",
+        capacity:"5",
+        cost:"30.00",
+        ctime:1531459166000,
+        expiredTime:1531459466000,
+        floor:"3",
+        imgUrl:"https://img.krspace.cn/app/common/public/img/0/2018/06/07/222205529lWfkuRH.jpg",
+        meetingRoomName:"3H",
+        meetingTIme:"07-13(周五)   18:30-19:00",
+        orderId:187,
+        orderShowStatus:"OBLIGATION",
+        orderStatusDesc:"待支付",
+        payStatus:"OBLIGATION"
+      },
+      {
+        buildName:"散座2测试兆泰国际中心 3层",
+        capacity:"5",
+        cost:"30.00",
+        ctime:1531459166000,
+        expiredTime:1531459466000,
+        floor:"3",
+        imgUrl:"https://img.krspace.cn/app/common/public/img/0/2018/06/07/222205529lWfkuRH.jpg",
+        meetingRoomName:"3H",
+        meetingTIme:"07-13(周五)   18:30-19:00",
+        orderId:187,
+        orderShowStatus:"TOBEUSED",
+        orderStatusDesc:"带使用",
+        payStatus:"OBLIGATION"
+      },
+      {
+        buildName:"散座3测试兆泰国际中心 3层",
+        capacity:"5",
+        cost:"30.00",
+        ctime:1531459166000,
+        expiredTime:1531459466000,
+        floor:"3",
+        imgUrl:"https://img.krspace.cn/app/common/public/img/0/2018/06/07/222205529lWfkuRH.jpg",
+        meetingRoomName:"3H",
+        meetingTIme:"07-13(周五)   18:30-19:00",
+        orderId:187,
+        orderShowStatus:"USED",
+        orderStatusDesc:"已完成",
+        payStatus:"OBLIGATION"
+      },
+      {
+        buildName:"散座4测试兆泰国际中心 3层",
+        capacity:"5",
+        cost:"30.00",
+        ctime:1531459166000,
+        expiredTime:1531459466000,
+        floor:"3",
+        imgUrl:"https://img.krspace.cn/app/common/public/img/0/2018/06/07/222205529lWfkuRH.jpg",
+        meetingRoomName:"3H",
+        meetingTIme:"07-13(周五)   18:30-19:00",
+        orderId:187,
+        orderShowStatus:"CLOSED",
+        orderStatusDesc:"已取消",
+        payStatus:"OBLIGATION"
+      }
+    ],
     toView: 'red',
     scrollTop: 0,
     page:1
   },
+  //请求条数
   lower: function(e) {
+    console.log(this.data.totalPages)
     console.log('lower',e)
     let type=this.data.type;
-    let page = ++this.data.page;
+    let page = ++this.data.page;//1,2,3,...
     let totalPages = this.data.totalPages;
     console.log(this.data.orderOldList.length,10*page)
     if(page>totalPages){
@@ -110,8 +106,9 @@ Page({
   /*onShareAppMessage: function() {
     return app.globalData.share_data;
   },*/
-
+  //点击传参
   changeType:function(e){
+    console.log(e)
     let that = this;
     let data = e.target.dataset;
     let type = data.type;
@@ -127,7 +124,10 @@ Page({
       that.getData(type,1)
     })
   },
+  //初始化加载
   onLoad: function (options) {
+    
+    console.log(options)
     let type= options.orderShowStatus;
     let number = this.data.tabList[type];
     this.setData({
@@ -136,6 +136,7 @@ Page({
     })
     this.getData(type)
   },
+  //页面重复加载
   onShow: function (options) {
     this.setData({
       orderOldList:[],
@@ -145,6 +146,7 @@ Page({
     })
     this.getData()
   },
+  //倒计时
   dealTime(e){
     var dates=new Date();
     var nowtime=Math.round(e-dates.getTime());
@@ -156,6 +158,7 @@ Page({
       second:second
     }
   },
+  //请求订单列表数据
   getData:function(type,page){
     let that = this;
     type = type || this.data.type;
@@ -169,15 +172,6 @@ Page({
         },
         success:(res)=>{
           console.log(res)
-          //自己加的-------
-          
-          console.log('res',res.data.data.items)
-          res.data.data.items.forEach((element,index) => {
-            res.data.data.items[index].ff = this.data.arr[index]
-          });
-          console.log(res.data.data.items)
-        //---------------
-
           let oldList = []
           if(res.data.code>0){
             var list = []
@@ -211,8 +205,9 @@ Page({
         }
       })
   },
+  //在线支付
   orderPay(e){
-   
+   console.log(e)
     let id = e.target.dataset.order;
     let that = this;
     app.getRequest({

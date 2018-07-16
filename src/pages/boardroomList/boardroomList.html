@@ -9,7 +9,15 @@
     </block>
   </view> -->
   <!-- 图片 -->
-  <view><image src='{{boardroomList[0].imgUrl}}' style="height:374rpx"></image></view>
+  <!-- <view><image src='{{boardroomList[0].imgUrl}}' style="height:374rpx"></image></view> -->
+  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img">  
+      <block wx:for="{{boardroomList}}" wx:for-index="index">  
+        <swiper-item>  
+          <image src="{{item.imgUrl}}" style="height:374rpx;width:100%;"/>  
+        </swiper-item>  
+      </block>  
+    </swiper>
+    <!-- <image wx:for='{{boardroomList}}' src='{{item.imgUrl}}' style="height:374rpx"></image> -->
   <!-- 日历部分 -->
   <view class="top-date" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
     <scroll-view style="width:656rpx" scroll-x scroll-left="{{dateScrollLeft}}">
@@ -36,7 +44,7 @@
       </view>
   </view>
 
-  <view class="san-zuo">散座</view>
+  <view class="san-zuo"><view class="num_num">散座 <view class="child"></view> </view></view>
   <!-- <view class="san-zuo-one" wx:for='{{arr}}'>
     <image src='{{item.imgUrl}}' class="sanzuo-img"></image>
     <view class="sanzuo-box">
@@ -113,7 +121,7 @@
       
     </view>
 </scroll-view>
-  <view class="san-zuo">会议室</view>
+<view class="san-zuo"><view class="num_num1">会议室 <view class="child"></view> </view></view>
   <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom">
       <view 
         wx:for="{{boardroomList}}"

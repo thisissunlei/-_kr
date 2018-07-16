@@ -22,12 +22,12 @@
         </view>
         <!-- 数量 与 使用日期 -->
         <view class="u-order-time">
-            <view class="u-user-date" bindtap="closeDialogDate">
+            <view class="u-user-date">
                 <view class="u-time-title">数量</view>
                 <view class="u-no-time u-no-num">{{num}}个</view>
                 <view class="u-time-d"></view>
             </view>
-            <view class="u-user-hour" bindtap="closeDialogDate">
+            <view class="u-user-hour" >
                 <view class="u-time-title">使用日期</view>
                 <view class="u-no-time u-no-times">
                     2天
@@ -51,7 +51,7 @@
           </view>
           <!--应付款-->
           <view class="u-meeting">
-            <view class="u-left">应付款</view>
+            <view class="u-left">应付款{{payTitle}} </view>
             <view class="u-right">
                 <view class="u-right-top">
                     <view class="u-right-top-left" style="font-size: 38rpx">¥ {{meetingDetail.promotionCost * num}} </view>
@@ -208,10 +208,10 @@
   <!--底部-->
   <view class="u-footer">
         <view class="u-footer-btn-list">
-            <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}"> 
+            <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus!='OBLIGATION'}}"> 
                 立即支付
             </view>
-            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn yaoqing" style="border:none">赠送入场券</button>
+            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
             <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
                     查看散座
             </view>

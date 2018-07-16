@@ -8,7 +8,8 @@ Page({
         arrvingCount:0,
         id:82182,
         join:false,
-        meetingRoomName:"兆泰国际中心 3层 (氪空间) | 3I会议室",
+        thebuildFoorDescme:"兆泰国际中心 3层 (氪空间) | 3I会议室",
+        
         meetingStatus:"WAIT",
         meetingTime:"07-13(今天)   18:30-19:00",
         orderId:0,
@@ -17,8 +18,9 @@ Page({
       },
       { address:"北京市朝阳区朝外西街3号兆泰国际中心C座",
       arrvingCount:0,
-      id:82182,
-      join:false,meetingRoomName:"兆泰国际中心 3层 (氪空间) | 3I会议室",
+      id:82183,
+      join:false,
+      thebuildFoorDescme:"兆泰国际中心 3层 (氪空间) | 3I会议室",
       meetingStatus:"ARRVING",
       meetingTime:"07-13(今天)   18:30-19:00",
       orderId:0,
@@ -27,7 +29,6 @@ Page({
     }
     ],
     bg:'../images/my/bg.png'
-    
   },
   /*onShareAppMessage: function() {
     return app.globalData.share_data;

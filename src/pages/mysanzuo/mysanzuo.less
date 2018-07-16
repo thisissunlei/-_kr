@@ -1,14 +1,21 @@
 /**index.wxss**/
 page{
 	height: 100%;
+	-webkit-user-select:none;
+	user-select:none;
+	width:100%;
+	overflow-x:hidden;
+	
 }
+
 .my-meeting-list{
-	padding:40rpx 36rpx;
+	padding:40rpx 60rpx;
 	padding-bottom: 100rpx;
 	background-color: #F3F3F3;
 	min-height: 100%;
 	display: block;
 	box-sizing: border-box;
+	
 }
 .bgc{
 	position: absolute;
@@ -16,18 +23,32 @@ page{
 	height: 100%;
 	left: 0;
 }
+.bgc-b{
+	position: absolute;
+	width: 10%;
+	height: 10%;
+	right: 0;
+}
+.bgc-c{
+	position: absolute;
+	width: 10%;
+	height: 10%;
+	right: 0;
+}
 .box{
 	position: relative;
 	background: #FFFFFF;
 	box-shadow: 0 12rpx 24rpx 0 rgba(149,149,149,0.30);
 	border-radius: 16rpx;
-	min-height: 376rpx;
+	min-height: 336rpx;
 	display: inline-block;
 	text-align: center;
 	background-size:cover;
 }
 .list-box+.list-box{
+	width: 100%;
 	margin-top:40rpx;
+	
 }
 .detail{
 	display: block;
@@ -76,7 +97,7 @@ page{
 	display:flex;
 	min-height: 160rpx;
 	flex-direction:column;
-	padding:24rpx 46rpx;
+	padding:24rpx 46rpx 0rpx 46rpx;
 	box-sizing:border-box;
 	justify-content:space-around;
 	display:inline-block;
@@ -122,9 +143,4 @@ page{
 .my-meeting-list-none{
 	background-color: #fff;
 }
-
-
-
-
-
-
+.navigator{width: 100%;}

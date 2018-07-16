@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
@@ -28,7 +29,7 @@
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
     "pages/orderseatDetail/orderseatDetail",
-    "pages/seatorderConfirmation/seatorderConfirmation"
+    "pages/seatorderConfirmation/seatorderConfirmation" 
   ],
   "window": {
     "backgroundTextStyle": "light",
