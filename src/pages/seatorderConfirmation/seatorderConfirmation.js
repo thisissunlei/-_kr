@@ -67,7 +67,7 @@ Page({
     }, {
       message: 'bar'
     }],
-    date_data1:[],
+    date_data1:[],//便利日历的两条数组
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
@@ -177,6 +177,7 @@ Page({
     },
   //  日历选择
   dateBtn :function(e){
+    console.log(e)
     let month=e.target.dataset.month
     let day=e.target.dataset.num+1
     

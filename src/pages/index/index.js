@@ -228,7 +228,7 @@ Page({
     this.getLocation();
     //页面加载
     wx.login({
-      success: function(res) {
+      success: function(res) { 
         if (res.code) {
           //发起网络请求
           wx.request({

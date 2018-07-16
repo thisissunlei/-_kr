@@ -86,7 +86,7 @@ App({
             data: {
               code: res.code
             },
-            success:function(res){
+            success:function(res){z
               that.func_bool_l = true;
               that.func_bool_l2 = true;
               app.globalData.Cookie = res.header['Set-Cookie']||res.header['set-cookie'];
