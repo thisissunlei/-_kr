@@ -3,8 +3,9 @@
 const app = getApp();
 
 Page({
-  onShareAppMessage: function() {
+  onShareAppMessage: function(res) {
     wx.reportAnalytics("sharekrmeeting");
+    console.log(res);
     return {
       title: "KrMeeting会议室，让会议更轻松、更简单",
       desc: "KrMeeting会议室",
