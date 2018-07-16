@@ -5,21 +5,28 @@ const app = getApp();
 Page({
   data: {
     seatId: 1234, //我的散座穿过来的散座id
+    canInvite: true, //是否可以赠送
+    count: 2, //剩余赠送数量
+    sponsor: true, //是否是创建人
     detail: {
       address: "北京市朝阳区建国路108号北京市朝阳区建",
       bookId: "预订人id",
       buildFoorDesc: "大厦楼层地址",
-      canInvite: "是否可以赠送入场券",
+      //是否可以赠送入场券
+      canInvite: true,
+      // canInvite: false,
       inviteer: "使用人",
-      sponsor: "是否是创建人",
+      //是否是创建人
+      // sponsor: false,
+      sponsor: true,
       wechatAvatar: "微信头像",
       wechatId: "微信id",
       wechatNick: "微信昵称",
-      limitCount: 4,
+      limitCount: 0,
       openTime: "06-07 (周四）",
-      seatStatus: "EXPIRE",
-      canInvite: 1,
-      length: 2
+      //是否过期
+      seatStatus: "EXPIREDd",
+      length: 1
     },
     hint: [
       {
@@ -70,12 +77,15 @@ Page({
     }
     return app.globalData.share_data;
   },
+
   //再订一个
   goIndex: function() {
     wx.reLaunch({
       url: "../index/index"
     });
   },
+  //我不去了
+  cancelSeat: function() {},
   onLoad: function(options) {
     var that = this;
     if (that.data.detail.seatStatus === "EXPIRED") {
@@ -87,6 +97,9 @@ Page({
         null,
         "rgba(0,0,0,0.6)"
       );
+      that.setData({
+        canInvite: false
+      });
     } else {
       QR.qrApi.draw(
         "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
