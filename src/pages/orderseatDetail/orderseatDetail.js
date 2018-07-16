@@ -8,6 +8,10 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    alertTime:{},
+    arrivingTime:"",
+    linkPhone:"",
+    seatCoodlds:"",
     con:'',
     minute:'',
     second:'',
@@ -112,11 +116,15 @@ Page({
       url: app.globalData.KrUrl + 'api/gateway/krmting/order/pay',
       method: "POST",
       data: {
-        orderId: orderId
+        orderId: orderId,
+        // alertTime:alertTime,
+        // arrivingTime:arrivingTime,
+        // linkPhone:linkPhone,
+        // seatCoodlds:seatCoodlds,
       },
       success: (res) => {
         var _this = this;
-        console.log(res)
+        console.log("订单信息",res)
         wx.reportAnalytics('confirmorder')
         wx.requestPayment({
           'timeStamp': res.data.data.timestamp,
@@ -168,35 +176,8 @@ Page({
     })
   },
 
-  //  散客数量加
-  add:function(){
-    this.setData({
-      sankeNum:this.data.sankeNum+=1
-    })
-  },
-  //  散客数量减
-  jian:function(){
-    let num=this.data.sankeNum-=1
-    if(num<1){
-      num=1
-    }
-    this.setData({
-      sankeNum:num
-    })
-  },
-   // 我在想想弹窗显示隐藏
-  closeDialog: function () {
-    this.setData({
-      dialogShow: !this.data.dialogShow,
-      messageShow: true
-    })
-    let that = this
-    setTimeout(function () {
-      that.setData({
-        messageShow: false
-    })  
-    }, 2000)
-  },
+
+
   // 
   goToPay: function () {
     let data = this.data;
@@ -218,124 +199,6 @@ Page({
       this.closeDialog();
     },
     
-  dealDate: function (today_month, bool, choose_date) {
-    const week = today_month.getDay();
-    if (choose_date) {
-      this.last_btn_num = parseInt(week) + parseInt(choose_date) - 1;
-    }
-    const today = parseInt(new Date().getDate());
-    today_month.setMonth(today_month.getMonth() + 1);
-    today_month.setDate(0);
-    const day_num = today_month.getDate() + week;
-    const data = [];
-    for (var i = 0; i < day_num; i++) {
-      switch (true) {
-        case i < week:
-          data.push({
-            value: ''
-          });
-          break;
-        case i > (today + week) && bool:
-          if (i % 7 == 0 || i % 7 == 6) {
-            data.push({
-              value: i - week + 1,
-              type: 'before'
-            });
-          } else {
-            if (i == (week + choose_date - 1)) {
-              data.push({
-                value: i - week + 1,
-                type: 'active next'
-              });
-            } else {
-              data.push({
-                value: i - week + 1,
-                type: 'next'
-              });
-            }
-            
-          }
-          
-          this.all_day_num++;
-          break;
-        case i == (today + week - 1) && bool:
-          if (i % 7 == 0 || i % 7 == 6) {
-            data.push({
-              value: '今天',
-              type: 'before'
-            });
-          } else {
-            if (i == (week + choose_date - 1)) {
-              data.push({
-                value: '今天',
-                type: 'now active'
-              });
-            } else {
-              data.push({
-                value: '今天',
-                type: 'now'
-              });
-            }
-            
-          }
-          this.all_day_num++;
-          break;
-        case i == (today + week) && bool:
-          if (i % 7 == 0 || i % 7 == 6) {
-            data.push({
-              value: '明天',
-              type: 'before'
-            });
-          } else {
-            if (i == (week + choose_date - 1)) {
-              data.push({
-                value: '明天',
-                type: 'now active'
-              });
-            } else {
-              data.push({
-                value: '明天',
-                type: 'now'
-              });
-            }
-            
-          }
-          
-          this.all_day_num++;
-          break;
-        case i < (30 - this.all_day_num + week) && !bool:
-          if (i % 7 == 0 || i % 7 == 6) {
-            data.push({
-              value: i - week + 1,
-              type: 'before'
-            });
-          } else {
-            if (i == (week + choose_date - 1)) {
-              data.push({
-                value: i - week + 1,
-                type: 'active next'
-              });
-            } else {
-              data.push({
-                value: i - week + 1,
-                type: 'next'
-              });
-            }
-            
-          }
-
-          break;
-        default:
-          data.push({
-            value: i - week + 1,
-            type: 'before'
-          });
-          //this.all_day_num++;
-        }
-      }
-    return data;
-    
-  },
 
   
   onUnload: function () {
@@ -499,7 +362,7 @@ Page({
  
 
 
-    //邀请参会人
+    //邀请
     onShareAppMessage: function (res) {
       console.log(res,8888)
       if (res.from === 'button') {
@@ -515,46 +378,7 @@ Page({
       }
     },
   
-    payOrder:function(){
-      
-      let orderId=this.data.orderId;
-      app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
-        method:"POST",
-        data:{
-          orderId:orderId
-        },
-        success:(res)=>{
-    var _this=this;
-          console.log(res)
-          wx.reportAnalytics('confirmorder')
-          wx.requestPayment({
-            'timeStamp': res.data.data.timestamp,
-            'nonceStr': res.data.data.noncestr,
-            'package': res.data.data.packages,
-            'signType':res.data.data.signType,
-            'paySign': res.data.data.paySign,
-            'success':function(res){
-              wx.showLoading({
-                title: '加载中',
-                mask:true
-              })
-              setTimeout(
-                function(){
-                  _this.getInviteeId(orderId,_this.jumpPaySuccess)
-                  wx.hideLoading()
-                },1500)
-            },
-            'fail':function(res){
-            }
-          })
-        },
-        fail:(error)=>{
-            
-        }
-      })
   
-    },
     jumpPaySuccess:function(inviteeId){
       wx.navigateTo({
         url: '../paySuccess/paySuccess?inviteeId='+inviteeId
@@ -587,24 +411,30 @@ Page({
     },
     jumpMeetingStatus:function(inviteeId){
         wx.navigateTo({
-          url: '../meetingStatus/meetingStatus?inviteeId='+inviteeId
+          // url: '../meetingStatus/meetingStatus?inviteeId='+inviteeId
+          url: '../mysanzuo/mysanzuo?inviteeId='+inviteeId
         })
     },
     jumpMeet:function() {
-      let detailInfo=this.data.detailInfo;
+      wx.navigateTo({
+        url: '../mysanzuo/mysanzuo'
+      })
+
+      // let detailInfo=this.data.detailInfo;
      
-      if(detailInfo.join){
-        this.getInviteeId(detailInfo.orderId,this.jumpMeetingDetail)
-      }else{
-        this.getInviteeId(detailInfo.orderId,this.jumpMeetingStatus)
-      }
+      // if(detailInfo.join){
+      //   this.getInviteeId(detailInfo.orderId,this.jumpMeetingDetail)
+      // }else{
+      //   this.getInviteeId(detailInfo.orderId,this.jumpMeetingStatus)
+      // }
      
       
     },
   
     jumpMeetingDetail:function(inviteeId){
       wx.navigateTo({
-        url: '../meetingDetail/meetingDetail?inviteeId='+inviteeId
+        // url: '../meetingDetail/meetingDetail?inviteeId='+inviteeId
+        url: '../mysanzuo/mysanzuo?inviteeId='+inviteeId
       })
     },
    
@@ -642,20 +472,20 @@ Page({
 
   onLoad: function (options) {
     console.log(options)
-    // if(options.con){
-    //   this.setData({
-    //     orderId:options.id,
-    //     con:options.con
-    //   })
-    // }else{
-    //   this.setData({
-    //     orderId:options.id
-    //   })
-    // }
-    this.setData({
-          orderId:options.id,
-          con:options.con
-        })
+    if(options.con){
+      this.setData({
+        orderId:options.id,
+        con:options.con
+      })
+    }else{
+      this.setData({
+        orderId:options.id
+      })
+    }
+    // this.setData({
+    //       orderId:options.id,
+    //       con:options.con
+    //     })
 
 
     let num = wx.getStorageSync("num")
@@ -759,66 +589,9 @@ Page({
           });
          
           this.choose_date = res.time
-          this.initDate();
   },
 
-  initDate: function () {
-    
-    const choose_date = new Date(this.choose_date).getDate();
-    const choose_month = new Date(this.choose_date).getMonth();
-    
-    
-
-    const today_date = new Date();
-    let date1 = '',
-      date2 = '';
-    const today_month = new Date(today_date.getFullYear(), today_date.getMonth(), 1)
-    const next_month = new Date(today_date.getFullYear(), today_date.getMonth() + 1, 1)
-    if (choose_month == today_date.getMonth()) {
-      this.last_data = 'date_data1';
-      date1 = this.dealDate(today_month, true, choose_date);
-      date2 = this.dealDate(next_month, false);
-    } else if (choose_month == next_month.getMonth()) {
-      this.last_data = 'date_data2';
-      date1 = this.dealDate(today_month, true);
-      date2 = this.dealDate(next_month, false, choose_date);
-    } else {
-      date1 = this.dealDate(today_month, true);
-      date2 = this.dealDate(next_month, false);
-    }
-    var validDateNum = 0;
-    var that = this;
-    date1 = date1.map((item, index) => {
-      if (item.value && item.type != 'before') {
-        item.validDateNum = validDateNum++;
-      }
-      return item;
-    })
-    date2 = date2.map((item, index) => {
-      if (item.value && item.type != 'before') {
-        item.validDateNum = validDateNum++;
-      }
-      return item;
-    })
-    
-    const year_value = today_date.getFullYear() == new Date().getFullYear() ? '' : today_date.getFullYear() + '年';
-    this.setData({
-      date_data1: date1,
-      date_data2: date2,
-      date_now: {
-        month: today_date.getMonth() + 1,
-        year: today_date.getFullYear(),
-        value: year_value + (parseInt(today_date.getMonth()) + 1) + '月',
-        choose: ''
-      },
-      date_next: {
-        month: today_date.getMonth() + 2,
-        year: today_date.getFullYear(),
-        value: year_value + (parseInt(today_date.getMonth()) + 2) + '月',
-        choose: ''
-      }
-    });
-  },
+  
   getPhone: function () {
     var _this = this;
     app.getRequest({
@@ -1055,19 +828,19 @@ Page({
             }, 1500)
                
             },
-          'fail': function (response) {
-              wx.showLoading({
-                title: '加载中',
-              mask: true
-              })
-            setTimeout(function () {
-                wx.hideLoading();
-                wx.navigateTo({
-                url: '../orderDetail/orderDetail?id=' + data.orderId + '&con=' + 1
-                })
-            }, 1500)
+          // 'fail': function (response) {
+          //     wx.showLoading({
+          //       title: '加载中',
+          //     mask: true
+          //     })
+          //   setTimeout(function () {
+          //       wx.hideLoading();
+          //       wx.navigateTo({
+          //       url: '../orderDetail/orderDetail?id=' + data.orderId + '&con=' + 1
+          //       })
+          //   }, 1500)
                
-            },
+          //   },
            
           })
       }
@@ -1174,9 +947,9 @@ Page({
                 detailInfo:detailInfo,
                 hour:hour
             })
-              wx.setNavigationBarTitle({
-                title: titleObj[data.orderShowStatus]
-          })
+          //     wx.setNavigationBarTitle({
+          //       title: titleObj[data.orderShowStatus]
+          // })
               if(data.orderShowStatus=='OBLIGATION'){
                   _this.startcountDate(detailInfo.expiredTime);
         }
@@ -1204,9 +977,9 @@ Page({
     let timestamp=new Date().getTime();
     if(timestamp>this.data.detailInfo.expiredTime){
       console.log(this.data.titleObj)
-      wx.setNavigationBarTitle({
-        title:this.data.titleObj.CLOSED
-      })
+      // wx.setNavigationBarTitle({
+      //   title:this.data.titleObj.CLOSED
+      // })
        let orderShowStatus = 'detailInfo.orderShowStatus';
       this.setData({
         [orderShowStatus]:'CLOSED'
