@@ -29,6 +29,7 @@
     "pages/component/component",
     "pages/orderseatDetail/orderseatDetail",
     "pages/seatorderConfirmation/seatorderConfirmation" 
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
