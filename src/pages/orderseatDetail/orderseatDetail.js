@@ -8,6 +8,10 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    alertTime:{},
+    arrivingTime:"",
+    linkPhone:"",
+    seatCoodlds:"",
     con:'',
     minute:'',
     second:'',
@@ -112,11 +116,23 @@ Page({
       url: app.globalData.KrUrl + 'api/gateway/krmting/order/pay',
       method: "POST",
       data: {
+<<<<<<< HEAD
         orderId: orderId
       },
       success: (res) => {
         var _this = this;
         console.log(res)
+=======
+        orderId: orderId,
+        // alertTime:alertTime,
+        // arrivingTime:arrivingTime,
+        // linkPhone:linkPhone,
+        // seatCoodlds:seatCoodlds,
+      },
+      success: (res) => {
+        var _this = this;
+        console.log("订单信息",res)
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
         wx.reportAnalytics('confirmorder')
         wx.requestPayment({
           'timeStamp': res.data.data.timestamp,
@@ -168,6 +184,7 @@ Page({
     })
   },
 
+<<<<<<< HEAD
   //  散客数量加
   add:function(){
     this.setData({
@@ -197,6 +214,10 @@ Page({
     })  
     }, 2000)
   },
+=======
+
+
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
   // 
   goToPay: function () {
     let data = this.data;
@@ -218,6 +239,7 @@ Page({
       this.closeDialog();
     },
     
+<<<<<<< HEAD
   dealDate: function (today_month, bool, choose_date) {
     const week = today_month.getDay();
     if (choose_date) {
@@ -336,6 +358,8 @@ Page({
     return data;
     
   },
+=======
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
 
   
   onUnload: function () {
@@ -499,7 +523,11 @@ Page({
  
 
 
+<<<<<<< HEAD
     //邀请参会人
+=======
+    //邀请
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
     onShareAppMessage: function (res) {
       console.log(res,8888)
       if (res.from === 'button') {
@@ -515,6 +543,7 @@ Page({
       }
     },
   
+<<<<<<< HEAD
     payOrder:function(){
       
       let orderId=this.data.orderId;
@@ -555,6 +584,9 @@ Page({
       })
   
     },
+=======
+  
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
     jumpPaySuccess:function(inviteeId){
       wx.navigateTo({
         url: '../paySuccess/paySuccess?inviteeId='+inviteeId
@@ -587,6 +619,7 @@ Page({
     },
     jumpMeetingStatus:function(inviteeId){
         wx.navigateTo({
+<<<<<<< HEAD
           url: '../meetingStatus/meetingStatus?inviteeId='+inviteeId
         })
     },
@@ -598,13 +631,36 @@ Page({
       }else{
         this.getInviteeId(detailInfo.orderId,this.jumpMeetingStatus)
       }
+=======
+          // url: '../meetingStatus/meetingStatus?inviteeId='+inviteeId
+          url: '../mysanzuo/mysanzuo?inviteeId='+inviteeId
+        })
+    },
+    jumpMeet:function() {
+      wx.navigateTo({
+        url: '../mysanzuo/mysanzuo'
+      })
+
+      // let detailInfo=this.data.detailInfo;
+     
+      // if(detailInfo.join){
+      //   this.getInviteeId(detailInfo.orderId,this.jumpMeetingDetail)
+      // }else{
+      //   this.getInviteeId(detailInfo.orderId,this.jumpMeetingStatus)
+      // }
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
      
       
     },
   
     jumpMeetingDetail:function(inviteeId){
       wx.navigateTo({
+<<<<<<< HEAD
         url: '../meetingDetail/meetingDetail?inviteeId='+inviteeId
+=======
+        // url: '../meetingDetail/meetingDetail?inviteeId='+inviteeId
+        url: '../mysanzuo/mysanzuo?inviteeId='+inviteeId
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
       })
     },
    
@@ -642,6 +698,7 @@ Page({
 
   onLoad: function (options) {
     console.log(options)
+<<<<<<< HEAD
     // if(options.con){
     //   this.setData({
     //     orderId:options.id,
@@ -670,6 +727,36 @@ Page({
       day: day,
       week: week
       })
+=======
+    if(options.con){
+      this.setData({
+        orderId:options.id,
+        con:options.con
+      })
+    }else{
+      this.setData({
+        orderId:options.id
+      })
+    }
+    // this.setData({
+    //       orderId:options.id,
+    //       con:options.con
+    //     })
+
+
+    let num = wx.getStorageSync("num")
+    let month = wx.getStorageSync("month")
+    let day = wx.getStorageSync("day")
+    let week = wx.getStorageSync("week")
+
+
+      this.setData({
+      num: num||1,
+      month: month,
+      day: day,
+      week: week
+      })
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
 
     this.getPhone();
     var _this = this;
@@ -759,9 +846,9 @@ Page({
           });
          
           this.choose_date = res.time
-          this.initDate();
   },
 
+<<<<<<< HEAD
   initDate: function () {
     
     const choose_date = new Date(this.choose_date).getDate();
@@ -819,6 +906,9 @@ Page({
       }
     });
   },
+=======
+  
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
   getPhone: function () {
     var _this = this;
     app.getRequest({
@@ -1055,6 +1145,7 @@ Page({
             }, 1500)
                
             },
+<<<<<<< HEAD
           'fail': function (response) {
               wx.showLoading({
                 title: '加载中',
@@ -1066,8 +1157,21 @@ Page({
                 url: '../orderDetail/orderDetail?id=' + data.orderId + '&con=' + 1
                 })
             }, 1500)
+=======
+          // 'fail': function (response) {
+          //     wx.showLoading({
+          //       title: '加载中',
+          //     mask: true
+          //     })
+          //   setTimeout(function () {
+          //       wx.hideLoading();
+          //       wx.navigateTo({
+          //       url: '../orderDetail/orderDetail?id=' + data.orderId + '&con=' + 1
+          //       })
+          //   }, 1500)
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
                
-            },
+          //   },
            
           })
       }
@@ -1174,9 +1278,15 @@ Page({
                 detailInfo:detailInfo,
                 hour:hour
             })
+<<<<<<< HEAD
               wx.setNavigationBarTitle({
                 title: titleObj[data.orderShowStatus]
           })
+=======
+          //     wx.setNavigationBarTitle({
+          //       title: titleObj[data.orderShowStatus]
+          // })
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
               if(data.orderShowStatus=='OBLIGATION'){
                   _this.startcountDate(detailInfo.expiredTime);
         }
@@ -1198,6 +1308,7 @@ Page({
       },//时间结束
       that:this
     });
+<<<<<<< HEAD
   },
   //判断时间
   date:function(){
@@ -1214,6 +1325,24 @@ Page({
     
     }
   },
+=======
+  },
+  //判断时间
+  date:function(){
+    let timestamp=new Date().getTime();
+    if(timestamp>this.data.detailInfo.expiredTime){
+      console.log(this.data.titleObj)
+      // wx.setNavigationBarTitle({
+      //   title:this.data.titleObj.CLOSED
+      // })
+       let orderShowStatus = 'detailInfo.orderShowStatus';
+      this.setData({
+        [orderShowStatus]:'CLOSED'
+      })
+    
+    }
+  },
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
   getMeetDetail() {
     let that = this;
     let meetingRoomId = this.data.meetingRoomId;
@@ -1230,12 +1359,21 @@ Page({
 
           that.setData({
             meetingDetail: meetingDetail
+<<<<<<< HEAD
           })
         } else {
           that.setData({
             phoneError: false,
             errorMessage: res.data.message,
           })
+=======
+          })
+        } else {
+          that.setData({
+            phoneError: false,
+            errorMessage: res.data.message,
+          })
+>>>>>>> 67aa6f9ba5dc8fd661109ce073c23c29ea11bb8f
           setTimeout(function () {
             that.setData({
               phoneError: true,

@@ -130,35 +130,39 @@ Page({
     })
     wx.setStorageSync("num",this.data.sankeNum)
   },
-   // 我在想想的弹窗显示隐藏
+   // 我在想想
    closeDialog:function(){
     this.setData({
         dialogShow:!this.data.dialogShow,
-        messageShow:true,    
-        typeStatus:false,
-        message:'用户取消支付',
+        // messageShow:true,    
+        // typeStatus:false,
+        // message:'用户取消支付',
     })
-    let that=this
-    setTimeout(function(){
-      that.setData({
-        messageShow:false  
-    })  
-    },2000)
+  //   let that=this
+  //   setTimeout(function(){
+  //     that.setData({
+  //       dialogShow:false,
+  //       // messageShow:false  
+  //   })  
+  //   },2000)
   },
     // 立即支付按钮
     goToPay:function(){
-      this.setData({
-        messageShow:true    
-    })
-    let that=this
-    setTimeout(function(){
-      that.setData({
-        messageShow:false  
-    })  
-    },2000)
-
       let data=this.data;
       var _this=this;
+      if(!data.check){
+        this.setData({
+          checkMessage:true,
+          errorMessage:'请阅读并同意KrMeeing服务须知'
+        })
+        setTimeout(function(){
+          _this.setData({
+            checkMessage:false,
+            errorMessage:''
+          })
+        },2000)
+        return
+      }
   
       if(!data.linkPhone){
           this.setData({
@@ -173,7 +177,9 @@ Page({
           },2000)
           return
       }
+  
       this.closeDialog();
+  
     },
   //  日历选择
   dateBtn :function(e){
@@ -890,110 +896,115 @@ Page({
   // 去支付
   createOrder:function(){
 
+  //   this.setData({
+  //     dialogShow:!this.data.dialogShow,
+  //     typeStatus:true,
+  //     message:"用户支付成功",
+  //     messageShow:true    
+  // })
+  // let that=this
+  // setTimeout(function(){
+  //   that.setData({
+  //     messageShow:false  
+  // })  
+  // },2000)
     this.setData({
       dialogShow:!this.data.dialogShow,
-      typeStatus:true,
-      message:"用户支付成功",
-      messageShow:true    
-  })
-  let that=this
-  setTimeout(function(){
-    that.setData({
-      messageShow:false  
-  })  
-  },2000)
-
-    // let data=this.data;
-    // let orderData = {
-    //   alertTime:data.order_pay.alertTime || data.alertTime,
-    //   // beginTime:data.meeting_time.beginTime,
-    //   // endTime:data.meeting_time.endTime,
-    //   linkPhone:data.order_pay.linkPhone || data.linkPhone,
-    //   meetingRoomId:data.detailInfo.meetingRoomId,
-    //   themeName:data.order_pay.themeName || data.themeName
-    // }
-    // wx.showLoading({
-    //   title: '加载中',
-    //   mask:true
-    // })
+    })
     
-    // var _this=this;
-    //     app.getRequest({
-    //       url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
-    //       methods:"GET",
-    //       header:{
-    //         'content-type':"appication/json"
-    //       },
-    //       data:orderData,
+    let data=this.data;
+    let orderData = {
+      alertTime:data.order_pay.alertTime || data.alertTime,
+      arrivingTime:data.arrivingTime,
+      // beginTime:data.meeting_time.beginTime,
+      // endTime:data.meeting_time.endTime,
+      linkPhone:data.order_pay.linkPhone || data.linkPhone,
+      // meetingRoomId:data.detailInfo.meetingRoomId,
+      // themeName:data.order_pay.themeName || data.themeName
+      seatGoodls:data.seatGoodls
+    }
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
+    
+    var _this=this;
+        app.getRequest({
+          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          methods:"GET",
+          header:{
+            'content-type':"appication/json"
+          },
+          data:orderData,
           
-    //       success:(res)=>{
-    //         let code=res.data.code;
-    //         setTimeout(function(){
-    //           wx.hideLoading();
-    //         },1500)
-    //         switch (code){
-    //           case -1:
-    //               this.setData({
-    //                 checkMessage:true,
-    //                 errorMessage:res.data.message
-    //               })
-    //               setTimeout(function(){
-    //                 _this.setData({
-    //                   checkMessage:false,
-    //                   errorMessage:''
-    //                 })
-    //               },2000)
-    //           break;
-    //           case -2:
-    //             wx.setStorage({
-    //               key:"create_order",
-    //               data: {
-    //                 create_order:orderData
-    //               },
-    //             })
-    //               wx.navigateTo({
-    //                 url: '../bindPhone/bindPhone'
-    //               })
-    //           break;
-    //           case -3:
-    //               this.setData({
-    //                 checkMessage:true,
-    //                 errorMessage:res.data.message,
-    //                 selectedTime:[],
-    //                 meeting_time:{
-    //                   time:'',
-    //                   beginTime:'',
-    //                   endTime:'',
-    //                   hours:0,
-    //                 }
-    //               })
-    //               setTimeout(function(){
-    //                 _this.setData({
-    //                   checkMessage:false,
-    //                   errorMessage:''
-    //                 })
-    //               },2000)
-    //           break;
-    //           default:
-    //             wx.reportAnalytics('confirmorder')
+          success:(res)=>{
+            let code=res.data.code;
+            setTimeout(function(){
+              wx.hideLoading();
+            },1500)
+            switch (code){
+              case -1:
+                  this.setData({
+                    checkMessage:true,
+                    errorMessage:res.data.message
+                  })
+                  setTimeout(function(){
+                    _this.setData({
+                      checkMessage:false,
+                      errorMessage:''
+                    })
+                  },2000)
+              break;
+              case -2:
+                wx.setStorage({
+                  key:"create_order",
+                  data: {
+                    create_order:orderData
+                  },
+                })
+                  wx.navigateTo({
+                    url: '../bindPhone/bindPhone'
+                  })
+              break;
+              case -3:
+                  this.setData({
+                    checkMessage:true,
+                    errorMessage:res.data.message,
+                    selectedTime:[],
+                    meeting_time:{
+                      time:'',
+                      beginTime:'',
+                      endTime:'',
+                      hours:0,
+                    }
+                  })
+                  setTimeout(function(){
+                    _this.setData({
+                      checkMessage:false,
+                      errorMessage:''
+                    })
+                  },2000)
+              break;
+              default:
+                wx.reportAnalytics('confirmorder')
 
-    //             _this.weChatPay(res.data.data);
-    //             _this.closeDialog();
-    //               wx.setStorage({
-    //                 key:"order_pay",
-    //                 data:{},
-    //                 success:function(){
-    //                     _this.setData({
-    //                       order_pay:{}
-    //                     })
-    //                 }
-    //               })
-    //           break;
-    //         } 
+                _this.weChatPay(res.data.data);
+                // _this.closeDialog();
+                  wx.setStorage({
+                    key:"order_pay",
+                    data:{},
+                    success:function(){
+                        _this.setData({
+                          order_pay:{}
+                        })
+                    }
+                  })
+              break;
+            } 
 
-    //       },
+          },
           
-    //     })
+        })
        
   },
   weChatPay:function(data){
@@ -1009,11 +1020,13 @@ Page({
       },
       success:(res)=>{
           wx.requestPayment({
-            'timeStamp':data.timestamp ,
             'nonceStr': data.noncestr,
+            'orderld':data.orderld,
+            
             'package': data.packages,
-            'signType': data.signType,
             'paySign': data.paySign,
+            'signType': data.signType,
+            'timeStamp':data.timestamp ,
             'success':function(response){
                 wx.showLoading({
                   title: '加载中',
