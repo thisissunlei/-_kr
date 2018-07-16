@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/city/city",
     "pages/map/map",
