@@ -52,13 +52,13 @@ Page({
     order_pay:{},
     priceCount:'0',
     totalCount:'0',
-    detailInfo:{},
+    detailInfo:{},//初始化遍历对象
     orderDate:{},
     meeting_time:{},
     isFirst:true,
     errorMessage:'',
     checkMessage:false,
-    dialogDate:false,
+    dialogDate:false,//判断门板是否显示
     nowDateIndex:wx.getStorageSync('nowDateIndex'),
     topDate:wx.getStorageSync('topDate'),
 
@@ -178,7 +178,7 @@ Page({
   //  日历选择
   dateBtn :function(e){
     console.log(e)
-    let month=e.target.dataset.month
+    let month=e.target.dataset.month//月份
     let day=e.target.dataset.num+1
     
     this.setData({
@@ -640,6 +640,7 @@ Page({
         wx.getStorage({
           key:'detail',
           success:function(res){
+            console.log(res)
             if(res.data){
               _this.setData({
                   detailInfo:res.data

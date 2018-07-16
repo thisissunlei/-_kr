@@ -1,26 +1,17 @@
 {
   "pages": [
+    
     "pages/index/index",
-
     "pages/mysanzuo/mysanzuo",
 
     "pages/city/city",
-
     "pages/map/map",
-
     "pages/logs/logs",
-
-
     "pages/meetingTem/meetingTem",
-
     "pages/meetingStatus/meetingStatus",
-
     "pages/paySuccess/paySuccess",
-
     "pages/orderConfirmation/orderConfirmation",
-
     "pages/meetingDetail/meetingDetail",
-
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
     "pages/myOrder/myOrder",
@@ -38,7 +29,7 @@
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
     "pages/orderseatDetail/orderseatDetail",
-    "pages/seatorderConfirmation/seatorderConfirmation"
+    "pages/seatorderConfirmation/seatorderConfirmation" 
   ],
   "window": {
     "backgroundTextStyle": "light",

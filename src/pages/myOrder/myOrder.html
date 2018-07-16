@@ -32,7 +32,8 @@
 			
 			<view wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box" >
 				
-				<navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
+				<!-- <navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}"> -->
+				<navigator class="content-box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
 					
 					<view class="left">
 			  			<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
@@ -55,7 +56,8 @@
 	  				<view class="button" bindtap="orderPay" data-order="{{item.orderId}}">立即支付</view>
 				</view>
 	  		</view>
-	  		<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
+	  		<!-- <navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}"> -->
+	  		<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
 		  		<view class="left">
 		  			<image class="order-img"  src="{{item.imgUrl}}"  mode="aspectFill"></image>
 		  		</view>

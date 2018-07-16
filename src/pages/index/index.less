@@ -185,10 +185,10 @@
   padding: 0 50rpx;
 }
 .metting .wait {
-  background-image: linear-gradient(46deg, #fad961 0%, #f79c1c 100%);
+  background-image: linear-gradient(46deg, #f79c1c 0%, #fad961 100%);
 }
 .metting .already {
-  background-image: linear-gradient(45deg, #96cbff 0%, #6176ff 100%);
+  background-image: linear-gradient(45deg, #6176ff 0%, #96cbff 100%);
 }
 .metting .overdue {
   background-image: linear-gradient(44deg, #b1b3c9 0%, #7c7890 100%);
@@ -319,28 +319,27 @@
 }
 .location {
   margin-bottom: 24rpx;
-  overflow: hidden;
   display: flex;
   justify-content: space-between;
 }
 .lct_con {
-  width: 340rpx;
-  height: 60rpx;
+  width: 320rpx;
+  height: 79rpx;
   font-size: 26rpx;
   color: #666666;
-  line-height: 40rpx;
   font-family: PingFangSC-Regular;
-  font-weight: normal;
   display: flex;
   align-items: center;
 }
 .lct_txt {
-  width: 270rpx;
-  height: 60rpx;
-  line-height: 60rpx;
+  display: block;
+  width: inherit;
+  height: inherit;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 .lct_distance {
   font-family: PingFangSC-Regular;
@@ -348,7 +347,8 @@
   color: #666666;
   letter-spacing: 0;
   height: 60rpx;
-  line-height: 60rpx;
+  width: 80rpx;
+  display: block;
 }
 .room_num {
   font-size: 26rpx;
@@ -392,7 +392,7 @@
 .price {
   width: 170rpx;
   height: 48rpx;
-  margin-top: 24rpx;
+  margin-top: 32rpx;
   font-size: 26rpx;
   color: #ff6868;
   line-height: 26rpx;
@@ -415,4 +415,58 @@
 }
 .noopen:last-child {
   border-bottom: none;
+}
+.page-box {
+  display: inline-block;
+  width: 46rpx;
+  height: inherit;
+  margin-right: 36rpx;
+}
+.page-map {
+  display: inline-block;
+  width: 46rpx;
+  height: 24.8rpx;
+  border-radius: 10rpx;
+  border: 1px solid #333333;
+  position: relative;
+}
+.page-water {
+  display: block;
+  width: 28rpx;
+  height: 28rpx;
+  background: #ffffff;
+  border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+  border: 1px solid #333333;
+  transform: rotate(135deg);
+  position: absolute;
+  top: -20rpx;
+  left: 7rpx;
+}
+.page-point {
+  display: block;
+  width: 14rpx;
+  height: 14rpx;
+  border: 1px solid #f5a623;
+  border-radius: 50%;
+  position: absolute;
+  top: -14rpx;
+  left: 13.8rpx;
+}
+.contact {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 20rpx;
+  bottom: 20rpx;
+  z-index: 999;
+}
+.contact image {
+  width: 50rpx;
+  height: 50rpx;
 }
