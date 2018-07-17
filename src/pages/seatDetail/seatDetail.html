@@ -6,33 +6,27 @@
                 <!-- 背景大图 -->
                 <image src="../images/indexImg/card.png" class="img"></image>
                 <!-- 已过期png -->
-                <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
+                <image src="../images/public/passdue.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
+                <!-- <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image> -->
                 <view class="content">
                     <view class='title'>
                         <text class='meetingTime'>{{detail.openTime}}</text>
                         <text class="themeName">住邦2000-2号楼5层氪空间</text>
                     </view>
                     <view class='pics'>
-                        <view class="shade">
-                            <view class="code-pic">
-                                <!-- 已过期边框 -->
-                                <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
-                                <!-- 未过期边框 -->
-                                <image src="../images/indexImg/code.png" wx:if="{{detail.seatStatus!=='EXPIRED'}}" class="img"></image>
-                                <view class="img-box">
-                                    <canvas bindtap="previewImg" hidden="{{canvasHidden}}" canvas-id="mycanvas" class="mycanvas" />
-                                    <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
-                                </view>
-                            </view>
-                            <view class="code-desc">请入场时出示此二维码</view>
+                        <view class="code-pic">
+                            <!-- 已过期边框 -->
+                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
+                            <!-- 未过期边框 -->
+                            <image src="../images/indexImg/code.png" wx:if="{{detail.seatStatus!=='EXPIRED'}}" class="img"></image>
+                            <canvas canvas-id="mycanvas" class="mycanvas" />
                         </view>
+                        <view class="code-desc">请入场时出示此二维码</view>
                     </view>
                     <view class='bottom_text'>
-                        <!-- <text class="metting-house">{{meetingDetailData.meetingRoomName}}</text> -->
-                        <view class='icons address-detail'>
+                        <view class='icons'>
                             <image src='../images/indexImg/dizhi2.png'></image>
                             {{detail.address}}
-                            <!-- <span class="address-detail"></span> -->
                         </view>
                     </view>
                 </view>
@@ -40,14 +34,13 @@
         </view>
         <!-- 同行人 -->
         <view class='conferee'>
-            <text class='conferee-title'>同行人({{detail.limitCount}})</text>
-            <!-- <template is="conferee" data="{{inviteers}}"></template> -->
-            <block wx:for="{{inviteers}}" wx:key="{{inviteers}}">
+            <text class='conferee-title'>同行人({{count}})</text>
+            <block>
                 <view class='list'>
                     <view class='pic'>
-                        <image src="{{item.wechatAvatar}}"></image>
+                        <image src="{{imgsrc}}"></image>
                     </view>
-                    <text>{{item.wechatNick}}</text>
+                    <text>{{name}}</text>
                     <!-- 已过期标识 -->
                     <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true}}"></image>
                     <!-- 确认到场 -->
