@@ -66,27 +66,27 @@
                 </view>
             </block>
         </view>
-        <!-- 非邀请 -->
-        <view class='footer' wx:if="{{detail.seatStatus!='EXPIRED'}}">
-            <!-- <text class="cancel-meeting" bindtap="cancelMeeting">取消参会</text> -->
-            <view class='btns'>
-                <button open-type="contact" session-from="weapp" class='kefu'>
-                    <text>联系客服</text>
-                </button>
-                <button wx:if="{{detail.canInvite==1}}" open-type="share" id="share" style="border-style:none;border-width: 0px;">
-                    <text class='yaoqing'>赠送入场券({{detail.limitCount}}张)</text>
-                </button>
-                <button wx:if="{{detail.canInvite==0}}" bindtap="goIndex" class="reserve">
-                    <text class='yuding'>再订一个</text>
-                </button>
-            </view>
+        <!-- 预订人 -->
+        <view class="footer" wx:if="{{sponsor}}">
+            <button open-type="contact" class="contact">
+                <text>联系客服</text>
+            </button>
+            <button wx:if="{{canInvite && count > 0}}" open-type="share" id="share">
+                <text>赠送入场券({{count}})张</text>
+            </button>
+            <button wx:if="{{!canInvite || count == 0}}" class="reserve-again" bindtap="goIndex">
+                <text>再订一个</text>
+            </button>
         </view>
-        <!-- 邀请 -->
-        <view class='footer' wx:if="{{detail.seatStatus==='EXPIRED'}}">
-            <text class="cancel-meeting" bindtap="cancelMeeting">我不去了</text>
-            <view class='btns'>
-                <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;">
+        <!-- 受邀人 -->
+        <view class="footer invitee" wx:if="{{!sponsor}}">
+            <text class="cancel-seat" bindtap="cancelSeat" wx:if="{{detail.seatStatus!='EXPIRED'}}">我不去了</text>
+            <view class="invitee-btn">
+                <button open-type="contact" class="contact">
                     <text>联系客服</text>
+                </button>
+                <button class="reserve-again" wx:if="{{detail.seatStatus=='EXPIRED'}}" bindtap="goIndex">
+                    <text>去订一个</text>
                 </button>
             </view>
         </view>

@@ -1,6 +1,6 @@
 @import "../meetingTem/meetingTem.less";
 page {
-  background: #393f50;
+  background: #ffffff;
 }
 .content-wrap {
   width: 100%;
@@ -16,56 +16,66 @@ page {
 
 .footer {
   width: 100%;
-  height: 74rpx;
-  line-height: 74rpx;
-  padding: 30rpx 0;
-  background: #fff;
-  font-size: 13px;
+  height: 132rpx;
+  background: #ffffff;
+  box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.1);
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 9999;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
-.footer text {
-  display: inline-block;
+.contact {
   width: 166rpx;
-  text-align: center;
-  border-radius: 5px;
-  color: #666666;
-}
-.footer .btns .kefu {
-  border: 1px solid #333333;
-  margin-right: 20rpx;
+  height: 72rpx;
+  font-family: PingFangSC-Regular;
   color: #333333;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 16rpx;
+  margin-right: 18rpx;
 }
-.kefu:after {
-  border: none;
-}
-.footer .btns {
-  float: right;
-  margin-right: 32rpx;
-}
-.footer text.yaoqing {
+#share {
   width: 230rpx;
   height: 72rpx;
   background: #ffffff;
   border: 1px solid #ff6868;
   border-radius: 16rpx;
   font-family: PingFangSC-Regular;
-  font-size: 14px;
   color: #ff6868;
   text-align: center;
+  margin-right: 38rpx;
 }
-.footer text.yuding {
+.reserve-again {
+  width: 166rpx;
+  height: 72rpx;
   background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
-  font-family: PingFangSC-Regular;
-  font-size: 28rpx;
   border-radius: 16rpx;
+  font-family: PingFangSC-Regular;
   color: #624d17;
   text-align: center;
+  margin-right: 32rpx;
 }
-.reserve::after {
-  border: none;
+.invitee {
+  justify-content: space-between;
+}
+.cancel-seat {
+  width: 150rpx;
+  display: inline-block;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #333333;
+  margin-left: 32rpx;
+}
+.invitee-btn {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .clear {
   clear: both;
@@ -74,6 +84,7 @@ button {
   font-size: 28rpx;
   padding-left: 0;
   padding-right: 0;
+  margin: 0;
   display: inline-block;
   background-color: transparent;
   border-style: none;
