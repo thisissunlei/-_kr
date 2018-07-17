@@ -298,8 +298,9 @@
                     <text class="week-day">五</text>
                     <text class="week-day">六</text>
                   </view>
-                  <view class="now-date" style="padding-top:30rpx">
-                    {{date_now.value}}
+                  <!-- 当前月份 -->
+                  <view class="now-date" style="padding-top:30rpx"> 
+                    {{date_now.value}}月份
                   </view>
                   <view  catchtap="dateBtn">
                   <view wx:for="{{date_data1}}"
@@ -319,7 +320,7 @@
                   </view>
                   </view>
                    
-              
+                  <!-- 下个月月份 -->
                   <view class="now-date">
                     {{date_next.value}}
                   </view>

@@ -40,7 +40,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    KrUrl:"https://i.krspace.cn/",
+    KrUrl:"https://i.krspace.cn/test/", // test/
     Cookie:'',
     share_data:{
       title: 'KrMeeting会议室，让会议更轻松、更简单',
@@ -49,9 +49,12 @@ App({
     }
   },
   getRequest:function (data){
+    console.log(data)
     const that = this;
-    if(data.url.indexOf('api/gateway/krmting/user/save')>0){
+    if(data.url.indexOf('api/gateway/krmting/user/save')>0){//找到了(登陆成功就能找到)
+      console.log(111111111111111)
       data.data['openid'] = this.globalData.openid;
+      console.log(data)
     }
     wx.request({
       url: data.url,
@@ -62,7 +65,7 @@ App({
       },
       data: data.data,
       success:function (data_new){
-        
+        console.log(data_new)
         if(data_new.data.code==4011){
           console.log(data_new,666655555)
           that.loginAgain()

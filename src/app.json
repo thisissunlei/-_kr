@@ -1,7 +1,8 @@
 {
   "pages": [
-    
+    "pages/meeting/meeting",
     "pages/index/index",
+    
     "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/city/city",
@@ -15,7 +16,7 @@
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
     "pages/myOrder/myOrder",
-    "pages/meeting/meeting",
+    
     "pages/boardroomList/boardroomList",
     "pages/my/my",
     "pages/myMeeting/myMeeting",
@@ -28,8 +29,9 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
-    "pages/orderseatDetail/orderseatDetail",
-    "pages/seatorderConfirmation/seatorderConfirmation" 
+    "pages/seatorderConfirmation/seatorderConfirmation" ,
+    "pages/orderseatDetail/orderseatDetail"
+    
     
   ],
   "window": {
