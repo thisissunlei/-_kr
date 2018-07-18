@@ -52,6 +52,7 @@ Page({
         },
         success:(res)=>{
           let userInfo=Object.assign({},res.data.data);
+          console.log(userInfo)
               userInfo.phone=userInfo.phone
             this.setData({
                 userInfo:userInfo

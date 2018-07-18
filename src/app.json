@@ -1,8 +1,7 @@
 {
   "pages": [
-    "pages/meeting/meeting",
     "pages/index/index",
-    
+    "pages/meeting/meeting",
     "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/city/city",

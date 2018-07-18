@@ -7,8 +7,8 @@
     </view> -->
 <!-- </view>  -->
 <view class="my-meeting-list" wx:if="{{meetingList.length}}">
-        <view  wx:for="{{meetingList}}"  style="display: inline-block;" class="list-box" wx:key="{{item.id}}">
-            <navigator url="/pages/seatDetail/seatDetail?seatId={{item.id}}" class="box">
+        <view  wx:for="{{meetingList}}"  style="display: inline-block;" class="list-box"style="width:100%" wx:key="{{item.id}}">
+            <navigator url="/pages/seatDetail/seatDetail?seatId={{item.id}}" class="box navigator-hover" >
                 <image class="bgc" src="../images/my/bg.png" background-size="cover"></image>
                 <!-- <text class="status wating" wx:if="{{item.meetingStatus == 'WAIT'}}">待入场</text>
                 <text class="status expired" wx:if="{{item.meetingStatus == 'EXPIRED'}}">已过期</text>

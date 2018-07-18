@@ -4,8 +4,10 @@ const app = getApp()
 
 Page({
   data: {
+    inn:[],
     index1:new Date().getDate(),
     number:1,
+    show:false,
     array: [{
       message: 'foo',
     }, {
@@ -38,41 +40,49 @@ Page({
     {number:33,mary:456,kg:false},{number:12,mary:345,kg:false},{number:22,mary:389,kg:false},{number:23,mary:340,kg:false},{number:24,mary:32,kg:false},
     {number:12,mary:76,kg:false},
   ],
+  
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
-  jian(){
-    if(this.data.number>1){
-      this.setData({
-        number:this.data.number-=1
-      })
-    }
-    this.onLoad()
+  diantrue(){
+    console.log(1)
+    
   },
+  // jian(){
+  //   if(this.data.number>1){
+  //     this.setData({
+  //       number:this.data.number-=1
+  //     })
+  //   }
+    
+  // },
   jia(){
+    this.arr.map((item,index)=>{
+      if(item.kg == true){
+        console.log(item)
+      }
+    })
     this.setData({
       number:this.data.number+=1
     })
-    this.onLoad()
+    
   },
   dateBtn :function(e){
+    
     this.setData({
       index1:e.target.dataset.num
     })
-    console.log(e)
     this.arr[e.target.dataset.num].kg=!this.arr[e.target.dataset.num].kg
-    console.log(this.arr[e.target.dataset.num].kg)
+ 
     const today_date = new Date();
-    
-    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
-    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    
+    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)//当月开始时间
+    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)//下月开始时间
+   
     const date1 = this.dealDate(today_month,true);
     const date2 = this.dealDate(next_month,false);
-    console.log(date1)
     this.setData({
       date_data1:date1,
       date_data2:date2,
@@ -92,7 +102,6 @@ Page({
 
     
     // this.dealDate()
-    console.log(this.data.date_data1)
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       console.log(e);
       const new_data = this.data[e.target.dataset.data];//遍历的哪条数组
@@ -100,19 +109,19 @@ Page({
       if(this.last_data!='false'){//默认为false
         if(this.last_data=='date_data1'){
           old_data = this.data['date_data1'];
-          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
+          // old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
           this.setData({
             date_data1:old_data
           });
         }else if(this.last_data=='date_data2'){
           old_data = this.data['date_data2'];
-          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
+          // old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
           this.setData({            
             date_data2:old_data
           });
         }
       }     
-      new_data[parseInt(e.target.dataset.num)]['type'] = 'active ' + new_data[parseInt(e.target.dataset.num)]['type'];
+      // new_data[parseInt(e.target.dataset.num)]['type'] = 'active ' + new_data[parseInt(e.target.dataset.num)]['type'];
       if(e.target.dataset.data=='date_data2'){
         this.setData({
           date_data2:new_data,         
@@ -126,14 +135,13 @@ Page({
       this.last_data = e.target.dataset.data;  
       console.log(e.target.dataset)
     }
-    
   },
   dealDate:function(today_month,bool){
-    const week = today_month.getDay();
-    const today = parseInt(new Date().getDate());
+    const week = today_month.getDay();//月第一天星期几
+    const today = parseInt(new Date().getDate());//今天是几号
     today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
-    const day_num = today_month.getDate()+week;
+    const day_num = today_month.getDate()+week;//31天+ 星期三==34
     const data = [];
     console.log()
     for (var i = 0; i < day_num; i++) {
@@ -155,7 +163,7 @@ Page({
               })
             
           }else{
-            if(this.arr[i].number > 1 && this.arr[i].number<this.data.number){
+            if(this.arr[i].number > 1 && this.data.number>this.arr[i].number){
               this.arr[i].mary='数量不足'
               console.log(this.arr[i])
               data.push({//除周六日可选
@@ -174,8 +182,9 @@ Page({
                 mary:this.arr[i].mary,
                 name:i
               });
-            }else{
-              data.push({//本月部分不可选，可能数量不足或买完
+            }
+            else{
+              data.push({
                 value:i-week+1,
                 type:'next',
                 kg:this.arr[i].kg,
@@ -227,7 +236,7 @@ Page({
           this.all_day_num++;
           break;
         case i<(30-this.all_day_num+week)&&!bool:
-          if(i%7==0||i%7==6){
+          if(i%7==0||i%7==6){ 
             data.push({//下月部分不可选可能买完，或不足
               value:i-week+1,
               type:'before',
@@ -280,7 +289,8 @@ Page({
 
 
   onLoad: function () {
- 
+    
+    
     const today_date = new Date();
     
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
@@ -288,7 +298,6 @@ Page({
     
     const date1 = this.dealDate(today_month,true);
     const date2 = this.dealDate(next_month,false);
-    console.log(date1)
     this.setData({
       date_data1:date1,
       date_data2:date2,
