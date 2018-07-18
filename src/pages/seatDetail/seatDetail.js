@@ -70,7 +70,7 @@ Page({
       }
     ]
   },
-  //右上角分享
+  //分享
   onShareAppMessage: res => {
     if (res.from === "button") {
       console.log("来自页面赠送按钮");
@@ -90,7 +90,9 @@ Page({
   //我不去了
   cancelSeat: function() {},
   onLoad: function(options) {
+    console.log(options);
     var that = this;
+    //设置canvsa大小
     wx.getSystemInfo({
       success: function(res) {
         that.width = res.windowWidth;
@@ -116,6 +118,7 @@ Page({
         that.width / 2.5
       );
     }
+    //同行人
     var value = wx.getStorageSync("user_info");
     // console.log(value.user_info);
     that.setData({

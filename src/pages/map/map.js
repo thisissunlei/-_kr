@@ -18,7 +18,7 @@ Page({
   //选择城市
   selectCity: function() {
     wx.navigateTo({
-      url: "../city/city"
+      url: "../cityList/cityList"
     });
   },
   onReady: function(e) {

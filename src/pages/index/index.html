@@ -29,7 +29,7 @@
       <swiper interval="{{interval}}" autoplay="true" circular="true" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF"
         indicator-active-color='rgba(255,198,52,100)' class="swiper-box">
         <block wx:for="{{myMeeting}}" wx:key="{{item.id}}">
-          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
+          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="{{item.meetingStatus=='WAIT'?'moveToSeatDetail':'moveToMeetingDetail'}}">
             <view class="metting-content">
               <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'散座':'会议'}}</view>
               <view class="metting-title">
@@ -101,7 +101,7 @@
     </view>
     <view class="community-wrapper">
       <!-- 已开放大厦 -->
-      <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom" wx:key="{{buildingList}}">
+      <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom" wx:key>
         <view class="community_pic">
           <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50"></image>
         </view>
