@@ -280,6 +280,21 @@ Page({
     
     
   },
+  //滑动事件
+  scrollTopEvent(e){
+    let top=e.detail.scrollTop;
+    
+    if(top>=145){
+      this.setData({
+        ifFixed:true
+      })
+    }else{
+      this.setData({
+        ifFixed:false
+       })
+    }
+    
+  },
  
   
   getMeetId() {

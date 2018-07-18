@@ -197,7 +197,7 @@ Page({
   },
   //  日历选择
   dateBtn :function(e){
-    console.log(e)
+    // console.log(e)
     let month=e.target.dataset.month//月份
     let day=e.target.dataset.num+1
     
@@ -504,7 +504,12 @@ Page({
       })
       
     },
- 
+  //查看服务须知
+  goToGuide:function(){
+    wx.navigateTo({
+      url: '../guide/guide'
+    })
+  },
 
 
 
@@ -922,6 +927,7 @@ Page({
         orderId:data.orderId
       },
       success:(res)=>{
+        //  微信支付
           wx.requestPayment({
             'nonceStr': data.noncestr,
             'orderld':data.orderld,

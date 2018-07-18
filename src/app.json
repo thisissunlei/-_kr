@@ -1,9 +1,10 @@
 {
   "pages": [
+   
     
+    "pages/paySuccess/paySuccess",
   
     "pages/index/index",
-
     "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/city/city",
@@ -11,7 +12,7 @@
     "pages/logs/logs",
     "pages/meetingTem/meetingTem",
     "pages/meetingStatus/meetingStatus",
-    "pages/paySuccess/paySuccess",
+    
     "pages/orderConfirmation/orderConfirmation",
     "pages/meetingDetail/meetingDetail",
     "pages/meetingTheme/meetingTheme",
