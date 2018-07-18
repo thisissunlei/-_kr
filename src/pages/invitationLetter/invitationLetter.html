@@ -1,7 +1,7 @@
 <view class="invitation-wrapper">
-    <image src="../images/invitation/banner.jpg" class="ivt-banner"></image>
-    <image src="../images/invitation/card.png" class="ivt-card"></image>
-    <image src="../images/invitation/fix.png" class="ivt-fix"></image>
+    <image class="ivt-banner" src="../images/invitation/banner.jpg"></image>
+    <image class="ivt-card" src="../images/invitation/card.png"></image>
+    <image class="ivt-fix" src="../images/invitation/fix.png"></image>
     <view class="ivt-body">
         <view class="ivt-user-info">
             <image class="ivt-user-avatar" src="{{userInfo.avatarUrl}}"></image>
@@ -26,5 +26,5 @@
             </block>
         </view>
     </view>
-    <button class="accept-invitation">接受邀请函</button>
+    <button class="accept-invitation" bindtap="accept">接受邀请函</button>
 </view>
