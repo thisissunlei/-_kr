@@ -33,8 +33,10 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
-    "pages/orderseatDetail/orderseatDetail",
-    "pages/seatorderConfirmation/seatorderConfirmation"
+    "pages/seatorderConfirmation/seatorderConfirmation" ,
+    "pages/orderseatDetail/orderseatDetail"
+    
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
