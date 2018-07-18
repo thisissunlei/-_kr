@@ -25,36 +25,37 @@ Page({
     metting: true,
     btn_bool: true,
     duration: 1000,
-    buildingList: [
-      {
-        buildAddress: "北京市海淀区中关村创业大街2号楼",
-        buildImgUrl:
-          "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
-        buildName: "创业大街",
-        communityId: 1,
-        distance: "28.9km",
-        meetingCount: 6, //会议室
-        promotionDescr: "限时 5 折优惠"
-      },
-      {
-        buildAddress: "北京市海淀区中关村",
-        buildImgUrl:
-          "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
-        buildName: "创业大街",
-        communityId: 173,
-        distance: "218.9km",
-        meetingCount: 12
-      },
-      {
-        buildAddress: "北京市海淀区中关村创业大街2号楼",
-        buildImgUrl:
-          "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
-        buildName: "创业大街",
-        communityId: 175,
-        distance: "28.9km",
-        meetingCount: 13
-      }
-    ],
+    buildingList: [],
+    // buildingList: [
+    //   {
+    //     buildAddress: "北京市海淀区中关村创业大街2号楼",
+    //     buildImgUrl:
+    //       "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
+    //     buildName: "创业大街",
+    //     communityId: 1,
+    //     distance: "28.9km",
+    //     meetingCount: 6, //会议室
+    //     promotionDescr: "限时 5 折优惠"
+    //   },
+    //   {
+    //     buildAddress: "北京市海淀区中关村",
+    //     buildImgUrl:
+    //       "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
+    //     buildName: "创业大街",
+    //     communityId: 173,
+    //     distance: "218.9km",
+    //     meetingCount: 12
+    //   },
+    //   {
+    //     buildAddress: "北京市海淀区中关村创业大街2号楼",
+    //     buildImgUrl:
+    //       "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
+    //     buildName: "创业大街",
+    //     communityId: 175,
+    //     distance: "28.9km",
+    //     meetingCount: 13
+    //   }
+    // ],
     myMeeting: [
       {
         address: "北京市朝阳区建国路108号区建国路108号",
@@ -229,7 +230,7 @@ Page({
     this.getLocation();
     //页面加载
     wx.login({
-      success: function(res) { 
+      success: function(res) {
         if (res.code) {
           //发起网络请求
           wx.request({
@@ -306,6 +307,48 @@ Page({
           }
         }
       });
+    //首页接口
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krmting/home",
+      success: res => {
+        console.log(res);
+        var mansion = Object.assign({}, res);
+        console.log(mansion, "列表");
+        let buildingList = mansion.data.data.buildingList;
+        buildingList.sort(function(a, b) {
+          return a.distance - b.distance;
+        });
+        buildingList.map((item, index) => {
+          if (item.distance > 1000) {
+            item.distance = (item.distance / 1000).toFixed() + "km";
+          } else {
+            item.distance = Math.round(item.distance * 10) / 10 + "m";
+          }
+        });
+        that.setData({
+          buildingList: buildingList
+        });
+      }
+    });
+    // app.getRequest({
+    //   url: app.globalData.KrUrl + "api/gateway/krmting/city",
+    //   data: {
+    //     cityId: 64
+    //   },
+    //   success: res => {
+    //     console.log(res);
+    //   }
+    // });
+    // app.getRequest({
+    //   url: app.globalData.KrUrl + "api/gateway/krmting/city",
+    //   data: {
+    //     latitude: that.rq_data.latitude,
+    //     longitude: that.rq_data.longitude
+    //   },
+    //   success: res => {
+    //     console.log(res);
+    //   }
+    // });
   },
   onShow: function() {
     // this.getAllInfo(this.rq_data.latitude, this.rq_data.longitude);
@@ -402,7 +445,14 @@ Page({
       url: "../meetingDetail/meetingDetail?inviteeId=" + inviteeId
     });
   },
-
+  //点击散座card
+  moveToSeatDetail: res => {
+    console.log(res);
+    var seatId = res.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "../seatDetail/seatDetail?seatId=" + seatId
+    });
+  },
   jumpToMeetingDetail: function() {
     var inviteeId = this.data.myMeeting[0].id;
     wx.navigateTo({
