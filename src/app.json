@@ -1,7 +1,11 @@
 {
   "pages": [
+   
+    
+   
+  
     "pages/index/index",
-
+    "pages/meeting/meeting",
     "pages/invitationLetter/invitationLetter",
 
     "pages/seatDetail/seatDetail",
@@ -17,7 +21,6 @@
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
     "pages/myOrder/myOrder",
-    "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
     "pages/my/my",
     "pages/myMeeting/myMeeting",
@@ -30,8 +33,10 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
-    "pages/orderseatDetail/orderseatDetail",
-    "pages/seatorderConfirmation/seatorderConfirmation"
+    "pages/seatorderConfirmation/seatorderConfirmation" ,
+    "pages/orderseatDetail/orderseatDetail"
+    
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

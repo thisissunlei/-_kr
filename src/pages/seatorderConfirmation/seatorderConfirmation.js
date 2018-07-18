@@ -197,27 +197,27 @@ Page({
   },
   //  日历选择
   dateBtn :function(e){
-    console.log(e)
+    // console.log(e)
     let month=e.target.dataset.month//月份
-    let day=e.target.dataset.num+1
+    let day=e.target.dataset.num+1//今天的号数
     
     this.setData({
       month:month,
       day:day
     })
    
-    if(wx.getStorageSync("arr")){
-      var arr = wx.getStorageSync("arr");
-      arr.push({month:month,day:day,week:wx.getStorageSync("week")})
-
-      wx.setStorageSync("arr",arr)
-    }else{
-      var arr=[]
-      arr.push({month:month,day:day,week:wx.getStorageSync("week"),})
-      wx.setStorageSync("arr",arr)
-    }
+    // if(wx.getStorageSync("arr")){
+    //   var arr = wx.getStorageSync("arr");
+    //   arr.push({month:month,day:day,week:wx.getStorageSync("week")})
+    //   console.log(arr)
+    //   wx.setStorageSync("arr",arr)
+    // }else{
+    //   var arr=[]
+    //   arr.push({month:month,day:day,week:wx.getStorageSync("week"),})
+    //   wx.setStorageSync("arr",arr)
+    // }
     
-    wx.setStorageSync("arr",arr)
+    // wx.setStorageSync("arr",arr)
     
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       
@@ -337,30 +337,37 @@ Page({
     
   },
   dealDate:function(today_month,bool,choose_date){
-    const week = today_month.getDay();
+    //1.本月开始时间 true  今天的号数
+    //2.01年8月 false
+    const week = today_month.getDay();//返回当前月份的某一天整数 1-31之间
+
     if(choose_date){
-      this.last_btn_num = parseInt(week)+parseInt(choose_date)-1;
+      this.last_btn_num = parseInt(week)+parseInt(choose_date)-1;//15
     }
-    const today = parseInt(new Date().getDate());
-    today_month.setMonth(today_month.getMonth() + 1);
-    today_month.setDate(0);
-    const day_num = today_month.getDate()+week;
+    const today = parseInt(new Date().getDate());//当前号数16
+    
+    today_month.setMonth(today_month.getMonth() + 1);//生成时间戳 大的
+    
+    today_month.setDate(0);//时间戳 小的 设置一个月的某一天。
+    console.log( today_month.setDate(0))
+    const day_num = today_month.getDate()+week;//月份的天数
     const data = [];
     for (var i = 0; i < day_num; i++) {
+      console.log((week+choose_date-1))
       switch (true){
         case i<week:
           data.push({
             value:''
           });
           break;
-        case i>(today+week)&&bool:
+        case i>(today+week)&&bool://true
           if(i%7==0||i%7==6){
             data.push({
               value:i-week+1,
               type:'before'
             });
           }else{
-            if(i==(week+choose_date-1)){
+            if(i==(week+choose_date-1)){//false
               data.push({
                 value:i-week+1,
                 type:'active next'
@@ -504,7 +511,12 @@ Page({
       })
       
     },
- 
+  //查看服务须知
+  goToGuide:function(){
+    wx.navigateTo({
+      url: '../guide/guide'
+    })
+  },
 
 
 
@@ -577,9 +589,10 @@ Page({
 
 
   onLoad: function (options) {
-    console.log(options)
+    
     this.getPhone();
     var _this=this;
+    console.log(options)//{}
     if(options.from=='list'){
       wx.getStorage({
         key:'meet_detail',
@@ -599,7 +612,7 @@ Page({
             console.log(res)
             if(res.data){
               _this.setData({
-                  detailInfo:res.data
+                  detailInfo:res.data//当前散座的一系列数据
                 })
             }
           }
@@ -607,7 +620,7 @@ Page({
     }
     
 
-    wx.getStorage({
+    wx.getStorage({//获取今天
       key:'orderDate',
       success:function(res){
         if(res.data){
@@ -618,6 +631,7 @@ Page({
     wx.getStorage({
       key:'meeting_time',
       success:function(res){
+        console.log(res)
         if(res.data){
           _this.setData({
             meeting_time:res.data
@@ -708,37 +722,42 @@ Page({
           // if(day<10){
           //   day=`0${day}`
           // }
-          let date=`${month}${day}`;
-          
-          let themeName=date+'会议';
+          let date=`${month}${day}`;//0716
+          let themeName=date+'会议';//0716会议
           this.setData({
-              orderDate:res,
-              themeName:themeName
+              orderDate:res,//今天time:"2018-07-16"timeText:"今天"
+              themeName:themeName//0716会议
           });
-         
-          this.choose_date = res.time
+          this.choose_date = res.time //2018-07-16
           this.initDate();
   },
 
   initDate:function(){
     
-    const choose_date = new Date(this.choose_date).getDate();
-    const choose_month = new Date(this.choose_date).getMonth();
+    const choose_date = new Date(this.choose_date).getDate();//当前号数16
     
+    const choose_month = new Date(this.choose_date).getMonth();//6
     
 
-    const today_date = new Date();
+    const today_date = new Date();//当前标准时间Mon Jul 16 2018 18:23:38 GMT+0800 (中国标准时间)
+    
     let date1='',date2='';
-    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
-    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    if(choose_month == today_date.getMonth()){
-      this.last_data = 'date_data1';
-      date1 = this.dealDate(today_month,true,choose_date);
+    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)//本月的开始时间Sun Jul 01 2018 00:00:00 GMT+0800 (中国标准时间)
+    
+    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)//Wed Aug 01 2018 00:00:00 GMT+0800 (中国标准时间)
+    
+    if(choose_month == today_date.getMonth()){//6 ==  6
+      this.last_data = 'date_data1';//date_data1
+      date1 = this.dealDate(today_month,true,choose_date);//返回数据了
+      
       date2 = this.dealDate(next_month,false); 
+      console.log(date2)
     }else if (choose_month == next_month.getMonth()){
       this.last_data = 'date_data2';
       date1 = this.dealDate(today_month,true);
       date2 = this.dealDate(next_month,false,choose_date); 
+      console.log(date1)
+      console.log(date2)
     }else{
       date1 = this.dealDate(today_month,true);
       date2 = this.dealDate(next_month,false); 
@@ -785,11 +804,13 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
+          console.log(res)//code
           let userInfo=Object.assign({},res.data.data);
           let linkPhone=_this.data.linkPhone;
           _this.setData({
               linkPhone:userInfo.phone || linkPhone
           })
+          console.log(this.data.linkPhone)//''
         }
     })
   },
@@ -922,6 +943,7 @@ Page({
         orderId:data.orderId
       },
       success:(res)=>{
+        //  微信支付
           wx.requestPayment({
             'nonceStr': data.noncestr,
             'orderld':data.orderld,
