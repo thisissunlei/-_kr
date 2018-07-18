@@ -241,10 +241,14 @@ Page({
               value:i-week+1,
               type:'before',
               number:this.arr[i].number,
-              mary:this.arr[i].mary
+              mary:this.arr[i].mary,
+              name:"周天"
             });
           }else{
+            
             if(this.arr1[i].number > 1 && this.arr1[i].number<this.data.number){
+              console.log('数量不足')
+              console.log(i)
               this.arr1[i].mary='数量不足'
               console.log(this.arr1[i])
               data.push({//除周六日可选
@@ -252,9 +256,11 @@ Page({
                 type:'before',
                 number:this.arr1[i].number,
                 mary:this.arr1[i].mary,
-                name:i
+               
               });
             }else if(this.arr1[i].number == 0){
+              console.log('已售完')
+              console.log(i)
               this.arr1[i].mary='已售完'
               data.push({//除周六日可选
                 value:i-week+1,
@@ -264,10 +270,12 @@ Page({
                 name:i
               });
             }else{
-              data.push({//本月部分不可选，可能数量不足或买完
+              console.log('剩下的')
+              console.log(i)
+              data.push({
                 value:i-week+1,
                 type:'next',
-                kg:this.arr[i].kg,
+                kg:this.arr1[i].kg,
                 number:this.arr1[i].number,
                 mary:this.arr1[i].mary
               })
