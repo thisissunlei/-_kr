@@ -4,22 +4,32 @@ var QR = require("../../utils/qrcode.js");
 const app = getApp();
 Page({
   data: {
-    seatId: 1234, //我的散座穿过来的散座id
+    width: 0,
+    seatId: 1234, //我的散座传过来的id
+    canInvite: true, //是否可以赠送
+    count: 1, //剩余赠送数量
+    sponsor: true, //是否是创建人
+    imgsrc: "",
+    name: "",
     detail: {
       address: "北京市朝阳区建国路108号北京市朝阳区建",
       bookId: "预订人id",
       buildFoorDesc: "大厦楼层地址",
-      canInvite: "是否可以赠送入场券",
+      //是否可以赠送入场券
+      canInvite: true,
+      // canInvite: false,
       inviteer: "使用人",
-      sponsor: "是否是创建人",
+      //是否是创建人
+      // sponsor: false,
+      sponsor: true,
       wechatAvatar: "微信头像",
       wechatId: "微信id",
       wechatNick: "微信昵称",
-      limitCount: 4,
+      limitCount: 0,
       openTime: "06-07 (周四）",
-      seatStatus: "EXPIRE",
-      canInvite: 1,
-      length: 2
+      //是否过期
+      seatStatus: "EXPIREDe",
+      length: 1
     },
     hint: [
       {
@@ -70,31 +80,48 @@ Page({
     }
     return app.globalData.share_data;
   },
+
   //再订一个
   goIndex: function() {
     wx.reLaunch({
       url: "../index/index"
     });
   },
+  //我不去了
+  cancelSeat: function() {},
   onLoad: function(options) {
     var that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        that.width = res.windowWidth;
+      }
+    });
     if (that.data.detail.seatStatus === "EXPIRED") {
       QR.qrApi.draw(
         "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
         "mycanvas",
-        150,
-        150,
+        that.width / 2.5,
+        that.width / 2.5,
         null,
         "rgba(0,0,0,0.6)"
       );
+      that.setData({
+        canInvite: false
+      });
     } else {
       QR.qrApi.draw(
         "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
         "mycanvas",
-        150,
-        150
+        that.width / 2.5,
+        that.width / 2.5
       );
     }
+    var value = wx.getStorageSync("user_info");
+    // console.log(value.user_info);
+    that.setData({
+      imgsrc: value.user_info.avatarUrl,
+      name: value.user_info.nickName
+    });
   },
   createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片

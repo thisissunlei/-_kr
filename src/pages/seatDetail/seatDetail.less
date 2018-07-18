@@ -1,6 +1,6 @@
 @import "../meetingTem/meetingTem.less";
 page {
-  background: #393f50;
+  background: #ffffff;
 }
 .content-wrap {
   width: 100%;
@@ -16,56 +16,66 @@ page {
 
 .footer {
   width: 100%;
-  height: 74rpx;
-  line-height: 74rpx;
-  padding: 30rpx 0;
-  background: #fff;
-  font-size: 13px;
+  height: 132rpx;
+  background: #ffffff;
+  box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.1);
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 9999;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
-.footer text {
-  display: inline-block;
+.contact {
   width: 166rpx;
-  text-align: center;
-  border-radius: 5px;
-  color: #666666;
-}
-.footer .btns .kefu {
-  border: 1px solid #333333;
-  margin-right: 20rpx;
+  height: 72rpx;
+  font-family: PingFangSC-Regular;
   color: #333333;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 16rpx;
+  margin-right: 18rpx;
 }
-.kefu:after {
-  border: none;
-}
-.footer .btns {
-  float: right;
-  margin-right: 32rpx;
-}
-.footer text.yaoqing {
+#share {
   width: 230rpx;
   height: 72rpx;
   background: #ffffff;
   border: 1px solid #ff6868;
   border-radius: 16rpx;
   font-family: PingFangSC-Regular;
-  font-size: 14px;
   color: #ff6868;
   text-align: center;
+  margin-right: 38rpx;
 }
-.footer text.yuding {
+.reserve-again {
+  width: 166rpx;
+  height: 72rpx;
   background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
-  font-family: PingFangSC-Regular;
-  font-size: 28rpx;
   border-radius: 16rpx;
+  font-family: PingFangSC-Regular;
   color: #624d17;
   text-align: center;
+  margin-right: 32rpx;
 }
-.reserve::after {
-  border: none;
+.invitee {
+  justify-content: space-between;
+}
+.cancel-seat {
+  width: 150rpx;
+  display: inline-block;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #333333;
+  margin-left: 32rpx;
+}
+.invitee-btn {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .clear {
   clear: both;
@@ -74,55 +84,57 @@ button {
   font-size: 28rpx;
   padding-left: 0;
   padding-right: 0;
+  margin: 0;
   display: inline-block;
   background-color: transparent;
   border-style: none;
   border-width: 0px;
 }
-.overdue {
-  text-align: right;
-}
 
 .top {
   width: 710rpx;
-  height: 465px;
+  height: 840rpx;
   padding: 0 20rpx;
 }
 .top-banner {
-  width: 710rpx;
-  height: 465px;
+  width: 100%;
+  height: 840rpx;
   position: relative;
 }
+.img {
+  width: 100%;
+  height: 100%;
+}
 .content {
-  width: 710rpx;
-  height: 465px;
+  width: 100%;
+  height: 840rpx;
   position: absolute;
   top: 0;
   left: 0;
   text-align: center;
 }
 .top .overdue {
-  width: 61px;
-  height: 61px;
+  display: block;
+  width: 300rpx;
+  height: 300rpx;
   position: absolute;
-  top: 3px;
-  right: -1rpx;
-}
-.top .title {
-  padding: 13px 0 20px;
+  top: 430rpx;
+  right: 0;
 }
 .top .title text {
   display: block;
 }
 .top .title .meetingTime {
-  height: 47px;
-  line-height: 47px;
+  height: 32rpx;
+  line-height: 32rpx;
   font-size: 40rpx;
   font-family: PingFangSC-Medium;
   font-size: 40rpx;
   color: #333333;
   letter-spacing: 0;
   text-align: center;
+  margin-top: 30rpx;
+  margin-bottom: 28rpx;
 }
 .top .title .themeName {
   color: #666666;
@@ -132,50 +144,35 @@ button {
   text-align: center;
 }
 .pics {
-  padding: 25px 20rpx;
   width: 710rpx;
-  height: 268px;
+  height: 640rpx;
   position: relative;
   box-sizing: border-box;
   opacity: 0.6;
 }
-.shade {
-  width: 670rpx;
-  height: 218px;
-  position: absolute;
-}
-
-.img-box .code-shade {
-  width: 160px;
-  height: 160px;
-  background: rgba(255, 255, 255, 255);
-  opacity: 0.9;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 9000;
-}
-.img {
-  width: 100%;
-  height: 100%;
-}
 .pics .code-pic {
-  width: 176px;
-  height: 176px;
+  width: 326rpx;
+  height: 326rpx;
   position: absolute;
   left: 50%;
-  margin-left: -88px;
+  margin-left: -163rpx;
 }
 .pics .img-box {
-  width: 176px;
-  height: 176px;
+  width: 300rpx;
+  height: 300rpx;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 26rpx;
+  left: 26rpx;
 }
 .mycanvas {
   display: block;
-  margin: 26rpx;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 300rpx;
+  height: 300rpx;
+  top: 13rpx;
+  left: 13rpx;
 }
 .over-date {
   opacity: 0.4;
@@ -183,22 +180,18 @@ button {
 .pics .code-desc {
   font-size: 28rpx;
   color: #666666;
-  margin-top: 200px;
   font-family: PingFangSC-Regular;
+  margin-top: 346rpx;
   letter-spacing: 0;
   text-align: center;
 }
-.content .bottom_text {
-  margin-top: 18rpx;
-  margin-top: 8px;
-  padding-left: 30rpx;
-  padding-right: 30rpx;
-}
-.bottom_text .metting-house {
-  display: inline-block;
-  font-size: 14px;
-  color: #333333;
-  height: 14px;
+.bottom_text {
+  width: 600rpx;
+  height: 30rpx;
+  position: absolute;
+  left: 50%;
+  margin-left: -300rpx;
+  bottom: 94rpx;
 }
 .bottom_text image {
   width: 12px;
@@ -211,12 +204,9 @@ button {
   font-family: PingFangSC-Regular;
   font-size: 26rpx;
   color: #666666;
-}
-.address-detail {
-  color: #666666;
-  font-size: 26rpx;
   margin-top: 6rpx;
 }
+
 .conferee {
   margin-top: 40rpx;
   border-top: 1px solid #2f3543;

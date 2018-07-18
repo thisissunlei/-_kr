@@ -6,33 +6,27 @@
                 <!-- 背景大图 -->
                 <image src="../images/indexImg/card.png" class="img"></image>
                 <!-- 已过期png -->
-                <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
+                <image src="../images/public/passdue.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
+                <!-- <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image> -->
                 <view class="content">
                     <view class='title'>
                         <text class='meetingTime'>{{detail.openTime}}</text>
                         <text class="themeName">住邦2000-2号楼5层氪空间</text>
                     </view>
                     <view class='pics'>
-                        <view class="shade">
-                            <view class="code-pic">
-                                <!-- 已过期边框 -->
-                                <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
-                                <!-- 未过期边框 -->
-                                <image src="../images/indexImg/code.png" wx:if="{{detail.seatStatus!=='EXPIRED'}}" class="img"></image>
-                                <view class="img-box">
-                                    <canvas bindtap="previewImg" hidden="{{canvasHidden}}" canvas-id="mycanvas" class="mycanvas" />
-                                    <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
-                                </view>
-                            </view>
-                            <view class="code-desc">请入场时出示此二维码</view>
+                        <view class="code-pic">
+                            <!-- 已过期边框 -->
+                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
+                            <!-- 未过期边框 -->
+                            <image src="../images/indexImg/code.png" wx:if="{{detail.seatStatus!=='EXPIRED'}}" class="img"></image>
+                            <canvas canvas-id="mycanvas" class="mycanvas" />
                         </view>
+                        <view class="code-desc">请入场时出示此二维码</view>
                     </view>
                     <view class='bottom_text'>
-                        <!-- <text class="metting-house">{{meetingDetailData.meetingRoomName}}</text> -->
-                        <view class='icons address-detail'>
+                        <view class='icons'>
                             <image src='../images/indexImg/dizhi2.png'></image>
                             {{detail.address}}
-                            <!-- <span class="address-detail"></span> -->
                         </view>
                     </view>
                 </view>
@@ -40,14 +34,13 @@
         </view>
         <!-- 同行人 -->
         <view class='conferee'>
-            <text class='conferee-title'>同行人({{detail.limitCount}})</text>
-            <!-- <template is="conferee" data="{{inviteers}}"></template> -->
-            <block wx:for="{{inviteers}}" wx:key="{{inviteers}}">
+            <text class='conferee-title'>同行人({{count}})</text>
+            <block>
                 <view class='list'>
                     <view class='pic'>
-                        <image src="{{item.wechatAvatar}}"></image>
+                        <image src="{{imgsrc}}"></image>
                     </view>
-                    <text>{{item.wechatNick}}</text>
+                    <text>{{name}}</text>
                     <!-- 已过期标识 -->
                     <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true}}"></image>
                     <!-- 确认到场 -->
@@ -66,27 +59,27 @@
                 </view>
             </block>
         </view>
-        <!-- 非邀请 -->
-        <view class='footer' wx:if="{{detail.seatStatus!='EXPIRED'}}">
-            <!-- <text class="cancel-meeting" bindtap="cancelMeeting">取消参会</text> -->
-            <view class='btns'>
-                <button open-type="contact" session-from="weapp" class='kefu'>
-                    <text>联系客服</text>
-                </button>
-                <button wx:if="{{detail.canInvite==1}}" open-type="share" id="share" style="border-style:none;border-width: 0px;">
-                    <text class='yaoqing'>赠送入场券({{detail.limitCount}}张)</text>
-                </button>
-                <button wx:if="{{detail.canInvite==0}}" bindtap="goIndex" class="reserve">
-                    <text class='yuding'>再订一个</text>
-                </button>
-            </view>
+        <!-- 预订人 -->
+        <view class="footer" wx:if="{{sponsor}}">
+            <button open-type="contact" class="contact">
+                <text>联系客服</text>
+            </button>
+            <button wx:if="{{canInvite && count > 0}}" open-type="share" id="share">
+                <text>赠送入场券({{count}})张</text>
+            </button>
+            <button wx:if="{{!canInvite || count == 0}}" class="reserve-again" bindtap="goIndex">
+                <text>再订一个</text>
+            </button>
         </view>
-        <!-- 邀请 -->
-        <view class='footer' wx:if="{{detail.seatStatus==='EXPIRED'}}">
-            <text class="cancel-meeting" bindtap="cancelMeeting">我不去了</text>
-            <view class='btns'>
-                <button open-type="contact" session-from="weapp" class='kefu' style="margin-right:20rpx;">
+        <!-- 受邀人 -->
+        <view class="footer invitee" wx:if="{{!sponsor}}">
+            <text class="cancel-seat" bindtap="cancelSeat" wx:if="{{detail.seatStatus!='EXPIRED'}}">我不去了</text>
+            <view class="invitee-btn">
+                <button open-type="contact" class="contact">
                     <text>联系客服</text>
+                </button>
+                <button class="reserve-again" wx:if="{{detail.seatStatus=='EXPIRED'}}" bindtap="goIndex">
+                    <text>去订一个</text>
                 </button>
             </view>
         </view>
