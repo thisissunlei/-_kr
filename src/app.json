@@ -2,23 +2,25 @@
   "pages": [
    
     
-    "pages/paySuccess/paySuccess",
+   
   
     "pages/index/index",
+    "pages/meeting/meeting",
+    "pages/invitationLetter/invitationLetter",
+
     "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
-    "pages/city/city",
+    "pages/cityList/cityList",
     "pages/map/map",
     "pages/logs/logs",
     "pages/meetingTem/meetingTem",
     "pages/meetingStatus/meetingStatus",
-    
+    "pages/paySuccess/paySuccess",
     "pages/orderConfirmation/orderConfirmation",
     "pages/meetingDetail/meetingDetail",
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
     "pages/myOrder/myOrder",
-    "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
     "pages/my/my",
     "pages/myMeeting/myMeeting",
