@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/meeting/meeting",
+    "pages/index/index",
     "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/city/city",
