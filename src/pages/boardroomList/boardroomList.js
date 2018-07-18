@@ -101,6 +101,7 @@ Page({
   },
   //预定跳转页面
   list(e){
+    console.log(123000,e)
     let rangeTime = e.currentTarget.dataset.rangetime;
     let detail = e.currentTarget.dataset.detail;
     wx.setStorageSync('rangeTime-c',rangeTime);

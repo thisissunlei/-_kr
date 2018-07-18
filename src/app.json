@@ -1,10 +1,13 @@
 {
   "pages": [
    
+    "pages/index/index",
     
    
-  
-    "pages/index/index",
+    "pages/seatorderConfirmation/seatorderConfirmation" ,
+    
+    "pages/orderseatDetail/orderseatDetail",
+
     "pages/meeting/meeting",
     "pages/invitationLetter/invitationLetter",
 
@@ -32,9 +35,8 @@
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
-    "pages/component/component",
-    "pages/seatorderConfirmation/seatorderConfirmation" ,
-    "pages/orderseatDetail/orderseatDetail"
+    "pages/component/component"
+
     
     
   ],

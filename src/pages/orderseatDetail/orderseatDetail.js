@@ -127,6 +127,8 @@ Page({
         var _this = this;
         console.log("订单信息",res)
         wx.reportAnalytics('confirmorder')
+        
+        // 微信支付
         wx.requestPayment({
           'timeStamp': res.data.data.timestamp,
           'nonceStr': res.data.data.noncestr,
@@ -226,14 +228,21 @@ Page({
    
   },
   // 联系电话
+  // jumpSetPhone:function() {
+  //   let detailInfo=this.data.detailInfo;
+  //   if(detailInfo.orderShowStatus==3){
+  //     return;
+  //   }
+  //   wx.navigateTo({
+  //     url: '../phone/phone?linkPhone='+detailInfo.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
+  //   })
+  // },
   jumpSetPhone:function() {
-    let detailInfo=this.data.detailInfo;
-    if(detailInfo.orderShowStatus==3){
-      return;
-    }
+    let data=this.data;
     wx.navigateTo({
-      url: '../phone/phone?linkPhone='+detailInfo.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
+      url: '../phone/phone?type=storage&linkPhone='+data.linkPhone
     })
+    
   },
   // 邀请
   onShareAppMessage: function (res) {

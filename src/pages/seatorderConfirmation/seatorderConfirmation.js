@@ -110,7 +110,7 @@ Page({
       timeFlag:!this.data.timeFlag
     }) 
    },
-  //  数量日历显示与隐藏
+  // 数量日历显示与隐藏
    closeDialogDate:function(){
      let that = this;
      that.setData({
@@ -349,11 +349,11 @@ Page({
     today_month.setMonth(today_month.getMonth() + 1);//生成时间戳 大的
     
     today_month.setDate(0);//时间戳 小的 设置一个月的某一天。
-    console.log( today_month.setDate(0))
+    // console.log( today_month.setDate(0))
     const day_num = today_month.getDate()+week;//月份的天数
     const data = [];
     for (var i = 0; i < day_num; i++) {
-      console.log((week+choose_date-1))
+      // console.log((week+choose_date-1))
       switch (true){
         case i<week:
           data.push({
@@ -483,7 +483,7 @@ Page({
       })
     }
   },
-  //默认的预计到场时间  
+  //默认的 行程提醒 
   getRemind:function(alertTime){
     let themeObj={
       'NOALERT':'无',
@@ -589,10 +589,9 @@ Page({
 
 
   onLoad: function (options) {
-    
     this.getPhone();
     var _this=this;
-    console.log(options)//{}
+    console.log("safadsfsad", options)//{}
     if(options.from=='list'){
       wx.getStorage({
         key:'meet_detail',
@@ -751,7 +750,7 @@ Page({
       date1 = this.dealDate(today_month,true,choose_date);//返回数据了
       
       date2 = this.dealDate(next_month,false); 
-      console.log(date2)
+      // console.log(date2)
     }else if (choose_month == next_month.getMonth()){
       this.last_data = 'date_data2';
       date1 = this.dealDate(today_month,true);
@@ -804,13 +803,13 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-          console.log(res)//code
+          // console.log(res)//code
           let userInfo=Object.assign({},res.data.data);
           let linkPhone=_this.data.linkPhone;
           _this.setData({
               linkPhone:userInfo.phone || linkPhone
           })
-          console.log(this.data.linkPhone)//''
+          // console.log(this.data.linkPhone)//''
         }
     })
   },
@@ -839,14 +838,15 @@ Page({
     let data=this.data;
     let orderData = {
       alertTime:data.order_pay.alertTime || data.alertTime,
-      arrivingTime:data.arrivingTime,
+      arrivingTime:data.time,
       // beginTime:data.meeting_time.beginTime,
       // endTime:data.meeting_time.endTime,
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       // meetingRoomId:data.detailInfo.meetingRoomId,
       // themeName:data.order_pay.themeName || data.themeName
-      seatGoodls:data.seatGoodls
+      seatGoodls:[12,3]
     }
+    console.log(orderData)
     wx.showLoading({
       title: '加载中',
       mask:true
@@ -854,7 +854,8 @@ Page({
     
     var _this=this;
         app.getRequest({
-          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          // url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/create',
           methods:"GET",
           header:{
             'content-type':"appication/json"
