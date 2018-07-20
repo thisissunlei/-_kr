@@ -2,7 +2,6 @@
   "pages": [
     "pages/orderseatDetail/orderseatDetail",
    
-   
     "pages/index/index",
     "pages/seatorderConfirmation/seatorderConfirmation" ,
 
