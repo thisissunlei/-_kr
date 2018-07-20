@@ -1,5 +1,3 @@
-//orderConfirmation.js
-//获取应用实例
 const app = getApp()
 
 
@@ -8,6 +6,7 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    seatGoodsId:"",
     timeweekArr:{},
     month:"",
     day:"",
@@ -81,7 +80,7 @@ Page({
   selectedTime:[],
   isSubTime:false,
   ifFixed:false,
-  //   散座详情弹窗
+  // 散座详情弹窗
   openMeetDetail:function(e){
     let that = this;
     this.setData({
@@ -91,26 +90,25 @@ Page({
       that.getMeetId()
     })
   },
-  
   // 预计到场时间选择
   jumpSetTheme:function() {
     this.setData({
       timeFlag:!this.data.timeFlag
     }) 
    },
-  //  预计到场时间显示
+  // 预计到场时间显示
   bindTimeChange: function (e) {
     this.setData({
       time: e.detail.value
     })
   },
-  //预计到场时间隐藏
+  // 预计到场时间隐藏
   jumpSetTime:function() {
     this.setData({
       timeFlag:!this.data.timeFlag
     }) 
    },
-  //  数量日历显示与隐藏
+  // 数量日历显示与隐藏
    closeDialogDate:function(){
      let that = this;
      that.setData({
@@ -125,7 +123,7 @@ Page({
       dialogDate:!that.data.dialogDate
     })
   },
-  //  散客数量加
+  // 散客数量加
   add:function(){
     this.setData({
       sankeNum:this.data.sankeNum+=1
@@ -133,7 +131,7 @@ Page({
     wx.setStorageSync("num",this.data.sankeNum)
    
   },
-  //  散客数量减
+  // 散客数量减
   jian:function(){
     let num=this.data.sankeNum-=1
     if(num<1){
@@ -195,10 +193,9 @@ Page({
       this.closeDialog();
   
   },
-  //  日历选择
+  // 日历选择
   dateBtn :function(e){
-    console.log(this.data.date_data1)
-    console.log(e)
+    // console.log(e)
     let month=e.target.dataset.month//月份
     let day=e.target.dataset.num+1//今天的号数
     
@@ -207,18 +204,7 @@ Page({
       day:day
     })
    
-    // if(wx.getStorageSync("arr")){
-    //   var arr = wx.getStorageSync("arr");
-    //   arr.push({month:month,day:day,week:wx.getStorageSync("week")})
-    //   console.log(arr)
-    //   wx.setStorageSync("arr",arr)
-    // }else{
-    //   var arr=[]
-    //   arr.push({month:month,day:day,week:wx.getStorageSync("week"),})
-    //   wx.setStorageSync("arr",arr)
-    // }
-    
-    // wx.setStorageSync("arr",arr)
+  
     
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       
@@ -322,7 +308,7 @@ Page({
      
     }
   },
-  //滑动事件
+  // 滑动事件
   scrollTopEvent(e){
     let top=e.detail.scrollTop;
     
@@ -350,11 +336,11 @@ Page({
     today_month.setMonth(today_month.getMonth() + 1);//生成时间戳 大的
     
     today_month.setDate(0);//时间戳 小的 设置一个月的某一天。
-    console.log( today_month.setDate(0))
+    // console.log( today_month.setDate(0))
     const day_num = today_month.getDate()+week;//月份的天数
     const data = [];
     for (var i = 0; i < day_num; i++) {
-      console.log((week+choose_date-1))
+      // console.log((week+choose_date-1))
       switch (true){
         case i<week:
           data.push({
@@ -468,8 +454,7 @@ Page({
         check:!this.data.check
     })
   },
-  
-  //散座详情里 阴影部分
+  // 散座详情里 阴影部分
   closeMeetDetail:function(){
       this.setData({
         meetingRoomId:'',
@@ -484,7 +469,7 @@ Page({
       })
     }
   },
-  //默认的预计到场时间  
+  // 默认的 行程提醒 
   getRemind:function(alertTime){
     let themeObj={
       'NOALERT':'无',
@@ -496,7 +481,7 @@ Page({
      return themeObj[alertTime]
     
   },
-  //行程提醒
+  // 行程提醒
   jumpSetRemind:function() {
       let data=this.data;
       wx.navigateTo({
@@ -504,7 +489,7 @@ Page({
       })
      
     },
-  //手机号
+  // 手机号 
   jumpSetPhone:function() {
       let data=this.data;
       wx.navigateTo({
@@ -512,36 +497,50 @@ Page({
       })
       
     },
- 
-
-
-
-  getMeetId(){
-    let that = this;
-    wx.getStorage({
-        key: 'detail',
-        success: function(res) {
-          if(res.data){
-            that.setData({
-              meetingRoomId:res.data.meetingRoomId
-            },function(){
-              that.getMeetDetail();
-            })
-          }
-        }
+  //查看服务须知
+  goToGuide:function(){
+    wx.navigateTo({
+      url: '../guide/guide'
     })
   },
+
+
+  //获取 id
+  getMeetId(){
+    let that = this;
+    that.setData({
+                meetingRoomId:129
+              },function(){
+                that.getMeetDetail();
+              })
+    // wx.getStorage({
+    //     key: 'detail-c',
+    //     success: function(res) {
+    //       if(res.data){
+    //         that.setData({
+    //           meetingRoomId:res.data.meetingRoomId
+    //         },function(){
+    //           that.getMeetDetail();
+    //         })
+    //       }
+    //     }
+    // })
+  },
+  // 获取详情
   getMeetDetail(){
     let that = this;
     let meetingRoomId = this.data.meetingRoomId;
    
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
+        // url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/detail',
         method:"GET",
         data:{
-          "meetingRoomId":meetingRoomId
+          // "meetingRoomId":meetingRoomId
+          seatGoodsId:meetingRoomId
         },
         success:(res)=>{
+          console.log("散客详情",res)
           if(res.data.code>0){
             let meetingDetail = res.data.data;
            
@@ -585,10 +584,9 @@ Page({
 
 
   onLoad: function (options) {
-    
     this.getPhone();
     var _this=this;
-    console.log(options)//{}
+    console.log("safadsfsad", options)
     if(options.from=='list'){
       wx.getStorage({
         key:'meet_detail',
@@ -603,9 +601,9 @@ Page({
       })
     }else{
         wx.getStorage({
-          key:'detail',
+          key:'detail-c',
           success:function(res){
-            console.log(res)
+            // console.log(res)
             if(res.data){
               _this.setData({
                   detailInfo:res.data//当前散座的一系列数据
@@ -663,6 +661,7 @@ Page({
   onShow:function(){
     var _this=this;
     this.getMeetId()
+
     wx.getStorage({
       key:'order_pay',
       success:function(res){
@@ -747,7 +746,7 @@ Page({
       date1 = this.dealDate(today_month,true,choose_date);//返回数据了
       
       date2 = this.dealDate(next_month,false); 
-      console.log(date2)
+      // console.log(date2)
     }else if (choose_month == next_month.getMonth()){
       this.last_data = 'date_data2';
       date1 = this.dealDate(today_month,true);
@@ -800,13 +799,13 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-          console.log(res)//code
+          // console.log(res)//code
           let userInfo=Object.assign({},res.data.data);
           let linkPhone=_this.data.linkPhone;
           _this.setData({
               linkPhone:userInfo.phone || linkPhone
           })
-          console.log(this.data.linkPhone)//''
+          // console.log(this.data.linkPhone)//''
         }
     })
   },
@@ -815,7 +814,7 @@ Page({
 
   // 去支付
   createOrder:function(){
-
+   
   //   this.setData({
   //     dialogShow:!this.data.dialogShow,
   //     typeStatus:true,
@@ -834,15 +833,22 @@ Page({
     
     let data=this.data;
     let orderData = {
-      alertTime:data.order_pay.alertTime || data.alertTime,
-      arrivingTime:data.arrivingTime,
+      
+      alertTime: "TWOHOUR",
+      linkPhone:data.order_pay.linkPhone || data.linkPhone,
+      arrivingTime:data.time,
+      quantity:data.sankeNum,
+      seatGoodls:129
+
+      // alertTime:data.order_pay.alertTime || data.alertTime,
       // beginTime:data.meeting_time.beginTime,
       // endTime:data.meeting_time.endTime,
-      linkPhone:data.order_pay.linkPhone || data.linkPhone,
       // meetingRoomId:data.detailInfo.meetingRoomId,
       // themeName:data.order_pay.themeName || data.themeName
-      seatGoodls:data.seatGoodls
+     
     }
+    console.log(orderData)
+
     wx.showLoading({
       title: '加载中',
       mask:true
@@ -850,7 +856,8 @@ Page({
     
     var _this=this;
         app.getRequest({
-          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          // url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/create',
           methods:"GET",
           header:{
             'content-type':"appication/json"
@@ -858,6 +865,7 @@ Page({
           data:orderData,
           
           success:(res)=>{
+            console.log(res)
             let code=res.data.code;
             setTimeout(function(){
               wx.hideLoading();
@@ -939,6 +947,7 @@ Page({
         orderId:data.orderId
       },
       success:(res)=>{
+        //  微信支付
           wx.requestPayment({
             'nonceStr': data.noncestr,
             'orderld':data.orderld,

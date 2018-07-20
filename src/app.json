@@ -2,6 +2,9 @@
   "pages": [
    
     "pages/index/index",
+    "pages/seatorderConfirmation/seatorderConfirmation" ,
+    "pages/orderseatDetail/orderseatDetail",
+
     "pages/meeting/meeting",
     "pages/invitationLetter/invitationLetter",
     "pages/seatDetail/seatDetail",
@@ -17,7 +20,6 @@
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
     "pages/myOrder/myOrder",
-    
     "pages/boardroomList/boardroomList",
     "pages/my/my",
     "pages/myMeeting/myMeeting",
@@ -29,10 +31,7 @@
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
-    "pages/component/component",
-    "pages/seatorderConfirmation/seatorderConfirmation" ,
-    "pages/orderseatDetail/orderseatDetail"
-    
+    "pages/component/component"
     
   ],
   "window": {

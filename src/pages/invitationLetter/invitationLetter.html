@@ -1,12 +1,30 @@
 <view class="invitation-wrapper">
-    <image src="../images/invitation/banner.png" class="ivt-banner"></image>
-    <image src="../images/invitation/card.png" class="ivt-card"></image>
-    <image src="../images/invitation/fix.png" class="ivt-fix"></image>
-    <view class="ivt-body" style="height: 2400rpx;">
+    <image class="ivt-banner" src="../images/invitation/banner.jpg"></image>
+    <image class="ivt-card" src="../images/invitation/card.png"></image>
+    <image class="ivt-fix" src="../images/invitation/fix.png"></image>
+    <view class="ivt-body">
         <view class="ivt-user-info">
             <image class="ivt-user-avatar" src="{{userInfo.avatarUrl}}"></image>
             <view class="ivt-user-name">{{userInfo.nickName}}</view>
             <text>邀请您</text>
         </view>
+        <view class="ivt-details">
+            <view>
+                {{usedTime}}
+                <text>\n位于</text>
+                {{adress}}
+                <text>办公。</text>
+            </view>
+        </view>
+        <view class='hint'>
+            <text class='hint_title'>移动办公小贴士</text>
+            <block wx:for="{{hint}}" wx:key>
+                <view class='list'>
+                    <text class='title'>{{item.title}}</text>
+                    <text class='text'>{{item.text}}</text>
+                </view>
+            </block>
+        </view>
     </view>
+    <button class="accept-invitation" bindtap="accept">接受邀请函</button>
 </view>

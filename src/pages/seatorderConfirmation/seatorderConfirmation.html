@@ -1,4 +1,4 @@
-<view class="g-order-confirmation" :style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
+<view class="g-order-confirmation" :style="{{meetDetailShow?'height:100%;overflow:hidden':''}} ">
     <view class="m-order-header">
         <!-- 图片 与 详情 -->
         <view class="u-order-detail" bindtap="openMeetDetail">
@@ -8,11 +8,11 @@
 
             <view class="u-order-right">
                 <text class="u-meet-title">散座</text>
-                <text class="u-meet-address">{{meetingDetail.buildName}} {{meetingDetail.floor}}层 氪空间</text>
+                <text class="u-meet-address">{{meetingDetail.buildFloorDescr}}  氪空间</text>
                 <view class="u-meet-price-info">
                     <!-- <view class="u-meet-price"> -->
                         <!-- <text class="u-meet-num"> -->
-                            {{meetingDetail.address}}
+                            {{meetingDetail.adress}}
                         <!-- </text> -->
                     <!-- </view> -->
                 </view>
@@ -246,24 +246,24 @@
               <view class="u-meet-detail-address">
                   <view class="u-address">
                       <image class="u-address-icon" src="../images/public/icon_didian.png"></image>
-                      <view class="u-address-txt">{{meetingDetail.buildName}} {{meetingDetail.floor}}层 氪空间</view>
+                      <view class="u-address-txt">{{meetingDetail.buildFloorDescr}}  氪空间</view>
                   </view>
                   <view class="u-address">
                     <image class="u-address-icon"  src="../images/public/icon_dizhi.png" style="vertical-align: top"></image>
-                    <view class="u-address-txt" style="width:90%;vertical-align: middle;line-height: 32rpx">{{meetingDetail.address}}</view>
+                    <view class="u-address-txt" style="width:90%;vertical-align: middle;line-height: 32rpx">{{meetingDetail.adress}}</view>
                 </view>
                 <view class="u-address">
                     <image class="u-address-icon"  src="../images/public/icon_shijian.png" style="vertical-align: top"></image>
-                    <view class="u-address-txt" style="width:90%;vertical-align: middle;line-height: 32rpx">9:00-18:30开放</view>
+                    <view class="u-address-txt" style="width:90%;vertical-align: middle;line-height: 32rpx">{{meetingDetail.openTime}}</view>
                 </view>
               </view>
 
 
           </view>
-          <view class="u-meet-facility" wx:if="{{meetingDetail.device.length}}">
+          <view class="u-meet-facility" wx:if="{{meetingDetail.devices.length}}">
               <view 
                 class="u-icon-list"  
-                wx:for="{{meetingDetail.device}}"
+                wx:for="{{meetingDetail.devices}}"
                 wx:key="*this"
                 wx:for-item="meetItem"
               >

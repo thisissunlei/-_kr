@@ -104,6 +104,7 @@ Page({
     console.log(e)
     let rangeTime = e.currentTarget.dataset.rangetime;
     let detail = e.currentTarget.dataset.detail;
+    let id=111
     wx.setStorageSync('rangeTime-c',rangeTime);
     wx.setStorageSync('detail-c',detail);
     wx.navigateTo({
