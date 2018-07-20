@@ -51,7 +51,7 @@ App({
     const that = this;
     if(data.url.indexOf('api/gateway/krmting/user/save')>0){
       data.data['openid'] = this.globalData.openid;
-      console.log(data.data['openid'])
+     
     }
     wx.request({
       url: data.url,

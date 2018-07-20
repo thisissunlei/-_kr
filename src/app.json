@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/orderseatDetail/orderseatDetail",
    
     "pages/index/index",
     "pages/seatorderConfirmation/seatorderConfirmation" ,
+    "pages/orderseatDetail/orderseatDetail",
 
     "pages/meeting/meeting",
     "pages/invitationLetter/invitationLetter",

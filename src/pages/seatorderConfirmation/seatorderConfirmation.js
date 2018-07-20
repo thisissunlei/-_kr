@@ -507,23 +507,18 @@ Page({
   //获取 id
   getMeetId(){
     let that = this;
-    that.setData({
-                meetingRoomId:129
-              },function(){
-                that.getMeetDetail();
-              })
-    // wx.getStorage({
-    //     key: 'detail-c',
-    //     success: function(res) {
-    //       if(res.data){
-    //         that.setData({
-    //           meetingRoomId:res.data.meetingRoomId
-    //         },function(){
-    //           that.getMeetDetail();
-    //         })
-    //       }
-    //     }
-    // })
+    wx.getStorage({
+        key: 'detail-c',
+        success: function(res) {
+          if(res.data){
+            that.setData({
+              meetingRoomId:res.data.id
+            },function(){
+              that.getMeetDetail();
+            })
+          }
+        }
+    })
   },
   // 获取详情
   getMeetDetail(){
@@ -582,7 +577,6 @@ Page({
   onLoad: function (options) {
     this.getPhone();
     var _this=this;
-    console.log("safadsfsad", options)
     if(options.from=='list'){
       wx.getStorage({
         key:'meet_detail',
@@ -618,17 +612,17 @@ Page({
         }
       }
     })
-    wx.getStorage({
-      key:'meeting_time',
-      success:function(res){
-        console.log(res)
-        if(res.data){
-          _this.setData({
-            meeting_time:res.data
-          })
-        }
-      }
-    })
+    // wx.getStorage({
+    //   key:'meeting_time',
+    //   success:function(res){
+    //     console.log(res)
+    //     if(res.data){
+    //       _this.setData({
+    //         meeting_time:res.data
+    //       })
+    //     }
+    //   }
+    // })
    
     wx.getStorage({
       key:'order_pay',
@@ -648,7 +642,6 @@ Page({
       nowDate:wx.getStorageSync('nowDate'),
       nowDateIndex:wx.getStorageSync('nowDateIndex'),
       topDate:wx.getStorageSync('topDate'),
-      timeweekArr:wx.getStorageSync("arr")
     })
 
 
@@ -795,13 +788,12 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-          // console.log(res)//code
+          console.log(res)//code
           let userInfo=Object.assign({},res.data.data);
           let linkPhone=_this.data.linkPhone;
           _this.setData({
               linkPhone:userInfo.phone || linkPhone
           })
-          // console.log(this.data.linkPhone)//''
         }
     })
   },
@@ -821,12 +813,6 @@ Page({
     //     console.log(res)
     //   }
     // })
-     
-
-      
-     
-   
-
     // wx.navigateTo({
     //   url: '../bindPhone/bindPhone'
     // })
@@ -853,7 +839,7 @@ Page({
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       arrivingTime:data.time,
       quantity:data.sankeNum,
-      seatGoodls:129
+      seatGoodIds:"129,130"
 
       // alertTime:data.order_pay.alertTime || data.alertTime,
       // beginTime:data.meeting_time.beginTime,
