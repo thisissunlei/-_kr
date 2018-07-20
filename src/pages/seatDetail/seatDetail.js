@@ -6,11 +6,12 @@ Page({
   data: {
     width: 0,
     seatId: 1234, //我的散座传过来的id
-    canInvite: true, //是否可以赠送
-    count: 1, //剩余赠送数量
-    sponsor: true, //是否是创建人
-    imgsrc: "",
-    name: "",
+    // canInvite: true, //是否可以赠送
+    // count: 1, //剩余赠送数量
+    // sponsor: true, //是否是创建人
+    // imgsrc: "",
+    // name: "",
+    seatStatus: "EXPIREDe",
     detail: {},
     //address buildFloorDescr canInvite limitCount useTime
     //arrving notArrving sponsor wechatAvatar wechatId wechatNick
@@ -34,55 +35,39 @@ Page({
     //   seatStatus: "EXPIREDe",
     //   length: 1
     // },
-    partner: [
-      {
-        name: "暗淡1",
-        imgsrc:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132"
-      },
-      {
-        name: "暗淡",
-        imgsrc:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132"
-      }
-    ],
+    partner: [],
     hint: [
       {
-        title: "1. 我订了会议室，要提前多久入场呀？",
+        title: "Q：到了大厦怎么进去呀，有门禁吗？",
         text:
-          "会议室使用时间前10分钟可以进入大厅哦，如果订的会议室没有人就可以提前进入啦～"
+          "A：亲到了氪空间需要出示“我的散座”中的二维码“门票”给保安呦，保安验证后就会给您开门啦～"
       },
       {
-        title: "2. 到了KrMeeting，怎么入场呀？",
+        title: "Q：预订的散座是什么样的呀，座位能挑选吗？",
         text:
-          "出示入场二维码（在小程序的“我的会议”里），保安小哥哥验证后就可以入场啦～"
+          "A：散座类型有办公桌椅、咖啡厅类型的沙发配茶几、吧台椅、卡座等类型的，亲可以在提前预留的座位或没人使用的座位中挑选哦～"
       },
       {
-        title: "3. 可以订一个小一点的会议室、多一些人入场吗？",
-        text: "入场人数不能超过所订会议室的可容纳人数哦！！"
-      },
-      {
-        title: "4. 我订的会议室被别人占用怎么办？",
-        text: "前台小姐姐会在会议开始前协调，保证亲的会议顺利开始，不用担心呢～"
-      },
-      {
-        title: "5. 水吧台的茶饮和咖啡看起来好赞，取用需要付费吗？",
-        text: "都是免费的、而且不限量哦，自助取用就可以啦～"
-      },
-      {
-        title: "6. 会议室的无线投屏设备好先进，使用需要额外付费吗？",
+        title: "Q：在使用散座期间能接待访客吗？",
         text:
-          "也是免费的哦，找前台小姐姐登记领取就可以啦（使用方法见会议桌上的提示卡，很简单呢），离开时记得归还哦~"
+          "A：亲订的散座是单人单天的哦，如需接待访客可提前预订相应人数的散座，也可以在访客到访时段订一个会议室哦～"
       },
       {
-        title: "7. 订的使用时段结束了，会还没开完怎么办呢？",
-        text: "可以在KrMeeting小程序续订哦～"
-      },
-      {
-        title: "8. 大厅环境太好了，开完会想多待会儿可以吗？",
+        title: "Q：使用散座期间能多次出入吗，出去了再进来怎么办？",
         text:
-          "所订时段结束后的10分钟内可以在大厅休整啦，之后前台小姐姐会依依不舍的送亲离开哦！"
+          "A：可以多次出入哦，亲出去不需要刷卡，再次进来时出示您的订单详情页面给保安小哥哥就好啦～"
+      },
+      {
+        title: "Q：水吧台的茶饮和咖啡看起来好赞，取用需要付费吗？",
+        text: "A：都是免费的、而且不限量哦，自助取用就可以啦～"
       }
+    ],
+    hintPlus: [
+      { text: "❊ 不可在氪空间任何位置进行广告或销售活动哦！" },
+      { text: "❊ 不可进入会员办公区及打扰到社区其他会员哦！" },
+      { text: "❊ 不可改变社区任何设施，如有损坏需赔偿哦！" },
+      { text: "❊ 不可吸烟哦！" },
+      { text: "❊ 不可进行违反法律规定的任何事项哦！" }
     ]
   },
   //分享
@@ -117,9 +102,10 @@ Page({
         // console.log(invitee);
         that.data.partner.map((item, index) => {
           // console.log(item, index);
-          if (item.name == invitee.nickName) {
+          if (item.wechatNick == invitee.nickName) {
             that.data.partner.splice(index, 1);
           }
+          return item;
         });
       }
       console.log(that.data.partner);
@@ -135,7 +121,7 @@ Page({
         that.width = res.windowWidth;
       }
     });
-    if (that.data.detail.seatStatus === "EXPIRED") {
+    if (that.data.seatStatus === "EXPIRED") {
       QR.qrApi.draw(
         "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
         "mycanvas",
@@ -144,9 +130,6 @@ Page({
         null,
         "rgba(0,0,0,0.6)"
       );
-      that.setData({
-        canInvite: false
-      });
     } else {
       QR.qrApi.draw(
         "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
@@ -172,15 +155,37 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/myseat/detail",
       data: {
-        ticketUserId: 1
+        ticketUserId: 21
       },
       success: function(res) {
-        // console.log(res);
+        console.log(res);
         var seatInfo = Object.assign({}, res);
-        console.log(seatInfo);
+        // console.log(seatInfo);
+        var newUser = wx.getStorageSync("user_info");
+        console.log(newUser);
+        var sponsor = seatInfo.data.data.sponsor;
+        var inviteers = seatInfo.data.data.inviteers;
+        // console.log(newUser);
+        if (!sponsor) {
+          var result = inviteers.some(value => {
+            return value.wechatNick == newUser.nickName;
+          });
+          if (!result) {
+            inviteers.push({
+              wechatNick: newUser.nickName,
+              wechatAvatar: newUser.avatarUrl
+            });
+          }
+        }
+
+        // seatInfo.data.data.sponsor = true;
+        // seatInfo.data.data.limitCount = 0;
+        // seatInfo.data.data.canInvite = true;
         that.setData({
-          detail: seatInfo.data.data
+          detail: seatInfo.data.data,
+          partner: inviteers
         });
+        console.log(that.data.detail);
       }
     });
   }
