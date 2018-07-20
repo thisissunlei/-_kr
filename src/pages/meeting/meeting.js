@@ -4,9 +4,15 @@ const app = getApp()
 
 Page({
   data: {
+    fan:'',
+    zheng:'',
+    Minimum:null,
+    Maximum:null,
     inn:[],//最终数组
+    inn1:[],
     splice:[],//暂存数组
     splice_s:[],
+    combination:[],
     index1:new Date().getDate(),
     number:1,
     show:false,
@@ -29,22 +35,19 @@ Page({
       {number:12,mary:76,kg:false},
     ],
     arr1:[
-      {number:0,mary:20,kg:false},{number:0,mary:34,kg:false},{number:45,mary:23,kg:false},{number:34,mary:35,kg:false},{number:12,mary:0,kg:false},
+      {number:0,mary:20,kg:false},{number:0,mary:34,kg:false},{number:45,mary:23,kg:false},{number:34,mary:35,kg:false},{number:12,mary:11,kg:false},
       {number:20,mary:30,kg:false},{number:0,mary:87,kg:false},{number:6,mary:40,kg:false},{number:9,mary:34,kg:false},{number:25,mary:30,kg:false},
       {number:234,mary:356,kg:false},{number:45,mary:34,kg:false},{number:12,mary:42,kg:false},{number:29,mary:36,kg:false},{number:26,mary:36,kg:false},
       {number:224,mary:57,kg:false},{number:13,mary:54,kg:false},{number:5,mary:67,kg:false},{number:1,mary:36,kg:false},{number:26,mary:33,kg:false},
       {number:0,mary:89,kg:false},{number:5,mary:22,kg:false},{number:12,mary:38,kg:false},{number:0,mary:30,kg:false},{number:20,mary:33,kg:false},
       {number:33,mary:45,kg:false},{number:12,mary:35,kg:false},{number:22,mary:39,kg:false},{number:23,mary:30,kg:false},{number:24,mary:32,kg:false},
-      {number:12,mary:76,kg:false},
+      {number:12,mary:76,kg:false},{number:12,mary:76,kg:false},{number:12,mary:76,kg:false},{number:12,mary:76,kg:false},
     ],
   },
  arr_index:[],
   all_day_num:0,
   last_btn_num:'false',
   last_data:'false',
- 
-  
-  
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -52,41 +55,98 @@ Page({
     })
   },
   diantrue(){
-    let fuxiu = this.data.splice_s
+    let fuxiu = []
+    let fuxiu_a = []
     this.data.date_data1.map((item,index)=>{
       if(item.kg == true){
         fuxiu.push(item)
       }
     })
-    this.setData({
-      inn:fuxiu
+    this.data.date_data2.map((item,index)=>{
+      if(item.kg == true){
+        fuxiu_a.push(item)
+      }
     })
-    wx.setStorageSync('data-index',this.data.inn)
+    console.log(fuxiu,fuxiu_a)
+    let combination = fuxiu.concat(fuxiu_a)
+    combination.map(item=>{
+      item.number_a = this.data.number
+    })
+    console.log(combination)
+    this.setData({
+      combination:combination
+    })
+    wx.setStorageSync('data-index',this.data.combination)
   },
   jian(){
-    if(this.data.number>1){
+    if(this.data.number > 1){
       this.setData({
         number:this.data.number-=1
       })
     }
-    this.data.arr.map((item,index)=>{
-      if(item.number>this.data.number){
-        let arr_a = this.data.arr
-        this.setData({
-          arr : arr_a
-        })
+    let arr_a_a = this.data.date_data1
+    let arr_a_a2 = this.data.date_data2
+    let edge = []
+    arr_a_a.map((item,index)=>{
+      if(item.number >= this.data.number){
+        item.type = 'next'
       }
-    })
-    this.data.arr1.map((item,index)=>{
-      if(item.number>this.data.number){
-        let arr_a = this.data.arr1
-        this.setData({
-          arr1 : arr_a
-        })
+      if(item.kg == true){
+        edge.push(item)
       }
+      return item;
     })
-    this.onShow()
+    this.setData({
+      date_data1:arr_a_a
+    })
+    arr_a_a2.map((item,index)=>{
+      if(item.number >= this.data.number){
+        item.type = 'next'
+      }
+      if(item.kg == true){
+        edge.push(item)
+      }
+      return item;
+    })
+    edge.sort(function(a,b){
+      return a.number - b.number//从小到大
+    })
     
+    this.setData({
+      date_data2:arr_a_a2,
+      Maximum:edge[edge.length-1].number,
+      Minimum:edge[0].number
+    })
+    if(this.data.number <= this.data.Minimum){
+      this.setData({
+        fan:false
+      })
+    }else{
+      this.setData({
+        fan:false
+      })
+    }
+    // console.log(this.data.Maximum,this.data.Minimum,this.data.number)
+    // if(this.data.number <= this.data.Minimum){
+    //   this.setData({
+    //     number : this.data.Minimum
+    //   })
+    //   arr_a_a.map(item=>{
+    //     if(item.number < this.data.number){
+    //       item.type = 'before'
+    //     }
+    //   })
+    //   arr_a_a2.map(item=>{
+    //     if(item.number < this.data.number){
+    //       item.type = 'before'
+    //       console.log(item)
+    //     }
+    //   })
+    //   this.setData({
+    //     date_data1:arr_a_a,
+    //     date_data2:arr_a_a2
+    //   })
+    // }
   },
   jia(){
     this.setData({
@@ -94,31 +154,68 @@ Page({
     })
     let arr_a_a = this.data.date_data1
     let arr_a_a2 = this.data.date_data2
+    let edge_a = []
     arr_a_a.map((item,index)=>{
-     // console.log(item,index,item.kg,111111,this.data.number,item.number)
       if(item.number < this.data.number){
-        
         item.kg = false
-        // console.log(item,index,item.kg,111111,this.data.number,item.number)
+        item.type = 'before'
+      }
+      if(item.kg == true){
+        edge_a.push(item)
       }
       return item;
     })
-    // console.log(arr_a_a)
     this.setData({
       date_data1:arr_a_a
     })
     arr_a_a2.map((item,index)=>{
       if(item.number < this.data.number){
-        // console.log(item)
         item.kg = false
-        
+        item.type = 'before'
+      }
+      if(item.kg == true){
+        edge_a.push(item)
       }
       return item;
     })
-    this.setData({
-      date_data2:arr_a_a2
+    edge_a.sort(function(a,b){
+      return a.number - b.number//从小到大
     })
-    this.onShow()
+    this.setData({
+      date_data2:arr_a_a2,
+      Maximum:edge_a[edge_a.length-1].number,
+      Minimum:edge_a[0].number
+    })
+    if(this.data.number > this.data.Minimum && this.data.number <= this.data.Maximum){
+      this.setData({
+        zheng:true
+      })
+    }else{
+      this.setData({
+        zheng:false
+      })
+    }
+    // console.log(this.data.Maximum,this.data.Minimum,this.data.number)
+    // if(this.data.number >= this.data.Maximum){
+    //   this.setData({
+    //     number : this.data.Maximum
+    //   })
+      // arr_a_a.map(item=>{
+      //   if(item.number < this.data.number){
+      //     item.type = 'before'
+      //   }
+      // })
+      // arr_a_a2.map(item=>{
+      //   if(item.number < this.data.number){
+      //     item.type = 'before'
+      //     console.log(item)
+      //   }
+      // })
+      // this.setData({
+      //   date_data1:arr_a_a,
+      //   date_data2:arr_a_a2
+      // })
+    // }
   },
   //事件处理函数
   bindViewTap: function() {
@@ -147,12 +244,19 @@ Page({
       var old_data = [];
       let aa = e.target.dataset
       let kong_index =this.data.inn
+      let kong_index1 =this.data.inn1
       let kong_index_a = this.data.splice
       if(e.target.dataset.data=='date_data2'){
         let ios = this.data.date_data2
         let zuti = e.target.dataset.kg
         let index_zi_a = this.data.arr1
-        let inn = this.data.inn
+        let inn1 = this.data.inn1
+        //------------------
+        // const today_date1 = new Date();
+        // const next_month = new Date(today_date1.getFullYear(),today_date1.getMonth()+1,1)
+        // const week1 = next_month.getDay();//月第一天星期几
+        // console.log(week1)
+        //----------------------
         ios[e.target.dataset.num].kg = !ios[e.target.dataset.num].kg
         index_zi_a[e.target.dataset.num].kg = !index_zi_a[e.target.dataset.num].kg
         this.setData({
@@ -160,6 +264,53 @@ Page({
           // date_data2:new_data, 
           arr1:index_zi_a 
         });
+        if(e.target.dataset.kg == true){//取消
+          console.log("用户取消了")
+          // console.log(this.data.date_data1[e.target.dataset.num])//false
+          let arr_index = []
+          this.data.date_data2.map((item,index)=>{
+            if(item.kg == true){
+              // console.log(item)
+              arr_index.push(item)
+            }
+          })
+
+          // console.log(arr_index)
+          this.setData({
+            inn1:arr_index
+          })
+        }else{//选择
+          console.log("用户选择")
+          this.data.date_data2.map((item,index)=>{
+            if(item.kg == true){
+              if(index == e.target.dataset.num){
+                let year = e.target.dataset.year, month = e.target.dataset.month-1, date = e.target.dataset.value;// month=6表示7月
+            
+                console.log(e)
+                  let dt = new Date(year, month, date), dt2 = new Date();
+                  let weekDay = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+                  if(date == '今天'){
+                    weekDay[dt.getDay()] = '今天'
+                  }else if (date == '明天'){
+                    weekDay[dt.getDay()] = '明天'
+                  }
+                // console.log(weekDay[dt.getDay()])
+                item.zhou = weekDay[dt.getDay()]
+                item.value = e.target.dataset.value
+                item.month = e.target.dataset.month
+                item.year = e.target.dataset.year
+                item.number_a = this.data.number
+                item.kg = this.data.date_data2[index].kg
+                kong_index1.push(item)
+                this.setData({
+                  inn1:kong_index1
+                })
+                console.log(this.data.inn1)
+              }
+            }
+          })
+        }
+        console.log(this.data.inn1)
       }else if(e.target.dataset.data=='date_data1'){
         let ioi = this.data.date_data1
         let zuti = e.target.dataset.kg
@@ -211,6 +362,7 @@ Page({
                 this.setData({
                   inn:kong_index
                 })
+                console.log(this.data.inn)
               }
             }
           })
@@ -251,8 +403,6 @@ Page({
               data.push({//本月部分不可选，可能数量不足或买完
                 value:i-week+1,
                 type:'before',
-                number:index_zhu.arr[i].number,
-                mary:index_zhu.arr[i].mary
               })
             
           }else{
@@ -261,6 +411,7 @@ Page({
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
+                kg:false,
                 number:index_zhu.arr[i].number,
                 mary:index_zhu.arr[i].mary,
                 name:i
@@ -270,6 +421,7 @@ Page({
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
+                kg:false,
                 number:index_zhu.arr[i].number,
                 mary:index_zhu.arr[i].mary,
                 name:i
@@ -322,18 +474,19 @@ Page({
             data.push({
               value:'明天',
               type:'before',
-              
+              kg:false,
+              number:index_zhu.arr[i].number,
+              mary:index_zhu.arr[i].mary
             });
           }else{
             data.push({//本月明天可选
               value:'明天',
               type:'now',
-              kg:index_zhu.arr[i].kg,
+              kg:true,
               number:index_zhu.arr[i].number,
               mary:index_zhu.arr[i].mary
             });
           }
-          
           this.all_day_num++;
           break;
         case i<(30-this.all_day_num+week)&&!bool:
@@ -379,7 +532,8 @@ Page({
         default:
           data.push({//已经过去的时间灰色不可选
             value:i-week+1,
-            type:'before'
+            type:'before',
+            kg:false
           });
           //this.all_day_num++;
         }
