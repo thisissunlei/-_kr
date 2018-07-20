@@ -164,14 +164,15 @@ Page({
     type = type || this.data.type;
     let orderOldList = this.data.orderList;
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/list',
         methods:"GET",
         data:{
           orderShowStatus:type,
-          page:page || 1
+          page:page || 1,
+          pageSize:1
         },
         success:(res)=>{
-          console.log(res)
+          console.log("订单列表",res)
           let oldList = []
           if(res.data.code>0){
             var list = []

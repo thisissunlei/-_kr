@@ -802,32 +802,6 @@ Page({
 
   // 去支付
   createOrder:function(){
-    // app.getRequest({
-    //   url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
-    //   methods:"GET",
-    //   data:"17810205921",
-    //   header:{
-    //     'content-type':"appication/json"
-    //   },
-    //   success:(res)=>{
-    //     console.log(res)
-    //   }
-    // })
-    // wx.navigateTo({
-    //   url: '../bindPhone/bindPhone'
-    // })
-  //   this.setData({
-  //     dialogShow:!this.data.dialogShow,
-  //     typeStatus:true,
-  //     message:"用户支付成功",
-  //     messageShow:true    
-  // })
-  // let that=this
-  // setTimeout(function(){
-  //   that.setData({
-  //     messageShow:false  
-  // })  
-  // },2000)
     this.setData({
       dialogShow:!this.data.dialogShow,
     })
@@ -840,15 +814,8 @@ Page({
       arrivingTime:data.time,
       quantity:data.sankeNum,
       seatGoodIds:"129,130"
-
-      // alertTime:data.order_pay.alertTime || data.alertTime,
-      // beginTime:data.meeting_time.beginTime,
-      // endTime:data.meeting_time.endTime,
-      // meetingRoomId:data.detailInfo.meetingRoomId,
-      // themeName:data.order_pay.themeName || data.themeName
      
     }
-    console.log(orderData)
 
     wx.showLoading({
       title: '加载中',
@@ -866,7 +833,45 @@ Page({
           data:orderData,
           
           success:(res)=>{
+           
+            wx.requestPayment({
+              'nonceStr':res.data.data.noncestr,
+              'orderId':res.data.data.orderId,
+              'package':res.data.data.packages,
+              'paySign':res.data.data.paySign,
+              'signType':res.data.data.signType,
+              'timeStamp':res.data.data.timestamp ,
+  
+  
+              'success':function(response){
+                  wx.showLoading({
+                    title: '加载中',
+                    mask:true
+                  })
+                  setTimeout(function(){
+                    _this.getInviteeId(res.data.data.orderId);
+                    wx.hideLoading();
+                  },1500)
+                 
+              },
+              'fail':function(response){
+                
+                wx.showLoading({
+                  title: '加载中',
+                  mask:true
+                })
+                setTimeout(function(){
+                  wx.hideLoading();
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+res.data.data.orderId+'&con='+1
+                  })
+                },1500)
+                 
+              },
+             
+            })
             console.log(res)
+            wx.setStorageSync("order",res.data.data)
             let code=res.data.code;
             setTimeout(function(){
               wx.hideLoading();
@@ -917,7 +922,7 @@ Page({
               default:
                 wx.reportAnalytics('confirmorder')
 
-                _this.weChatPay(res.data.data);
+                // _this.weChatPay(res.data.data);
                 // _this.closeDialog();
                   wx.setStorage({
                     key:"order_pay",
@@ -936,57 +941,61 @@ Page({
         })
        
   },
-  weChatPay:function(data){
-    var _this=this;
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
-      methods:"POST",
-      header:{
-        'content-type':"appication/json"
-      },
-      data:{
-        orderId:data.orderId
-      },
-      success:(res)=>{
-        //  微信支付
-          wx.requestPayment({
-            'nonceStr': data.noncestr,
-            'orderld':data.orderld,
-            
-            'package': data.packages,
-            'paySign': data.paySign,
-            'signType': data.signType,
-            'timeStamp':data.timestamp ,
-            'success':function(response){
-                wx.showLoading({
-                  title: '加载中',
-                  mask:true
-                })
-                setTimeout(function(){
-                  _this.getInviteeId(data.orderId);
-                  wx.hideLoading();
-                },1500)
+  // weChatPay:function(data){
+  //   console.log(data.orderId)
+  //   var _this=this;
+  //   app.getRequest({
+  //     url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+  //     methods:"POST",
+  //     header:{
+  //       'content-type':"appication/json"
+  //     },
+  //     data:{
+  //       orderId:data.orderId
+  //     },
+  //     success:(res)=>{
+  //       //  微信支付
+  //       console.log(res)
+  //         wx.requestPayment({
+  //           'nonceStr': data.noncestr,
+  //           'orderId':data.orderId,
+  //           'package': data.packages,
+  //           'paySign': data.paySign,
+  //           'signType': data.signType,
+  //           'timeStamp':data.timestamp ,
+
+
+  //           'success':function(response){
+  //               wx.showLoading({
+  //                 title: '加载中',
+  //                 mask:true
+  //               })
+  //               setTimeout(function(){
+  //                 _this.getInviteeId(data.orderId);
+  //                 wx.hideLoading();
+  //               },1500)
                
-            },
-            'fail':function(response){
-              wx.showLoading({
-                title: '加载中',
-                mask:true
-              })
-              setTimeout(function(){
-                wx.hideLoading();
-                wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con='+1
-                })
-              },1500)
+  //           },
+  //           'fail':function(response){
+  //             wx.showLoading({
+  //               title: '加载中',
+  //               mask:true
+  //             })
+  //             setTimeout(function(){
+  //               wx.hideLoading();
+  //               wx.navigateTo({
+  //                 url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con='+1
+  //               })
+  //             },1500)
                
-            },
+  //           },
            
-          })
-      }
-    })
+  //         })
+  //     }
+  //   })
     
-  },
+  // },
+  // 微信支付完成之后
   getInviteeId(orderId){
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
@@ -1004,7 +1013,7 @@ Page({
             })
         }else{
           wx.navigateTo({
-            url: '../orderDetail/orderDetail?id='+orderId+'&con='+1
+            url: '../orderseatDetail/orderseatDetail?id='+orderId+'&con='+1
           })
         }
           

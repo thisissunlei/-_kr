@@ -1,5 +1,6 @@
 //orderConfirmation.js
 //获取应用实例
+import CAlculagraph from "../../utils/time.js" ;
 const app = getApp()
 
 
@@ -78,52 +79,55 @@ Page({
   isSubTime: false,
   ifFixed: false,
   //立即支付
-  payOrder: function () {
-    let data=this.data;
-    let orderData = {
-      alertTime: "TWOHOUR",
-      linkPhone:data.order_pay.linkPhone || data.linkPhone,
-      arrivingTime:data.time,
-      quantity:data.sankeNum,
-      seatGoodIds:"129,130"   
-    }
-    // let orderId = this.data.orderId;
-    app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
-      method: "GET",
-      data: {orderData},
-      success: (res) => {
-        var _this = this;
-        console.log("订单信息",res)
-        wx.reportAnalytics('confirmorder')
-        
-        // 微信支付
-        // wx.requestPayment({
-        //   'timeStamp': res.data.data.timestamp,
-        //   'nonceStr': res.data.data.noncestr,
-        //   'package': res.data.data.packages,
-        //   'signType': res.data.data.signType,
-        //   'paySign': res.data.data.paySign,
-        //   'success': function (res) {
-        //     wx.showLoading({
-        //       title: '加载中',
-        //       mask: true
-        //     })
-        //     setTimeout(
-        //       function () {
-        //         _this.getInviteeId(orderId, _this.jumpPaySuccess)
-        //         wx.hideLoading()
-        //       }, 1500)
-        //   },
-        //   'fail': function (res) {}
-        // })
+  payOrder:function(){
+    let orderId=this.data.orderId;
+
+    let data= wx.getStorageSync("order")
+    wx.requestPayment({
+      'timeStamp': data.timestamp,
+      'nonceStr': data.noncestr,
+      'package': data.packages,
+      'signType':data.signType,
+      'paySign': data.paySign,
+      'success':function(res){
+        wx.showLoading({
+          title: '加载中',
+          mask:true
+        })
+        setTimeout(
+          function(){
+            _this.getInviteeId(orderId,_this.jumpPaySuccess)
+            wx.hideLoading()
+          },1500)
       },
-      fail: (error) => {
-          
+      'fail':function(res){
       }
     })
 
+
+
+    // console.log(orderId)
+    // app.getRequest({
+    //   // 支付订单
+    //   url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+    //   method:"POST",
+    //   data:{
+    //     orderId:orderId
+    //   },
+    //   success:(res)=>{
+    //     var _this=this;
+    //     console.log(res)
+    //     wx.reportAnalytics('confirmorder')
+
+      
+    //   },
+    //   fail:(error)=>{
+          
+    //   }
+    // })
+
   },
+
   // 立即支付成功后
   jumpPaySuccess:function(inviteeId){
     wx.navigateTo({
@@ -149,13 +153,11 @@ Page({
     }) 
    },
   // 散座详情 弹窗
-  openMeetDetail:function(e){
-      let detailInfo=this.data.detailInfo;
+  openMeetDetail:function(){
       let that = this;
-      wx.reportAnalytics('goodsdetails')
-  
+      // wx.reportAnalytics('goodsdetails')
       this.setData({
-        meetingRoomId:detailInfo.meetingRoomId,
+        meetingRoomId:this.data.meetingRoomId,
         meetDetailShow:!this.data.meetDetailShow
       },function(){
         that.getMeetDetail()
@@ -345,7 +347,7 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-    console.log(options)
+    console.log("safdaf",options)
     if(options.con){
       this.setData({
         orderId:options.id,
@@ -356,24 +358,8 @@ Page({
         orderId:options.id
       })
     }
-    // this.setData({
-    //       orderId:options.id,
-    //       con:options.con
-    //     })
+  
 
-
-    let num = wx.getStorageSync("num")
-    let month = wx.getStorageSync("month")
-    let day = wx.getStorageSync("day")
-    let week = wx.getStorageSync("week")
-
-
-      this.setData({
-      num: num||1,
-      month: month,
-      day: day,
-      week: week
-      })
 
     this.getPhone();
     var _this = this;
@@ -391,7 +377,7 @@ Page({
       })
     } else {
         wx.getStorage({
-        key: 'detail',
+        key: 'detail-c',
         success: function (res) {
           if (res.data) {
               _this.setData({
@@ -488,9 +474,8 @@ Page({
   
 
  
-
-getInviteeId(orderId,callback){
-  
+  // 微信支付完成以后
+  getInviteeId(orderId,callback){
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
         methods:"GET",
@@ -507,22 +492,22 @@ getInviteeId(orderId,callback){
           
         }
       })
-    },
+  },
+
   preventTouchMove() {},
 
 
 
-  // getDetailInfo:function(orderId){
-  getDetailInfo:function(){
+  getDetailInfo:function(orderId){
     const _this=this;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/detail',
         method:"GET",
       data:{
-        orderId:175
+        orderId:orderId
       },
       success:(res)=>{
-            console.log("订单详情接口",res)
+        console.log(999,res)
             let data=res.data.data;
             
               let titleObj={
@@ -569,9 +554,9 @@ getInviteeId(orderId,callback){
                 detailInfo:detailInfo,
                 hour:hour
             })
-          //     wx.setNavigationBarTitle({
-          //       title: titleObj[data.orderShowStatus]
-          // })
+              wx.setNavigationBarTitle({
+                title: titleObj[data.orderShowStatus]
+          })
               if(data.orderShowStatus=='OBLIGATION'){
                   _this.startcountDate(detailInfo.expiredTime);
         }
@@ -583,6 +568,8 @@ getInviteeId(orderId,callback){
       }
     })
   },
+
+
   startcountDate:function(date){
     const time = CAlculagraph.CAlculagraph();
     const that = this;
@@ -598,10 +585,9 @@ getInviteeId(orderId,callback){
   date:function(){
     let timestamp=new Date().getTime();
     if(timestamp>this.data.detailInfo.expiredTime){
-      console.log(this.data.titleObj)
-      // wx.setNavigationBarTitle({
-      //   title:this.data.titleObj.CLOSED
-      // })
+      wx.setNavigationBarTitle({
+        title:this.data.titleObj.CLOSED
+      })
        let orderShowStatus = 'detailInfo.orderShowStatus';
       this.setData({
         [orderShowStatus]:'CLOSED'
@@ -609,11 +595,9 @@ getInviteeId(orderId,callback){
     
     }
   },
-
-
-
   // 获取详情
   getMeetDetail() {
+ 
     let meetingRoomId = this.data.meetingRoomId;
     let that = this;
     app.getRequest({
@@ -623,7 +607,6 @@ getInviteeId(orderId,callback){
         "seatGoodsId":meetingRoomId 
       },
       success: (res) => {
-        console.log(meetingRoomId,res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
 
@@ -661,7 +644,7 @@ getInviteeId(orderId,callback){
 
       }
     })
-      },
+  },
 
 })
 function changeTime(date){
