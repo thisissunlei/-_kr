@@ -6,7 +6,7 @@
                 <!-- 背景大图 -->
                 <image src="../images/indexImg/card.png" class="img"></image>
                 <!-- 已过期png -->
-                <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
+                <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{seatStatus==='EXPIRED'}}"></image>
                 <!-- <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image> -->
                 <view class="content">
                     <view class='title'>
@@ -16,9 +16,9 @@
                     <view class='pics'>
                         <view class="code-pic">
                             <!-- 已过期边框 -->
-                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
+                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus==='EXPIRED'}}"></image>
                             <!-- 未过期边框 -->
-                            <image src="../images/indexImg/code.png" wx:if="{{detail.seatStatus!=='EXPIRED'}}" class="img"></image>
+                            <image src="../images/indexImg/code.png" wx:if="{{seatStatus!=='EXPIRED'}}" class="img"></image>
                             <canvas canvas-id="mycanvas" class="mycanvas" />
                         </view>
                         <view class="code-desc">请入场时出示此二维码</view>
@@ -33,18 +33,18 @@
             </view>
         </view>
         <!-- 同行人 -->
-        <view class='conferee' wx:if="{{canInvite && count > 0}}">
+        <view class='conferee' wx:if="{{detail.sponsor && detail.limitCount > 0}}">
             <text class='conferee-title'>同行人({{partner.length}})</text>
             <block>
                 <view class='list' wx:for="{{partner}}" wx:key>
                     <view class='pic'>
-                        <image src="{{item.imgsrc}}"></image>
+                        <image src="{{item.wechatAvatar}}"></image>
                     </view>
-                    <text>{{item.name}}</text>
+                    <text>{{item.wechatNick}}</text>
                     <!-- 已过期标识 -->
-                    <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true}}"></image>
+                    <!-- <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.notArrving===true}}"></image> -->
                     <!-- 确认到场 -->
-                    <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===true}}"></image>
+                    <!-- <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===true}}"></image> -->
                 </view>
             </block>
             <view class='clear'></view>
@@ -58,27 +58,34 @@
                     <text class='text'>{{item.text}}</text>
                 </view>
             </block>
+            <view class="kr-hint">
+                <text class="kr-hint-title">小氪重要提示：</text>
+                <view class="kr-hint-content">
+                    <text class="kr-hint-attention" wx:for="{{hintPlus}}" wx:key>{{item.text}}</text>
+                </view>
+                <text class="kr-hint-bottom">如您违反以上任意一条或多条，保安小哥哥会依依不舍的送您离开社区～</text>
+            </view>
         </view>
         <!-- 预订人 -->
-        <view class="footer" wx:if="{{sponsor}}">
+        <view class="footer" wx:if="{{detail.sponsor}}">
             <button open-type="contact" class="contact">
                 <text>联系客服</text>
             </button>
-            <button wx:if="{{canInvite && count > 0}}" open-type="share" id="share">
-                <text>赠送入场券({{count}})张</text>
+            <button wx:if="{{detail.sponsor && detail.limitCount > 0 && detail.canInvite}}" open-type="share" id="share">
+                <text>赠送入场券({{detail.limitCount}})张</text>
             </button>
-            <button wx:if="{{!canInvite || count == 0}}" class="reserve-again" bindtap="goIndex">
+            <button wx:if="{{!detail.sponsor || detail.limitCount == 0 || !detail.canInvite}}" class="reserve-again" bindtap="goIndex">
                 <text>再订一个</text>
             </button>
         </view>
         <!-- 受邀人 -->
-        <view class="footer invitee" wx:if="{{!sponsor}}">
-            <text class="cancel-seat" bindtap="cancelSeat" wx:if="{{detail.seatStatus!='EXPIRED'}}">我不去了</text>
+        <view class="footer invitee" wx:if="{{!detail.sponsor}}">
+            <text class="cancel-seat" bindtap="cancelSeat" wx:if="{{seatStatus!='EXPIRED'}}">我不去了</text>
             <view class="invitee-btn">
                 <button open-type="contact" class="contact">
                     <text>联系客服</text>
                 </button>
-                <button class="reserve-again" wx:if="{{detail.seatStatus=='EXPIRED'}}" bindtap="goIndex">
+                <button class="reserve-again" wx:if="{{seatStatus=='EXPIRED'}}" bindtap="goIndex">
                     <text>去订一个</text>
                 </button>
             </view>
