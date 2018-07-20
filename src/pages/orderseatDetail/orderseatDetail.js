@@ -56,7 +56,6 @@ Page({
     meetDetailShow: false,
     indicatorDots: false,
     meetInfo: ['1', '2', '3', 4, 5, 7, 9, 9, 4, 5, 7, 9, 9],
-    meetingRoomId: '',
     alertTime: 'THIRTY',
     order_pay: {},
     priceCount: '0',
@@ -325,8 +324,7 @@ Page({
    
 
   onShow: function () {
-    // this.getDetailInfo(this.data.orderId)
-    this.getDetailInfo(82045)
+    this.getDetailInfo(this.data.orderId)
     var _this = this;
     this.getMeetId()
     wx.getStorage({
@@ -617,19 +615,16 @@ getInviteeId(orderId,callback){
 
   getMeetDetail() {
     let that = this;
-    // let meetingRoomId = this.data.meetingRoomId;
-    let meetingRoomId = 82045;
+    let meetingRoomId = this.data.meetingRoomId;
 
     app.getRequest({
-      // url: app.globalData.KrUrl + 'api/gateway/krmting/room/detail',
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/goods/detail',
       method: "GET",
       data: {
-        // "meetingRoomId": meetingRoomId
-        // "seatGoodsId": meetingRoomId
-        "seatGoodsId": 82045
+        "seatGoodsId":meetingRoomId 
       },
       success: (res) => {
+        console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
 

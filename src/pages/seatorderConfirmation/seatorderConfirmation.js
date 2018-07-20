@@ -6,7 +6,6 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
-    seatGoodsId:"",
     timeweekArr:{},
     month:"",
     day:"",
@@ -83,7 +82,7 @@ Page({
   // 散座详情弹窗
   openMeetDetail:function(e){
     let that = this;
-    this.setData({
+    that.setData({
       meetingRoomId:'',
       meetDetailShow:!this.data.meetDetailShow
     },function(){
@@ -530,14 +529,11 @@ Page({
   getMeetDetail(){
     let that = this;
     let meetingRoomId = this.data.meetingRoomId;
-   
     app.getRequest({
-        // url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/detail',
         method:"GET",
         data:{
-          // "meetingRoomId":meetingRoomId
-          seatGoodsId:meetingRoomId
+          "seatGoodsId":meetingRoomId
         },
         success:(res)=>{
           console.log("散客详情",res)
@@ -814,7 +810,26 @@ Page({
 
   // 去支付
   createOrder:function(){
+    // app.getRequest({
+    //   url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
+    //   methods:"GET",
+    //   data:"17810205921",
+    //   header:{
+    //     'content-type':"appication/json"
+    //   },
+    //   success:(res)=>{
+    //     console.log(res)
+    //   }
+    // })
+     
+
+      
+     
    
+
+    // wx.navigateTo({
+    //   url: '../bindPhone/bindPhone'
+    // })
   //   this.setData({
   //     dialogShow:!this.data.dialogShow,
   //     typeStatus:true,
@@ -856,7 +871,7 @@ Page({
     
     var _this=this;
         app.getRequest({
-          // url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          // 散座下单
           url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/create',
           methods:"GET",
           header:{
