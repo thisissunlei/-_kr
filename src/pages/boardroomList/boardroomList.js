@@ -14,8 +14,6 @@ Page({
   data: {
     //数据模拟
     arr:[],
-    arr_arr:[],
-    show:['散座','会议','会议','散座','散座','会议'],
     ifFixed:false,
     meeting_detail:{},
     dialogDate:false,
@@ -40,11 +38,6 @@ Page({
     autoplay: false,
     duration: 1000,
     currentNum:1,
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
     number:10,
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     splice:"666",
@@ -101,10 +94,10 @@ Page({
   },
   //预定跳转页面
   list(e){
-    console.log(e)
     let rangeTime = e.currentTarget.dataset.rangetime;
     let detail = e.currentTarget.dataset.detail;
     let id=111
+    console.log(e)
     wx.setStorageSync('rangeTime-c',rangeTime);
     wx.setStorageSync('detail-c',detail);
     wx.navigateTo({
@@ -112,7 +105,7 @@ Page({
     })
   },
   openMeetDetail1:function(e){
-    console.log(e)
+    // console.log(e)
     wx.showLoading({
       title: '加载中',
     })
@@ -129,7 +122,7 @@ Page({
   },
 
   openMeetDetail:function(e){
-    console.log(e)
+    // console.log(e)
     wx.showLoading({
       title: '加载中',
     })
@@ -226,9 +219,9 @@ Page({
             wx.hideLoading();
           })
           this.data.boardroomList.forEach(element=>{
-            console.log(element.buildName)
+            // console.log(element)
             wx.setNavigationBarTitle({
-              title:element.buildName
+              title:element.roomName
             })
           })
         }
@@ -247,13 +240,14 @@ Page({
           dateTime: that.data.nowDate,
         },
         success:(res)=>{
-          let ss = []
           console.log(res)
+          let ss = []
+          // console.log(res)
           ss.push(res.data.data)
           that.setData({
             arr:ss
           })
-          console.log(that.data.arr)
+          // console.log(that.data.arr)
           that.setData({
             arr:that.data.arr,
           },function(){
@@ -413,7 +407,7 @@ Page({
     })
   },
   selectTopDate:function(e){
-    console.log(e)
+    // console.log(e)
     var topDate = this.data.topDate;//[]
     var indexParam = e.currentTarget.dataset.index;
     this.changeTimeColor(indexParam);
@@ -469,7 +463,7 @@ Page({
     // last_btn_num
     if(!a){
       this.data.date_data2.forEach((item,index) => {
-        console.log(item);
+        // console.log(item);
         if(item.validDateNum==param){
           
           dateIndex = index;
@@ -545,9 +539,10 @@ Page({
   changeCommunity: function(e) {
     var communityList = this.data.communityList;
     var index = e.detail.value;
-    wx.setNavigationBarTitle({
-      title: communityList[index].name
-    })
+    console.log(communityList[index].name)
+    // wx.setNavigationBarTitle({
+    //   title: communityList[index].name
+    // })
   },
 
   reserve:function(e) {
@@ -570,10 +565,10 @@ Page({
   last_btn_num:'false',
   last_data:'date_data1',
   dateBtn :function(e){
-    console.log(e)
+    // console.log(e)
     //亮的或者今天  明天
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
-      console.log(e);
+      // console.log(e);
       const new_data = this.data[e.target.dataset.data];
       var old_data = [];
       if(this.last_data!='false'){
@@ -779,7 +774,7 @@ Page({
         choose:''
       }
     });
-    console.log(1)
+    // console.log(1)
 
   },
 
@@ -839,7 +834,7 @@ Page({
   },
   nowReserve(e){
     let that = this;
-    console.log(e);
+    // console.log(e);
     let meetingRoomId = e.currentTarget.dataset.mid;
     let meetingDetail;
     if(this.button_boolean){

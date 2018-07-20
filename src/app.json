@@ -1,17 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-
     "pages/invitationLetter/invitationLetter",
-
     "pages/seatDetail/seatDetail",
-
     "pages/meetingStatus/meetingStatus",
-
     "pages/paySuccess/paySuccess",
-
     "pages/meetingDetail/meetingDetail",
-
     "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
     "pages/meeting/meeting",

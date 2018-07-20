@@ -81,7 +81,6 @@ Page({
         success:(res)=>{
           
 
-
           if(res.data.code>0){
             wx.navigateBack({
               delta: 1
