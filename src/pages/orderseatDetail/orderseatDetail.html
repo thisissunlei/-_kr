@@ -13,7 +13,7 @@
 
             <view class="u-order-right">
                 <text class="u-meet-title">散座</text>
-                <text class="u-meet-address">{{meetingDetail.buildName}} {{meetingDetail.floor}}层 氪空间</text>
+                <text class="u-meet-address">{{meetingDetail. buildAndFloorDescr}} {{meetingDetail.floor}}层 氪空间</text>
                 <view class="u-meet-price-info">{{meetingDetail.address}}</view>
                 <view class="u-btn-arrow u-head-arrow">
                     <image mode="scaleToFill" class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
@@ -183,7 +183,7 @@
                 </view>
                 <view class="u-address">
                     <image class="u-address-icon"  src="../images/public/icon_shijian.png" style="vertical-align: top"></image>
-                    <view class="u-address-txt" style="width:90%;vertical-align: middle;line-height: 32rpx">9:00-18:30开放</view>
+                    <view class="u-address-txt" style="width:90%;vertical-align: middle;line-height: 32rpx">{{meetingDetail.openTime}}开放</view>
                 </view>
               </view>
 

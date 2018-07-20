@@ -73,12 +73,18 @@ Page({
   //分享
   onShareAppMessage: res => {
     if (res.from === "button") {
-      console.log("来自页面赠送按钮");
-      console.log(res.target);
+      // console.log("来自页面赠送按钮");
+      // console.log(res.target);
+      return {
+        title: "来来来，发现一个办公的好地儿~",
+        desc: "KrMeeting会议室",
+        path: "pages/invitationLetter/invitationLetter"
+        // imageUrl: "../images/share_pic.jpg"
+      };
     } else {
-      console.log("来自右上角转发菜单");
+      // console.log("来自右上角转发菜单");
+      return app.globalData.share_data;
     }
-    return app.globalData.share_data;
   },
 
   //再订一个

@@ -1,16 +1,13 @@
 {
   "pages": [
    
-    "pages/index/index",
-    
    
+    "pages/index/index",
     "pages/seatorderConfirmation/seatorderConfirmation" ,
-    
     "pages/orderseatDetail/orderseatDetail",
 
     "pages/meeting/meeting",
     "pages/invitationLetter/invitationLetter",
-
     "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/cityList/cityList",
@@ -36,8 +33,6 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component"
-
-    
     
   ],
   "window": {
