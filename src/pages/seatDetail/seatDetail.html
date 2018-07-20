@@ -6,12 +6,12 @@
                 <!-- 背景大图 -->
                 <image src="../images/indexImg/card.png" class="img"></image>
                 <!-- 已过期png -->
-                <image src="../images/public/passdue.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
+                <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image>
                 <!-- <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{detail.seatStatus==='EXPIRED'}}"></image> -->
                 <view class="content">
                     <view class='title'>
-                        <text class='meetingTime'>{{detail.openTime}}</text>
-                        <text class="themeName">住邦2000-2号楼5层氪空间</text>
+                        <text class='meetingTime'>{{detail.useTime}}</text>
+                        <text class="themeName">{{detail.buildFloorDescr}}</text>
                     </view>
                     <view class='pics'>
                         <view class="code-pic">
@@ -33,14 +33,14 @@
             </view>
         </view>
         <!-- 同行人 -->
-        <view class='conferee'>
-            <text class='conferee-title'>同行人({{count}})</text>
+        <view class='conferee' wx:if="{{canInvite && count > 0}}">
+            <text class='conferee-title'>同行人({{partner.length}})</text>
             <block>
-                <view class='list'>
+                <view class='list' wx:for="{{partner}}" wx:key>
                     <view class='pic'>
-                        <image src="{{imgsrc}}"></image>
+                        <image src="{{item.imgsrc}}"></image>
                     </view>
-                    <text>{{name}}</text>
+                    <text>{{item.name}}</text>
                     <!-- 已过期标识 -->
                     <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true}}"></image>
                     <!-- 确认到场 -->

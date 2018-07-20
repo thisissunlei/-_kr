@@ -11,26 +11,41 @@ Page({
     sponsor: true, //是否是创建人
     imgsrc: "",
     name: "",
-    detail: {
-      address: "北京市朝阳区建国路108号北京市朝阳区建",
-      bookId: "预订人id",
-      buildFoorDesc: "大厦楼层地址",
-      //是否可以赠送入场券
-      canInvite: true,
-      // canInvite: false,
-      inviteer: "使用人",
-      //是否是创建人
-      // sponsor: false,
-      sponsor: true,
-      wechatAvatar: "微信头像",
-      wechatId: "微信id",
-      wechatNick: "微信昵称",
-      limitCount: 0,
-      openTime: "06-07 (周四）",
-      //是否过期
-      seatStatus: "EXPIREDe",
-      length: 1
-    },
+    detail: {},
+    //address buildFloorDescr canInvite limitCount useTime
+    //arrving notArrving sponsor wechatAvatar wechatId wechatNick
+    // detail1: {
+    //   address: "北京市朝阳区建国路108号北京市朝阳区建",
+    //   bookId: "预订人id",
+    //   buildFoorDesc: "大厦楼层地址",
+    //   //是否可以赠送入场券
+    //   canInvite: true,
+    //   // canInvite: false,
+    //   inviteer: "使用人",
+    //   //是否是创建人
+    //   // sponsor: false,
+    //   sponsor: true,
+    //   wechatAvatar: "微信头像",
+    //   wechatId: "微信id",
+    //   wechatNick: "微信昵称",
+    //   limitCount: 0,
+    //   openTime: "06-07 (周四）",
+    //   //是否过期
+    //   seatStatus: "EXPIREDe",
+    //   length: 1
+    // },
+    partner: [
+      {
+        name: "暗淡1",
+        imgsrc:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132"
+      },
+      {
+        name: "暗淡",
+        imgsrc:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132"
+      }
+    ],
     hint: [
       {
         title: "1. 我订了会议室，要提前多久入场呀？",
@@ -94,13 +109,29 @@ Page({
     });
   },
   //我不去了
-  cancelSeat: function() {},
+  cancelSeat: function() {
+    var that = this;
+    try {
+      let invitee = wx.getStorageSync("user_info");
+      if (invitee) {
+        // console.log(invitee);
+        that.data.partner.map((item, index) => {
+          // console.log(item, index);
+          if (item.name == invitee.nickName) {
+            that.data.partner.splice(index, 1);
+          }
+        });
+      }
+      console.log(that.data.partner);
+    } catch (e) {}
+  },
   onLoad: function(options) {
-    console.log(options);
+    this.getSeatInfo();
     var that = this;
     //设置canvsa大小
     wx.getSystemInfo({
       success: function(res) {
+        // console.log(res);
         that.width = res.windowWidth;
       }
     });
@@ -125,14 +156,32 @@ Page({
       );
     }
     //同行人
-    var value = wx.getStorageSync("user_info");
+    // var value = wx.getStorageSync("user_info");
     // console.log(value.user_info);
-    that.setData({
-      imgsrc: value.user_info.avatarUrl,
-      name: value.user_info.nickName
-    });
+    // that.setData({
+    //   imgsrc: value.user_info.avatarUrl,
+    //   name: value.user_info.nickName
+    // });
   },
+
   createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
+  },
+  getSeatInfo: function() {
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krseat/myseat/detail",
+      data: {
+        ticketUserId: 1
+      },
+      success: function(res) {
+        // console.log(res);
+        var seatInfo = Object.assign({}, res);
+        console.log(seatInfo);
+        that.setData({
+          detail: seatInfo.data.data
+        });
+      }
+    });
   }
 });

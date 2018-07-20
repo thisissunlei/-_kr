@@ -1,10 +1,8 @@
 {
   "pages": [
-   
     "pages/index/index",
-    "pages/seatorderConfirmation/seatorderConfirmation" ,
+    "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
-
     "pages/meeting/meeting",
     "pages/invitationLetter/invitationLetter",
     "pages/seatDetail/seatDetail",
@@ -32,7 +30,6 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
