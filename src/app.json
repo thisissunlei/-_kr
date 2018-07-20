@@ -1,11 +1,12 @@
 {
   "pages": [
-   
+    
     "pages/index/index",
+    "pages/meeting/meeting",
     "pages/seatorderConfirmation/seatorderConfirmation" ,
     "pages/orderseatDetail/orderseatDetail",
 
-    "pages/meeting/meeting",
+    
     "pages/invitationLetter/invitationLetter",
     "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
