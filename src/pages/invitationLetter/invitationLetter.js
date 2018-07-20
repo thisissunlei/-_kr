@@ -1,7 +1,11 @@
 const app = getApp();
 Page({
   data: {
-    userInfo: null,
+    userInfo: {
+      nickName: "暗淡",
+      avatarUrl:
+        "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132"
+    },
     usedTime: "6月9日（星期三）、6月10日（星期四）、6月15日（星期五）3天",
     bookUserName: "赠送人姓名",
     adress: "北京市朝阳区建国路108号海航大厦氪空间",
@@ -44,14 +48,14 @@ Page({
     ]
   },
   onLoad: function() {
-    var that = this;
-    var value = wx.getStorageSync("user_info");
-    that.setData({
-      userInfo: value.user_info
-    });
+    // var that = this;
+    // var value = wx.getStorageSync("user_info");
+    // that.setData({
+    //   userInfo: value.user_info
+    // });
     // this.getInvitation();
   },
-  getInvitation: function(options) {
+  getInvitation: function() {
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/ticket/card/detail",
       data: {
@@ -61,5 +65,25 @@ Page({
         console.log(res);
       }
     });
+  },
+  //授权
+  bindGetUserInfo: function(e) {
+    if (e.detail.userInfo) {
+      // console.log(e.detail.userInfo);
+      //保存到storage里
+      wx.setStorageSync("user_info", e.detail.userInfo);
+      wx.redirectTo({
+        url: `../seatDetail/seatDetail`
+      });
+    } else {
+      wx.showModal({
+        title: "温馨提示",
+        content: "如果您拒绝微信授权，您将无法使用我们小程序提供的功能哦~",
+        showCancel: false,
+        success: res => {
+          console.log(res);
+        }
+      });
+    }
   }
 });

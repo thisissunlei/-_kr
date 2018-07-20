@@ -13,7 +13,6 @@ Page({
       imageUrl: "../images/share_pic.jpg"
     };
   },
-
   data: {
     // noSwiper: true,
     indicatorDots: true,
@@ -22,40 +21,10 @@ Page({
     duration: 1000,
     // swiper: false,
     indicatorDots: true,
-    metting: true,
+    // metting: true,
     btn_bool: true,
     duration: 1000,
     buildingList: [],
-    // buildingList: [
-    //   {
-    //     buildAddress: "北京市海淀区中关村创业大街2号楼",
-    //     buildImgUrl:
-    //       "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
-    //     buildName: "创业大街",
-    //     communityId: 1,
-    //     distance: "28.9km",
-    //     meetingCount: 6, //会议室
-    //     promotionDescr: "限时 5 折优惠"
-    //   },
-    //   {
-    //     buildAddress: "北京市海淀区中关村",
-    //     buildImgUrl:
-    //       "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
-    //     buildName: "创业大街",
-    //     communityId: 173,
-    //     distance: "218.9km",
-    //     meetingCount: 12
-    //   },
-    //   {
-    //     buildAddress: "北京市海淀区中关村创业大街2号楼",
-    //     buildImgUrl:
-    //       "https://img.krspace.cn/app/common/public/img/0/2018/07/03/2015418337LjJhNz.jpg",
-    //     buildName: "创业大街",
-    //     communityId: 175,
-    //     distance: "28.9km",
-    //     meetingCount: 13
-    //   }
-    // ],
     myMeeting: [
       {
         address: "北京市朝阳区建国路108号区建国路108号",
@@ -91,57 +60,58 @@ Page({
         theme: "营销方案研讨会"
       }
     ],
-    noOpenBuilding: [
-      {
-        buildName: "海峡国际大厦",
-        buildAddress: "北京市西城区三里河东路30号院1号楼海峡国际大厦",
-        buildImgUrl: "../images/indexImg/hxgj.jpg",
-        distance: "",
-        meetingCount: "18"
-      },
-      {
-        buildName: "吉祥大厦",
-        buildAddress: "北京市东城区王府井大街88号",
-        buildImgUrl: "../images/indexImg/jxds.jpg",
-        distance: "",
-        meetingCount: "6"
-      },
-      {
-        buildName: "华山路",
-        buildAddress: "上海市静安区华山路328号",
-        buildImgUrl: "../images/indexImg/hsl.jpg",
-        distance: "",
-        meetingCount: "18"
-      },
-      {
-        buildName: "凯旋路",
-        buildAddress: "上海市长宁区凯旋路399号1幢",
-        buildImgUrl: "../images/indexImg/kxl.jpg",
-        distance: "",
-        meetingCount: "18"
-      },
-      {
-        buildName: "由由国际",
-        buildAddress: "上海市浦东新区浦建路76号由由国际广场写字楼",
-        buildImgUrl: "../images/indexImg/zygj.jpg",
-        distance: "",
-        meetingCount: "6"
-      },
-      {
-        buildName: "由由世纪",
-        buildAddress: "上海市浦东新区杨高南路428号由由世纪1号楼写字楼名义楼层",
-        buildImgUrl: "../images/indexImg/zysj.jpg",
-        distance: "",
-        meetingCount: "6"
-      },
-      {
-        buildName: "田林路",
-        buildAddress: "上海市徐汇区田林路130号20号楼",
-        buildImgUrl: "../images/indexImg/tll.jpg",
-        distance: "",
-        meetingCount: "8"
-      }
-    ]
+    noOpenBuilding: []
+    // noOpenBuilding: [
+    //   {
+    //     buildName: "海峡国际大厦",
+    //     buildAddress: "北京市西城区三里河东路30号院1号楼海峡国际大厦",
+    //     buildImgUrl: "../images/indexImg/hxgj.jpg",
+    //     distance: "",
+    //     meetingCount: "18"
+    //   },
+    //   {
+    //     buildName: "吉祥大厦",
+    //     buildAddress: "北京市东城区王府井大街88号",
+    //     buildImgUrl: "../images/indexImg/jxds.jpg",
+    //     distance: "",
+    //     meetingCount: "6"
+    //   },
+    //   {
+    //     buildName: "华山路",
+    //     buildAddress: "上海市静安区华山路328号",
+    //     buildImgUrl: "../images/indexImg/hsl.jpg",
+    //     distance: "",
+    //     meetingCount: "18"
+    //   },
+    //   {
+    //     buildName: "凯旋路",
+    //     buildAddress: "上海市长宁区凯旋路399号1幢",
+    //     buildImgUrl: "../images/indexImg/kxl.jpg",
+    //     distance: "",
+    //     meetingCount: "18"
+    //   },
+    //   {
+    //     buildName: "由由国际",
+    //     buildAddress: "上海市浦东新区浦建路76号由由国际广场写字楼",
+    //     buildImgUrl: "../images/indexImg/zygj.jpg",
+    //     distance: "",
+    //     meetingCount: "6"
+    //   },
+    //   {
+    //     buildName: "由由世纪",
+    //     buildAddress: "上海市浦东新区杨高南路428号由由世纪1号楼写字楼名义楼层",
+    //     buildImgUrl: "../images/indexImg/zysj.jpg",
+    //     distance: "",
+    //     meetingCount: "6"
+    //   },
+    //   {
+    //     buildName: "田林路",
+    //     buildAddress: "上海市徐汇区田林路130号20号楼",
+    //     buildImgUrl: "../images/indexImg/tll.jpg",
+    //     distance: "",
+    //     meetingCount: "8"
+    //   }
+    // ]
   },
   rq_data: {
     latitude: "",
@@ -262,144 +232,97 @@ Page({
           console.log("登录失败！" + res.errMsg);
         }
       }
-    }),
-      //  wx.request({
-      //     url:'https://www.easy-mock.com/mock/5b0bf5b41725f034fca4cc78/kr/mettingdetail/home',
-      //     methods:"GET",
-      //     header:{
-      //       'content-type':"appication/json"
-      //     },
-      //     data:{
-      //       latitude:this.rq_data.latitude,
-      //       longitude:this.rq_data.longitude
-      //     },
-      //     success:(res)=>{
-      //       this.setData({
-      //         buildingList:res.data.buildingList,
-      //         myMeeting:res.data.myMeeting
-      //       })
-      //       if(res.data.myMeeting.length>0){
-      //         this.setData({
-      //           metting:true
+    });
 
-      //         })
-      //       }
-      //     }
-      //   })
+    //查看是否授权
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting["scope.userInfo"]) {
+          console.log("用户没有授权：用户信息！");
+        } else {
+          that.func_bool_s = true;
+          if (that.func_bool_s && that.func_bool_l2) {
+            that.func_bool_s = false;
+            that.func_bool_l2 = false;
 
-      //查看是否授权
-      wx.getSetting({
-        success(res) {
-          if (!res.authSetting["scope.userInfo"]) {
-            console.log("用户没有授权：用户信息！");
-          } else {
-            that.func_bool_s = true;
-            if (that.func_bool_s && that.func_bool_l2) {
-              that.func_bool_s = false;
-              that.func_bool_l2 = false;
-
-              that.getInfo();
-            }
-
-            that.setData({
-              btn_bool: false
-            });
+            that.getInfo();
           }
+
+          that.setData({
+            btn_bool: false
+          });
         }
-      });
-    //首页接口
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/krmting/home",
-      success: res => {
-        console.log(res);
-        var mansion = Object.assign({}, res);
-        console.log(mansion, "列表");
-        let buildingList = mansion.data.data.buildingList;
-        buildingList.sort(function(a, b) {
-          return a.distance - b.distance;
-        });
-        buildingList.map((item, index) => {
-          if (item.distance > 1000) {
-            item.distance = (item.distance / 1000).toFixed() + "km";
-          } else {
-            item.distance = Math.round(item.distance * 10) / 10 + "m";
-          }
-        });
-        that.setData({
-          buildingList: buildingList
-        });
       }
     });
-    // app.getRequest({
-    //   url: app.globalData.KrUrl + "api/gateway/krmting/city",
-    //   data: {
-    //     cityId: 64
-    //   },
-    //   success: res => {
-    //     console.log(res);
-    //   }
-    // });
-    // app.getRequest({
-    //   url: app.globalData.KrUrl + "api/gateway/krmting/city",
-    //   data: {
-    //     latitude: that.rq_data.latitude,
-    //     longitude: that.rq_data.longitude
-    //   },
-    //   success: res => {
-    //     console.log(res);
-    //   }
-    // });
+    this.getAllInfo();
   },
   onShow: function() {
     // this.getAllInfo(this.rq_data.latitude, this.rq_data.longitude);
   },
   getAllInfo: function() {
     var that = this;
+    //首页接口
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krmting/home",
-      data: {
-        latitude: that.rq_data.latitude,
-        longitude: that.rq_data.longitude
-      },
       success: res => {
-        console.log(res, "列表");
-        let buildingList = res.data.data.buildingList;
-        let myMeeting = res.data.data.myMeeting;
-        console.log(myMeeting);
-        buildingList.forEach(element => {
-          if (element.distance > 1000) {
-            element.distance = (element.distance / 1000).toFixed(1) + "km";
-          } else {
-            element.distance = Math.round(element.distance * 10) / 10 + "m";
+        var mansion = Object.assign({}, res);
+        console.log(mansion, "列表");
+        let buildingList = mansion.data.data.buildingList;
+        let myMeeting = mansion.data.data.myTodo;
+        //排序
+        buildingList.sort(function(a, b) {
+          return a.distance - b.distance;
+        });
+        //未开放大厦
+        let noOpenBuilding = buildingList.filter((value, key) => {
+          if (value.published) {
+            return false;
           }
+          return true;
+        });
+
+        //开放大厦
+        let newBuildingList = buildingList.filter((item, index) => {
+          if (item.published) {
+            if (item.distance > 1000) {
+              item.distance = (item.distance / 1000).toFixed() + "km";
+            } else {
+              item.distance = Math.round(item.distance * 10) / 10 + "m";
+            }
+            return true;
+          }
+          return false;
         });
         that.setData({
-          buildingList: res.data.data.buildingList || [],
-          myMeeting: res.data.data.myMeeting || []
+          buildingList: newBuildingList || [],
+          myMeeting: myMeeting || [],
+          noOpenBuilding: noOpenBuilding || []
         });
-        //白屏问题代码-------
-        // if (that.data.myMeeting.length == 0) {
-        //   that.setData({
-        //     metting: false
-        //   });
-        // } else if (that.data.myMeeting.length == 1) {
-        //   that.setData({
-        //     metting: true,
-        //     indicatorDots: false
-        //     noSwiper: true,
-        //     swiper: false
-        //   });
-        // } else {
-        //   that.setData({
-        //     metting: true
-        //     noSwiper: false,
-        //     swiper: true
-        //   });
-        // }
-        //-------白屏问题代码
-        // console.log(that.data.metting);
       }
     });
+    //白屏问题代码-------
+    // if (that.data.myMeeting.length == 0) {
+    //   that.setData({
+    //     metting: false
+    //   });
+    // } else if (that.data.myMeeting.length == 1) {
+    //   that.setData({
+    //     metting: true,
+    //     indicatorDots: false
+    //     noSwiper: true,
+    //     swiper: false
+    //   });
+    // } else {
+    //   that.setData({
+    //     metting: true
+    //     noSwiper: false,
+    //     swiper: true
+    //   });
+    // }
+    //-------白屏问题代码
+    // console.log(that.data.metting);
+    //   }
+    // });
   },
   //获取用户信息
   getInfo: function() {
@@ -437,7 +360,7 @@ Page({
   },
   //点击会议card
   moveToMeetingDetail: function(e) {
-    console.log(e);
+    // console.log(e);
     var inviteeId = e.currentTarget.dataset.id;
     // wx.reportAnalytics('goodsdetails')
 
@@ -447,35 +370,34 @@ Page({
   },
   //点击散座card
   moveToSeatDetail: res => {
-    console.log(res);
+    // console.log(res);
     var seatId = res.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../seatDetail/seatDetail?seatId=" + seatId
     });
   },
-  jumpToMeetingDetail: function() {
-    var inviteeId = this.data.myMeeting[0].id;
-    wx.navigateTo({
-      url: "../meetingDetail/meetingDetail?inviteeId=" + inviteeId
-    });
-  },
-  //点击会议室进入会议室列表
+  // jumpToMeetingDetail: function() {
+  //   var inviteeId = this.data.myMeeting[0].id;
+  //   wx.navigateTo({
+  //     url: "../meetingDetail/meetingDetail?inviteeId=" + inviteeId
+  //   });
+  // },
+  //点击周边大厦
   moveToMeetingRoom: function(e) {
     wx.reportAnalytics("viewcommunity");
-
     var communityId = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../boardroomList/boardroomList?communityId=" + communityId
     });
   },
-  //
+  //我的
   moveToMy: function() {
     wx.reportAnalytics("viewusercenter");
     wx.navigateTo({
       url: "../my/my"
     });
   },
-
+  //授权
   onGotUserInfo: function(e) {
     if (e.detail.userInfo) {
       this.getInfo();

@@ -2,11 +2,12 @@
   "pages": [
     "pages/index/index",
 
+    "pages/seatDetail/seatDetail",
+
     "pages/invitationLetter/invitationLetter",
 
     "pages/meeting/meeting",
 
-    "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/cityList/cityList",
     "pages/map/map",

@@ -9,7 +9,7 @@
           <text class="e-title-textt">KrSpace</text>
           <text class="e-title-textm">+</text>
         </view>
-        <text class="e-title-textb">移动办公 商务会谈场地—灵活办公</text>
+        <text class="e-title-textb">移动办公 商务会谈场地--灵活办公</text>
       </view>
       <view class="my" bindtap="moveToMy">
         <view class="my-img">
@@ -24,11 +24,11 @@
   <!-- 轮播图 -->
   <view class="metting-wrap">
 
-    <view class="metting" wx:if="{{metting}}">
+    <view class="metting" wx:if="{{myMeeting.length>0}}">
       <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
       <swiper interval="{{interval}}" autoplay="true" circular="true" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF"
         indicator-active-color='rgba(255,198,52,100)' class="swiper-box">
-        <block wx:for="{{myMeeting}}" wx:key="{{item.id}}">
+        <block wx:for="{{myMeeting}}" wx:key>
           <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="{{item.meetingStatus=='WAIT'?'moveToSeatDetail':'moveToMeetingDetail'}}">
             <view class="metting-content">
               <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'散座':'会议'}}</view>
@@ -120,7 +120,7 @@
           <view class='room_num'>
             <text class="num_num">{{item.meetingCount}}</text>
             <text class="num_text" style="margin-right: 62rpx;">个会议室</text>
-            <text class="num_arr">6</text>
+            <text class="num_arr">{{item.seatCount}}</text>
             <text class="num_text">个散座</text>
           </view>
           <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
@@ -129,9 +129,9 @@
     </view>
 
     <!-- 未开放大厦 -->
-    <view class='community noopen' wx:for="{{noOpenBuilding}}" data-id="{{item.communityId}}" wx:key="{{noOpenBuilding}}">
+    <view class='community noopen' wx:for="{{noOpenBuilding}}" data-id="{{item.communityId}}" wx:key>
       <view class="buildImg">
-        <image src="{{item.buildImgUrl}}" class="community_pic"></image>
+        <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50" class="community_pic"></image>
         <image src="../images/indexImg/open.png" class="open"></image>
       </view>
 
@@ -144,7 +144,7 @@
             <!-- <image src="../images/indexImg/icon_loation.png" class="map-icon"></image> -->
             <text class="lct_txt color">{{item.buildAddress}}</text>
           </view>
-          <text class='lct_distance color'>{{item.distance}}</text>
+          <!-- <text class='lct_distance color'>{{item.distance}}</text> -->
 
         </view>
         <view class='room_num'>
@@ -152,9 +152,11 @@
           <text class="num_text color">个可用会议室</text> -->
           <text class="num_num color">{{item.meetingCount}}</text>
           <text class="num_text color" style="margin-right: 62rpx;">个会议室</text>
-          <text class="num_arr color">6</text>
+          <text class="num_arr color">{{item.seatCount}}</text>
           <text class="num_text color">个散座</text>
         </view>
+        <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
+
       </view>
     </view>
 
