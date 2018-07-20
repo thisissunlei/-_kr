@@ -51,6 +51,7 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
+          console.log(res)
           let userInfo=Object.assign({},res.data.data);
           console.log(userInfo)
               userInfo.phone=userInfo.phone
@@ -69,26 +70,22 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-              console.log(res)
-              this.setData({
-                count:res.data.data.count
-              })
+            this.setData({
+              count:res.data.data.count
+            })
         }
     })
   },
   //我的散座的length
   getCounts:function(){
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',
+        url:app.globalData.KrUrl+'api/gateway/krseat/myseat/myList',
         methods:"GET",
         header:{
           'content-type':"appication/json"
         },
         success:(res)=>{
-              console.log(res)
-              this.setData({
-                number:res.data.data.count
-              })
+          console.log(res)
         }
     })
   },
