@@ -1,9 +1,9 @@
 {
   "pages": [
+   
     "pages/index/index",
     "pages/meeting/meeting",
     "pages/invitationLetter/invitationLetter",
-
     "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/cityList/cityList",
