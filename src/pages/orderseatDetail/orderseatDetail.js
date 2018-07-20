@@ -56,7 +56,6 @@ Page({
     meetDetailShow: false,
     indicatorDots: false,
     meetInfo: ['1', '2', '3', 4, 5, 7, 9, 9, 4, 5, 7, 9, 9],
-    meetingRoomId: '',
     alertTime: 'THIRTY',
     order_pay: {},
     priceCount: '0',
@@ -79,52 +78,52 @@ Page({
   isSubTime: false,
   ifFixed: false,
   //立即支付
-  // payOrder: function () {
-    
-  //   let orderId = this.data.orderId;
-  //   app.getRequest({
-  //     url: app.globalData.KrUrl + 'api/gateway/krmting/order/pay',
-  //     method: "POST",
-  //     data: {
-  //       // orderId: orderId,
-  //       orderId:37551,
-  //       // alertTime:alertTime,
-  //       // arrivingTime:arrivingTime,
-  //       // linkPhone:linkPhone,
-  //       // seatCoodlds:seatCoodlds,
-  //     },
-  //     success: (res) => {
-  //       var _this = this;
-  //       console.log("订单信息",res)
-  //       wx.reportAnalytics('confirmorder')
+  payOrder: function () {
+    let data=this.data;
+    let orderData = {
+      alertTime: "TWOHOUR",
+      linkPhone:data.order_pay.linkPhone || data.linkPhone,
+      arrivingTime:data.time,
+      quantity:data.sankeNum,
+      seatGoodIds:"129,130"   
+    }
+    // let orderId = this.data.orderId;
+    app.getRequest({
+      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+      method: "GET",
+      data: {orderData},
+      success: (res) => {
+        var _this = this;
+        console.log("订单信息",res)
+        wx.reportAnalytics('confirmorder')
         
-  //       // 微信支付
-  //       wx.requestPayment({
-  //         'timeStamp': res.data.data.timestamp,
-  //         'nonceStr': res.data.data.noncestr,
-  //         'package': res.data.data.packages,
-  //         'signType': res.data.data.signType,
-  //         'paySign': res.data.data.paySign,
-  //         'success': function (res) {
-  //           wx.showLoading({
-  //             title: '加载中',
-  //             mask: true
-  //           })
-  //           setTimeout(
-  //             function () {
-  //               _this.getInviteeId(orderId, _this.jumpPaySuccess)
-  //               wx.hideLoading()
-  //             }, 1500)
-  //         },
-  //         'fail': function (res) {}
-  //       })
-  //     },
-  //     fail: (error) => {
+        // 微信支付
+        // wx.requestPayment({
+        //   'timeStamp': res.data.data.timestamp,
+        //   'nonceStr': res.data.data.noncestr,
+        //   'package': res.data.data.packages,
+        //   'signType': res.data.data.signType,
+        //   'paySign': res.data.data.paySign,
+        //   'success': function (res) {
+        //     wx.showLoading({
+        //       title: '加载中',
+        //       mask: true
+        //     })
+        //     setTimeout(
+        //       function () {
+        //         _this.getInviteeId(orderId, _this.jumpPaySuccess)
+        //         wx.hideLoading()
+        //       }, 1500)
+        //   },
+        //   'fail': function (res) {}
+        // })
+      },
+      fail: (error) => {
           
-  //     }
-  //   })
+      }
+    })
 
-  // },
+  },
   // 立即支付成功后
   jumpPaySuccess:function(inviteeId){
     wx.navigateTo({
@@ -274,6 +273,7 @@ Page({
     }
     
   },
+  // 获取id
   getMeetId() {
     let that = this;
     wx.getStorage({
@@ -281,7 +281,7 @@ Page({
       success: function (res) {
         if (res.data) {
             that.setData({
-            meetingRoomId: res.data.meetingRoomId
+            meetingRoomId: res.data.id
           }, function () {
               that.getMeetDetail();
             })
@@ -325,8 +325,7 @@ Page({
    
 
   onShow: function () {
-    // this.getDetailInfo(this.data.orderId)
-    this.getDetailInfo(82045)
+    this.getDetailInfo(this.data.orderId)
     var _this = this;
     this.getMeetId()
     wx.getStorage({
@@ -517,8 +516,7 @@ getInviteeId(orderId,callback){
   getDetailInfo:function(){
     const _this=this;
     app.getRequest({
-        // url:app.globalData.KrUrl+'api/gateway/krmting/order/detail',
-        url:app.globalData.KrUrl+' api/gateway/krseat/seat/order/detail',
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/detail',
         method:"GET",
       data:{
         orderId:175
@@ -614,22 +612,18 @@ getInviteeId(orderId,callback){
 
 
 
-
+  // 获取详情
   getMeetDetail() {
+    let meetingRoomId = this.data.meetingRoomId;
     let that = this;
-    // let meetingRoomId = this.data.meetingRoomId;
-    let meetingRoomId = 82045;
-
     app.getRequest({
-      // url: app.globalData.KrUrl + 'api/gateway/krmting/room/detail',
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/goods/detail',
       method: "GET",
       data: {
-        // "meetingRoomId": meetingRoomId
-        // "seatGoodsId": meetingRoomId
-        "seatGoodsId": 82045
+        "seatGoodsId":meetingRoomId 
       },
       success: (res) => {
+        console.log(meetingRoomId,res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
 

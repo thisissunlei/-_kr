@@ -6,7 +6,6 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
-    seatGoodsId:"",
     timeweekArr:{},
     month:"",
     day:"",
@@ -83,7 +82,7 @@ Page({
   // 散座详情弹窗
   openMeetDetail:function(e){
     let that = this;
-    this.setData({
+    that.setData({
       meetingRoomId:'',
       meetDetailShow:!this.data.meetDetailShow
     },function(){
@@ -508,36 +507,28 @@ Page({
   //获取 id
   getMeetId(){
     let that = this;
-    that.setData({
-                meetingRoomId:129
-              },function(){
-                that.getMeetDetail();
-              })
-    // wx.getStorage({
-    //     key: 'detail-c',
-    //     success: function(res) {
-    //       if(res.data){
-    //         that.setData({
-    //           meetingRoomId:res.data.meetingRoomId
-    //         },function(){
-    //           that.getMeetDetail();
-    //         })
-    //       }
-    //     }
-    // })
+    wx.getStorage({
+        key: 'detail-c',
+        success: function(res) {
+          if(res.data){
+            that.setData({
+              meetingRoomId:res.data.id
+            },function(){
+              that.getMeetDetail();
+            })
+          }
+        }
+    })
   },
   // 获取详情
   getMeetDetail(){
     let that = this;
     let meetingRoomId = this.data.meetingRoomId;
-   
     app.getRequest({
-        // url:app.globalData.KrUrl+'api/gateway/krmting/room/detail',
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/detail',
         method:"GET",
         data:{
-          // "meetingRoomId":meetingRoomId
-          seatGoodsId:meetingRoomId
+          "seatGoodsId":meetingRoomId
         },
         success:(res)=>{
           console.log("散客详情",res)
@@ -586,7 +577,6 @@ Page({
   onLoad: function (options) {
     this.getPhone();
     var _this=this;
-    console.log("safadsfsad", options)
     if(options.from=='list'){
       wx.getStorage({
         key:'meet_detail',
@@ -622,17 +612,17 @@ Page({
         }
       }
     })
-    wx.getStorage({
-      key:'meeting_time',
-      success:function(res){
-        console.log(res)
-        if(res.data){
-          _this.setData({
-            meeting_time:res.data
-          })
-        }
-      }
-    })
+    // wx.getStorage({
+    //   key:'meeting_time',
+    //   success:function(res){
+    //     console.log(res)
+    //     if(res.data){
+    //       _this.setData({
+    //         meeting_time:res.data
+    //       })
+    //     }
+    //   }
+    // })
    
     wx.getStorage({
       key:'order_pay',
@@ -652,7 +642,6 @@ Page({
       nowDate:wx.getStorageSync('nowDate'),
       nowDateIndex:wx.getStorageSync('nowDateIndex'),
       topDate:wx.getStorageSync('topDate'),
-      timeweekArr:wx.getStorageSync("arr")
     })
 
 
@@ -799,13 +788,12 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-          // console.log(res)//code
+          console.log(res)//code
           let userInfo=Object.assign({},res.data.data);
           let linkPhone=_this.data.linkPhone;
           _this.setData({
               linkPhone:userInfo.phone || linkPhone
           })
-          // console.log(this.data.linkPhone)//''
         }
     })
   },
@@ -814,7 +802,20 @@ Page({
 
   // 去支付
   createOrder:function(){
-   
+    // app.getRequest({
+    //   url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
+    //   methods:"GET",
+    //   data:"17810205921",
+    //   header:{
+    //     'content-type':"appication/json"
+    //   },
+    //   success:(res)=>{
+    //     console.log(res)
+    //   }
+    // })
+    // wx.navigateTo({
+    //   url: '../bindPhone/bindPhone'
+    // })
   //   this.setData({
   //     dialogShow:!this.data.dialogShow,
   //     typeStatus:true,
@@ -838,7 +839,7 @@ Page({
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       arrivingTime:data.time,
       quantity:data.sankeNum,
-      seatGoodls:129
+      seatGoodIds:"129,130"
 
       // alertTime:data.order_pay.alertTime || data.alertTime,
       // beginTime:data.meeting_time.beginTime,
@@ -856,7 +857,7 @@ Page({
     
     var _this=this;
         app.getRequest({
-          // url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          // 散座下单
           url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/create',
           methods:"GET",
           header:{
