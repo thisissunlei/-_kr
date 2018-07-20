@@ -47,7 +47,6 @@ Page({
     ],
     number:10,
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
-    list:['沙发','吧椅','卡座','电话间','办公桌'],
     splice:"666",
 
     // 日历相关
@@ -80,9 +79,10 @@ Page({
 
       ],//会议室图片
       unitCost:'销售单价'// 销售单价(元
-    }
+    },
    
   },
+  index_x:'',
   button_boolean:true,
 
   scrollTopEvent(e){
@@ -101,8 +101,10 @@ Page({
   },
   //预定跳转页面
   list(e){
+    console.log(e)
     let rangeTime = e.currentTarget.dataset.rangetime;
     let detail = e.currentTarget.dataset.detail;
+    let id=111
     wx.setStorageSync('rangeTime-c',rangeTime);
     wx.setStorageSync('detail-c',detail);
     wx.navigateTo({
@@ -189,6 +191,7 @@ Page({
       nowDateIndex:validIndex
     },function(){
       that.getData();
+      that.getData1();
       wx.setStorageSync('nowDate',topDate[validIndex].date);
       wx.setStorageSync('orderDate',orderDate);
       wx.setStorageSync('nowDateIndex',validIndex);
@@ -202,7 +205,6 @@ Page({
     })
     let arr = []
     app.getRequest({
-      
         url:app.globalData.KrUrl+'api/gateway/krmting/room/list',
         methods:"GET",
         data: {
@@ -213,22 +215,8 @@ Page({
         },
         
         success:(res)=>{
-          console.log({
-            communityId: that.data.communityId,
-            date: that.data.nowDate,
-            page:that.data.page,
-            pageSize:that.data.pageSize
-          },)
-          console.log(res)
-          res.data.data.items.forEach((element,index)=>{
-            res.data.data.items[index].fenl = that.data.show[index]
-            if(res.data.data.items[index].fenl == '散座'){
-              that.data.arr.push(res.data.data.items[index])
-            }
-          })
-          console.log(that.data.arr)
+          
           that.setData({
-            arr:that.data.arr,
             totalPages:res.data.data.totalPages,
             boardroomList:res.data.data.items,
             page:1,
@@ -245,48 +233,40 @@ Page({
           })
         }
       })
+     
   },
-
   //获取散座列表
-  // getData1:function(){
-  //   let that = this;
-  //   wx.showLoading({
-  //     title: '加载中',
-  //   })
-  //   let arr = []
-  //   app.getRequest({
-      
-  //       url:app.globalData.KrUrl+'api/gateway/krseat/seat/list',
-  //       methods:"GET",
-  //       data: {
-  //         communityId: that.data.communityId,
-  //         date: that.data.nowDate
-  //       },
-  //       success:(res)=>{
-  //         console.log(res)
-  //         that.setData({
-  //           arr_arr:that.data.arr,
-  //           totalPages:res.data.data.totalPages,
-  //           boardroomList:res.data.data.items,
-  //           page:1,
-  //           nextPage:2,
-  //         },function(){
-  //           that.reloadData();
-  //           wx.hideLoading();
-  //         })
-  //         this.data.boardroomList.forEach(element=>{
-  //           console.log(element.buildName)
-  //           wx.setNavigationBarTitle({
-  //             title:element.buildName
-  //           })
-  //         })
-  //       }
-  //     })
-  // },
-
+  getData1:function(){
+    let that =this
+    console.log(that.data.communityId,that.data.nowDate)
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/cmt',
+        methods:"GET",
+        data: {
+          communityId: 1,
+          dateTime: that.data.nowDate,
+        },
+        success:(res)=>{
+          let ss = []
+          console.log(res)
+          ss.push(res.data.data)
+          that.setData({
+            arr:ss
+          })
+          console.log(that.data.arr)
+          that.setData({
+            arr:that.data.arr,
+          },function(){
+            that.reloadData();
+            wx.hideLoading();
+          })
+        }
+      })
+  },
   //切换日期后重载数据
   reloadData:function(){
     var boardroomList = this.data.boardroomList;
+    
     //过滤已过去的时间
     let now = new Date();
     let hours = now.getHours();
@@ -425,6 +405,7 @@ Page({
       nowDateIndex:0,
     },function(){
       that.getData();
+      that.getData1();
       wx.setStorageSync('nowDate',topDate[0].date);
       wx.setStorageSync('orderDate',orderDate);
       wx.setStorageSync('topDate',topDate);
@@ -466,6 +447,7 @@ Page({
       nowDateIndex:indexParam
     },function(){
       that.getData();
+      that.getData1();
       wx.setStorageSync('nowDate',date);
       wx.setStorageSync('orderDate',orderDate);
       wx.setStorageSync('nowDateIndex',indexParam);
@@ -737,8 +719,6 @@ Page({
 
   onLoad:function(options){
     console.log(options)
-    this.getData()
-    // this.getData1()
     wx.reportAnalytics('community')
     if(options.communityId){
       this.setData({
@@ -746,18 +726,21 @@ Page({
       })
     } 
 
-
+    this.getData()
+    this.getData1()
     //日历相关
     const today_date = new Date();
     
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
+    
     var date1 = this.dealDate(today_month,true);
     var date2 = this.dealDate(next_month,false); 
     // var date = date1.concat(date2);
     // var allDate=[];
     var validDateNum = 0;
     var that = this;
+    
     date1 = date1.map((item,index)=>{
       if(item.value && item.type!='before') {
         // 加颜色
@@ -796,7 +779,7 @@ Page({
         choose:''
       }
     });
-    
+    console.log(1)
 
   },
 

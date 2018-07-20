@@ -1,13 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-
-    "pages/seatDetail/seatDetail",
-
-    "pages/invitationLetter/invitationLetter",
-
+    "pages/seatorderConfirmation/seatorderConfirmation",
+    "pages/orderseatDetail/orderseatDetail",
     "pages/meeting/meeting",
-
+    "pages/invitationLetter/invitationLetter",
+    "pages/seatDetail/seatDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/cityList/cityList",
     "pages/map/map",
@@ -31,9 +29,7 @@
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
-    "pages/component/component",
-    "pages/seatorderConfirmation/seatorderConfirmation",
-    "pages/orderseatDetail/orderseatDetail"
+    "pages/component/component"
   ],
   "window": {
     "backgroundTextStyle": "light",

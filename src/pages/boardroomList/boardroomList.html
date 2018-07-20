@@ -71,7 +71,8 @@
     > 
       <view class="top" bindtap="openMeetDetail1" data-item="{{item}}">
         <view>
-            <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_10"></image>
+            <!-- {{item.imgUrl}}?x-oss-process=image/resize,p_10 -->
+            <image class="top-left" mode="aspectFill" src=""></image>
         </view>
         <view class="top-right">
           <view class="first-row" style=" display:flex; justify-content: center;align-items: center;">
@@ -113,9 +114,9 @@
          
             
             
-              <view class="sanzuo-xiao"> 剩余可订 <text class="sanzuo-da">{{item.rangeBegin}}</text> 个 </view>
+              <view class="sanzuo-xiao"> 剩余可订 <text class="sanzuo-da">{{item.capacity}}</text> 个 </view>
               
-              <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}" bindtap='list'>预订</view>
+              <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}" data-id="{{item.id}}" bindtap='list'>预订</view>
             
       </view>
       

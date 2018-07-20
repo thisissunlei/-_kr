@@ -1,37 +1,24 @@
-<!--index.wxml-->
-<!-- <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-  <view class="usermotto2">
-    <text>会议室列表11111</text>
- </view>
-</view>
- -->
-
   <view class="wrapper">
-    <!-- <view class="number-x">
-      <image src='../images/date/09左线.png' class="number-index"></image>
-      <text>数量</text>
-      <image src='../images/date/09右线.png' class="number-index"></image>
-    </view> -->
+    
     <view class="date">
+        <view class="number-x">
+            <image src='../images/date/09左线.png' class="number-index"></image>
+            <text>数量</text>
+            <image src='../images/date/09右线.png' class="number-index"></image>
+          </view>
         <view class="los" style="display:flex;">
-            <view class="week-index" bindtap='jian'>-</view>
+            <view class="week-index" bindtap='jian'>
+              <image src='../images/date/09黄色减号.png' class="jia-img"></image>
+            </view>
             <view class="week-index">{{number}}</view>
-            <view class="week-index" bindtap='jia'>+</view>
+            <view class="week-index" bindtap='jia'>
+              <image src='../images/date/09黄色减号.png' class="jian-img"></image>
+            </view>
         </view>
           <view class="select-data">请选择会议日期</view>
   
           <view class="week">
-            <text class="week-day">日1</text>
+            <text class="week-day">日</text>
             <text class="week-day">一</text>
             <text class="week-day">二</text>
             <text class="week-day">三</text>
@@ -53,8 +40,7 @@
                 data-num='{{index}}'
                 wx:for-item="i" 
                 data-kg='{{i.kg}}'
-                
-                class="{{i.type}} day {{i.kg==true?'active':'innor'}}"
+                class="{{i.type}} day {{i.kg==true?'active':'before'}}"
                 style="line-height: 30rpx;"
                 >
             {{i.value}}
@@ -67,10 +53,9 @@
             data-data='date_data1'
             data-num='{{index}}'
             wx:for-item="i" 
-            data-kg='{{i.kg}}' wx:if='{{i.mary}}' class="mary-index">￥{{i.mary}}{{i.kg}}</view>
+            data-kg='{{i.kg}}' wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
           </view>
           </view>
-           
           <!-- <view  bindtap="dateBtn" class="week">
             <text class="week-day">日</text>
             <text class="week-day">一</text>
@@ -86,13 +71,15 @@
                   wx:key='this'
                   data-value="{{i.value}}" 
                   data-bool='{{i.type}}' 
+                  data-number='{{i.number}}'
+                  data-mary='{{i.mary}}'
                   data-month='{{date_next.month}}'
                   data-year='{{date_next.year}}' 
                   data-data='date_data2' 
                   data-num='{{index}}'  
                   wx:for-item="i" 
                   data-kg='{{i.kg}}' 
-                  class='{{i.type}} day'
+                  class="{{i.type}} day {{i.kg==true?'active':'before'}}"
                   style="line-height: 30rpx;"
                   >
               {{i.value}}
@@ -103,14 +90,14 @@
               data-mary='{{i.mary}}'
               data-month='{{date_now.month}}' 
               data-year='{{date_now.year}}' 
-              data-data='date_data1'
+              data-data='date_data2'
               data-num='{{index}}'
               wx:for-item="i" 
-               data-kg='{{i.kg}}'  wx:if='{{i.mary}}' class="mary-index">￥{{i.mary}}{{i.name}}</view>
+               data-kg='{{i.kg}}'  wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
             </view>
           </view>
           <view class="stuts"></view>
-          <view class="now-dibu" bindtap='diantrue' wx:if='{{show}}'>确认预定</view>
+          <view class="now-dibu" bindtap='diantrue' wx:if='{{inn.length > 0}}'>确认预定</view>
       
     </view>
     

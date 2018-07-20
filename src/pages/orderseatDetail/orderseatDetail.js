@@ -8,7 +8,6 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
-    alertTime:{},
     arrivingTime:"",
     linkPhone:"",
     seatCoodlds:"",
@@ -42,7 +41,6 @@ Page({
     week: "",
     time: '11:00',
     timeFlag: false,
-    showError: true,
     errorMessage: '',
     con: 1,
     meetingDetail: {},
@@ -53,19 +51,10 @@ Page({
     dialogShow: false,
     typeStatus: true,
     message: '用户取消支付',
-    messageShow: false,
-    dialogTimeShow: true,
-    rangeTime1: [],
-    rangeTime2: [],
-    rangeTime3: [],
-    rangeTime: [],
-    linkPhone: '',
     selectedTime: [],
     nowDate: '',
     meetDetailShow: false,
     indicatorDots: false,
-    timeText: '',
-
     meetInfo: ['1', '2', '3', 4, 5, 7, 9, 9, 4, 5, 7, 9, 9],
     meetingRoomId: '',
     alertTime: 'THIRTY',
@@ -81,78 +70,61 @@ Page({
     dialogDate: false,
     nowDateIndex: wx.getStorageSync('nowDateIndex'),
     topDate: wx.getStorageSync('topDate'),
-
-    array: [{
-      message: 'foo',
-    }, {
-      message: 'bar'
-    }],
-    date_data1: [],
-    date_data2: [],
-    date_now: {
-      month: '',
-      year: '',
-      value: ''
-  },
-    date_next: {
-      month: '',
-      year: '',
-      value: ''
-    },
     ifFirst: false,
   },
   all_day_num: 0,
   last_btn_num: 'false',
   last_data: 'false',
   choose_date: '',
-  rangeTime: [],
-  selectedTime: [],
   isSubTime: false,
   ifFixed: false,
   //立即支付
-  payOrder: function () {
+  // payOrder: function () {
     
-    let orderId = this.data.orderId;
-    app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krmting/order/pay',
-      method: "POST",
-      data: {
-        orderId: orderId,
-        // alertTime:alertTime,
-        // arrivingTime:arrivingTime,
-        // linkPhone:linkPhone,
-        // seatCoodlds:seatCoodlds,
-      },
-      success: (res) => {
-        var _this = this;
-        console.log("订单信息",res)
-        wx.reportAnalytics('confirmorder')
-        wx.requestPayment({
-          'timeStamp': res.data.data.timestamp,
-          'nonceStr': res.data.data.noncestr,
-          'package': res.data.data.packages,
-          'signType': res.data.data.signType,
-          'paySign': res.data.data.paySign,
-          'success': function (res) {
-            wx.showLoading({
-              title: '加载中',
-              mask: true
-            })
-            setTimeout(
-              function () {
-                _this.getInviteeId(orderId, _this.jumpPaySuccess)
-                wx.hideLoading()
-              }, 1500)
-          },
-          'fail': function (res) {}
-        })
-      },
-      fail: (error) => {
+  //   let orderId = this.data.orderId;
+  //   app.getRequest({
+  //     url: app.globalData.KrUrl + 'api/gateway/krmting/order/pay',
+  //     method: "POST",
+  //     data: {
+  //       // orderId: orderId,
+  //       orderId:37551,
+  //       // alertTime:alertTime,
+  //       // arrivingTime:arrivingTime,
+  //       // linkPhone:linkPhone,
+  //       // seatCoodlds:seatCoodlds,
+  //     },
+  //     success: (res) => {
+  //       var _this = this;
+  //       console.log("订单信息",res)
+  //       wx.reportAnalytics('confirmorder')
+        
+  //       // 微信支付
+  //       wx.requestPayment({
+  //         'timeStamp': res.data.data.timestamp,
+  //         'nonceStr': res.data.data.noncestr,
+  //         'package': res.data.data.packages,
+  //         'signType': res.data.data.signType,
+  //         'paySign': res.data.data.paySign,
+  //         'success': function (res) {
+  //           wx.showLoading({
+  //             title: '加载中',
+  //             mask: true
+  //           })
+  //           setTimeout(
+  //             function () {
+  //               _this.getInviteeId(orderId, _this.jumpPaySuccess)
+  //               wx.hideLoading()
+  //             }, 1500)
+  //         },
+  //         'fail': function (res) {}
+  //       })
+  //     },
+  //     fail: (error) => {
           
-      }
-    })
+  //     }
+  //   })
 
-  },
+  // },
   // 立即支付成功后
   jumpPaySuccess:function(inviteeId){
     wx.navigateTo({
@@ -181,7 +153,7 @@ Page({
   openMeetDetail:function(e){
       let detailInfo=this.data.detailInfo;
       let that = this;
-      // wx.reportAnalytics('goodsdetails')
+      wx.reportAnalytics('goodsdetails')
   
       this.setData({
         meetingRoomId:detailInfo.meetingRoomId,
@@ -226,14 +198,21 @@ Page({
    
   },
   // 联系电话
+  // jumpSetPhone:function() {
+  //   let detailInfo=this.data.detailInfo;
+  //   if(detailInfo.orderShowStatus==3){
+  //     return;
+  //   }
+  //   wx.navigateTo({
+  //     url: '../phone/phone?linkPhone='+detailInfo.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
+  //   })
+  // },
   jumpSetPhone:function() {
-    let detailInfo=this.data.detailInfo;
-    if(detailInfo.orderShowStatus==3){
-      return;
-    }
+    let data=this.data;
     wx.navigateTo({
-      url: '../phone/phone?linkPhone='+detailInfo.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
+      url: '../phone/phone?type=storage&linkPhone='+data.linkPhone
     })
+    
   },
   // 邀请
   onShareAppMessage: function (res) {
@@ -250,6 +229,7 @@ Page({
     imageUrl:'../images/indexImg/statusbg.png'
   }
 },
+
   //查看散座
   jumpMeet:function() {
   wx.navigateTo({
@@ -278,7 +258,6 @@ Page({
       data: {}
     })
     
-    
   },
   //滑动事件
   scrollTopEvent(e){
@@ -295,12 +274,10 @@ Page({
     }
     
   },
- 
-  
   getMeetId() {
     let that = this;
     wx.getStorage({
-        key: 'detail',
+        key: 'detail-c',
       success: function (res) {
         if (res.data) {
             that.setData({
@@ -312,93 +289,16 @@ Page({
         }
     })
   },
-
-  getBoardroomTime: function () {
-    
-  },
-
-  tapTime: function (e) {
-    
-    var indexParam = e.currentTarget.dataset.index;
-   
-    var test = [].concat(this.data.rangeTime);
-   
-    // var selectedTime = this.data.selectedTime;
-    var selectedTime = [];
-    var rangeTime = [];
-    
-    for (let i = 0; i < test.length; i++) {
-      //重点
-      var item = Object.assign({}, test[i]);
-      if (!item.disabled && item.number == indexParam) {
-        item.actived = !item.actived; 
-      }
-      if (item.actived) {
-        selectedTime.push(item.number);
-      }
-      rangeTime.push(item);
-    }
-    var bool = true;
-    if (selectedTime.length > 1) {
-      for (let i = 0; i < selectedTime.length - 1; i++) {
-        var a = selectedTime[i + 1] - selectedTime[i];
-        if (Math.abs(a) != 1) {
-            bool = false;
-          break;
-          }
-        }
-    }
-    var that = this;
-    
-    
-    if (bool) {
-      this.setData({
-        rangeTime1: [].concat(rangeTime.slice(0, 8)),
-        rangeTime2: [].concat(rangeTime.slice(8, 16)),
-        rangeTime3: [].concat(rangeTime.slice(16)),
-        rangeTime: [].concat(rangeTime),
-        selectedTime: [].concat(selectedTime),
-        meeting_time: {
-          time: selectedTime[0] ? (getTime(selectedTime[0]) + '-' + getTime(Number(selectedTime[selectedTime.length - 1]) + 1)) : '',
-          beginTime: selectedTime[0] ? (that.data.orderDate.time + ' ' + getTime(selectedTime[0]) + ':00') : '',
-          endTime: selectedTime[0] ? (that.data.orderDate.time + ' ' + getTime(Number(selectedTime[selectedTime.length - 1]) + 1) + ':00') : '',
-          hours: selectedTime[0] ? getHour(selectedTime) : 0
-        }
-      })
-    } else {
-      this.setData({
-        showError: false,
-        errorMessage: '请选择连续时间段'
-      })
-      setTimeout(function () {
-        that.setData({
-          showError: true,
-          errorMessage: ''
-        })
-      }, 2000)
-      // wx.showToast({
-      //   title: '请选择连续时间段',
-      //   icon: 'none',
-      //   duration: 1000
-      // })
-      return;
-    }
+  getBoardroomTime: function () {  
   },
   stopPropagation: function () {
     return;
   },
  
-
-
-    
-  
-  
- 
   //  查看散座
 //   jumpMeetingStatus:function(inviteeId){
 //     wx.navigateTo({
 //       // url: '../meetingStatus/meetingStatus?inviteeId='+inviteeId
-//       url: '../meetingStatus/sanzuo?sanzuo='+inviteeId
 //     })
 // },
 
@@ -406,7 +306,6 @@ Page({
 //     jumpMeetingDetail:function(inviteeId){
 //       wx.navigateTo({
 //         // url: '../meetingDetail/meetingDetail?inviteeId='+inviteeId
-//         url: '../mysanzuo/mysanzuo?inviteeId='+inviteeId
 //       })
 //     },
 
@@ -426,7 +325,8 @@ Page({
    
 
   onShow: function () {
-    this.getDetailInfo(this.data.orderId)
+    // this.getDetailInfo(this.data.orderId)
+    this.getDetailInfo(82045)
     var _this = this;
     this.getMeetId()
     wx.getStorage({
@@ -586,45 +486,12 @@ Page({
   },
 
 
-  closeDialogTime: function () {
-    var that = this;
-    if (!that.data.dialogTimeShow) {
-      // that.getMeetDetail();
-     
-      this.isSubTime = false;
-      this.rangeTime = [].concat(this.data.rangeTime);
-      this.selectedTime = [].concat(this.data.selectedTime);
-    } else {
-      if (!this.isSubTime) {
-        var rangeTime = this.rangeTime;
-        var selectedTime = this.selectedTime;
-        this.setData({
-          rangeTime1: [].concat(rangeTime.slice(0, 8)),
-          rangeTime2: [].concat(rangeTime.slice(8, 16)),
-          rangeTime3: [].concat(rangeTime.slice(16)),
-          rangeTime: [].concat(rangeTime),
-          selectedTime: [].concat(selectedTime),
-          meeting_time: {
-            time: selectedTime[0] ? (getTime(selectedTime[0]) + '-' + getTime(Number(selectedTime[selectedTime.length - 1]) + 1)) : '',
-            beginTime: selectedTime[0] ? (that.data.orderDate.time + ' ' + getTime(selectedTime[0]) + ':00') : '',
-            endTime: selectedTime[0] ? (that.data.orderDate.time + ' ' + getTime(Number(selectedTime[selectedTime.length - 1]) + 1) + ':00') : '',
-            hours: selectedTime[0] ? getHour(selectedTime) : 0
-          }
-        })
-      }
-    }
-    this.setData({
-      dialogTimeShow: !that.data.dialogTimeShow
-    })
-    if (!this.data.dialogTimeShow) {
-      this.getPhone()
-    }
-    
-  },
+  
 
  
 
 getInviteeId(orderId,callback){
+  
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
         methods:"GET",
@@ -644,16 +511,20 @@ getInviteeId(orderId,callback){
     },
   preventTouchMove() {},
 
-  getDetailInfo:function(orderId){
+
+
+  // getDetailInfo:function(orderId){
+  getDetailInfo:function(){
     const _this=this;
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/detail',
+        // url:app.globalData.KrUrl+'api/gateway/krmting/order/detail',
+        url:app.globalData.KrUrl+' api/gateway/krseat/seat/order/detail',
         method:"GET",
       data:{
-        orderId:orderId
+        orderId:175
       },
       success:(res)=>{
-          
+            console.log("订单详情接口",res)
             let data=res.data.data;
             
               let titleObj={
@@ -682,6 +553,7 @@ getInviteeId(orderId,callback){
 
               let detailInfo=Object.assign({},data);
               detailInfo.themeTime=themeObj[data.alertTime];
+
               let dateArr=changeTime(data.useDate);
               let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
               let startArr=changeTime(data.beginTime)
@@ -739,15 +611,23 @@ getInviteeId(orderId,callback){
     
     }
   },
+
+
+
+
   getMeetDetail() {
     let that = this;
-    let meetingRoomId = this.data.meetingRoomId;
+    // let meetingRoomId = this.data.meetingRoomId;
+    let meetingRoomId = 82045;
 
     app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krmting/room/detail',
+      // url: app.globalData.KrUrl + 'api/gateway/krmting/room/detail',
+      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/goods/detail',
       method: "GET",
       data: {
-        "meetingRoomId": meetingRoomId
+        // "meetingRoomId": meetingRoomId
+        // "seatGoodsId": meetingRoomId
+        "seatGoodsId": 82045
       },
       success: (res) => {
         if (res.data.code > 0) {
