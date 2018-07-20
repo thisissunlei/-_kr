@@ -48,6 +48,9 @@ Page({
     ]
   },
   onLoad: function() {
+    this.login();
+    this.getInvitation();
+
     // var that = this;
     // var value = wx.getStorageSync("user_info");
     // that.setData({
@@ -59,7 +62,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/ticket/card/detail",
       data: {
-        ticketIds: [1, 2, 3]
+        ticketIds: "1, 2, 3"
       },
       success: res => {
         console.log(res);
@@ -73,6 +76,7 @@ Page({
       //保存到storage里
       wx.setStorageSync("user_info", e.detail.userInfo);
       this.login();
+
       wx.showToast({
         title: "成功领取入场券",
         icon: "success",

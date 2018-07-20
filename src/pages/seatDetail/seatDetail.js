@@ -6,35 +6,8 @@ Page({
   data: {
     width: 0,
     seatId: 1234, //我的散座传过来的id
-    // canInvite: true, //是否可以赠送
-    // count: 1, //剩余赠送数量
-    // sponsor: true, //是否是创建人
-    // imgsrc: "",
-    // name: "",
     seatStatus: "EXPIREDe",
     detail: {},
-    //address buildFloorDescr canInvite limitCount useTime
-    //arrving notArrving sponsor wechatAvatar wechatId wechatNick
-    // detail1: {
-    //   address: "北京市朝阳区建国路108号北京市朝阳区建",
-    //   bookId: "预订人id",
-    //   buildFoorDesc: "大厦楼层地址",
-    //   //是否可以赠送入场券
-    //   canInvite: true,
-    //   // canInvite: false,
-    //   inviteer: "使用人",
-    //   //是否是创建人
-    //   // sponsor: false,
-    //   sponsor: true,
-    //   wechatAvatar: "微信头像",
-    //   wechatId: "微信id",
-    //   wechatNick: "微信昵称",
-    //   limitCount: 0,
-    //   openTime: "06-07 (周四）",
-    //   //是否过期
-    //   seatStatus: "EXPIREDe",
-    //   length: 1
-    // },
     partner: [],
     hint: [
       {

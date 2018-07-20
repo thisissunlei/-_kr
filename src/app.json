@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/invitationLetter/invitationLetter",
+
+    "pages/index/index",
     "pages/seatDetail/seatDetail",
     "pages/meetingStatus/meetingStatus",
     "pages/paySuccess/paySuccess",
