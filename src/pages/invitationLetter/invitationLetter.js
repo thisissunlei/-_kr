@@ -72,18 +72,82 @@ Page({
       // console.log(e.detail.userInfo);
       //保存到storage里
       wx.setStorageSync("user_info", e.detail.userInfo);
-      wx.redirectTo({
-        url: `../seatDetail/seatDetail`
+      this.login();
+      wx.showToast({
+        title: "成功领取入场券",
+        icon: "success",
+        duration: 2000
       });
+      setTimeout(() => {
+        wx.redirectTo({
+          url: `../seatDetail/seatDetail`
+        });
+      }, 2000);
     } else {
-      wx.showModal({
-        title: "温馨提示",
-        content: "如果您拒绝微信授权，您将无法使用我们小程序提供的功能哦~",
-        showCancel: false,
-        success: res => {
-          console.log(res);
-        }
-      });
+      console.log("用户拒绝授权");
     }
+  },
+  //登陆
+  login: function() {
+    var that = this;
+    wx.login({
+      success: function(res) {
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: app.globalData.KrUrl + "api/gateway/krmting/common/login",
+            data: {
+              code: res.code
+            },
+            success: function(res) {
+              // setTimeout(function() {
+              //   wx.hideLoading();
+              // }, 2000);
+              console.log(res, "登陆接口成功");
+              app.globalData.Cookie =
+                res.header["Set-Cookie"] || res.header["set-cookie"];
+              console.log(app.globalData.Cookie, "cookie");
+              app.globalData.openid = res.data.data["openid"];
+              that.getUserInfo();
+              // that.getSeatInfo();
+            },
+            fail: function(res) {
+              console.log(res, 8888887777);
+            }
+          });
+        } else {
+          console.log("登录失败！" + res.errMsg);
+        }
+      }
+    });
+  },
+  //获取用户信息
+  getUserInfo: function() {
+    var _this = this;
+    wx.getUserInfo({
+      success: function(res) {
+        var wechatInfo = {
+          wechatAvatar: res.userInfo.avatarUrl,
+          wechatNick: res.userInfo.nickName
+        };
+        _this.setData({
+          wechatInfo: wechatInfo
+        });
+        app.getRequest({
+          url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
+
+          data: {
+            encryptedData: res.encryptedData,
+            iv: res.iv
+          },
+          success: res => {
+            console.log(res, 5555888888881111);
+          }
+        });
+      },
+      fail: function(err) {
+        console.log(888, err);
+      }
+    });
   }
 });

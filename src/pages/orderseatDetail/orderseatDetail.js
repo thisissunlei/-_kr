@@ -80,12 +80,41 @@ Page({
   ifFixed: false,
   //立即支付
   payOrder:function(){
+
     let orderId=this.data.orderId;
+
+    let arr=wx.getStorageSync("myorder")
+    console.log(arr)
+    app.getRequest({
+      // 修改订单
+      url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+      method:"get",
+      data:{
+        alertTime	: "TWOHOUR",
+        arravingTime	:arr.arrivingTime,
+        linkPhone	:	arr.linkPhone,
+        orderId :orderId
+      },
+      success:(res)=>{
+        var _this=this;
+        console.log(res)
+        
+
+      
+      },
+      fail:(error)=>{
+          
+      }
+    })
+
+
+ 
 
     let data= wx.getStorageSync("order")
     wx.requestPayment({
       'timeStamp': data.timestamp,
       'nonceStr': data.noncestr,
+      'orderId':orderId,
       'package': data.packages,
       'signType':data.signType,
       'paySign': data.paySign,
@@ -131,7 +160,8 @@ Page({
   // 立即支付成功后
   jumpPaySuccess:function(inviteeId){
     wx.navigateTo({
-      url: '../paySuccess/paySuccess?inviteeId='+inviteeId
+      // url: '../paySuccess/paySuccess?inviteeId='+inviteeId
+      url: '../seatDetail/seatDetail?inviteeId='+inviteeId
     })
   },
   // 预计到场时间选择
@@ -217,10 +247,10 @@ Page({
   },
   // 邀请
   onShareAppMessage: function (res) {
-  console.log(res,8888)
+  // console.log(res,8888)
   if (res.from === 'button') {
     // 来自页面内转发按钮
-    console.log(res.target)
+    // console.log(res.target)
   }
       wx.reportAnalytics('sharemeeting')
   
@@ -231,12 +261,7 @@ Page({
   }
 },
 
-  //查看散座
-  jumpMeet:function() {
-  wx.navigateTo({
-    url: '../mysanzuo/mysanzuo'
-  })
-},
+
   onUnload: function () {
     if(this.data.con==1){
       wx.reLaunch({
@@ -321,8 +346,12 @@ Page({
 //     this.getInviteeId(detailInfo.orderId,this.jumpMeetingStatus)
 //   } 
 // },
-  
-
+    //查看散座
+    jumpMeet:function() {
+      wx.navigateTo({
+        url: '../mysanzuo/mysanzuo'
+      })
+    },
    
    
 
@@ -347,7 +376,7 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-    console.log("safdaf",options)
+    // console.log("safdaf",options)
     if(options.con){
       this.setData({
         orderId:options.id,
@@ -507,7 +536,7 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-        console.log(999,res)
+        // console.log(999,res)
             let data=res.data.data;
             
               let titleObj={

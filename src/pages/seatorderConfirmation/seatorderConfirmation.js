@@ -490,7 +490,8 @@ Page({
     },
   // 手机号 
   jumpSetPhone:function() {
-      let data=this.data;
+    let data=this.data;
+      // console.log(data)
       wx.navigateTo({
         url: '../phone/phone?type=storage&linkPhone='+data.linkPhone
       })
@@ -531,7 +532,7 @@ Page({
           "seatGoodsId":meetingRoomId
         },
         success:(res)=>{
-          console.log("散客详情",res)
+          // console.log("散客详情",res)
           if(res.data.code>0){
             let meetingDetail = res.data.data;
            
@@ -669,15 +670,15 @@ Page({
   onUnload:function(){
     let _this = this;
     
-    wx.setStorage({
-      key:"order_pay",
-      data:{},
-      success:function(){
-          _this.setData({
-            order_pay:{}
-          })
-      }
-    })
+    // wx.setStorage({
+    //   key:"order_pay",
+    //   data:{},
+    //   success:function(){
+    //       _this.setData({
+    //         order_pay:{}
+    //       })
+    //   }
+    // })
     wx.setStorage({
       key:"meeting_time",
       data:{}
@@ -740,8 +741,8 @@ Page({
       this.last_data = 'date_data2';
       date1 = this.dealDate(today_month,true);
       date2 = this.dealDate(next_month,false,choose_date); 
-      console.log(date1)
-      console.log(date2)
+      // console.log(date1)
+      // console.log(date2)
     }else{
       date1 = this.dealDate(today_month,true);
       date2 = this.dealDate(next_month,false); 
@@ -788,7 +789,7 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-          console.log(res)//code
+          // console.log(res)//code
           let userInfo=Object.assign({},res.data.data);
           let linkPhone=_this.data.linkPhone;
           _this.setData({
@@ -817,6 +818,17 @@ Page({
      
     }
 
+    if(!wx.getStorageSync("myorder")){
+      let orderArr=[]
+      orderArr.push(orderData)
+      wx.setStorageSync("myorder",orderArr)
+    }else
+    {
+     let orderseat= wx.getStorageSync("myorder")
+     orderseat.push(orderData)
+       wx.setStorageSync("myorder",orderseat)
+    }
+
     wx.showLoading({
       title: '加载中',
       mask:true
@@ -833,44 +845,26 @@ Page({
           data:orderData,
           
           success:(res)=>{
+          
+            
+
+
+          if(!wx.getStorageSync("order-info")){
+            let orderArr=[]
+            orderArr.push(res.data.data)
+            wx.setStorageSync("order-info",orderArr)
+          }else
+          {
+           let orderseat= wx.getStorageSync("order-info")
+           orderseat.push(res.data.data)
+             wx.setStorageSync("order-info",orderseat)
+          }
+          
            
-            wx.requestPayment({
-              'nonceStr':res.data.data.noncestr,
-              'orderId':res.data.data.orderId,
-              'package':res.data.data.packages,
-              'paySign':res.data.data.paySign,
-              'signType':res.data.data.signType,
-              'timeStamp':res.data.data.timestamp ,
-  
-  
-              'success':function(response){
-                  wx.showLoading({
-                    title: '加载中',
-                    mask:true
-                  })
-                  setTimeout(function(){
-                    _this.getInviteeId(res.data.data.orderId);
-                    wx.hideLoading();
-                  },1500)
-                 
-              },
-              'fail':function(response){
-                
-                wx.showLoading({
-                  title: '加载中',
-                  mask:true
-                })
-                setTimeout(function(){
-                  wx.hideLoading();
-                  wx.navigateTo({
-                    url: '../orderseatDetail/orderseatDetail?id='+res.data.data.orderId+'&con='+1
-                  })
-                },1500)
-                 
-              },
-             
-            })
-            console.log(res)
+
+
+          
+            // console.log(res)
             wx.setStorageSync("order",res.data.data)
             let code=res.data.code;
             setTimeout(function(){
@@ -920,19 +914,55 @@ Page({
                   },2000)
               break;
               default:
-                wx.reportAnalytics('confirmorder')
+                // wx.reportAnalytics('confirmorder')
 
+                wx.requestPayment({
+                  'nonceStr':res.data.data.noncestr,
+                  'orderId':res.data.data.orderId,
+                  'package':res.data.data.packages,
+                  'paySign':res.data.data.paySign,
+                  'signType':res.data.data.signType,
+                  'timeStamp':res.data.data.timestamp ,
+      
+      
+                  'success':function(response){
+                      wx.showLoading({
+                        title: '加载中',
+                        mask:true
+                      })
+                      setTimeout(function(){
+                        _this.getInviteeId(res.data.data.orderId);
+                        wx.hideLoading();
+                      },1500)
+                     
+                  },
+                  'fail':function(response){
+                    
+                    wx.showLoading({
+                      title: '加载中',
+                      mask:true
+                    })
+                    setTimeout(function(){
+                      wx.hideLoading();
+                      wx.navigateTo({
+                        url: '../orderseatDetail/orderseatDetail?id='+res.data.data.orderId+'&con='+1
+                      })
+                    },1500)
+                     
+                  },
+                 
+                })
                 // _this.weChatPay(res.data.data);
                 // _this.closeDialog();
-                  wx.setStorage({
-                    key:"order_pay",
-                    data:{},
-                    success:function(){
-                        _this.setData({
-                          order_pay:{}
-                        })
-                    }
-                  })
+                  // wx.setStorage({
+                  //   key:"order_pay",
+                  //   data:{},
+                  //   success:function(){
+                  //       _this.setData({
+                  //         order_pay:{}
+                  //       })
+                  //   }
+                  // })
               break;
             } 
 
@@ -1009,7 +1039,8 @@ Page({
       success:(res)=>{
         if(res.data.data.inviteeId){
             wx.navigateTo({
-              url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+              // url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+              url: '../seatDetail/seatDetail?inviteeId='+res.data.data.inviteeId
             })
         }else{
           wx.navigateTo({

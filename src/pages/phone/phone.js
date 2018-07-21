@@ -131,6 +131,9 @@ Page({
         orderId:options.orderId
 
       })
+       
+      
+
     }else if(type == 'storage'){
       wx.getStorage({
         key: 'order_pay',
