@@ -6,13 +6,13 @@
             <text>数量</text>
             <image src='../images/date/09右线.png' class="number-index"></image>
           </view>
-        <view class="los" style="display:flex;">
-            <view class="week-index" bindtap='jian'>
-              <image src='../images/date/09黄色减号.png' class="jia-img"></image>
+        <view class="los" style="display:flex;  align-items: center;">
+            <view class="week-index" bindtap='jian' >
+              <image src="{{fan == false ? '../images/date/09灰色减号.png' : '../images/date/09黄色减号.png'}}" class="jia-img"></image>
             </view>
-            <view class="week-index">{{number}}</view>
+            <view class="week-index1">{{number}}</view>
             <view class="week-index" bindtap='jia'>
-              <image src='../images/date/09黄色加号.png' class="jian-img"></image>
+              <image src="{{zheng == false ? '../images/date/09灰色加号.png' : '../images/date/09黄色加号.png'}}" class="jian-img"></image>
             </view>
         </view>
           <view class="select-data">请选择会议日期</view>
@@ -93,11 +93,11 @@
               data-data='date_data2'
               data-num='{{index}}'
               wx:for-item="i" 
-               data-kg='{{i.kg}}'  wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
+               data-kg='{{i.kg}}' wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
             </view>
           </view>
           <view class="stuts"></view>
-          <view class="now-dibu" bindtap='diantrue' wx:if='{{inn.length > 0}}'>确认预定</view>
+          <view class="now-dibu" bindtap='diantrue' wx:if='{{inn.length || inn1.length > 0}}'>确认预定</view>
       
     </view>
     
