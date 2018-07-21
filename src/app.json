@@ -2,9 +2,9 @@
   "pages": [
     "pages/index/index",
 
-    "pages/map/map",
-
     "pages/invitationLetter/invitationLetter",
+
+    "pages/map/map",
 
     "pages/seatDetail/seatDetail",
     "pages/meetingStatus/meetingStatus",
