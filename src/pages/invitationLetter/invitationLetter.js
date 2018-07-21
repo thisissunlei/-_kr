@@ -48,6 +48,8 @@ Page({
     ]
   },
   onLoad: function() {
+    // this.login();
+    // this.getInvitation();
     // var that = this;
     // var value = wx.getStorageSync("user_info");
     // that.setData({
@@ -59,7 +61,18 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/ticket/card/detail",
       data: {
-        ticketIds: [1, 2, 3]
+        ticketIds: 1
+      },
+      success: res => {
+        console.log(res);
+      }
+    });
+  },
+  invitation: function() {
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krseat/ticket/receiveTicket",
+      data: {
+        ticketId: 1
       },
       success: res => {
         console.log(res);
@@ -73,6 +86,8 @@ Page({
       //保存到storage里
       wx.setStorageSync("user_info", e.detail.userInfo);
       this.login();
+      // this.getInvitation();
+
       wx.showToast({
         title: "成功领取入场券",
         icon: "success",
@@ -84,7 +99,7 @@ Page({
         });
       }, 2000);
     } else {
-      console.log("用户拒绝授权");
+      // console.log("用户拒绝授权");
     }
   },
   //登陆
@@ -103,16 +118,18 @@ Page({
               // setTimeout(function() {
               //   wx.hideLoading();
               // }, 2000);
-              console.log(res, "登陆接口成功");
+              // console.log(res, "登陆接口成功");
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
-              console.log(app.globalData.Cookie, "cookie");
+              // console.log(app.globalData.Cookie, "cookie");
               app.globalData.openid = res.data.data["openid"];
+              // console.log(app.globalData.openid);
               that.getUserInfo();
-              // that.getSeatInfo();
+              that.getInvitation();
+              that.invitation();
             },
             fail: function(res) {
-              console.log(res, 8888887777);
+              // console.log(res, 8888887777);
             }
           });
         } else {
@@ -141,7 +158,7 @@ Page({
             iv: res.iv
           },
           success: res => {
-            console.log(res, 5555888888881111);
+            // console.log(res, 5555888888881111);
           }
         });
       },

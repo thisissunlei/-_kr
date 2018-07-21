@@ -1,7 +1,8 @@
 
-import * as CAlculagraph from '../../utils/time.js';
+
 
 const app = getApp()
+import * as CAlculagraph from '../../utils/time.js'
 Page({
   data: {
     orderList:[],
@@ -32,7 +33,7 @@ Page({
   //请求条数
   lower: function(e) {
     console.log(this.data.totalPages)
-    console.log('lower',e)
+    // console.log('lower',e)
     let type=this.data.type;
     let page = ++this.data.page;//1,2,3,...
     let totalPages = this.data.totalPages;
@@ -52,7 +53,7 @@ Page({
   },*/
   //点击传参
   changeType:function(e){
-    console.log(e)
+    // console.log(e)
     let that = this;
     let data = e.target.dataset;
     let type = data.type;
@@ -113,7 +114,7 @@ Page({
 
     
   },
-  //请求订单列表数据
+  //请求会议列表数据
   getData:function(type,page){
     let that = this;
     type = type || this.data.type;
@@ -124,7 +125,7 @@ Page({
         methods:"GET",
         data:{
           orderShowStatus:type,
-          page:page || 1
+          page:page || 1,
         },
         success:(res)=>{
           console.log (res)
@@ -165,51 +166,51 @@ Page({
   },
   //散座订单列表
   getData1:function(type,page){
-    // let that = this;
-    // type = type || this.data.type;
-    // let orderOldList1 = this.data.orderList1;
-    // app.getRequest({
-    //     url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/list',
-    //     methods:"GET",
-    //     data:{
-    //       orderShowStatus:type,
-    //       page:page || 1,
-    //       // pageSize:10
-    //     },
-    //     success:(res)=>{
-    //       console.log(res)
-    //       let oldList = []
-    //       if(res.data.code>0){
-    //         var list1 = []
-    //         list1 = res.data.data.items.map((item,index)=>{
-    //           if(item.orderShowStatus == 'OBLIGATION'){
-    //             let time = this.dealTime(item.expiredTime)
-    //             item.minute=time.minute;
-    //             item.second=time.second;
-    //           }
-    //           console.log('=item.minute>-1',item.minute>-1,item.minute)
-    //           return item;
-    //         })
-    //         var allList1 = [].concat(orderOldList1,list1)
-    //         console.log(list1.length,'totalCount',allList1,allList1.length)
-    //         that.setData({
-    //           orderOldList1:allList1,
-    //           orderList1:allList1,
-    //           page:page || 1,
-    //           totalPages:res.data.data.totalPages
-    //         })
-    //       }else{
-    //         that.setData({
-    //           error:false,
-    //           errorMessage:res.data.message
-    //         })
-    //       }
+    let that = this;
+    type = type || this.data.type;
+    let orderOldList1 = this.data.orderList1;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/list',
+        methods:"GET",
+        data:{
+          orderShowStatus:type,
+          page:page || 1,
+          // pageSize:10
+        },
+        success:(res)=>{
+          console.log(res)
+          let oldList = []
+          if(res.data.code>0){
+            var list1 = []
+            list1 = res.data.data.items.map((item,index)=>{
+              if(item.orderShowStatus == 'OBLIGATION'){
+                let time = this.dealTime(item.expiredTime)
+                item.minute=time.minute;
+                item.second=time.second;
+              }
+              console.log('=item.minute>-1',item.minute>-1,item.minute)
+              return item;
+            })
+            var allList1 = [].concat(orderOldList1,list1)
+            console.log(list1.length,'totalCount',allList1,allList1.length)
+            that.setData({
+              orderOldList1:allList1,
+              orderList1:allList1,
+              page:page || 1,
+              totalPages:res.data.data.totalPages
+            })
+          }else{
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          }
           
-    //     },
-    //     fail:(res)=>{
-    //        console.log('========',res)
-    //     }
-    //   })
+        },
+        fail:(res)=>{
+           console.log('========',res)
+        }
+      })
   },
   //在线支付
   orderPay(e){
@@ -237,13 +238,13 @@ Page({
               },
               'fail':function(res){
                 wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+id 
+                  url: '../orderseatDetail/orderseatDetail?id='+id 
                 })
               }
             })
           }else{
             wx.navigateTo({
-              url: '../orderDetail/orderDetail?id='+id 
+              url: '../orderseatDetail/orderseatDetail?id='+id 
             })
 
             // that.setData({

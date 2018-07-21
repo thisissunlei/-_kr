@@ -4,6 +4,7 @@ const app = getApp();
 
 Page({
   data: {
+    cityName: "北京",
     latitude: 23.099994,
     longitude: 113.32452,
     markers: [
@@ -16,7 +17,7 @@ Page({
     ]
   },
   //选择城市
-  selectCity: function() {
+  selectCity: function(e) {
     wx.navigateTo({
       url: "../cityList/cityList"
     });

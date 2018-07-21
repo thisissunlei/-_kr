@@ -11,10 +11,10 @@
 <view class="my-order"  wx:if="{{orderList.length || orderList1.length}}">
 	<!-- 有数据 -->
 	<scroll-view scroll-y style="height: 1136rpx;" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-	    <!-- <view id="green" class="scroll-view-item bc_green"></view>
+	    <view id="green" class="scroll-view-item bc_green"></view>
 	  <view class="content-list">
 		<!-- 散座 -->
-	  	<!-- <view class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList1}}" wx:key="{{orderId}}">
+	  	<view class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList1}}" wx:key="{{orderId}}">
 			<view class="oder-top">
 					<view>订单号:{{item.orderId}}</view>
 					<text class="status unpay" wx:if="{{item.orderShowStatus == 'OBLIGATION'}}">待支付</text>
@@ -26,7 +26,7 @@
 			<view wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box" >
 				
 				<!-- <navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}"> -->
-				<!--<navigator class="content-box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
+				<navigator class="content-box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
 					
 					<view class="left">
 			  			<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
@@ -50,7 +50,7 @@
 				</view>
 	  		</view>
 	  		<!-- <navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}"> -->
-	  		<!-- <navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
+	  		<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
 		  		<view class="left">
 		  			<image class="order-img"  src="{{item.imgUrl}}"  mode="aspectFill"></image>
 		  		</view>
@@ -62,7 +62,7 @@
 		  		</view>
 	  		</navigator>
 		  </view>
-	  </view>	 -->
+	  </view>	
 	
 		<!-- 办公室 -->
 	
