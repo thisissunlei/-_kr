@@ -175,7 +175,7 @@ Page({
         data:{
           orderShowStatus:type,
           page:page || 1,
-          // pageSize:10
+          pageSize:10
         },
         success:(res)=>{
           console.log(res)
