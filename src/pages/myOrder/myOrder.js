@@ -1,9 +1,12 @@
 
-import * as CAlculagraph from '../../utils/time.js';
+
 
 const app = getApp()
+import * as CAlculagraph from '../../utils/time.js'
 Page({
   data: {
+    orderList:[],
+    orderseatList:[],
     minute:'',
     second:'',
     error:true,
@@ -90,7 +93,7 @@ Page({
   //请求条数
   lower: function(e) {
     console.log(this.data.totalPages)
-    console.log('lower',e)
+    // console.log('lower',e)
     let type=this.data.type;
     let page = ++this.data.page;//1,2,3,...
     let totalPages = this.data.totalPages;
@@ -99,6 +102,7 @@ Page({
       return
     }else{
       this.getData(type,page)
+      this.getData1(type,page)
     }
     
     
@@ -108,7 +112,7 @@ Page({
   },*/
   //点击传参
   changeType:function(e){
-    console.log(e)
+    // console.log(e)
     let that = this;
     let data = e.target.dataset;
     let type = data.type;
@@ -119,9 +123,11 @@ Page({
       type:type,
       page:1,
       orderList:[],
+      orderseatList:[],
       orderOldList:[]
     },function(){
       that.getData(type,1)
+      that.getData1(type,1)
     })
   },
   //初始化加载
@@ -135,16 +141,20 @@ Page({
       type:options.orderShowStatus
     })
     this.getData(type)
+    this.getData1(type)
   },
   //页面重复加载
   onShow: function (options) {
     this.setData({
       orderOldList:[],
       orderList:[],
+      orderseatList:[],
       page: 1,
       totalPages:0
     })
     this.getData()
+    this.getData1()
+
   },
   //倒计时
   dealTime(e){
@@ -158,7 +168,7 @@ Page({
       second:second
     }
   },
-  //请求订单列表数据
+  //请求会议列表数据
   getData:function(type,page){
     let that = this;
     type = type || this.data.type;
@@ -168,7 +178,7 @@ Page({
         methods:"GET",
         data:{
           orderShowStatus:type,
-          page:page || 1
+          page:page || 1,
         },
         success:(res)=>{
           console.log(res)
@@ -189,6 +199,54 @@ Page({
             that.setData({
               orderOldList:allList,
               orderList:allList,
+              page:page || 1,
+              totalPages:res.data.data.totalPages
+            })
+          }else{
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          }
+          
+        },
+        fail:(res)=>{
+           console.log('========',res)
+        }
+      })
+  },
+  //请求散客
+  getData1:function(type,page){
+    let that = this;
+    type = type || this.data.type;
+    let orderseatOldList = this.data.orderseatList;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/list',
+        methods:"GET",
+        data:{
+          orderShowStatus:type,
+          page:page || 1,
+          pageSize:3
+        },
+        success:(res)=>{
+          console.log("散客订单列表",res)
+          let seatoldList = []
+          if(res.data.code>0){
+            var list = []
+            list = res.data.data.items.map((item,index)=>{
+              if(item.orderShowStatus == 'OBLIGATION'){
+                let time = this.dealTime(item.expiredTime)
+                item.minute=time.minute;
+                item.second=time.second;
+              }
+              console.log('=item.minute>-1',item.minute>-1,item.minute)
+              return item;
+            })
+            var allList = [].concat(orderseatOldList,list)
+            console.log(list.length,'totalCount',allList,allList.length)
+            that.setData({
+              orderseatOldList:allList,
+              orderseatList:allList,
               page:page || 1,
               totalPages:res.data.data.totalPages
             })
@@ -231,13 +289,13 @@ Page({
               },
               'fail':function(res){
                 wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+id 
+                  url: '../orderseatDetail/orderseatDetail?id='+id 
                 })
               }
             })
           }else{
             wx.navigateTo({
-              url: '../orderDetail/orderDetail?id='+id 
+              url: '../orderseatDetail/orderseatDetail?id='+id 
             })
 
             // that.setData({

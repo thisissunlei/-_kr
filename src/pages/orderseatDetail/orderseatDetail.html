@@ -1,7 +1,7 @@
 <view class="g-order-confirmation" :style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
     <!--订单号-->
     <view class="m-order-info">
-        <view class="u-order-code">订单号：{{orderId}}</view>
+        <view class="u-order-code">订单号：{{detailInfo.orderNo}}</view>
         <view class="u-order-info-time">{{detailInfo.ctime}}</view>
     </view>
     <view class="m-order-header">
@@ -52,7 +52,7 @@
           </view>
           <!--应付款-->
           <view class="u-meeting">
-            <view class="u-left">应付款{{payTitle}} </view>
+            <view class="u-left">{{payTitle}} </view>
             <view class="u-right">
                 <view class="u-right-top">
                     <view class="u-right-top-left" style="font-size: 38rpx">¥ {{meetingDetail.promotionCost * num}} </view>
@@ -209,10 +209,10 @@
   <!--底部-->
   <view class="u-footer">
         <view class="u-footer-btn-list">
-            <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus!='OBLIGATION'}}"> 
+            <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}"> 
                 立即支付
             </view>
-            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{detailInfo.orderShowStatus=='TOBEUSED'}}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
+            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED')&& (detailInfo.quantity!=1)}}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
             <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
                     查看散座
             </view>

@@ -490,7 +490,8 @@ Page({
     },
   // 手机号 
   jumpSetPhone:function() {
-      let data=this.data;
+    let data=this.data;
+      // console.log(data)
       wx.navigateTo({
         url: '../phone/phone?type=storage&linkPhone='+data.linkPhone
       })
@@ -531,7 +532,7 @@ Page({
           "seatGoodsId":meetingRoomId
         },
         success:(res)=>{
-          console.log("散客详情",res)
+          // console.log("散客详情",res)
           if(res.data.code>0){
             let meetingDetail = res.data.data;
            
@@ -669,15 +670,15 @@ Page({
   onUnload:function(){
     let _this = this;
     
-    wx.setStorage({
-      key:"order_pay",
-      data:{},
-      success:function(){
-          _this.setData({
-            order_pay:{}
-          })
-      }
-    })
+    // wx.setStorage({
+    //   key:"order_pay",
+    //   data:{},
+    //   success:function(){
+    //       _this.setData({
+    //         order_pay:{}
+    //       })
+    //   }
+    // })
     wx.setStorage({
       key:"meeting_time",
       data:{}
@@ -740,8 +741,8 @@ Page({
       this.last_data = 'date_data2';
       date1 = this.dealDate(today_month,true);
       date2 = this.dealDate(next_month,false,choose_date); 
-      console.log(date1)
-      console.log(date2)
+      // console.log(date1)
+      // console.log(date2)
     }else{
       date1 = this.dealDate(today_month,true);
       date2 = this.dealDate(next_month,false); 
@@ -788,7 +789,7 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-          console.log(res)//code
+          // console.log(res)//code
           let userInfo=Object.assign({},res.data.data);
           let linkPhone=_this.data.linkPhone;
           _this.setData({
@@ -802,32 +803,6 @@ Page({
 
   // 去支付
   createOrder:function(){
-    // app.getRequest({
-    //   url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
-    //   methods:"GET",
-    //   data:"17810205921",
-    //   header:{
-    //     'content-type':"appication/json"
-    //   },
-    //   success:(res)=>{
-    //     console.log(res)
-    //   }
-    // })
-    // wx.navigateTo({
-    //   url: '../bindPhone/bindPhone'
-    // })
-  //   this.setData({
-  //     dialogShow:!this.data.dialogShow,
-  //     typeStatus:true,
-  //     message:"用户支付成功",
-  //     messageShow:true    
-  // })
-  // let that=this
-  // setTimeout(function(){
-  //   that.setData({
-  //     messageShow:false  
-  // })  
-  // },2000)
     this.setData({
       dialogShow:!this.data.dialogShow,
     })
@@ -840,15 +815,19 @@ Page({
       arrivingTime:data.time,
       quantity:data.sankeNum,
       seatGoodIds:"129,130"
-
-      // alertTime:data.order_pay.alertTime || data.alertTime,
-      // beginTime:data.meeting_time.beginTime,
-      // endTime:data.meeting_time.endTime,
-      // meetingRoomId:data.detailInfo.meetingRoomId,
-      // themeName:data.order_pay.themeName || data.themeName
      
     }
-    console.log(orderData)
+
+    if(!wx.getStorageSync("myorder")){
+      let orderArr=[]
+      orderArr.push(orderData)
+      wx.setStorageSync("myorder",orderArr)
+    }else
+    {
+     let orderseat= wx.getStorageSync("myorder")
+     orderseat.push(orderData)
+       wx.setStorageSync("myorder",orderseat)
+    }
 
     wx.showLoading({
       title: '加载中',
@@ -866,7 +845,27 @@ Page({
           data:orderData,
           
           success:(res)=>{
-            console.log(res)
+          
+            
+
+
+          if(!wx.getStorageSync("order-info")){
+            let orderArr=[]
+            orderArr.push(res.data.data)
+            wx.setStorageSync("order-info",orderArr)
+          }else
+          {
+           let orderseat= wx.getStorageSync("order-info")
+           orderseat.push(res.data.data)
+             wx.setStorageSync("order-info",orderseat)
+          }
+          
+           
+
+
+          
+            // console.log(res)
+            wx.setStorageSync("order",res.data.data)
             let code=res.data.code;
             setTimeout(function(){
               wx.hideLoading();
@@ -915,19 +914,55 @@ Page({
                   },2000)
               break;
               default:
-                wx.reportAnalytics('confirmorder')
+                // wx.reportAnalytics('confirmorder')
 
-                _this.weChatPay(res.data.data);
+                wx.requestPayment({
+                  'nonceStr':res.data.data.noncestr,
+                  'orderId':res.data.data.orderId,
+                  'package':res.data.data.packages,
+                  'paySign':res.data.data.paySign,
+                  'signType':res.data.data.signType,
+                  'timeStamp':res.data.data.timestamp ,
+      
+      
+                  'success':function(response){
+                      wx.showLoading({
+                        title: '加载中',
+                        mask:true
+                      })
+                      setTimeout(function(){
+                        _this.getInviteeId(res.data.data.orderId);
+                        wx.hideLoading();
+                      },1500)
+                     
+                  },
+                  'fail':function(response){
+                    
+                    wx.showLoading({
+                      title: '加载中',
+                      mask:true
+                    })
+                    setTimeout(function(){
+                      wx.hideLoading();
+                      wx.navigateTo({
+                        url: '../orderseatDetail/orderseatDetail?id='+res.data.data.orderId+'&con='+1
+                      })
+                    },1500)
+                     
+                  },
+                 
+                })
+                // _this.weChatPay(res.data.data);
                 // _this.closeDialog();
-                  wx.setStorage({
-                    key:"order_pay",
-                    data:{},
-                    success:function(){
-                        _this.setData({
-                          order_pay:{}
-                        })
-                    }
-                  })
+                  // wx.setStorage({
+                  //   key:"order_pay",
+                  //   data:{},
+                  //   success:function(){
+                  //       _this.setData({
+                  //         order_pay:{}
+                  //       })
+                  //   }
+                  // })
               break;
             } 
 
@@ -936,57 +971,61 @@ Page({
         })
        
   },
-  weChatPay:function(data){
-    var _this=this;
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
-      methods:"POST",
-      header:{
-        'content-type':"appication/json"
-      },
-      data:{
-        orderId:data.orderId
-      },
-      success:(res)=>{
-        //  微信支付
-          wx.requestPayment({
-            'nonceStr': data.noncestr,
-            'orderld':data.orderld,
-            
-            'package': data.packages,
-            'paySign': data.paySign,
-            'signType': data.signType,
-            'timeStamp':data.timestamp ,
-            'success':function(response){
-                wx.showLoading({
-                  title: '加载中',
-                  mask:true
-                })
-                setTimeout(function(){
-                  _this.getInviteeId(data.orderId);
-                  wx.hideLoading();
-                },1500)
+  // weChatPay:function(data){
+  //   console.log(data.orderId)
+  //   var _this=this;
+  //   app.getRequest({
+  //     url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
+  //     methods:"POST",
+  //     header:{
+  //       'content-type':"appication/json"
+  //     },
+  //     data:{
+  //       orderId:data.orderId
+  //     },
+  //     success:(res)=>{
+  //       //  微信支付
+  //       console.log(res)
+  //         wx.requestPayment({
+  //           'nonceStr': data.noncestr,
+  //           'orderId':data.orderId,
+  //           'package': data.packages,
+  //           'paySign': data.paySign,
+  //           'signType': data.signType,
+  //           'timeStamp':data.timestamp ,
+
+
+  //           'success':function(response){
+  //               wx.showLoading({
+  //                 title: '加载中',
+  //                 mask:true
+  //               })
+  //               setTimeout(function(){
+  //                 _this.getInviteeId(data.orderId);
+  //                 wx.hideLoading();
+  //               },1500)
                
-            },
-            'fail':function(response){
-              wx.showLoading({
-                title: '加载中',
-                mask:true
-              })
-              setTimeout(function(){
-                wx.hideLoading();
-                wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con='+1
-                })
-              },1500)
+  //           },
+  //           'fail':function(response){
+  //             wx.showLoading({
+  //               title: '加载中',
+  //               mask:true
+  //             })
+  //             setTimeout(function(){
+  //               wx.hideLoading();
+  //               wx.navigateTo({
+  //                 url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con='+1
+  //               })
+  //             },1500)
                
-            },
+  //           },
            
-          })
-      }
-    })
+  //         })
+  //     }
+  //   })
     
-  },
+  // },
+  // 微信支付完成之后
   getInviteeId(orderId){
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
@@ -1000,11 +1039,12 @@ Page({
       success:(res)=>{
         if(res.data.data.inviteeId){
             wx.navigateTo({
-              url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+              // url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+              url: '../seatDetail/seatDetail?inviteeId='+res.data.data.inviteeId
             })
         }else{
           wx.navigateTo({
-            url: '../orderDetail/orderDetail?id='+orderId+'&con='+1
+            url: '../orderseatDetail/orderseatDetail?id='+orderId+'&con='+1
           })
         }
           
