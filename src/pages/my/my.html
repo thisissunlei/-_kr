@@ -51,7 +51,7 @@
     <view class="u-my-box-a"></view>
     <dialog class="u-contact-service" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png' bindtap='mysan'>
         <text slot='one' class="u-my-meeting-title">我的散座</text>
-        <text slot='two' class="u-meet-count" wx:show="{{number>0}}"> {{number}} </text>
+        <text slot='two' class="u-meet-count" wx:if="{{number>0}}"> {{number}} </text>
     </dialog>
     <view class="u-my-box"></view>
     <dialog class="u-contact-service" text='../images/my/contact.png' src='../images/public/icon_arrow-right.png'>

@@ -6,13 +6,14 @@ import * as CAlculagraph from '../../utils/time.js'
 Page({
   data: {
     orderList:[],
-    orderseatList:[],
+    orderList1:[],
     minute:'',
     second:'',
     error:true,
     errorMessage:'',
     page:1,
     orderOldList:[],
+    orderOldList1:[],
     totalPages:0,
     type:'',
     list:[],
@@ -24,68 +25,7 @@ Page({
         'USED':'3',
         'CLOSED':'4'
     },
-    push:[
-      {
-        buildName:"散座测试兆泰国际中心 3层",
-        capacity:"5",
-        cost:"30.00",
-        ctime:1531459166000,
-        expiredTime:1531459466000,
-        floor:"3",
-        imgUrl:"https://img.krspace.cn/app/common/public/img/0/2018/06/07/222205529lWfkuRH.jpg",
-        meetingRoomName:"3H",
-        meetingTIme:"07-13(周五)   18:30-19:00",
-        orderId:187,
-        orderShowStatus:"OBLIGATION",
-        orderStatusDesc:"待支付",
-        payStatus:"OBLIGATION"
-      },
-      {
-        buildName:"散座2测试兆泰国际中心 3层",
-        capacity:"5",
-        cost:"30.00",
-        ctime:1531459166000,
-        expiredTime:1531459466000,
-        floor:"3",
-        imgUrl:"https://img.krspace.cn/app/common/public/img/0/2018/06/07/222205529lWfkuRH.jpg",
-        meetingRoomName:"3H",
-        meetingTIme:"07-13(周五)   18:30-19:00",
-        orderId:187,
-        orderShowStatus:"TOBEUSED",
-        orderStatusDesc:"带使用",
-        payStatus:"OBLIGATION"
-      },
-      {
-        buildName:"散座3测试兆泰国际中心 3层",
-        capacity:"5",
-        cost:"30.00",
-        ctime:1531459166000,
-        expiredTime:1531459466000,
-        floor:"3",
-        imgUrl:"https://img.krspace.cn/app/common/public/img/0/2018/06/07/222205529lWfkuRH.jpg",
-        meetingRoomName:"3H",
-        meetingTIme:"07-13(周五)   18:30-19:00",
-        orderId:187,
-        orderShowStatus:"USED",
-        orderStatusDesc:"已完成",
-        payStatus:"OBLIGATION"
-      },
-      {
-        buildName:"散座4测试兆泰国际中心 3层",
-        capacity:"5",
-        cost:"30.00",
-        ctime:1531459166000,
-        expiredTime:1531459466000,
-        floor:"3",
-        imgUrl:"https://img.krspace.cn/app/common/public/img/0/2018/06/07/222205529lWfkuRH.jpg",
-        meetingRoomName:"3H",
-        meetingTIme:"07-13(周五)   18:30-19:00",
-        orderId:187,
-        orderShowStatus:"CLOSED",
-        orderStatusDesc:"已取消",
-        payStatus:"OBLIGATION"
-      }
-    ],
+    push:[],
     toView: 'red',
     scrollTop: 0,
     page:1
@@ -97,6 +37,7 @@ Page({
     let type=this.data.type;
     let page = ++this.data.page;//1,2,3,...
     let totalPages = this.data.totalPages;
+    console.log(totalPages)
     console.log(this.data.orderOldList.length,10*page)
     if(page>totalPages){
       return
@@ -123,8 +64,9 @@ Page({
       type:type,
       page:1,
       orderList:[],
-      orderseatList:[],
-      orderOldList:[]
+      orderOldList:[],
+      orderList1:[],
+      orderOldList1:[]
     },function(){
       that.getData(type,1)
       that.getData1(type,1)
@@ -143,21 +85,23 @@ Page({
     this.getData(type)
     this.getData1(type)
   },
+  
   //页面重复加载
   onShow: function (options) {
     this.setData({
       orderOldList:[],
       orderList:[],
-      orderseatList:[],
+      orderOldList1:[],
+      orderList1:[],
       page: 1,
       totalPages:0
     })
     this.getData()
     this.getData1()
-
   },
   //倒计时
   dealTime(e){
+    console.log(e)
     var dates=new Date();
     var nowtime=Math.round(e-dates.getTime());
     var minute=Math.floor(nowtime/(60*1000))
@@ -167,12 +111,15 @@ Page({
       minute:minute,
       second:second
     }
+
+    
   },
   //请求会议列表数据
   getData:function(type,page){
     let that = this;
     type = type || this.data.type;
     let orderOldList = this.data.orderList;
+    console.log(orderOldList)
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
         methods:"GET",
@@ -181,13 +128,15 @@ Page({
           page:page || 1,
         },
         success:(res)=>{
-          console.log(res)
+          console.log (res)
           let oldList = []
           if(res.data.code>0){
             var list = []
             list = res.data.data.items.map((item,index)=>{
               if(item.orderShowStatus == 'OBLIGATION'){
+                console.log(item.expiredTime)
                 let time = this.dealTime(item.expiredTime)
+                console.log(time)
                 item.minute=time.minute;
                 item.second=time.second;
               }
@@ -215,25 +164,25 @@ Page({
         }
       })
   },
-  //请求散客
+  //散座订单列表
   getData1:function(type,page){
     let that = this;
     type = type || this.data.type;
-    let orderseatOldList = this.data.orderseatList;
+    let orderOldList1 = this.data.orderList1;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/list',
         methods:"GET",
         data:{
           orderShowStatus:type,
           page:page || 1,
-          pageSize:3
+          // pageSize:10
         },
         success:(res)=>{
-          console.log("散客订单列表",res)
-          let seatoldList = []
+          console.log(res)
+          let oldList = []
           if(res.data.code>0){
-            var list = []
-            list = res.data.data.items.map((item,index)=>{
+            var list1 = []
+            list1 = res.data.data.items.map((item,index)=>{
               if(item.orderShowStatus == 'OBLIGATION'){
                 let time = this.dealTime(item.expiredTime)
                 item.minute=time.minute;
@@ -242,11 +191,11 @@ Page({
               console.log('=item.minute>-1',item.minute>-1,item.minute)
               return item;
             })
-            var allList = [].concat(orderseatOldList,list)
-            console.log(list.length,'totalCount',allList,allList.length)
+            var allList1 = [].concat(orderOldList1,list1)
+            console.log(list1.length,'totalCount',allList1,allList1.length)
             that.setData({
-              orderseatOldList:allList,
-              orderseatList:allList,
+              orderOldList1:allList1,
+              orderList1:allList1,
               page:page || 1,
               totalPages:res.data.data.totalPages
             })
@@ -310,6 +259,55 @@ Page({
         }
       })
   },
+  orderPay1(e){
+    // console.log(e)
+    //  let id = e.target.dataset.order;
+    //  let that = this;
+    //  app.getRequest({
+    //      url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/create',
+    //      methods:"GET",
+    //      data:{
+    //        orderId:id
+    //      },
+    //      success:(res)=>{
+    //        console.log('res',res)
+    //        if(res.data.code>0){
+    //           // wx.reportAnalytics('confirmorder')
+         
+    //        }else{
+    //          wx.navigateTo({
+    //            url: '../orderseatDetail/orderDetail?id='+id 
+    //          })
+ 
+    //          // that.setData({
+    //          //   error:false,
+    //          //   errorMessage:res.data.message
+    //          // })
+    //        }
+           
+    //      },
+    //      fail:(res)=>{
+    //         console.log('========',res)
+    //      }
+    //    })
+    let data = wx.getStorageSync('order-info')
+    wx.requestPayment({
+      'timeStamp': data.timestamp,
+      'nonceStr': data.noncestr,
+      'package': data.packages,
+      'signType':data.signType,
+      'paySign': data.paySign,
+      'success':function(res){
+        that.getInviteeId(id)
+      },
+      'fail':function(res){
+        wx.navigateTo({
+          url: '../orderseatDetail/orderDetail?id='+id 
+        })
+      }
+    })
+
+   },
   getInviteeId(orderId){
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
