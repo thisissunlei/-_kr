@@ -88,44 +88,44 @@ Page({
     let arr_a_a2 = this.data.date_data2
     let edge = []
     arr_a_a.map((item,index)=>{
-      if(item.number >= this.data.number){
-        item.type = 'next'
+      if(item.type == 'next' || item.type == 'now'){
+        if(item.number >= this.data.number && item.type == 'next'){
+          item.type = 'next'
+        }
+        if(item.number >= this.data.number && item.type == 'now'){
+          item.type = 'now'
+        }
+        if(item.kg == true){
+          edge.push(item)
+        }
+        return item;
       }
-      if(item.kg == true){
-        edge.push(item)
-      }
-      return item;
-    })
-    this.setData({
-      date_data1:arr_a_a
     })
     arr_a_a2.map((item,index)=>{
-      if(item.number >= this.data.number){
-        item.type = 'next'
+      if(item.type == 'next' || item.type == 'now'){
+        if(item.number >= this.data.number && item.type == 'next'){
+          item.type = 'next'
+        }
+        if(item.number >= this.data.number && item.type == 'now'){
+          item.type = 'now'
+        }
+        if(item.kg == true){
+          edge.push(item)
+        }
+        return item;
       }
-      if(item.kg == true){
-        edge.push(item)
-      }
-      return item;
     })
     edge.sort(function(a,b){
       return a.number - b.number//从小到大
     })
-    
+    console.log(edge)
     this.setData({
+      date_data1:arr_a_a,
       date_data2:arr_a_a2,
       Maximum:edge[edge.length-1].number,
       Minimum:edge[0].number
     })
-    if(this.data.number <= this.data.Minimum){
-      this.setData({
-        fan:false
-      })
-    }else{
-      this.setData({
-        fan:false
-      })
-    }
+    console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
     // console.log(this.data.Maximum,this.data.Minimum,this.data.number)
     // if(this.data.number <= this.data.Minimum){
     //   this.setData({
@@ -186,15 +186,16 @@ Page({
       Maximum:edge_a[edge_a.length-1].number,
       Minimum:edge_a[0].number
     })
-    if(this.data.number > this.data.Minimum && this.data.number <= this.data.Maximum){
-      this.setData({
-        zheng:true
-      })
-    }else{
-      this.setData({
-        zheng:false
-      })
-    }
+    console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
+    // if(this.data.number >= this.data.Maximum){
+    //   this.setData({
+    //     zheng:false
+    //   })
+    // }else if(this.data.Minimum < this.data.number && this.data.number < this.data.Maximum){
+    //   this.setData({
+    //     zheng:true
+    //   })
+    // }
     // console.log(this.data.Maximum,this.data.Minimum,this.data.number)
     // if(this.data.number >= this.data.Maximum){
     //   this.setData({
@@ -577,7 +578,7 @@ Page({
         choose:''
       }
     });
-    // console.log(this.data.date_data1)
+    console.log(this.data.date_data1)
     // console.log(this.data.date_data2)
   }
   

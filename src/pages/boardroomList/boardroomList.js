@@ -540,9 +540,9 @@ Page({
     var communityList = this.data.communityList;
     var index = e.detail.value;
     console.log(communityList[index].name)
-    // wx.setNavigationBarTitle({
-    //   title: communityList[index].name
-    // })
+    wx.setNavigationBarTitle({
+      title: communityList[index].name
+    })
   },
 
   reserve:function(e) {

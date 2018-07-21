@@ -70,6 +70,7 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
+          console.log(res)
             this.setData({
               count:res.data.data.count
             })
@@ -79,13 +80,16 @@ Page({
   //我的散座的length
   getCounts:function(){
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krseat/myseat/myList',
+        url:app.globalData.KrUrl+'api/gateway/krseat/myseat/remainingCount',
         methods:"GET",
         header:{
           'content-type':"appication/json"
         },
         success:(res)=>{
           console.log(res)
+          this.setData({
+            number:res.data.data
+          })
         }
     })
   },
