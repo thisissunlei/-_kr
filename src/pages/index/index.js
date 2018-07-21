@@ -25,41 +25,7 @@ Page({
     btn_bool: true,
     duration: 1000,
     buildingList: [],
-    myMeeting: [
-      {
-        address: "北京市朝阳区建国路108号区建国路108号",
-        arrvingCount: 6,
-        beginTime: 1531270800000,
-        endTime: 1531314000000,
-        expireTime: 1531314000000,
-        id: 18950,
-        join: false,
-        meetingRoomName: "",
-        meetingStatus: "WAIT", //散座
-        meetingTime: "07-11   周五",
-        orderId: 0,
-        orderNo: "DD0118061114213359010",
-        qrCodeUrl: "",
-        theme: "海航实业大厦8层氪空间"
-      },
-      {
-        address:
-          "北京市朝阳区建国路108号建国路108号号8层氪空间8层氪空间8层氪空间8层氪8",
-        arrvingCount: 0,
-        beginTime: 1531270800000,
-        endTime: 1531314000000,
-        expireTime: 1531314000000,
-        id: 19830,
-        join: false,
-        meetingRoomName: "海航实业大厦8层(氪空间)  8G",
-        meetingStatus: "WAI", //会议
-        meetingTime: "07-11(今天)   09:00-21:00",
-        orderId: 0,
-        orderNo: "DD0118061114213359020",
-        qrCodeUrl: "",
-        theme: "营销方案研讨会"
-      }
-    ],
+    myMeeting: [],
     noOpenBuilding: []
     // noOpenBuilding: [
     //   {
@@ -218,12 +184,13 @@ Page({
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
-                // that.getAllInfo();
+                that.getAllInfo();
+                that.getInfo();
               }
               if (that.func_bool_l2 && that.func_bool_s) {
                 that.func_bool_s = false;
                 that.func_bool_l2 = false;
-
+                that.getAllInfo();
                 that.getInfo();
               }
             }
@@ -254,7 +221,7 @@ Page({
         }
       }
     });
-    this.getAllInfo();
+    // this.getAllInfo();
   },
   onShow: function() {
     // this.getAllInfo(this.rq_data.latitude, this.rq_data.longitude);
@@ -274,8 +241,8 @@ Page({
           return a.distance - b.distance;
         });
         //未开放大厦
-        let noOpenBuilding = buildingList.filter((value, key) => {
-          if (value.published) {
+        let noOpenBuilding = buildingList.filter((item, index) => {
+          if (item.published) {
             return false;
           }
           return true;

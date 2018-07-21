@@ -5,7 +5,7 @@ const app = getApp();
 Page({
   data: {
     width: 0,
-    seatId: 1234, //我的散座传过来的id
+    seatId: 0, //我的散座传过来的id
     seatStatus: "EXPIREDe",
     detail: {},
     partner: [],
@@ -75,7 +75,7 @@ Page({
         // console.log(invitee);
         that.data.partner.map((item, index) => {
           // console.log(item, index);
-          if (item.wechatNick == invitee.nickName) {
+          if (item.wechatNick == "辛薛亮") {
             that.data.partner.splice(index, 1);
           }
           return item;
@@ -85,8 +85,13 @@ Page({
     } catch (e) {}
   },
   onLoad: function(options) {
-    this.getSeatInfo();
+    console.log(options);
+
     var that = this;
+    that.setData({
+      seatId: options.seatId
+    });
+
     //设置canvsa大小
     wx.getSystemInfo({
       success: function(res) {
@@ -111,6 +116,8 @@ Page({
         that.width / 2.5
       );
     }
+    this.getSeatInfo();
+
     //同行人
     // var value = wx.getStorageSync("user_info");
     // console.log(value.user_info);
@@ -136,29 +143,29 @@ Page({
         // console.log(seatInfo);
         var newUser = wx.getStorageSync("user_info");
         console.log(newUser);
-        var sponsor = seatInfo.data.data.sponsor;
+        // var sponsor = seatInfo.data.data.sponsor;
         var inviteers = seatInfo.data.data.inviteers;
         // console.log(newUser);
-        if (!sponsor) {
-          var result = inviteers.some(value => {
-            return value.wechatNick == newUser.nickName;
-          });
-          if (!result) {
-            inviteers.push({
-              wechatNick: newUser.nickName,
-              wechatAvatar: newUser.avatarUrl
-            });
-          }
-        }
+        // if (!sponsor) {
+        //   var result = inviteers.some(value => {
+        //     return value.wechatNick == newUser.nickName;
+        //   });
+        //   if (!result) {
+        // inviteers.push({
+        //   wechatNick: newUser.nickName,
+        //   wechatAvatar: newUser.avatarUrl
+        // });
+        //   }
+        // }
 
-        // seatInfo.data.data.sponsor = true;
+        // seatInfo.data.data.sponsor = false;
         // seatInfo.data.data.limitCount = 0;
         // seatInfo.data.data.canInvite = true;
         that.setData({
           detail: seatInfo.data.data,
           partner: inviteers
         });
-        console.log(that.data.detail);
+        // console.log(that.data.detail);
       }
     });
   }

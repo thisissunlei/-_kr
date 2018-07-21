@@ -2,6 +2,8 @@
   "pages": [
     "pages/index/index",
 
+    "pages/map/map",
+
     "pages/invitationLetter/invitationLetter",
 
     "pages/seatDetail/seatDetail",
@@ -13,7 +15,6 @@
     "pages/meeting/meeting",
     "pages/mysanzuo/mysanzuo",
     "pages/cityList/cityList",
-    "pages/map/map",
     "pages/logs/logs",
     "pages/meetingTem/meetingTem",
     "pages/orderConfirmation/orderConfirmation",

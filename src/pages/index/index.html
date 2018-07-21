@@ -29,18 +29,18 @@
       <swiper interval="{{interval}}" autoplay="true" circular="true" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF"
         indicator-active-color='rgba(255,198,52,100)' class="swiper-box">
         <block wx:for="{{myMeeting}}" wx:key>
-          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="{{item.meetingStatus=='WAIT'?'moveToSeatDetail':'moveToMeetingDetail'}}">
+          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="{{item.targetType=='SEAT'?'moveToSeatDetail':'moveToMeetingDetail'}}">
             <view class="metting-content">
-              <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'散座':'会议'}}</view>
+              <view class="metting-mark {{item.targetType === 'SEAT'?'wait':'already'}}">{{item.targetType === 'SEAT'?'散座':'会议'}}</view>
               <view class="metting-title">
-                <text class="metting-time">{{item.meetingTime}}</text>
-                <text class="metting-name">{{item.theme}}</text>
+                <text class="metting-time">{{item.todoTime}}</text>
+                <text class="metting-name">{{item.title}}</text>
               </view>
               <view class="metting-address">
-                <text class="meetingRoomName">{{item.meetingRoomName}}</text>
+                <text class="meetingRoomName">{{item.content}}</text>
                 <view class="address-wrapper">
                   <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
-                  <text class="metting-map">{{item.address}}</text>
+                  <text class="metting-map">{{item.descr}}</text>
                 </view>
               </view>
             </view>
@@ -131,7 +131,7 @@
     <!-- 未开放大厦 -->
     <view class='community noopen' wx:for="{{noOpenBuilding}}" data-id="{{item.communityId}}" wx:key>
       <view class="buildImg">
-        <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50" class="community_pic"></image>
+        <image src="{{item.buildImgUrl}}" class="community_pic"></image>
         <image src="../images/indexImg/open.png" class="open"></image>
       </view>
 
@@ -155,7 +155,7 @@
           <text class="num_arr color">{{item.seatCount}}</text>
           <text class="num_text color">个散座</text>
         </view>
-        <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
+        <!-- <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view> -->
 
       </view>
     </view>
