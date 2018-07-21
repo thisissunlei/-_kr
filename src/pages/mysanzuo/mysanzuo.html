@@ -10,18 +10,18 @@
         <view  wx:for="{{meetingList}}"  style="display: inline-block;" class="list-box"style="width:100%" wx:key="{{item.id}}">
             <navigator url="/pages/seatDetail/seatDetail?seatId={{item.ticketUserId}}&zhaungtai={{item.seatStatus}}" class="box navigator-hover" >
                 <image class="bgc" src="../images/my/bg.png" background-size="cover"></image>
-                    <text class="status wating" wx:if="{{item.seatStatus == 'WAIT'}}">待入场</text>
+                    <!-- <text class="status wating" wx:if="{{item.seatStatus == 'WAIT'}}">待入场</text>
                     <text class="status expired" wx:if="{{item.seatStatus == 'EXPIRED'}}">已过期</text>
-                    <text class="status used" wx:if="{{item.seatStatus == 'ARRVING'}}">已入场</text>
-                <!-- <image wx:if="{{item.meetingStatus == 'ARRVING'}}" src="../images/orderimg/order-a.png"  background-size="cover" class="bgc-b"></image>
-                <image wx:if="{{item.meetingStatus == 'EXPIRED'}}" src=""></image>
-                <image wx:if="{{item.meetingStatus == 'WAIT'}}" src="../images/orderimg/order-b.png" background-size="cover" class="bgc-c"></image> -->
+                    <text class="status used" wx:if="{{item.seatStatus == 'ARRVING'}}">已入场</text> -->
+                <image wx:if="{{item.seatStatus == 'TOUSE'}}" src="../images/orderimg/order-a.png"  background-size="cover" class="bgc-b"></image>
+                <image wx:if="{{item.seatStatus == 'EXPIRED'}}" src=""></image>
+                <image wx:if="{{item.seatStatus == 'WAIT'}}" src="../images/orderimg/order-b.png" background-size="cover" class="bgc-c"></image>
                 <view class="detail" >
                     <text class="meeting-time">{{item.useTime}}</text>
-                    <text class="theme-name">111{{item.thebuildFoorDescme}}</text>
+                    <text class="theme-name">{{item.seatName}}</text>
                 </view>
                 <view class="address-box">
-                    <text class="meeting-address">{{item.seatName}}</text>
+                    <text class="meeting-address">{{item.adress}}</text>
                     
                     <text class="address">
                         <image class="location" src="../images/indexImg/dizhi2.png" background-size="cover"></image>{{item.address}}

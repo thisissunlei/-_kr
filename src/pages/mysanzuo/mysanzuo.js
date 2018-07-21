@@ -25,7 +25,7 @@ Page({
           console.log(res)
           if(res.data.code>0){
             var list = []
-            list = res.data.data.items.map((item,index)=>{
+            list = res.data.data.map((item,index)=>{
               return item;
             })
             that.setData({
