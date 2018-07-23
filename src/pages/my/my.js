@@ -42,6 +42,12 @@ Page({
     this.getCounts()
     
   },
+  onReady: function () {
+    this.dialog = this.selectComponent("#cread"); 
+  },
+  showDialog() {
+    this.dialog.ready();
+  },
   getPhone:function(){
 
     app.getRequest({
