@@ -1,5 +1,5 @@
-  <view class="wrapper">
-    
+  <view class="wrapper" wx:if='{{show_a == false}}'>
+    <view class="menban" bindtap='fanshow'></view>
     <view class="date">
         <view class="number-x">
             <image src='../images/date/09左线.png' class="number-index"></image>
@@ -8,11 +8,11 @@
         </view>
         <view class="los" style="display:flex;  align-items: center;">
             <view class="week-index" bindtap='jian' >
-              <image src="{{number < Minimum ? '../images/date/09灰色减号.png' : '../images/date/09黄色减号.png'}}" class="jia-img"></image>
+              <image src="{{number <=1 ? '../images/date/09灰色减号.png' : '../images/date/09黄色减号.png'}}" class="jia-img"></image>
             </view>
             <view class="week-index1">{{number}}</view>
-            <view class="week-index" bindtap='jia'>
-              <image src="{{zheng == false ? '../images/date/09灰色加号.png' : '../images/date/09黄色加号.png'}}" class="jian-img {{number < Maximum?'huang':'hui'}}"></image>
+            <view class="week-index" bindtap='jia' style="{{zheng == false ? 'pointer-events:none;' :''}}">
+              <image src="{{zheng == false  ? '../images/date/09灰色加号.png' : '../images/date/09黄色加号.png'}}" class="jian-img {{number < Maximum?'huang':'hui'}}"></image>
             </view>
 
            
