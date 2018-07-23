@@ -4,8 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    fan:'',
-    zheng:'',
+    xuan:false,
     Minimum:null,
     Maximum:null,
     inn:[],//最终数组
@@ -89,14 +88,26 @@ Page({
     let edge = []
     arr_a_a.map((item,index)=>{
       if(item.type == 'next' || item.type == 'now'){
-        if(item.number >= this.data.number && item.type == 'next'){
-          item.type = 'next'
-        }
-        if(item.number >= this.data.number && item.type == 'now'){
-          item.type = 'now'
-        }
+        
         if(item.kg == true){
-          edge.push(item)
+          this.setData({
+            xuan:true
+          })
+          if(this.data.xuan == true){
+            edge.push(item)
+          }
+        }else{
+          this.setData({
+            xuan:false
+          })
+          if(this.data.xuan == false){
+            if(item.number >= this.data.number && item.type == 'next'){
+            item.type = 'next'
+          }
+          if(item.number >= this.data.number && item.type == 'now'){
+            item.type = 'now'
+          }
+          }
         }
         return item;
       }
@@ -480,13 +491,24 @@ Page({
               mary:index_zhu.arr[i].mary
             });
           }else{
-            data.push({//本月明天可选
-              value:'明天',
-              type:'now',
-              kg:true,
-              number:index_zhu.arr[i].number,
-              mary:index_zhu.arr[i].mary
-            });
+            if(index_zhu.arr[i].number <= this.data.number || index_zhu.arr[i].number == 0){
+              data.push({//本月明天可选
+                value:'明天',
+                type:'before',
+                kg:false,
+                number:index_zhu.arr[i].number,
+                mary:index_zhu.arr[i].mary
+              });
+            }else{
+              data.push({//本月明天可选
+                value:'明天',
+                type:'now',
+                kg:true,
+                number:index_zhu.arr[i].number,
+                mary:index_zhu.arr[i].mary
+              }); 
+            }
+            
           }
           this.all_day_num++;
           break;
@@ -495,8 +517,8 @@ Page({
             data.push({//下月部分星期天
               value:i-week+1,
               type:'before',
-              number:index_zhu.arr[i].number,
-              mary:index_zhu.arr[i].mary,
+              // number:index_zhu.arr[i].number,
+              // mary:index_zhu.arr[i].mary,
               name:"周天"
             });
           }else{

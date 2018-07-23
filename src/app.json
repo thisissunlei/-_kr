@@ -1,7 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-
+    "pages/my/my",
+    "pages/myOrder/myOrder",
+    "pages/meeting/meeting",
     "pages/map/map",
 
     "pages/invitationLetter/invitationLetter",
@@ -20,9 +22,9 @@
     "pages/orderConfirmation/orderConfirmation",
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
-    "pages/myOrder/myOrder",
+    
     "pages/boardroomList/boardroomList",
-    "pages/my/my",
+    
     "pages/myMeeting/myMeeting",
     "pages/phone/phone",
     "pages/regionList/regionList",

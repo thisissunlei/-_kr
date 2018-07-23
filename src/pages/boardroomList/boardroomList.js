@@ -28,7 +28,9 @@ Page({
     dateScrollLeft:0,
     nowDate:'',
     meetDetailShow:false,
+    meetDetailShow1:false,
     meetingRoomId:'',
+    meetingRoomId1:'',
     meetDetail:{},
     allDays:[],
     isToday:false,
@@ -77,7 +79,7 @@ Page({
   },
   index_x:'',
   button_boolean:true,
-
+  button_boolean1:true,
   scrollTopEvent(e){
     let top=e.detail.scrollTop;
     
@@ -104,23 +106,24 @@ Page({
       url: '/pages/seatorderConfirmation/seatorderConfirmation'
     })
   },
+  //散座
   openMeetDetail1:function(e){
-    // console.log(e)
+    console.log(e)
     wx.showLoading({
       title: '加载中',
     })
     let that = this;
-    let id=e.currentTarget.dataset.item.meetingRoomId;
+    let id=e.currentTarget.dataset.item.id;
     let detail=e.currentTarget.dataset.item;
     this.setData({
-      meetingRoomId:id,
-      meetDetailShow:!this.data.meetDetailShow,
+      meetingRoomId1:id,
+      meetDetailShow1:!this.data.meetDetailShow1,
       meetDetail:detail
     },function(){
-      that.getMeetDetail()
+      that.getMeetDetail1()
     })
   },
-
+  //会议
   openMeetDetail:function(e){
     // console.log(e)
     wx.showLoading({
@@ -137,13 +140,20 @@ Page({
       that.getMeetDetail()
     })
   },
-
+  //会议室门板
   closeMeetDetail:function(){
       this.setData({
         meetingRoomId:'',
         meetDetailShow:!this.data.meetDetailShow
       })
   },
+  //散座门板
+  closeMeetDetail1:function(){
+    this.setData({
+      meetingRoomId1:'',
+      meetDetailShow1:!this.data.meetDetailShow1
+    })
+},
   currentChange:function(e){
     if(e.detail.source=="touch"){
       this.setData({
@@ -783,6 +793,7 @@ Page({
     this.getTopDate();
     // this.reloadData();
   },
+  //会议室列表详情
   getMeetDetail(){
     wx.reportAnalytics('goodsdetails')
     let meetingRoomId = this.data.meetingRoomId;
@@ -832,6 +843,59 @@ Page({
         }
       })
   },
+  //散座详情列表
+  getMeetDetail1(){
+    wx.reportAnalytics('goodsdetails')
+    let meetingRoomId = this.data.meetingRoomId1;
+    console.log(meetingRoomId)
+    let that = this;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/detail',
+        method:"GET",
+        data:{
+          "seatGoodsId":meetingRoomId
+        },
+        success:(res)=>{
+          console.log(res)
+          if(res.data.code>0){
+            let meetingDetail = res.data.data;
+            that.setData({
+              meetingDetail:meetingDetail
+            })
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+          wx.hideLoading();
+          
+        },
+        fail:(res)=>{
+          console.log('获取失败')
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
+  },
+  //会议室立即约定
   nowReserve(e){
     let that = this;
     // console.log(e);
@@ -850,13 +914,30 @@ Page({
         }
       })
     }
-    
-    
-
+  },
+  //散座立即约定
+  nowReserve1(e){
+    let that = this;
+    console.log(e);
+    let meetingRoomId1 = e.currentTarget.dataset.mid;
+    let meetingDetail;
+    if(this.button_boolean1){
+      this.button_boolean1 = false;
+      wx.getStorage({
+        key: 'orderDate',
+        success: function(res) {
+          if(res.data){
+            meetingDetail = Object.assign({},that.data.meetDetail,res.data,{meetingRoomId1:meetingRoomId1});
+           
+            that.setDetail1(meetingDetail)
+          }
+        }
+      })
+    }
   },
   preventTouchMove(){},
     
-  
+  //会议室跳转日历
   setDetail(arr){
     let that = this;
     wx.setStorage({
@@ -872,9 +953,24 @@ Page({
           
         }
     })
+  },
+  //散座跳转日历
+  setDetail1(arr){
+    let that = this;
+    wx.setStorage({
+        key:"meet_detail1",
+        data:arr,
+        success:function(){
+          that.button_boolean1 = true;
+          setTimeout(function(){
+            wx.navigateTo({
+              url: "/pages/meeting/meeting?from=list"
+            })
+          },500)
+          
+        }
+    })
   }
-
-
 })
 
 
