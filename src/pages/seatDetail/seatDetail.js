@@ -44,16 +44,18 @@ Page({
     ]
   },
   //分享
-  onShareAppMessage: res => {
+  onShareAppMessage: function(res) {
     if (res.from === "button") {
       // console.log("来自页面赠送按钮");
-      // console.log(res.target);
+      console.log(res);
       return {
         title: "来来来，发现一个办公的好地儿~",
         desc: "KrMeeting会议室",
-        path: "pages/invitationLetter/invitationLetter"
-        // imageUrl: "../images/share_pic.jpg"
+        path:
+          "pages/invitationLetter/invitationLetter?type=TICKET&seatId=" +
+          this.data.seatId
       };
+      // imageUrl: "../images/share_pic.jpg"
     } else {
       // console.log("来自右上角转发菜单");
       return app.globalData.share_data;
@@ -69,29 +71,38 @@ Page({
   //我不去了
   cancelSeat: function() {
     var that = this;
-    try {
-      let invitee = wx.getStorageSync("user_info");
-      if (invitee) {
-        // console.log(invitee);
-        that.data.partner.map((item, index) => {
-          // console.log(item, index);
-          if (item.wechatNick == "辛薛亮") {
-            that.data.partner.splice(index, 1);
-          }
-          return item;
-        });
+    let invitee = wx.getStorageSync("user_info");
+    wx.showModal({
+      title: "提示",
+      content: "您确认取消吗？",
+      success: function(res) {
+        // console.log(res);
+        if (res.confirm) {
+          console.log("确认取消");
+          that.data.partner.map((item, index) => {
+            if (item.wechatNick == invitee.user_info.nickName) {
+              that.data.partner.splice(index, 1);
+            }
+            return item;
+          });
+        }
+        setTimeout(() => {
+          wx.reLaunch({
+            url: "../index/index"
+          });
+        }, 1500);
       }
-      console.log(that.data.partner);
-    } catch (e) {}
+    });
+    // console.log(that.data.partner);
   },
   onLoad: function(options) {
     console.log(options);
-
     var that = this;
-    that.setData({
-      seatId: options.seatId
-    });
-
+    if (options.seatId) {
+      that.setData({
+        seatId: options.seatId
+      });
+    }
     //设置canvsa大小
     wx.getSystemInfo({
       success: function(res) {
@@ -117,14 +128,6 @@ Page({
       );
     }
     this.getSeatInfo();
-
-    //同行人
-    // var value = wx.getStorageSync("user_info");
-    // console.log(value.user_info);
-    // that.setData({
-    //   imgsrc: value.user_info.avatarUrl,
-    //   name: value.user_info.nickName
-    // });
   },
 
   createQrCode: function(url, canvasId, cavW, cavH) {
@@ -140,32 +143,32 @@ Page({
       success: function(res) {
         console.log(res);
         var seatInfo = Object.assign({}, res);
-        // console.log(seatInfo);
+        console.log(seatInfo);
         var newUser = wx.getStorageSync("user_info");
-        console.log(newUser);
+        // console.log(newUser);
         // var sponsor = seatInfo.data.data.sponsor;
         var inviteers = seatInfo.data.data.inviteers;
         // console.log(newUser);
-        // if (!sponsor) {
-        //   var result = inviteers.some(value => {
-        //     return value.wechatNick == newUser.nickName;
-        //   });
-        //   if (!result) {
-        // inviteers.push({
-        //   wechatNick: newUser.nickName,
-        //   wechatAvatar: newUser.avatarUrl
-        // });
-        //   }
+        // if (seatInfo.data.data.inviteers) {
+        var result = inviteers.some(value => {
+          return value.wechatNick == newUser.nickName;
+        });
+        if (!result) {
+          inviteers.push({
+            wechatNick: newUser.user_info.nickName,
+            wechatAvatar: newUser.user_info.avatarUrl
+          });
+        }
         // }
-
-        // seatInfo.data.data.sponsor = false;
-        // seatInfo.data.data.limitCount = 0;
-        // seatInfo.data.data.canInvite = true;
         that.setData({
           detail: seatInfo.data.data,
           partner: inviteers
         });
-        // console.log(that.data.detail);
+        // seatInfo.data.data.sponsor = false;
+        // seatInfo.data.data.limitCount = 0;
+        // seatInfo.data.data.canInvite = true;
+
+        console.log(that.data.detail.limitCount);
       }
     });
   }
