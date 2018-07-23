@@ -33,7 +33,7 @@
             </view>
         </view>
         <!-- 同行人 -->
-        <view class='conferee' wx:if="{{detail.sponsor && detail.limitCount > 0}}">
+        <view class='conferee' wx:if="{{detail.sponsor}}">
             <text class='conferee-title'>同行人({{partner.length}})</text>
             <block>
                 <view class='list' wx:for="{{partner}}" wx:key>
@@ -72,7 +72,7 @@
                 <text>联系客服</text>
             </button>
             <button wx:if="{{detail.sponsor && detail.limitCount > 0 && detail.canInvite}}" open-type="share" id="share">
-                <text>赠送入场券({{detail.limitCount}})张</text>
+                赠送入场券({{seatId}}张)
             </button>
             <button wx:if="{{!detail.sponsor || detail.limitCount == 0 || !detail.canInvite}}" class="reserve-again" bindtap="goIndex">
                 <text>再订一个</text>

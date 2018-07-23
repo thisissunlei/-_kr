@@ -1,14 +1,11 @@
 const app = getApp();
 Page({
   data: {
-    userInfo: {
-      nickName: "暗淡",
-      avatarUrl:
-        "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132"
-    },
-    usedTime: "6月9日（星期三）、6月10日（星期四）、6月15日（星期五）3天",
-    bookUserName: "赠送人姓名",
-    adress: "北京市朝阳区建国路108号海航大厦氪空间",
+    type: "TICKET",
+    seatId: 3,
+    usedTime: "",
+    bookUserName: "",
+    adress: "",
     hint: [
       {
         title: "1.到了如何使用移动工位？",
@@ -47,7 +44,21 @@ Page({
       }
     ]
   },
-  onLoad: function() {
+  onLoad: function(options) {
+    var that = this;
+    console.log(options);
+    if (options.type == "TICKET") {
+      that.setData({
+        type: options.type
+      });
+    }
+    if (options.seatId) {
+      that.setData({
+        seatId: options.seatId
+      });
+    }
+    this.login();
+    // this.getInvitation();
     // this.login();
     // this.getInvitation();
     // var that = this;
@@ -57,25 +68,57 @@ Page({
     // });
     // this.getInvitation();
   },
+  //邀请函接口
   getInvitation: function() {
+    var that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/ticket/card/detail",
       data: {
-        ticketIds: 1
+        id: that.data.seatId,
+        type: that.data.type
       },
-      success: res => {
+      success: function(res) {
         console.log(res);
+        if (res.data.code == 1) {
+          that.setData({
+            bookUserName: res.data.data.bookUserName,
+            usedTime: res.data.data.usedTime[0],
+            adress: res.data.data.adress
+          });
+        }
       }
     });
   },
+  //领取入场券接口
   invitation: function() {
+    var that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/ticket/receiveTicket",
       data: {
-        ticketId: 1
+        id: that.data.seatId,
+        type: that.data.type
       },
       success: res => {
         console.log(res);
+        if (res.data.code == 1) {
+          wx.showToast({
+            title: "成功领取入场券",
+            icon: "success",
+            duration: 2000
+          });
+          setTimeout(() => {
+            wx.redirectTo({
+              url: `../seatDetail/seatDetail`
+            });
+          }, 2000);
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+          // console.log(res.data.message);
+        }
       }
     });
   },
@@ -85,19 +128,10 @@ Page({
       // console.log(e.detail.userInfo);
       //保存到storage里
       wx.setStorageSync("user_info", e.detail.userInfo);
-      this.login();
+      this.getUserInfo();
+      this.invitation();
+      // this.login();
       // this.getInvitation();
-
-      wx.showToast({
-        title: "成功领取入场券",
-        icon: "success",
-        duration: 2000
-      });
-      setTimeout(() => {
-        wx.redirectTo({
-          url: `../seatDetail/seatDetail`
-        });
-      }, 2000);
     } else {
       // console.log("用户拒绝授权");
     }
@@ -124,7 +158,6 @@ Page({
               // console.log(app.globalData.Cookie, "cookie");
               app.globalData.openid = res.data.data["openid"];
               // console.log(app.globalData.openid);
-              that.getUserInfo();
               that.getInvitation();
               // that.invitation();
             },
@@ -140,16 +173,16 @@ Page({
   },
   //获取用户信息
   getUserInfo: function() {
-    var _this = this;
+    // var _this = this;
     wx.getUserInfo({
       success: function(res) {
-        var wechatInfo = {
-          wechatAvatar: res.userInfo.avatarUrl,
-          wechatNick: res.userInfo.nickName
-        };
-        _this.setData({
-          wechatInfo: wechatInfo
-        });
+        // var wechatInfo = {
+        //   wechatAvatar: res.userInfo.avatarUrl,
+        //   wechatNick: res.userInfo.nickName
+        // };
+        // _this.setData({
+        //   wechatInfo: wechatInfo
+        // });
         app.getRequest({
           url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
 
@@ -163,7 +196,7 @@ Page({
         });
       },
       fail: function(err) {
-        console.log(888, err);
+        // console.log(888, err);
       }
     });
   }
