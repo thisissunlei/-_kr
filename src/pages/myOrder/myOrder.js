@@ -247,10 +247,10 @@ Page({
               url: '../orderseatDetail/orderseatDetail?id='+id 
             })
 
-            // that.setData({
-            //   error:false,
-            //   errorMessage:res.data.message
-            // })
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
           }
           
         },
@@ -260,7 +260,7 @@ Page({
       })
   },
   orderPay1(e){
-    // console.log(e)
+    console.log(e.currentTarget.dataset.order)
     //  let id = e.target.dataset.order;
     //  let that = this;
     //  app.getRequest({
@@ -290,7 +290,15 @@ Page({
     //         console.log('========',res)
     //      }
     //    })
-    let data = wx.getStorageSync('order-info')
+    let data_a = wx.getStorageSync('order-info')
+    let orderId= e.currentTarget.dataset.order
+    let data = null
+    data_a.map((item,index)=>{
+      if(item.orderId == orderId){
+        data = item
+      }
+    })
+    console.log(data)
     wx.requestPayment({
       'timeStamp': data.timestamp,
       'nonceStr': data.noncestr,

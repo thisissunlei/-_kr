@@ -12,12 +12,12 @@ Page({
   },
   choiceCity: function(event) {
     var that = this;
-    console.log(event);
+    // console.log(event);
     var cityName = event.currentTarget.dataset.city.name;
     var cityId = event.currentTarget.dataset.city.id;
-    console.log(that.data.cityList);
+    // console.log(that.data.cityList);
     that.data.cityList.map((item, index) => {
-      console.log(item, index);
+      // console.log(item, index);
       item.flag = false;
       if (item.id == cityId) {
         var str = "cityList[index].flag";

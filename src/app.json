@@ -1,11 +1,10 @@
 {
   "pages": [
-    
     "pages/index/index",
 
-    "pages/invitationLetter/invitationLetter",
-
     "pages/map/map",
+
+    "pages/invitationLetter/invitationLetter",
 
     "pages/seatDetail/seatDetail",
     "pages/meetingStatus/meetingStatus",
@@ -13,7 +12,7 @@
     "pages/meetingDetail/meetingDetail",
     "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
-    
+
     "pages/mysanzuo/mysanzuo",
     "pages/cityList/cityList",
     "pages/logs/logs",
