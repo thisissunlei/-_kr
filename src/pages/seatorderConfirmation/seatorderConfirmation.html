@@ -41,7 +41,7 @@
             <view class="u-line"></view>
         </view>
          <!--隐藏 日期盒子 -->
-          <view class="u-time-box" wx:if="{{month}}">
+          <view class="u-time-box" wx:if="{{!month}}">
             <view class="box2">
             </view>
         <view class="u-time-info">
@@ -279,8 +279,8 @@
 
 
   <!-- 日历 数量 选择 -->
-  <view class="u-dialog"  wx:if="{{!dialogDate}}">
-        <!-- <view class="wrapper"> -->
+  <!-- <view class="u-dialog"  wx:if="{{!dialogDate}}">
+        
             <view class="date">
                   <view class="box" catchtap="closeDialogDate"></view>
                   <view class="sankenum">
@@ -302,7 +302,7 @@
                     <text class="week-day">五</text>
                     <text class="week-day">六</text>
                   </view>
-                  <!-- 当前月份 -->
+            
                   <view class="now-date" style="padding-top:30rpx"> 
                     {{date_now.value}}月份
                   </view>
@@ -324,7 +324,7 @@
                   </view>
                   </view>
                    
-                  <!-- 下个月月份 -->
+                  
                   <view class="now-date">
                     {{date_next.value}}
                   </view>
@@ -346,9 +346,9 @@
                   </view>
               
               
-            <!-- </view> -->
+            
           </view>
-  </view>
+  </view> -->
     <!-- 报错信息 -->
     <view class="last-view">
         <view class="error-message" wx:if="{{!showError}}">{{errorMessage}}</view>

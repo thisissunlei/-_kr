@@ -109,38 +109,44 @@ Page({
    },
   // 数量日历显示与隐藏
    closeDialogDate:function(){
-     let that = this;
-     that.setData({
-       dialogDate:!that.data.dialogDate
+     wx.navigateTo({
+       url:"../meeting/meeting"
      })
+    //  let that = this;
+    //  that.setData({
+    //    dialogDate:!that.data.dialogDate
+    //  })
    },
   // 数量与日期  隐藏
   closeDialogDate:function(){
-    let that = this;
-    wx.reportAnalytics('choosedate')
-    that.setData({
-      dialogDate:!that.data.dialogDate
+    wx.navigateTo({
+      url:"../meeting/meeting"
     })
+    // let that = this;
+    // wx.reportAnalytics('choosedate')
+    // that.setData({
+    //   dialogDate:!that.data.dialogDate
+    // })
   },
   // 散客数量加
-  add:function(){
-    this.setData({
-      sankeNum:this.data.sankeNum+=1
-    })
-    wx.setStorageSync("num",this.data.sankeNum)
+  // add:function(){
+  //   this.setData({
+  //     sankeNum:this.data.sankeNum+=1
+  //   })
+  //   wx.setStorageSync("num",this.data.sankeNum)
    
-  },
+  // },
   // 散客数量减
-  jian:function(){
-    let num=this.data.sankeNum-=1
-    if(num<1){
-      num=1
-    }
-    this.setData({
-      sankeNum:num
-    })
-    wx.setStorageSync("num",this.data.sankeNum)
-  },
+  // jian:function(){
+  //   let num=this.data.sankeNum-=1
+  //   if(num<1){
+  //     num=1
+  //   }
+  //   this.setData({
+  //     sankeNum:num
+  //   })
+  //   wx.setStorageSync("num",this.data.sankeNum)
+  // },
   // 我在想想
   closeDialog:function(){
     this.setData({
@@ -193,120 +199,120 @@ Page({
   
   },
   // 日历选择
-  dateBtn :function(e){
-    // console.log(e)
-    let month=e.target.dataset.month//月份
-    let day=e.target.dataset.num+1//今天的号数
+  // dateBtn :function(e){
+  //   // console.log(e)
+  //   let month=e.target.dataset.month//月份
+  //   let day=e.target.dataset.num+1//今天的号数
     
-    this.setData({
-      month:month,
-      day:day
-    })
+  //   this.setData({
+  //     month:month,
+  //     day:day
+  //   })
    
   
     
-    if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
+  //   if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       
-      const new_data = this.data[e.target.dataset.data];
-      var old_data = [];
-      if(this.last_data!='false'){
-        if(this.last_data=='date_data1'){
-          old_data = this.data['date_data1'];
-          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
+  //     const new_data = this.data[e.target.dataset.data];
+  //     var old_data = [];
+  //     if(this.last_data!='false'){
+  //       if(this.last_data=='date_data1'){
+  //         old_data = this.data['date_data1'];
+  //         old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
          
-          this.setData({
-            date_data1:old_data
-          });
-        }else if(this.last_data=='date_data2'){
-          old_data = this.data['date_data2'];
-          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
-          this.setData({            
-            date_data2:old_data
-          });
-        }
-      }     
-      new_data[parseInt(e.target.dataset.num)]['type'] = 'active ' + new_data[parseInt(e.target.dataset.num)]['type'];
-      if(e.target.dataset.data=='date_data2'){
-        this.setData({
-          date_data2:new_data,         
-        });
-      }else if(e.target.dataset.data=='date_data1'){
-        this.setData({
-          date_data1:new_data,        
-        });
-      }
-      this.last_btn_num = e.target.dataset.num;
-      this.last_data = e.target.dataset.data;
-      let dataset=e.target.dataset
-      let day_nows = dataset.value;
-      if(day_nows == '今天'){
-        day_nows = new Date().getDate();
-      }else if(day_nows == '明天'){
-        day_nows = parseInt(new Date().getDate()) + 1;
-      }
-      let month=dataset.month>9?dataset.month:`0${dataset.month}`;
-      let day=day_nows>9?day_nows:`0${day_nows}`;
-      let time=`${dataset.year}-${month}-${day}`;
-      var _this=this; 
-      const time_date = new Date(time);
-      const today_date = new Date();
-      let day_con = '';
-      if(today_date.getDate() == time_date.getDate()){
-        day_con = '今天';
-      }else if(parseInt(today_date.getDate())+1 == time_date.getDate()){
-        day_con = '明天';
-      }else{
-        switch (parseInt(time_date.getDay())){
-          case 0:
-            day_con = '周日';
-          break;
-          case 1:
-            day_con = '周一';
-          break;
-          case 2:
-            day_con = '周二';
-          break;
-          case 3:
-            day_con = '周三';
-          break;
-          case 4:
-            day_con = '周四';
-          break;
-          case 5:
-            day_con = '周五';
-          break;
-          case 6:
-            day_con = '周六';
-          break;
-        }
-      }
+  //         this.setData({
+  //           date_data1:old_data
+  //         });
+  //       }else if(this.last_data=='date_data2'){
+  //         old_data = this.data['date_data2'];
+  //         old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
+  //         this.setData({            
+  //           date_data2:old_data
+  //         });
+  //       }
+  //     }     
+  //     new_data[parseInt(e.target.dataset.num)]['type'] = 'active ' + new_data[parseInt(e.target.dataset.num)]['type'];
+  //     if(e.target.dataset.data=='date_data2'){
+  //       this.setData({
+  //         date_data2:new_data,         
+  //       });
+  //     }else if(e.target.dataset.data=='date_data1'){
+  //       this.setData({
+  //         date_data1:new_data,        
+  //       });
+  //     }
+  //     this.last_btn_num = e.target.dataset.num;
+  //     this.last_data = e.target.dataset.data;
+  //     let dataset=e.target.dataset
+  //     let day_nows = dataset.value;
+  //     if(day_nows == '今天'){
+  //       day_nows = new Date().getDate();
+  //     }else if(day_nows == '明天'){
+  //       day_nows = parseInt(new Date().getDate()) + 1;
+  //     }
+  //     let month=dataset.month>9?dataset.month:`0${dataset.month}`;
+  //     let day=day_nows>9?day_nows:`0${day_nows}`;
+  //     let time=`${dataset.year}-${month}-${day}`;
+  //     var _this=this; 
+  //     const time_date = new Date(time);
+  //     const today_date = new Date();
+  //     let day_con = '';
+  //     if(today_date.getDate() == time_date.getDate()){
+  //       day_con = '今天';
+  //     }else if(parseInt(today_date.getDate())+1 == time_date.getDate()){
+  //       day_con = '明天';
+  //     }else{
+  //       switch (parseInt(time_date.getDay())){
+  //         case 0:
+  //           day_con = '周日';
+  //         break;
+  //         case 1:
+  //           day_con = '周一';
+  //         break;
+  //         case 2:
+  //           day_con = '周二';
+  //         break;
+  //         case 3:
+  //           day_con = '周三';
+  //         break;
+  //         case 4:
+  //           day_con = '周四';
+  //         break;
+  //         case 5:
+  //           day_con = '周五';
+  //         break;
+  //         case 6:
+  //           day_con = '周六';
+  //         break;
+  //       }
+  //     }
      
-      let Time="meeting_time.time";
+  //     let Time="meeting_time.time";
       
-      this.setData({
-        orderDate:{
-          time:time,
-          timeText:day_con,
-        },
-        nowDateIndex:e.target.dataset.validIndex,
-        [Time]:'',
-        nowDate:time,
-        priceCount:0,
-        totalCount:0,
-        selectedTime:[],
+  //     this.setData({
+  //       orderDate:{
+  //         time:time,
+  //         timeText:day_con,
+  //       },
+  //       nowDateIndex:e.target.dataset.validIndex,
+  //       [Time]:'',
+  //       nowDate:time,
+  //       priceCount:0,
+  //       totalCount:0,
+  //       selectedTime:[],
 
         
-      },function(){
+  //     },function(){
        
-        _this.closeDialogDate();
-        _this.getThemeName(_this.data.orderDate);
+  //       _this.closeDialogDate();
+  //       _this.getThemeName(_this.data.orderDate);
        
-      })
+  //     })
       
-      wx.setStorageSync("week",this.data.orderDate.timeText)
+  //     wx.setStorageSync("week",this.data.orderDate.timeText)
      
-    }
-  },
+  //   }
+  // },
   // 滑动事件
   scrollTopEvent(e){
     let top=e.detail.scrollTop;
@@ -576,6 +582,18 @@ Page({
 
 
   onLoad: function (options) {
+    let carendar=wx.getStorageSync("data-index")
+    for(var item in carendar){ 
+
+    }
+    this.setData({
+      sankeNum:carendar[0].number_a,
+      carendarArr:carendar
+    })
+    console.log(item)
+
+
+
     this.getPhone();
     var _this=this;
     if(options.from=='list'){

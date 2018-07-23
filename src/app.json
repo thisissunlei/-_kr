@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/seatorderConfirmation/seatorderConfirmation",
    
     "pages/index/index",
     "pages/meeting/meeting",
@@ -11,7 +12,6 @@
     "pages/meetingStatus/meetingStatus",
     "pages/paySuccess/paySuccess",
     "pages/meetingDetail/meetingDetail",
-    "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
 
     "pages/mysanzuo/mysanzuo",
