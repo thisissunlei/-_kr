@@ -8,23 +8,33 @@ Page({
     latitude: 0,
     longitude: 0,
     cityList: {},
-    // markers: [
-    //   {
-    //     id: 1,
-    //     latitude: 23.099994,
-    //     longitude: 113.32452,
-    //     name: "T.I.T 创意园"
-    //   }
-    // ]
     markers: [
       {
         iconPath: "../images/public/icon_dizhi.png",
         id: 0,
-        latitude: 39.9219,
-        longitude: 116.44355,
-        name: "放假",
+        latitude: 39.93303,
+        longitude: 116.47729,
+        name: "氪空间",
         width: 25,
-        height: 40
+        height: 35
+      },
+      {
+        iconPath: "../images/public/icon_dizhi.png",
+        id: 1,
+        latitude: 39.93303,
+        longitude: 116.47529,
+        name: "36氪传媒",
+        width: 25,
+        height: 35
+      },
+      {
+        iconPath: "../images/public/icon_dizhi.png",
+        id: 2,
+        latitude: 39.93103,
+        longitude: 116.47629,
+        name: "鲸准",
+        width: 25,
+        height: 35
       }
     ]
   },
@@ -37,25 +47,25 @@ Page({
   onLoad: function() {
     var that = this;
     wx.getLocation({
+      type: "gcj02",
       success: res => {
-        // console.log(typeof res.latitude);
+        // console.log(res);
         that.setData({
           longitude: res.longitude,
           latitude: res.latitude
         });
         this.getNearbyCity();
         // this.getCitybyId();
-        // console.log(that.data.latitude);
       }
     });
-    // console.log(that.data.latitude)
   },
+  //大厦城市id接口
   getCitybyId: function() {
     var that = this;
     app.getRequest({
       url: app.globalData.KrUrl + " api/gateway/krmting/cmts/city",
       data: {
-        cityId: 1,
+        cityId: 170,
         latitude: that.data.latitude,
         longitude: that.data.longitude
       },
@@ -93,8 +103,15 @@ Page({
         that.setData({
           cityList: cityList[0]
         });
-        // console.log(that.data.cityList);
       }
+    });
+  },
+  //点击card跳转大厦详情
+  goBuildInfo: function(e) {
+    // console.log(e.currentTarget.dataset.id);
+    let communityId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: `../boardroomList/boardroomList?communityId=${communityId}`
     });
   },
   onReady: function() {
@@ -102,77 +119,44 @@ Page({
     // this.getCenterLocation();
     this.moveToLocation();
   },
-  getCenterLocation: function() {
-    this.mapCtx.getCenterLocation({
-      success: function(res) {
-        console.log(res.longitude);
-        console.log(res.latitude);
-      }
-    });
-  },
+  // getCenterLocation: function() {
+  //   this.mapCtx.getCenterLocation({
+  //     success: function(res) {
+  //       console.log(res.longitude);
+  //       console.log(res.latitude);
+  //     }
+  //   });
+  // },
   moveToLocation: function() {
     this.mapCtx.moveToLocation();
-  },
-  translateMarker: function() {
-    this.mapCtx.translateMarker({
-      markerId: 1,
-      autoRotate: true,
-      duration: 1000,
-      destination: {
-        latitude: 23.10229,
-        longitude: 113.3345211
-      },
-      animationEnd() {
-        console.log("animation end");
-      }
-    });
-  },
-  includePoints: function() {
-    this.mapCtx.includePoints({
-      padding: [10],
-      points: [
-        {
-          latitude: 23.10229,
-          longitude: 113.3345211
-        },
-        {
-          latitude: 23.00229,
-          longitude: 113.3345211
-        }
-      ]
-    });
   }
-
-  // onReady: function(options) {
-  //   console.log("onLoad");
-  //   console.log(options);
-  //   this.mapCtx = wx.createMapContext("myMap");
-
-  //   var that = this;
-  //   wx.getLocation({
-  //     success: res => {
-  //       // console.log(res);
-  //       that.setData({
-  //         latitude: res.latitude,
-  //         longitude: res.longitude
-  //       });
-  //     }
-  //   });
-  //   // this.getCenterLocation();
-  //   this.moveToLocation();
-  // },
-  // getCenterLocation: function() {
-  //   //   console.log(this.data)
-  //   var that = this;
-  //   that.mapCtx.getCenterLocation({
-  //     success: function(res) {
-  //       console.log(that.data);
-  //       console.log(res);
-
+  // translateMarker: function() {
+  //   this.mapCtx.translateMarker({
+  //     markerId: 1,
+  //     autoRotate: true,
+  //     duration: 1000,
+  //     destination: {
+  //       latitude: 39.93303,
+  //       longitude: 116.47529
+  //     },
+  //     animationEnd() {
+  //       console.log("animation end");
   //     }
   //   });
   // },
-  // moveToLocation: function() {
-  //   this.mapCtx.moveToLocation();
+  // includePoints: function() {
+  //   this.mapCtx.includePoints({
+  //     padding: [10],
+  //     points: [
+  //       {
+  //         latitude: 23.10229,
+  //         longitude: 113.3345211
+  //       },
+  //       {
+  //         latitude: 23.00229,
+  //         longitude: 113.3345211
+  //       }
+  //     ]
+  //   });
   // }
 });

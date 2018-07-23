@@ -6,6 +6,7 @@ Page({
     usedTime: "",
     bookUserName: "",
     adress: "",
+    bookUserAvatar: "",
     hint: [
       {
         title: "1.到了如何使用移动工位？",
@@ -82,8 +83,9 @@ Page({
         if (res.data.code == 1) {
           that.setData({
             bookUserName: res.data.data.bookUserName,
-            usedTime: res.data.data.usedTime[0],
-            adress: res.data.data.adress
+            usedTime: res.data.data.usedTime,
+            adress: res.data.data.adress,
+            bookUserAvatar: res.data.data.bookUserAvatar
           });
         }
       }

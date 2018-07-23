@@ -9,18 +9,13 @@
             <cover-image src="../images/indexImg/icon_loation.png"></cover-image>
         </cover-view>
         <cover-view class="city-name">{{cityName}}</cover-view>
-        <!-- <cover-view class="city-san"></cover-view> -->
     </cover-view>
-    <view class="page-bottom">
+    <view class="page-bottom" bindtap="goBuildInfo" data-id="{{cityList.communityId}}">
         <view class="page-image">
             <image src="{{cityList.buildImgUrl}}"></image>
         </view>
         <view class="page-right">
             <text class="page-name">{{cityList.buildName}}</text>
-            <!-- <view class="page-address">
-                <text class="page-site">{{cityList.buildAddress}}</text>
-                <text class="page-distance">{{cityList.distance}}</text>
-            </view> -->
             <view class='location'>
                 <view class='lct_con'>
                     <!-- <image src="../images/indexImg/icon_loation.png" class="map-icon"></image> -->
@@ -34,15 +29,7 @@
                 <text class="num-arr">{{cityList.seatCount}}</text>
                 <text class="num-text">个散座</text>
             </view>
-            <!-- <view class="page-see"> -->
             <view class="price" wx:if="{{cityList.promotionDescr}}">{{cityList.promotionDescr}}</view>
-            <!-- <view class="page-look">
-                    <text style="margin-left: -20rpx;">去看看</text>
-                    <text class="gl"></text>
-                </view> -->
-
-
-            <!-- </view> -->
         </view>
     </view>
 </view>
