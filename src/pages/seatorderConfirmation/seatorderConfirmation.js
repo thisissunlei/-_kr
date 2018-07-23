@@ -46,7 +46,7 @@ Page({
     ],
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
-    alertTime:'THIRTY',
+    alertTime:'ONEDAY',
     order_pay:{},
     priceCount:'0',
     totalCount:'0',
@@ -472,10 +472,10 @@ Page({
   getRemind:function(alertTime){
     let themeObj={
       'NOALERT':'无',
-      'FIVE':'提前一小时',
-      'FIFTEEN':'提前两小时',
-      'THIRTY':'提前一天',
-      'THIRTYS':'提前两天',
+      'ONEHOUR':'提前一小时',
+      'TWOHOUR':'提前两小时',
+      'ONEDAY':'提前一天',
+      'TWODAY':'提前两天',
     }
      return themeObj[alertTime]
     
@@ -637,6 +637,7 @@ Page({
         }
       }
     })
+  
     
     
     this.setData({
@@ -658,10 +659,10 @@ Page({
         if(Object.keys(res.data).length !=0){
           _this.setData({
               themeName:res.data.themeName || _this.data.themeName,
-              remind:_this.getRemind(res.data.alertTime) || _this.getRemind('THIRTY'),
+              remind:_this.getRemind(res.data.alertTime) || _this.getRemind('ONEDAY'),
               linkPhone:res.data.linkPhone || _this.data.linkPhone,
               order_pay:res.data,
-              alertTime:res.data.alertTime || 'THIRTY'
+              alertTime:res.data.alertTime || 'ONEDAY'
             })
         }
       }
@@ -808,13 +809,14 @@ Page({
     })
     
     let data=this.data;
+    console.log(data.alertTime);
     let orderData = {
       
-      alertTime: "TWOHOUR",
+      alertTime: data.alertTime,
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       arrivingTime:data.time,
       quantity:data.sankeNum,
-      seatGoodIds:"129,130"
+      seatGoodIds:"135,136"
      
     }
 
@@ -933,7 +935,7 @@ Page({
                       setTimeout(function(){
                         // _this.getInviteeId(res.data.data.orderId);
                         wx.navigateTo({
-                          url: '../mysanzuo/mysanzuo'
+                          url: '../orderseatDetail/orderseatDetail?id='+res.data.data.orderId+'&con='+1
                         })
                         wx.hideLoading();
                       },1500)

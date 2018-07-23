@@ -5,9 +5,9 @@ const app = getApp()
 
 
 Page({
-  /*onShareAppMessage: function() {
-    return app.globalData.share_data;
-  },*/
+  // onShareAppMessage: function() {
+  //   return app.globalData.share_data;
+  // },
   data: {
     arrivingTime:"",
     linkPhone:"",
@@ -15,11 +15,7 @@ Page({
     con:'',
     minute:'',
     second:'',
-    detailInfo:{
-      orderShowStatus:1,
-      first:1,
-      useDate:''
-    },
+ 
     payTitle:'',
     orderId:'',
     meetDetailShow:false,
@@ -80,32 +76,35 @@ Page({
   ifFixed: false,
   //立即支付
   payOrder:function(){
-
     let orderId=this.data.orderId;
 
     let arr=wx.getStorageSync("myorder")
-    console.log(arr)
-    app.getRequest({
-      // 修改订单
-      url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
-      method:"get",
-      data:{
-        alertTime	: "TWOHOUR",
-        arravingTime	:arr.arrivingTime,
-        linkPhone	:	arr.linkPhone,
-        orderId :orderId
-      },
-      success:(res)=>{
-        var _this=this;
-        console.log(res)
-        
+    // console.log(arr[arr.length-1].linkPhone ,wx.getStorageSync("order_pay").linkPhone)
+  
 
-      
-      },
-      fail:(error)=>{
+      app.getRequest({
+        // 修改订单
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+        method:"get",
+        data:{
+          alertTime	: arr[arr.length-1].alertTime,
+          arravingTime	:arr[arr.length-1].arrivingTime,
+          linkPhone	:	arr[arr.length-1].linkPhone || wx.getStorageSync("order_pay").linkPhone,
+          orderId :orderId
+        },
+        success:(res)=>{
+          var _this=this;
+          console.log(res)
           
-      }
-    })
+  
+        
+        },
+        fail:(error)=>{
+            
+        }
+      })
+   
+   
 
 
  
@@ -126,9 +125,9 @@ Page({
         setTimeout(
           function(){
             // _this.getInviteeId(orderId,_this.jumpPaySuccess)
-            wx.navigateTo({
-              url: '../mysanzuo/mysanzuo'
-            })
+            // wx.navigateTo({
+            //   url: '../mysanzuo/mysanzuo'
+            // })
             wx.hideLoading()
           },1500)
       },
@@ -178,6 +177,7 @@ Page({
     this.setData({
       time: e.detail.value
     })
+    
   },
   //  预计到场时间 隐藏
   jumpSetTime: function () {
@@ -215,10 +215,10 @@ Page({
   getRemind: function (alertTime) {
   let themeObj = {
     'NOALERT': '无',
-    'FIVE': '提前一小时',
-    'FIFTEEN': '提前两小时',
-    'THIRTY': '提前一天',
-    'THIRTYS': '提前两天',
+    'ONEHOUR': '提前一小时',
+    'TWOHOUR': '提前两小时',
+    'ONEDAY': '提前一天',
+    'TWODAY': '提前两天',
   }
    return themeObj[alertTime]
   
@@ -244,13 +244,14 @@ Page({
   jumpSetPhone:function() {
     let data=this.data;
     wx.navigateTo({
-      url: '../phone/phone?type=storage&linkPhone='+data.linkPhone
+      url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
     })
     
   },
   // 邀请
   onShareAppMessage: function (res) {
   // console.log(res,8888)
+  console.log(this.data.detailInfo)
   if (res.from === 'button') {
     // 来自页面内转发按钮
     // console.log(res.target)
@@ -258,30 +259,30 @@ Page({
       wx.reportAnalytics('sharemeeting')
   
   return {
-    title: '戳我一键参会！邀请您于"'+this.data.detailInfo.ctime+'"在"'+this.data.detailInfo.meetingRoomName+'"参加"'+this.data.detailInfo.themeName+'"',
-    path: 'pages/meetingStatus/meetingStatus?inviteeId='+this.data.detailInfo.inviteeId,
+    title: '戳我一键参会！邀请您于"'+this.data.detailInfo.ctime+'"在"'+this.data.detailInfo.buildAndFloorDescr+'"参加"'+"氪空间会议"+'"',
+    path: 'pages/invitationLetter/invitaionLetter?seatId='+this.data.detailInfo.orderId,
     imageUrl:'../images/indexImg/statusbg.png'
   }
 },
 
 
   onUnload: function () {
-    if(this.data.con==1){
-      wx.reLaunch({
-        url: '../index/index'
-      })
-    }
+    // if(this.data.con==1){
+    //   wx.reLaunch({
+    //     url: '../index/index'
+    //   })
+    // }
     let _this = this;
     
-    wx.setStorage({
-      key: "order_pay",
-      data: {},
-      success: function () {
-          _this.setData({
-          order_pay: {}
-          })
-      }
-    })
+    // wx.setStorage({
+    //   key: "order_pay",
+    //   data: {},
+    //   success: function () {
+    //       _this.setData({
+    //       order_pay: {}
+    //       })
+    //   }
+    // })
     wx.setStorage({
       key: "meeting_time",
       data: {}
@@ -368,14 +369,31 @@ Page({
         if (Object.keys(res.data).length != 0) {
           _this.setData({
             themeName: res.data.themeName || _this.data.themeName,
-            remind: _this.getRemind(res.data.alertTime) || _this.getRemind('THIRTY'),
+            remind: _this.getRemind(res.data.alertTime) || _this.getRemind('ONEDAY'),
             linkPhone: res.data.linkPhone || _this.data.linkPhone,
             order_pay: res.data,
-            alertTime: res.data.alertTime || 'THIRTY'
+            alertTime: res.data.alertTime || 'ONEDAY'
             })
         }
       }
     })
+
+
+    if(this.data.isRouteMy=="2"){
+      wx.switchTab({
+        url:"../myorder/myorder",
+        success:function(e){
+          var page =getCurrentPages().pop();
+          if(page == undefined || page == null) 
+          return;
+          page.onLoad();
+        }
+      })
+    }else{
+      wx.switchTab({
+        url:"../index/index",
+      })
+    }
   },
   bool: true,
   onLoad: function (options) {
@@ -391,10 +409,11 @@ Page({
       })
     }
   
-
+    
 
     this.getPhone();
     var _this = this;
+    // console.log(options,88800)
     if (options.from == 'list') {
       wx.getStorage({
         key: 'meet_detail',
@@ -461,6 +480,14 @@ Page({
       topDate: wx.getStorageSync('topDate'),
     })
     
+
+    var pages=getCurrentPages()
+    // console.log(pages)
+    var prevPage=pages[pages.length-2]
+    prevPage.setData({
+      isRouteMy:"2"
+    })
+
   },
   getThemeName: function (res) {
     let timeArr = res.time.split('-');
@@ -539,7 +566,10 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-        // console.log(999,res)
+        console.log(999,res)
+        this.setData({
+          time:res.data.data.arrivingTimeDescr
+        })
             let data=res.data.data;
             
               let titleObj={
@@ -560,10 +590,10 @@ Page({
               
               let themeObj={
                 'NOALERT': '无',
-                'FIVE': '提前一小时',
-                'FIFTEEN': '提前两小时',
-                'THIRTY': '提前一天',
-                'THIRTYS': '提前两天',
+                'ONEHOUR': '提前一小时',
+                'TWOHOUR': '提前两小时',
+                'ONEDAY': '提前一天',
+                'TWODAY': '提前两天',
               }
 
               let detailInfo=Object.assign({},data);
