@@ -5,5 +5,5 @@
     "navigationBarTextStyle":"black",
     "usingComponents": {
         "dialog": "../component/component"
-      }
+    }
 }

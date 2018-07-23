@@ -39,7 +39,7 @@ Page({
     if(page>totalPages){
       return
     }else{
-      this.getData(type,page)
+      // this.getData(type,page)
       this.getData1(type,page)
     }
     
@@ -65,20 +65,20 @@ Page({
       orderList1:[],
       orderOldList1:[]
     },function(){
-      that.getData(type,1)
+      // that.getData(type,1)
       that.getData1(type,1)
     })
   },
   //初始化加载
   onLoad: function (options) {
-    console.log(options)
+    // console.log(options)
     let type= options.orderShowStatus;
     let number = this.data.tabList[type];
     this.setData({
       number:20*number + '%',
       type:options.orderShowStatus
     })
-    this.getData(type)
+    // this.getData(type)
     this.getData1(type)
   },
 
@@ -92,7 +92,7 @@ Page({
       page: 1,
       totalPages:0
     })
-    this.getData()
+    // this.getData()
     this.getData1()
   },
   //倒计时
@@ -110,56 +110,57 @@ Page({
   },
   
   //请求会议列表数据
-  getData:function(type,page){
-    let that = this;
-    type = type || this.data.type;
-    let orderOldList = this.data.orderList;
-    console.log(orderOldList)
-    app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
-        methods:"GET",
-        data:{
-          orderShowStatus:type,
-          page:page || 1,
-        },
-        success:(res)=>{
-          console.log (res)
-          let oldList = []
-          if(res.data.code>0){
-            var list = []
-            list = res.data.data.items.map((item,index)=>{
-              if(item.orderShowStatus == 'OBLIGATION'){
-                console.log(item.expiredTime)
-                let time = this.dealTime(item.expiredTime)
-                console.log(time)
+  // getData:function(type,page){
+  //   let that = this;
+  //   type = type || this.data.type;
+  //   let orderOldList = this.data.orderList;
+  //   console.log(orderOldList)
+  //   app.getRequest({
+  //       url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
+  //       methods:"GET",
+  //       data:{
+  //         orderShowStatus:type,
+  //         page:page || 1,
+  //       },
+  //       success:(res)=>{
+  //         console.log (res)
+  //         let oldList = []
+  //         if(res.data.code>0){
+  //           var list = []
+  //           list = res.data.data.items.map((item,index)=>{
+  //             if(item.orderShowStatus == 'OBLIGATION'){
+  //               console.log(item.expiredTime)
+  //               let time = this.dealTime(item.expiredTime)
+  //               console.log(time)
                 
-                item.minute=time.minute;
-                item.second=time.second;
-              }
-              console.log('=item.minute>-1',item.minute>-1,item.minute)
-              return item;
-            })
-            var allList = [].concat(orderOldList,list)
-            console.log(list.length,'totalCount',allList,allList.length)
-            that.setData({
-              orderOldList:allList,
-              orderList:allList,
-              page:page || 1,
-              totalPages:res.data.data.totalPages
-            })
-          }else{
-            that.setData({
-              error:false,
-              errorMessage:res.data.message
-            })
-          }
+  //               item.minute=time.minute;
+  //               item.second=time.second;
+                
+  //             }
+  //             // console.log('=item.minute>-1',item.minute>-1,item.minute)
+  //             return item;
+  //           })
+  //           var allList = [].concat(orderOldList,list)
+  //           console.log(list.length,'totalCount',allList,allList.length)
+  //           that.setData({
+  //             orderOldList:allList,
+  //             orderList:allList,
+  //             page:page || 1,
+  //             totalPages:res.data.data.totalPages
+  //           })
+  //         }else{
+  //           that.setData({
+  //             error:false,
+  //             errorMessage:res.data.message
+  //           })
+  //         }
           
-        },
-        fail:(res)=>{
-           console.log('========',res)
-        }
-      })
-  },
+  //       },
+  //       fail:(res)=>{
+  //          console.log('========',res)
+  //       }
+  //     })
+  // },
   //散座订单列表
   getData1:function(type,page){
     let that = this;
@@ -174,21 +175,21 @@ Page({
           pageSize:10
         },
         success:(res)=>{
-          console.log(res)
+          
           let oldList = []
           if(res.data.code>0){
             var list1 = []
             list1 = res.data.data.items.map((item,index)=>{
               if(item.orderShowStatus == 'OBLIGATION'){
-                let time = this.dealTime(item.expiredTime)
+                let time = that.dealTime(item.expiredTime)
                 item.minute=time.minute;
                 item.second=time.second;
               }
-              console.log('=item.minute>-1',item.minute>-1,item.minute)
+              console.log('=item.minute>-1',item.minute>-1,item.minute,item.second)
               return item;
             })
             var allList1 = [].concat(orderOldList1,list1)
-            console.log(list1.length,'totalCount',allList1,allList1.length)
+            // console.log(list1.length,'totalCount',allList1,allList1.length)
             that.setData({
               orderOldList1:allList1,
               orderList1:allList1,
@@ -308,7 +309,7 @@ Page({
       },
       'fail':function(res){
         wx.navigateTo({
-          url: '../orderseatDetail/orderDetail?id='+orderId 
+          url: '../orderseatDetail/orderseatDetail?id='+orderId 
         })
       }
     })
@@ -332,4 +333,6 @@ Page({
     })
     
   },
+
+  
 })

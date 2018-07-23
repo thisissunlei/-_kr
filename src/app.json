@@ -1,21 +1,17 @@
 {
   "pages": [
     "pages/index/index",
-
+    "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/invitationLetter/invitationLetter",
-
+    "pages/meeting/meeting",
     "pages/my/my",
     "pages/myOrder/myOrder",
-    "pages/meeting/meeting",
     "pages/map/map",
-
     "pages/seatDetail/seatDetail",
     "pages/meetingStatus/meetingStatus",
     "pages/paySuccess/paySuccess",
     "pages/meetingDetail/meetingDetail",
-    "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
-
     "pages/mysanzuo/mysanzuo",
     "pages/cityList/cityList",
     "pages/logs/logs",
@@ -23,9 +19,7 @@
     "pages/orderConfirmation/orderConfirmation",
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
-
     "pages/boardroomList/boardroomList",
-
     "pages/myMeeting/myMeeting",
     "pages/phone/phone",
     "pages/regionList/regionList",

@@ -1,10 +1,12 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
-    xuan:false,
+    id:0,
+    show_a:false,
+    fan:'',
+    zheng:true,
     Minimum:null,
     Maximum:null,
     inn:[],//最终数组
@@ -76,6 +78,21 @@ Page({
       combination:combination
     })
     wx.setStorageSync('data-index',this.data.combination)
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/list',
+      methods:"GET",
+      data:{
+        seatId:this.data.id
+      },
+      success:res=>{
+        console.log(res)
+      }
+    })
+  },
+  fanshow(){
+    wx.navigateTo({
+      url:"../seatorderConfirmation/seatorderConfirmation"
+    })
   },
   jian(){
     if(this.data.number > 1){
@@ -87,55 +104,58 @@ Page({
     let arr_a_a2 = this.data.date_data2
     let edge = []
     arr_a_a.map((item,index)=>{
-      if(item.type == 'next' || item.type == 'now'){
-        
-        if(item.kg == true){
-          this.setData({
-            xuan:true
-          })
-          if(this.data.xuan == true){
-            edge.push(item)
-          }
-        }else{
-          this.setData({
-            xuan:false
-          })
-          if(this.data.xuan == false){
-            if(item.number >= this.data.number && item.type == 'next'){
-            item.type = 'next'
-          }
-          if(item.number >= this.data.number && item.type == 'now'){
-            item.type = 'now'
-          }
-          }
-        }
-        return item;
-      }
-    })
-    arr_a_a2.map((item,index)=>{
-      if(item.type == 'next' || item.type == 'now'){
-        if(item.number >= this.data.number && item.type == 'next'){
+        if(item.number >= this.data.number){
           item.type = 'next'
-        }
-        if(item.number >= this.data.number && item.type == 'now'){
-          item.type = 'now'
+          this.setData({
+            date_data1:arr_a_a
+          })
         }
         if(item.kg == true){
           edge.push(item)
         }
-        return item;
+    })
+    arr_a_a2.map((item,index)=>{
+      if(item.number >= this.data.number){
+        item.type = 'next'
+        this.setData({
+          date_data2:arr_a_a2
+        })
+      }
+      if(item.kg == true){
+        edge.push(item)
       }
     })
     edge.sort(function(a,b){
       return a.number - b.number//从小到大
     })
     console.log(edge)
-    this.setData({
-      date_data1:arr_a_a,
-      date_data2:arr_a_a2,
-      Maximum:edge[edge.length-1].number,
-      Minimum:edge[0].number
-    })
+    if(edge.length == 0){
+      this.setData({
+        date_data1:arr_a_a,
+        date_data2:arr_a_a2,
+        zheng:true
+      })
+    }else{
+      this.setData({
+        date_data1:arr_a_a,
+        date_data2:arr_a_a2,
+        Maximum:edge[edge.length-1].number,
+        Minimum:edge[0].number
+      })
+      if(this.data.number < this.data.Maximum){
+        let da = this.data.Maximum
+        this.setData({
+          zheng:true
+        })
+        console.log(this.data.number)
+      }else{
+        this.setData({
+          zheng:false
+        })
+      }
+    }
+    console.log(this.data.number,this.data.Maximum)
+    
     console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
     // console.log(this.data.Maximum,this.data.Minimum,this.data.number)
     // if(this.data.number <= this.data.Minimum){
@@ -160,9 +180,10 @@ Page({
     // }
   },
   jia(){
-    this.setData({
-      number:this.data.number+=1
-    })
+      this.setData({
+        number:this.data.number+=1
+      })
+    
     let arr_a_a = this.data.date_data1
     let arr_a_a2 = this.data.date_data2
     let edge_a = []
@@ -189,14 +210,36 @@ Page({
       }
       return item;
     })
+    console.log(edge_a)
     edge_a.sort(function(a,b){
       return a.number - b.number//从小到大
     })
-    this.setData({
-      date_data2:arr_a_a2,
-      Maximum:edge_a[edge_a.length-1].number,
-      Minimum:edge_a[0].number
-    })
+    if(edge_a.length == 0){
+      this.setData({
+        date_data2:arr_a_a2,
+        zheng:true
+      })
+    }else{
+        this.setData({
+          date_data2:arr_a_a2,
+          Maximum:edge_a[edge_a.length-1].number,
+          Minimum:edge_a[0].number
+        })
+        if(this.data.number >= this.data.Maximum){
+          let da = this.data.Maximum
+          console.log(da)
+          this.setData({
+            number : da,
+            zheng:false
+          })
+          console.log(this.data.number)
+        }else{
+          this.setData({
+            zheng:true
+          })
+        }
+    }
+    
     console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
     // if(this.data.number >= this.data.Maximum){
     //   this.setData({
@@ -573,8 +616,11 @@ Page({
   // 今天+月第一天星期几-1
   //   arr_new
   // },
-  onShow:function(){
-
+  onLoad:function(e){
+    console.log(e)
+    this.setData({
+      id:e.id
+    })
   // },
   // onLoad: function () {
     const today_date = new Date();
