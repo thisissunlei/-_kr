@@ -3,6 +3,7 @@
 const app = getApp()
 Page({
   data: {
+    id:0,
     show_a:false,
     fan:'',
     zheng:true,
@@ -81,7 +82,7 @@ Page({
       url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/list',
       methods:"GET",
       data:{
-        seatId:344
+        seatId:this.data.id
       },
       success:res=>{
         console.log(res)
@@ -615,8 +616,11 @@ Page({
   // 今天+月第一天星期几-1
   //   arr_new
   // },
-  onShow:function(){
-
+  onLoad:function(e){
+    console.log(e)
+    this.setData({
+      id:e.id
+    })
   // },
   // onLoad: function () {
     const today_date = new Date();
