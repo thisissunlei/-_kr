@@ -3,31 +3,7 @@
 const app = getApp()
 Page({
   data: {
-    meetingList:[
-      { address:"北京市朝阳区朝外西街3号兆泰国际中心C座",
-        arrvingCount:0,
-        id:82182,
-        join:false,
-        thebuildFoorDescme:"兆泰国际中心 3层 (氪空间) | 3I会议室",
-        
-        meetingStatus:"WAIT",
-        meetingTime:"07-13(今天)   18:30-19:00",
-        orderId:0,
-        qrCodeUrl:"",
-        theme:"0713会议"
-      },
-      { address:"北京市朝阳区朝外西街3号兆泰国际中心C座",
-      arrvingCount:0,
-      id:82183,
-      join:false,
-      thebuildFoorDescme:"兆泰国际中心 3层 (氪空间) | 3I会议室",
-      meetingStatus:"ARRVING",
-      meetingTime:"07-13(今天)   18:30-19:00",
-      orderId:0,
-      qrCodeUrl:"",
-      theme:"0713会议"
-    }
-    ],
+    meetingList:[],
     bg:'../images/my/bg.png'
   },
   /*onShareAppMessage: function() {
@@ -40,35 +16,33 @@ Page({
     })
   },
   onLoad: function () {
-    // let that = this;
+    let that = this;
     // wx.reportAnalytics('viewmeeting')
-    // app.getRequest({
-    //     url:app.globalData.KrUrl+'api/gateway/krmting/invitee/list',
-    //     methods:"GET",
-    //     data:{
-    //       pageSize:100
-    //     },
-    //     success:(res)=>{
-    //       console.log('res',res.data.data.items)
-    //       if(res.data.code>0){
-    //         var list = []
-    //         list = res.data.data.items.map((item,index)=>{
-    //           return item;
-    //         })
-    //         that.setData({
-    //           meetingList:list
-    //         })
-    //       }else{
-    //         that.setData({
-    //           error:false,
-    //           errorMessage:res.data.message
-    //         })
-    //       }
+    app.getRequest({///krseat//myseat/list
+        url:app.globalData.KrUrl+'api/gateway/krseat//myseat/list',
+        methods:"GET",
+        success:(res)=>{
+          console.log(res)
+          if(res.data.code>0){
+            var list = []
+            list = res.data.data.map((item,index)=>{
+              return item;
+            })
+            that.setData({
+              meetingList:list
+            })
+          }else{
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          }
           
-    //     },
-    //     fail:(res)=>{
-    //        console.log('========',res)
-    //     }
-    //   })
+        },
+        fail:(res)=>{
+          console.log('请求失败')
+           console.log('========',res)
+        }
+      })
   },
 })

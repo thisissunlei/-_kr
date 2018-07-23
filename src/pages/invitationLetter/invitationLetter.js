@@ -126,7 +126,7 @@ Page({
               // console.log(app.globalData.openid);
               that.getUserInfo();
               that.getInvitation();
-              that.invitation();
+              // that.invitation();
             },
             fail: function(res) {
               // console.log(res, 8888887777);

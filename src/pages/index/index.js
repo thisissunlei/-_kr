@@ -225,6 +225,7 @@ Page({
   },
   onShow: function() {
     // this.getAllInfo(this.rq_data.latitude, this.rq_data.longitude);
+    this.getAllInfo();
   },
   getAllInfo: function() {
     var that = this;
