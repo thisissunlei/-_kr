@@ -931,7 +931,10 @@ Page({
                         mask:true
                       })
                       setTimeout(function(){
-                        _this.getInviteeId(res.data.data.orderId);
+                        // _this.getInviteeId(res.data.data.orderId);
+                        wx.navigateTo({
+                          url: '../mysanzuo/mysanzuo'
+                        })
                         wx.hideLoading();
                       },1500)
                      
@@ -1026,32 +1029,32 @@ Page({
     
   // },
   // 微信支付完成之后
-  getInviteeId(orderId){
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
-      methods:"GET",
-      header:{
-        'content-type':"appication/json"
-      },
-      data:{
-        orderId:orderId
-      },
-      success:(res)=>{
-        if(res.data.data.inviteeId){
-            wx.navigateTo({
-              // url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
-              url: '../seatDetail/seatDetail?inviteeId='+res.data.data.inviteeId
-            })
-        }else{
-          wx.navigateTo({
-            url: '../orderseatDetail/orderseatDetail?id='+orderId+'&con='+1
-          })
-        }
+  // getInviteeId(orderId){
+   
+  //   app.getRequest({
+  //     url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
+  //     methods:"GET",
+  //     header:{
+  //       'content-type':"appication/json"
+  //     },
+  //     data:{
+  //       orderId:orderId
+  //     },
+  //     success:(res)=>{
+  //       if(res.data.data.inviteeId){
+  //           wx.navigateTo({
+  //             url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+  //           })
+  //       }else{
+  //         wx.navigateTo({
+  //           url: '../orderseatDetail/orderseatDetail?id='+orderId+'&con='+1
+  //         })
+  //       }
           
-      }
-    })
+  //     }
+  //   })
     
-  },
+  // },
   preventTouchMove(){
   },
  
