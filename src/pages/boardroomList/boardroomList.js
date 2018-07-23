@@ -956,6 +956,7 @@ Page({
   },
   //散座跳转日历
   setDetail1(arr){
+    console.log(arr)
     let that = this;
     wx.setStorage({
         key:"meet_detail1",
@@ -964,7 +965,7 @@ Page({
           that.button_boolean1 = true;
           setTimeout(function(){
             wx.navigateTo({
-              url: "/pages/meeting/meeting?from=list"
+              url: "/pages/meeting/meeting?id="+arr.id
             })
           },500)
           
