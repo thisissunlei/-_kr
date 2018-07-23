@@ -1,6 +1,3 @@
-
-
-
 const app = getApp()
 import * as CAlculagraph from '../../utils/time.js'
 Page({
@@ -58,7 +55,7 @@ Page({
     let data = e.target.dataset;
     let type = data.type;
     let number = this.data.tabList[type];
-
+    console.log(number)
     this.setData({
       number:20*number + '%',
       type:type,
@@ -74,7 +71,6 @@ Page({
   },
   //初始化加载
   onLoad: function (options) {
-    
     console.log(options)
     let type= options.orderShowStatus;
     let number = this.data.tabList[type];
@@ -85,7 +81,7 @@ Page({
     this.getData(type)
     this.getData1(type)
   },
-  
+
   //页面重复加载
   onShow: function (options) {
     this.setData({
@@ -111,9 +107,8 @@ Page({
       minute:minute,
       second:second
     }
-
-    
   },
+  
   //请求会议列表数据
   getData:function(type,page){
     let that = this;
@@ -137,6 +132,7 @@ Page({
                 console.log(item.expiredTime)
                 let time = this.dealTime(item.expiredTime)
                 console.log(time)
+                
                 item.minute=time.minute;
                 item.second=time.second;
               }
@@ -168,7 +164,7 @@ Page({
   getData1:function(type,page){
     let that = this;
     type = type || this.data.type;
-    let orderOldList1 = this.data.orderList1;
+    let orderOldList1 = this.data.orderList1;//[]
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/list',
         methods:"GET",
@@ -260,7 +256,7 @@ Page({
       })
   },
   orderPay1(e){
-    console.log(e.currentTarget.dataset.order)
+    console.log(e)
     //  let id = e.target.dataset.order;
     //  let that = this;
     //  app.getRequest({
@@ -292,6 +288,7 @@ Page({
     //    })
     let data_a = wx.getStorageSync('order-info')
     let orderId= e.currentTarget.dataset.order
+    console.log(data_a,orderId)
     let data = null
     data_a.map((item,index)=>{
       if(item.orderId == orderId){
@@ -306,11 +303,12 @@ Page({
       'signType':data.signType,
       'paySign': data.paySign,
       'success':function(res){
+        console.log(res)
         that.getInviteeId(id)
       },
       'fail':function(res){
         wx.navigateTo({
-          url: '../orderseatDetail/orderDetail?id='+id 
+          url: '../orderseatDetail/orderDetail?id='+orderId 
         })
       }
     })
