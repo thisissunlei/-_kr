@@ -99,9 +99,10 @@ Page({
       url: `../boardroomList/boardroomList?communityId=${communityId}`
     });
   },
+  //点击标记点
   changeCommunity: function(e) {
     console.log(e);
-    console.log(this.data.allCommunity);
+    // console.log(this.data.allCommunity);
     var that = this;
     that.data.allCommunity.map((item, value) => {
       if (item.communityId == e.markerId) {

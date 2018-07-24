@@ -2,7 +2,7 @@ const app = getApp();
 Page({
   data: {
     type: "TICKET",
-    seatId: 3,
+    seatId: 0,
     usedTime: "",
     bookUserName: "",
     adress: "",
@@ -48,7 +48,7 @@ Page({
   onLoad: function(options) {
     var that = this;
     console.log(options);
-    if (options.type == "TICKET") {
+    if (options.type) {
       that.setData({
         type: options.type
       });
@@ -79,7 +79,7 @@ Page({
         type: that.data.type
       },
       // data: {
-      //   id: 37,
+      //   id: 69,
       //   type: "TICKET"
       // },
       success: function(res) {
