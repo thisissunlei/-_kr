@@ -24,13 +24,13 @@
         <view class="u-order-time">
             <view class="u-user-date">
                 <view class="u-time-title">数量</view>
-                <view class="u-no-time u-no-num">{{num}}个</view>
+                <view class="u-no-time u-no-num">{{sankeNum}}个</view>
                 <view class="u-time-d"></view>
             </view>
             <view class="u-user-hour" >
                 <view class="u-time-title">使用日期</view>
                 <view class="u-no-time u-no-times">
-                    2天
+                    {{daynum}}天
                 </view>
             </view>
             <view class="u-line"></view>
@@ -38,30 +38,41 @@
          <!--日期盒子 -->
           <view class="u-time-box">
               <view class="box2"></view>
-              <view class="u-time-info">
-                <view>{{month}}-{{day}} ({{week}})</view>
+              <view class="u-time-info" wx:for="{{carendarArr}}" wx:key>
+                <view>{{item.month}}-{{item.value}} ({{item.zhou}})</view>
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{meetingDetail.promotionCost}}</view>
                     <view class="u-meet-old-num">¥ {{meetingDetail.unitCost}}</view>
                     <view class="u-meet-old-unit"> / 天  </view>
                 </view>
-                <view>x {{num}} 个</view>
+                <view>x {{sankeNum}} 个</view>
               </view>
            
           </view>
           <!--应付款-->
           <view class="u-meeting">
             <view class="u-left">{{payTitle}} </view>
-            <view class="u-right">
-                <view class="u-right-top">
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥ {{meetingDetail.promotionCost * num}} </view>
-                    <view class="u-right-top-right">¥ {{meetingDetail.unitCost * num}} </view>
+            <view class="u-right" wx:if="{{!detailInfo.first}}">
+                <view class="u-right-top" >
+                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{meetingDetail.promotionCost * sankeNum * daynum}} </view>
+                    <!-- <view class="u-right-top-right">¥ {{meetingDetail.unitCost * daynum}} </view> -->
                 </view>
-                <view wx:if="{{dialogShow}}" class="u-bottom">
+               
+            </view>
+            <view class="u-right" wx:if="{{detailInfo.first}}">
+                <view class="u-right-top" >
+                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{meetingDetail.promotionCost * sankeNum * daynum}} </view>
+                    <view class="u-right-top-right">¥ {{meetingDetail.unitCost * daynum}} </view>
+                </view>
+                <view wx:if="{{!dialogShow}}" class="u-bottom">
                         （新人专享）2小时超值体验
                 </view>
             </view>
+
+
+        
+
 
           </view>
           <!-- <view class="u-meeting-theme">

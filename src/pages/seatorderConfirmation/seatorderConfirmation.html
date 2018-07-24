@@ -30,22 +30,22 @@
             </view>
             <view class="u-user-hour" bindtap="closeDialogDate">
                 <view class="u-time-title">使用日期</view>
-                <view class="u-no-time" wx:if="{{!month}}">
+                <view class="u-no-time" wx:if="{{!daynum}}">
                     请选择
                 </view>
-                <view class="u-no-time u-no-times" wx:if="{{month}}">
-                    2天
+                <view class="u-no-time u-no-times" wx:if="{{daynum}}">
+                    {{daynum}}天
                 </view>
                 <image class="u-btn-arrow-bottom u-hour-arrow" src="../images/public/icon_arrow-right.png"></image>
             </view>
             <view class="u-line"></view>
         </view>
          <!--隐藏 日期盒子 -->
-          <view class="u-time-box" wx:if="{{!month}}">
+          <view class="u-time-box" wx:if="{{sankeNum && daynum}}">
             <view class="box2">
             </view>
-        <view class="u-time-info">
-                <view>{{month}}-{{day}} ({{orderDate.timeText}})</view>
+        <view class="u-time-info" wx:for="{{carendarArr}}" wx:key>
+                <view>{{item.month}}-{{item.value}} ({{item.zhou}})</view>
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{meetingDetail.promotionCost}}</view>
@@ -53,7 +53,15 @@
                     <view class="u-meet-old-unit"> / 天  </view>
                 </view>
                 <view>x {{sankeNum}} 个</view>
+                 <!-- <view>{{orderDate.time}} ({{orderDate.timeText}})</view>
+                <view class="u-meet-detail-price-info">
+                    <view class="u-meet-unit">¥</view>
+                    <view class="u-meet-detail-num"> {{meetingDetail.promotionCost}}</view>
+                    <view class="u-meet-old-num">¥ {{meetingDetail.unitCost}}</view>
+                    <view class="u-meet-old-unit"> / 天  </view>
                 </view>
+                <!-- <view>x {{sankeNum}} 个</view> -->
+        </view>
               
               
            
@@ -130,14 +138,14 @@
                 <view class="u-price-unit">
                     ¥   
                 </view>
-                <view class="u-price-num" wx:if="{{month}}">
-                    {{meetingDetail.promotionCost * sankeNum }}
+                <view class="u-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
+                    {{meetingDetail.promotionCost * sankeNum * daynum}}
                 </view>
-                <view class="u-price-num" wx:if="{{!month}}">
+                <view class="u-price-num" wx:else>
                     0.00
                 </view>
-                <view class="u-old-price" wx:if="{{month}}">
-                    ￥{{meetingDetail.unitCost * sankeNum}}
+                <view class="u-old-price" wx:if="{{sankenum!=0&&daynum!=0}}">
+                    ￥{{meetingDetail.unitCost * sankeNum * daynum}}
                     <!-- {{totalCount}} -->
                 </view>
             </view>
@@ -153,20 +161,26 @@
                 <view class="u-no-first-price-unit">
                     ¥   
                 </view>
-                <view class="u-no-first-price-num">
-                    {{priceCount}}
+                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
+                    {{meetingDetail.promotionCost * sankeNum}}
                 </view>
-                <view class="u-old-no-first-price" wx:if="{{detailInfo.promotionCost!=detailInfo.unitCost && totalCount>0}}">
-                    ￥{{totalCount}}
+                <view class="u-price-num" wx:else>
+                    0.00
+                </view>
+                <view class="u-old-no-first-price" wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost && meetingDetail.unitCost>0}}">
+                    ￥{{meetingDetail.unitCost * sankeNum}}
                 </view>
             </view>
         </view>
-        <view class="u-footer-right" wx:if="{{!month}}" > 立即支付</view>
+
         <view 
             class="u-footer-right u-active-btn" 
-            wx:if="{{month}}"
+          
+            wx:if="{{sankeNum!=0 && daynum!=0}}"
             bindtap="goToPay"
         > 立即支付</view>
+
+        <view class="u-footer-right"   wx:else> 立即支付</view>
     </view>
     <!-- 未填写报错 -->
     <view class="last-view">

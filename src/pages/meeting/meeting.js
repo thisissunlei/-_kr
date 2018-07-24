@@ -78,6 +78,7 @@ Page({
       combination:combination
     })
     wx.setStorageSync('data-index',this.data.combination)
+    console.log(this.data.id)
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/list',
       methods:"GET",
@@ -86,6 +87,13 @@ Page({
       },
       success:res=>{
         console.log(res)
+        let ss = this.data.id
+        setTimeout(function(){
+          wx.navigateTo({
+            url:"/pages/seatorderConfirmation/seatorderConfirmation?id="+ss
+          })
+            },0)
+
       }
     })
   },

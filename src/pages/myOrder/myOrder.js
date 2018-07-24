@@ -175,7 +175,7 @@ Page({
           pageSize:10
         },
         success:(res)=>{
-          
+          console.log(res)
           let oldList = []
           if(res.data.code>0){
             var list1 = []
