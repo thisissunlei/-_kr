@@ -86,6 +86,13 @@ Page({
       },
       success:res=>{
         console.log(res)
+        
+        setTimeout(function(){
+          wx.navigateTo({
+            url:"../seatorderConfirmation/seatorderConfirmation"
+          })
+            },0)
+
       }
     })
   },

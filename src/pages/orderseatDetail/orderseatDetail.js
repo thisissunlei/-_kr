@@ -9,13 +9,14 @@ Page({
   //   return app.globalData.share_data;
   // },
   data: {
+    price:"",
     arrivingTime:"",
     linkPhone:"",
     seatCoodlds:"",
     con:'',
     minute:'',
     second:'',
- 
+    sankeNum:"",
     payTitle:'',
     orderId:'',
     meetDetailShow:false,
@@ -32,10 +33,8 @@ Page({
     meetingRoomId:'',
     titleObj:{},
     ifFixed:false,
-    num: 1,
-    month: "",
-    day: "",
-    week: "",
+    daynum:"",
+    carendarArr:[],
     time: '11:00',
     timeFlag: false,
     errorMessage: '',
@@ -397,6 +396,28 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
+    // let price=(meetingDetail.promotionCost) * daynum
+    // console.log(meetingDetail.promotionCost,daynum)
+
+
+    let carendar=wx.getStorageSync("data-index")
+    for(var item in carendar){ 
+
+    }
+  
+    this.setData({
+      sankeNum:carendar[0].number_a,
+      daynum:carendar.length,
+      carendarArr:carendar,
+      
+    })
+    console.log(item)
+
+
+
+
+
+
     // console.log("safdaf",options)
     if(options.con){
       this.setData({

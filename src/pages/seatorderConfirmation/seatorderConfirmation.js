@@ -7,9 +7,8 @@ Page({
   },*/
   data: {
     timeweekArr:{},
-    month:"",
-    day:"",
-    week:"",
+    carendarArr:[],
+    daynum:"",
     sankeNum:1,
     time: '11:00',
     timeFlag:false,
@@ -582,17 +581,20 @@ Page({
 
 
   onLoad: function (options) {
+    this.getMeetId()
     let carendar=wx.getStorageSync("data-index")
+    
     for(var item in carendar){ 
 
     }
     this.setData({
       sankeNum:carendar[0].number_a,
-      carendarArr:carendar
+      daynum:carendar.length,
+      carendarArr:carendar,
+ 
+      
     })
-    console.log(item)
-
-
+ 
 
     this.getPhone();
     var _this=this;
