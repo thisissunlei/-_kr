@@ -53,17 +53,17 @@
           <!--应付款-->
           <view class="u-meeting">
             <view class="u-left">{{payTitle}} </view>
-            <view class="u-right" wx:if="{{!detailInfo.first}}">
+            <view class="u-right" wx:if="{{!isFirst}}">
                 <view class="u-right-top" >
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{meetingDetail.promotionCost * sankeNum * daynum}} </view>
+                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{price}} </view>
                     <!-- <view class="u-right-top-right">¥ {{meetingDetail.unitCost * daynum}} </view> -->
                 </view>
                
             </view>
-            <view class="u-right" wx:if="{{detailInfo.first}}">
+            <view class="u-right" wx:if="{{isFirst}}">
                 <view class="u-right-top" >
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{meetingDetail.promotionCost * sankeNum * daynum}} </view>
-                    <view class="u-right-top-right">¥ {{meetingDetail.unitCost * daynum}} </view>
+                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{price}} </view>
+                    <view class="u-right-top-right">¥ {{oldprice}} </view>
                 </view>
                 <view wx:if="{{!dialogShow}}" class="u-bottom">
                         （新人专享）2小时超值体验
