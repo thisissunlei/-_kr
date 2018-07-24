@@ -586,7 +586,7 @@ Page({
     this.setData({
       id:options.id
     })
-    // console.log(options.id)
+    console.log(options)
     this.getMeetId()
     let carendar=wx.getStorageSync("data-index")
     
