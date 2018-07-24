@@ -6,19 +6,11 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
-<<<<<<< HEAD
-    price: "",
-    timeweekArr: {},
-    carendarArr: [],
-    daynum: "",
-    sankeNum: 1,
-=======
     id:'',
     timeweekArr:{},
     carendarArr:[],
     daynum:"",
     sankeNum:1,
->>>>>>> 5343875fb1424635b56ac22ecd8321dd281312a3
     time: '11:00',
     timeFlag: false,
     showError: true,
