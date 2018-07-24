@@ -6,7 +6,7 @@ Page({
   data: {
     width: 0,
     seatId: 0, //我的散座传过来的id
-    seatStatus: "EXPIREDe",
+    seatStatus: "",
     detail: {},
     partner: [],
     hint: [
@@ -133,12 +133,13 @@ Page({
   createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
   },
+  //我的散座详情接口
   getSeatInfo: function() {
     var that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/myseat/detail",
       data: {
-        ticketUserId: 21
+        ticketUserId: that.data.seatId
       },
       success: function(res) {
         console.log(res);
@@ -162,13 +163,12 @@ Page({
         // }
         that.setData({
           detail: seatInfo.data.data,
-          partner: inviteers
+          partner: inviteers,
+          seatStatus: seatInfo.data.data.seatStatus
         });
         // seatInfo.data.data.sponsor = false;
         // seatInfo.data.data.limitCount = 0;
         // seatInfo.data.data.canInvite = true;
-
-        console.log(that.data.detail.limitCount);
       }
     });
   }
