@@ -70,10 +70,10 @@
             <button open-type="contact" class="contact">
                 <text>联系客服</text>
             </button>
-            <button wx:if="{{detail.sponsor && detail.limitCount > 0 && detail.canInvite}}" open-type="share" id="share">
-                赠送入场券({{seatId}}张)
+            <button wx:if="{{detail.sponsor && detail.limitCount > 0 && canInvite}}" open-type="share" id="share">
+                赠送入场券({{detail.limitCount}}张)
             </button>
-            <button wx:if="{{!detail.sponsor || detail.limitCount == 0 || !detail.canInvite}}" class="reserve-again" bindtap="goIndex">
+            <button wx:if="{{!detail.sponsor || detail.limitCount == 0 || !canInvite}}" class="reserve-again" bindtap="goIndex">
                 <text>再订一个</text>
             </button>
         </view>

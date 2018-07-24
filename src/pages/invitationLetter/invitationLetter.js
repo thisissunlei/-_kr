@@ -59,6 +59,7 @@ Page({
       });
     }
     this.login();
+    this.getInvitation();
     // this.getInvitation();
     // this.login();
     // this.getInvitation();
