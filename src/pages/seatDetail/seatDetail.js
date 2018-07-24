@@ -7,6 +7,7 @@ Page({
     width: 0,
     seatId: 0, //我的散座传过来的id
     seatStatus: "",
+    canInvite: "",
     detail: {},
     partner: [],
     hint: [
@@ -103,6 +104,11 @@ Page({
         seatId: options.seatId
       });
     }
+    this.getSeatInfo();
+  },
+  onReady: function() {
+    // console.log(this.data.seatStatus);
+    var that = this;
     //设置canvsa大小
     wx.getSystemInfo({
       success: function(res) {
@@ -110,6 +116,7 @@ Page({
         that.width = res.windowWidth;
       }
     });
+    // console.log(that.data.seatStatus);
     if (that.data.seatStatus == "EXPIRED") {
       QR.qrApi.draw(
         "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
@@ -119,6 +126,10 @@ Page({
         null,
         "rgba(0,0,0,0.6)"
       );
+      that.setData({
+        canInvite: false
+      });
+      // console.log(that.data.canInvite);
     } else {
       QR.qrApi.draw(
         "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
@@ -127,9 +138,7 @@ Page({
         that.width / 2.5
       );
     }
-    this.getSeatInfo();
   },
-
   createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
   },
@@ -164,8 +173,10 @@ Page({
         that.setData({
           detail: seatInfo.data.data,
           partner: inviteers,
-          seatStatus: seatInfo.data.data.seatStatus
+          seatStatus: seatInfo.data.data.seatStatus,
+          canInvite: seatInfo.data.data.canInvite
         });
+        // console.log(that.data.seatStatus);
         // seatInfo.data.data.sponsor = false;
         // seatInfo.data.data.limitCount = 0;
         // seatInfo.data.data.canInvite = true;
