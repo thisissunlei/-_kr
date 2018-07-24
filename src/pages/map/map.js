@@ -55,7 +55,7 @@ Page({
           latitude: res.latitude
         });
         this.getNearbyCity();
-        // this.getCitybyId();
+        this.getCitybyId();
       }
     });
   },
@@ -65,7 +65,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + " api/gateway/krmting/cmts/city",
       data: {
-        cityId: 170,
+        cityId: 1,
         latitude: that.data.latitude,
         longitude: that.data.longitude
       },
@@ -113,6 +113,9 @@ Page({
     wx.navigateTo({
       url: `../boardroomList/boardroomList?communityId=${communityId}`
     });
+  },
+  changeCommunity: function(e) {
+    console.log(e);
   },
   onReady: function() {
     this.mapCtx = wx.createMapContext("myMap");
