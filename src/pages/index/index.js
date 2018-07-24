@@ -116,7 +116,7 @@ Page({
         if (_this.func_bool_g && _this.func_bool_l) {
           _this.func_bool_g = false;
           _this.func_bool_l = false;
-          // _this.getAllInfo();
+          _this.getAllInfo();
         }
       },
       fail: function(res) {
@@ -224,14 +224,17 @@ Page({
     // this.getAllInfo();
   },
   onShow: function() {
-    // this.getAllInfo(this.rq_data.latitude, this.rq_data.longitude);
-    this.getAllInfo();
+    // this.getAllInfo();
   },
   getAllInfo: function() {
     var that = this;
-    //首页接口
+    //首页接口 krmting/home?latitude=39.916576&longitude=116.443737
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krmting/home",
+      data: {
+        latitude: that.rq_data.latitude,
+        longitude: that.rq_data.longitude
+      },
       success: res => {
         var mansion = Object.assign({}, res);
         console.log(mansion, "列表");
@@ -253,7 +256,7 @@ Page({
         let newBuildingList = buildingList.filter((item, index) => {
           if (item.published) {
             if (item.distance > 1000) {
-              item.distance = (item.distance / 1000).toFixed() + "km";
+              item.distance = (item.distance / 1000).toFixed(1) + "km";
             } else {
               item.distance = Math.round(item.distance * 10) / 10 + "m";
             }
