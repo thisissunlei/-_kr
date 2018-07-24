@@ -1,8 +1,8 @@
 <!--index.wxml-->
 <view class="page-body">
     <view class="page-section">
-        <map id="myMap" style="width: 100%; height: 100%;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}"
-            show-location data-list="{{cityList}}" bindmarkertap="changeCommunity"></map>
+        <map id="myMap" scale="14" style="width: 100%; height: 100%;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}"
+            show-location  bindmarkertap="changeCommunity"></map>
     </view>
     <cover-view class="city" bindtap="selectCity">
         <cover-view class="page-icom">

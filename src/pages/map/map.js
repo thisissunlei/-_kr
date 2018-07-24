@@ -7,36 +7,9 @@ Page({
     cityName: "北京市",
     latitude: 0,
     longitude: 0,
+    allCommunity: [],
     cityList: {},
-    markers: [
-      {
-        iconPath: "../images/public/icon_dizhi.png",
-        id: 0,
-        latitude: 39.93303,
-        longitude: 116.47729,
-        name: "氪空间",
-        width: 25,
-        height: 35
-      },
-      {
-        iconPath: "../images/public/icon_dizhi.png",
-        id: 1,
-        latitude: 39.93303,
-        longitude: 116.47529,
-        name: "36氪传媒",
-        width: 25,
-        height: 35
-      },
-      {
-        iconPath: "../images/public/icon_dizhi.png",
-        id: 2,
-        latitude: 39.93103,
-        longitude: 116.47629,
-        name: "鲸准",
-        width: 25,
-        height: 35
-      }
-    ]
+    markers: []
   },
   //选择城市
   selectCity: function(e) {
@@ -49,13 +22,13 @@ Page({
     wx.getLocation({
       type: "gcj02",
       success: res => {
-        // console.log(res);
+        console.log(res);
         that.setData({
           longitude: res.longitude,
           latitude: res.latitude
         });
         this.getNearbyCity();
-        this.getCitybyId();
+        // this.getCitybyId();
       }
     });
   },
@@ -79,13 +52,14 @@ Page({
     var that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krmting/cmts/nearby",
-      data: {
-        latitude: that.data.latitude,
-        longitude: that.data.longitude
-      },
+      // data: {
+      //   latitude: that.data.latitude,
+      //   longitude: that.data.longitude
+      // },
       success: function(res) {
         console.log(res);
         var cityNearby = Object.assign({}, res);
+        let makArr = [];
         var cityList = cityNearby.data.data;
         //排序
         cityList.sort(function(a, b) {
@@ -97,11 +71,22 @@ Page({
           } else {
             item.distance = Math.round(item.distance * 10) / 10 + "m";
           }
+          makArr.push({
+            iconPath: "../images/public/icon_dizhi.png",
+            id: item.communityId,
+            latitude: item.latitude,
+            longitude: item.longitude,
+            name: item.buildName,
+            width: 25,
+            height: 35
+          });
+
           return item;
         });
-        // console.log(cityList);
         that.setData({
-          cityList: cityList[0]
+          allCommunity: cityList,
+          cityList: cityList[0],
+          markers: makArr
         });
       }
     });
@@ -116,6 +101,16 @@ Page({
   },
   changeCommunity: function(e) {
     console.log(e);
+    console.log(this.data.allCommunity);
+    var that = this;
+    that.data.allCommunity.map((item, value) => {
+      if (item.communityId == e.markerId) {
+        that.setData({
+          cityList: item
+        });
+      }
+      return item;
+    });
   },
   onReady: function() {
     this.mapCtx = wx.createMapContext("myMap");
