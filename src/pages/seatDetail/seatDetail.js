@@ -79,19 +79,19 @@ Page({
       success: function(res) {
         // console.log(res);
         if (res.confirm) {
-          console.log("确认取消");
+          // console.log("确认取消");
           that.data.partner.map((item, index) => {
             if (item.wechatNick == invitee.user_info.nickName) {
               that.data.partner.splice(index, 1);
             }
             return item;
           });
+          setTimeout(() => {
+            wx.reLaunch({
+              url: "../index/index"
+            });
+          }, 1500);
         }
-        setTimeout(() => {
-          wx.reLaunch({
-            url: "../index/index"
-          });
-        }, 1500);
       }
     });
     // console.log(that.data.partner);
@@ -119,7 +119,7 @@ Page({
     // console.log(that.data.seatStatus);
     if (that.data.seatStatus == "EXPIRED") {
       QR.qrApi.draw(
-        "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
+        "https://web.krspace.cn/me/index.html?inviteeId=" + that.seatId,
         "mycanvas",
         that.width / 2.5,
         that.width / 2.5,
@@ -132,7 +132,7 @@ Page({
       // console.log(that.data.canInvite);
     } else {
       QR.qrApi.draw(
-        "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
+        "https://web.krspace.cn/me/index.html?inviteeId=" + that.seatId,
         "mycanvas",
         that.width / 2.5,
         that.width / 2.5

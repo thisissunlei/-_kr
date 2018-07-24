@@ -59,7 +59,6 @@ Page({
       });
     }
     this.login();
-    this.getInvitation();
     // this.getInvitation();
     // this.login();
     // this.getInvitation();
@@ -79,6 +78,10 @@ Page({
         id: that.data.seatId,
         type: that.data.type
       },
+      // data: {
+      //   id: 37,
+      //   type: "TICKET"
+      // },
       success: function(res) {
         console.log(res);
         if (res.data.code == 1) {
