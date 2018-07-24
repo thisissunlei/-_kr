@@ -8,6 +8,7 @@ Page({
     seatId: 0, //我的散座传过来的id
     seatStatus: "",
     canInvite: "",
+    ticketId: 0,
     detail: {},
     partner: [],
     hint: [
@@ -54,7 +55,7 @@ Page({
         desc: "KrMeeting会议室",
         path:
           "pages/invitationLetter/invitationLetter?type=TICKET&seatId=" +
-          this.data.seatId
+          this.data.ticketId
       };
       // imageUrl: "../images/share_pic.jpg"
     } else {
@@ -158,10 +159,13 @@ Page({
         // console.log(newUser);
         // var sponsor = seatInfo.data.data.sponsor;
         var inviteers = seatInfo.data.data.inviteers;
-        // console.log(newUser);
+        console.log(newUser.user_info);
         if (seatInfo.data.data.canInvite) {
           var result = inviteers.some(value => {
-            return value.wechatNick == newUser.nickName;
+            return (
+              value.wechatNick == newUser.user_info.nickName &&
+              value.wechatAvatar == newUser.user_info.avatarUrl
+            );
           });
           if (!result) {
             inviteers.push({
@@ -174,8 +178,10 @@ Page({
           detail: seatInfo.data.data,
           partner: inviteers,
           seatStatus: seatInfo.data.data.seatStatus,
-          canInvite: seatInfo.data.data.canInvite
+          canInvite: seatInfo.data.data.canInvite,
+          ticketId: seatInfo.data.data.ticketId
         });
+        // console.log(that.data.ticketId);
         // console.log(that.data.seatStatus);
         // seatInfo.data.data.sponsor = false;
         // seatInfo.data.data.limitCount = 0;

@@ -72,7 +72,7 @@
       <view class="top" bindtap="openMeetDetail1" data-item="{{item}}">
         <view>
             <!-- {{item.imgUrl}}?x-oss-process=image/resize,p_10 -->
-            <image class="top-left" mode="aspectFill" src=""></image>
+            <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}"></image>
         </view>
         <view class="top-right">
           <view class="first-row" style=" display:flex; justify-content: center;align-items: center;">
@@ -257,13 +257,13 @@
             <view class="u-meet-top" bindtap="closeMeetDetail1"></view>
             <view class="u-content-meet">
             <view class="u-swiper-content">
-            <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
-            <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
+            <image class="u-meet-img-only" src="{{meetingDetail.picUrls[0]}}"  wx:if="{{meetingDetail.picUrls.length==1}}"></image>
+            <swiper class="u-meet-swiper" wx:if="{{meetingDetail.picUrls.length>1}}" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
                   bindchange="currentChange"
                   
                   >
-                  <view wx:for="{{meetingDetail.roomImg}}" wx:key="*this">
+                  <view wx:for="{{meetingDetail.picUrls}}" wx:key="*this">
                     <swiper-item>
                       <image class="u-swiper-img" src="{{item}}"  />
                     </swiper-item>

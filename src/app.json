@@ -1,12 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-
-    "pages/invitationLetter/invitationLetter",
-
-    "pages/seatorderConfirmation/seatorderConfirmation",
-
     "pages/meeting/meeting",
+    "pages/invitationLetter/invitationLetter",
+    "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/my/my",
     "pages/myOrder/myOrder",
     "pages/map/map",

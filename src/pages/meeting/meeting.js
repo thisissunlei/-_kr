@@ -654,7 +654,7 @@ Page({
         choose:''
       }
     });
-    console.log(this.data.date_data1)
+    // console.log(this.data.date_data1)
     // console.log(this.data.date_data2)
   }
   
