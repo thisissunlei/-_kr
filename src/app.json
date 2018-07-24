@@ -1,11 +1,11 @@
 {
   "pages": [
-
+    
     "pages/index/index",
     "pages/seatorderConfirmation/seatorderConfirmation",
-
-    "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",
+    "pages/invitationLetter/invitationLetter",
+    
     "pages/my/my",
     "pages/myOrder/myOrder",
     "pages/map/map",
