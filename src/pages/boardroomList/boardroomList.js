@@ -230,9 +230,8 @@ Page({
             wx.hideLoading();
           })
           this.data.boardroomList.forEach(element=>{
-            // console.log(element)
             wx.setNavigationBarTitle({
-              title:element.roomName
+              title:element.buildName
             })
           })
         }
@@ -242,7 +241,7 @@ Page({
   //获取散座列表
   getData1:function(){
     let that =this
-    console.log(that.data.communityId,that.data.nowDate)
+    // console.log(that.data.communityId,that.data.nowDate)
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/cmt',
         methods:"GET",
@@ -556,7 +555,7 @@ Page({
   changeCommunity: function(e) {
     var communityList = this.data.communityList;
     var index = e.detail.value;
-    console.log(communityList[index].name)
+    // console.log(communityList[index].name)
     wx.setNavigationBarTitle({
       title: communityList[index].name
     })
@@ -730,7 +729,7 @@ Page({
   },
 
   onLoad:function(options){
-    console.log(options)
+    // console.log(options)
     wx.reportAnalytics('community')
     if(options.communityId){
       this.setData({
@@ -817,6 +816,7 @@ Page({
             that.setData({
               meetingDetail:meetingDetail
             })
+            console.log(this.data.meetingDetail)
           }else{
             that.setData({
               phoneError:false,
@@ -854,7 +854,7 @@ Page({
   getMeetDetail1(){
     wx.reportAnalytics('goodsdetails')
     let meetingRoomId = this.data.meetingRoomId1;
-    console.log(meetingRoomId)
+    // console.log(meetingRoomId)
     let that = this;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/detail',
@@ -863,12 +863,13 @@ Page({
           "seatGoodsId":meetingRoomId
         },
         success:(res)=>{
-          console.log(res)
+          // console.log(res)
           if(res.data.code>0){
             let meetingDetail = res.data.data;
             that.setData({
               meetingDetail:meetingDetail
             })
+            console.log(this.data.meetingDetail)
           }else{
             that.setData({
               phoneError:false,
@@ -886,7 +887,7 @@ Page({
           
         },
         fail:(res)=>{
-          console.log('获取失败')
+          // console.log('获取失败')
           that.setData({
             phoneError:false,
             errorMessage:res.message,
