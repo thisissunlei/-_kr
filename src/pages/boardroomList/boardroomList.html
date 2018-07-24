@@ -44,7 +44,7 @@
       </view>
   </view>
 
-  <view class="san-zuo"><view class="num_num">散座 <view class="child"></view> </view></view>
+  <view class="san-zuo" wx:if='{{sanzuo == true}}'><view class="num_num">散座 <view class="child"></view> </view></view>
   <!-- <view class="san-zuo-one" wx:for='{{arr}}'>
     <image src='{{item.imgUrl}}' class="sanzuo-img"></image>
     <view class="sanzuo-box">
@@ -63,7 +63,7 @@
     </view>
     
   </view> -->
-  <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom">
+  <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom" wx:if='{{sanzuo == true}}'>
     <view 
       wx:for="{{arr}}"
       wx:key="*this"

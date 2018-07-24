@@ -14,6 +14,7 @@ Page({
   data: {
     //数据模拟
     arr:[],
+    sanzuo:false,
     ifFixed:false,
     meeting_detail:{},
     dialogDate:false,
@@ -246,24 +247,30 @@ Page({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/cmt',
         methods:"GET",
         data: {
-          communityId: 1,
+          communityId: that.data.communityId,
           dateTime: that.data.nowDate,
         },
         success:(res)=>{
           console.log(res)
-          let ss = []
-          // console.log(res)
-          ss.push(res.data.data)
-          that.setData({
-            arr:ss
-          })
-          // console.log(that.data.arr)
-          that.setData({
-            arr:that.data.arr,
-          },function(){
-            that.reloadData();
-            wx.hideLoading();
-          })
+          
+          
+          var b = (JSON.stringify(res.data.data) == "{}")
+          if(res.data.code == 1 && b == true){
+            this.setData({
+              sanzuo:false
+            })
+          }else{
+            let arr_null = [] 
+            // console.log(res)
+            arr_null.push(res.data.data)
+            that.setData({
+              arr:arr_null,
+              sanzuo:true
+            },function(){
+              that.reloadData();
+              wx.hideLoading();
+            })
+          }
         }
       })
   },
