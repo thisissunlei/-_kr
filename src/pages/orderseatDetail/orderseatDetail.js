@@ -10,6 +10,7 @@ Page({
   // },
   data: {
     price:"",
+    orderprice:"",
     arrivingTime:"",
     linkPhone:"",
     seatCoodlds:"",
@@ -396,8 +397,7 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-    // let price=(meetingDetail.promotionCost) * daynum
-    // console.log(meetingDetail.promotionCost,daynum)
+    
 
 
     let carendar=wx.getStorageSync("data-index")
@@ -411,7 +411,7 @@ Page({
       carendarArr:carendar,
       
     })
-    console.log(item)
+    // console.log(item)
 
 
 
@@ -579,6 +579,7 @@ Page({
 
 
   getDetailInfo:function(orderId){
+    
     const _this=this;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/detail',
@@ -587,11 +588,12 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-        console.log(999,res)
+        console.log("订单详情",res)
         this.setData({
           time:res.data.data.arrivingTimeDescr
         })
             let data=res.data.data;
+            let isFirst=data.first
             
               let titleObj={
                 'OBLIGATION':'待支付订单',
@@ -600,8 +602,10 @@ Page({
                 'CLOSED':'已取消订单'
               }
               this.setData({
-                titleObj:titleObj
+                titleObj:titleObj,
+                isFirst:isFirst
               })
+              console.log(isFirst)
               let payTitleObj={
                 'OBLIGATION':'应付款',
                 'TOBEUSED':'实付款',
@@ -690,11 +694,18 @@ Page({
         "seatGoodsId":meetingRoomId 
       },
       success: (res) => {
+
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
 
           that.setData({
             meetingDetail: meetingDetail
+          })
+          let price=this.data.sankeNum * this.data.daynum * meetingDetail.promotionCost
+          let oldprice=this.data.sankeNum * this.data.daynum * meetingDetail.unitCost
+          that.setData({
+            price:price.toFixed(2),
+            oldprice:oldprice.toFixed(2)
           })
         } else {
           that.setData({

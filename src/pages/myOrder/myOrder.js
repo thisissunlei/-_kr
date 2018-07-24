@@ -305,7 +305,7 @@ Page({
       'paySign': data.paySign,
       'success':function(res){
         console.log(res)
-        that.getInviteeId(id)
+        this.getInviteeId(id)
       },
       'fail':function(res){
         wx.navigateTo({

@@ -139,13 +139,13 @@
                     ¥   
                 </view>
                 <view class="u-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
-                    {{meetingDetail.promotionCost * sankeNum * daynum}}
+                    {{price}}
                 </view>
                 <view class="u-price-num" wx:else>
                     0.00
                 </view>
                 <view class="u-old-price" wx:if="{{sankenum!=0&&daynum!=0}}">
-                    ￥{{meetingDetail.unitCost * sankeNum * daynum}}
+                    ￥{{oldprice}}
                     <!-- {{totalCount}} -->
                 </view>
             </view>
