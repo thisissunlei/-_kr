@@ -110,7 +110,7 @@ Page({
         that.width = res.windowWidth;
       }
     });
-    if (that.data.seatStatus === "EXPIRED") {
+    if (that.data.seatStatus == "EXPIRED") {
       QR.qrApi.draw(
         "https://web.krspace.cn/kr_meeting/index.html?inviteeId=" + that.seatId,
         "mycanvas",
@@ -150,17 +150,17 @@ Page({
         // var sponsor = seatInfo.data.data.sponsor;
         var inviteers = seatInfo.data.data.inviteers;
         // console.log(newUser);
-        // if (seatInfo.data.data.inviteers) {
-        var result = inviteers.some(value => {
-          return value.wechatNick == newUser.nickName;
-        });
-        if (!result) {
-          inviteers.push({
-            wechatNick: newUser.user_info.nickName,
-            wechatAvatar: newUser.user_info.avatarUrl
+        if (seatInfo.data.data.canInvite) {
+          var result = inviteers.some(value => {
+            return value.wechatNick == newUser.nickName;
           });
+          if (!result) {
+            inviteers.push({
+              wechatNick: newUser.user_info.nickName,
+              wechatAvatar: newUser.user_info.avatarUrl
+            });
+          }
         }
-        // }
         that.setData({
           detail: seatInfo.data.data,
           partner: inviteers,
