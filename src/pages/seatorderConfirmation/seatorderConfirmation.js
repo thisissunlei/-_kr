@@ -6,6 +6,7 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    id:'',
     timeweekArr:{},
     carendarArr:[],
     daynum:"",
@@ -108,8 +109,9 @@ Page({
    },
   // 数量日历显示与隐藏
    closeDialogDate:function(){
+     console.log(this.data.id)
      wx.navigateTo({
-       url:"../meeting/meeting"
+       url:"../meeting/meeting?id="+this.data.id
      })
     //  let that = this;
     //  that.setData({
@@ -117,16 +119,16 @@ Page({
     //  })
    },
   // 数量与日期  隐藏
-  closeDialogDate:function(){
-    wx.navigateTo({
-      url:"../meeting/meeting"
-    })
+  // closeDialogDate:function(){
+  //   wx.navigateTo({
+  //     url:"../meeting/meeting"
+  //   })
     // let that = this;
     // wx.reportAnalytics('choosedate')
     // that.setData({
     //   dialogDate:!that.data.dialogDate
     // })
-  },
+  // },
   // 散客数量加
   // add:function(){
   //   this.setData({
@@ -581,6 +583,10 @@ Page({
 
 
   onLoad: function (options) {
+    this.setData({
+      id:options.id
+    })
+    // console.log(options.id)
     this.getMeetId()
     let carendar=wx.getStorageSync("data-index")
     
