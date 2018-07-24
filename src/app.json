@@ -6,8 +6,12 @@
     "pages/invitationLetter/invitationLetter",
 
     "pages/seatorderConfirmation/seatorderConfirmation",
+<<<<<<< HEAD
 
    
+=======
+    "pages/meeting/meeting",
+>>>>>>> 226856ae6f6d96abea829aade5648206cd8a0aba
     "pages/my/my",
     "pages/myOrder/myOrder",
     "pages/map/map",

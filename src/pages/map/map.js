@@ -52,10 +52,10 @@ Page({
     var that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krmting/cmts/nearby",
-      // data: {
-      //   latitude: that.data.latitude,
-      //   longitude: that.data.longitude
-      // },
+      data: {
+        latitude: that.data.latitude,
+        longitude: that.data.longitude
+      },
       success: function(res) {
         console.log(res);
         var cityNearby = Object.assign({}, res);
@@ -67,7 +67,7 @@ Page({
         });
         cityList.map((item, index) => {
           if (item.distance > 1000) {
-            item.distance = (item.distance / 1000).toFixed() + "km";
+            item.distance = (item.distance / 1000).toFixed(1) + "km";
           } else {
             item.distance = Math.round(item.distance * 10) / 10 + "m";
           }
@@ -99,9 +99,10 @@ Page({
       url: `../boardroomList/boardroomList?communityId=${communityId}`
     });
   },
+  //点击标记点
   changeCommunity: function(e) {
     console.log(e);
-    console.log(this.data.allCommunity);
+    // console.log(this.data.allCommunity);
     var that = this;
     that.data.allCommunity.map((item, value) => {
       if (item.communityId == e.markerId) {
