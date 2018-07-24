@@ -117,7 +117,7 @@ Page({
   },
   // 数量日历显示与隐藏
    closeDialogDate:function(){
-     console.log(this.data.id)
+    //  console.log(this.data.id)
      wx.navigateTo({
        url:"../meeting/meeting?id="+this.data.id
      })
@@ -320,10 +320,23 @@ Page({
     this.getMeetId()
 
     let carendar = wx.getStorageSync("data-index")
+    carendar.map(item=>{
+      console.log(item)
+      if(item.value=="今天"){
+        item.month=parseInt(new Date().getMonth()+1)
+        item.value=parseInt(new Date().getDate())
+        item.zhou="今天"
+      }
+      if(item.value=="明天"){
+        item.month=parseInt(new Date().getMonth()+1)
+        item.value=parseInt(new Date().getDate())+1
+        item.zhou="明天"
+      }
+    })
+    // for (var item in carendar) {
 
-    for (var item in carendar) {
-
-    }
+    // }
+   
 
     this.setData({
       sankeNum: carendar[0].number_a,
