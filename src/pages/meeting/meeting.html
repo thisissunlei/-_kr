@@ -1,110 +1,111 @@
   <view class="wrapper" wx:if='{{show_a == false}}'>
     <view class="menban" bindtap='fanshow'></view>
     <view class="date">
-        <view class="number-x">
-            <image src='../images/date/09左线.png' class="number-index"></image>
-            <text class="count">数量</text>
-            <image src='../images/date/09右线.png' class="number-index"></image>
-        </view>
-        <view class="los" style="display:flex;  align-items: center;">
-            <view class="week-index" bindtap='jian' >
-              <image src="{{number <=1 ? '../images/date/09灰色减号.png' : '../images/date/09黄色减号.png'}}" class="jia-img"></image>
-            </view>
-            <view class="week-index1">{{number}}</view>
-            <view class="week-index" bindtap='jia' style="{{zheng == false ? 'pointer-events:none;' :''}}">
-              <image src="{{zheng == false  ? '../images/date/09灰色加号.png' : '../images/date/09黄色加号.png'}}" class="jian-img {{number < Maximum?'huang':'hui'}}"></image>
-            </view>
-
-           
-        </view>
-        <view class="number-x" style="margin-top: 100rpx; margin-bottom: 40rpx;">
-            <image src='../images/date/09左线.png' class="number-index"></image>
-            <text class="count1">使用日期</text>
-            <image src='../images/date/09右线.png' class="number-index"></image>
-        </view>
-  
-          <view class="week">
-            <text class="week-day">日</text>
-            <text class="week-day">一</text>
-            <text class="week-day">二</text>
-            <text class="week-day">三</text>
-            <text class="week-day">四</text>
-            <text class="week-day">五</text>
-            <text class="week-day">六</text>
+      <view class="fixed">
+          <view class="number-x">
+              <image src='../images/date/09左线.png' class="number-index"></image>
+              <text class="count">数量</text>
+              <image src='../images/date/09右线.png' class="number-index"></image>
           </view>
-          <view class="now-date">{{date_now.value}}</view>
-          <view  bindtap="dateBtn">
-          <view wx:for="{{date_data1}}" 
-                wx:key='this'
+          <view class="los" style="display:flex;  align-items: center;">
+              <view class="week-index" bindtap='jian' >
+                <image src="{{number <=1 ? '../images/date/09灰色减号.png' : '../images/date/09黄色减号.png'}}" class="jia-img"></image>
+              </view>
+              <view class="week-index1">{{number}}</view>
+              <view class="week-index" bindtap='jia' style="{{zheng == false ? 'pointer-events:none;' :''}}">
+                <image src="{{zheng == false  ? '../images/date/09灰色加号.png' : '../images/date/09黄色加号.png'}}" class="jian-img {{number < Maximum?'huang':'hui'}}"></image>
+              </view>
+          </view>
+          <view class="number-x" style="margin-top: 100rpx; margin-bottom: 40rpx;">
+              <image src='../images/date/09左线.png' class="number-index"></image>
+              <text class="count1">使用日期</text>
+              <image src='../images/date/09右线.png' class="number-index"></image>
+          </view>
+          <view class="week">
+              <text class="week-day">日</text>
+              <text class="week-day">一</text>
+              <text class="week-day">二</text>
+              <text class="week-day">三</text>
+              <text class="week-day">四</text>
+              <text class="week-day">五</text>
+              <text class="week-day">六</text>
+            </view>
+      </view>  
+      <view class="fixed_a">
+            
+            <view class="now-date">{{date_now.value}}</view>
+            <view  bindtap="dateBtn">
+            <view wx:for="{{date_data1}}" 
+                  wx:key='this'
+                  data-value="{{i.value}}" 
+                  data-bool='{{i.type}}' 
+                  data-number='{{i.number}}'
+                  data-mary='{{i.mary}}'
+                  data-month='{{date_now.month}}' 
+                  data-year='{{date_now.year}}' 
+                  data-data='date_data1'
+                  data-num='{{index}}'
+                  wx:for-item="i" 
+                  data-kg='{{i.kg}}'
+                  class="{{i.type}} day {{i.kg==true?'active':'before'}}"
+                  style="line-height: 30rpx;"
+                  >
+              {{i.value}}
+              <view  data-value="{{i.value}}" 
+              data-bool='{{i.type}}' 
+              data-number='{{i.number}}'
+              data-mary='{{i.mary}}'
+              data-month='{{date_now.month}}' 
+              data-year='{{date_now.year}}' 
+              data-data='date_data1'
+              data-num='{{index}}'
+              wx:for-item="i" 
+              data-kg='{{i.kg}}' wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
+            </view>
+            </view>
+            <!-- <view  bindtap="dateBtn" class="week">
+              <text class="week-day">日</text>
+              <text class="week-day">一</text>
+              <text class="week-day">二</text>
+              <text class="week-day">三</text>
+              <text class="week-day">四</text>
+              <text class="week-day">五</text>
+              <text class="week-day">六</text>
+            </view> -->
+            <view class="now-date">{{date_next.value}}</view>
+            <view  bindtap="dateBtn">
+              <view  wx:for="{{date_data2}}" 
+                    wx:key='this'
+                    data-value="{{i.value}}" 
+                    data-bool='{{i.type}}' 
+                    data-number='{{i.number}}'
+                    data-mary='{{i.mary}}'
+                    data-month='{{date_next.month}}'
+                    data-year='{{date_next.year}}' 
+                    data-data='date_data2' 
+                    data-num='{{index}}'  
+                    wx:for-item="i" 
+                    data-kg='{{i.kg}}' 
+                    class="{{i.type}} day {{i.kg==true?'active':'before'}}"
+                    style="line-height: 30rpx;"
+                    >
+                {{i.value}}
+                <view
                 data-value="{{i.value}}" 
                 data-bool='{{i.type}}' 
                 data-number='{{i.number}}'
                 data-mary='{{i.mary}}'
                 data-month='{{date_now.month}}' 
                 data-year='{{date_now.year}}' 
-                data-data='date_data1'
+                data-data='date_data2'
                 data-num='{{index}}'
                 wx:for-item="i" 
-                data-kg='{{i.kg}}'
-                class="{{i.type}} day {{i.kg==true?'active':'before'}}"
-                style="line-height: 30rpx;"
-                >
-            {{i.value}}
-            <view  data-value="{{i.value}}" 
-            data-bool='{{i.type}}' 
-            data-number='{{i.number}}'
-            data-mary='{{i.mary}}'
-            data-month='{{date_now.month}}' 
-            data-year='{{date_now.year}}' 
-            data-data='date_data1'
-            data-num='{{index}}'
-            wx:for-item="i" 
-            data-kg='{{i.kg}}' wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
-          </view>
-          </view>
-          <!-- <view  bindtap="dateBtn" class="week">
-            <text class="week-day">日</text>
-            <text class="week-day">一</text>
-            <text class="week-day">二</text>
-            <text class="week-day">三</text>
-            <text class="week-day">四</text>
-            <text class="week-day">五</text>
-            <text class="week-day">六</text>
-          </view> -->
-          <view class="now-date">{{date_next.value}}</view>
-          <view  bindtap="dateBtn">
-            <view  wx:for="{{date_data2}}" 
-                  wx:key='this'
-                  data-value="{{i.value}}" 
-                  data-bool='{{i.type}}' 
-                  data-number='{{i.number}}'
-                  data-mary='{{i.mary}}'
-                  data-month='{{date_next.month}}'
-                  data-year='{{date_next.year}}' 
-                  data-data='date_data2' 
-                  data-num='{{index}}'  
-                  wx:for-item="i" 
-                  data-kg='{{i.kg}}' 
-                  class="{{i.type}} day {{i.kg==true?'active':'before'}}"
-                  style="line-height: 30rpx;"
-                  >
-              {{i.value}}
-              <view
-              data-value="{{i.value}}" 
-              data-bool='{{i.type}}' 
-              data-number='{{i.number}}'
-              data-mary='{{i.mary}}'
-              data-month='{{date_now.month}}' 
-              data-year='{{date_now.year}}' 
-              data-data='date_data2'
-              data-num='{{index}}'
-              wx:for-item="i" 
-               data-kg='{{i.kg}}' wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
+                 data-kg='{{i.kg}}' wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
+              </view>
             </view>
-          </view>
-          <view class="stuts"></view>
-          <view class="now-dibu" bindtap='diantrue' wx:if='{{inn.length || inn1.length > 0}}'>确认预定</view>
-      
+            <view class="stuts"></view>
+            <view class="now-dibu" bindtap='diantrue' wx:if='{{inn.length || inn1.length > 0}}'>确认预定</view>
+      </view>
     </view>
     
   </view>

@@ -2,6 +2,7 @@ const app = getApp()
 import * as CAlculagraph from '../../utils/time.js'
 Page({
   data: {
+    show_xx:false,
     orderList:[],
     orderList1:[],
     minute:'',
@@ -39,7 +40,7 @@ Page({
     if(page>totalPages){
       return
     }else{
-      // this.getData(type,page)
+      this.getData(type,page)
       this.getData1(type,page)
     }
     
@@ -65,7 +66,7 @@ Page({
       orderList1:[],
       orderOldList1:[]
     },function(){
-      // that.getData(type,1)
+      that.getData(type,1)
       that.getData1(type,1)
     })
   },
@@ -78,10 +79,19 @@ Page({
       number:20*number + '%',
       type:options.orderShowStatus
     })
-    // this.getData(type)
+    this.getData(type)
     this.getData1(type)
   },
-
+  sanzuo(){
+    this.setData({
+      show_xx:false
+    })
+  },
+  huiyi(){
+    this.setData({
+      show_xx:true
+    })
+  },
   //页面重复加载
   onShow: function (options) {
     this.setData({
@@ -92,7 +102,7 @@ Page({
       page: 1,
       totalPages:0
     })
-    // this.getData()
+    this.getData()
     this.getData1()
   },
   //倒计时
@@ -103,64 +113,66 @@ Page({
     var minute=Math.floor(nowtime/(60*1000))
     var leave3=nowtime%(60*1000)      //计算分钟数后剩余的毫秒数  
     var second=Math.round(leave3/1000)
+    
     return {
       minute:minute,
       second:second
     }
+
   },
   
   //请求会议列表数据
-  // getData:function(type,page){
-  //   let that = this;
-  //   type = type || this.data.type;
-  //   let orderOldList = this.data.orderList;
-  //   console.log(orderOldList)
-  //   app.getRequest({
-  //       url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
-  //       methods:"GET",
-  //       data:{
-  //         orderShowStatus:type,
-  //         page:page || 1,
-  //       },
-  //       success:(res)=>{
-  //         console.log (res)
-  //         let oldList = []
-  //         if(res.data.code>0){
-  //           var list = []
-  //           list = res.data.data.items.map((item,index)=>{
-  //             if(item.orderShowStatus == 'OBLIGATION'){
-  //               console.log(item.expiredTime)
-  //               let time = this.dealTime(item.expiredTime)
-  //               console.log(time)
+  getData:function(type,page){
+    let that = this;
+    type = type || this.data.type;
+    let orderOldList = this.data.orderList;
+    console.log(orderOldList)
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
+        methods:"GET",
+        data:{
+          orderShowStatus:type,
+          page:page || 1,
+        },
+        success:(res)=>{
+          console.log (res)
+          let oldList = []
+          if(res.data.code>0){
+            var list = []
+            list = res.data.data.items.map((item,index)=>{
+              if(item.orderShowStatus == 'OBLIGATION'){
+                console.log(item.expiredTime)
+                let time = this.dealTime(item.expiredTime)
+                console.log(time)
                 
-  //               item.minute=time.minute;
-  //               item.second=time.second;
+                item.minute=time.minute;
+                item.second=time.second;
                 
-  //             }
-  //             // console.log('=item.minute>-1',item.minute>-1,item.minute)
-  //             return item;
-  //           })
-  //           var allList = [].concat(orderOldList,list)
-  //           console.log(list.length,'totalCount',allList,allList.length)
-  //           that.setData({
-  //             orderOldList:allList,
-  //             orderList:allList,
-  //             page:page || 1,
-  //             totalPages:res.data.data.totalPages
-  //           })
-  //         }else{
-  //           that.setData({
-  //             error:false,
-  //             errorMessage:res.data.message
-  //           })
-  //         }
-          
-  //       },
-  //       fail:(res)=>{
-  //          console.log('========',res)
-  //       }
-  //     })
-  // },
+              }
+              // console.log('=item.minute>-1',item.minute>-1,item.minute)
+              return item;
+            })
+            console.log(res)
+            var allList = [].concat(orderOldList,list)
+            console.log(list.length,'totalCount',allList,allList.length)
+            that.setData({
+              orderOldList:allList,
+              orderList:allList,
+              page:page || 1,
+              totalPages:res.data.data.totalPages
+            })
+          }else{
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          }
+        },
+        fail:(res)=>{
+           console.log('========',res)
+        }
+      })
+  },
   //散座订单列表
   getData1:function(type,page){
     let that = this;
@@ -202,7 +214,6 @@ Page({
               errorMessage:res.data.message
             })
           }
-          
         },
         fail:(res)=>{
            console.log('========',res)

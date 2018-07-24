@@ -79,30 +79,27 @@ Page({
     let orderId=this.data.orderId;
 
     let arr=wx.getStorageSync("myorder")
-    // console.log(arr[arr.length-1].linkPhone ,wx.getStorageSync("order_pay").linkPhone)
   
 
-      app.getRequest({
-        // 修改订单
-        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
-        method:"get",
-        data:{
-          alertTime	: arr[arr.length-1].alertTime,
-          arravingTime	:arr[arr.length-1].arrivingTime,
-          linkPhone	:	arr[arr.length-1].linkPhone || wx.getStorageSync("order_pay").linkPhone,
-          orderId :orderId
-        },
-        success:(res)=>{
-          var _this=this;
-          console.log(res)
-          
-  
+      // app.getRequest({
+      //   // 修改订单
+      //   url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+      //   method:"get",
+      //   data:{
+      //     alertTime	: arr[arr.length-1].alertTime,
+      //     arravingTime	:arr[arr.length-1].arrivingTime,
+      //     linkPhone	:	arr[arr.length-1].linkPhone || wx.getStorageSync("order_pay").linkPhone,
+      //     orderId :orderId
+      //   },
+      //   success:(res)=>{
+      //     var _this=this;
+      //     console.log(res)
         
-        },
-        fail:(error)=>{
+      //   },
+      //   fail:(error)=>{
             
-        }
-      })
+      //   }
+      // })
    
    
 
@@ -124,39 +121,12 @@ Page({
         })
         setTimeout(
           function(){
-            // _this.getInviteeId(orderId,_this.jumpPaySuccess)
-            // wx.navigateTo({
-            //   url: '../mysanzuo/mysanzuo'
-            // })
             wx.hideLoading()
           },1500)
       },
       'fail':function(res){
       }
     })
-
-
-
-    // console.log(orderId)
-    // app.getRequest({
-    //   // 支付订单
-    //   url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
-    //   method:"POST",
-    //   data:{
-    //     orderId:orderId
-    //   },
-    //   success:(res)=>{
-    //     var _this=this;
-    //     console.log(res)
-    //     wx.reportAnalytics('confirmorder')
-
-      
-    //   },
-    //   fail:(error)=>{
-          
-    //   }
-    // })
-
   },
 
   // 立即支付成功后
@@ -250,17 +220,18 @@ Page({
   },
   // 邀请
   onShareAppMessage: function (res) {
-  // console.log(res,8888)
-  console.log(this.data.detailInfo)
   if (res.from === 'button') {
-    // 来自页面内转发按钮
-    // console.log(res.target)
   }
-      wx.reportAnalytics('sharemeeting')
+  //  wx.reportAnalytics('sharemeeting')
   
+  let carendarArr = this.data.carendarArr
+  for(var item in carendarArr){
+
+  }
+
   return {
-    title: '戳我一键参会！邀请您于"'+this.data.detailInfo.ctime+'"在"'+this.data.detailInfo.buildAndFloorDescr+'"参加"'+"氪空间会议"+'"',
-    path: 'pages/invitationLetter/invitaionLetter?seatId='+this.data.detailInfo.orderId,
+    title: '戳我一键参会！邀请您于"'+carendarArr[item].month+"月"+carendarArr[item].value+"日"+'"在"'+this.data.detailInfo.buildAndFloorDescr+'"参加"'+"氪空间会议"+'"',
+    path: 'pages/invitationLetter/invitationLetter?seatId='+this.data.detailInfo.orderId,
     imageUrl:'../images/indexImg/statusbg.png'
   }
 },
@@ -400,10 +371,20 @@ Page({
     
 
 
-    let carendar=wx.getStorageSync("data-index")
-    for(var item in carendar){ 
-
-    }
+    let carendar = wx.getStorageSync("data-index")
+    carendar.map(item=>{
+      // console.log(item)
+      if(item.value=="今天"){
+        item.month=parseInt(new Date().getMonth()+1)
+        item.value=parseInt(new Date().getDate())
+        item.zhou="今天"
+      }
+      if(item.value=="明天"){
+        item.month=parseInt(new Date().getMonth()+1)
+        item.value=parseInt(new Date().getDate())+1
+        item.zhou="明天"
+      }
+    })
   
     this.setData({
       sankeNum:carendar[0].number_a,
@@ -418,7 +399,7 @@ Page({
 
 
 
-    // console.log("safdaf",options)
+    // console.log("订单id"",options)
     if(options.con){
       this.setData({
         orderId:options.id,
@@ -694,7 +675,7 @@ Page({
         "seatGoodsId":meetingRoomId 
       },
       success: (res) => {
-
+        console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
 
