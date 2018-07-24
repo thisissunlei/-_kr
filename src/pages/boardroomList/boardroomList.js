@@ -104,7 +104,7 @@ Page({
     wx.setStorageSync('rangeTime-c',rangeTime);
     wx.setStorageSync('detail-c',detail);
     wx.navigateTo({
-      url: '/pages/seatorderConfirmation/seatorderConfirmation'
+      url: '/pages/seatorderConfirmation/seatorderConfirmation?id='+e.currentTarget.dataset.detail.id
     })
   },
   //散座
