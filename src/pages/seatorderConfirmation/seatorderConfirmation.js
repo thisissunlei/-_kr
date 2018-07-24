@@ -6,11 +6,19 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+<<<<<<< HEAD
     price: "",
     timeweekArr: {},
     carendarArr: [],
     daynum: "",
     sankeNum: 1,
+=======
+    id:'',
+    timeweekArr:{},
+    carendarArr:[],
+    daynum:"",
+    sankeNum:1,
+>>>>>>> 5343875fb1424635b56ac22ecd8321dd281312a3
     time: '11:00',
     timeFlag: false,
     showError: true,
@@ -116,26 +124,14 @@ Page({
     })
   },
   // 数量日历显示与隐藏
-  closeDialogDate: function () {
-    wx.navigateTo({
-      url: "../meeting/meeting"
-    })
-    //  let that = this;
-    //  that.setData({
-    //    dialogDate:!that.data.dialogDate
-    //  })
+   closeDialogDate:function(){
+     console.log(this.data.id)
+     wx.navigateTo({
+       url:"../meeting/meeting?id="+this.data.id
+     })
   },
-  // 数量与日期  隐藏
-  closeDialogDate: function () {
-    wx.navigateTo({
-      url: "../meeting/meeting"
-    })
-    // let that = this;
-    // wx.reportAnalytics('choosedate')
-    // that.setData({
-    //   dialogDate:!that.data.dialogDate
-    // })
-  },
+ 
+ 
   // 我在想想
   closeDialog: function () {
     this.setData({
@@ -325,6 +321,10 @@ Page({
 
   
   onLoad: function (options) {
+    this.setData({
+      id:options.id
+    })
+    // console.log(options.id)
     this.getMeetId()
 
     let carendar = wx.getStorageSync("data-index")

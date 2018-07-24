@@ -175,7 +175,7 @@ Page({
           pageSize:10
         },
         success:(res)=>{
-          
+          console.log(res)
           let oldList = []
           if(res.data.code>0){
             var list1 = []
@@ -305,7 +305,7 @@ Page({
       'paySign': data.paySign,
       'success':function(res){
         console.log(res)
-        that.getInviteeId(id)
+        this.getInviteeId(id)
       },
       'fail':function(res){
         wx.navigateTo({
