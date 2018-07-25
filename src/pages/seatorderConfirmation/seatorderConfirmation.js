@@ -6,6 +6,7 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    seatGoodIds:"",
     id:'',
     timeweekArr:{},
     carendarArr:[],
@@ -26,10 +27,7 @@ Page({
     message: '用户取消支付',
     messageShow: false,
     dialogTimeShow: true,
-    rangeTime1: [],
-    rangeTime2: [],
-    rangeTime3: [],
-    rangeTime: [],
+  
     linkPhone: '',
     selectedTime: [],
     nowDate: '',
@@ -44,7 +42,6 @@ Page({
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
     ],
-    meetInfo: ['1', '2', '3', 4, 5, 7, 9, 9, 4, 5, 7, 9, 9],
     meetingRoomId: '',
     alertTime: 'ONEDAY',
     order_pay: {},
@@ -59,14 +56,7 @@ Page({
     dialogDate: false, //判断门板是否显示
     nowDateIndex: wx.getStorageSync('nowDateIndex'),
     topDate: wx.getStorageSync('topDate'),
-
-    array: [{
-      message: 'foo',
-    }, {
-      message: 'bar'
-    }],
-    date_data1: [], //便利日历的两条数组
-    date_data2: [],
+ 
     date_now: {
       month: '',
       year: '',
@@ -79,14 +69,13 @@ Page({
     },
     ifFirst: false,
   },
-  all_day_num: 0,
-  last_btn_num: 'false',
-  last_data: 'false',
+  
+  seatGoodIds:"",
   choose_date: '',
-  rangeTime: [],
   selectedTime: [],
   isSubTime: false,
   ifFixed: false,
+
   // 散座详情弹窗
   openMeetDetail: function (e) {
     let that = this;
@@ -101,12 +90,14 @@ Page({
   jumpSetTheme: function () {
     this.setData({
       timeFlag: !this.data.timeFlag
+      
     })
   },
   // 预计到场时间显示
   bindTimeChange: function (e) {
     this.setData({
-      time: e.detail.value
+      time: e.detail.value,
+      timeFlag: !this.data.timeFlag
     })
   },
   // 预计到场时间隐藏
@@ -122,8 +113,6 @@ Page({
        url:"../meeting/meeting?id="+this.data.id
      })
   },
- 
- 
   // 我在想想
   closeDialog: function () {
     this.setData({
@@ -272,8 +261,10 @@ Page({
           let price = this.data.sankeNum * this.data.daynum * meetingDetail.promotionCost
           let oldprice = this.data.sankeNum * this.data.daynum * meetingDetail.unitCost
           that.setData({
-            price: price.toFixed(2),
-            oldprice: oldprice.toFixed(2)
+            // price: price.toFixed(2),
+            // oldprice: oldprice.toFixed(2)
+            price: price,
+            oldprice: oldprice
           })
         } else {
           that.setData({
@@ -307,39 +298,55 @@ Page({
       }
     })
   },
+  // 用户状态
+  getFirst(){
+   
+    app.getRequest({
+      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
+      method: "GET",
+      success: (res) => {
+      this.setData({
+        isFirst:res.data.data.first
+      })
 
-
-
-
-  
+      },
+   
+    })
+  },
+  // 页面加载
   onLoad: function (options) {
+    this.getFirst()
+    this.getMeetId()
+
     // console.log(options)
     this.setData({
       id:options.id
     })
-    this.getMeetId()
-
     let carendar = wx.getStorageSync("data-index")
     carendar.map(item=>{
       console.log(item)
+       item.month=getzf(item.month) 
+       item.value=getzf(item.value)
+
       if(item.value=="今天"){
-        item.month=parseInt(new Date().getMonth()+1)
-        item.value=parseInt(new Date().getDate())
+        item.month=getzf(parseInt(new Date().getMonth()+1))
+        item.value=getzf(parseInt(new Date().getDate()))
         item.zhou="今天"
       }
       if(item.value=="明天"){
-        item.month=parseInt(new Date().getMonth()+1)
-        item.value=parseInt(new Date().getDate())+1
+        item.month=getzf(parseInt(new Date().getMonth()+1))
+        item.value=getzf(parseInt(new Date().getDate())+1)
         item.zhou="明天"
       }
-    })
-    
+      console.log(item)
+      return item
+    }) 
    
-
     this.setData({
       sankeNum: carendar[0].number_a,
       daynum: carendar.length,
       carendarArr: carendar,
+      // seatGoodIds:
     })
 
 
@@ -394,11 +401,7 @@ Page({
         }
       }
     })
-    this.setData({
-      nowDate: wx.getStorageSync('nowDate'),
-      nowDateIndex: wx.getStorageSync('nowDateIndex'),
-      topDate: wx.getStorageSync('topDate'),
-    })
+    
   },
   onShow: function () {
     var _this = this;
@@ -420,10 +423,8 @@ Page({
     })
   },
   onUnload: function () {
-    let _this = this;
-
     // wx.setStorage({
-    //   key:"order_pay",
+    //   key:"data-index",
     //   data:{},
     //   success:function(){
     //       _this.setData({
@@ -431,7 +432,6 @@ Page({
     //       })
     //   }
     // })
-
   },
 
 
@@ -490,6 +490,7 @@ Page({
     arrivingTime: data.time,
     quantity: data.sankeNum,
     seatGoodIds: "135,136"
+    // seatGoodIds: data.seatGoodIds,
 
   }
 
@@ -648,3 +649,10 @@ Page({
   
 
 })
+//补0
+function getzf(num){  
+  if(parseInt(num) < 10){  
+      num = '0'+num;  
+  }  
+  return num;  
+}

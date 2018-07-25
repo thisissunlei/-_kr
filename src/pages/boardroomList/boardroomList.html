@@ -94,7 +94,7 @@
 
           <view class="third-row">
               <text class="orange text12" style="margin-left:-2rpx;">￥ </text><text class="orange" style="font-weight:600;">{{item.promotionCost}} </text>
-              <text wx:if="{{item.promotionCost!=item.unitCost}}" class="orignal-price" style="text-decoration:line-through">￥ {{item.unitCost}}</text><text class="text12" style="color:#999;"> / 天</text>
+              <text wx:if="{{item.promotionCost!=item.unitCost}}" class="orignal-price" style="text-decoration:line-through">￥ {{item.unitCost}}</text><text class="text12" style="color:#999;"> / 个·天</text>
           </view>
           
         </view> 
@@ -282,7 +282,7 @@
                       <view class="u-meet-unit">¥</view>
                       <view class="u-meet-num"> {{meetingDetail.promotionCost}}</view>
                       <view class="u-meet-old-num" wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost}}">¥ {{meetingDetail.unitCost}}</view>
-                      <view class="u-meet-old-unit"> / 半小时  </view>
+                      <view class="u-meet-old-unit"> / 个·天  </view>
                   </view>
                   <view class="u-meet-sale"  wx:if="{{meetingDetail.promotionDescr && meetingDetail.promotionDescr.length}}">{{meetingDetail.promotionDescr}}</view>
               </view>
