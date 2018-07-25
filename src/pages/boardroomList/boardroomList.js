@@ -44,7 +44,8 @@ Page({
     number:10,
     meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     splice:"666",
-
+    goodsid:'',
+    seatid:"",
     // 日历相关
     array: [{
       message: 'foo',
@@ -104,7 +105,7 @@ Page({
     wx.setStorageSync('rangeTime-c',rangeTime);
     wx.setStorageSync('detail-c',detail);
     wx.navigateTo({
-      url: '/pages/seatorderConfirmation/seatorderConfirmation?id='+e.currentTarget.dataset.detail.id
+      url: '/pages/seatorderConfirmation/seatorderConfirmation?id='+e.currentTarget.dataset.detail.goodsId
     })
   },
   //散座
@@ -250,9 +251,10 @@ Page({
           dateTime: that.data.nowDate,
         },
         success:(res)=>{
-          console.log(res)
-          
-          
+          this.setData({
+            goodsid:res.data.data.goodsId,
+            seatid:res.data.data.seatId
+          })
           var b = (JSON.stringify(res.data.data) == "{}")
           if(res.data.code == 1 && b == true){
             this.setData({
@@ -860,10 +862,10 @@ Page({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/detail',
         method:"GET",
         data:{
-          "seatGoodsId":meetingRoomId
+          "seatGoodsId":this.data.goodsid
         },
         success:(res)=>{
-          // console.log(res)
+          console.log(res)
           if(res.data.code>0){
             let meetingDetail = res.data.data;
             that.setData({
