@@ -110,7 +110,7 @@ Page({
   // 数量日历显示与隐藏
    closeDialogDate:function(){
     //  console.log(this.data.id)
-     wx.redirectTo({
+     wx.navigateTo({
        url:"../meeting/meeting?seatId="+this.data.seatId
      })
   },
