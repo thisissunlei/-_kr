@@ -1,10 +1,14 @@
 page{
   width:100%;
-  height:100%;
+  height:110%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   font-family: PingFangSC-Regular,Lantinghei SC,Open Sans,Arial,Hiragino Sans GB,Microsoft YaHei,STHeiti,WenQuanYi Micro Hei,SimSun,sans-serif;
 }
 .u-time-box{
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
   font-size: 25rpx;
   background: #F6F6F6;
@@ -12,12 +16,22 @@ page{
  
 }
 .u-time-info{
-  height: 100rpx;
+  height: 80rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10rpx 35rpx;
+  padding: 0rpx 35rpx;
  
+}
+.u-time-color{
+  color: #666666;
+}
+.u-time-col{
+  color: #999999;
+}
+.spannum{
+  color: #666666;
+  font-size: 45rpx;
 }
 .box{
   width: 100%;
@@ -197,7 +211,7 @@ text-overflow: ellipsis;
 }
 .u-line{
  height:90rpx;
- width:4rpx;
+ width:1rpx;
  background: rgba(0,0,0,0.10);
  position: absolute;
  left:50%;
@@ -211,7 +225,7 @@ text-overflow: ellipsis;
   box-sizing: border-box;
 }
 .u-no-num{
-  color: #000000 !important;
+  color: #333333 !important;
 }
 .u-meeting-phone{
   height:114rpx;
@@ -274,9 +288,14 @@ text-overflow: ellipsis;
  padding-right:30rpx;
  text-align: right;
  float: right;
+ line-height:114rpx
 }
 .u-protocol{
   height:90rpx;
+  position: fixed;
+  background: white;
+  bottom: 112rpx;
+  left: 0;
 }
 .u-footer{
 height:112rpx;
@@ -302,7 +321,7 @@ width:100%;
   color: #FFFFFF;
 }
 .u-active-btn{
-  background-image: linear-gradient(50deg, #F79C1C 0%, #FFD24C 89%);
+  background: #FFDF00 ;
 }
 .u-first-pay-price{
   width:100%;
@@ -314,7 +333,7 @@ width:100%;
 .u-footer-tip{
   font-size: 24rpx;
   color: #FF6868; 
-  text-indent:-260rpx; 
+  text-indent:-100rpx; 
 }
 .u-price-label{
   font-size: 28rpx;
@@ -334,7 +353,7 @@ width:100%;
   font-size: 48rpx;
   color:#FF6868;
   float:left;
-  margin-top:4rpx;
+  margin-top:10rpx;
   height:42rpx;
   font-weight: 600;
  
@@ -379,6 +398,7 @@ width:100%;
   font-size: 30rpx;
   text-align: center;
   margin:25rpx 0;
+  color: #666666;
 }
 
 .u-time-data{
@@ -723,11 +743,15 @@ width:100%;
   text-align: center;
 }
 .u-no-times{
-  color: black;
+  color: #333333;
+  width: 60rpx;
+  height: 24rpx;
+  border-bottom: 12rpx solid yellow;
+  margin-left:150rpx; 
 }
 
 .u-btn-arrow-bottom{
-  width:22rpx;
+  width:12rpx;
   height:25rpx;
   position: absolute;
 }
@@ -886,14 +910,14 @@ width:100%;
 .u-meet-unit{
   display: inline-block;
   font-size: 28rpx;
-  color:#FF6868;
+  color:#151515;
   padding-right:8rpx;
   font-weight: 600;
 }
 .u-meet-detail-num{
   display: inline-block;
   font-size: 44rpx;
-  color:#FF6868;
+  color:#151515;
   padding-right:12rpx;
   font-weight: 600;
 }

@@ -380,9 +380,6 @@ Page({
 
 
 
-
-
-    console.log(options,'url11111')
     if(options.con){
       this.setData({
         orderId:options.id,
