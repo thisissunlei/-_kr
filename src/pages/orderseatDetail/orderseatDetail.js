@@ -231,7 +231,7 @@ Page({
 
   return {
     title: '戳我一键参会！邀请您于"'+carendarArr[item].month+"月"+carendarArr[item].value+"日"+'"在"'+this.data.detailInfo.buildAndFloorDescr+'"参加"'+"氪空间会议"+'"',
-    path: 'pages/invitationLetter/invitationLetter?seatId='+this.data.detailInfo.orderId,
+    path: 'pages/invitationLetter/invitationLetter?type=ORDER&seatId='+this.data.detailInfo.orderId,
     imageUrl:'../images/indexImg/statusbg.png'
   }
 },
@@ -570,6 +570,7 @@ Page({
       },
       success:(res)=>{
         console.log("订单详情",res)
+        let timearrs=res.data.data.details
         this.setData({
           time:res.data.data.arrivingTimeDescr
         })

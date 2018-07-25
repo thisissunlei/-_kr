@@ -38,8 +38,8 @@
          <!--日期盒子 -->
           <view class="u-time-box">
               <view class="box2"></view>
-              <view class="u-time-info" wx:for="{{carendarArr}}" wx:key>
-                <view>{{item.month}}-{{item.value}} ({{item.zhou}})</view>
+              <view class="u-time-info" wx:for="{{detailInfo.details}}" wx:key>
+                <view>{{enableDate}}({{item.zhou}})</view>
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{meetingDetail.promotionCost}}</view>
