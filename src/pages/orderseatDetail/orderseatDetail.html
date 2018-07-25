@@ -71,26 +71,9 @@
             </view>
 
 
-        
-
 
           </view>
-          <!-- <view class="u-meeting-theme">
-                <view class="u-meeting-title u-meeting-titles">
-                         应付款
-                </view>
-                <view class="u-meet-text meet-theme">
-                <view class="u-meet-detail-price-info">
-                        <view class="u-meet-unit">¥</view>
-                        <view class="u-meet-detail-num"> {{meetingDetail.promotionCost * num}}</view>
-                        <view class="u-meet-old-num">¥ {{meetingDetail.unitCost * num}}</view>
-                        <view  wx:if="{{!dialogShow}}">
-                                （新人专享）2小时超值体验
-                        </view>
-                </view>
-               
-                </view>
-          </view> -->
+          
 
     </view>
     
@@ -223,7 +206,7 @@
             <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}"> 
                 立即支付
             </view>
-            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED')&& daynum>1 }}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
+            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED')&& sankeNum>1 }}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
             <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
                 查看散座
             </view>

@@ -992,7 +992,7 @@ Page({
         that.button_boolean = true;
         setTimeout(function() {
           wx.navigateTo({
-            url: "/pages/seatorderConfirmation/seatorderConfirmation?from=list"
+            url: "/pages/orderConfirmation/orderConfirmation?from=list"
           });
         }, 500);
       }
