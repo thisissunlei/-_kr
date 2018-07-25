@@ -38,12 +38,12 @@
          <!--日期盒子 -->
           <view class="u-time-box">
               <view class="box2"></view>
-              <view class="u-time-info" wx:for="{{detailInfo.details}}" wx:key>
-                <view>{{enableDate}}({{item.zhou}})</view>
+              <view class="u-time-info" wx:for="{{timeday}}" wx:key>
+                <view>{{item.enableDate}}</view>
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
-                    <view class="u-meet-detail-num"> {{meetingDetail.promotionCost}}</view>
-                    <view class="u-meet-old-num">¥ {{meetingDetail.unitCost}}</view>
+                    <view class="u-meet-detail-num"> {{item.promotionPrice}}</view>
+                    <view class="u-meet-old-num">¥ {{item.price}}</view>
                     <view class="u-meet-old-unit"> / 天  </view>
                 </view>
                 <view>x {{sankeNum}} 个</view>
@@ -55,15 +55,15 @@
             <view class="u-left">{{payTitle}} </view>
             <view class="u-right" wx:if="{{!isFirst}}">
                 <view class="u-right-top" >
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{price}} </view>
-                    <!-- <view class="u-right-top-right">¥ {{meetingDetail.unitCost * daynum}} </view> -->
+                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{detailInfo.paidAmount}} </view>
                 </view>
                
             </view>
+
             <view class="u-right" wx:if="{{isFirst}}">
                 <view class="u-right-top" >
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{price}} </view>
-                    <view class="u-right-top-right">¥ {{oldprice}} </view>
+                    <view class="u-right-top-left" style="font-size: 38rpx">¥  {{detailInfo.paidAmount}} </view>
+                    <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view>
                 </view>
                 <view wx:if="{{!dialogShow}}" class="u-bottom">
                         （新人专享）2小时超值体验
@@ -223,7 +223,7 @@
             <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}"> 
                 立即支付
             </view>
-            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED')}}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
+            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED')&& daynum>1 }}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
             <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
                 查看散座
             </view>

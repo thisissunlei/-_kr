@@ -9,6 +9,7 @@ Page({
   //   return app.globalData.share_data;
   // },
   data: {
+    timeday:[],
     price:"",
     orderprice:"",
     arrivingTime:"",
@@ -368,7 +369,7 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-    
+   
 
 
     let carendar = wx.getStorageSync("data-index")
@@ -570,7 +571,10 @@ Page({
       },
       success:(res)=>{
         console.log("订单详情",res)
-        let timearrs=res.data.data.details
+        
+       
+
+
         this.setData({
           time:res.data.data.arrivingTimeDescr
         })
@@ -587,7 +591,7 @@ Page({
                 titleObj:titleObj,
                 isFirst:isFirst
               })
-              console.log(isFirst)
+              // console.log(isFirst)
               let payTitleObj={
                 'OBLIGATION':'应付款',
                 'TOBEUSED':'实付款',
@@ -606,6 +610,22 @@ Page({
               let detailInfo=Object.assign({},data);
               detailInfo.themeTime=themeObj[data.alertTime];
 
+              let arr =[]
+              let timeday=data.details;
+              timeday.map(item=>{
+                console.log(item)
+                  arr.push({
+                    enableDate:getMyDate(item.enableDate),
+                    promotionPrice:item.promotionPrice,
+                    price:item.price
+                  })
+                  // console.log(getMyDate(item.enableDate))
+                })
+                
+              this.setData({
+                timeday:arr
+              })
+              console.log(this.data.timeday)
               let dateArr=changeTime(data.useDate);
               let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
               let startArr=changeTime(data.beginTime)
@@ -757,7 +777,22 @@ function changeTime(date){
     myArray[5] = seconds;
     return myArray;
 }
-
+function getMyDate(str){  
+  var oDate = new Date(str),  
+  oYear = oDate.getFullYear(),  
+  oMonth = oDate.getMonth()+1,  
+  oDay = oDate.getDate(),  
+  
+  oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay);//最后拼接时间  
+  return oTime;  
+};  
+//补0
+function getzf(num){  
+  if(parseInt(num) < 10){  
+      num = '0'+num;  
+  }  
+  return num;  
+}
 
 
 
