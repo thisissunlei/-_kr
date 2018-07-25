@@ -48,27 +48,14 @@ Page({
   onLoad: function(options) {
     var that = this;
     console.log(options);
-    if (options.type) {
+    if (options.seatId) {
       that.setData({
+        seatId: options.seatId,
         type: options.type
       });
     }
-    if (options.seatId) {
-      that.setData({
-        seatId: options.seatId
-      });
-    }
-    console.log(that.data);
-    this.login();
-    // this.getInvitation();
-    // this.login();
-    // this.getInvitation();
-    // var that = this;
-    // var value = wx.getStorageSync("user_info");
-    // that.setData({
-    //   userInfo: value.user_info
-    // });
-    // this.getInvitation();
+    that.login();
+    that.getInvitation();
   },
   //邀请函接口
   getInvitation: function() {
@@ -160,7 +147,7 @@ Page({
               code: res.code
             },
             success: function(res) {
-              console.log(res);
+              // console.log(res);
               // setTimeout(function() {
               //   wx.hideLoading();
               // }, 2000);
