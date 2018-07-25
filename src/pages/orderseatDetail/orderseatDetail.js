@@ -8,18 +8,12 @@ Page({
   data: {
     timeday:[],
     price:"",
-    orderprice:"",
-    arrivingTime:"",
     linkPhone:"",
-    seatCoodlds:"",
     con:'',
-    minute:'',
-    second:'',
     sankeNum:"",
     payTitle:'',
     orderId:'',
     meetDetailShow:false,
-    indicatorDots: false,
     autoplay: false,
     duration: 1000,
     currentNum:1,
@@ -28,7 +22,6 @@ Page({
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
       'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
     ],
-    meetInfo:['1','2','3',4,5,7,9,9,4,5,7,9,9],
     meetingRoomId:'',
     titleObj:{},
     ifFixed:false,
@@ -43,13 +36,6 @@ Page({
     phone: '',
     check: true,
     dialogShow: false,
-    typeStatus: true,
-    message: '用户取消支付',
-    selectedTime: [],
-    nowDate: '',
-    meetDetailShow: false,
-    indicatorDots: false,
-    meetInfo: ['1', '2', '3', 4, 5, 7, 9, 9, 4, 5, 7, 9, 9],
     alertTime: 'THIRTY',
     order_pay: {},
     priceCount: '0',
@@ -57,20 +43,10 @@ Page({
     detailInfo: {},
     orderDate: {},
     meeting_time: {},
-    isFirst: true,
-    errorMessage: '',
-    checkMessage: false,
-    dialogDate: false,
-    nowDateIndex: wx.getStorageSync('nowDateIndex'),
-    topDate: wx.getStorageSync('topDate'),
     ifFirst: false,
   },
-  all_day_num: 0,
-  last_btn_num: 'false',
-  last_data: 'false',
   choose_date: '',
-  isSubTime: false,
-  ifFixed: false,
+
   
   //立即支付
   payOrder:function(){
@@ -404,9 +380,6 @@ Page({
 
 
 
-
-
-    console.log(options,'url11111')
     if(options.con){
       this.setData({
         orderId:options.id,
@@ -471,12 +444,7 @@ Page({
    
     
     
-    this.setData({
-      nowDate: wx.getStorageSync('nowDate'),
-      nowDateIndex: wx.getStorageSync('nowDateIndex'),
-      topDate: wx.getStorageSync('topDate'),
-    })
-    
+ 
 
   
 

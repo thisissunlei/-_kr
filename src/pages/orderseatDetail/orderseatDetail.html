@@ -24,8 +24,7 @@
         <view class="u-order-time">
             <view class="u-user-date">
                 <view class="u-time-title">数量</view>
-                <view class="u-no-time u-no-num">{{sankeNum}}个</view>
-                <view class="u-time-d"></view>
+                <view class="u-no-time u-no-times">{{sankeNum}}个</view>
             </view>
             <view class="u-user-hour" >
                 <view class="u-time-title">使用日期</view>
@@ -46,7 +45,7 @@
                     <view class="u-meet-old-num">¥ {{item.unitCost}}</view>
                     <view class="u-meet-old-unit"> / 天  </view>
                 </view>
-                <view>x {{sankeNum}} 个</view>
+                <view >x <span class="spannum">{{sankeNum}}</span>  个</view>
               </view>
            
           </view>
@@ -71,26 +70,9 @@
             </view>
 
 
-        
-
 
           </view>
-          <!-- <view class="u-meeting-theme">
-                <view class="u-meeting-title u-meeting-titles">
-                         应付款
-                </view>
-                <view class="u-meet-text meet-theme">
-                <view class="u-meet-detail-price-info">
-                        <view class="u-meet-unit">¥</view>
-                        <view class="u-meet-detail-num"> {{meetingDetail.promotionCost * num}}</view>
-                        <view class="u-meet-old-num">¥ {{meetingDetail.unitCost * num}}</view>
-                        <view  wx:if="{{!dialogShow}}">
-                                （新人专享）2小时超值体验
-                        </view>
-                </view>
-               
-                </view>
-          </view> -->
+          
 
     </view>
     
@@ -99,7 +81,7 @@
         <!-- 预计到场时间 -->
         <view class="u-meeting-theme" bindtap="jumpSetTheme">
             <view class="u-meeting-title">
-                预计到场时间：
+                预计到场时间
             </view>
             <view class="u-meet-text meet-theme">{{time}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow">
@@ -109,7 +91,7 @@
         <!-- 行程提醒 -->
         <view class="u-meeting-remind" bindtap="jumpSetRemind">
             <view class="u-meeting-title">
-                行程提醒：
+                行程提醒
             </view>
             <view class="u-meet-text">{{remind}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow">
@@ -223,7 +205,7 @@
             <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}"> 
                 立即支付
             </view>
-            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED')&& daynum>1 }}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
+            <button open-type="share" bindtap="onShareAppMessage" wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED')&& sankeNum>1 }}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
             <view wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED') || (detailInfo.orderShowStatus=='USED')}}" class="u-footer-btn" bindtap="jumpMeet">
                 查看散座
             </view>
