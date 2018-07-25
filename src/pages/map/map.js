@@ -50,11 +50,11 @@ Page({
       },
       success: function(res) {
         console.log(res);
-        // wx.openLocation({
-        //   latitude: res.data.cityLatitude,
-        //   longitude: res.data.cityLongitude,
-        //   scale: 14
-        // });
+        wx.openLocation({
+          latitude: res.data.cityLatitude,
+          longitude: res.data.cityLongitude,
+          scale: 14
+        });
         console.log(res);
         var cityById = Object.assign({}, res);
         console.log(cityById);
