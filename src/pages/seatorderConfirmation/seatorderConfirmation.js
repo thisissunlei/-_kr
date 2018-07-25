@@ -144,8 +144,14 @@ Page({
   },
   // 数量日历显示与隐藏
    closeDialogDate:function(){
+<<<<<<< HEAD
      this.setData({
        show_a:false
+=======
+    //  console.log(this.data.id)
+     wx.navigateTo({
+       url:"../meeting/meeting?seatId="+this.data.seatId
+>>>>>>> b860c284b378e3059e885ca2ee25ce97377858e0
      })
     //  console.log(this.data.id)
     //  wx.redirectTo({
