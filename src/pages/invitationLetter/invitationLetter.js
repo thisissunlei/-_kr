@@ -1,7 +1,7 @@
 const app = getApp();
 Page({
   data: {
-    type: "TICKET",
+    type: "",
     seatId: 0,
     usedTime: "",
     bookUserName: "",
@@ -58,6 +58,7 @@ Page({
         seatId: options.seatId
       });
     }
+    console.log(that.data);
     this.login();
     // this.getInvitation();
     // this.login();
@@ -104,6 +105,10 @@ Page({
         id: that.data.seatId,
         type: that.data.type
       },
+      // data: {
+      //   id: 69,
+      //   type: "TICKET"
+      // },
       success: res => {
         console.log(res);
         if (res.data.code == 1) {
@@ -114,7 +119,7 @@ Page({
           });
           setTimeout(() => {
             wx.redirectTo({
-              url: `../seatDetail/seatDetail`
+              url: `../mysanzuo/mysanzuo`
             });
           }, 2000);
         } else {
@@ -155,6 +160,7 @@ Page({
               code: res.code
             },
             success: function(res) {
+              console.log(res);
               // setTimeout(function() {
               //   wx.hideLoading();
               // }, 2000);

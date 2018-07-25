@@ -2,6 +2,7 @@ const app = getApp()
 import * as CAlculagraph from '../../utils/time.js'
 Page({
   data: {
+    con:1,
     show_xx:false,
     orderList:[],
     orderList1:[],
@@ -246,13 +247,13 @@ Page({
               },
               'fail':function(res){
                 wx.navigateTo({
-                  url: '../orderseatDetail/orderseatDetail?id='+id 
+                  url: '../orderseatDetail/orderseatDetail?id='+id +'&con='+1
                 })
               }
             })
           }else{
             wx.navigateTo({
-              url: '../orderseatDetail/orderseatDetail?id='+id 
+              url: '../orderseatDetail/orderseatDetail?id='+id +'&con='+1
             })
 
             that.setData({

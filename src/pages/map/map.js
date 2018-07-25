@@ -5,6 +5,7 @@ const app = getApp();
 Page({
   data: {
     cityName: "北京市",
+    cityId: 1,
     latitude: 0,
     longitude: 0,
     allCommunity: [],
@@ -19,6 +20,7 @@ Page({
   },
   onLoad: function() {
     var that = this;
+    console.log(this.data.cityId);
     wx.getLocation({
       type: "gcj02",
       success: res => {
@@ -27,23 +29,61 @@ Page({
           longitude: res.longitude,
           latitude: res.latitude
         });
-        this.getNearbyCity();
-        // this.getCitybyId();
+        that.getNearbyCity();
+        // that.getCitybyId();
       }
     });
+  },
+  onShow: function() {
+    console.log(this.data.cityId);
+    this.getCitybyId();
   },
   //大厦城市id接口
   getCitybyId: function() {
     var that = this;
     app.getRequest({
-      url: app.globalData.KrUrl + " api/gateway/krmting/cmts/city",
+      url: app.globalData.KrUrl + "api/gateway/krmting/cmts/city",
       data: {
-        cityId: 1,
+        cityId: that.data.cityId,
         latitude: that.data.latitude,
         longitude: that.data.longitude
       },
       success: function(res) {
         console.log(res);
+        wx.openLocation({
+          latitude: res.data.cityLatitude,
+          longitude: res.data.cityLongitude,
+          scale: 14
+        });
+        console.log(res);
+        var cityById = Object.assign({}, res);
+        console.log(cityById);
+        let makeArr = [];
+        let cityIdList = cityById.data.data;
+        cityIdList.map((item, index) => {
+          if (item.distance > 1000) {
+            item.distance = (item.distance / 1000).toFixed(1) + "km";
+          } else {
+            item.distance = Math.round(item.distance * 10) / 10 + "m";
+          }
+
+          makeArr.push({
+            iconPath: "../images/public/icon_dizhi.png",
+            id: item.communityId,
+            latitude: item.latitude,
+            longitude: item.longitude,
+            name: item.buildName,
+            width: 25,
+            height: 35
+          });
+          return item;
+        });
+
+        that.setData({
+          allCommunity: cityIdList,
+          cityList: cityIdList[0],
+          markers: makeArr
+        });
       }
     });
   },
