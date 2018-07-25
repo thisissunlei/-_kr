@@ -105,8 +105,7 @@ Page({
     wx.setStorageSync("detail-c", detail);
     wx.navigateTo({
       url:
-        "/pages/seatorderConfirmation/seatorderConfirmation?id=" +
-        e.currentTarget.dataset.detail.id
+        "/pages/seatorderConfirmation/seatorderConfirmation?goodsId=" +e.currentTarget.dataset.detail.goodsId+'&seatId='+e.currentTarget.dataset.detail.seatId
     });
   },
   //散座

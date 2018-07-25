@@ -1,5 +1,5 @@
   <view class="wrapper" wx:if='{{show_a == false}}'>
-    <view class="menban" bindtap='fanshow'></view>
+    <view class="menban" bindtap='  '></view>
     <view class="date">
       <view class="fixed">
           <view class="number-x">
@@ -103,8 +103,9 @@
                  data-kg='{{i.kg}}' wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
               </view>
             </view>
-            <view class="stuts"></view>
-            <view class="now-dibu" bindtap='diantrue' wx:if='{{inn.length || inn1.length > 0}}'>确认预定</view>
+            <view class="stuts"></view> 
+            <!-- wx:if='{{inn.length || inn1.length > 0}} -->
+            <view class="now-dibu" bindtap='diantrue'>确认预定</view>
       </view>
     </view>
     
