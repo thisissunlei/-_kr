@@ -475,16 +475,11 @@ Page({
     today_month.setDate(0);
     const day_num = today_month.getDate()+week;//31天+ 星期三==34
     let ss = this.data.arr.concat()
-    console.log(ss)
-    let fu_arr = this.data.arr
-    let fu_arr1 = this.data.arr
-    for(let i of fu_arr){
+    for(let i of ss){
       i.kg = false
     }
-    for(let i of fu_arr1){
-      i.kg = false
-    }
-    let new_arr = fu_arr.slice(0,day_num-week-today+1)
+    let new_arr = ss.slice(0,day_num-week-today+1)
+    let new_arr1 = fu_arr.slice(day_num-week-today+1)
     
     console.log(this.data.arr)
     this.setData({

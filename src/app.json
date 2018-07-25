@@ -1,13 +1,7 @@
 {
   "pages": [
-<<<<<<< HEAD
-    "pages/meeting/meeting",
-    "pages/index/index",
-    
-=======
     "pages/index/index",
 
->>>>>>> 168016b0ddef1870e49bbd01c404d62ad7c1cac1
     "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",
     "pages/seatorderConfirmation/seatorderConfirmation",

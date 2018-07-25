@@ -326,17 +326,6 @@ Page({
   getMonthDays: function(year, month) {
     //判断2月份天数
     var days;
-<<<<<<< HEAD
-    if(month==2){
-      days= (year%4==0)&&(year%100!=0)||(year%400==0)? 29:28;
-    }else {
-      //1-7月 单数月为31日 
-      if(month <= 7){
-        days= month%2==1?31:30;
-      }else {
-      //8-12月 双月为31日
-        days = month%2==0?31:30;
-=======
     if (month == 2) {
       days = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ? 29 : 28;
     } else {
@@ -346,7 +335,6 @@ Page({
       } else {
         //8-12月 双月为31日
         days = month % 2 == 0 ? 31 : 30;
->>>>>>> 168016b0ddef1870e49bbd01c404d62ad7c1cac1
       }
     }
     return days;
