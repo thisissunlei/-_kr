@@ -50,16 +50,15 @@ Page({
       },
       success: function(res) {
         console.log(res);
-        wx.openLocation({
-          latitude: res.data.cityLatitude,
-          longitude: res.data.cityLongitude,
-          scale: 14
+        that.setData({
+          latitude: res.data.data.cityLatitude,
+          longitude: res.data.data.cityLongitude
         });
         console.log(res);
         var cityById = Object.assign({}, res);
         console.log(cityById);
         let makeArr = [];
-        let cityIdList = cityById.data.data;
+        let cityIdList = cityById.data.data.communityVOS;
         cityIdList.map((item, index) => {
           if (item.distance > 1000) {
             item.distance = (item.distance / 1000).toFixed(1) + "km";
@@ -100,7 +99,7 @@ Page({
         console.log(res);
         var cityNearby = Object.assign({}, res);
         let makArr = [];
-        var cityList = cityNearby.data.data;
+        var cityList = cityNearby.data.data.communityVOS;
         //排序
         cityList.sort(function(a, b) {
           return a.distance - b.distance;
