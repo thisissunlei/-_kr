@@ -244,7 +244,7 @@ Page({
       success: function (res) {
         if (res.data) {
           that.setData({
-            meetingRoomId: res.data.id
+            meetingRoomId: res.data.goodsId
           }, function () {
             that.getMeetDetail();
           })
@@ -313,10 +313,10 @@ Page({
 
   
   onLoad: function (options) {
-    this.setData({
-      id:options.id
-    })
     console.log(options)
+    this.setData({
+      meetingRoomId:options.id
+    })
     this.getMeetId()
 
     let carendar = wx.getStorageSync("data-index")
@@ -349,23 +349,23 @@ Page({
 
     var _this = this;
 
-    if (options.from == 'list') {
-      wx.getStorage({
-        key: 'meet_detail',
-        success: function (res) {
-          if (res.data) {
+    // if (options.from == 'list') {
+      // wx.getStorage({
+      //   key: 'meet_detail',
+      //   success: function (res) {
+      //     if (res.data) {
 
-            _this.setData({
-              detailInfo: res.data
-            })
-          }
-        }
-      })
-    } else {
+      //       _this.setData({
+      //         detailInfo: res.data
+      //       })
+      //     }
+      //   }
+      // })
+    // } else {
       wx.getStorage({
         key: 'detail-c',
         success: function (res) {
-          // console.log(res)
+          console.log(res)
           if (res.data) {
             _this.setData({
               detailInfo: res.data //当前散座的一系列数据
@@ -373,7 +373,7 @@ Page({
           }
         }
       })
-    }
+    // }
 
 
     wx.getStorage({ //获取今天
@@ -521,9 +521,7 @@ Page({
     data: orderData,
 
     success: (res) => {
-      console.log("散客", res)
-
-
+      console.log("散客下单", res)
 
       if (!wx.getStorageSync("order-info")) {
         let orderArr = []
