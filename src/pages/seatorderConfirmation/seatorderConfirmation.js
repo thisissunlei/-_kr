@@ -363,7 +363,7 @@ Page({
       wx.getStorage({
         key: 'detail-c',
         success: function (res) {
-          console.log(res)
+         
           if (res.data) {
             _this.setData({
               detailInfo: res.data //当前散座的一系列数据

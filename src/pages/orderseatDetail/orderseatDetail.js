@@ -40,7 +40,7 @@ Page({
     time: '11:00',
     timeFlag: false,
     errorMessage: '',
-    con: 1,
+    
     meetingDetail: {},
     themeName: '',
     remind: '提前1天',
@@ -75,6 +75,7 @@ Page({
   choose_date: '',
   isSubTime: false,
   ifFixed: false,
+  
   //立即支付
   payOrder:function(){
     let orderId=this.data.orderId;
@@ -239,11 +240,13 @@ Page({
 
 
   onUnload: function () {
-    // if(this.data.con==1){
-    //   wx.reLaunch({
-    //     url: '../index/index'
-    //   })
-    // }
+    console.log(this.url_con,6666)
+    if(this.data.con==1){
+      wx.reLaunch({
+        url: '../index/index'
+      })
+    }
+   
     let _this = this;
     
     // wx.setStorage({
@@ -284,7 +287,7 @@ Page({
       success: function (res) {
         if (res.data) {
             that.setData({
-            meetingRoomId: res.data.id
+            meetingRoomId: res.data.goodsId
           }, function () {
               that.getMeetDetail();
             })
@@ -361,15 +364,22 @@ Page({
           page.onLoad();
         }
       })
-    }else{
-      wx.switchTab({
-        url:"../index/index",
-      })
     }
   },
   bool: true,
   onLoad: function (options) {
    
+    var pages=getCurrentPages()
+    console.log(pages)
+    var prevPage=pages[pages.length-2]
+    prevPage.setData({
+      isRouteMy:"2"
+    })
+    // if(this.data.con==1){
+    //   wx.reLaunch({
+    //   url: '../index/index'
+    //   })
+    // }
 
 
     let carendar = wx.getStorageSync("data-index")
@@ -393,14 +403,14 @@ Page({
       carendarArr:carendar,
       
     })
-    // console.log(item)
+    
 
 
 
 
 
 
-    // console.log("订单id"",options)
+    console.log(options,'url11111')
     if(options.con){
       this.setData({
         orderId:options.id,
@@ -463,18 +473,6 @@ Page({
       }
     })
    
-    // wx.getStorage({
-    //   key: 'order_pay',
-    //   success: function (res) {
-    //     if (Object.keys(res.data).length != 0) {
-    //       _this.setData({
-    //         themeName: res.data.themeName || _this.data.themeName,
-    //         remind: _this.getRemind(res.data.alertTime),
-    //         linkPhone: res.data.linkPhone || _this.data.linkPhone
-    //         })
-    //     }
-    //   }
-    // })
     
     
     this.setData({
@@ -484,12 +482,7 @@ Page({
     })
     
 
-    var pages=getCurrentPages()
-    // console.log(pages)
-    var prevPage=pages[pages.length-2]
-    prevPage.setData({
-      isRouteMy:"2"
-    })
+  
 
   },
   getThemeName: function (res) {
@@ -533,35 +526,11 @@ Page({
   },
 
 
-  
 
- 
-  // 微信支付完成以后
-  // getInviteeId(orderId,callback){
-  //     app.getRequest({
-  //       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
-  //       methods:"GET",
-  //       header:{
-  //         "content-type":"application/json"
-  //       },
-  //       data:{
-  //         orderId:orderId
-  //       },
-  //       success:(res)=>{
-  //         if(res.data.data.inviteeId){
-  //             callback && callback(res.data.data.inviteeId);
-  //         }
-          
-  //       }
-  //     })
-  // },
-
-  preventTouchMove() {},
 
 
 
   getDetailInfo:function(orderId){
-    
     const _this=this;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/detail',
@@ -573,7 +542,6 @@ Page({
         console.log("订单详情",res)
         
        
-
 
         this.setData({
           time:res.data.data.arrivingTimeDescr
@@ -613,13 +581,11 @@ Page({
               let arr =[]
               let timeday=data.details;
               timeday.map(item=>{
-                console.log(item)
                   arr.push({
                     enableDate:getMyDate(item.enableDate),
-                    promotionPrice:item.promotionPrice,
-                    price:item.price
+                    promotionCost:item.promotionCost,
+                    unitCost:item.unitCost
                   })
-                  // console.log(getMyDate(item.enableDate))
                 })
                 
               this.setData({

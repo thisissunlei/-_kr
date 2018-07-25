@@ -3,7 +3,7 @@
         <!-- 图片 与 详情 -->
         <view class="u-order-detail" bindtap="openMeetDetail">
             <view class="u-order-left">
-                <image class="u-order-img" src="{{detailInfo.imgUrl}}"></image>
+                <image class="u-order-img" src="{{meetingDetail.picUrls}}"></image>
             </view>
 
             <view class="u-order-right">
@@ -281,7 +281,7 @@
                 wx:key="*this"
                 wx:for-item="meetItem"
               >
-                  <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image>
+                  <!-- <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image> -->
                   <view class="u-facility-txt">{{meetItem.name}}</view>
               </view> 
           </view>

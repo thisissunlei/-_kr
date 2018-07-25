@@ -8,7 +8,7 @@
         <!-- 图片 与 详情 -->
         <view class="u-order-detail" bindtap="openMeetDetail">
             <view class="u-order-left">
-                <image class="u-order-img" src="{{detailInfo.imgUrl}}"></image>
+                <image class="u-order-img" src="{{meetingDetail.picUrls}}"></image>
             </view>
 
             <view class="u-order-right">
@@ -42,8 +42,8 @@
                 <view>{{item.enableDate}}</view>
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
-                    <view class="u-meet-detail-num"> {{item.promotionPrice}}</view>
-                    <view class="u-meet-old-num">¥ {{item.price}}</view>
+                    <view class="u-meet-detail-num"> {{item.promotionCost}}</view>
+                    <view class="u-meet-old-num">¥ {{item.unitCost}}</view>
                     <view class="u-meet-old-unit"> / 天  </view>
                 </view>
                 <view>x {{sankeNum}} 个</view>
@@ -153,19 +153,19 @@
             <view class="u-meet-top"  bindtap="closeMeetDetail" > </view>
             <view class="u-content-meet">
             <view class="u-swiper-content">
-            <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
-            <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
+            <image class="u-meet-img-only" src="{{meetingDetail.picUrls[0]}}"  wx:if="{{meetingDetail.picUrls.length==1}}"></image>
+            <swiper class="u-meet-swiper" wx:if="{{meetingDetail.picUrls.length>1}}" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
                   bindchange="currentChange"
                   
                   >
-                  <view wx:for="{{meetingDetail.roomImg}}" wx:key="*this">
+                  <view wx:for="{{meetingDetail.picUrls}}" wx:key="*this">
                     <swiper-item>
                       <image class="u-swiper-img" src="{{item}}"  />
                     </swiper-item>
                   </view>
             </swiper>
-            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
+            <view class="u-img-num" wx:if="{{meetingDetail.picUrls.length>1}}">{{currentNum}}/{{meetingDetail.picUrls.length}}</view>
           </view>
        
           
@@ -207,7 +207,7 @@
                 wx:key="*this"
                 wx:for-item="meetItem"
               >
-                  <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image>
+                  <!-- <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image> -->
                   <view class="u-facility-txt">{{meetItem.name}}</view>
               </view> 
           </view>
