@@ -2,8 +2,10 @@
   "pages": [
     "pages/index/index",
 
-    "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",
+
+    "pages/invitationLetter/invitationLetter",
+
     "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
     "pages/my/my",

@@ -3,6 +3,7 @@
 const app = getApp()
 Page({
   data: {
+    arr2:[],
     id:0,
     show_a:false,
     fan:'',
@@ -27,22 +28,36 @@ Page({
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
     arr:[
-      {number:0,mary:20,kg:false},{number:0,mary:3450,kg:false},{number:2,mary:234,kg:false},{number:34,mary:345,kg:false},{number:12,mary:0,kg:false},
-      {number:20,mary:30,kg:false},{number:0,mary:878,kg:false},{number:6,mary:450,kg:false},{number:9,mary:354,kg:false},{number:25,mary:340,kg:false},
-      {number:234,mary:35670,kg:false},{number:45,mary:34,kg:false},{number:12,mary:42,kg:false},{number:29,mary:36,kg:false},{number:26,mary:36,kg:false},
-      {number:224,mary:578,kg:false},{number:13,mary:54,kg:false},{number:5,mary:67,kg:false},{number:1,mary:356,kg:false},{number:26,mary:343,kg:false},
-      {number:0,mary:89,kg:false},{number:5,mary:232,kg:false},{number:12,mary:378,kg:false},{number:0,mary:3460,kg:false},{number:20,mary:33,kg:false},
-      {number:33,mary:456,kg:false},{number:12,mary:345,kg:false},{number:22,mary:389,kg:false},{number:23,mary:340,kg:false},{number:24,mary:32,kg:false},
-      {number:12,mary:76,kg:false},
-    ],
-    arr1:[
-      {number:0,mary:20,kg:false},{number:0,mary:34,kg:false},{number:45,mary:23,kg:false},{number:34,mary:35,kg:false},{number:12,mary:11,kg:false},
-      {number:20,mary:30,kg:false},{number:0,mary:87,kg:false},{number:6,mary:40,kg:false},{number:9,mary:34,kg:false},{number:25,mary:30,kg:false},
-      {number:234,mary:356,kg:false},{number:45,mary:34,kg:false},{number:12,mary:42,kg:false},{number:29,mary:36,kg:false},{number:26,mary:36,kg:false},
-      {number:224,mary:57,kg:false},{number:13,mary:54,kg:false},{number:5,mary:67,kg:false},{number:1,mary:36,kg:false},{number:26,mary:33,kg:false},
-      {number:0,mary:89,kg:false},{number:5,mary:22,kg:false},{number:12,mary:38,kg:false},{number:0,mary:30,kg:false},{number:20,mary:33,kg:false},
-      {number:33,mary:45,kg:false},{number:12,mary:35,kg:false},{number:22,mary:39,kg:false},{number:23,mary:30,kg:false},{number:24,mary:32,kg:false},
-      {number:12,mary:76,kg:false},{number:12,mary:76,kg:false},{number:12,mary:76,kg:false},{number:12,mary:76,kg:false},
+      {goodsId: 134, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 0.01},
+      {goodsId: 135, promotionCost: 0.01, remainQuantity: 69, seatId: 1, unitCost: 0.01},
+      {goodsId: 136, promotionCost: 0.01, remainQuantity: 69, seatId: 1, unitCost: 0.01},
+      {goodsId: 137, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 138, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 139, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 140, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 141, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 142, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 143, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 144, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 145, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 146, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 147, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 148, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 149, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 150, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 151, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 152, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 153, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 154, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 155, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 156, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 157, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 158, promotionCost: 0.01, remainQuantity: 99, seatId: 1, unitCost: 1},
+      {goodsId: 159, promotionCost: 333, remainQuantity: 99, seatId: 1, unitCost: 23},
+      {goodsId: 160, promotionCost: 333, remainQuantity: 99, seatId: 1, unitCost: 23},
+      {goodsId: 161, promotionCost: 333, remainQuantity: 99, seatId: 1, unitCost: 23},
+      {goodsId: 162, promotionCost: 333, remainQuantity: 99, seatId: 1, unitCost: 23},
+      {goodsId: 163, promotionCost: 333, remainQuantity: 99, seatId: 1, unitCost: 23}
     ],
   },
  arr_index:[],
@@ -301,7 +316,9 @@ Page({
     return this.data.show
   },
   dateBtn :function(e){
-    // console.log(e)
+    const today_a = parseInt(new Date().getDate())
+    
+    console.log(e)
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       // const new_data = this.data[e.target.dataset.data];//遍历的哪条数组
       var old_data = [];
@@ -320,6 +337,7 @@ Page({
         // const week1 = next_month.getDay();//月第一天星期几
         // console.log(week1)
         //----------------------
+        
         ios[e.target.dataset.num].kg = !ios[e.target.dataset.num].kg
         index_zi_a[e.target.dataset.num].kg = !index_zi_a[e.target.dataset.num].kg
         this.setData({
@@ -375,11 +393,14 @@ Page({
         }
         console.log(this.data.inn1)
       }else if(e.target.dataset.data=='date_data1'){
+        console.log(this.data.date_data1)
         let ioi = this.data.date_data1
         let zuti = e.target.dataset.kg
         let index_zi = this.data.arr
+        console.log(ioi,index_zi)
         ioi[e.target.dataset.num].kg = !ioi[e.target.dataset.num].kg//true
-        index_zi[e.target.dataset.num].kg = !index_zi[e.target.dataset.num].kg
+        index_zi[e.target.dataset.num+1-today_a].kg = !index_zi[e.target.dataset.num+1-today_a].kg
+       
         this.setData({
           date_data1:ioi,
           // date_data1:new_data,
@@ -446,14 +467,34 @@ Page({
   },
 
   dealDate:function(today_month,bool){
+    
+   
     let index_zhu = this.data
     const week = today_month.getDay();//月第一天星期几
     const today = parseInt(new Date().getDate());//今天是几号
     today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
     const day_num = today_month.getDate()+week;//31天+ 星期三==34
+    let fu_arr = this.data.arr
+    let fu_arr1 = this.data.arr
+    for(let i of fu_arr){
+      i.kg = false
+    }
+    for(let i of fu_arr1){
+      i.kg = false
+    }
+    let new_arr = fu_arr.slice(0,day_num-week-today+1)
+    let new_arr1 = fu_arr.slice(day_num-week-today+1)
+    console.log(new_arr1)
+    let _this = this
+    this.setData({
+      arr2:new_arr,
+      arr1:new_arr1
+    },function(){
+      console.log(_this.data.arr2,_this.data.arr1)
+    })
+    
     const data = [];
-    // console.log()
     for (var i = 0; i < day_num; i++) {
       switch (true){
         case i<week:
@@ -469,34 +510,38 @@ Page({
               })
             
           }else{
-            if(index_zhu.arr[i].number > 1 && index_zhu.number>index_zhu.arr[i].number){
+            if(index_zhu.arr[i-today+1].remainQuantity > 1 && index_zhu.number>index_zhu.arr[i-today+1].remainQuantity){
               // index_zhu.arr[i].mary='数量不足'
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
                 kg:false,
-                number:index_zhu.arr[i].number,
-                mary:index_zhu.arr[i].mary,
-                name:i
+                id:index_zhu.arr[i-today+1].goodsId,
+                number:index_zhu.arr[i-today+1].remainQuantity,
+                mary:index_zhu.arr[i-today+1].unitCost,
+                mary:index_zhu.arr[i-today+1].promotionCost,
               });
-            }else if(index_zhu.arr[i].number == 0){
+            }else if(index_zhu.arr[i-today+1].remainQuantity == 0){
               // index_zhu.arr[i].mary='已售完'
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
                 kg:false,
-                number:index_zhu.arr[i].number,
-                mary:index_zhu.arr[i].mary,
-                name:i
+                number:index_zhu.arr[i-today+1].remainQuantity,
+                id:index_zhu.arr[i-today+1].goodsId,
+                mary:index_zhu.arr[i-today+1].unitCost,
+                no_mary:index_zhu.arr[i-today+1].promotionCost,
               });
             }
             else{
               data.push({
                 value:i-week+1,
                 type:'next',
-                kg:index_zhu.arr[i].kg,
-                number:index_zhu.arr[i].number,
-                mary:index_zhu.arr[i].mary
+                kg:index_zhu.arr[i-today+1].kg,
+                number:index_zhu.arr[i-today+1].remainQuantity,
+                id:index_zhu.arr[i-today+1].goodsId,
+                mary:index_zhu.arr[i-today+1].unitCost,
+                no_mary:index_zhu.arr[i-today+1].promotionCost,
               })
             }
           }
@@ -507,26 +552,25 @@ Page({
             data.push({
               value:'今天',
               type:'before',
-              kg:index_zhu.arr[i].kg,
-              number:index_zhu.arr[i].number,
-              mary:index_zhu.arr[i].mary
             });
           }else{
-            if(index_zhu.arr[i].number < index_zhu.number){
+            if(index_zhu.arr[i+1-today].remainQuantity < index_zhu.number){
               data.push({//今天可选
                 value:'今天',
                 type:'before',
                 kg:false,
-                number:index_zhu.arr[i].number,
-                mary:index_zhu.arr[i].mary
+                mary:index_zhu.arr[i+1-today].unitCost,
+                no_mary:index_zhu.arr[i+1-today].promotionCost
               });
             }else{
               data.push({//今天可选
                 value:'今天',
                 type:'now',
                 kg:true,
-                number:index_zhu.arr[i].number,
-                mary:index_zhu.arr[i].mary
+                number:index_zhu.arr[i+1-today].remainQuantity,
+                mary:index_zhu.arr[i+1-today].unitCost,
+                id:index_zhu.arr[i-today+1].goodsId,
+                no_mary:index_zhu.arr[i+1-today].promotionCost,
               });
             }
           }
@@ -538,25 +582,29 @@ Page({
               value:'明天',
               type:'before',
               kg:false,
-              number:index_zhu.arr[i].number,
-              mary:index_zhu.arr[i].mary
+              number:index_zhu.arr[i+1-today].remainQuantity,
+              mary:index_zhu.arr[i+1-today].unitCost,
+              no_mary:index_zhu.arr[i+1-today].promotionCost,
             });
           }else{
-            if(index_zhu.arr[i].number <= this.data.number || index_zhu.arr[i].number == 0){
+            if(index_zhu.arr[i+1-today].remainQuantity <= this.data.number || index_zhu.arr[i+1-today].remainQuantity == 0){
               data.push({//本月明天可选
                 value:'明天',
                 type:'before',
                 kg:false,
-                number:index_zhu.arr[i].number,
-                mary:index_zhu.arr[i].mary
+                number:index_zhu.arr[i+1-today].remainQuantity,
+                mary:index_zhu.arr[i+1-today].unitCost,
+                no_mary:index_zhu.arr[i+1-today].promotionCost,
               });
             }else{
               data.push({//本月明天可选
                 value:'明天',
                 type:'now',
                 kg:true,
-                number:index_zhu.arr[i].number,
-                mary:index_zhu.arr[i].mary
+                number:index_zhu.arr[i+1-today].remainQuantity,
+                mary:index_zhu.arr[i+1-today].unitCost,
+                id:index_zhu.arr[i+1-today].goodsId,
+                no_mary:index_zhu.arr[i+1-today].promotionCost,
               }); 
             }
             
@@ -565,40 +613,46 @@ Page({
           break;
         case i<(30-this.all_day_num+week)&&!bool:
           if(i%7==0||i%7==6){ 
+            console.log(i+"下月星期天")
+            console.log(this.data.arr1)
             data.push({//下月部分星期天
               value:i-week+1,
               type:'before',
-              // number:index_zhu.arr[i].number,
-              // mary:index_zhu.arr[i].mary,
               name:"周天"
             });
           }else{
-            if(index_zhu.arr1[i].number > 1 && index_zhu.arr1[i].number<index_zhu.number){
+            console.log(i+"本月")
+            console.log(this.data.arr1)
+            if(index_zhu.arr1[i-week].remainQuantity > 1 && index_zhu.arr1[i-week].remainQuantity<index_zhu.number){
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
-                number:index_zhu.arr1[i].number,
-                mary:index_zhu.arr1[i].mary,
-               
+                number:index_zhu.arr1[i-week].remainQuantity,
+                mary:index_zhu.arr1[i-week].unitCost,
+                id:index_zhu.arr1[i-week].goodsId,
+                no_mary:index_zhu.arr1[i-week].promotionCost
               });
-            }else if(index_zhu.arr1[i].number == 0){
+            }else if(index_zhu.arr1[i-week].remainQuantity == 0){
               
               // index_zhu.arr1[i].mary='已售完'
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
-                number:index_zhu.arr1[i].number,
-                mary:index_zhu.arr1[i].mary,
-                name:i
+                number:index_zhu.arr1[i-week].remainQuantity,
+                mary:index_zhu.arr1[i-week].unitCost,
+                id:index_zhu.arr1[i-today].goodsId,
+                no_mary:index_zhu.arr1[i-week].promotionCost
               });
             }else{
               
               data.push({
                 value:i-week+1,
                 type:'next',
-                kg:index_zhu.arr1[i].kg,
-                number:index_zhu.arr1[i].number,
-                mary:index_zhu.arr1[i].mary
+                kg:index_zhu.arr1[i-week].kg,
+                number:index_zhu.arr1[i-week].remainQuantity,
+                mary:index_zhu.arr1[i-week].unitCost,
+                id:index_zhu.arr1[i-week].goodsId,
+                no_mary:index_zhu.arr1[i-week].promotionCost
               })
             }
           }
@@ -629,8 +683,7 @@ Page({
     this.setData({
       id:e.id
     })
-  // },
-  // onLoad: function () {
+    
     const today_date = new Date();
     
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
