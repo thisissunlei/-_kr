@@ -991,7 +991,7 @@ Page({
       success: function() {
         that.button_boolean = true;
         setTimeout(function() {
-          wx.navigateTo({
+          wx.redirectTo({
             url: "/pages/orderConfirmation/orderConfirmation?from=list"
           });
         }, 500);

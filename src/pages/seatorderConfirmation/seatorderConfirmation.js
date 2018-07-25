@@ -7,7 +7,8 @@ Page({
   },*/
   data: {
     seatGoodIds:"",
-    id:'',
+    orderId:"",
+    seatId:"",
     timeweekArr:{},
     carendarArr:[],
     daynum:"",
@@ -109,8 +110,8 @@ Page({
   // 数量日历显示与隐藏
    closeDialogDate:function(){
     //  console.log(this.data.id)
-     wx.navigateTo({
-       url:"../meeting/meeting?id="+this.data.id
+     wx.redirectTo({
+       url:"../meeting/meeting?seatId="+this.data.seatId
      })
   },
   // 我在想想
@@ -318,11 +319,14 @@ Page({
     this.getFirst()
     this.getMeetId()
 
-    // console.log(options)
+    console.log(options)
     this.setData({
-      id:options.id
+      orderId:options.orderId,
+      seatId:options.seatId
     })
+    
     let carendar = wx.getStorageSync("data-index")
+    if(carendar){
     carendar.map(item=>{
       console.log(item)
        item.month=getzf(item.month) 
@@ -348,7 +352,7 @@ Page({
       carendarArr: carendar,
       // seatGoodIds:
     })
-
+  }
 
     this.getPhone();
 
@@ -423,15 +427,7 @@ Page({
     })
   },
   onUnload: function () {
-    // wx.setStorage({
-    //   key:"data-index",
-    //   data:{},
-    //   success:function(){
-    //       _this.setData({
-    //         order_pay:{}
-    //       })
-    //   }
-    // })
+      wx.removeStorageSync("data-index")
   },
 
 
