@@ -55,9 +55,9 @@ Page({
         desc: "KrMeeting会议室",
         path:
           "pages/invitationLetter/invitationLetter?type=TICKET&seatId=" +
-          this.data.ticketId
+          this.data.ticketId,
+        imageUrl: "../images/map/seativt.png"
       };
-      // imageUrl: "../images/share_pic.jpg"
     } else {
       // console.log("来自右上角转发菜单");
       return app.globalData.share_data;
