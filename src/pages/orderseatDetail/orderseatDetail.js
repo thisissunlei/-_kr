@@ -1,13 +1,10 @@
-//orderConfirmation.js
-//获取应用实例
+
 import CAlculagraph from "../../utils/time.js" ;
 const app = getApp()
 
 
 Page({
-  // onShareAppMessage: function() {
-  //   return app.globalData.share_data;
-  // },
+ 
   data: {
     timeday:[],
     price:"",
@@ -40,7 +37,6 @@ Page({
     time: '11:00',
     timeFlag: false,
     errorMessage: '',
-    
     meetingDetail: {},
     themeName: '',
     remind: '提前1天',
