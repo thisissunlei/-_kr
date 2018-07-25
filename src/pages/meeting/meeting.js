@@ -3,7 +3,6 @@
 const app = getApp()
 Page({
   data: {
-    arr_r:[],
     id:0,
     show_a:false,
     fan:'',
@@ -80,13 +79,23 @@ Page({
     })
     wx.setStorageSync('data-index',this.data.combination)
     console.log(this.data.id)
-    let ss = this.data.id
-    setTimeout(function(){
-      wx.navigateTo({
-        url:"/pages/seatorderConfirmation/seatorderConfirmation?id="+ss
-      })
-        },0)
-    
+    app.getRequest({
+      url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/list',
+      methods:"GET",
+      data:{
+        seatId:this.data.id
+      },
+      success:res=>{
+        console.log(res)
+        let ss = this.data.id
+        setTimeout(function(){
+          wx.navigateTo({
+            url:"/pages/seatorderConfirmation/seatorderConfirmation?id="+ss
+          })
+            },0)
+
+      }
+    })
   },
   fanshow(){
     wx.navigateTo({
@@ -438,10 +447,9 @@ Page({
 
   dealDate:function(today_month,bool){
     let index_zhu = this.data
-    const week = today_month.getDay();//月第一天星期几 0  3
-    
-    const today = parseInt(new Date().getDate());//今天是几号 25
-    today_month.setMonth(today_month.getMonth() + 1); // 设置月份
+    const week = today_month.getDay();//月第一天星期几
+    const today = parseInt(new Date().getDate());//今天是几号
+    today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
     const day_num = today_month.getDate()+week;//31天+ 星期三==34
     const data = [];
@@ -499,9 +507,9 @@ Page({
             data.push({
               value:'今天',
               type:'before',
-              kg:index_zhu.arr[i-today-1].kg,
-              number:index_zhu.arr[i-today-1].remainQuantity,
-              mary:index_zhu.arr[i].unitCost
+              kg:index_zhu.arr[i].kg,
+              number:index_zhu.arr[i].number,
+              mary:index_zhu.arr[i].mary
             });
           }else{
             if(index_zhu.arr[i].number < index_zhu.number){
@@ -509,16 +517,16 @@ Page({
                 value:'今天',
                 type:'before',
                 kg:false,
-                number:index_zhu.arr[i-today-1].remainQuantity,
-                mary:index_zhu.arr[i-today-1].unitCost
+                number:index_zhu.arr[i].number,
+                mary:index_zhu.arr[i].mary
               });
             }else{
               data.push({//今天可选
                 value:'今天',
                 type:'now',
                 kg:true,
-                number:index_zhu.arr[i-today-1].remainQuantity,
-                mary:index_zhu.arr[i-today-1].unitCost
+                number:index_zhu.arr[i].number,
+                mary:index_zhu.arr[i].mary
               });
             }
           }
@@ -556,8 +564,6 @@ Page({
           this.all_day_num++;
           break;
         case i<(30-this.all_day_num+week)&&!bool:
-        if(i<(30-this.all_day_num+week)){
-        }
           if(i%7==0||i%7==6){ 
             data.push({//下月部分星期天
               value:i-week+1,
@@ -619,46 +625,19 @@ Page({
   //   arr_new
   // },
   onLoad:function(e){
-  
     console.log(e)
     this.setData({
       id:e.id
     })
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/list',
-      methods:"GET",
-      data:{
-        seatId:1 
-      },
-      success:res=>{
-        console.log(res)
-        for(let i of res.data.data){
-          i.kg = false
-        }
-        this.setData({
-          arr_r:res.data.data
-        })
-        let new_arr = this.data.arr_r
-        console.log(new_arr)
-        this.setData({
-          arr:new_arr.slice(0,day_num-week-today),
-          arr1:new_arr.slice(day_num-week-today)
-        })
-        console.log(this.data.arr,this.data.arr1)
-      }
-    })
+  // },
+  // onLoad: function () {
     const today_date = new Date();
     
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    console.log(today_month,next_month)
+    
     const date1 = this.dealDate(today_month,true);
     const date2 = this.dealDate(next_month,false);
-    const week = today_month.getDay();//月第一天星期几 0  3
-    console.log(date1,date2)
-    const today = parseInt(new Date().getDate());//今天是几号 25
-    const day_num = today_month.getDate()+week;//31天+ 星期三==34
-    
     this.setData({
       date_data1:date1,
       date_data2:date2,
@@ -675,7 +654,8 @@ Page({
         choose:''
       }
     });
-    
+    console.log(this.data.date_data1)
+    // console.log(this.data.date_data2)
   }
   
 })
