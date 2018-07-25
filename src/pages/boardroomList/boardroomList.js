@@ -116,7 +116,7 @@ Page({
       title: "加载中"
     });
     let that = this;
-    let id = e.currentTarget.dataset.item.id;
+    let id = e.currentTarget.dataset.item.goodsId;
     let detail = e.currentTarget.dataset.item;
     this.setData(
       {
