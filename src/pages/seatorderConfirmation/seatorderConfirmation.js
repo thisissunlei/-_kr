@@ -313,9 +313,9 @@ Page({
 
   
   onLoad: function (options) {
-    console.log(options)
+    // console.log(options)
     this.setData({
-      meetingRoomId:options.id
+      id:options.id
     })
     this.getMeetId()
 
@@ -333,9 +333,7 @@ Page({
         item.zhou="明天"
       }
     })
-    // for (var item in carendar) {
-
-    // }
+    
    
 
     this.setData({
@@ -349,19 +347,19 @@ Page({
 
     var _this = this;
 
-    // if (options.from == 'list') {
-      // wx.getStorage({
-      //   key: 'meet_detail',
-      //   success: function (res) {
-      //     if (res.data) {
+    if (options.from == 'list') {
+      wx.getStorage({
+        key: 'meet_detail',
+        success: function (res) {
+          if (res.data) {
 
-      //       _this.setData({
-      //         detailInfo: res.data
-      //       })
-      //     }
-      //   }
-      // })
-    // } else {
+            _this.setData({
+              detailInfo: res.data
+            })
+          }
+        }
+      })
+    } else {
       wx.getStorage({
         key: 'detail-c',
         success: function (res) {
@@ -373,7 +371,7 @@ Page({
           }
         }
       })
-    // }
+    }
 
 
     wx.getStorage({ //获取今天
