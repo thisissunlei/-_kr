@@ -7,6 +7,7 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    con:1,
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -28,7 +29,7 @@ Page({
   jumpOderList:function(e){
     let status=e.currentTarget.dataset.status;
     wx.navigateTo({
-      url: '../myOrder/myOrder?orderShowStatus='+status
+      url: '../myOrder/myOrder?orderShowStatus='+status+'&con='+1
      })
   },
   closeTip:function(){
