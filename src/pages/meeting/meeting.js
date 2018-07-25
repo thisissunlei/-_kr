@@ -3,6 +3,7 @@
 const app = getApp()
 Page({
   data: {
+    arr2:[],
     id:0,
     show_a:false,
     fan:'',
@@ -483,11 +484,16 @@ Page({
       i.kg = false
     }
     let new_arr = fu_arr.slice(0,day_num-week-today+1)
-    // let new_arr1 = fu_arr.slice(day_num-week-today+1)
+    let new_arr1 = fu_arr.slice(day_num-week-today+1)
+    console.log(new_arr1)
+    let _this = this
     this.setData({
-      arr:new_arr
+      arr2:new_arr,
+      arr1:new_arr1
+    },function(){
+      console.log(_this.data.arr2,_this.data.arr1)
     })
-    console.log(this.data.arr,this.data.arr1)
+    
     const data = [];
     for (var i = 0; i < day_num; i++) {
       switch (true){
@@ -498,23 +504,22 @@ Page({
           break;
         case i>(today+week)&&bool:
           if(i%7==0||i%7==6){//本月部分不可选，可能数量不足或买完周六日
-            console.log(i,"本月周六")
               data.push({//本月部分不可选，可能数量不足或买完
                 value:i-week+1,
                 type:'before',
               })
             
           }else{
-            console.log(this.data.arr)
-            console.log(i-today+1,"可选")
             if(index_zhu.arr[i-today+1].remainQuantity > 1 && index_zhu.number>index_zhu.arr[i-today+1].remainQuantity){
               // index_zhu.arr[i].mary='数量不足'
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
                 kg:false,
+                id:index_zhu.arr[i-today+1].goodsId,
                 number:index_zhu.arr[i-today+1].remainQuantity,
                 mary:index_zhu.arr[i-today+1].unitCost,
+                mary:index_zhu.arr[i-today+1].promotionCost,
               });
             }else if(index_zhu.arr[i-today+1].remainQuantity == 0){
               // index_zhu.arr[i].mary='已售完'
@@ -523,7 +528,9 @@ Page({
                 type:'before',
                 kg:false,
                 number:index_zhu.arr[i-today+1].remainQuantity,
+                id:index_zhu.arr[i-today+1].goodsId,
                 mary:index_zhu.arr[i-today+1].unitCost,
+                no_mary:index_zhu.arr[i-today+1].promotionCost,
               });
             }
             else{
@@ -532,7 +539,9 @@ Page({
                 type:'next',
                 kg:index_zhu.arr[i-today+1].kg,
                 number:index_zhu.arr[i-today+1].remainQuantity,
-                mary:index_zhu.arr[i-today+1].unitCost
+                id:index_zhu.arr[i-today+1].goodsId,
+                mary:index_zhu.arr[i-today+1].unitCost,
+                no_mary:index_zhu.arr[i-today+1].promotionCost,
               })
             }
           }
@@ -545,15 +554,13 @@ Page({
               type:'before',
             });
           }else{
-            console.log(i,'本月今天')
-            console.log(i+1-today)
-            console.log(index_zhu.arr[i+1-today].remainQuantity)
             if(index_zhu.arr[i+1-today].remainQuantity < index_zhu.number){
               data.push({//今天可选
                 value:'今天',
                 type:'before',
                 kg:false,
-                mary:index_zhu.arr[i+1-today].unitCost
+                mary:index_zhu.arr[i+1-today].unitCost,
+                no_mary:index_zhu.arr[i+1-today].promotionCost
               });
             }else{
               data.push({//今天可选
@@ -561,7 +568,9 @@ Page({
                 type:'now',
                 kg:true,
                 number:index_zhu.arr[i+1-today].remainQuantity,
-                mary:index_zhu.arr[i+1-today].unitCost
+                mary:index_zhu.arr[i+1-today].unitCost,
+                id:index_zhu.arr[i-today+1].goodsId,
+                no_mary:index_zhu.arr[i+1-today].promotionCost,
               });
             }
           }
@@ -574,7 +583,8 @@ Page({
               type:'before',
               kg:false,
               number:index_zhu.arr[i+1-today].remainQuantity,
-              mary:index_zhu.arr[i+1-today].unitCost
+              mary:index_zhu.arr[i+1-today].unitCost,
+              no_mary:index_zhu.arr[i+1-today].promotionCost,
             });
           }else{
             if(index_zhu.arr[i+1-today].remainQuantity <= this.data.number || index_zhu.arr[i+1-today].remainQuantity == 0){
@@ -583,7 +593,8 @@ Page({
                 type:'before',
                 kg:false,
                 number:index_zhu.arr[i+1-today].remainQuantity,
-                mary:index_zhu.arr[i+1-today].unitCost
+                mary:index_zhu.arr[i+1-today].unitCost,
+                no_mary:index_zhu.arr[i+1-today].promotionCost,
               });
             }else{
               data.push({//本月明天可选
@@ -591,7 +602,9 @@ Page({
                 type:'now',
                 kg:true,
                 number:index_zhu.arr[i+1-today].remainQuantity,
-                mary:index_zhu.arr[i+1-today].unitCost
+                mary:index_zhu.arr[i+1-today].unitCost,
+                id:index_zhu.arr[i+1-today].goodsId,
+                no_mary:index_zhu.arr[i+1-today].promotionCost,
               }); 
             }
             
@@ -602,44 +615,46 @@ Page({
           if(i%7==0||i%7==6){ 
             console.log(i+"下月星期天")
             console.log(this.data.arr1)
-            // data.push({//下月部分星期天
-            //   value:i-week+1,
-            //   type:'before',
-            //   // number:index_zhu.arr[i].number,
-            //   // mary:index_zhu.arr[i].mary,
-            //   name:"周天"
-            // });
+            data.push({//下月部分星期天
+              value:i-week+1,
+              type:'before',
+              name:"周天"
+            });
           }else{
             console.log(i+"本月")
             console.log(this.data.arr1)
-            // if(index_zhu.arr1[i].number > 1 && index_zhu.arr1[i].number<index_zhu.number){
-            //   data.push({//除周六日可选
-            //     value:i-week+1,
-            //     type:'before',
-            //     number:index_zhu.arr1[i].number,
-            //     mary:index_zhu.arr1[i].mary,
-               
-            //   });
-            // }else if(index_zhu.arr1[i].number == 0){
+            if(index_zhu.arr1[i-week].remainQuantity > 1 && index_zhu.arr1[i-week].remainQuantity<index_zhu.number){
+              data.push({//除周六日可选
+                value:i-week+1,
+                type:'before',
+                number:index_zhu.arr1[i-week].remainQuantity,
+                mary:index_zhu.arr1[i-week].unitCost,
+                id:index_zhu.arr1[i-week].goodsId,
+                no_mary:index_zhu.arr1[i-week].promotionCost
+              });
+            }else if(index_zhu.arr1[i-week].remainQuantity == 0){
               
-            //   // index_zhu.arr1[i].mary='已售完'
-            //   data.push({//除周六日可选
-            //     value:i-week+1,
-            //     type:'before',
-            //     number:index_zhu.arr1[i].number,
-            //     mary:index_zhu.arr1[i].mary,
-            //     name:i
-            //   });
-            // }else{
+              // index_zhu.arr1[i].mary='已售完'
+              data.push({//除周六日可选
+                value:i-week+1,
+                type:'before',
+                number:index_zhu.arr1[i-week].remainQuantity,
+                mary:index_zhu.arr1[i-week].unitCost,
+                id:index_zhu.arr1[i-today].goodsId,
+                no_mary:index_zhu.arr1[i-week].promotionCost
+              });
+            }else{
               
-            //   data.push({
-            //     value:i-week+1,
-            //     type:'next',
-            //     kg:index_zhu.arr1[i].kg,
-            //     number:index_zhu.arr1[i].number,
-            //     mary:index_zhu.arr1[i].mary
-            //   })
-            // }
+              data.push({
+                value:i-week+1,
+                type:'next',
+                kg:index_zhu.arr1[i-week].kg,
+                number:index_zhu.arr1[i-week].remainQuantity,
+                mary:index_zhu.arr1[i-week].unitCost,
+                id:index_zhu.arr1[i-week].goodsId,
+                no_mary:index_zhu.arr1[i-week].promotionCost
+              })
+            }
           }
           break;
         default:
