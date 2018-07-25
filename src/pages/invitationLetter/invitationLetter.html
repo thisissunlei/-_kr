@@ -2,7 +2,7 @@
     <image class="ivt-banner" src="../images/invitation/banner.jpg"></image>
     <image class="ivt-card" src="../images/invitation/card.png"></image>
     <image class="ivt-fix" src="../images/invitation/fix.png"></image>
-    <view class="ivt-body">
+    <view class="ivt-body" wx:if="{{bookUserAvatar != ''}}">
         <view class="ivt-user-info">
             <image class="ivt-user-avatar" src="{{bookUserAvatar}}"></image>
             <view class="ivt-user-name">{{bookUserName}}</view>

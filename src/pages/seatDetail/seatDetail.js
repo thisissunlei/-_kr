@@ -83,25 +83,25 @@ Page({
           app.getRequest({
             url: app.globalData.KrUrl + "api/gateway/krseat/ticket/cancel",
             data: {
-              ticketUserId: 74
+              ticketUserId: 91
             },
             success: function(res) {
               console.log(res, "取消散座");
+              // console.log("确认取消");-------
+              that.data.partner.map((item, index) => {
+                if (item.wechatNick == invitee.user_info.nickName) {
+                  that.data.partner.splice(index, 1);
+                }
+                return item;
+              });
+              setTimeout(() => {
+                wx.reLaunch({
+                  url: "../index/index"
+                });
+              }, 1500);
+              //---------------
             }
           });
-          // console.log("确认取消");-------
-          that.data.partner.map((item, index) => {
-            if (item.wechatNick == invitee.user_info.nickName) {
-              that.data.partner.splice(index, 1);
-            }
-            return item;
-          });
-          setTimeout(() => {
-            wx.reLaunch({
-              url: "../index/index"
-            });
-          }, 1500);
-          //---------------
         }
       }
     });

@@ -67,7 +67,7 @@ Page({
         type: that.data.type
       },
       // data: {
-      //   id: 69,
+      //   id: 91,
       //   type: "TICKET"
       // },
       success: function(res) {
@@ -93,7 +93,7 @@ Page({
         type: that.data.type
       },
       // data: {
-      //   id: 69,
+      //   id: 91,
       //   type: "TICKET"
       // },
       success: res => {
