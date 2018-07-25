@@ -330,7 +330,7 @@ Page({
       days = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ? 29 : 28;
     } else {
       //1-7月 单数月为31日
-      if (month <= 7) {
+      if (month < 7) {
         days = month % 2 == 1 ? 31 : 30;
       } else {
         //8-12月 双月为31日
