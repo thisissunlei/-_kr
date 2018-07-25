@@ -30,13 +30,11 @@ Page({
           latitude: res.latitude
         });
         that.getNearbyCity();
-        // that.getCitybyId();
       }
     });
   },
   onShow: function() {
     console.log(this.data.cityId);
-    this.getCitybyId();
   },
   //大厦城市id接口
   getCitybyId: function() {
@@ -49,40 +47,43 @@ Page({
         longitude: that.data.longitude
       },
       success: function(res) {
-        console.log(res);
-        that.setData({
-          latitude: res.data.data.cityLatitude,
-          longitude: res.data.data.cityLongitude
-        });
-        console.log(res);
-        var cityById = Object.assign({}, res);
-        console.log(cityById);
-        let makeArr = [];
-        let cityIdList = cityById.data.data.communityVOS;
-        cityIdList.map((item, index) => {
-          if (item.distance > 1000) {
-            item.distance = (item.distance / 1000).toFixed(1) + "km";
-          } else {
-            item.distance = Math.round(item.distance * 10) / 10 + "m";
-          }
-
-          makeArr.push({
-            iconPath: "../images/public/icon_dizhi.png",
-            id: item.communityId,
-            latitude: item.latitude,
-            longitude: item.longitude,
-            name: item.buildName,
-            width: 25,
-            height: 35
+        if (res.data.data.communityVOS.length > 0) {
+          that.setData({
+            latitude: res.data.data.cityLatitude,
+            longitude: res.data.data.cityLongitude
           });
-          return item;
-        });
+          console.log(res);
+          var cityById = Object.assign({}, res);
+          console.log(cityById);
+          let makeArr = [];
+          let cityIdList = cityById.data.data.communityVOS;
+          cityIdList.map((item, index) => {
+            if (item.distance > 1000) {
+              item.distance = (item.distance / 1000).toFixed(1) + "km";
+            } else {
+              item.distance = Math.round(item.distance * 10) / 10 + "m";
+            }
 
-        that.setData({
-          allCommunity: cityIdList,
-          cityList: cityIdList[0],
-          markers: makeArr
-        });
+            makeArr.push({
+              iconPath: "../images/map/uncheck.png",
+              id: item.communityId,
+              latitude: item.latitude,
+              longitude: item.longitude,
+              name: item.buildName,
+              width: 25,
+              height: 35
+            });
+            return item;
+          });
+
+          that.setData({
+            allCommunity: cityIdList,
+            cityList: cityIdList[0],
+            markers: makeArr
+          });
+        }
+
+        //---------
       }
     });
   },
@@ -111,7 +112,7 @@ Page({
             item.distance = Math.round(item.distance * 10) / 10 + "m";
           }
           makArr.push({
-            iconPath: "../images/public/icon_dizhi.png",
+            iconPath: "../images/map/uncheck.png",
             id: item.communityId,
             latitude: item.latitude,
             longitude: item.longitude,
@@ -122,10 +123,12 @@ Page({
 
           return item;
         });
+        var str = "markers[" + 0 + "].iconPath";
         that.setData({
           allCommunity: cityList,
           cityList: cityList[0],
-          markers: makArr
+          markers: makArr,
+          [str]: "../images/map/mark.png"
         });
       }
     });

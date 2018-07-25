@@ -25,6 +25,7 @@ Page({
       cityName: cityName,
       cityId: cityId
     });
+    prevPage.getCitybyId();
 
     setTimeout(() => {
       wx.navigateBack();
