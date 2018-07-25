@@ -5,6 +5,7 @@ const app = getApp();
 Page({
   data: {
     cityName: "北京市",
+    cityId: 1,
     latitude: 0,
     longitude: 0,
     allCommunity: [],
@@ -19,6 +20,7 @@ Page({
   },
   onLoad: function() {
     var that = this;
+    console.log(this.data.cityId);
     wx.getLocation({
       type: "gcj02",
       success: res => {
@@ -27,10 +29,14 @@ Page({
           longitude: res.longitude,
           latitude: res.latitude
         });
-        this.getNearbyCity();
-        // this.getCitybyId();
+        that.getNearbyCity();
+        that.getCitybyId();
       }
     });
+  },
+  onShow: function() {
+    console.log(this.data.cityId);
+    // this.getCitybyId();
   },
   //大厦城市id接口
   getCitybyId: function() {
@@ -38,7 +44,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + " api/gateway/krmting/cmts/city",
       data: {
-        cityId: 1,
+        cityId: that.data.cityId,
         latitude: that.data.latitude,
         longitude: that.data.longitude
       },
