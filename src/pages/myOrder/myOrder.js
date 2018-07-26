@@ -20,7 +20,7 @@ Page({
     tabList:{
         'ALL':'0',
         'OBLIGATION':'1',
-        'TOBEUSED':'2',
+        'TOUSE':'2',
         'USED':'3',
         'CLOSED':'4'
     },
