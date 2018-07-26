@@ -441,7 +441,7 @@ Page({
     );
   },
   selectTopDate: function(e) {
-    // console.log(e)
+    console.log(e)
     var topDate = this.data.topDate; //[]
     var indexParam = e.currentTarget.dataset.index;
     this.changeTimeColor(indexParam);

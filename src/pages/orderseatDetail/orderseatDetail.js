@@ -415,6 +415,7 @@ Page({
         wx.getStorage({
         key: 'detail-c',
         success: function (res) {
+          console.log(res)
           if (res.data) {
               _this.setData({
               detailInfo: res.data
