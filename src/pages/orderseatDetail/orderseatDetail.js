@@ -50,17 +50,18 @@ Page({
   
   //立即支付
   payOrder:function(){
-    this.getAppurl()
+    // this.getAppurl()
     let orderId=this.data.orderId;
-      let arr=wx.getStorageSync("myorder")
+      let arr=wx.getStorageSync("myorder");
+
       app.getRequest({
         // 修改订单
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
         method:"get",
         data:{
-          alertTime	: arr[arr.length-1].alertTime,
-          arravingTime	:arr[arr.length-1].arrivingTime,
-          linkPhone	:	arr[arr.length-1].linkPhone || wx.getStorageSync("order_pay").linkPhone,
+          alertTime	: arr.alertTime,
+          arravingTime	:arr.arrivingTime,
+          linkPhone	:	arr.linkPhone || wx.getStorageSync("order_pay").linkPhone,
           orderId :orderId
         },
         success:(res)=>{
