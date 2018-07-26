@@ -125,7 +125,13 @@ Page({
     if (e.detail.userInfo) {
       // console.log(e.detail.userInfo);
       //保存到storage里
-      wx.setStorageSync("user_info", e.detail.userInfo);
+      // wx.setStorageSync("user_info", e.detail.userInfo);
+      wx.setStorage({
+        key: "user_info",
+        data: {
+          user_info: e.detail.userInfo
+        }
+      });
       this.getUserInfo();
       this.invitation();
       // this.login();
