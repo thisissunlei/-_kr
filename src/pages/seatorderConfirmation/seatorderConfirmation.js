@@ -251,7 +251,7 @@ Page({
   jumpSetRemind: function () {
     let data = this.data;
     wx.navigateTo({
-      url: '../warn/warn?type=storage&alertTime=' + data.alertTime
+      url: '../warnseat/warnseat?type=storage&alertTime=' + data.alertTime
     })
 
   },
