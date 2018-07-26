@@ -96,7 +96,7 @@
 							<view>订单号:{{item.orderNo}}</view>
 							<text class="status unpay" wx:if="{{item.orderShowStatus  == 'OBLIGATION'}}">待支付</text>
 							<text class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已完成</text>
-							<text class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</text>
+							<text class="status unused" wx:if="{{item.orderShowStatus == 'TOUSE'}}">待使用</text>
 							<text class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已取消</text>
 						</view>	
 						<view wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box" >
