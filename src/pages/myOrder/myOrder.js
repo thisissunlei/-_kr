@@ -248,13 +248,13 @@ Page({
               },
               'fail':function(res){
                 wx.navigateTo({
-                  url: '../orderseatDetail/orderseatDetail?id='+id +'&con='+1
+                  url: '../orderDetail/orderDetail?id='+id +'&con='+1
                 })
               }
             })
           }else{
             wx.navigateTo({
-              url: '../orderseatDetail/orderseatDetail?id='+id +'&con='+1
+              url: '../orderDetail/orderDetail?id='+id +'&con='+1
             })
 
             that.setData({

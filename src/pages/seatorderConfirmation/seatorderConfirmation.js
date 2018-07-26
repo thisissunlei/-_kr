@@ -921,7 +921,7 @@ Page({
           this.all_day_num++;
           break;
           
-        case i<(30-this.all_day_num+week)&&!bool:
+        case i<(30-this.all_day_num+week-1)&&!bool:
           if(i%7==0||i%7==6){ 
             data.push({//下月部分星期天
               value:i-week+1,
