@@ -17,7 +17,8 @@
       -ms-flex-pack:justify;
       justify-content:space-between;
       width:100%;z-index:100;
-      background:#fff
+      background:#fff;
+      overflow: hidden;
     }
     .top-date .gray-border{
         position:absolute;
@@ -94,13 +95,16 @@
     .top-date .left .date-item .bottom-border{
         width:40rpx;
         height:4rpx;
-      background-image: -webkit-linear-gradient(0deg, #F79C1C, #FFD24C);
+        background-image: -webkit-linear-gradient(0deg, #fff, #fff);
         border-radius:8rpx;
         transform:translateY(1rpx);
-        visibility:hidden
+        
     }
     .top-date .left .date-item-actived .bottom-border{
-        visibility:visible !important;
+       
+    }
+    .bottom-border-activied{
+        background-image: -webkit-linear-gradient(0deg, #F79C1C, #FFD24C) !important;
     }
     .list-outer{
         background:#F3F3F3;

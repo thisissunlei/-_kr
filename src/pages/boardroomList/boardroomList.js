@@ -176,7 +176,7 @@ Page({
     var topDate = this.data.topDate;
     var indexParam = validIndex;
     var that = this;
-    // console.log(topDate);
+    
     var newData = topDate.map((item, index) => {
       if (index == indexParam) {
         item.actived = true;
@@ -211,6 +211,7 @@ Page({
         wx.setStorageSync("nowDate", topDate[validIndex].date);
         wx.setStorageSync("orderDate", orderDate);
         wx.setStorageSync("nowDateIndex", validIndex);
+        console.log(newData);
       }
     );
   },

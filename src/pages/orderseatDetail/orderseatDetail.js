@@ -52,7 +52,26 @@ Page({
   payOrder:function(){
     this.getAppurl()
     let orderId=this.data.orderId;
+      let arr=wx.getStorageSync("myorder")
+      app.getRequest({
+        // 修改订单
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+        method:"get",
+        data:{
+          alertTime	: arr[arr.length-1].alertTime,
+          arravingTime	:arr[arr.length-1].arrivingTime,
+          linkPhone	:	arr[arr.length-1].linkPhone || wx.getStorageSync("order_pay").linkPhone,
+          orderId :orderId
+        },
+        success:(res)=>{
     
+          console.log(res)
+        
+        },
+        fail:(error)=>{
+            
+        }
+      })
 
     let data= wx.getStorageSync("order")
     wx.requestPayment({
@@ -571,30 +590,8 @@ Page({
         fail:(error)=>{
           
       }
-    }),
-    function getAppurl(){
-      let orderId=this.data.orderId;
-      let arr=wx.getStorageSync("myorder")
-      app.getRequest({
-        // 修改订单
-        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
-        method:"get",
-        data:{
-          alertTime	: arr[arr.length-1].alertTime,
-          arravingTime	:arr[arr.length-1].arrivingTime,
-          linkPhone	:	arr[arr.length-1].linkPhone || wx.getStorageSync("order_pay").linkPhone,
-          orderId :orderId
-        },
-        success:(res)=>{
-    
-          console.log(res)
-        
-        },
-        fail:(error)=>{
-            
-        }
-      })
-    } 
+    })
+   
     
     
     
