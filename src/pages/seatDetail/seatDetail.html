@@ -7,6 +7,8 @@
                 <image src="../images/indexImg/card.png" class="img"></image>
                 <!-- 已过期png -->
                 <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{seatStatus==='EXPIRED'}}"></image>
+                <!-- 已入场 -->
+                <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='USED'}}"></image>
                 <view class="content">
                     <view class='title'>
                         <text class='meetingTime'>{{detail.useTime}}</text>
@@ -32,7 +34,7 @@
             </view>
         </view>
         <!-- 同行人 -->
-        <view class='conferee' wx:if="{{detail.sponsor && detail.canInvite}}">
+        <view class='conferee' wx:if="{{detail.sponsor}}">
             <text class='conferee-title'>同行人({{partner.length}})</text>
             <block>
                 <view class='list' wx:for="{{partner}}" wx:key>

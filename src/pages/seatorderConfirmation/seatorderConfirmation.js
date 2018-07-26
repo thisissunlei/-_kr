@@ -162,6 +162,8 @@ Page({
   },
   // 立即支付按钮
   goToPay: function () {
+   
+
     let data = this.data;
     var _this = this;
     if (!data.check) {
@@ -1421,7 +1423,7 @@ console.log(that.goodid_now,222222)
             },
           })
           wx.navigateTo({
-            url: '../bindPhone/bindPhone'
+            url: '../bindPhone/bindPhone?from='+"seat"
           })
           break;
         case -3:
