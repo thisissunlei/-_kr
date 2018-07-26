@@ -34,7 +34,7 @@
             </view>
         </view>
         <!-- 同行人 -->
-        <view class='conferee' wx:if="{{detail.sponsor && detail.canInvite}}">
+        <view class='conferee' wx:if="{{detail.sponsor}}">
             <text class='conferee-title'>同行人({{partner.length}})</text>
             <block>
                 <view class='list' wx:for="{{partner}}" wx:key>
