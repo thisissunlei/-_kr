@@ -137,7 +137,7 @@ Page({
     if (that.data.seatStatus == "EXPIRED") {
       QR.qrApi.draw(
         //kr_meeting
-        "https://web.krspace.cn/test/seat_test/kr_meeting04/index.html?inviteeId=" +
+        "https://web.krspace.cn/test/seat_test/krmeeting_08/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
         that.data.width / 2.5,
@@ -151,7 +151,7 @@ Page({
       // console.log(that.data.canInvite);
     } else {
       QR.qrApi.draw(
-        "https://web.krspace.cn/test/seat_test/kr_meeting04/index.html?inviteeId=" +
+        "https://web.krspace.cn/test/seat_test/krmeeting_08/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
         that.data.width / 2.5,
@@ -182,13 +182,10 @@ Page({
         // console.log(newUser);
         // var sponsor = seatInfo.data.data.sponsor;
         var inviteers = seatInfo.data.data.inviteers;
-        console.log(newUser.user_info);
+        // console.log(newUser.user_info);
         if (seatInfo.data.data.canInvite) {
           var result = inviteers.some(value => {
-            return (
-              value.wechatNick == newUser.user_info.nickName &&
-              value.wechatAvatar == newUser.user_info.avatarUrl
-            );
+            return value.wechatNick == newUser.user_info.nickName;
           });
           if (!result) {
             inviteers.push({
