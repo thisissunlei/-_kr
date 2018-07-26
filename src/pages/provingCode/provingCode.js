@@ -24,7 +24,8 @@ Page({
     },
     user_info:{},
     success:false,
-    areaCode:''
+    areaCode:'',
+    form:'order'
     
   },
   onShareAppMessage: function() {
@@ -32,6 +33,12 @@ Page({
   },
   onLoad: function (options) {
     let that = this;
+    console.log('======>',options.from)
+    if(options.from){
+      this.setData({
+        from:options.from
+      })
+    }
      wx.getStorage({
       key: 'user_info',
       success: function(res) {
@@ -115,7 +122,15 @@ Page({
                     success:false
                   })
                 },2000)
-                that.getOrderData();
+
+                //处理判断散座还是订单
+                if(that.data.from=='seat'){
+                  that.getSeatData()
+                }else{
+                  that.getOrderData();
+                }
+                
+                
               }
             })
           }else{
@@ -159,6 +174,22 @@ Page({
         }
       }
     })
+    //orderData--->create_order取数据
+  },
+  getSeatData(){
+    let that = this;
+    let seat = {}
+    
+
+    wx.getStorage({
+      key: 'myorder',
+      success: function(res) {
+        if(res.data){
+          that.createSeat(res.data)
+        }
+      }
+    })
+    
     //orderData--->create_order取数据
   },
   createOrder:function(create_order){
@@ -232,15 +263,28 @@ Page({
                 
               },
               'fail':function(res){
-                wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
-                })
+                if(that.data.from=='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
+                
               }
             })
           }else{
-            wx.navigateTo({
-              url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
-            })
+            if(that.data.from=='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
           }
           
         },
@@ -326,4 +370,44 @@ Page({
     })
     
   },
+  createSeat(data){
+    let that = this;
+    app.getRequest({
+    // 散座下单
+    url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+    methods: "GET",
+    header: {
+      'content-type': "appication/json"
+    },
+    data: data,
+
+    success:(res)=>{
+            let code=res.data.code;
+            let rsData = res.data.data;
+            if(code==-1){
+              that.setData({
+                phoneError:false,
+                success:false,
+                errorMessage:res.data.message
+              })
+              setTimeout(function(){
+                that.setData({
+                  phoneError:true,
+                  errorMessage:'',
+
+                  
+                })
+              },2000)
+            }else{
+              that.weChatPay(rsData)
+              that.clearStorage()
+            }
+
+    },
+    fail:(res)=>{
+      console.log('=======',res)
+    }
+
+  })
+  }
 })
