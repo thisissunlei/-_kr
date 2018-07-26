@@ -111,6 +111,8 @@ Page({
   all_day_num:0,
   last_btn_num:'false',
   last_data:'false',
+  goodid_now:[],
+  goodid_next:[],
 
   // 散座s详情弹窗
   openMeetDetail: function (e) {
@@ -614,7 +616,7 @@ Page({
   },
   dateBtn :function(e){
     
-    console.log(this.data.week)
+    console.log(this.data.week,9999)
     const today_a = parseInt(new Date().getDate())
     // console.log(e)
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
@@ -627,7 +629,7 @@ Page({
       if(e.target.dataset.data=='date_data2'){
         let ios = this.data.date_data2
         let zuti = e.target.dataset.kg
-        let index_zi_a = this.data.arr1
+        let index_zi_a = this.goodid_next;
         console.log(index_zi_a,ios,e.target.dataset.num)
         let inn1 = this.data.inn1
         //------------------
@@ -642,7 +644,7 @@ Page({
         this.setData({
           date_data2:ios,
           // date_data2:new_data, 
-          arr1:index_zi_a 
+          //arr1:index_zi_a 
         });
         if(e.target.dataset.kg == true){//取消
           // console.log("用户取消了")
@@ -698,7 +700,7 @@ Page({
         // console.log(this.data.date_data1)
         let ioi = this.data.date_data1
         let zuti = e.target.dataset.kg
-        let index_zi = this.data.arr
+        let index_zi = this.goodid_now;
         // console.log(ioi,index_zi)
         ioi[e.target.dataset.num].kg = !ioi[e.target.dataset.num].kg//true
         index_zi[e.target.dataset.num+1-today_a].kg = !index_zi[e.target.dataset.num+1-today_a].kg
@@ -706,7 +708,7 @@ Page({
         this.setData({
           date_data1:ioi,
           // date_data1:new_data,
-          arr:index_zi
+          //arr:index_zi
         });
         if(e.target.dataset.kg == true){//取消
           console.log("用户取消了")
@@ -771,7 +773,7 @@ Page({
   },
   test:function(today_month,bool){
     
-    console.log(">>>>>>>data>>>>>",this.data.arr)
+    console.log(">>>>>>>data>>>>>",this.goodid_now)
     let index_zhu = this.data
     const week = today_month.getDay();//月第一天星期几
     this.setData({
@@ -781,8 +783,8 @@ Page({
     today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
     const day_num = today_month.getDate()+week;//31天+ 星期三==34
-    let fu_arr = this.data.arr
-    let fu_arr1 = this.data.arr
+    let fu_arr = this.goodid_now
+    let fu_arr1 = this.goodid_now
     // for(let i of fu_arr){
     //   i.kg = false
     // }
@@ -792,15 +794,16 @@ Page({
 
     let new_arr = fu_arr.slice(0,day_num-week-today+1)
     // console.log(new_arr)
-    let new_arr1 = fu_arr.slice(day_num-week-today+1)
+    let new_arr1 = fu_arr.slice(day_num-week-today+1);
+    this.goodid_next = new_arr1;
     console.log(new_arr,new_arr1)
     let _this = this
-    this.setData({
+    /*this.setData({
       arr2:new_arr,
       arr1:new_arr1
     },function(){
       // console.log(_this.data.arr2,_this.data.arr1)
-    })
+    })*/
     
     const data = [];
     for (var i = 0; i < day_num; i++) {
@@ -818,42 +821,42 @@ Page({
               })
             
           }else{
-            console.log(index_zhu.arr[i-today+1],'----------------------------------')
-            if(index_zhu.arr[i-today+1].remainQuantity > 1 && index_zhu.number>index_zhu.arr[i-today+1].remainQuantity){
-              // index_zhu.arr[i].mary='数量不足'
+            console.log(this.goodid_now[i-today+1],'----------------------------------')
+            if(this.goodid_now[i-today+1].remainQuantity > 1 && index_zhu.number>this.goodid_now[i-today+1].remainQuantity){
+              // this.goodid_now[i].mary='数量不足'
               // console.log("数量不足")
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
                 kg:false,
-                id:index_zhu.arr[i-today+1].goodsId,
-                number:index_zhu.arr[i-today+1].remainQuantity,
-                mary:index_zhu.arr[i-today+1].unitCost,
-                mary:index_zhu.arr[i-today+1].promotionCost,
+                id:this.goodid_now[i-today+1].goodsId,
+                number:this.goodid_now[i-today+1].remainQuantity,
+                mary:this.goodid_now[i-today+1].unitCost,
+                mary:this.goodid_now[i-today+1].promotionCost,
               });
-            }else if(index_zhu.arr[i-today+1].remainQuantity == 0){
-              // index_zhu.arr[i].mary='已售完'
+            }else if(this.goodid_now[i-today+1].remainQuantity == 0){
+              // this.goodid_now[i].mary='已售完'
               // console.log("已售完")
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
                 kg:false,
-                number:index_zhu.arr[i-today+1].remainQuantity,
-                id:index_zhu.arr[i-today+1].goodsId,
-                mary:index_zhu.arr[i-today+1].unitCost,
-                no_mary:index_zhu.arr[i-today+1].promotionCost,
+                number:this.goodid_now[i-today+1].remainQuantity,
+                id:this.goodid_now[i-today+1].goodsId,
+                mary:this.goodid_now[i-today+1].unitCost,
+                no_mary:this.goodid_now[i-today+1].promotionCost,
               });
             }
             else{
-              console.log(index_zhu.arr1,index_zhu.arr[i-today+1].kg,i-today+1,444441111111);
+              console.log(this.goodid_now1,this.goodid_now[i-today+1].kg,i-today+1,444441111111);
               data.push({
                 value:i-week+1,
                 type:'next',
-                kg:index_zhu.arr[i-today+1].kg,
-                number:index_zhu.arr[i-today+1].remainQuantity,
-                id:index_zhu.arr[i-today+1].goodsId,
-                mary:index_zhu.arr[i-today+1].unitCost,
-                no_mary:index_zhu.arr[i-today+1].promotionCost,
+                kg:this.goodid_now[i-today+1].kg,
+                number:this.goodid_now[i-today+1].remainQuantity,
+                id:this.goodid_now[i-today+1].goodsId,
+                mary:this.goodid_now[i-today+1].unitCost,
+                no_mary:this.goodid_now[i-today+1].promotionCost,
               })
               
             }
@@ -868,13 +871,13 @@ Page({
             });
           }else{
             console.log(this.data.arr,'本月的arr') 
-            if(index_zhu.arr[i+1-today].remainQuantity < index_zhu.number){
+            if(this.goodid_now[i+1-today].remainQuantity < index_zhu.number){
               data.push({//今天可选
                 value:'今天',
                 type:'before',
                 kg:false,
-                mary:index_zhu.arr[i+1-today].unitCost,
-                no_mary:index_zhu.arr[i+1-today].promotionCost
+                mary:this.goodid_now[i+1-today].unitCost,
+                no_mary:this.goodid_now[i+1-today].promotionCost
               });
             }else{
               // console.log(this.data.arr,'本月的arr')
@@ -882,10 +885,10 @@ Page({
                 value:'今天',
                 type:'now',
                 kg:true,
-                number:index_zhu.arr[i+1-today].remainQuantity,
-                mary:index_zhu.arr[i+1-today].unitCost,
-                id:index_zhu.arr[i-today+1].goodsId,
-                no_mary:index_zhu.arr[i+1-today].promotionCost,
+                number:this.goodid_now[i+1-today].remainQuantity,
+                mary:this.goodid_now[i+1-today].unitCost,
+                id:this.goodid_now[i-today+1].goodsId,
+                no_mary:this.goodid_now[i+1-today].promotionCost,
               });
             }
           }
@@ -897,84 +900,77 @@ Page({
               value:'明天',
               type:'before',
               kg:false,
-              number:index_zhu.arr[i+1-today].remainQuantity,
-              mary:index_zhu.arr[i+1-today].unitCost,
-              no_mary:index_zhu.arr[i+1-today].promotionCost,
+              number:this.goodid_now[i+1-today].remainQuantity,
+              mary:this.goodid_now[i+1-today].unitCost,
+              no_mary:this.goodid_now[i+1-today].promotionCost,
             });
           }else{
-            if(index_zhu.arr[i+1-today].remainQuantity <= this.data.number || index_zhu.arr[i+1-today].remainQuantity == 0){
+            if(this.goodid_now[i+1-today].remainQuantity <= this.data.number || this.goodid_now[i+1-today].remainQuantity == 0){
               data.push({//本月明天可选
                 value:'明天',
                 type:'before',
                 kg:false,
-                number:index_zhu.arr[i+1-today].remainQuantity,
-                mary:index_zhu.arr[i+1-today].unitCost,
-                no_mary:index_zhu.arr[i+1-today].promotionCost,
+                number:this.goodid_now[i+1-today].remainQuantity,
+                mary:this.goodid_now[i+1-today].unitCost,
+                no_mary:this.goodid_now[i+1-today].promotionCost,
               });
             }else{
               data.push({//本月明天可选
                 value:'明天',
                 type:'now',
-                kg:index_zhu.arr[i+1-today].kg,
-                number:index_zhu.arr[i+1-today].remainQuantity,
-                mary:index_zhu.arr[i+1-today].unitCost,
-                id:index_zhu.arr[i+1-today].goodsId,
-                no_mary:index_zhu.arr[i+1-today].promotionCost,
+                kg:this.goodid_now[i+1-today].kg,
+                number:this.goodid_now[i+1-today].remainQuantity,
+                mary:this.goodid_now[i+1-today].unitCost,
+                id:this.goodid_now[i+1-today].goodsId,
+                no_mary:this.goodid_now[i+1-today].promotionCost,
               }); 
             }
             
           }
           this.all_day_num++;
-          console.log(this.all_day_num)
-          console.log(30-this.all_day_num+week)
           break;
           
-        case i<(30-this.all_day_num+week)&&!bool:
-        console.log(this.all_day_num)
-        console.log(30-this.all_day_num+week)
+        case i<(30-this.all_day_num+week-1)&&!bool:
           if(i%7==0||i%7==6){ 
-            // console.log(i+"下月星期天")
-            // console.log(this.data.arr1)
             data.push({//下月部分星期天
               value:i-week+1,
               type:'before',
               name:"周天"
             });
           }else{
-            // console.log(index_zhu.arr1)
-            console.log(i-week)
-            // console.log(index_zhu.arr1[i-week],111111111111111)
-            if(index_zhu.arr1[i-week].remainQuantity > 1 && index_zhu.arr1[i-week].remainQuantity<index_zhu.number){
+          
+             console.log(new_arr1,new_arr1[i-week],i-week,111111111111111)
+            if(new_arr1[i-week].remainQuantity > 1 && new_arr1[i-week].remainQuantity<index_zhu.number){
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
-                kg:index_zhu.arr1[i-week].kg,
-                number:index_zhu.arr1[i-week].remainQuantity,
-                mary:index_zhu.arr1[i-week].unitCost,
-                id:index_zhu.arr1[i-week].goodsId,
-                no_mary:index_zhu.arr1[i-week].promotionCost
+                kg:new_arr1[i-week].kg,
+                number:new_arr1[i-week].remainQuantity,
+                mary:new_arr1[i-week].unitCost,
+                id:new_arr1[i-week].goodsId,
+                no_mary:new_arr1[i-week].promotionCost
               });
-            }else if(index_zhu.arr1[i-week].remainQuantity == 0){
+            }else if(new_arr1[i-week].remainQuantity == 0){
               
-              // index_zhu.arr1[i].mary='已售完'
+              // new_arr1[i].mary='已售完'
               data.push({//除周六日可选
                 value:i-week+1,
                 type:'before',
-                number:index_zhu.arr1[i-week].remainQuantity,
-                mary:index_zhu.arr1[i-week].unitCost,
-                id:index_zhu.arr1[i-week].goodsId,
-                no_mary:index_zhu.arr1[i-week].promotionCost
+                number:new_arr1[i-week].remainQuantity,
+                mary:new_arr1[i-week].unitCost,
+                id:new_arr1[i-week].goodsId,
+                no_mary:new_arr1[i-week].promotionCost
               });
             }else{
-              // console.log(index_zhu.arr1[i-week],index_zhu.arr1[i-week].kg,22222222111)
+              // console.log(new_arr1[i-week],new_arr1[i-week].kg,22222222111)
               data.push({
                 value:i-week+1,
                 type:'next',
-                kg:index_zhu.arr1[i-week].kg,
-                number:index_zhu.arr1[i-week].remainQuantity,
-                mary:index_zhu.arr1[i-week].unitCost,
-                id:index_zhu.arr1[i-week].goodsId,
-                no_mary:index_zhu.arr1[i-week].promotionCost
+                kg:new_arr1[i-week].kg,
+                number:new_arr1[i-week].remainQuantity,
+                mary:new_arr1[i-week].unitCost,
+                id:new_arr1[i-week].goodsId,
+                no_mary:new_arr1[i-week].promotionCost
               })
             }
           }
@@ -1001,7 +997,7 @@ Page({
       console.log(data,6666)
     
   },
-  dealDate:function(today_month,bool){
+  dealDate:function(today_month_new,bool){
     
     var that = this;
    app.getRequest({
@@ -1012,41 +1008,109 @@ Page({
      },
      success:res=>{
        console.log(res)
-      for(let i of res.data.data){
-        i.kg = false
-      }
-       that.setData({
-         arr:res.data.data
-       },function(){
-        let value = wx.getStorageSync('data-index')
-        if(!value){
-          // console.log("没有本地存储")
-          that.test(today_month,bool);
+      // for(let i of res.data.data){
+      //   i.kg = false
+      // }
+      var curMonth = res.data.data.curMonth;
+
+      const today_month = new Date(curMonth[0].useTime);
+      const today_day = today_month.getDate();
+      today_month.setMonth(today_month.getMonth() + 1);
+      today_month.setDate(0);
+      const day_num = today_month.getDate();
+      for(var i = 0;i<curMonth.length;i++){
+        var tdy = new Date(curMonth[i].useTime).getDate();
+
+        if((i+today_day)==tdy){
+          curMonth[i].kg = false;
+          that.goodid_now.push(curMonth[i]);
         }else{
-          wx.getStorage({key:"data-index",success:res=>{
+          that.goodid_now.push({
+            goodsId : "",
+            kg:false,
+            promotionCost:'',
+            remainQuantity:'',
+            seatId:'',
+            unitCost:'',
+            useTime:''
+          });
+        }
+      }
+      console.log(that.goodid_now,1111)
+      var nextMonth = res.data.data.nextMonth;
+
+      const today_month1 = new Date(nextMonth[0].useTime);
+      today_month1.setMonth(today_month1.getMonth() + 1);
+      today_month1.setDate(0);
+      const day_num1 = today_month1.getDate();
+      for(var i = 0;i<nextMonth.length;i++){
+        var tdy1 = new Date(nextMonth[i].useTime).getDate();
+        console.log(i+1,tdy1,222222)
+        if((i+1)==tdy1){
+          nextMonth[i].kg = false;
+          that.goodid_now.push(nextMonth[i]);
+        }else{
+          that.goodid_now.push({
+            goodsId : "",
+            kg:false,
+            promotionCost:'',
+            remainQuantity:'',
+            seatId:'',
+            unitCost:'',
+            useTime:''
+          });
+        }
+      }
+console.log(that.goodid_now,222222)
+      //that.goodid_next = res.data.nextMonth;
+       /*that.setData({
+         arr:res.data.data
+       },function(){*/
+        //let value = wx.getStorageSync('data-index')
+        if(that.combination_new.length===0){
+           console.log("没有本地存储")
+          /*that.test(today_month_new,bool);*/
+
+
+
+
+        }else{
+          //wx.getStorage({key:"data-index",success:res=>{
+            let res = that.combination_new
             console.log(res)
-            let arr = that.data.arr
+            //let arr = that.data.arr;
+            //let arr = that.goodid_now;
+           
+
             for(let i of res.data){
-              for(let j of arr){
+              for(let j of that.goodid_now){
                 if(i.id == j.goodsId){
                   j.kg = true
                 }
               }
             }
+             console.log(that.goodid_now,999999)
             that.setData({
               number:res.data[0].number_a,
-              arr : arr
+              //arr : arr
             })
-            console.log(that.data.number)
-            setTimeout(function (){
-              that.test(today_month,bool);
-            },10)
-          }})
+            //console.log(that.data.number)
+            //setTimeout(function (){
+              //that.test(today_month_new,bool);
+            //},10)
+          //}})
           
          
         }
+          const today_date_1 = new Date();
+    
+          const today_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth(),1)
+          const next_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth()+1,1)
           
-       })
+          that.test(today_month_1,true);
+          // console.log(date1);
+          that.test(next_month_1,false);
+       //})
      }
    })
     
@@ -1066,10 +1130,10 @@ Page({
     
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    
-    const date1 = this.dealDate(today_month,true);
+    this.dealDate();
+    /*const date1 = this.dealDate(today_month,true);
     // console.log(date1);
-    const date2 = this.dealDate(next_month,false);
+    const date2 = this.dealDate(next_month,false);*/
     this.setData({
       
       date_now:{
@@ -1106,17 +1170,17 @@ Page({
     var _this = this;
 
     if (options.from == 'list') {
-      wx.getStorage({
-        key: 'meet_detail',
-        success: function (res) {
-          if (res.data) {
+      // wx.getStorage({
+      //   key: 'meet_detail',
+      //   success: function (res) {
+      //     if (res.data) {
 
-            _this.setData({
-              detailInfo: res.data
-            })
-          }
-        }
-      })
+      //       _this.setData({
+      //         detailInfo: res.data
+      //       })
+      //     }
+      //   }
+      // })
     } else {
       wx.getStorage({
         key: 'detail-c',
@@ -1132,14 +1196,14 @@ Page({
     }
 
 
-    wx.getStorage({ //获取今天
-      key: 'orderDate',
-      success: function (res) {
-        if (res.data) {
-          _this.getThemeName(res.data);
-        }
-      }
-    })
+    // wx.getStorage({ //获取今天
+    //   key: 'orderDate',
+    //   success: function (res) {
+    //     if (res.data) {
+    //       _this.getThemeName(res.data);
+    //     }
+    //   }
+    // })
     wx.getStorage({
       key: 'order_pay',
       success: function (res) {
