@@ -103,6 +103,7 @@ Page({
     console.log(e);
     wx.setStorageSync("rangeTime-c", rangeTime);
     wx.setStorageSync("detail-c", detail);
+    console.log(e.currentTarget.dataset.detail.goodsId,e.currentTarget.dataset.detail.seatId)
     wx.navigateTo({
       url:
         "/pages/seatorderConfirmation/seatorderConfirmation?goodsId=" +e.currentTarget.dataset.detail.goodsId+'&seatId='+e.currentTarget.dataset.detail.seatId
@@ -253,6 +254,7 @@ Page({
   getData1: function() {
     let that = this;
     // console.log(that.data.communityId,that.data.nowDate)
+    console.log(that.data.communityId,that.data.nowDate)
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/seat/goods/cmt",
       methods: "GET",
@@ -329,7 +331,7 @@ Page({
       days = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ? 29 : 28;
     } else {
       //1-7月 单数月为31日
-      if (month < 7) {
+      if (month <= 7) {
         days = month % 2 == 1 ? 31 : 30;
       } else {
         //8-12月 双月为31日
