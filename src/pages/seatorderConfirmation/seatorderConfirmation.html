@@ -39,8 +39,8 @@
             <view class="u-line"></view>
         </view>
         <!--隐藏 日期盒子 -->
-        <scroll-view scroll-y="true" style="height:200rpx"class="u-time-box" wx:if="{{sankeNum && daynum}}">
-        <!-- <view class="u-time-box" wx:if="{{sankeNum && daynum}}"> -->
+        <!-- <scroll-view scroll-y="true" style="height:200rpx"class="u-time-box" wx:if="{{sankeNum && daynum}}"> -->
+        <view class="u-time-box" wx:if="{{sankeNum && daynum}}">
             <view class="box2">
             </view>
             <view class="u-time-info" wx:for="{{carendarArr}}" wx:key>
@@ -54,8 +54,8 @@
                 <view class="u-time-col">x
                     <span class="spannum">{{sankeNum}}</span> 个</view>
             </view>
-        <!-- </view> -->
-    </scroll-view>
+        </view>
+    <!-- </scroll-view> -->
     </view>
 
 

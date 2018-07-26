@@ -204,9 +204,11 @@ Page({
   }
 
   return {
-    title: '戳我一键参会！邀请您于"'+carendarArr[item].month+"月"+carendarArr[item].value+"日"+'"在"'+this.data.detailInfo.buildAndFloorDescr+'"参加"'+"氪空间会议"+'"',
+    // title: '戳我一键参会！邀请您于"'+carendarArr[item].month+"月"+carendarArr[item].value+"日"+'"在"'+this.data.detailInfo.buildAndFloorDescr+'"参加"'+"氪空间会议"+'"',
+    title: '来来来，发现一个办公的好地儿~',
+    desc: "KrMeeting会议室",
     path: 'pages/invitationLetter/invitationLetter?type=ORDER&seatId='+this.data.detailInfo.orderId,
-    imageUrl:'../images/indexImg/statusbg.png'
+    imageUrl:'../images/map/seativt.png'
   }
 },
 
