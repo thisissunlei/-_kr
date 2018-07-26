@@ -381,5 +381,14 @@ Page({
         btn_bool: false
       });
     }
-  }
+  },
+  jumpMyMeet:function() {
+    wx.navigateTo({
+      url: '../bindPhone/bindPhone?from=seat'
+    })
+  },
 });
+  
+
+
+

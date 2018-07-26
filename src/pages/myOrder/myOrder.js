@@ -12,7 +12,7 @@ Page({
     errorMessage:'',
     page:1,
     orderOldList:[],
-    
+    order:'',
     totalPages:0,
     type:'',
     list:[],
@@ -271,37 +271,12 @@ Page({
   },
   orderPay1(e){
     console.log(e)
-    //  let id = e.target.dataset.order;
-    //  let that = this;
-    //  app.getRequest({
-    //      url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/create',
-    //      methods:"GET",
-    //      data:{
-    //        orderId:id
-    //      },
-    //      success:(res)=>{
-    //        console.log('res',res)
-    //        if(res.data.code>0){
-    //           // wx.reportAnalytics('confirmorder')
-         
-    //        }else{
-    //          wx.navigateTo({
-    //            url: '../orderseatDetail/orderDetail?id='+id 
-    //          })
- 
-    //          // that.setData({
-    //          //   error:false,
-    //          //   errorMessage:res.data.message
-    //          // })
-    //        }
-           
-    //      },
-    //      fail:(res)=>{
-    //         console.log('========',res)
-    //      }
-    //    })
+    this.setData({
+      orderId:e.currentTarget.dataset.order
+    })
     let data_a = wx.getStorageSync('order-info')
     let orderId= e.currentTarget.dataset.order
+    console.log(orderId)
     console.log(data_a,orderId)
     let data = null
     data_a.map((item,index)=>{
@@ -309,7 +284,7 @@ Page({
         data = item
       }
     })
-    // console.log(data)
+    console.log(data)
     wx.requestPayment({
       'timeStamp': data.timestamp,
       'nonceStr': data.noncestr,
@@ -317,10 +292,12 @@ Page({
       'signType':data.signType,
       'paySign': data.paySign,
       'success':function(res){
-        console.log(res)
-        this.getInviteeId(id)
+        wx.navigateTo({
+          url: '../orderseatDetail/orderseatDetail?id='+orderId 
+        })
       },
       'fail':function(res){
+        console.log(res,1111111)
         wx.navigateTo({
           url: '../orderseatDetail/orderseatDetail?id='+orderId 
         })
@@ -328,24 +305,25 @@ Page({
     })
 
    },
-  getInviteeId(orderId){
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
-      methods:"GET",
-      header:{
-        'content-type':"appication/json"
-      },
-      data:{
-        orderId:orderId
-      },
-      success:(res)=>{
-          wx.navigateTo({
-            url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
-          })
-      }
-    })
+  // getInviteeId(orderId){
+  //   app.getRequest({
+  //     url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
+  //     methods:"GET",
+  //     header:{
+  //       'content-type':"appication/json"
+  //     },
+  //     data:{
+  //       orderId:orderId
+  //     },
+  //     success:(res)=>{
+  //       console.log(res)
+  //         wx.navigateTo({
+  //           url: '../paySuccess/paySuccess?inviteeId='+res.data.data.inviteeId
+  //         })
+  //     }
+  //   })
     
-  },
+  // },
 
   
 })

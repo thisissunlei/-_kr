@@ -124,35 +124,6 @@ Page({
   onReady: function() {
     // console.log(this.data.seatStatus);
     var that = this;
-    //设置canvsa大小
-    wx.getSystemInfo({
-      success: function(res) {
-        // console.log(res);
-        that.width = res.windowWidth;
-      }
-    });
-    // console.log(that.data.seatStatus);
-    if (that.data.seatStatus == "EXPIRED") {
-      QR.qrApi.draw(
-        "https://web.krspace.cn/me/index.html?inviteeId=" + that.seatId,
-        "mycanvas",
-        that.width / 2.5,
-        that.width / 2.5,
-        null,
-        "rgba(0,0,0,0.6)"
-      );
-      that.setData({
-        canInvite: false
-      });
-      // console.log(that.data.canInvite);
-    } else {
-      QR.qrApi.draw(
-        "https://web.krspace.cn/me/index.html?inviteeId=" + that.seatId,
-        "mycanvas",
-        that.width / 2.5,
-        that.width / 2.5
-      );
-    }
   },
   createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
@@ -204,6 +175,41 @@ Page({
         // seatInfo.data.data.sponsor = false;
         // seatInfo.data.data.limitCount = 0;
         // seatInfo.data.data.canInvite = true;
+
+        //设置canvsa大小
+        wx.getSystemInfo({
+          success: function(res) {
+            // console.log(res);
+            that.data.width = res.windowWidth;
+          }
+        });
+        // console.log(that.width);
+        // console.log(that.data.width);
+        // console.log(that.data.seatStatus);
+        if (that.data.seatStatus == "EXPIRED") {
+          QR.qrApi.draw(
+            //kr_meeting
+            "https://web.krspace.cn/test/seat_test/kr_meeting04/index.html?inviteeId=" +
+              that.data.ticketId,
+            "mycanvas",
+            that.data.width / 2.5,
+            that.data.width / 2.5,
+            null,
+            "rgba(0,0,0,0.6)"
+          );
+          that.setData({
+            canInvite: false
+          });
+          // console.log(that.data.canInvite);
+        } else {
+          QR.qrApi.draw(
+            "https://web.krspace.cn/test/seat_test/kr_meeting04/index.html?inviteeId=" +
+              that.data.ticketId,
+            "mycanvas",
+            that.data.width / 2.5,
+            that.data.width / 2.5
+          );
+        }
       }
     });
   }

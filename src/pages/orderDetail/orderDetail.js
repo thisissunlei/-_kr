@@ -374,4 +374,37 @@ Page({
 })
 
 
- 
+function changeTime(date){
+  let  myDate =new Date(date) || new Date();
+  var myArray =new Array();
+  let year=myDate.getFullYear();
+  let month =myDate.getMonth()+1;
+  let day=myDate.getDate();
+  let hour=myDate.getHours();
+  let minutes=myDate.getMinutes();
+  let seconds=myDate.getSeconds();
+      if(month<10){
+        month=`0${month}`
+      }
+      if(day<10){
+        day=`0${day}`
+      }
+      if(hour==0){
+         hour='00'
+      }else if(hour>0 && hour<10){
+         hour=`0${hour}`
+      }
+    
+      if(minutes==0){
+         minutes='00'
+      }else if(minutes>0 && minutes<10){
+         minutes=`0${minutes}`
+      }
+    myArray[0] = year;
+    myArray[1] = month;
+    myArray[2] = day;
+    myArray[3] = hour;
+    myArray[4] = minutes;
+    myArray[5] = seconds;
+    return myArray;
+}
