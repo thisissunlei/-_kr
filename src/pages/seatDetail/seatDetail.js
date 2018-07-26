@@ -134,7 +134,9 @@ Page({
     // console.log(that.data.seatStatus);
     if (that.data.seatStatus == "EXPIRED") {
       QR.qrApi.draw(
-        "https://web.krspace.cn/me/index.html?inviteeId=" + that.seatId,
+        //kr_meeting
+        "https://web.krspace.cn/test/seat_test/kr_meeting02/index.html?inviteeId=" +
+          that.seatId,
         "mycanvas",
         that.width / 2.5,
         that.width / 2.5,
@@ -147,7 +149,8 @@ Page({
       // console.log(that.data.canInvite);
     } else {
       QR.qrApi.draw(
-        "https://web.krspace.cn/me/index.html?inviteeId=" + that.seatId,
+        "https://web.krspace.cn/test/seat_test/kr_meeting02/index.html?inviteeId=" +
+          that.seatId,
         "mycanvas",
         that.width / 2.5,
         that.width / 2.5
