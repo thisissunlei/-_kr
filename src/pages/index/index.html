@@ -115,10 +115,10 @@
             <text class='lct_distance'>{{item.distance}}</text>
           </view>
           <view class='room_num'>
-            <text class="num_num">{{item.meetingCount}}</text>
-            <text class="num_text" style="margin-right: 62rpx;">个会议室</text>
-            <text class="num_arr">{{item.seatCount}}</text>
-            <text class="num_text">个散座</text>
+            <text class="num_num" wx:if="{{item.seatCount > 0}}">{{item.seatCount}}</text>
+            <text class="num_text" style="margin-right: 62rpx;" wx:if="{{item.seatCount > 0}}">个散座</text>
+            <text class="num_arr" wx:if="{{item.meetingCount > 0}}">{{item.meetingCount}}</text>
+            <text class="num_text" wx:if="{{item.meetingCount > 0}}">个会议室</text>
           </view>
           <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
         </view>

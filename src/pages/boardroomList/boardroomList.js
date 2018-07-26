@@ -1008,7 +1008,7 @@ Page({
         that.button_boolean1 = true;
         setTimeout(function() {
           wx.navigateTo({
-            url: "/pages/meeting/meeting?id=" + arr.id
+            url: "/pages/seatorderConfirmation/seatorderConfirmation?id=" + arr.id
           });
         }, 500);
       }

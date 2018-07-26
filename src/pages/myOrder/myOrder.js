@@ -12,7 +12,7 @@ Page({
     errorMessage:'',
     page:1,
     orderOldList:[],
-    orderOldList1:[],
+    
     totalPages:0,
     type:'',
     list:[],
@@ -29,6 +29,7 @@ Page({
     scrollTop: 0,
     page:1
   },
+  orderOldList1:[],
   //请求条数
   lower: function(e) {
     console.log(this.data.totalPages)
@@ -203,6 +204,7 @@ Page({
             })
             var allList1 = [].concat(orderOldList1,list1)
             // console.log(list1.length,'totalCount',allList1,allList1.length)
+            this.orderOldList1 = allList1
             that.setData({
               orderOldList1:allList1,
               orderList1:allList1,

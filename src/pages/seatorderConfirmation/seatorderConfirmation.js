@@ -6,6 +6,7 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    new_arrup:[],
     seatGoodIds:"",
     orderId:"",
     seatId:"",
