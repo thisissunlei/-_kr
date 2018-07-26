@@ -626,8 +626,6 @@ Page({
     return this.data.show
   },
   dateBtn :function(e){
-    
-    console.log(this.data.week,9999)
     const today_a = parseInt(new Date().getDate())
     // console.log(e)
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
@@ -641,7 +639,6 @@ Page({
         let ios = this.data.date_data2
         let zuti = e.target.dataset.kg
         let index_zi_a = this.goodid_next;
-        console.log(index_zi_a,ios,e.target.dataset.num)
         let inn1 = this.data.inn1
         //------------------
         // const today_date1 = new Date();
@@ -658,12 +655,9 @@ Page({
           //arr1:index_zi_a 
         });
         if(e.target.dataset.kg == true){//取消
-          // console.log("用户取消了")
-          // console.log(this.data.date_data1[e.target.dataset.num])//false
           let arr_index = []
           this.data.date_data2.map((item,index)=>{
             if(item.kg == true){
-              // console.log(item)
               arr_index.push(item)
             }
           })
@@ -673,14 +667,11 @@ Page({
             inn1:arr_index
           })
         }else{//选择
-          // console.log("用户选择")
           this.data.date_data2.map((item,index)=>{
-            console.log(index,e.target.dataset.num)
             if(item.kg == true){
               if(index == e.target.dataset.num){
                 let year = e.target.dataset.year, month = e.target.dataset.month-1, date = e.target.dataset.value;// month=6表示7月
             
-                // console.log(e)
                   let dt = new Date(year, month, date), dt2 = new Date();
                   let weekDay = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
                   if(date == '今天'){
@@ -701,43 +692,32 @@ Page({
                 this.setData({
                   inn1:kong_index1
                 })
-                // console.log(this.data.inn1)
               }
             }
           })
         }
-        // console.log(this.data.inn1)
       }else if(e.target.dataset.data=='date_data1'){
-        // console.log(this.data.date_data1)
         let ioi = this.data.date_data1
         let zuti = e.target.dataset.kg
         let index_zi = this.goodid_now;
-        // console.log(ioi,index_zi)
         ioi[e.target.dataset.num].kg = !ioi[e.target.dataset.num].kg//true
         index_zi[e.target.dataset.num+1-today_a].kg = !index_zi[e.target.dataset.num+1-today_a].kg
        
         this.setData({
           date_data1:ioi,
-          // date_data1:new_data,
-          //arr:index_zi
         });
         if(e.target.dataset.kg == true){//取消
           console.log("用户取消了")
-          // console.log(this.data.date_data1[e.target.dataset.num])//false
           let arr_index = []
           this.data.date_data1.map((item,index)=>{
             if(item.kg == true){
-              // console.log(item)
               arr_index.push(item)
             }
           })
-
-          // console.log(arr_index)
           this.setData({
             inn:arr_index
           })
         }else{//选择
-          // console.log("用户选择")
           this.data.date_data1.map((item,index)=>{
             if(item.kg == true){
               if(index == e.target.dataset.num){
@@ -750,7 +730,6 @@ Page({
                   }else if (date == '明天'){
                     weekDay[dt.getDay()] = '明天'
                   }
-                // console.log(weekDay[dt.getDay()])
                 item.zhou = weekDay[dt.getDay()]
                 item.value = e.target.dataset.value
                 item.month = e.target.dataset.month
