@@ -167,8 +167,8 @@
                     散座
                   </view>
                   <view class="u-meet-detail-price-info">
-                      <view class="u-meet-unit">¥</view>
-                      <view class="u-meet-detail-num"> {{meetingDetail.promotionCost}}</view>
+                      <view class="red">¥</view>
+                      <view class="red_child"> {{meetingDetail.promotionCost}}</view>
                       <view class="u-meet-old-num" wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost}}">¥ {{meetingDetail.unitCost}}</view>
                       <view class="u-meet-old-unit"> / 天  </view>
                   </view>
@@ -198,7 +198,7 @@
                 wx:key="*this"
                 wx:for-item="meetItem"
               >
-                  <!-- <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image> -->
+                  <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image>
                   <view class="u-facility-txt">{{meetItem.name}}</view>
               </view> 
           </view>
