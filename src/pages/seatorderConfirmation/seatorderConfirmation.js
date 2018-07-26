@@ -930,7 +930,7 @@ Page({
             });
           }else{
           
-             console.log(new_arr1,new_arr1[i-week],i-week,111111111111111)
+            //  console.log(new_arr1,new_arr1[i-week],i-week,111111111111111)
             if(new_arr1[i-week].remainQuantity > 1 && new_arr1[i-week].remainQuantity<index_zhu.number){
               data.push({//除周六日可选
                 value:i-week+1,
