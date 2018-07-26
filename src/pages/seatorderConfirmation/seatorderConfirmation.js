@@ -1185,6 +1185,12 @@ Page({
     })
   }
   },
+  heider(){
+    console.log(1)
+    this.setData({
+      show_a : true
+    })
+  },
   onShow: function () {
     var _this = this;
     this.getMeetId()
