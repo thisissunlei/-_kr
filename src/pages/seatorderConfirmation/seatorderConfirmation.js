@@ -930,13 +930,7 @@ Page({
           this.all_day_num++;
           break;
           
-<<<<<<< HEAD
-        case i<(30-this.all_day_num+week)&&!bool:
-        // console.log(this.all_day_num)
-        // console.log(30-this.all_day_num+week)
-=======
         case i<(30-this.all_day_num+week-1)&&!bool:
->>>>>>> cbf06f3e0cdf4b94affdc4af6aed818d626de856
           if(i%7==0||i%7==6){ 
             data.push({//下月部分星期天
               value:i-week+1,
@@ -968,33 +962,6 @@ Page({
                 no_mary:new_arr1[i-week].promotionCost
               });
             }else{
-<<<<<<< HEAD
-              const initL =index_zhu.arr1.length
-              // console.log(index_zhu.arr1[i-week],index_zhu.arr1[i-week].kg,22222222111)
-              // for(let j =i-week;j<index_zhu.arr1.length;j++){
-              //   console.log(j,index_zhu.arr1.length)
-                // if(j > index_zhu.arr1.length){
-                //   let obj = {goodsId:'',kg:false,promotionCost:"",remainQuantity:"",seatId:"",unitCost:"",useTime:""}
-                //   let new_arrup = index_zhu.arr1
-                //   new_arrup.push(obj)
-                //   this.setData({
-                //     new_arrup:new_arrup
-                //   })
-                  // console.log(index_zhu.new_arrup)
-                // }
-                data.push({
-                  value:i-week+1,
-                  type:'next',
-                  kg:index_zhu.arr1[i-week].kg,
-                  number:index_zhu.arr1[i-week].remainQuantity,
-                  mary:index_zhu.arr1[i-week].unitCost,
-                  id:index_zhu.arr1[i-week].goodsId,
-                  no_mary:index_zhu.arr1[i-week].promotionCost
-                })
-              // }
-              
-              
-=======
               // console.log(new_arr1[i-week],new_arr1[i-week].kg,22222222111)
               data.push({
                 value:i-week+1,
@@ -1005,7 +972,6 @@ Page({
                 id:new_arr1[i-week].goodsId,
                 no_mary:new_arr1[i-week].promotionCost
               })
->>>>>>> cbf06f3e0cdf4b94affdc4af6aed818d626de856
             }
           }
           break;
