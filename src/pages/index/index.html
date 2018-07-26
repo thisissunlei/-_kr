@@ -29,7 +29,7 @@
       <swiper interval="{{interval}}" autoplay="true" circular="true" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF"
         indicator-active-color='rgba(255,198,52,100)' class="swiper-box">
         <block wx:for="{{myMeeting}}" wx:key>
-          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="{{item.targetType=='SEAT'?'moveToSeatDetail':'moveToMeetingDetail'}}">
+          <swiper-item class="my-metting" data-id="{{item.targetId}}" bindtap="{{item.targetType=='SEAT'?'moveToSeatDetail':'moveToMeetingDetail'}}">
             <view class="metting-content">
               <view class="metting-mark {{item.targetType === 'SEAT'?'wait':'already'}}">{{item.targetType === 'SEAT'?'散座':'会议'}}</view>
               <view class="metting-title">
