@@ -1423,7 +1423,7 @@ console.log(that.goodid_now,222222)
             },
           })
           wx.navigateTo({
-            url: '../bindPhone/bindPhone?from='+"seat"
+            url: '../bindPhone/bindPhone?from=seat'
           })
           break;
         case -3:
