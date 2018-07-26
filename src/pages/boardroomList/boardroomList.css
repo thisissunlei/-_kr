@@ -52,6 +52,17 @@ page {
   -ms-flex-align: center;
   align-items: center;
   background: #fff;
+  margin-top: -12rpx;
+  position: relative;
+}
+.top-date .right:after {
+  content: '';
+  position: absolute;
+  top: 24rpx;
+  bottom: 24rpx;
+  left: 0;
+  background: #f6f6f6;
+  width: 1px;
 }
 .top-date .right image {
   width: 52rpx;
@@ -92,24 +103,24 @@ page {
 .top-date .left .date-item .bottom-border {
   width: 40rpx;
   height: 4rpx;
-  background-image: linear-gradient(57deg, #FAD961 0, #F79C1C 100%);
+  background-image: -webkit-linear-gradient(0deg, #fff, #fff);
   border-radius: 8rpx;
   transform: translateY(1rpx);
-  visibility: hidden;
 }
-.top-date .left .date-item-actived .bottom-border {
-  visibility: visible !important;
+.bottom-border-activied {
+  background-image: -webkit-linear-gradient(0deg, #F79C1C, #FFD24C) !important;
 }
 .list-outer {
   background: #F3F3F3;
   padding: 0;
 }
 .list-item {
-  height: 334rpx;
   background: #fff;
-  padding: 34rpx 34rpx 34rpx 26rpx;
-  margin-bottom: 12rpx;
-  border-bottom: 1px solid #F3F3F3;
+  padding: 32rpx 34rpx 38rpx 26rpx;
+  border-bottom: 20rpx solid #f6f6f6;
+}
+.list-item:last-child {
+  border: none;
 }
 .list-item .top {
   display: -ms-flexbox;
@@ -124,6 +135,7 @@ page {
   height: 150rpx;
   border-radius: 16rpx;
   border: 1px solid #F3F3F3;
+  display: block;
 }
 .list-item .top .top-right {
   width: 484rpx;
@@ -138,6 +150,7 @@ page {
   justify-content: space-between;
   font-size: 34rpx;
   color: #333;
+  margin-left: -16rpx;
 }
 .list-item:last-child {
   argin-bottom: 120rpx;
@@ -158,10 +171,24 @@ page {
   font-weight: 600;
   font-size: 34rpx;
   color: #333;
+  height: 48rpx;
+  line-height: 48rpx;
+  display: inline-block;
+  vertical-align: top;
 }
 .list-item .top .top-right .first-row .room-floor {
   font-size: 32rpx;
   color: #333;
+  height: 48rpx;
+  line-height: 50rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+.list-item .top .top-right .first-row .cente {
+  height: 48rpx;
+  line-height: 62rpx;
+  display: inline-block;
+  vertical-align: top;
 }
 .list-item .top .top-right .second-row {
   overflow: hidden;
@@ -245,6 +272,7 @@ page {
   line-height: 60rpx;
   text-align: center;
   font-size: 28rpx;
+  margin-top: -4rpx;
 }
 .select-community {
   position: absolute;
@@ -334,7 +362,6 @@ page {
   bottom: 32rpx;
 }
 .u-meeting-info {
-  height: 352rpx;
   padding: 0 32rpx;
 }
 .u-meet-info {
@@ -393,11 +420,11 @@ page {
   color: #666;
 }
 .u-meet-address {
-  height: 150rpx;
+  padding: 28rpx 0;
 }
 .u-address {
-  height: 40rpx;
-  margin: 18rpx 0;
+  height: 32rpx;
+  line-height: 26rpx;
 }
 .u-address-icon {
   width: 26rpx;
@@ -413,11 +440,11 @@ page {
 .u-meet-facility {
   display: inline-block;
   border-top: 1px solid #F6F6F6;
-  padding: 40rpx 50rpx 0;
+  padding: 40rpx 0 0;
   width: 100%;
 }
 .u-icon-list {
-  width: 130rpx;
+  width: 20%;
   height: 160rpx;
   display: inline-block;
   text-align: center;
@@ -435,7 +462,7 @@ page {
 .u-meet-btn {
   height: 112rpx;
   line-height: 112rpx;
-  background-image: linear-gradient(50deg, #FFD24C 0, #F79C1C 89%);
+  background-image: linear-gradient(50deg, #F79C1C 0%, #FFD24C 89%);
   text-align: center;
   color: #fff;
   font-size: 36rpx;
@@ -532,7 +559,7 @@ page {
 .san-zuo {
   width: 100%;
   height: 112rpx;
-  background: #DFDFDF;
+  background: #f6f6f6;
   padding: 50rpx 10rpx 0 10rpx;
   font-size: 34rpx;
   color: #333333;
