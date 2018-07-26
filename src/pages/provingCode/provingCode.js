@@ -263,7 +263,7 @@ Page({
                 
               },
               'fail':function(res){
-                if(that.data.from=='seat'){
+                if(that.data.from!='seat'){
                   wx.navigateTo({
                     url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
                   })
@@ -276,7 +276,7 @@ Page({
               }
             })
           }else{
-            if(that.data.from=='seat'){
+            if(that.data.from!='seat'){
                   wx.navigateTo({
                     url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
                   })
