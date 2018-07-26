@@ -300,21 +300,46 @@
   font-family: "PingFang-SC-Medium";
   font-size: 26rpx;
   color: #666666;
+  margin-left: 6rpx;
 }
 .num_num {
-  display: inline-block;
-  width: 60rpx;
-  text-align: center;
   font-family: "PingFang-SC-Medium";
-  font-size: 17px;
-  color: #333333;
-  margin-right: 8rpx;
+
+  font-size: 34rpx;
+  line-height: 26rpx;
+  color: #2a2a2a;
   position: relative;
-  padding: 0 5rpx;
+  display: inline-block;
+  width: 54rpx;
+  text-align: center;
+  color: #333;
+  margin-right: 8rpx;
 }
 .num_num:after {
   content: " ";
   position: absolute;
+  height: 16rpx;
+  background-color: #ffe461;
+  right: 0;
+  left: 0;
+  top: 17rpx;
+  z-index: -1;
+}
+.num_arr {
+  font-size: 34rpx;
+  color: #2a2a2a;
+  line-height: 26rpx;
+  position: relative;
+  display: inline-block;
+  width: 48rpx;
+  text-align: center;
+  color: #333;
+  margin-right: 8rpx;
+}
+.num_arr:after {
+  content: " ";
+  position: absolute;
+  width: 48rpx;
   height: 16rpx;
   background-color: #ffe461;
   right: 0;
@@ -380,28 +405,7 @@
   top: 17rpx;
   z-index: -1;
 }
-.num_arr {
-  font-size: 34rpx;
-  color: #2a2a2a;
-  line-height: 26rpx;
-  position: relative;
-  display: inline-block;
-  width: 48rpx;
-  text-align: center;
-  color: #333;
-  margin-right: 8rpx;
-}
-.num_arr:after {
-  content: " ";
-  position: absolute;
-  width: 48rpx;
-  height: 16rpx;
-  background-color: #ffe461;
-  right: 0;
-  left: 0;
-  top: 17rpx;
-  z-index: -1;
-}
+
 .price {
   width: 170rpx;
   height: 48rpx;
