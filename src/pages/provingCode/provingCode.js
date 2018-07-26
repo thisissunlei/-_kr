@@ -24,7 +24,8 @@ Page({
     },
     user_info:{},
     success:false,
-    areaCode:''
+    areaCode:'',
+    form:'order'
     
   },
   onShareAppMessage: function() {
@@ -33,6 +34,11 @@ Page({
   onLoad: function (options) {
     let that = this;
     console.log('======>',options.from)
+    if(options.from){
+      this.setData({
+        from:options.from
+      })
+    }
      wx.getStorage({
       key: 'user_info',
       success: function(res) {
@@ -118,8 +124,13 @@ Page({
                 },2000)
 
                 //处理判断散座还是订单
-                that.getOrderData();
-                that.createSeat()
+                if(that.data.from=='seat'){
+                  that.getSeatData()
+                }else{
+                  that.getOrderData();
+                }
+                
+                
               }
             })
           }else{
@@ -163,6 +174,22 @@ Page({
         }
       }
     })
+    //orderData--->create_order取数据
+  },
+  getSeatData(){
+    let that = this;
+    let seat = {}
+    
+
+    wx.getStorage({
+      key: 'myorder',
+      success: function(res) {
+        if(res.data){
+          that.createSeat(res.data)
+        }
+      }
+    })
+    
     //orderData--->create_order取数据
   },
   createOrder:function(create_order){
@@ -236,15 +263,28 @@ Page({
                 
               },
               'fail':function(res){
-                wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
-                })
+                if(that.data.from=='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
+                
               }
             })
           }else{
-            wx.navigateTo({
-              url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
-            })
+            if(that.data.from=='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
           }
           
         },
@@ -330,8 +370,8 @@ Page({
     })
     
   },
-  createSeat(){
-    let orderData = {}
+  createSeat(data){
+    let that = this;
     app.getRequest({
     // 散座下单
     url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
@@ -339,7 +379,7 @@ Page({
     header: {
       'content-type': "appication/json"
     },
-    data: orderData,
+    data: data,
 
     success:(res)=>{
             let code=res.data.code;
@@ -364,6 +404,9 @@ Page({
             }
 
     },
+    fail:(res)=>{
+      console.log('=======',res)
+    }
 
   })
   }

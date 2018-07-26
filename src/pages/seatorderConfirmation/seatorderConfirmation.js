@@ -387,6 +387,7 @@ Page({
       combination:combination
     })
     this.combination_new= combination;
+    wx.setStorageSync('seat-data',combination)
     let seatGoodIds=[]
     this.combination_new.map(item=>{
         // console.log(item.id,"id")
@@ -1354,15 +1355,8 @@ console.log(that.goodid_now,222222)
 
   }
 
-  if (!wx.getStorageSync("myorder")) {
-    let orderArr = []
-    orderArr.push(orderData)
-    wx.setStorageSync("myorder", orderArr)
-  } else {
-    let orderseat = wx.getStorageSync("myorder")
-    orderseat.push(orderData)
-    wx.setStorageSync("myorder", orderseat)
-  }
+
+    wx.setStorageSync("myorder", orderData)
 
   wx.showLoading({
     title: '加载中',
@@ -1423,7 +1417,7 @@ console.log(that.goodid_now,222222)
             },
           })
           wx.navigateTo({
-            url: '../bindPhone/bindPhone?from='+"seat"
+            url: '../bindPhone/bindPhone?from=seat'
           })
           break;
         case -3:
