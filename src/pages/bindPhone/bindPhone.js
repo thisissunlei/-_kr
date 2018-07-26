@@ -21,6 +21,7 @@ Page({
   },
   onLoad: function (options) {
     this.setData({
+      from:options.from,
       inputValue: options.value || '',
       inputValues: options.value || '',
       phoneRange:options.city || '86'
@@ -90,7 +91,7 @@ Page({
           // });
           if(res.data.code>0){
             wx.navigateTo({
-              url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange
+              url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from
             });
           }else{
             that.setData({

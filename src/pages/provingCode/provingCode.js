@@ -32,6 +32,7 @@ Page({
   },
   onLoad: function (options) {
     let that = this;
+    console.log('======>',options.from)
      wx.getStorage({
       key: 'user_info',
       success: function(res) {
@@ -115,7 +116,10 @@ Page({
                     success:false
                   })
                 },2000)
+
+                //处理判断散座还是订单
                 that.getOrderData();
+                that.createSeat()
               }
             })
           }else{
@@ -326,4 +330,41 @@ Page({
     })
     
   },
+  createSeat(){
+    let orderData = {}
+    app.getRequest({
+    // 散座下单
+    url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+    methods: "GET",
+    header: {
+      'content-type': "appication/json"
+    },
+    data: orderData,
+
+    success:(res)=>{
+            let code=res.data.code;
+            let rsData = res.data.data;
+            if(code==-1){
+              that.setData({
+                phoneError:false,
+                success:false,
+                errorMessage:res.data.message
+              })
+              setTimeout(function(){
+                that.setData({
+                  phoneError:true,
+                  errorMessage:'',
+
+                  
+                })
+              },2000)
+            }else{
+              that.weChatPay(rsData)
+              that.clearStorage()
+            }
+
+    },
+
+  })
+  }
 })
