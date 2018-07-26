@@ -35,7 +35,8 @@
             <view class="u-line"></view>
         </view>
          <!--日期盒子 -->
-          <view class="u-time-box">
+         <scroll-view scroll-y="true" style="height:270rpx"class="u-time-box" >
+          <!-- <view class="u-time-box"> -->
               <view class="box2"></view>
               <view class="u-time-info" wx:for="{{timeday}}" wx:key>
                 <view>{{item.enableDate}}</view>
@@ -47,8 +48,8 @@
                 </view>
                 <view >x <span class="spannum">{{sankeNum}}</span>  个</view>
               </view>
-           
-          </view>
+        </scroll-view>   
+          <!-- </view> -->
           <!--应付款-->
           <view class="u-meeting">
             <view class="u-left">{{payTitle}} </view>

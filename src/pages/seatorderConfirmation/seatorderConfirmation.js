@@ -112,7 +112,7 @@ Page({
   last_btn_num:'false',
   last_data:'false',
 
-  // 散座详情弹窗
+  // 散座s详情弹窗
   openMeetDetail: function (e) {
     let that = this;
     that.setData({
@@ -387,23 +387,23 @@ Page({
     console.log(1111)
     wx.setStorageSync('data-index',this.data.combination)
     // console.log(this.data.id)
-    app.getRequest({
-      url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/list',
-      methods:"GET",
-      data:{
-        seatId:this.data.id
-      },
-      success:res=>{
+    // app.getRequest({
+    //   url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/list',
+    //   methods:"GET",
+    //   data:{
+    //     seatId:this.data.id
+    //   },
+    //   success:res=>{
         // console.log(res)
-        let ss = this.data.id
+        // let ss = this.data.id
         // setTimeout(function(){
         //   wx.navigateTo({
         //     url:"/pages/seatorderConfirmation/seatorderConfirmation?id="+ss
         //   })
         //     },0)
 
-      }
-    })
+    //   }
+    // })
     this.onClickDate(that);
     this.setData({
       show_a:true
@@ -925,8 +925,13 @@ Page({
             
           }
           this.all_day_num++;
+          console.log(this.all_day_num)
+          console.log(30-this.all_day_num+week)
           break;
+          
         case i<(30-this.all_day_num+week)&&!bool:
+        console.log(this.all_day_num)
+        console.log(30-this.all_day_num+week)
           if(i%7==0||i%7==6){ 
             // console.log(i+"下月星期天")
             // console.log(this.data.arr1)
@@ -936,8 +941,9 @@ Page({
               name:"周天"
             });
           }else{
+            // console.log(index_zhu.arr1)
             console.log(i-week)
-            console.log(index_zhu.arr1[i-week],111111111111111)
+            // console.log(index_zhu.arr1[i-week],111111111111111)
             if(index_zhu.arr1[i-week].remainQuantity > 1 && index_zhu.arr1[i-week].remainQuantity<index_zhu.number){
               data.push({//除周六日可选
                 value:i-week+1,
@@ -1179,6 +1185,12 @@ Page({
       // seatGoodIds:
     })
   }
+  },
+  heider(){
+    console.log(1)
+    this.setData({
+      show_a : true
+    })
   },
   onShow: function () {
     var _this = this;
