@@ -26,6 +26,7 @@ Page({
           if(res.data.code>0){
             var list = []
             list = res.data.data.map((item,index)=>{
+              item.useTime.replace('月日/', '-')
               return item;
             })
             that.setData({
