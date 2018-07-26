@@ -7,7 +7,7 @@ Page({
   },*/
   data: {
     new_arrup:[],
-    seatGoodIds:[],
+    seatGoodIds:"",
     orderId:"",
     seatId:"",
     timeweekArr:{},
@@ -100,6 +100,8 @@ Page({
     arr:[],
   },
 
+
+  seatGoodIds:"",
   choose_date: '',
   selectedTime: [],
   isSubTime: false,
@@ -162,6 +164,8 @@ Page({
   },
   // 立即支付按钮
   goToPay: function () {
+   
+
     let data = this.data;
     var _this = this;
     if (!data.check) {
@@ -387,16 +391,14 @@ Page({
     this.combination_new= combination;
     let seatGoodIds=[]
     this.combination_new.map(item=>{
-        // console.log(item.id,"id")
-        seatGoodIds.push(item.id)
-
+        console.log(item.id,"id")
         this.setData({
-          seatGoodIds:seatGoodIds.join(',')
+          seatGoodIds:item.id
         })
        
     })
 
-    console.log(1111,seatGoodIds)
+    // console.log(1111)
     wx.setStorageSync('data-index',this.data.combination)
     // console.log(this.data.id)
     // app.getRequest({
@@ -842,7 +844,7 @@ Page({
                 id:this.goodid_now[i-today+1].goodsId,
                 number:this.goodid_now[i-today+1].remainQuantity,
                 mary:this.goodid_now[i-today+1].unitCost,
-                mary:this.goodid_now[i-today+1].promotionCost,
+                no_mary:this.goodid_now[i-today+1].promotionCost,
               });
             }else if(this.goodid_now[i-today+1].remainQuantity == 0){
               // this.goodid_now[i].mary='已售完'
@@ -1014,7 +1016,7 @@ Page({
      url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
      methods:"GET",
      data:{
-      seatId:1
+      seatId:this.data.seatId
      },
      success:res=>{
        console.log(res)
@@ -1130,12 +1132,18 @@ console.log(that.goodid_now,222222)
 
   // 页面加载
   onLoad: function (options) {
+
+
+    this.setData({
+      orderId:options.goodsId,
+      seatId:options.seatId
+    })
     // 日历
 
     // this.setData({
     //   id:e.id
     // })
-    
+    console.log(options)
     const today_date = new Date();
     
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
@@ -1168,13 +1176,7 @@ console.log(that.goodid_now,222222)
     this.getMeetId()
 
     console.log(options)
-    this.setData({
-      orderId:options.orderId,
-      seatId:options.seatId
-    })
     
-    
-
     this.getPhone();
 
     var _this = this;
@@ -1352,15 +1354,8 @@ console.log(that.goodid_now,222222)
 
   }
 
-  if (!wx.getStorageSync("myorder")) {
-    let orderArr = []
-    orderArr.push(orderData)
-    wx.setStorageSync("myorder", orderArr)
-  } else {
-    let orderseat = wx.getStorageSync("myorder")
-    orderseat.push(orderData)
-    wx.setStorageSync("myorder", orderseat)
-  }
+
+    wx.setStorageSync("myorder", orderData)
 
   wx.showLoading({
     title: '加载中',
@@ -1421,7 +1416,7 @@ console.log(that.goodid_now,222222)
             },
           })
           wx.navigateTo({
-            url: '../bindPhone/bindPhone'
+            url: '../bindPhone/bindPhone?from=seat'
           })
           break;
         case -3:
