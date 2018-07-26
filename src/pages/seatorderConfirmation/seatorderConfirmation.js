@@ -112,7 +112,7 @@ Page({
   last_btn_num:'false',
   last_data:'false',
 
-  // 散座详情弹窗
+  // 散座s详情弹窗
   openMeetDetail: function (e) {
     let that = this;
     that.setData({
@@ -145,7 +145,8 @@ Page({
   // 数量日历显示与隐藏
    closeDialogDate:function(){
      this.setData({
-       show_a:false })
+       show_a:false
+     })
     //  console.log(this.data.id)
     //  wx.redirectTo({
     //    url:"../meeting/meeting?seatId="+this.data.seatId
