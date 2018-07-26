@@ -179,10 +179,10 @@ Page({
         var seatInfo = Object.assign({}, res);
         console.log(seatInfo);
         var newUser = wx.getStorageSync("user_info");
-        console.log(newUser);
+        // console.log(newUser);
         // var sponsor = seatInfo.data.data.sponsor;
         var inviteers = seatInfo.data.data.inviteers;
-        console.log(newUser.user_info);
+        // console.log(newUser.user_info);
         if (seatInfo.data.data.canInvite) {
           var result = inviteers.some(value => {
             return value.wechatNick == newUser.user_info.nickName;
