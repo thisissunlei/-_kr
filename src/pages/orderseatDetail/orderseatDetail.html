@@ -88,6 +88,13 @@
             <view class="u-btn-arrow u-meeting-btn-arrow">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
+            <!-- <view class="section" wx:if="{{timeFlag}}">   -->
+            <picker mode="time" value="{{time}}" start="09:00" end="19:00" bindchange="bindTimeChange">
+                <view class="picker">
+                    <!-- {{time}} -->
+                </view>
+            </picker>
+            <!-- </view> -->
         </view>
         <!-- 行程提醒 -->
         <view class="u-meeting-remind" bindtap="jumpSetRemind">
@@ -115,8 +122,8 @@
     
 
     <!-- 隐藏的 预计到场时间 -->
-    <view class="section" wx:if="{{timeFlag}}">
-        <view class="section_top" bindtap="jumpSetTime"></view>
+  
+        <!-- <view class="section_top" bindtap="jumpSetTime"></view>
         <view class="section_bottom">
             <view class="section_title">预计到场时间</view>
         <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
@@ -124,9 +131,9 @@
             {{time}}
           </view>
         </picker>
-        </view>
+        </view> -->
         
-    </view>
+    
 
   <!-- 散座详情 -->
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}" catchtouchmove="preventTouchMove">
