@@ -86,6 +86,9 @@ Page({
   // },
   // 预计到场时间选择
   jumpSetTheme: function () {
+    if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
+      return
+    }
     this.setData({
       timeFlag: !this.data.timeFlag
     }) 
@@ -143,6 +146,9 @@ Page({
 },
   // 行程提醒
   jumpSetRemind: function () {
+      if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
+          return
+      }
     let data = this.data;
     wx.navigateTo({
       url: '../warn/warn?type=storage&alertTime=' + data.alertTime

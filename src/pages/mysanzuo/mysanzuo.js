@@ -25,13 +25,12 @@ Page({
           console.log(res)
           if(res.data.code>0){
             var list = []
-            // list = res.data.data.map((item,index)=>{
-            //   return item;
-            // })
+            list = res.data.data.map((item,index)=>{
+              return item;
+            })
             that.setData({
               meetingList:list
             })
-            console.log(this.data.meetingList)
           }else{
             that.setData({
               error:false,

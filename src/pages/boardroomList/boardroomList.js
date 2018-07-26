@@ -14,6 +14,7 @@ Page({
   data: {
     //数据模拟
     arr: [],
+    seatId:'',
     sanzuo: false,
     ifFixed: false,
     meeting_detail: {},
@@ -120,6 +121,7 @@ Page({
     let detail = e.currentTarget.dataset.item;
     this.setData(
       {
+        seatId:e.currentTarget.dataset.item.seatId,
         meetingRoomId1: id,
         meetDetailShow1: !this.data.meetDetailShow1,
         meetDetail: detail
@@ -1011,7 +1013,7 @@ Page({
         that.button_boolean1 = true;
         setTimeout(function() {
           wx.navigateTo({
-            url: "/pages/seatorderConfirmation/seatorderConfirmation?id=" + arr.id
+            url: "/pages/seatorderConfirmation/seatorderConfirmation?seatId=" +arr.seatId
           });
         }, 500);
       }

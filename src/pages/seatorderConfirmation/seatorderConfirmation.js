@@ -875,7 +875,7 @@ Page({
               data.push({//今天可选
                 value:'今天',
                 type:'now',
-                kg:true,
+                kg:this.goodid_now[i+1-today].kg,
                 number:this.goodid_now[i+1-today].remainQuantity,
                 mary:this.goodid_now[i+1-today].unitCost,
                 id:this.goodid_now[i-today+1].goodsId,
@@ -921,7 +921,7 @@ Page({
           this.all_day_num++;
           break;
           
-        case i<(30-this.all_day_num+week-1)&&!bool:
+        case i<(30-this.all_day_num+week)&&!bool:
           if(i%7==0||i%7==6){ 
             data.push({//下月部分星期天
               value:i-week+1,
@@ -930,7 +930,7 @@ Page({
             });
           }else{
           
-             console.log(new_arr1,new_arr1[i-week],i-week,111111111111111)
+            //  console.log(new_arr1,new_arr1[i-week],i-week,111111111111111)
             if(new_arr1[i-week].remainQuantity > 1 && new_arr1[i-week].remainQuantity<index_zhu.number){
               data.push({//除周六日可选
                 value:i-week+1,
