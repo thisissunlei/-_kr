@@ -531,6 +531,7 @@ Page({
       }
       return item;
     })
+    console.log(arr_a_a,9999999)
     this.setData({
       date_data1:arr_a_a
     })
@@ -574,7 +575,7 @@ Page({
         }
     }
     
-    console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
+    console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum,arr_a_a2)
     // if(this.data.number >= this.data.Maximum){
     //   this.setData({
     //     zheng:false
@@ -628,7 +629,7 @@ Page({
   },
   dateBtn :function(e){
     const today_a = parseInt(new Date().getDate())
-    // console.log(e)
+     console.log(e,111111)
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       // const new_data = this.data[e.target.dataset.data];//遍历的哪条数组
       var old_data = [];
@@ -636,6 +637,7 @@ Page({
       let kong_index =this.data.inn
       let kong_index1 =this.data.inn1
       let kong_index_a = this.data.splice
+      console.log(e.target.dataset)
       if(e.target.dataset.data=='date_data2'){
         let ios = this.data.date_data2
         let zuti = e.target.dataset.kg
@@ -1004,37 +1006,54 @@ Page({
       // }
       var curMonth = res.data.data.curMonth;
 
-      const today_month = new Date(curMonth[0].useTime);
+      const today_month = new Date();
       const today_day = today_month.getDate();
       today_month.setMonth(today_month.getMonth() + 1);
       today_month.setDate(0);
-      const day_num = today_month.getDate();
-      for(var i = 0;i<curMonth.length;i++){
-        var tdy = new Date(curMonth[i].useTime).getDate();
+      const day_num = parseInt(parseInt(today_month.getDate())-parseInt(today_day))+parseInt(1);
+      var day_num_f = 0;
+      for(var i = 0;i<day_num;i++){
 
-        if((i+today_day)==tdy){
-          curMonth[i].kg = false;
-          that.goodid_now.push(curMonth[i]);
-        }else{
-          that.goodid_now.push({
-            goodsId : "",
-            kg:false,
-            promotionCost:'',
-            remainQuantity:'',
-            seatId:'',
-            unitCost:'',
-            useTime:''
-          });
-        }
+        // if(!curMonth[i]){
+        //   console.log(curMonth[i],8888888)
+        //   that.goodid_now.push({
+        //       goodsId : "",
+        //       kg:false,
+        //       promotionCost:'',
+        //       remainQuantity:'',
+        //       seatId:'',
+        //       unitCost:'',
+        //       useTime:''
+        //     });
+          
+        // }else{
+          var tdy = new Date(curMonth[day_num_f].useTime).getDate();
+          if((i+today_day)==tdy){
+            curMonth[day_num_f].kg = false;
+            that.goodid_now.push(curMonth[day_num_f]);
+            day_num_f++;
+          }else{
+            
+            //day_num_f--;
+            that.goodid_now.push({
+              goodsId : "",
+              kg:false,
+              promotionCost:'',
+              remainQuantity:'',
+              seatId:'',
+              unitCost:'',
+              useTime:''
+            });
+          }
+        //}
       }
-      console.log(that.goodid_now,1111)
       var nextMonth = res.data.data.nextMonth;
 
-      const today_month1 = new Date(nextMonth[0].useTime);
+      /*const today_month1 = new Date(nextMonth[0].useTime);
       today_month1.setMonth(today_month1.getMonth() + 1);
       today_month1.setDate(0);
-      const day_num1 = today_month1.getDate();
-      for(var i = 0;i<nextMonth.length;i++){
+      const day_num1 = today_month1.getDate();*/
+      for(var i = 0;i<(30-day_num);i++){
         var tdy1 = new Date(nextMonth[i].useTime).getDate();
         console.log(i+1,tdy1,222222)
         if((i+1)==tdy1){

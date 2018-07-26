@@ -52,7 +52,26 @@ Page({
   payOrder:function(){
     this.getAppurl()
     let orderId=this.data.orderId;
+      let arr=wx.getStorageSync("myorder")
+      app.getRequest({
+        // 修改订单
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+        method:"get",
+        data:{
+          alertTime	: arr[arr.length-1].alertTime,
+          arravingTime	:arr[arr.length-1].arrivingTime,
+          linkPhone	:	arr[arr.length-1].linkPhone || wx.getStorageSync("order_pay").linkPhone,
+          orderId :orderId
+        },
+        success:(res)=>{
     
+          console.log(res)
+        
+        },
+        fail:(error)=>{
+            
+        }
+      })
 
     let data= wx.getStorageSync("order")
     wx.requestPayment({
@@ -86,6 +105,9 @@ Page({
   // },
   // 预计到场时间选择
   jumpSetTheme: function () {
+    if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
+      return
+    }
     this.setData({
       timeFlag: !this.data.timeFlag
     }) 
@@ -143,6 +165,9 @@ Page({
 },
   // 行程提醒
   jumpSetRemind: function () {
+      if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
+          return
+      }
     let data = this.data;
     wx.navigateTo({
       url: '../warn/warn?type=storage&alertTime=' + data.alertTime
@@ -565,30 +590,8 @@ Page({
         fail:(error)=>{
           
       }
-    }),
-    function getAppurl(){
-      let orderId=this.data.orderId;
-      let arr=wx.getStorageSync("myorder")
-      app.getRequest({
-        // 修改订单
-        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
-        method:"get",
-        data:{
-          alertTime	: arr[arr.length-1].alertTime,
-          arravingTime	:arr[arr.length-1].arrivingTime,
-          linkPhone	:	arr[arr.length-1].linkPhone || wx.getStorageSync("order_pay").linkPhone,
-          orderId :orderId
-        },
-        success:(res)=>{
-    
-          console.log(res)
-        
-        },
-        fail:(error)=>{
-            
-        }
-      })
-    } 
+    })
+   
     
     
     
