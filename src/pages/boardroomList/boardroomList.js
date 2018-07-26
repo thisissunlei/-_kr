@@ -103,6 +103,7 @@ Page({
     console.log(e);
     wx.setStorageSync("rangeTime-c", rangeTime);
     wx.setStorageSync("detail-c", detail);
+    console.log(e.currentTarget.dataset.detail.goodsId,e.currentTarget.dataset.detail.seatId)
     wx.navigateTo({
       url:
         "/pages/seatorderConfirmation/seatorderConfirmation?goodsId=" +e.currentTarget.dataset.detail.goodsId+'&seatId='+e.currentTarget.dataset.detail.seatId
@@ -253,6 +254,7 @@ Page({
   getData1: function() {
     let that = this;
     // console.log(that.data.communityId,that.data.nowDate)
+    console.log(that.data.communityId,that.data.nowDate)
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/seat/goods/cmt",
       methods: "GET",
