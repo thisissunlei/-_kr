@@ -308,7 +308,7 @@ Page({
         data = item
       }
     })
-    console.log(data)
+    // console.log(data)
     wx.requestPayment({
       'timeStamp': data.timestamp,
       'nonceStr': data.noncestr,

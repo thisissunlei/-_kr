@@ -3,7 +3,7 @@
         <!-- 图片 与 详情 -->
         <view class="u-order-detail" bindtap="openMeetDetail">
             <view class="u-order-left">
-                <image class="u-order-img" src="{{meetingDetail.picUrls}}"></image>
+                <image class="u-order-img" src="{{detailInfo.imgUrl}}"></image>
             </view>
 
             <view class="u-order-right">
@@ -39,7 +39,7 @@
             <view class="u-line"></view>
         </view>
         <!--隐藏 日期盒子 -->
-        <scroll-view scroll-y="true" style="height:270rpx"class="u-time-box" wx:if="{{sankeNum && daynum}}">
+        <scroll-view scroll-y="true" style="height:200rpx"class="u-time-box" wx:if="{{sankeNum && daynum}}">
         <!-- <view class="u-time-box" wx:if="{{sankeNum && daynum}}"> -->
             <view class="box2">
             </view>
@@ -69,6 +69,11 @@
             <view class="u-btn-arrow u-meeting-btn-arrow">
                 <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
+            <picker mode="time" value="{{time}}" start="09:00" end="19:00" bindchange="bindTimeChange">
+                <view class="picker">
+                    <!-- {{time}} -->
+                </view>
+            </picker>
         </view>
         <!-- 行程提醒 -->
         <view class="u-meeting-remind" bindtap="jumpSetRemind">
@@ -107,15 +112,15 @@
 
     <!-- 隐藏的 预计到场时间 -->
     <view class="section" wx:if="{{timeFlag}}">
-        <view class="section_top" bindtap="jumpSetTime"></view>
-        <view class="section_bottom">
-            <view class="section_title">预计到场时间</view>
-            <picker mode="time" value="{{time}}" start="09:00" end="19:00" bindchange="bindTimeChange">
+        <!-- <view class="section_top" bindtap="jumpSetTime"></view> -->
+        <!-- <view class="section_bottom"> -->
+            <!-- <view class="section_title">预计到场时间</view> -->
+            <!-- <picker mode="time" value="{{time}}" start="09:00" end="19:00" bindchange="bindTimeChange">
                 <view class="picker">
                     {{time}}
                 </view>
-            </picker>
-        </view>
+            </picker> -->
+        <!-- </view> -->
 
     </view>
 
@@ -133,7 +138,7 @@
                     1
                 </view>
                 <view class="u-price-num" wx:else>
-                    0.00
+                    0
                 </view>
                 <view class="u-old-price" wx:if="{{sankenum!=0&&daynum!=0}}">
 
@@ -141,6 +146,25 @@
             </view>
             <view class="u-footer-tip" wx:if="{{dialogShow}}">
                 （新人专享）2小时超值体验
+            </view>
+        </view>
+        <view class="u-footer-left" wx:if="{{isFirst&daynum >=2}}">
+            <view class="u-first-pay-price">
+                <view class="u-price-label">
+                    应付：
+                </view>
+                <view class="u-price-unit">
+                    ¥
+                </view>
+                <view class="u-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
+                    {{meetingDetail.promotionCost * sankeNum * daynum}}
+                </view>
+                <view class="u-price-num" wx:else>
+                    0
+                </view>
+                <view class="u-old-price" wx:if="{{sankenum!=0&&daynum!=0}}">
+                    ￥{{meetingDetail.unitCost * sankeNum * daynum}}
+                </view>
             </view>
         </view>
         <view class="u-footer-left" wx:if="{{!isFirst}}">
@@ -258,7 +282,7 @@
                         </view>
                         <view class="u-meet-facility" wx:if="{{meetingDetail.devices.length}}">
                             <view class="u-icon-list" wx:for="{{meetingDetail.devices}}" wx:key="*this" wx:for-item="meetItem">
-                                <!-- <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image> -->
+                                <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image>
                                 <view class="u-facility-txt">{{meetItem.name}}</view>
                             </view>
                         </view>
