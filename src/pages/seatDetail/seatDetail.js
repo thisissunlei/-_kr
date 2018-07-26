@@ -136,7 +136,7 @@ Page({
       QR.qrApi.draw(
         //kr_meeting
         "https://web.krspace.cn/test/seat_test/kr_meeting02/index.html?inviteeId=" +
-          that.seatId,
+          that.data.seatId,
         "mycanvas",
         that.width / 2.5,
         that.width / 2.5,
@@ -150,7 +150,7 @@ Page({
     } else {
       QR.qrApi.draw(
         "https://web.krspace.cn/test/seat_test/kr_meeting02/index.html?inviteeId=" +
-          that.seatId,
+          that.data.seatId,
         "mycanvas",
         that.width / 2.5,
         that.width / 2.5
