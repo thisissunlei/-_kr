@@ -630,14 +630,14 @@ Page({
   dateBtn :function(e){
     const today_a = parseInt(new Date().getDate())
      console.log(e,111111)
-    if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
+    if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'||e.target.dataset.bool=='now'){
       // const new_data = this.data[e.target.dataset.data];//遍历的哪条数组
       var old_data = [];
       let aa = e.target.dataset
       let kong_index =this.data.inn
       let kong_index1 =this.data.inn1
       let kong_index_a = this.data.splice
-      console.log(e.target.dataset)
+      console.log(e.target.dataset,9999)
       if(e.target.dataset.data=='date_data2'){
         let ios = this.data.date_data2
         let zuti = e.target.dataset.kg
@@ -1053,12 +1053,16 @@ Page({
       today_month1.setMonth(today_month1.getMonth() + 1);
       today_month1.setDate(0);
       const day_num1 = today_month1.getDate();*/
+      console.log(88888,30-day_num)
+      var day_num_f1 = 0;
       for(var i = 0;i<(30-day_num);i++){
-        var tdy1 = new Date(nextMonth[i].useTime).getDate();
+        console.log(i,666666)
+        var tdy1 = new Date(nextMonth[day_num_f1].useTime).getDate();
         console.log(i+1,tdy1,222222)
         if((i+1)==tdy1){
-          nextMonth[i].kg = false;
-          that.goodid_now.push(nextMonth[i]);
+          nextMonth[day_num_f1].kg = false;
+          that.goodid_now.push(nextMonth[day_num_f1]);
+          day_num_f1++;
         }else{
           that.goodid_now.push({
             goodsId : "",
@@ -1229,36 +1233,36 @@ console.log(that.goodid_now,222222)
     
   },
   onClickDate: function (that){
-    let carendar = that.combination_new;
+    let carendar = JSON.parse(JSON.stringify(that.combination_new));
     console.log(that.data,carendar,777777)
     
     if(carendar){
-    carendar.map(item=>{
-      console.log(item)
-       item.month=getzf(item.month) 
-       item.value=getzf(item.value)
+      carendar.map(item=>{
+        console.log(item)
+         item.month=getzf(item.month) 
+         item.value=getzf(item.value)
 
-      if(item.value=="今天"){
-        item.month=getzf(parseInt(new Date().getMonth()+1))
-        item.value=getzf(parseInt(new Date().getDate()))
-        item.zhou="今天"
-      }
-      if(item.value=="明天"){
-        item.month=getzf(parseInt(new Date().getMonth()+1))
-        item.value=getzf(parseInt(new Date().getDate())+1)
-        item.zhou="明天"
-      }
-      console.log(item)
-      return item
-    }) 
+        if(item.value=="今天"){
+          item.month=getzf(parseInt(new Date().getMonth()+1))
+          item.value=getzf(parseInt(new Date().getDate()))
+          item.zhou="今天"
+        }
+        if(item.value=="明天"){
+          item.month=getzf(parseInt(new Date().getMonth()+1))
+          item.value=getzf(parseInt(new Date().getDate())+1)
+          item.zhou="明天"
+        }
+        console.log(item)
+        return item
+      }) 
    
-    that.setData({
-      sankeNum: carendar[0].number_a,
-      daynum: carendar.length,
-      carendarArr: carendar,
-      // seatGoodIds:
-    })
-  }
+      that.setData({
+        sankeNum: carendar[0].number_a,
+        daynum: carendar.length,
+        carendarArr: carendar,
+        // seatGoodIds:
+      })
+    }
   },
   heider(){
     console.log(1)
