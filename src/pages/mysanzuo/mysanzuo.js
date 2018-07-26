@@ -31,7 +31,6 @@ Page({
             that.setData({
               meetingList:list
             })
-            console.log(this.data.meetingList)
           }else{
             that.setData({
               error:false,

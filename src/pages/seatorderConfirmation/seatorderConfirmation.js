@@ -875,7 +875,7 @@ Page({
               data.push({//今天可选
                 value:'今天',
                 type:'now',
-                kg:true,
+                kg:this.goodid_now[i+1-today].kg,
                 number:this.goodid_now[i+1-today].remainQuantity,
                 mary:this.goodid_now[i+1-today].unitCost,
                 id:this.goodid_now[i-today+1].goodsId,
