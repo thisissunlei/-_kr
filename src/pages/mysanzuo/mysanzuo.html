@@ -13,19 +13,16 @@
                     <!-- <text class="status wating" wx:if="{{item.seatStatus == 'WAIT'}}">待入场</text>
                     <text class="status expired" wx:if="{{item.seatStatus == 'EXPIRED'}}">已过期</text>
                     <text class="status used" wx:if="{{item.seatStatus == 'ARRVING'}}">已入场</text> -->
-                <image wx:if="{{item.seatStatus == 'EXPIRED'}}" src="../images/orderimg/order-a.png"  background-size="cover" class="bgc-b"></image>
+                <image wx:if="{{item.seatStatus == 'USED'}}" src="../images/orderimg/order-a.png"  background-size="cover" class="bgc-b"></image>
                 <image wx:if="{{item.seatStatus == 'TOUSE'}}" src=""  background-size="cover" class="bgc-b"></image>
-                <image wx:if="{{item.seatStatus == 'WAIT'}}" src="../images/orderimg/order-b.png" background-size="cover" class="bgc-c"></image>
+                <image wx:if="{{item.seatStatus == 'EXPIRED'}}" src="../images/orderimg/order-b.png" background-size="cover" class="bgc-c"></image>
                 <view class="detail" >
                     <text class="meeting-time">{{item.useTime}}</text>
                     <text class="theme-name">{{item.seatName}}</text>
                 </view>
                 <view class="address-box">
+                    <image class="location" src="../images/indexImg/dizhi2.png" background-size="cover"></image>{{item.address}}
                     <text class="meeting-address">{{item.adress}}</text>
-                    
-                    <text class="address">
-                        <image class="location" src="../images/indexImg/dizhi2.png" background-size="cover"></image>{{item.address}}
-                    </text>
                 </view>
             </navigator>
             
@@ -35,6 +32,6 @@
     <view class="my-meeting-list-none" wx:if="{{!meetingList.length}}">
         <view class="content-none" wx:if="{{!orderList.length}}">
               <image class="none-img" src="../images/public/none.png" background-size="cover"></image>
-              <text class="warn">还没有会散座呢~</text>
+              <text class="warn">还没有散座呢~</text>
           </view>
     </view>

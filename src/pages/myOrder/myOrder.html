@@ -123,7 +123,7 @@
 							</view>
 						</view>
 						
-						<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}&con=0">
+						<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
 							<view class="left">
 								<image class="order-img"  src="{{item.imgUrl}}"  mode="aspectFill"></image>
 							</view>
@@ -138,7 +138,7 @@
 				</view>
 			</scroll-view>
 </view>
-<view class="my-order-none a" wx:if="{{show_xx == false && orderList1 <= 0}}">
+<view class="my-order-none" wx:if="{{show_xx == false && orderList1 <= 0}}">
  <!--  <view class="order-type">
   	<view class="tab" bindtap="changeType" data-type="ALL">全部</view>
   	<view class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</view>

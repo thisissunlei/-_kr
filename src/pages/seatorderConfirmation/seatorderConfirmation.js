@@ -7,7 +7,7 @@ Page({
   },*/
   data: {
     new_arrup:[],
-    seatGoodIds:"",
+    seatGoodIds:[],
     orderId:"",
     seatId:"",
     timeweekArr:{},
@@ -100,8 +100,6 @@ Page({
     arr:[],
   },
 
-
-  seatGoodIds:"",
   choose_date: '',
   selectedTime: [],
   isSubTime: false,
@@ -387,15 +385,18 @@ Page({
       combination:combination
     })
     this.combination_new= combination;
+    let seatGoodIds=[]
     this.combination_new.map(item=>{
-        console.log(item.id,"id")
+        // console.log(item.id,"id")
+        seatGoodIds.push(item.id)
+
         this.setData({
-          seatGoodIds:item.id
+          seatGoodIds:seatGoodIds.join(',')
         })
        
     })
 
-    // console.log(1111)
+    console.log(1111,seatGoodIds)
     wx.setStorageSync('data-index',this.data.combination)
     // console.log(this.data.id)
     // app.getRequest({

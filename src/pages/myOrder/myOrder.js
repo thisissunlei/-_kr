@@ -20,7 +20,7 @@ Page({
     tabList:{
         'ALL':'0',
         'OBLIGATION':'1',
-        'TOBEUSED':'2',
+        'TOUSE':'2',
         'USED':'3',
         'CLOSED':'4'
     },
@@ -203,7 +203,6 @@ Page({
               return item;
             })
             var allList1 = [].concat(orderOldList1,list1)
-            // console.log(list1.length,'totalCount',allList1,allList1.length)
             this.orderOldList1 = allList1
             that.setData({
               orderOldList1:allList1,
