@@ -126,7 +126,6 @@ Page({
   jumpSetTheme: function () {
     this.setData({
       timeFlag: !this.data.timeFlag
-      
     })
   },
   // 预计到场时间显示
@@ -1212,7 +1211,10 @@ Page({
     })
   },
   onUnload: function () {
-      wx.removeStorageSync("data-index")
+      
+      this.setData({
+        carendarArr:{}
+      })
   },
 
 

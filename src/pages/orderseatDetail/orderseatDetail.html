@@ -8,7 +8,7 @@
         <!-- 图片 与 详情 -->
         <view class="u-order-detail" bindtap="openMeetDetail">
             <view class="u-order-left">
-                <image class="u-order-img" src="{{meetingDetail.picUrls}}"></image>
+                <image class="u-order-img" src="{{detailInfo.imgUrl}}"></image>
             </view>
 
             <view class="u-order-right">
@@ -35,7 +35,7 @@
             <view class="u-line"></view>
         </view>
          <!--日期盒子 -->
-         <scroll-view scroll-y="true" style="height:270rpx"class="u-time-box" >
+         <scroll-view scroll-y="true" style="height:200rpx"class="u-time-box" >
           <!-- <view class="u-time-box"> -->
               <view class="box2"></view>
               <view class="u-time-info" wx:for="{{timeday}}" wx:key>
