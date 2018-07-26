@@ -223,7 +223,7 @@
                       <image class="u-address-icon" src="../images/public/icon_didian.png"></image>
                       <view class="u-address-txt">{{meetingDetail.buildName}} {{meetingDetail.floor}}层</view>
                   </view>
-                  <view class="u-address" wx:if="{{meetingDetail.address}}"  style="margin-top: 24rpx">
+                  <view class="u-address" wx:if="{{meetingDetail.address}}"  style="margin-top: 28rpx">
                     <image class="u-address-icon"  src="../images/public/icon_dizhi.png" style="vertical-align: top"></image>
                     <view class="u-address-txt" style="width:90%;vertical-align: top;line-height: 32rpx">{{meetingDetail.address}}</view>
                 </view>
@@ -238,7 +238,7 @@
               >
                   <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image>
                   <view class="u-facility-txt">{{meetItem.name}}</view>
-              </view> 
+              </view>
           </view>
         </view>
         
@@ -275,9 +275,7 @@
          
           <view class="u-meeting-info">
               <view class="u-meet-info">
-                  <view class="u-meet-name">
-                    {{meetingDetail.openTime}}
-                  </view>
+                  <view class="u-meet-name">散座</view>
                   <view class="u-meet-detail-price-info">
                       <view class="u-meet-unit">¥</view>
                       <view class="u-meet-num"> {{meetingDetail.promotionCost}}</view>
@@ -292,9 +290,13 @@
                       <view class="u-address-txt">{{meetingDetail.buildName}} {{meetingDetail.buildFloorDescr}}</view>
                   </view>
                   <view class="u-address" style="margin-top: 24rpx">
-                    <image class="u-address-icon"  src="../images/public/icon_dizhi.png" style="vertical-align: top"></image>
-                    <view class="u-address-txt" style="width:90%;vertical-align: top;line-height: 32rpx">{{meetingDetail.adress}}</view>
-                </view>
+                      <image class="u-address-icon"  src="../images/public/icon_dizhi.png" style="vertical-align: top"></image>
+                      <view class="u-address-txt" style="width:90%;vertical-align: top;line-height: 32rpx">{{meetingDetail.adress}}</view>
+                  </view>
+                  <view class="u-address" style="margin-top: 24rpx">
+                      <image class="u-address-icon"  src="../images/public/icon_shijian.png" style="vertical-align: top"></image>
+                      <view class="u-address-txt" style="width:90%;vertical-align: top;line-height: 32rpx">{{meetingDetail.openTime}}</view>
+                  </view>
               </view>
           </view>
           <view class="u-meet-facility" wx:if="{{meetingDetail.devices.length}}">
