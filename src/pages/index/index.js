@@ -236,39 +236,44 @@ Page({
         longitude: that.rq_data.longitude
       },
       success: res => {
-        var mansion = Object.assign({}, res);
-        console.log(mansion, "列表");
-        let buildingList = mansion.data.data.buildingList;
-        let myMeeting = mansion.data.data.myTodo;
-        //排序
-        buildingList.sort(function(a, b) {
-          return a.distance - b.distance;
-        });
-        //未开放大厦
-        let noOpenBuilding = buildingList.filter((item, index) => {
-          if (item.published) {
-            return false;
-          }
-          return true;
-        });
-
-        //开放大厦
-        let newBuildingList = buildingList.filter((item, index) => {
-          if (item.published) {
-            if (item.distance > 1000) {
-              item.distance = (item.distance / 1000).toFixed(1) + "km";
-            } else {
-              item.distance = Math.round(item.distance * 10) / 10 + "m";
+        //-----
+        if (res.data.code == 1) {
+          var mansion = Object.assign({}, res);
+          console.log(mansion, "列表");
+          var buildingList = mansion.data.data.buildingList;
+          var myMeeting = mansion.data.data.myTodo;
+          //排序
+          buildingList.sort(function(a, b) {
+            return a.distance - b.distance;
+          });
+          //未开放大厦
+          let noOpenBuilding = buildingList.filter((item, index) => {
+            if (item.published) {
+              return false;
             }
             return true;
-          }
-          return false;
-        });
-        that.setData({
-          buildingList: newBuildingList || [],
-          myMeeting: myMeeting || [],
-          noOpenBuilding: noOpenBuilding || []
-        });
+          });
+
+          //开放大厦
+          let newBuildingList = buildingList.filter((item, index) => {
+            if (item.published) {
+              if (item.distance > 1000) {
+                item.distance = (item.distance / 1000).toFixed(1) + "km";
+              } else {
+                item.distance = Math.round(item.distance * 10) / 10 + "m";
+              }
+              return true;
+            }
+            return false;
+          });
+          that.setData({
+            buildingList: newBuildingList || [],
+            myMeeting: myMeeting || [],
+            noOpenBuilding: noOpenBuilding || []
+          });
+        }
+
+        //---------
       }
     });
     //白屏问题代码-------
@@ -341,7 +346,7 @@ Page({
   },
   //点击散座card
   moveToSeatDetail: res => {
-    // console.log(res);
+    console.log(res);
     var seatId = res.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../seatDetail/seatDetail?seatId=" + seatId
