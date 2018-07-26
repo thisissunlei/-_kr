@@ -629,7 +629,7 @@ Page({
   },
   dateBtn :function(e){
     const today_a = parseInt(new Date().getDate())
-    // console.log(e)
+     console.log(e,111111)
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       // const new_data = this.data[e.target.dataset.data];//遍历的哪条数组
       var old_data = [];
@@ -637,6 +637,7 @@ Page({
       let kong_index =this.data.inn
       let kong_index1 =this.data.inn1
       let kong_index_a = this.data.splice
+      console.log(e.target.dataset)
       if(e.target.dataset.data=='date_data2'){
         let ios = this.data.date_data2
         let zuti = e.target.dataset.kg
@@ -1027,7 +1028,6 @@ Page({
           
         // }else{
           var tdy = new Date(curMonth[day_num_f].useTime).getDate();
-          console.log(tdy,i+today_day,curMonth[day_num_f])
           if((i+today_day)==tdy){
             curMonth[day_num_f].kg = false;
             that.goodid_now.push(curMonth[day_num_f]);
@@ -1047,7 +1047,6 @@ Page({
           }
         //}
       }
-      console.log(that.goodid_now,1111)
       var nextMonth = res.data.data.nextMonth;
 
       /*const today_month1 = new Date(nextMonth[0].useTime);
