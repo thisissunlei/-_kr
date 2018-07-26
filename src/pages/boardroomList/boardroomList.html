@@ -99,7 +99,7 @@
           
         </view> 
       </view>
-      <view class="bottom">
+      <view class="bottom" style="margin-top: 34rpx;">
           <!-- <view class="left">
             <image wx:key="*this" wx:for="{{item.rangeTime}}" wx:for-item="rangeTimeItem" mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="{{rangeTimeItem.disabled?'gray-actived gray':'gray'}}">
               
@@ -116,7 +116,9 @@
             
               <view class="sanzuo-xiao"> 剩余可订 <text class="sanzuo-da">{{item.capacity}}</text> 个 </view>
               
-              <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}" data-id="{{item.id}}" bindtap='list'>预订</view>
+              <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}"
+                    style="margin-top: 0;"
+                    data-id="{{item.id}}" bindtap='list'>预订</view>
             
       </view>
       
@@ -315,7 +317,8 @@
         </scroll-view>
       </view>
     </view>
-    <view class="u-meet-btn" bindtap="nowReserve1" data-mId="{{meetingRoomId1}}">
+    <view class="u-meet-btn" bindtap="nowReserve1" data-mId="{{meetingRoomId1}}"
+          style="background-image: linear-gradient(-217deg, #FFEB00 0%, #FFDF00 100%);color: #624d17;">
         立即预订
     </view>
   </view>
