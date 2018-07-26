@@ -133,7 +133,7 @@
       > 
         <view class="top">
           <view>
-              <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_10"></image>
+              <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_50"></image>
           </view>
           <view class="top-right">
             <view class="first-row" style=" display:flex; justify-content: center;align-items: center;">
@@ -223,7 +223,7 @@
                       <image class="u-address-icon" src="../images/public/icon_didian.png"></image>
                       <view class="u-address-txt">{{meetingDetail.buildName}} {{meetingDetail.floor}}层</view>
                   </view>
-                  <view class="u-address" style="margin-top: 24rpx">
+                  <view class="u-address" wx:if="{{meetingDetail.address}}"  style="margin-top: 24rpx">
                     <image class="u-address-icon"  src="../images/public/icon_dizhi.png" style="vertical-align: top"></image>
                     <view class="u-address-txt" style="width:90%;vertical-align: top;line-height: 32rpx">{{meetingDetail.address}}</view>
                 </view>
