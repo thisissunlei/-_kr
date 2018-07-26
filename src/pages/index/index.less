@@ -303,12 +303,23 @@
 }
 .num_num {
   display: inline-block;
-  width: 48rpx;
   text-align: center;
   font-family: "PingFang-SC-Medium";
   font-size: 17px;
   color: #333333;
   margin-right: 8rpx;
+  position: relative;
+  padding: 0 5rpx;
+}
+.num_num:after {
+  content: " ";
+  position: absolute;
+  height: 16rpx;
+  background-color: #ffe461;
+  right: 0;
+  left: 0;
+  top: 17rpx;
+  z-index: -1;
 }
 .cmty_title {
   font-family: "PingFangSC-Medium";
@@ -357,17 +368,7 @@
   line-height: 26rpx;
   position: relative;
 }
-.room_num:after {
-  content: " ";
-  position: absolute;
-  width: 48rpx;
-  height: 16rpx;
-  background-color: #ffe461;
-  right: 0;
-  left: 0;
-  top: 17rpx;
-  z-index: -1;
-}
+
 .num_arr {
   font-size: 34rpx;
   color: #2a2a2a;
