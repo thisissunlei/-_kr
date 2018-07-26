@@ -340,9 +340,12 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-   
+   console.log(options)
+   this.setData({
+    orderId:options.id
+  })
     var pages=getCurrentPages()
-    console.log(pages)
+    // console.log(pages)
     var prevPage=pages[pages.length-2]
     prevPage.setData({
       isRouteMy:"2"

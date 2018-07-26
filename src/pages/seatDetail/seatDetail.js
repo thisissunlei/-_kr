@@ -83,7 +83,7 @@ Page({
           app.getRequest({
             url: app.globalData.KrUrl + "api/gateway/krseat/ticket/cancel",
             data: {
-              ticketUserId: 91
+              ticketUserId: that.data.seatId
             },
             success: function(res) {
               console.log(res, "取消散座");
