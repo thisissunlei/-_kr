@@ -98,7 +98,8 @@ Page({
     date_next:{month:'',year:'',value:''},
     arr:[],
   },
-  
+
+
   seatGoodIds:"",
   choose_date: '',
   selectedTime: [],
@@ -385,7 +386,15 @@ Page({
       combination:combination
     })
     this.combination_new= combination;
-    console.log(1111)
+    this.combination_new.map(item=>{
+        console.log(item.id,"id")
+        this.setData({
+          seatGoodIds:item.id
+        })
+       
+    })
+
+    // console.log(1111)
     wx.setStorageSync('data-index',this.data.combination)
     // console.log(this.data.id)
     // app.getRequest({
@@ -1336,8 +1345,8 @@ console.log(that.goodid_now,222222)
     linkPhone: data.order_pay.linkPhone || data.linkPhone,
     arrivingTime: data.time,
     quantity: data.sankeNum,
-    seatGoodIds: "135,136"
-    // seatGoodIds: data.seatGoodIds,
+    // seatGoodIds: "135,136"
+    seatGoodIds: data.seatGoodIds,
 
   }
 
