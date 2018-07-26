@@ -6,6 +6,7 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    new_arrup:[],
     seatGoodIds:"",
     orderId:"",
     seatId:"",
@@ -924,13 +925,11 @@ Page({
             
           }
           this.all_day_num++;
-          console.log(this.all_day_num)
-          console.log(30-this.all_day_num+week)
           break;
           
         case i<(30-this.all_day_num+week)&&!bool:
-        console.log(this.all_day_num)
-        console.log(30-this.all_day_num+week)
+        // console.log(this.all_day_num)
+        // console.log(30-this.all_day_num+week)
           if(i%7==0||i%7==6){ 
             // console.log(i+"下月星期天")
             // console.log(this.data.arr1)
@@ -965,16 +964,31 @@ Page({
                 no_mary:index_zhu.arr1[i-week].promotionCost
               });
             }else{
+              const initL =index_zhu.arr1.length
               // console.log(index_zhu.arr1[i-week],index_zhu.arr1[i-week].kg,22222222111)
-              data.push({
-                value:i-week+1,
-                type:'next',
-                kg:index_zhu.arr1[i-week].kg,
-                number:index_zhu.arr1[i-week].remainQuantity,
-                mary:index_zhu.arr1[i-week].unitCost,
-                id:index_zhu.arr1[i-week].goodsId,
-                no_mary:index_zhu.arr1[i-week].promotionCost
-              })
+              // for(let j =i-week;j<index_zhu.arr1.length;j++){
+              //   console.log(j,index_zhu.arr1.length)
+                // if(j > index_zhu.arr1.length){
+                //   let obj = {goodsId:'',kg:false,promotionCost:"",remainQuantity:"",seatId:"",unitCost:"",useTime:""}
+                //   let new_arrup = index_zhu.arr1
+                //   new_arrup.push(obj)
+                //   this.setData({
+                //     new_arrup:new_arrup
+                //   })
+                  // console.log(index_zhu.new_arrup)
+                // }
+                data.push({
+                  value:i-week+1,
+                  type:'next',
+                  kg:index_zhu.arr1[i-week].kg,
+                  number:index_zhu.arr1[i-week].remainQuantity,
+                  mary:index_zhu.arr1[i-week].unitCost,
+                  id:index_zhu.arr1[i-week].goodsId,
+                  no_mary:index_zhu.arr1[i-week].promotionCost
+                })
+              // }
+              
+              
             }
           }
           break;

@@ -609,8 +609,8 @@ Page({
               name:"周天"
             });
           }else{
-            console.log(i-week)
-            console.log(index_zhu.arr1[i-week],111111111111111)
+            // console.log()
+            // console.log(index_zhu.arr1[i-week],111111111111111)
             if(index_zhu.arr1[i-week].remainQuantity > 1 && index_zhu.arr1[i-week].remainQuantity<index_zhu.number){
               data.push({//除周六日可选
                 value:i-week+1,
