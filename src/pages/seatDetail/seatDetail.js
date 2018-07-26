@@ -109,6 +109,10 @@ Page({
   },
   onLoad: function(options) {
     console.log(options);
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
     var that = this;
     if (options.seatId) {
       that.setData({
@@ -153,6 +157,9 @@ Page({
   createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
   },
+  onShow: function() {
+    this.getSeatInfo();
+  },
   //我的散座详情接口
   getSeatInfo: function() {
     var that = this;
@@ -162,6 +169,7 @@ Page({
         ticketUserId: that.data.seatId
       },
       success: function(res) {
+        wx.hideLoading();
         console.log(res);
         var seatInfo = Object.assign({}, res);
         console.log(seatInfo);
