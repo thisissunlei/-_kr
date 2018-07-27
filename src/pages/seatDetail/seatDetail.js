@@ -162,7 +162,7 @@ Page({
     //调用插件中的draw方法，绘制二维码图片
   },
   onShow: function() {
-    this.getSeatInfo();
+    // this.getSeatInfo();
   },
   //我的散座详情接口
   getSeatInfo: function() {
@@ -179,16 +179,20 @@ Page({
         console.log(seatInfo);
         var newUser = wx.getStorageSync("user_info");
         // console.log(newUser);
+
         // var sponsor = seatInfo.data.data.sponsor;
         var inviteers = seatInfo.data.data.inviteers;
         // console.log(newUser.user_info);
+        //如果可以邀请执行
         if (seatInfo.data.data.canInvite) {
           var result = inviteers.some(value => {
+            console.log(value);
             return (
               value.wechatNick == newUser.user_info.nickName &&
               value.wechatAvatar == newUser.user_info.avatarUrl
             );
           });
+          //如果头像和名字都不一致则执行
           if (!result) {
             inviteers.push({
               wechatNick: newUser.user_info.nickName,
