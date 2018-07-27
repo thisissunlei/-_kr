@@ -5,11 +5,11 @@
   <view class="idx_header">
     <view class="title-msg">
       <view class="E-title">
-        <view style="display: flex;">
+        <view style="display: flex;flex-wrap: wrap;">
           <text class="e-title-textt">自由座</text>
-          <!-- <text class="e-title-textm">+</text> -->
+          <text class="e-title-textb">轻松、灵活办公新方式</text>
+
         </view>
-        <text class="e-title-textb">轻松、灵活办公新方式</text>
       </view>
       <view class="my" bindtap="moveToMy">
         <view class="my-img">
@@ -91,11 +91,14 @@
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
     <view class='rm_title'>
       <text style="margin-left: 36rpx;">周边大厦</text>
-      <view class="page-box" bindtap="openmap">
+      <!-- <view class="page-box" bindtap="openmap">
         <text class="page-map">
           <text class="page-water"></text>
           <text class="page-point"></text>
         </text>
+      </view> -->
+      <view class="page-mapicon" bindtap="openmap">
+        <image src="../images/indexImg/mapicon.png"></image>
       </view>
 
     </view>

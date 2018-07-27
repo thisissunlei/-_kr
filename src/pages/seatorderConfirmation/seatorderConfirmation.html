@@ -46,7 +46,7 @@
             <view class="u-time-info" wx:for="{{carendarArr}}" wx:key>
                 <view class="u-time-color">
                     <view>{{item.month}}-{{item.value}}</view>
-                    <view>({{item.zhou}})</view>
+                    <view class="zhou">({{item.zhou}})</view>
                 </view>
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
@@ -92,7 +92,7 @@
 
     <!-- 联系电话 -->
     <view class="u-meeting-phone" bindtap="jumpSetPhone">
-        <view class="u-meeting-title" style="line-height:114rpx">
+        <view class="u-meeting-title">
             联系电话
         </view>
         <view class="u-meet-text" wx:if="{{linkPhone}}">{{linkPhone}}</view>
