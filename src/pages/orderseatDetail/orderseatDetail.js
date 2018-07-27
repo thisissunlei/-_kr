@@ -235,9 +235,9 @@ Page({
     let data=this.data;
     wx.navigateTo({
       // url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
-      url: '../phone/phone?type=submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId
+      url: '../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId
     })
-
+    console.log('../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId)
 
    
        

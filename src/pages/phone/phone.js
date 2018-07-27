@@ -66,6 +66,7 @@ Page({
     }else if(type=='submit'){
       this.submitPhone()
     }else if(type=='seat_submit'){
+      console.log(1111)
       this.submitSeatPhone()
     }
     
@@ -122,7 +123,7 @@ Page({
     //接口待定
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
-        method:"POST",
+        method:"get",
         data:{
           'orderId':that.data.orderId,
           "linkPhone":that.data.inputValue,

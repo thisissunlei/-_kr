@@ -98,10 +98,7 @@ Page({
   },
   onLoad: function(options) {
     console.log(options);
-    wx.showLoading({
-      title: "加载中",
-      mask: true
-    });
+    wx.showLoading({ title: "加载中", mask: true });
     var that = this;
     if (options.seatId) {
       that.setData({
@@ -113,6 +110,7 @@ Page({
   onReady: function() {
     // console.log(this.data.seatStatus);
     var that = this;
+    console.log(that.data.seatStatus);
     //设置canvsa大小
     wx.getSystemInfo({
       success: function(res) {
@@ -121,7 +119,7 @@ Page({
       }
     });
 
-    if (that.data.seatStatus == "EXPIRED") {
+    if (that.data.seatStatus == "EXPIRED" || that.data.seatStatus == "USED") {
       QR.qrApi.draw(
         //kr_meeting
         "https://web.krspace.cn/test/seat_test/krmeeting_09/index.html?inviteeId=" +
@@ -132,9 +130,7 @@ Page({
         null,
         "rgba(0,0,0,0.6)"
       );
-      that.setData({
-        canInvite: false
-      });
+      that.setData({ canInvite: false });
       // console.log(that.data.canInvite);
     } else {
       QR.qrApi.draw(
@@ -162,6 +158,7 @@ Page({
       },
       success: function(res) {
         wx.hideLoading();
+
         // console.log(res);
         var seatInfo = Object.assign({}, res);
         console.log(seatInfo);
