@@ -6,6 +6,8 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    price_y:0,
+    price_all:0,
     new_arrup:[],
     seatGoodIds:"",
     orderId:"",
@@ -72,6 +74,7 @@ Page({
     ifFirst: false,
 
     // 日历
+    
     week:'',
     arr2:[],
     id:0,
@@ -115,7 +118,7 @@ Page({
   last_data:'false',
   goodid_now:[],
   goodid_next:[],
-
+  show_true:"",
   // 散座s详情弹窗
   openMeetDetail: function (e) {
     let that = this;
@@ -864,8 +867,9 @@ Page({
               type:'before',
             });
           }else{
-            console.log(this.data.arr,'本月的arr') 
-            if(this.goodid_now[i+1-today].remainQuantity < index_zhu.number){
+            console.log(this.show_true,'本月的arr') 
+            if(this.goodid_now[i+1-today].remainQuantity < index_zhu.number){ 
+              console.log("今天是false")
               data.push({//今天可选
                 value:'今天',
                 type:'before',
@@ -873,17 +877,17 @@ Page({
                 mary:this.goodid_now[i+1-today].unitCost,
                 no_mary:this.goodid_now[i+1-today].promotionCost
               });
-            }else{
-              // console.log(this.data.arr,'本月的arr')
-              data.push({//今天可选
-                value:'今天',
-                type:'now',
-                kg:this.goodid_now[i+1-today].kg,
-                number:this.goodid_now[i+1-today].remainQuantity,
-                mary:this.goodid_now[i+1-today].unitCost,
-                id:this.goodid_now[i-today+1].goodsId,
-                no_mary:this.goodid_now[i+1-today].promotionCost,
-              });
+            }
+            else{
+                data.push({//今天可选
+                  value:'今天',
+                  type:'now',
+                  kg:this.show_true === 'true' ? true :'false',
+                  number:this.goodid_now[i+1-today].remainQuantity,
+                  mary:this.goodid_now[i+1-today].unitCost,
+                  id:this.goodid_now[i-today+1].goodsId,
+                  no_mary:this.goodid_now[i+1-today].promotionCost,
+                });
             }
           }
           this.all_day_num++;
@@ -1135,11 +1139,12 @@ console.log(that.goodid_now,222222)
 
   // 页面加载
   onLoad: function (options) {
-   
-
+    this.show_true = options.show_true
+    console.log(options)
     this.setData({
       orderId:options.goodsId,
-      seatId:options.seatId
+      seatId:options.seatId,
+      
     })
     // 日历
 
@@ -1235,11 +1240,14 @@ console.log(that.goodid_now,222222)
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-    console.log(that.data,carendar,777777)
-    
+     console.log(that.data,carendar,777777)
+    let price_all = 0;
+    let price_y = 0;
     if(carendar){
       carendar.map(item=>{
         console.log(item)
+        price_all = price_all + item.no_mary*item.number_a;
+        price_y  = price_y + item.mary*item.number_a;
          item.month=getzf(item.month) 
          item.value=getzf(item.value)
 
@@ -1253,14 +1261,17 @@ console.log(that.goodid_now,222222)
           item.value=getzf(parseInt(new Date().getDate())+1)
           item.zhou="明     天"
         }
-        console.log(item)
+        // console.log(item)
         return item
       }) 
-   
+      
+
       that.setData({
         sankeNum: carendar[0].number_a,
         daynum: carendar.length,
         carendarArr: carendar,
+        price_all:price_all,
+        price_y:price_y
         // seatGoodIds:
       })
     }

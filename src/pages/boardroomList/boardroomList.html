@@ -10,13 +10,20 @@
   </view> -->
   <!-- 图片 -->
   <!-- <view><image src='{{boardroomList[0].imgUrl}}' style="height:374rpx"></image></view> -->
-  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true'>  
+  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' wx:if='{{boardroomList.length > 0}}'>  
       <block wx:for="{{boardroomList}}" wx:key  wx:for-index="index" wx:key>  
         <swiper-item>  
           <image src="{{item.imgUrl}}" style="height:374rpx;width:100%;"/>  
         </swiper-item>  
       </block>  
     </swiper>
+    <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' wx:if='{{boardroomList.length == 0}}'>  
+        <block wx:for="{{arr}}" wx:key  wx:for-index="index" wx:key>  
+          <swiper-item>  
+            <image src="{{item.imgUrl}}" style="height:374rpx;width:100%;"/>  
+          </swiper-item>  
+        </block>  
+      </swiper>
     <!-- <image wx:for='{{boardroomList}}' src='{{item.imgUrl}}' style="height:374rpx"></image> -->
   <!-- 日历部分 -->
   <view class="top-date" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
@@ -124,7 +131,7 @@
       
     </view>
 </scroll-view>
-<view class="san-zuo"><view class="num_num1">会议室 <view class="child"></view> </view></view>
+<view class="san-zuo" wx:if='{{show_huiyi}}'><view class="num_num1">会议室 <view class="child"></view> </view></view>
   <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom">
       <view 
         wx:for="{{boardroomList}}"
@@ -271,7 +278,7 @@
                     </swiper-item>
                   </view>
             </swiper>
-            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
+            <view class="u-img-num" wx:if="{{meetingDetail.picUrls.length>1}}">{{currentNum}}/{{meetingDetail.picUrls.length}}</view>
           </view>
           <image class="u-meet-detail-close" style="{{ifFixed?'position: fixed;':''}}" bindtap="closeMeetDetail1" src="../images/public/icon_close.png"></image>
          
@@ -327,7 +334,7 @@
       <!-- <view class="wrapper"> -->
           <view class="date">
                 
-                <view class="select-data">请选择会议日期</view>
+                <view class="select-data">请选择日期</view>
         
                 <view class="week">
                   <text class="week-day">日</text>

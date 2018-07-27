@@ -50,8 +50,8 @@
                 </view>
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
-                    <view class="u-meet-detail-num"> {{meetingDetail.promotionCost}}</view>
-                    <view class="u-meet-old-num">¥ {{meetingDetail.unitCost}}</view>
+                    <view class="u-meet-detail-num"> {{item.no_mary}}</view>
+                    <view class="u-meet-old-num">¥ {{item.mary}}</view>
                     <view class="u-meet-old-unit"> /个·天 </view>
                 </view>
                 <view class="u-time-col">x
@@ -157,13 +157,13 @@
                     ¥
                 </view>
                 <view class="u-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
-                    {{meetingDetail.promotionCost * sankeNum * daynum}}
+                    {{price_all}}
                 </view>
                 <view class="u-price-num" wx:else>
                     0
                 </view>
                 <view class="u-old-price" wx:if="{{sankenum!=0&&daynum!=0}}">
-                    ￥{{meetingDetail.unitCost * sankeNum * daynum}}
+                    ￥{{price_y}}
                 </view>
             </view>
         </view>
@@ -176,13 +176,13 @@
                     ¥
                 </view>
                 <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
-                    {{meetingDetail.promotionCost * sankeNum * daynum}}
+                    {{price_all}}
                 </view>
                 <view class="u-price-num" wx:else>
                     0
                 </view>
                 <view class="u-old-no-first-price" wx:if="{{sankenum!=0&&daynum!=0}}">
-                    ￥{{meetingDetail.unitCost * sankeNum * daynum}}
+                    ￥{{price_y}}
                 </view>
             </view>
         </view>
@@ -268,11 +268,11 @@
                                     <image class="u-address-icon" src="../images/public/icon_didian.png"></image>
                                     <view class="u-address-txt">{{meetingDetail.buildFloorDescr}} 氪空间</view>
                                 </view>
-                                <view class="u-address" style="margin-top: 24rpx">
+                                <view class="u-address">
                                     <image class="u-address-icon" src="../images/public/icon_dizhi.png" style="vertical-align: top"></image>
                                     <view class="u-address-txt" style="width:90%;vertical-align: middle;line-height: 32rpx">{{meetingDetail.adress}}</view>
                                 </view>
-                                <view class="u-address" style="margin-top: 24rpx">
+                                <view class="u-address">
                                     <image class="u-address-icon" src="../images/public/icon_shijian.png" style="vertical-align: top"></image>
                                     <view class="u-address-txt" style="width:90%;vertical-align: middle;line-height: 32rpx">{{meetingDetail.openTime}}</view>
                                 </view>
@@ -343,9 +343,7 @@
                 <view wx:for="{{date_data1}}" wx:key='this' data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}'
                     data-month='{{date_now.month}}' data-year='{{date_now.year}}' data-data='date_data1' data-num='{{index}}'
                     wx:for-item="i" data-kg='{{i.kg}}' class="{{i.type}} day {{i.kg==true?'active':'before'}}" style="line-height: 30rpx;">
-                    <view  data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}'
-                    data-month='{{date_now.month}}' data-year='{{date_now.year}}' data-data='date_data1' data-num='{{index}}' data-kg='{{i.kg}}' style="margin-top: 6rpx;">{{i.value}}</view>
-
+                    {{i.value}}
                     <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_now.month}}'
                         data-year='{{date_now.year}}' data-data='date_data1' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'
                         wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.no_mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
@@ -356,10 +354,9 @@
                 <view wx:for="{{date_data2}}" wx:key='this' data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}'
                     data-month='{{date_next.month}}' data-year='{{date_next.year}}' data-data='date_data2' data-num='{{index}}'
                     wx:for-item="i" data-kg='{{i.kg}}' class="{{i.type}} day {{i.kg==true?'active':'before'}}" style="line-height: 30rpx;">
-                    <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_next.month}}'
-                        data-year='{{date_next.year}}' data-data='date_data2' data-num='{{index}}' data-kg='{{i.kg}}' style="margin-top: 6rpx;">{{i.value}}</view>
-                    <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_next.month}}'
-                        data-year='{{date_next.year}}' data-data='date_data2' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'
+                    {{i.value}}
+                    <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_now.month}}'
+                        data-year='{{date_now.year}}' data-data='date_data2' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'
                         wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.no_mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
                 </view>
             </view>
