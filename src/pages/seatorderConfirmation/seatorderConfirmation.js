@@ -72,6 +72,7 @@ Page({
     ifFirst: false,
 
     // 日历
+    
     week:'',
     arr2:[],
     id:0,
@@ -115,7 +116,7 @@ Page({
   last_data:'false',
   goodid_now:[],
   goodid_next:[],
-
+  show_true:"",
   // 散座s详情弹窗
   openMeetDetail: function (e) {
     let that = this;
@@ -864,8 +865,9 @@ Page({
               type:'before',
             });
           }else{
-            console.log(this.data.arr,'本月的arr') 
-            if(this.goodid_now[i+1-today].remainQuantity < index_zhu.number){
+            console.log(this.show_true,'本月的arr') 
+            if(this.goodid_now[i+1-today].remainQuantity < index_zhu.number){ 
+              console.log("今天是false")
               data.push({//今天可选
                 value:'今天',
                 type:'before',
@@ -873,17 +875,17 @@ Page({
                 mary:this.goodid_now[i+1-today].unitCost,
                 no_mary:this.goodid_now[i+1-today].promotionCost
               });
-            }else{
-              // console.log(this.data.arr,'本月的arr')
-              data.push({//今天可选
-                value:'今天',
-                type:'now',
-                kg:this.goodid_now[i+1-today].kg,
-                number:this.goodid_now[i+1-today].remainQuantity,
-                mary:this.goodid_now[i+1-today].unitCost,
-                id:this.goodid_now[i-today+1].goodsId,
-                no_mary:this.goodid_now[i+1-today].promotionCost,
-              });
+            }
+            else{
+                data.push({//今天可选
+                  value:'今天',
+                  type:'now',
+                  kg:this.show_true === 'true' ? true :'false',
+                  number:this.goodid_now[i+1-today].remainQuantity,
+                  mary:this.goodid_now[i+1-today].unitCost,
+                  id:this.goodid_now[i-today+1].goodsId,
+                  no_mary:this.goodid_now[i+1-today].promotionCost,
+                });
             }
           }
           this.all_day_num++;
@@ -1135,11 +1137,12 @@ console.log(that.goodid_now,222222)
 
   // 页面加载
   onLoad: function (options) {
-
-
+    this.show_true = options.show_true
+    console.log(options)
     this.setData({
       orderId:options.goodsId,
-      seatId:options.seatId
+      seatId:options.seatId,
+      
     })
     // 日历
 
