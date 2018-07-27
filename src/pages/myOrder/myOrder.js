@@ -203,7 +203,6 @@ Page({
               return item;
             })
             var allList1 = [].concat(orderOldList1,list1)
-            console.log(allList1)
             this.orderOldList1 = allList1
             that.setData({
               orderOldList1:allList1,
