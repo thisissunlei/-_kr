@@ -39,7 +39,7 @@ Page({
     phone: '',
     check: true,
     dialogShow: false,
-    alertTime: '',
+    alertTime: 'ONEDAY',
     order_pay: {},
     priceCount: '0',
     totalCount: '0',
@@ -348,10 +348,10 @@ Page({
         if (Object.keys(res.data).length != 0) {
           _this.setData({
             themeName: res.data.themeName || _this.data.themeName,
-            remind: _this.getRemind(res.data.alertTime) ,
+            remind: _this.getRemind(res.data.alertTime)|| _this.getRemind('ONEDAY') ,
             linkPhone: res.data.linkPhone || _this.data.linkPhone,
             order_pay: res.data,
-            alertTime: res.data.alertTime
+            alertTime: res.data.alertTime || 'ONEDAY'
             })
         }
       }
