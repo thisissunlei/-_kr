@@ -39,7 +39,7 @@
           <view class="u-time-box">
               <view class="box2"></view>
               <view class="u-time-info" wx:for="{{timeday}}" wx:key>
-                <view>{{item.enableDate}}</view>
+                <view class="num">{{item.enableDate}}</view>
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{item.promotionCost}}</view>
@@ -236,5 +236,8 @@
             </view>
         </view>
     </view>
+   
 
+
+ <viwe class="div" wx:if="{{flag & detailInfo.orderShowStatus === 'CLOSED' }}"></viwe>
 </view> 
