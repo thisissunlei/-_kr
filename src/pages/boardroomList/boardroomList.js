@@ -904,7 +904,7 @@ Page({
         seatGoodsId: meetingRoomId
       },
       success: res => {
-        // console.log(res)
+        console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
           that.setData({
