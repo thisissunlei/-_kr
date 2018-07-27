@@ -77,7 +77,6 @@ Page({
       title: "提示",
       content: "您确认取消吗？",
       success: function(res) {
-        // console.log(res);
         if (res.confirm) {
           app.getRequest({
             url: app.globalData.KrUrl + "api/gateway/krseat/ticket/cancel",
@@ -86,25 +85,16 @@ Page({
             },
             success: function(res) {
               console.log(res, "取消散座");
-              // console.log("确认取消");-------
-              that.data.partner.map((item, index) => {
-                if (item.wechatNick == invitee.user_info.nickName) {
-                  that.data.partner.splice(index, 1);
-                }
-                return item;
-              });
               setTimeout(() => {
                 wx.reLaunch({
                   url: "../index/index"
                 });
               }, 1500);
-              //---------------
             }
           });
         }
       }
     });
-    // console.log(that.data.partner);
   },
   onLoad: function(options) {
     console.log(options);
@@ -130,9 +120,7 @@ Page({
         that.data.width = res.windowWidth;
       }
     });
-    // console.log(that.width);
-    // console.log(that.data.width);
-    // console.log(that.data.seatStatus);
+
     if (that.data.seatStatus == "EXPIRED") {
       QR.qrApi.draw(
         //kr_meeting
@@ -162,7 +150,7 @@ Page({
     //调用插件中的draw方法，绘制二维码图片
   },
   onShow: function() {
-    // this.getSeatInfo();
+    this.getSeatInfo();
   },
   //我的散座详情接口
   getSeatInfo: function() {
@@ -177,29 +165,7 @@ Page({
         // console.log(res);
         var seatInfo = Object.assign({}, res);
         console.log(seatInfo);
-        var newUser = wx.getStorageSync("user_info");
-        // console.log(newUser);
-
-        // var sponsor = seatInfo.data.data.sponsor;
         var inviteers = seatInfo.data.data.inviteers;
-        // console.log(newUser.user_info);
-        //如果可以邀请执行
-        if (seatInfo.data.data.canInvite) {
-          var result = inviteers.some(value => {
-            console.log(value);
-            return (
-              value.wechatNick == newUser.user_info.nickName &&
-              value.wechatAvatar == newUser.user_info.avatarUrl
-            );
-          });
-          //如果头像和名字都不一致则执行
-          if (!result) {
-            inviteers.push({
-              wechatNick: newUser.user_info.nickName,
-              wechatAvatar: newUser.user_info.avatarUrl
-            });
-          }
-        }
         that.setData({
           detail: seatInfo.data.data,
           partner: inviteers,

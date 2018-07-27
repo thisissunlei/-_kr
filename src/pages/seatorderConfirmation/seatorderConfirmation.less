@@ -29,7 +29,7 @@ page {
 .u-time-color {
   font-size: 28rpx;
   color: #666666;
-  width: 180rpx;
+  width: 200rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1017,11 +1017,11 @@ page {
   font-size: 32rpx;
   padding: 28rpx 0;
 }
-.date .week {
+.date_outer .week {
   padding-bottom: 20rpx;
   border-bottom: 1rpx solid #f3f3f3;
 }
-.date .week .week-day {
+.date_outer .week .week-day {
   display: inline-block;
   width: 72rpx;
   margin: 0 17.57rpx;
@@ -1030,7 +1030,7 @@ page {
   font-size: 28rpx;
   color: #666666;
 }
-.date .now-date {
+.date_outer .now-date {
   font-family: PingFang-SC-Light;
   font-size: 40rpx;
   color: #333333;
@@ -1077,13 +1077,10 @@ page {
   width: 100%;
   height: 100%;
   z-index: 999999999;
+  padding-top:270rpx;
 }
-.date {
-  width: 100%;
-  height: 1125rpx;
+.date_outer {
   background: #fff;
-  position: absolute;
-  bottom: 0;
 }
 .last-view {
   text-align: center;
@@ -1183,18 +1180,9 @@ page {
   line-height: 95rpx;
   text-align: center;
 }
-.wrapper {
-  width: 100%;
-  height: 90vh;
-  background: rgba(0, 0, 0, 0.1);
-  position: relative;
-}
+
 .date {
-  width: 100%;
-  height: 1125rpx;
   background: #fff;
-  position: absolute;
-  bottom: 0;
 }
 .week-index1 {
   width: 104rpx;
@@ -1233,7 +1221,6 @@ page {
 }
 .number-x {
   width: 100%;
-  margin-top: 150rpx;
   padding: 54rpx 0 18rpx;
   display: flex;
   justify-content: center;
@@ -1273,21 +1260,20 @@ page {
   height: 68rpx;
 }
 
-.menban {
+/*.menban {
   position: fixed;
   top: 0%;
   width: 100%;
   height: 120rpx;
   background: rgba(0, 0, 0, 0.8);
   z-index: 999;
-}
+}*/
 .fixed {
-  position: fixed;
-  width: 100%;
+ 
   background-color: white;
 }
 .fixed_a {
-  margin-top: 700rpx;
+ height: 444rpx;
 }
 ::-webkit-scrollbar {
   width: 0;
