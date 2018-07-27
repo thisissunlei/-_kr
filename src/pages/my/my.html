@@ -54,11 +54,11 @@
         <text slot='two' class="u-meet-count" wx:if="{{number>0}}"> {{number}} </text>
     </dialog>
     <view class="u-my-box"></view>
-    <dialog class="u-contact-service" text='../images/my/contact.png' src='../images/public/icon_arrow-right.png'>
-        <view slot='one'>
-            <button class="u-my-contact-btn kefu" open-type="contact" slot='one'>联系客服  </button>
-        </view>
-    </dialog>
+    <view class="u-btn">
+           
+            <button class="u-my-contact-btn kefu" open-type="contact">联系客服</button>
+            <image class="u-img"  src="../images/public/icon_arrow-right.png" ></image>
+    </view>
     <view class="u-tip-contact" wx:if="{{tipShow}}">
             <image class="u-tip-triangle" src="../images/my/triangle.png" ></image>
             如需开发票，请联系客服

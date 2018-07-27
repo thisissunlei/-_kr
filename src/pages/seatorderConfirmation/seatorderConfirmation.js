@@ -251,7 +251,7 @@ Page({
   jumpSetRemind: function () {
     let data = this.data;
     wx.navigateTo({
-      url: '../warn/warn?type=storage&alertTime=' + data.alertTime
+      url: '../warnseat/warnseat?type=storage&alertTime=' + data.alertTime
     })
 
   },
@@ -392,8 +392,9 @@ Page({
     let seatGoodIds=[]
     this.combination_new.map(item=>{
         console.log(item.id,"id")
+        seatGoodIds.push(item.id)
         this.setData({
-          seatGoodIds:item.id
+          seatGoodIds:seatGoodIds.join(",")
         })
        
     })

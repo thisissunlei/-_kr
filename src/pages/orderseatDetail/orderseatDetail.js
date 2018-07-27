@@ -171,7 +171,7 @@ Page({
       }
     let data = this.data;
     wx.navigateTo({
-      url: '../warn/warn?type=storage&alertTime=' + data.alertTime
+      url: '../warnseat/warnseat?type=storage&alertTime=' + data.alertTime
     })
    
   },
@@ -342,9 +342,9 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-   console.log(options)
+   let id= wx.getStorageSync("order")
    this.setData({
-    orderId:options.id
+    orderId:id
   })
     var pages=getCurrentPages()
     // console.log(pages)
@@ -365,12 +365,12 @@ Page({
       if(item.value=="今天"){
         item.month=parseInt(new Date().getMonth()+1)
         item.value=parseInt(new Date().getDate())
-        item.zhou="今天"
+        item.zhou="今 天"
       }
       if(item.value=="明天"){
         item.month=parseInt(new Date().getMonth()+1)
         item.value=parseInt(new Date().getDate())+1
-        item.zhou="明天"
+        item.zhou="明 天"
       }
     })
   
