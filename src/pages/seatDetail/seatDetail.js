@@ -184,7 +184,10 @@ Page({
         // console.log(newUser.user_info);
         if (seatInfo.data.data.canInvite) {
           var result = inviteers.some(value => {
-            return value.wechatNick == newUser.user_info.nickName;
+            return (
+              value.wechatNick == newUser.user_info.nickName &&
+              value.wechatAvatar == newUser.user_info.avatarUrl
+            );
           });
           if (!result) {
             inviteers.push({
