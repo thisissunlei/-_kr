@@ -6,6 +6,8 @@ const app = getApp()
 Page({
  
   data: {
+    endTime:"",
+    startTime:"",
     timeday:[],
     price:"",
     linkPhone:"",
@@ -248,6 +250,16 @@ Page({
           
       }
     })
+    wx.getStorage({
+      key: 'order_pay',
+      success: function (res) {
+        if (res.data) {
+          _this.setData({
+            linkPhone: res.linkPhone
+          })
+        }
+      }
+    })
     if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
       return
   }
@@ -289,15 +301,7 @@ Page({
    
     let _this = this;
     
-    // wx.setStorage({
-    //   key: "order_pay",
-    //   data: {},
-    //   success: function () {
-    //       _this.setData({
-    //       order_pay: {}
-    //       })
-    //   }
-    // })
+   
     wx.setStorage({
       key: "meeting_time",
       data: {}
@@ -408,6 +412,8 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
+  
+    
    let id= wx.getStorageSync("order")
    this.setData({
     orderId:id
@@ -576,13 +582,15 @@ Page({
       },
       success:(res)=>{
         console.log("订单详情",res)
-        
+       
        
 
         this.setData({
           time:res.data.data.arrivingTimeDescr,
           linkPhone:res.data.data.linkPhone ,
-          alertTime:res.data.data.alertTime
+          alertTime:res.data.data.alertTime,
+          startTime:res.data.data.startTime,
+          endTime:res.data.data.endTime
         })
             let data=res.data.data;
             let isFirst=data.first
