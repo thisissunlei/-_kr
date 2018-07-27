@@ -120,7 +120,8 @@
         <view class="u-meeting-title" style="line-height:114rpx">
             联系电话
         </view>
-        <view class="u-meet-text" style="line-height:114rpx">{{linkPhone || '请填写'}}</view>
+        <view class="u-meet-text" wx:if="{{linkPhone}}">{{linkPhone}}</view>
+        <view class="u-meet-text" style="color:red" wx:else>请填写</view>
         <view class="u-btn-arrow u-phone-btn-arrow">
             <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
         </view>
@@ -165,7 +166,8 @@
           </view>
        
           
-         
+          <image class="u-meet-detail-close" style="{{ifFixed?'position: fixed;':''}}" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
+
           <view class="u-meeting-detail-info">
               <view class="u-meet-info">
                   <view class="u-meet-name">
