@@ -13,6 +13,8 @@ Page({
   },
   data: {
     //数据模拟
+    scoll_arr:[],
+    san_scoll:"",
     show_huiyi:"",
     arr: [],
     seatId:'',
@@ -132,6 +134,7 @@ Page({
       }
     );
   },
+  
   //会议
   openMeetDetail: function(e) {
     // console.log(e)
@@ -291,7 +294,8 @@ Page({
           that.setData(
             {
               arr: arr_null,
-              sanzuo: true
+              sanzuo: true,
+              san_scoll:res.data.data.goodsId
             },
             function() {
               that.reloadData();
@@ -299,8 +303,24 @@ Page({
             }
           );
         }
+        console.log(this.data.san_scoll)
+        app.getRequest({
+          url: app.globalData.KrUrl + "api/gateway/krseat/seat/goods/detail",
+          method: "GET",
+          data: {
+            seatGoodsId: res.data.data.goodsId
+          },
+          success: res => {
+            console.log(res)
+            this.setData({
+              scoll_arr:res.data.data.picUrls
+            })
+            console.log(this.data.scoll_arr)
+          }
+        })
       }
     });
+    
   },
   //切换日期后重载数据
   reloadData: function() {
@@ -581,6 +601,7 @@ Page({
         pageSize: that.data.pageSize
       },
       success: res => {
+        console.log(res)
         that.setData(
           {
             boardroomList: [].concat(
@@ -848,7 +869,7 @@ Page({
         choose: ""
       }
     });
-    // console.log(1)
+    
   },
 
   onReady: function() {
@@ -868,6 +889,7 @@ Page({
         meetingRoomId: meetingRoomId
       },
       success: res => {
+        console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
           that.setData({
@@ -905,6 +927,7 @@ Page({
   //散座详情列表
   getMeetDetail1() {
     wx.reportAnalytics("goodsdetails");
+    console.log(this.data.meetingRoomId1)
     let meetingRoomId = this.data.meetingRoomId1;
     // console.log(meetingRoomId)
     let that = this;
