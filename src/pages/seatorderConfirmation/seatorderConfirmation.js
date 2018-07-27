@@ -6,6 +6,8 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    price_y:0,
+    price_all:0,
     new_arrup:[],
     seatGoodIds:"",
     orderId:"",
@@ -1238,11 +1240,14 @@ console.log(that.goodid_now,222222)
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-    // console.log(that.data,carendar,777777)
-  
+     console.log(that.data,carendar,777777)
+    let price_all = 0;
+    let price_y = 0;
     if(carendar){
       carendar.map(item=>{
         console.log(item)
+        price_all = price_all + item.no_mary*item.number_a;
+        price_y  = price_y + item.mary*item.number_a;
          item.month=getzf(item.month) 
          item.value=getzf(item.value)
 
@@ -1259,11 +1264,14 @@ console.log(that.goodid_now,222222)
         // console.log(item)
         return item
       }) 
-   
+      
+
       that.setData({
         sankeNum: carendar[0].number_a,
         daynum: carendar.length,
         carendarArr: carendar,
+        price_all:price_all,
+        price_y:price_y
         // seatGoodIds:
       })
     }
