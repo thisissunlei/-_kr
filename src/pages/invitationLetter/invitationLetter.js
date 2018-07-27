@@ -69,6 +69,10 @@ Page({
         id: that.data.seatId,
         type: that.data.type
       },
+      // data: {
+      //   id: 173,
+      //   type: "TICKET"
+      // },
       success: function(res) {
         wx.hideLoading();
         console.log(res);
