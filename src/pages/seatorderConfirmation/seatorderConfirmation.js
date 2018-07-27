@@ -1265,11 +1265,14 @@ console.log(that.goodid_now,222222)
       })
     }
   },
-  heider(){
-    console.log(1)
-    this.setData({
-      show_a : true
-    })
+  heider : function(e){
+    console.log(e,9999999)
+    if(e.target.dataset.wrapper=='wrapper'){
+      this.setData({
+        show_a : true
+      });
+    }
+    
   },
   onShow: function () {
     var _this = this;
