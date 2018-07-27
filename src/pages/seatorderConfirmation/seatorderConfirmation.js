@@ -6,8 +6,6 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
-    price_y:0,
-    price_all:0,
     new_arrup:[],
     seatGoodIds:"",
     orderId:"",
@@ -882,7 +880,7 @@ Page({
                 data.push({//今天可选
                   value:'今天',
                   type:'now',
-                  kg:this.show_true === 'true' ? true :'false',
+                  kg:this.show_true === 'true' ? 'true' :'false',
                   number:this.goodid_now[i+1-today].remainQuantity,
                   mary:this.goodid_now[i+1-today].unitCost,
                   id:this.goodid_now[i-today+1].goodsId,
@@ -1240,50 +1238,41 @@ console.log(that.goodid_now,222222)
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-     console.log(that.data,carendar,777777)
-    let price_all = 0;
-    let price_y = 0;
+    console.log(that.data,carendar,777777)
+    
     if(carendar){
       carendar.map(item=>{
         console.log(item)
-        price_all = price_all + item.no_mary*item.number_a;
-        price_y  = price_y + item.mary*item.number_a;
          item.month=getzf(item.month) 
          item.value=getzf(item.value)
 
         if(item.value=="今天"){
           item.month=getzf(parseInt(new Date().getMonth()+1))
           item.value=getzf(parseInt(new Date().getDate()))
-          item.zhou="今     天"
+          item.zhou="       今   天"
         }
         if(item.value=="明天"){
           item.month=getzf(parseInt(new Date().getMonth()+1))
           item.value=getzf(parseInt(new Date().getDate())+1)
-          item.zhou="明     天"
+          item.zhou="       明   天"
         }
-        // console.log(item)
+        console.log(item)
         return item
       }) 
-      
-
+   
       that.setData({
         sankeNum: carendar[0].number_a,
         daynum: carendar.length,
         carendarArr: carendar,
-        price_all:price_all,
-        price_y:price_y
         // seatGoodIds:
       })
     }
   },
-  heider : function(e){
-    console.log(e,9999999)
-    if(e.target.dataset.wrapper=='wrapper'){
-      this.setData({
-        show_a : true
-      });
-    }
-    
+  heider(){
+    console.log(1)
+    this.setData({
+      show_a : true
+    })
   },
   onShow: function () {
     var _this = this;
