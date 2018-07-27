@@ -281,7 +281,9 @@ Page({
       },
       success: res => {
         console.log(res);
-
+        this.setData({
+          scoll_arr:res.data.data.cmtImgUrls
+        })
         var b = JSON.stringify(res.data.data) == "{}";
         if (res.data.code == 1 && b == true) {
           this.setData({
@@ -303,21 +305,7 @@ Page({
             }
           );
         }
-        console.log(this.data.san_scoll)
-        app.getRequest({
-          url: app.globalData.KrUrl + "api/gateway/krseat/seat/goods/detail",
-          method: "GET",
-          data: {
-            seatGoodsId: res.data.data.goodsId
-          },
-          success: res => {
-            console.log(res)
-            this.setData({
-              scoll_arr:res.data.data.picUrls
-            })
-            console.log(this.data.scoll_arr)
-          }
-        })
+        
       }
     });
     

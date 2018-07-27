@@ -3,6 +3,7 @@ const app = getApp();
 
 Page({
   data: {
+<<<<<<< HEAD
     flag: true,
     endTime: "",
     startTime: "",
@@ -14,6 +15,19 @@ Page({
     payTitle: "",
     orderId: "",
     meetDetailShow: false,
+=======
+    flag:true,
+    endTime:"",
+    startTime:"",
+    timeday:[],
+    price:"",
+    linkPhone:"",
+    con:'',
+    sankeNum:"",
+    payTitle:'',
+    
+    meetDetailShow:false,
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
     autoplay: false,
     duration: 1000,
     currentNum: 1,
@@ -45,6 +59,7 @@ Page({
     meeting_time: {},
     ifFirst: false
   },
+<<<<<<< HEAD
   choose_date: "",
 
   //立即支付
@@ -66,6 +81,37 @@ Page({
       },
       fail: error => {}
     });
+=======
+  choose_date: '',
+  orderId:'',
+  
+  //立即支付
+  payOrder:function(){
+
+
+
+    let orderId=this.orderId;
+      app.getRequest({
+        // 修改订单
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+        method:"get",
+        data:{
+          orderId :orderId,
+          //alertTime:this.data.alertTime,
+          arrivingTime:this.data.time,
+          //linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+
+        },
+        success:(res)=>{
+    
+          console.log(res)
+        
+        },
+        fail:(error)=>{
+            
+        }
+      })
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
 
     let data = wx.getStorageSync("order");
     wx.requestPayment({
@@ -112,6 +158,7 @@ Page({
 
     this.setData({
       time: e.detail.value
+<<<<<<< HEAD
     });
 
     let orderId = this.data.orderId;
@@ -131,6 +178,31 @@ Page({
       },
       fail: error => {}
     });
+=======
+    })
+   
+    let orderId=this.orderId;
+      app.getRequest({
+        // 修改订单
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+        method:"get",
+        data:{
+          orderId :orderId,
+          //alertTime:this.data.alertTime,
+          arrivingTime:this.data.time,
+          //linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+     
+        },
+        success:(res)=>{
+          
+          console.log(res)
+        
+        },
+        fail:(error)=>{
+            
+        }
+      })
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
   },
   // 预计到场时间 隐藏
   jumpSetTime: function() {
@@ -181,7 +253,9 @@ Page({
   // 行程提醒jumpSetTheme
   jumpSetRemind: function() {
     let data = this.data;
+    console.log(this.data.alertTime,111111)
     wx.navigateTo({
+<<<<<<< HEAD
       url: "../warnseat/warnseat?type=storage&alertTime=" + data.alertTime
     });
 
@@ -202,17 +276,65 @@ Page({
       },
       fail: error => {}
     });
+=======
+      url: '../warnseat/warnseat?type=submit&alertTime=' + data.alertTime + '&orderId=' + this.orderId
+    })
+    
+    //let orderId=this.orderId;
+    // app.getRequest({
+    //   // 修改订单
+    //   url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+    //   method:"get",
+    //   data:{
+    //     orderId :orderId,
+    //     alertTime:this.data.alertTime,
+    //     arrivingTime:this.data.time,
+    //     linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+
+    //   },
+    //   success:(res)=>{
+        
+    //     console.log(res)
+      
+    //   },
+    //   fail:(error)=>{
+          
+    //   }
+    // })
+    
+     
+   
+    
+   
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
   },
   jumpSetPhone: function() {
     let data = this.data;
     wx.navigateTo({
       // url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
+<<<<<<< HEAD
       url: "../phone/phone?type=storage&linkPhone=" + data.linkPhone
     });
 
     if (this.data.detailInfo.orderShowStatus === "CLOSED") {
       return;
     }
+=======
+      url: '../phone/phone?type=submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId
+    })
+
+
+   
+       
+    
+      
+   
+    
+    if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
+      return
+  }
+   
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
   },
   // 邀请
   onShareAppMessage: function(res) {
@@ -297,6 +419,7 @@ Page({
   onShow: function() {
     let str = wx.getStorageSync("order_pay");
     // console.log(str)
+<<<<<<< HEAD
     this.setData({
       linkPhone: str.linkPhone
     });
@@ -318,6 +441,29 @@ Page({
         }
       }
     });
+=======
+    var _this = this;
+    
+    // if (Object.keys(str).length != 0) {
+    //       _this.setData({
+    //         themeName: str.themeName || _this.data.themeName,
+    //         
+    //         linkPhone: str.linkPhone || _this.data.linkPhone,
+    //         order_pay: str,
+    //         alertTime: str.alertTime
+    //         })
+    // }
+
+
+
+
+    this.getDetailInfo(this.orderId)
+    
+    this.getMeetId()
+
+    
+    console.log(this.orderId,this.data.alertTime,666666)
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
 
     if (this.data.isRouteMy == "2") {
       wx.switchTab({
@@ -331,12 +477,30 @@ Page({
     }
   },
   bool: true,
+<<<<<<< HEAD
   onLoad: function(options) {
     let id = wx.getStorageSync("order");
     this.setData({
       orderId: id
     });
     var pages = getCurrentPages();
+=======
+  onLoad: function (options) {
+    
+  if(options.con){
+      this.setData({
+        con:options.con
+      })
+    }
+    this.orderId = options.id;
+    console.log(111111111,this.orderId)
+  
+   
+    
+   //this.orderId = wx.getStorageSync("order");
+   
+    var pages=getCurrentPages()
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
     // console.log(pages)
     var prevPage = pages[pages.length - 2];
     prevPage.setData({
@@ -348,6 +512,7 @@ Page({
     //   })
     // }
 
+<<<<<<< HEAD
     let carendar = wx.getStorageSync("data-index");
     carendar.map(item => {
       // console.log(item)
@@ -362,6 +527,36 @@ Page({
         item.zhou = "明 天";
       }
     });
+=======
+
+    let carendar = wx.getStorageSync("data-index")
+    console.log(carendar,77777)
+    if(carendar){
+      carendar.map(item=>{
+        // console.log(item)
+        if(item.value=="今天"){
+          item.month=parseInt(new Date().getMonth()+1)
+          item.value=parseInt(new Date().getDate())
+          item.zhou="今 天"
+        }
+        if(item.value=="明天"){
+          item.month=parseInt(new Date().getMonth()+1)
+          item.value=parseInt(new Date().getDate())+1
+          item.zhou="明 天"
+        }
+      })
+      this.setData({
+        sankeNum:carendar[0].number_a,
+        daynum:carendar.length,
+        carendarArr:carendar,
+        
+      })
+    }
+    
+    
+
+
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
 
     this.setData({
       sankeNum: carendar[0].number_a,
@@ -369,6 +564,7 @@ Page({
       carendarArr: carendar
     });
 
+<<<<<<< HEAD
     if (options.con) {
       this.setData({
         orderId: options.id,
@@ -379,6 +575,10 @@ Page({
         orderId: options.id
       });
     }
+=======
+    
+    
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
 
     this.getPhone();
     var _this = this;
@@ -525,6 +725,7 @@ Page({
         });
 
         this.setData({
+<<<<<<< HEAD
           timeday: arr
         });
         // console.log(this.data.timeday)
@@ -561,6 +762,82 @@ Page({
         });
         if (data.orderShowStatus == "OBLIGATION") {
           _this.startcountDate(detailInfo.expiredTime);
+=======
+          time:res.data.data.arrivingTimeDescr,
+          linkPhone:res.data.data.linkPhone ,
+          alertTime:res.data.data.alertTime,
+          remind: _this.getRemind(res.data.data.alertTime) ,
+        })
+        console.log(this.orderId,this.data.alertTime,777777)
+            let data=res.data.data;
+            let isFirst=data.first
+            
+              let titleObj={
+                'OBLIGATION':'待支付订单',
+                'TOBEUSED':'待使用订单',
+                'USED':'已使用订单',
+                'CLOSED':'已取消订单'
+              }
+              this.setData({
+                titleObj:titleObj,
+                isFirst:isFirst
+              })
+              // console.log(isFirst)
+              let payTitleObj={
+                'OBLIGATION':'应付款',
+                'TOBEUSED':'实付款',
+                'USED':'实付款',
+                'CLOSED':'应付款'
+              }
+              
+              let themeObj={
+                'NOALERT': '无',
+                'ONEHOUR': '提前一小时',
+                'TWOHOUR': '提前两小时',
+                'ONEDAY': '提前一天',
+                'TWODAY': '提前两天',
+              }
+
+              let detailInfo=Object.assign({},data);
+              detailInfo.themeTime=themeObj[data.alertTime];
+
+              let arr =[]
+              let timeday=data.details;
+              timeday.map(item=>{
+                  arr.push({
+                    enableDate:getMyDate(item.enableDate),
+                    promotionCost:item.promotionCost,
+                    unitCost:item.unitCost
+                  })
+                })
+                
+              this.setData({
+                timeday:arr
+              })
+              // console.log(this.data.timeday)
+              let dateArr=changeTime(data.useDate);
+              let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
+              let startArr=changeTime(data.beginTime)
+              let endArr=changeTime(data.endTime)
+              let beginTime=startArr[3]+':'+startArr[4]
+              let endTime=endArr[3]+':'+endArr[4];
+                  detailInfo.useDate=useDate;
+                  detailInfo.beginTime=beginTime;
+                  detailInfo.endTime=endTime;
+              let hour=(data.endTime-data.beginTime)/3600000;
+              let Ctime=changeTime(data.ctime);
+              detailInfo.ctime=Ctime[0]+"-"+Ctime[1]+"-"+Ctime[2]+" "+Ctime[3]+":"+Ctime[4]+":"+Ctime[5]
+              this.setData({
+                payTitle:payTitleObj[data.orderShowStatus],
+                detailInfo:detailInfo,
+                hour:hour
+            })
+              wx.setNavigationBarTitle({
+                title: titleObj[data.orderShowStatus]
+          })
+              if(data.orderShowStatus=='OBLIGATION'){
+                  _this.startcountDate(detailInfo.expiredTime);
+>>>>>>> 48ec3ded789efedbc0ca621b7bd047d5248579a6
         }
       },
       fail: error => {}
