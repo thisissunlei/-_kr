@@ -71,8 +71,8 @@ Page({
               latitude: item.latitude,
               longitude: item.longitude,
               name: item.buildName,
-              width: 25,
-              height: 35
+              width: 27,
+              height: 37
             });
             return item;
           });
@@ -118,18 +118,22 @@ Page({
             latitude: item.latitude,
             longitude: item.longitude,
             name: item.buildName,
-            width: 25,
-            height: 35
+            width: 27,
+            height: 37
           });
 
           return item;
         });
         var str = "markers[" + 0 + "].iconPath";
+        var strWidth = "markers[" + 0 + "].width";
+        var strHeight = "markers[" + 0 + "].height";
         that.setData({
           allCommunity: cityList,
           cityList: cityList[0],
           markers: makArr,
-          [str]: "../images/map/mark.png"
+          [str]: "../images/map/mark.png",
+          [strWidth]: 35,
+          [strHeight]: 48
         });
       }
     });
