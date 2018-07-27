@@ -54,8 +54,11 @@ Page({
         type: options.type
       });
     }
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
     that.login();
-    that.getInvitation();
   },
   //邀请函接口
   getInvitation: function() {
@@ -66,11 +69,8 @@ Page({
         id: that.data.seatId,
         type: that.data.type
       },
-      // data: {
-      //   id: 91,
-      //   type: "TICKET"
-      // },
       success: function(res) {
+        wx.hideLoading();
         console.log(res);
         if (res.data.code == 1) {
           that.setData({
@@ -92,10 +92,6 @@ Page({
         id: that.data.seatId,
         type: that.data.type
       },
-      // data: {
-      //   id: 91,
-      //   type: "TICKET"
-      // },
       success: res => {
         console.log(res);
         if (res.data.code == 1) {
@@ -115,7 +111,6 @@ Page({
             icon: "none",
             duration: 2000
           });
-          // console.log(res.data.message);
         }
       }
     });
@@ -134,10 +129,8 @@ Page({
       });
       this.getUserInfo();
       this.invitation();
-      // this.login();
-      // this.getInvitation();
     } else {
-      // console.log("用户拒绝授权");
+      console.log("用户拒绝授权");
     }
   },
   //登陆
@@ -154,20 +147,16 @@ Page({
             },
             success: function(res) {
               // console.log(res);
-              // setTimeout(function() {
-              //   wx.hideLoading();
-              // }, 2000);
-              // console.log(res, "登陆接口成功");
+              console.log(res, "登陆接口成功");
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               // console.log(app.globalData.Cookie, "cookie");
               app.globalData.openid = res.data.data["openid"];
               // console.log(app.globalData.openid);
               that.getInvitation();
-              // that.invitation();
             },
             fail: function(res) {
-              // console.log(res, 8888887777);
+              console.log(res, 8888887777);
             }
           });
         } else {
@@ -181,13 +170,6 @@ Page({
     // var _this = this;
     wx.getUserInfo({
       success: function(res) {
-        // var wechatInfo = {
-        //   wechatAvatar: res.userInfo.avatarUrl,
-        //   wechatNick: res.userInfo.nickName
-        // };
-        // _this.setData({
-        //   wechatInfo: wechatInfo
-        // });
         app.getRequest({
           url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
 

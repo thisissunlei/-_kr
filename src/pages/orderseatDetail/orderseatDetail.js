@@ -171,7 +171,7 @@ Page({
       }
     let data = this.data;
     wx.navigateTo({
-      url: '../warn/warn?type=storage&alertTime=' + data.alertTime
+      url: '../warnseat/warnseat?type=storage&alertTime=' + data.alertTime
     })
    
   },
@@ -342,9 +342,9 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-   console.log(options)
+   let id= wx.getStorageSync("order")
    this.setData({
-    orderId:options.id
+    orderId:id
   })
     var pages=getCurrentPages()
     // console.log(pages)

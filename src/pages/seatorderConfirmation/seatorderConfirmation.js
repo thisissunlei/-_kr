@@ -392,8 +392,9 @@ Page({
     let seatGoodIds=[]
     this.combination_new.map(item=>{
         console.log(item.id,"id")
+        seatGoodIds.push(item.id)
         this.setData({
-          seatGoodIds:item.id
+          seatGoodIds:seatGoodIds.join(",")
         })
        
     })
