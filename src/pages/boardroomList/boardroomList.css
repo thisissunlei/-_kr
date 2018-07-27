@@ -146,6 +146,7 @@ page {
 .list-item .top .top-right .first-row {
   display: -ms-flexbox;
   display: flex;
+  align-items: center;
   -ms-flex-pack: justify;
   justify-content: space-between;
   font-size: 34rpx;
