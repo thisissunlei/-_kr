@@ -297,7 +297,6 @@ Page({
         "seatGoodsId": meetingRoomId
       },
       success: (res) => {
-        console.log("散客详情1", res)
         this.setData({
           startTime:res.data.data.startTime,
           endTime:res.data.data.endTime
@@ -390,14 +389,12 @@ Page({
     combination.map(item=>{
       item.number_a = this.data.number
     })
-     console.log(combination,6666666)
     this.setData({
       combination:combination
     })
     this.combination_new= combination;
     let seatGoodIds=[]
     this.combination_new.map(item=>{
-        console.log(item.id,"id")
         seatGoodIds.push(item.id)
         this.setData({
           seatGoodIds:seatGoodIds.join(",")
@@ -494,7 +491,6 @@ Page({
       }
       return item;
     })
-    console.log(arr_a_a,9999999)
     this.setData({
       date_data1:arr_a_a
     })
@@ -561,15 +557,13 @@ Page({
   },
   dateBtn :function(e){
     const today_a = parseInt(new Date().getDate())
-     console.log(e,111111)
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'||e.target.dataset.bool=='now'){
       // const new_data = this.data[e.target.dataset.data];//遍历的哪条数组
       var old_data = [];
-      let aa = e.target.dataset
-      let kong_index =this.data.inn
-      let kong_index1 =this.data.inn1
-      let kong_index_a = this.data.splice
-      console.log(e.target.dataset,9999)
+      let aa = e.target.dataset;
+      let kong_index =this.data.inn;
+      let kong_index1 =this.data.inn1;
+      let kong_index_a = this.data.splice;
       if(e.target.dataset.data=='date_data2'){
         let ios = this.data.date_data2
         let zuti = e.target.dataset.kg
@@ -677,7 +671,6 @@ Page({
                 this.setData({
                   inn:kong_index
                 })
-               console.log(kong_index,8888888)
               }
             }
           })
@@ -710,26 +703,12 @@ Page({
     const day_num = today_month.getDate()+week;//31天+ 星期三==34
     let fu_arr = this.goodid_now
     let fu_arr1 = this.goodid_now
-    // for(let i of fu_arr){
-    //   i.kg = false
-    // }
-    // for(let i of fu_arr1){
-    //   i.kg = false
-    // }
 
     let new_arr = fu_arr.slice(0,day_num-week-today+1)
     // console.log(new_arr)
     let new_arr1 = fu_arr.slice(day_num-week-today+1);
-    console.log(new_arr1,'sdsdsdsssdds')
     this.goodid_next = new_arr1;
-    console.log(new_arr,new_arr1)
     let _this = this
-    /*this.setData({
-      arr2:new_arr,
-      arr1:new_arr1
-    },function(){
-      // console.log(_this.data.arr2,_this.data.arr1)
-    })*/
     
     const data = [];
     for (var i = 0; i < day_num; i++) {
@@ -1165,8 +1144,11 @@ console.log(that.goodid_now,222222)
     let price_y = 0;
     if(carendar){
       carendar.map(item=>{
-        price_all = price_all + item.no_mary*item.number_a;
-        price_y  = price_y + item.mary*item.number_a;
+        price_all = Number(price_all) + Number(item.no_mary*item.number_a);
+        console.log(typeof price_all)
+        price_all =  price_all.toFixed(2);
+        price_y  = Number(price_y) + Number(item.mary*item.number_a);
+        price_y  = price_y.toFixed(2)
          item.month=getzf(item.month) 
          item.value=getzf(item.value)
 
@@ -1183,7 +1165,7 @@ console.log(that.goodid_now,222222)
         return item
       }) 
       
-
+      console.log(price_all,price_y,9999999)
       that.setData({
         sankeNum: carendar[0].number_a,
         daynum: carendar.length,
