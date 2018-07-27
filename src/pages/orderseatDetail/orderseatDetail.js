@@ -237,7 +237,7 @@ Page({
       // url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
       url: '../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId
     })
-    console.log('../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId,111111)
+    console.log('../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId)
 
    
        
