@@ -17,9 +17,9 @@
                     <view class='pics'>
                         <view class="code-pic">
                             <!-- 已过期边框 -->
-                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus==='EXPIRED'}}"></image>
+                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus!=='TOUSE'}}"></image>
                             <!-- 未过期边框 -->
-                            <image src="../images/indexImg/code.png" wx:if="{{seatStatus!=='EXPIRED'}}" class="img"></image>
+                            <image src="../images/indexImg/code.png" wx:if="{{seatStatus==='TOUSE'}}" class="img"></image>
                             <canvas canvas-id="mycanvas" class="mycanvas" />
                         </view>
                         <view class="code-desc">请入场时出示此二维码</view>
@@ -45,7 +45,7 @@
                     <!-- 已过期标识 -->
                     <!-- <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.notArrving===true}}"></image> -->
                     <!-- 确认到场 -->
-                    <!-- <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===true}}"></image> -->
+                    <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.seatStatus=='USED'}}"></image>
                 </view>
             </block>
             <view class='clear'></view>

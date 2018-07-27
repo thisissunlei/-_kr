@@ -63,8 +63,11 @@ Page({
           })
         }
       })
-    }else{
+    }else if(type=='submit'){
       this.submitPhone()
+    }else if(type=='seat_submit'){
+      console.log(1111)
+      this.submitSeatPhone()
     }
     
   },
@@ -74,6 +77,53 @@ Page({
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/updateExtInfo',
         method:"POST",
+        data:{
+          'orderId':that.data.orderId,
+          "linkPhone":that.data.inputValue,
+        },
+        success:(res)=>{
+          console.log(res)
+
+          if(res.data.code>0){
+            wx.navigateBack({
+              delta: 1
+            })
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+        },
+        fail:(res)=>{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          
+        }
+      })
+  },
+  submitSeatPhone:function(){
+    let that = this;
+    //接口待定
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+        method:"get",
         data:{
           'orderId':that.data.orderId,
           "linkPhone":that.data.inputValue,
@@ -126,6 +176,7 @@ Page({
     }
     let that = this;
     if(type == 'submit'){
+      console.log(phone,options.type,options.orderId,88888)
       this.setData({
         inputValue: phone || '',
         type:options.type,
@@ -152,6 +203,14 @@ Page({
             order_pay:{},
           })
         }
+      })
+    }else if(type == 'seat_submit'){
+
+      this.setData({
+        inputValue: phone || '',
+        type:options.type,
+        orderId:options.orderId
+
       })
     }
   },

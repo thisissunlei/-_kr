@@ -15,7 +15,7 @@ Page({
     con:'',
     sankeNum:"",
     payTitle:'',
-    orderId:'',
+    
     meetDetailShow:false,
     autoplay: false,
     duration: 1000,
@@ -49,23 +49,23 @@ Page({
     ifFirst: false,
   },
   choose_date: '',
-
+  orderId:'',
   
   //立即支付
   payOrder:function(){
 
 
 
-    let orderId=this.data.orderId;
+    let orderId=this.orderId;
       app.getRequest({
         // 修改订单
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
         method:"get",
         data:{
           orderId :orderId,
-          alertTime:this.data.alertTime,
+          //alertTime:this.data.alertTime,
           arrivingTime:this.data.time,
-          linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+          //linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
 
         },
         success:(res)=>{
@@ -129,16 +129,16 @@ Page({
       time: e.detail.value
     })
    
-    let orderId=this.data.orderId;
+    let orderId=this.orderId;
       app.getRequest({
         // 修改订单
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
         method:"get",
         data:{
           orderId :orderId,
-          alertTime:this.data.alertTime,
+          //alertTime:this.data.alertTime,
           arrivingTime:this.data.time,
-          linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+          //linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
      
         },
         success:(res)=>{
@@ -198,31 +198,32 @@ Page({
   // 行程提醒jumpSetTheme
   jumpSetRemind: function () {
     let data = this.data;
+    console.log(this.data.alertTime,111111)
     wx.navigateTo({
-      url: '../warnseat/warnseat?type=storage&alertTime=' + data.alertTime
+      url: '../warnseat/warnseat?type=submit&alertTime=' + data.alertTime + '&orderId=' + this.orderId
     })
     
-    let orderId=this.data.orderId;
-    app.getRequest({
-      // 修改订单
-      url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
-      method:"get",
-      data:{
-        orderId :orderId,
-        alertTime:this.data.alertTime,
-        arrivingTime:this.data.time,
-        linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+    //let orderId=this.orderId;
+    // app.getRequest({
+    //   // 修改订单
+    //   url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+    //   method:"get",
+    //   data:{
+    //     orderId :orderId,
+    //     alertTime:this.data.alertTime,
+    //     arrivingTime:this.data.time,
+    //     linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
 
-      },
-      success:(res)=>{
+    //   },
+    //   success:(res)=>{
         
-        console.log(res)
+    //     console.log(res)
       
-      },
-      fail:(error)=>{
+    //   },
+    //   fail:(error)=>{
           
-      }
-    })
+    //   }
+    // })
     
      
    
@@ -234,9 +235,9 @@ Page({
     let data=this.data;
     wx.navigateTo({
       // url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
-      url: '../phone/phone?type=storage&linkPhone=' + data.linkPhone
+      url: '../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId
     })
-
+    console.log('../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId)
 
    
        
@@ -335,28 +336,27 @@ Page({
   onShow: function () {
     let str = wx.getStorageSync("order_pay")
     // console.log(str)
-    this.setData({
-      linkPhone: str.linkPhone
-    })
-
-    this.getDetailInfo(this.data.orderId)
     var _this = this;
-    this.getMeetId()
-    wx.getStorage({
-      key: 'order_pay',
-      success: function (res) {
-        if (Object.keys(res.data).length != 0) {
-          _this.setData({
-            themeName: res.data.themeName || _this.data.themeName,
-            remind: _this.getRemind(res.data.alertTime) ,
-            linkPhone: res.data.linkPhone || _this.data.linkPhone,
-            order_pay: res.data,
-            alertTime: res.data.alertTime
-            })
-        }
-      }
-    })
+    
+    // if (Object.keys(str).length != 0) {
+    //       _this.setData({
+    //         themeName: str.themeName || _this.data.themeName,
+    //         
+    //         linkPhone: str.linkPhone || _this.data.linkPhone,
+    //         order_pay: str,
+    //         alertTime: str.alertTime
+    //         })
+    // }
 
+
+
+
+    this.getDetailInfo(this.orderId)
+    
+    this.getMeetId()
+
+    
+    console.log(this.orderId,this.data.alertTime,666666)
 
     if(this.data.isRouteMy=="2"){
       wx.switchTab({
@@ -372,15 +372,19 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-  
     
+  if(options.con){
+      this.setData({
+        con:options.con
+      })
+    }
+    this.orderId = options.id;
+    console.log(111111111,this.orderId)
   
    
     
-   let id= wx.getStorageSync("order")
-   this.setData({
-    orderId:id
-  })
+   //this.orderId = wx.getStorageSync("order");
+   
     var pages=getCurrentPages()
     // console.log(pages)
     var prevPage=pages[pages.length-2]
@@ -395,42 +399,35 @@ Page({
 
 
     let carendar = wx.getStorageSync("data-index")
-    carendar.map(item=>{
-      // console.log(item)
-      if(item.value=="今天"){
-        item.month=parseInt(new Date().getMonth()+1)
-        item.value=parseInt(new Date().getDate())
-        item.zhou="今 天"
-      }
-      if(item.value=="明天"){
-        item.month=parseInt(new Date().getMonth()+1)
-        item.value=parseInt(new Date().getDate())+1
-        item.zhou="明 天"
-      }
-    })
-  
-    this.setData({
-      sankeNum:carendar[0].number_a,
-      daynum:carendar.length,
-      carendarArr:carendar,
-      
-    })
+    console.log(carendar,77777)
+    if(carendar){
+      carendar.map(item=>{
+        // console.log(item)
+        if(item.value=="今天"){
+          item.month=parseInt(new Date().getMonth()+1)
+          item.value=parseInt(new Date().getDate())
+          item.zhou="今 天"
+        }
+        if(item.value=="明天"){
+          item.month=parseInt(new Date().getMonth()+1)
+          item.value=parseInt(new Date().getDate())+1
+          item.zhou="明 天"
+        }
+      })
+      this.setData({
+        sankeNum:carendar[0].number_a,
+        daynum:carendar.length,
+        carendarArr:carendar,
+        
+      })
+    }
+    
     
 
 
 
 
-    if(options.con){
-      this.setData({
-        orderId:options.id,
-        con:options.con
-      })
-    }else{
-      this.setData({
-        orderId:options.id
-      })
-    }
-  
+    
     
 
     this.getPhone();
@@ -552,7 +549,9 @@ Page({
           time:res.data.data.arrivingTimeDescr,
           linkPhone:res.data.data.linkPhone ,
           alertTime:res.data.data.alertTime,
+          remind: _this.getRemind(res.data.data.alertTime) ,
         })
+        console.log(this.orderId,this.data.alertTime,777777)
             let data=res.data.data;
             let isFirst=data.first
             

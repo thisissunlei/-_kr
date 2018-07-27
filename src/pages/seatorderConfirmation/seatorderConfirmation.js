@@ -260,7 +260,7 @@ Page({
   jumpSetPhone: function () {
     let data = this.data;
     wx.navigateTo({
-      url: '../phone/phone?type=storage&linkPhone=' + data.linkPhone
+      url: '../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone
     })
 
   },
