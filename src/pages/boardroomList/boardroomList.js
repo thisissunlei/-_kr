@@ -13,8 +13,7 @@ Page({
   },
   data: {
     //数据模拟
-    scoll_arr:[],
-    san_scoll:"",
+    
     show_huiyi:"",
     arr: [],
     seatId:'',
@@ -48,7 +47,7 @@ Page({
     number: 10,
     meetInfo: ["1", "2", "3", 4, 5, 7, 9, 9, 4, 5, 7, 9, 9],
     splice: "666",
-
+    scoll_arr:[],
     // 日历相关
     array: [
       {
@@ -281,9 +280,7 @@ Page({
       },
       success: res => {
         console.log(res);
-        this.setData({
-          scoll_arr:res.data.data.cmtImgUrls
-        })
+        
         var b = JSON.stringify(res.data.data) == "{}";
         if (res.data.code == 1 && b == true) {
           this.setData({
@@ -297,7 +294,7 @@ Page({
             {
               arr: arr_null,
               sanzuo: true,
-              san_scoll:res.data.data.goodsId
+              scoll_arr:res.data.data.cmtImgUrls
             },
             function() {
               that.reloadData();
