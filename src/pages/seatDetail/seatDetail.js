@@ -52,7 +52,6 @@ Page({
       console.log(res);
       return {
         title: "来来来，发现一个办公的好地儿~",
-        desc: "KrMeeting会议室",
         path:
           "pages/invitationLetter/invitationLetter?type=TICKET&seatId=" +
           this.data.ticketId,
@@ -137,7 +136,7 @@ Page({
     if (that.data.seatStatus == "EXPIRED") {
       QR.qrApi.draw(
         //kr_meeting
-        "https://web.krspace.cn/test/seat_test/krmeeting_08/index.html?inviteeId=" +
+        "https://web.krspace.cn/test/seat_test/krmeeting_09/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
         that.data.width / 2.5,
@@ -151,7 +150,7 @@ Page({
       // console.log(that.data.canInvite);
     } else {
       QR.qrApi.draw(
-        "https://web.krspace.cn/test/seat_test/krmeeting_08/index.html?inviteeId=" +
+        "https://web.krspace.cn/test/seat_test/krmeeting_09/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
         that.data.width / 2.5,
@@ -185,7 +184,10 @@ Page({
         // console.log(newUser.user_info);
         if (seatInfo.data.data.canInvite) {
           var result = inviteers.some(value => {
-            return value.wechatNick == newUser.user_info.nickName;
+            return (
+              value.wechatNick == newUser.user_info.nickName &&
+              value.wechatAvatar == newUser.user_info.avatarUrl
+            );
           });
           if (!result) {
             inviteers.push({

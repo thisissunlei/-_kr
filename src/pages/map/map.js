@@ -35,6 +35,7 @@ Page({
   },
   onShow: function() {
     console.log(this.data.cityId);
+    // this.getNearbyCity();
   },
   //大厦城市id接口
   getCitybyId: function() {

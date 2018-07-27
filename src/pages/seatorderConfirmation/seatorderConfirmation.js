@@ -1249,12 +1249,12 @@ console.log(that.goodid_now,222222)
         if(item.value=="今天"){
           item.month=getzf(parseInt(new Date().getMonth()+1))
           item.value=getzf(parseInt(new Date().getDate()))
-          item.zhou="       今   天"
+          item.zhou="今     天"
         }
         if(item.value=="明天"){
           item.month=getzf(parseInt(new Date().getMonth()+1))
           item.value=getzf(parseInt(new Date().getDate())+1)
-          item.zhou="       明   天"
+          item.zhou="明     天"
         }
         console.log(item)
         return item
@@ -1268,11 +1268,14 @@ console.log(that.goodid_now,222222)
       })
     }
   },
-  heider(){
-    console.log(1)
-    this.setData({
-      show_a : true
-    })
+  heider : function(e){
+    console.log(e,9999999)
+    if(e.target.dataset.wrapper=='wrapper'){
+      this.setData({
+        show_a : true
+      });
+    }
+    
   },
   onShow: function () {
     var _this = this;
