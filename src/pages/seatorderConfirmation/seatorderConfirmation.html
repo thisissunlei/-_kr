@@ -72,7 +72,7 @@
             <view class="u-btn-arrow u-meeting-btn-arrow">
                 <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
-            <picker mode="time" value="{{time}}" start="09:00" end="19:00" bindchange="bindTimeChange">
+            <picker mode="time" value="{{time}}" start="{{startTime}}" end="{{endTime}}" bindchange="bindTimeChange">
                 <view class="picker">
                     <!-- {{time}} -->
                 </view>
@@ -346,7 +346,7 @@
                     {{i.value}}
                     <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_now.month}}'
                         data-year='{{date_now.year}}' data-data='date_data1' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'
-                        wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.no_mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
+                        wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.no_mary :i.number == 0 ? '已售罄' : '数量不足'}}</view>
                 </view>
             </view>
             <view class="now-date">{{date_next.value}}</view>
@@ -357,7 +357,7 @@
                     {{i.value}}
                     <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_now.month}}'
                         data-year='{{date_now.year}}' data-data='date_data2' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'
-                        wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.no_mary :i.number == 0 ? '已售完' : '数量不足'}}</view>
+                        wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.no_mary :i.number == 0 ? '已售罄' : '数量不足'}}</view>
                 </view>
             </view>
             <view class="stuts"></view>

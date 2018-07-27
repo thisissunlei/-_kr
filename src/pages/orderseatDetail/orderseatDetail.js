@@ -6,6 +6,8 @@ const app = getApp()
 Page({
  
   data: {
+    endTime:"",
+    startTime:"",
     timeday:[],
     price:"",
     linkPhone:"",
@@ -36,7 +38,7 @@ Page({
     phone: '',
     check: true,
     dialogShow: false,
-    alertTime: 'THIRTY',
+    alertTime: 'ONEDAY',
     order_pay: {},
     priceCount: '0',
     totalCount: '0',
@@ -51,9 +53,9 @@ Page({
   //立即支付
   payOrder:function(){
     // this.getAppurl()
-    let orderId=this.data.orderId;
-      // let arr=wx.getStorageSync("myorder");
 
+
+    let orderId=this.data.orderId;
       app.getRequest({
         // 修改订单
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
@@ -61,7 +63,7 @@ Page({
         data:{
           orderId :orderId,
           alertTime:this.data.alertTime,
-          arravingTime:this.data.time,
+          arrivingTime:this.data.time,
           linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
 
         },
@@ -119,8 +121,6 @@ Page({
       time: e.detail.value
     })
     let orderId=this.data.orderId;
-      // let arr=wx.getStorageSync("myorder");
-
       app.getRequest({
         // 修改订单
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
@@ -128,9 +128,9 @@ Page({
         data:{
           orderId :orderId,
           alertTime:this.data.alertTime,
-          arravingTime:this.data.time,
+          arrivingTime:this.data.time,
           linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
-
+     
         },
         success:(res)=>{
           
@@ -188,14 +188,6 @@ Page({
 },
   // 行程提醒jumpSetTheme
   jumpSetRemind: function () {
-      if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
-          return
-      }
-    let data = this.data;
-    wx.navigateTo({
-      url: '../warnseat/warnseat?type=storage&alertTime=' + data.alertTime
-    })
-
     let orderId=this.data.orderId;
     app.getRequest({
       // 修改订单
@@ -217,6 +209,15 @@ Page({
           
       }
     })
+    
+      if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
+          return
+      }
+    let data = this.data;
+    wx.navigateTo({
+      url: '../warnseat/warnseat?type=storage&alertTime=' + data.alertTime
+    })
+    
    
   },
   // 联系电话
@@ -230,13 +231,6 @@ Page({
   //   })
   // },
   jumpSetPhone:function() {
-    if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
-      return
-  }
-    let data=this.data;
-    wx.navigateTo({
-      url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
-    })
     let orderId=this.data.orderId;
     app.getRequest({
       // 修改订单
@@ -258,6 +252,25 @@ Page({
           
       }
     })
+    wx.getStorage({
+      key: 'order_pay',
+      success: function (res) {
+        if (res.data) {
+          _this.setData({
+            linkPhone: res.linkPhone
+          })
+        }
+      }
+    })
+    if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
+      return
+  }
+    let data=this.data;
+    wx.navigateTo({
+      // url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
+      url: '../phone/phone?type=storage&linkPhone=' + data.linkPhone
+    })
+   
   },
   // 邀请
   onShareAppMessage: function (res) {
@@ -281,7 +294,7 @@ Page({
 
 
   onUnload: function () {
-    console.log(this.url_con,6666)
+    // console.log(this.url_con,6666)
     if(this.data.con==1){
       wx.reLaunch({
         url: '../index/index'
@@ -290,15 +303,7 @@ Page({
    
     let _this = this;
     
-    // wx.setStorage({
-    //   key: "order_pay",
-    //   data: {},
-    //   success: function () {
-    //       _this.setData({
-    //       order_pay: {}
-    //       })
-    //   }
-    // })
+   
     wx.setStorage({
       key: "meeting_time",
       data: {}
@@ -379,20 +384,20 @@ Page({
     this.getDetailInfo(this.data.orderId)
     var _this = this;
     this.getMeetId()
-    // wx.getStorage({
-    //   key: 'order_pay',
-    //   success: function (res) {
-    //     if (Object.keys(res.data).length != 0) {
-    //       _this.setData({
-    //         themeName: res.data.themeName || _this.data.themeName,
-    //         remind: _this.getRemind(res.data.alertTime) || _this.getRemind('ONEDAY'),
-    //         linkPhone: res.data.linkPhone || _this.data.linkPhone,
-    //         order_pay: res.data,
-    //         alertTime: res.data.alertTime || 'ONEDAY'
-    //         })
-    //     }
-    //   }
-    // })
+    wx.getStorage({
+      key: 'order_pay',
+      success: function (res) {
+        if (Object.keys(res.data).length != 0) {
+          _this.setData({
+            themeName: res.data.themeName || _this.data.themeName,
+            remind: _this.getRemind(res.data.alertTime) || _this.getRemind('ONEDAY'),
+            linkPhone: res.data.linkPhone || _this.data.linkPhone,
+            order_pay: res.data,
+            alertTime: res.data.alertTime || 'ONEDAY'
+            })
+        }
+      }
+    })
 
 
     if(this.data.isRouteMy=="2"){
@@ -409,6 +414,8 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
+  
+    
    let id= wx.getStorageSync("order")
    this.setData({
     orderId:id
@@ -577,12 +584,15 @@ Page({
       },
       success:(res)=>{
         console.log("订单详情",res)
-        
+       
        
 
         this.setData({
           time:res.data.data.arrivingTimeDescr,
-          linkPhone:res.data.linkPhone
+          linkPhone:res.data.data.linkPhone ,
+          alertTime:res.data.data.alertTime,
+          startTime:res.data.data.startTime,
+          endTime:res.data.data.endTime
         })
             let data=res.data.data;
             let isFirst=data.first
@@ -629,7 +639,7 @@ Page({
               this.setData({
                 timeday:arr
               })
-              console.log(this.data.timeday)
+              // console.log(this.data.timeday)
               let dateArr=changeTime(data.useDate);
               let useDate=dateArr[0]+'-'+dateArr[1]+'-'+dateArr[2];
               let startArr=changeTime(data.beginTime)
@@ -706,7 +716,7 @@ Page({
         "seatGoodsId":meetingRoomId 
       },
       success: (res) => {
-        console.log(res)
+        // console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
 

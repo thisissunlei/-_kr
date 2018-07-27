@@ -79,7 +79,7 @@ Page({
           "linkPhone":that.data.inputValue,
         },
         success:(res)=>{
-          
+          console.log(res)
 
           if(res.data.code>0){
             wx.navigateBack({
@@ -118,6 +118,7 @@ Page({
   onLoad: function (options) {
     let type = options.type;
     let phone = ''
+    console.log(options)
     if(options.linkPhone=='undefined'){
       phone = ''
     }else{

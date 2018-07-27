@@ -96,7 +96,7 @@
             <view class="u-btn-arrow u-meeting-btn-arrow">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
-            <picker mode="time" value="{{time}}" start="09:00" end="19:00" bindchange="bindTimeChange">
+            <picker mode="time" value="{{time}}" start="{{startTime}}" end="{{endTime}}" bindchange="bindTimeChange">
                 <view class="picker">
                     <!-- {{time}} -->
                 </view>
@@ -218,7 +218,7 @@
   <!--底部-->
   <view class="u-footer">
         <view class="u-footer-btn-list">
-            <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}"> 
+            <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}">
                 立即支付
             </view>
             <button open-type="share" bindtap="onShareAppMessage" wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED')&& sankeNum>1 }}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
