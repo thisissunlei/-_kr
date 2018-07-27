@@ -1238,8 +1238,8 @@ console.log(that.goodid_now,222222)
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-    console.log(that.data,carendar,777777)
-    
+    // console.log(that.data,carendar,777777)
+  
     if(carendar){
       carendar.map(item=>{
         console.log(item)
@@ -1256,7 +1256,7 @@ console.log(that.goodid_now,222222)
           item.value=getzf(parseInt(new Date().getDate())+1)
           item.zhou="明     天"
         }
-        console.log(item)
+        // console.log(item)
         return item
       }) 
    

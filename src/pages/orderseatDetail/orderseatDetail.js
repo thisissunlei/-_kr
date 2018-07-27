@@ -106,9 +106,6 @@ Page({
   // },
   // 预计到场时间选择
   jumpSetTheme: function () {
-    if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
-      return
-    }
     this.setData({
       timeFlag: !this.data.timeFlag
     }) 
@@ -186,6 +183,9 @@ Page({
   //   })
   // },
   jumpSetPhone:function() {
+    if (this.data.detailInfo.orderShowStatus === 'CLOSED') {
+      return
+  }
     let data=this.data;
     wx.navigateTo({
       url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
