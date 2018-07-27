@@ -105,6 +105,12 @@ Page({
               url: `../mysanzuo/mysanzuo`
             });
           }, 2000);
+        } else if (res.data.code == -2) {
+          wx.showToast({
+            title: "您已领取过票啦",
+            icon: "none",
+            duration: 2000
+          });
         } else {
           wx.showToast({
             title: res.data.message,
