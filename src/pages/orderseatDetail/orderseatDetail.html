@@ -218,7 +218,7 @@
   <!--底部-->
   <view class="u-footer">
         <view class="u-footer-btn-list">
-            <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}"> 
+            <view  class="u-footer-color-btn" bindtap="payOrder" wx:if="{{detailInfo.orderShowStatus=='OBLIGATION'}}">
                 立即支付
             </view>
             <button open-type="share" bindtap="onShareAppMessage" wx:if="{{(detailInfo.orderShowStatus=='TOBEUSED')&& sankeNum>1 }}" class="u-footer-color-btn yaoqing" >赠送入场券</button>
