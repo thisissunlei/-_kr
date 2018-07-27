@@ -34,7 +34,7 @@ Page({
   
     linkPhone: '',
     selectedTime: [],
-    nowDate: '',
+    
     meetDetailShow: false,
     indicatorDots: false,
     autoplay: false,
@@ -103,7 +103,7 @@ Page({
     arr:[],
   },
 
-
+  nowDate: '',
   seatGoodIds:"",
   choose_date: '',
   selectedTime: [],
@@ -153,10 +153,6 @@ Page({
      this.setData({
        show_a:false
      })
-    //  console.log(this.data.id)
-    //  wx.redirectTo({
-    //    url:"../meeting/meeting?seatId="+this.data.seatId
-    //  })
   },
   // 我在想想
   closeDialog: function () {
@@ -384,10 +380,11 @@ Page({
     })
     // console.log(fuxiu,fuxiu_a)
     let combination = fuxiu.concat(fuxiu_a)
+
     combination.map(item=>{
       item.number_a = this.data.number
     })
-    // console.log(combination)
+     console.log(combination,6666666)
     this.setData({
       combination:combination
     })
@@ -402,36 +399,13 @@ Page({
        
     })
 
-    // console.log(1111)
     wx.setStorageSync('data-index',this.data.combination)
-    // console.log(this.data.id)
-    // app.getRequest({
-    //   url:app.globalData.KrUrl+'api/gateway/krseat/seat/goods/list',
-    //   methods:"GET",
-    //   data:{
-    //     seatId:this.data.id
-    //   },
-    //   success:res=>{
-        // console.log(res)
-        // let ss = this.data.id
-        // setTimeout(function(){
-        //   wx.navigateTo({
-        //     url:"/pages/seatorderConfirmation/seatorderConfirmation?id="+ss
-        //   })
-        //     },0)
 
-    //   }
-    // })
     this.onClickDate(that);
     this.setData({
       show_a:true
     })
   },
-  // fanshow(){
-  //   wx.navigateTo({
-  //     url:"../seatorderConfirmation/seatorderConfirmation"
-  //   })
-  // },
   jian(){
     if(this.data.number > 1){
       this.setData({
@@ -495,27 +469,6 @@ Page({
     // console.log(this.data.number,this.data.Maximum)
     
     console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
-    // console.log(this.data.Maximum,this.data.Minimum,this.data.number)
-    // if(this.data.number <= this.data.Minimum){
-    //   this.setData({
-    //     number : this.data.Minimum
-    //   })
-    //   arr_a_a.map(item=>{
-    //     if(item.number < this.data.number){
-    //       item.type = 'before'
-    //     }
-    //   })
-    //   arr_a_a2.map(item=>{
-    //     if(item.number < this.data.number){
-    //       item.type = 'before'
-    //       console.log(item)
-    //     }
-    //   })
-    //   this.setData({
-    //     date_data1:arr_a_a,
-    //     date_data2:arr_a_a2
-    //   })
-    // }
   },
   jia(){
       this.setData({
@@ -579,37 +532,6 @@ Page({
         }
     }
     
-    console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum,arr_a_a2)
-    // if(this.data.number >= this.data.Maximum){
-    //   this.setData({
-    //     zheng:false
-    //   })
-    // }else if(this.data.Minimum < this.data.number && this.data.number < this.data.Maximum){
-    //   this.setData({
-    //     zheng:true
-    //   })
-    // }
-    // console.log(this.data.Maximum,this.data.Minimum,this.data.number)
-    // if(this.data.number >= this.data.Maximum){
-    //   this.setData({
-    //     number : this.data.Maximum
-    //   })
-      // arr_a_a.map(item=>{
-      //   if(item.number < this.data.number){
-      //     item.type = 'before'
-      //   }
-      // })
-      // arr_a_a2.map(item=>{
-      //   if(item.number < this.data.number){
-      //     item.type = 'before'
-      //     console.log(item)
-      //   }
-      // })
-      // this.setData({
-      //   date_data1:arr_a_a,
-      //   date_data2:arr_a_a2
-      // })
-    // }
   },
   //事件处理函数
   bindViewTap: function() {
@@ -749,7 +671,7 @@ Page({
                 this.setData({
                   inn:kong_index
                 })
-                // console.log(this.data.inn)
+               console.log(kong_index,8888888)
               }
             }
           })
@@ -792,6 +714,7 @@ Page({
     let new_arr = fu_arr.slice(0,day_num-week-today+1)
     // console.log(new_arr)
     let new_arr1 = fu_arr.slice(day_num-week-today+1);
+    console.log(new_arr1,'sdsdsdsssdds')
     this.goodid_next = new_arr1;
     console.log(new_arr,new_arr1)
     let _this = this
@@ -830,6 +753,8 @@ Page({
                 number:this.goodid_now[i-today+1].remainQuantity,
                 mary:this.goodid_now[i-today+1].unitCost,
                 no_mary:this.goodid_now[i-today+1].promotionCost,
+                month:this.goodid_now[i-today+1].month,
+                zhou:this.goodid_now[i-today+1].zhou
               });
             }else if(this.goodid_now[i-today+1].remainQuantity == 0){
               // this.goodid_now[i].mary='已售完'
@@ -842,6 +767,8 @@ Page({
                 id:this.goodid_now[i-today+1].goodsId,
                 mary:this.goodid_now[i-today+1].unitCost,
                 no_mary:this.goodid_now[i-today+1].promotionCost,
+                month:this.goodid_now[i-today+1].month,
+                zhou:this.goodid_now[i-today+1].zhou
               });
             }
             else{
@@ -854,6 +781,8 @@ Page({
                 id:this.goodid_now[i-today+1].goodsId,
                 mary:this.goodid_now[i-today+1].unitCost,
                 no_mary:this.goodid_now[i-today+1].promotionCost,
+                month:this.goodid_now[i-today+1].month,
+                zhou:this.goodid_now[i-today+1].zhou
               })
               
             }
@@ -875,18 +804,22 @@ Page({
                 type:'before',
                 kg:false,
                 mary:this.goodid_now[i+1-today].unitCost,
-                no_mary:this.goodid_now[i+1-today].promotionCost
+                no_mary:this.goodid_now[i+1-today].promotionCost,
+                month:this.goodid_now[i-today+1].month,
+                zhou:this.goodid_now[i-today+1].zhou
               });
             }
             else{
                 data.push({//今天可选
                   value:'今天',
                   type:'now',
-                  kg:this.show_true === 'true' ? true :'false',
+                  kg:this.goodid_now[i+1-today].kg,
                   number:this.goodid_now[i+1-today].remainQuantity,
                   mary:this.goodid_now[i+1-today].unitCost,
                   id:this.goodid_now[i-today+1].goodsId,
                   no_mary:this.goodid_now[i+1-today].promotionCost,
+                  month:this.goodid_now[i-today+1].month,
+                  zhou:this.goodid_now[i-today+1].zhou
                 });
             }
           }
@@ -901,6 +834,8 @@ Page({
               number:this.goodid_now[i+1-today].remainQuantity,
               mary:this.goodid_now[i+1-today].unitCost,
               no_mary:this.goodid_now[i+1-today].promotionCost,
+              month:this.goodid_now[i-today+1].month,
+              zhou:this.goodid_now[i-today+1].zhou
             });
           }else{
             if(this.goodid_now[i+1-today].remainQuantity <= this.data.number || this.goodid_now[i+1-today].remainQuantity == 0){
@@ -911,6 +846,8 @@ Page({
                 number:this.goodid_now[i+1-today].remainQuantity,
                 mary:this.goodid_now[i+1-today].unitCost,
                 no_mary:this.goodid_now[i+1-today].promotionCost,
+                month:this.goodid_now[i-today+1].month,
+                zhou:this.goodid_now[i-today+1].zhou
               });
             }else{
               data.push({//本月明天可选
@@ -921,6 +858,8 @@ Page({
                 mary:this.goodid_now[i+1-today].unitCost,
                 id:this.goodid_now[i+1-today].goodsId,
                 no_mary:this.goodid_now[i+1-today].promotionCost,
+                month:this.goodid_now[i-today+1].month,
+                zhou:this.goodid_now[i-today+1].zhou
               }); 
             }
             
@@ -946,7 +885,9 @@ Page({
                 number:new_arr1[i-week].remainQuantity,
                 mary:new_arr1[i-week].unitCost,
                 id:new_arr1[i-week].goodsId,
-                no_mary:new_arr1[i-week].promotionCost
+                no_mary:new_arr1[i-week].promotionCost,
+                month:new_arr1[i-week].month,
+                zhou:new_arr1[i-week].zhou
               });
             }else if(new_arr1[i-week].remainQuantity == 0){
               
@@ -957,7 +898,9 @@ Page({
                 number:new_arr1[i-week].remainQuantity,
                 mary:new_arr1[i-week].unitCost,
                 id:new_arr1[i-week].goodsId,
-                no_mary:new_arr1[i-week].promotionCost
+                no_mary:new_arr1[i-week].promotionCost,
+                month:new_arr1[i-week].month,
+                zhou:new_arr1[i-week].zhou
               });
             }else{
               // console.log(new_arr1[i-week],new_arr1[i-week].kg,22222222111)
@@ -968,7 +911,9 @@ Page({
                 number:new_arr1[i-week].remainQuantity,
                 mary:new_arr1[i-week].unitCost,
                 id:new_arr1[i-week].goodsId,
-                no_mary:new_arr1[i-week].promotionCost
+                no_mary:new_arr1[i-week].promotionCost,
+                month:new_arr1[i-week].month,
+                zhou:new_arr1[i-week].zhou
               })
             }
           }
@@ -1010,7 +955,7 @@ Page({
       //   i.kg = false
       // }
       var curMonth = res.data.data.curMonth;
-
+      var weekDay = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
       const today_month = new Date();
       const today_day = today_month.getDate();
       today_month.setMonth(today_month.getMonth() + 1);
@@ -1019,22 +964,20 @@ Page({
       var day_num_f = 0;
       for(var i = 0;i<day_num;i++){
 
-        // if(!curMonth[i]){
-        //   console.log(curMonth[i],8888888)
-        //   that.goodid_now.push({
-        //       goodsId : "",
-        //       kg:false,
-        //       promotionCost:'',
-        //       remainQuantity:'',
-        //       seatId:'',
-        //       unitCost:'',
-        //       useTime:''
-        //     });
-          
-        // }else{
-          var tdy = new Date(curMonth[day_num_f].useTime).getDate();
+          var tdy_date = new Date(curMonth[day_num_f].useTime);
+
+          var tdy = tdy_date.getDate();
+          var tdy_choose = tdy+ (tdy_date.getMonth()+1);
+          var nowDateArr = this.nowDate.split('-');
+          var nowDate = parseInt(nowDateArr[1])+parseInt(nowDateArr[2]);
+          console.log(tdy_choose,nowDate)
           if((i+today_day)==tdy){
-            curMonth[day_num_f].kg = false;
+            if(tdy_choose==nowDate){
+              curMonth[day_num_f].kg = true;
+            }else{
+              curMonth[day_num_f].kg = false;
+            }
+            curMonth[day_num_f].zhou = weekDay[tdy_date.getDay()];
             that.goodid_now.push(curMonth[day_num_f]);
             day_num_f++;
           }else{
@@ -1047,25 +990,29 @@ Page({
               remainQuantity:'',
               seatId:'',
               unitCost:'',
-              useTime:''
+              useTime:'',
+              zhou:''
             });
           }
         //}
       }
       var nextMonth = res.data.data.nextMonth;
 
-      /*const today_month1 = new Date(nextMonth[0].useTime);
-      today_month1.setMonth(today_month1.getMonth() + 1);
-      today_month1.setDate(0);
-      const day_num1 = today_month1.getDate();*/
-      console.log(88888,30-day_num)
       var day_num_f1 = 0;
       for(var i = 0;i<(30-day_num);i++){
-        console.log(i,666666)
-        var tdy1 = new Date(nextMonth[day_num_f1].useTime).getDate();
-        console.log(i+1,tdy1,222222)
+        var tdy_date1 = new Date(nextMonth[day_num_f1].useTime)
+        var tdy1 = tdy_date1.getDate();
+
+        var tdy_choose1 = tdy1 + (tdy_date1.getMonth()+1);
         if((i+1)==tdy1){
-          nextMonth[day_num_f1].kg = false;
+          if(tdy_choose1==nowDate){
+            
+            nextMonth[day_num_f1].kg = true;
+            
+          }else{
+            nextMonth[day_num_f1].kg = false;
+          }
+          nextMonth[day_num_f1].zhou = weekDay[tdy_date1.getDay()];
           that.goodid_now.push(nextMonth[day_num_f1]);
           day_num_f1++;
         }else{
@@ -1081,55 +1028,29 @@ Page({
         }
       }
 console.log(that.goodid_now,222222)
-      //that.goodid_next = res.data.nextMonth;
-       /*that.setData({
-         arr:res.data.data
-       },function(){*/
-        //let value = wx.getStorageSync('data-index')
-        if(that.combination_new.length===0){
-           console.log("没有本地存储")
-          /*that.test(today_month_new,bool);*/
+      if(that.combination_new.length===0){
 
+      }else{
+          let res = that.combination_new;
 
-
-
-        }else{
-          //wx.getStorage({key:"data-index",success:res=>{
-            let res = that.combination_new
-            console.log(res)
-            //let arr = that.data.arr;
-            //let arr = that.goodid_now;
-           
-
-            for(let i of res.data){
-              for(let j of that.goodid_now){
-                if(i.id == j.goodsId){
-                  j.kg = true
-                }
+          for(let i of res.data){
+            for(let j of that.goodid_now){
+              if(i.id == j.goodsId){
+                j.kg = true
               }
             }
-             console.log(that.goodid_now,999999)
-            that.setData({
-              number:res.data[0].number_a,
-              //arr : arr
-            })
-            //console.log(that.data.number)
-            //setTimeout(function (){
-              //that.test(today_month_new,bool);
-            //},10)
-          //}})
-          
-         
-        }
-          const today_date_1 = new Date();
-    
-          const today_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth(),1)
-          const next_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth()+1,1)
-          
-          that.test(today_month_1,true);
-          // console.log(date1);
-          that.test(next_month_1,false);
-       //})
+          }
+          that.setData({
+            number:res.data[0].number_a,
+          })
+      }
+      const today_date_1 = new Date();
+
+      const today_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth(),1)
+      const next_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth()+1,1)
+      
+      that.test(today_month_1,true);
+      that.test(next_month_1,false);
      }
    })
     
@@ -1139,8 +1060,8 @@ console.log(that.goodid_now,222222)
 
   // 页面加载
   onLoad: function (options) {
-    this.show_true = options.show_true
-    console.log(options)
+    this.show_true = options.show_true;
+    this.nowDate = wx.getStorageSync('nowDate');
     this.setData({
       orderId:options.goodsId,
       seatId:options.seatId,
@@ -1148,18 +1069,12 @@ console.log(that.goodid_now,222222)
     })
     // 日历
 
-    // this.setData({
-    //   id:e.id
-    // })
-    console.log(options)
+
     const today_date = new Date();
     
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
     this.dealDate();
-    /*const date1 = this.dealDate(today_month,true);
-    // console.log(date1);
-    const date2 = this.dealDate(next_month,false);*/
     this.setData({
       
       date_now:{
@@ -1183,7 +1098,6 @@ console.log(that.goodid_now,222222)
     this.getFirst()
     this.getMeetId()
 
-    console.log(options)
     
     this.getPhone();
 
@@ -1240,12 +1154,11 @@ console.log(that.goodid_now,222222)
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-     console.log(that.data,carendar,777777)
+     console.log(carendar,777777)
     let price_all = 0;
     let price_y = 0;
     if(carendar){
       carendar.map(item=>{
-        console.log(item)
         price_all = price_all + item.no_mary*item.number_a;
         price_y  = price_y + item.mary*item.number_a;
          item.month=getzf(item.month) 
@@ -1261,7 +1174,6 @@ console.log(that.goodid_now,222222)
           item.value=getzf(parseInt(new Date().getDate())+1)
           item.zhou="明     天"
         }
-        // console.log(item)
         return item
       }) 
       
@@ -1272,12 +1184,10 @@ console.log(that.goodid_now,222222)
         carendarArr: carendar,
         price_all:price_all,
         price_y:price_y
-        // seatGoodIds:
       })
     }
   },
   heider : function(e){
-    console.log(e,9999999)
     if(e.target.dataset.wrapper=='wrapper'){
       this.setData({
         show_a : true
@@ -1343,7 +1253,6 @@ console.log(that.goodid_now,222222)
         'content-type': "appication/json"
       },
       success: (res) => {
-        // console.log(res)//code
         let userInfo = Object.assign({}, res.data.data);
         let linkPhone = _this.data.linkPhone;
         _this.setData({
@@ -1359,7 +1268,6 @@ console.log(that.goodid_now,222222)
   })
 
   let data = this.data;
-  // console.log(data.alertTime);
   let orderData = {
 
     alertTime: data.alertTime,
@@ -1390,7 +1298,6 @@ console.log(that.goodid_now,222222)
     data: orderData,
 
     success: (res) => {
-      console.log("散客下单", res)
 
       if (!wx.getStorageSync("order-info")) {
         let orderArr = []
@@ -1406,7 +1313,6 @@ console.log(that.goodid_now,222222)
 
 
 
-      // console.log(res)
       wx.setStorageSync("order", res.data.data)
       let code = res.data.code;
       setTimeout(function () {
