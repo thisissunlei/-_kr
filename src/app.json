@@ -27,6 +27,7 @@
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",
+    "pages/warnseat/warnseat",
     "pages/guide/guide",
     "pages/provingCode/provingCode",
     "pages/bindPhone/bindPhone",
