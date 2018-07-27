@@ -109,9 +109,11 @@ Page({
   // },
   // 预计到场时间选择
   jumpSetTheme: function () {
-    this.setData({
-      timeFlag: !this.data.timeFlag
-    }) 
+      this.setData({
+        timeFlag: !this.data.timeFlag
+      }) 
+    
+    
    },
   // 预计到场时间
   bindTimeChange: function (e) {
@@ -184,7 +186,7 @@ Page({
    return themeObj[alertTime]
   
 },
-  // 行程提醒
+  // 行程提醒jumpSetTheme
   jumpSetRemind: function () {
     let orderId=this.data.orderId;
     app.getRequest({

@@ -196,8 +196,8 @@ Page({
             list1 = res.data.data.items.map((item,index)=>{
               if(item.orderShowStatus == 'OBLIGATION'){
                 let time = that.dealTime(item.expiredTime)
-                item.minute=time.minute;
-                item.second=time.second;
+                item.minute=that.getzf(time.minute);
+                item.second=that.getzf(time.second);
               }
               console.log('=item.minute>-1',item.minute>-1,item.minute,item.second)
               return item;
@@ -324,6 +324,11 @@ Page({
   //   })
     
   // },
-
+getzf(num){  
+  if(parseInt(num) < 10){  
+      num = '0'+num;  
+  }  
+  return num;  
+}
   
 })
