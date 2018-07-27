@@ -241,7 +241,7 @@ Page({
           var mansion = Object.assign({}, res);
           console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
-          var myMeeting = mansion.data.data.myTodo;
+          var myMeeting = mansion.data.data.myTodo.slice(0, 5);
           //排序
           buildingList.sort(function(a, b) {
             return a.distance - b.distance;
@@ -382,13 +382,9 @@ Page({
       });
     }
   },
-  jumpMyMeet:function() {
+  jumpMyMeet: function() {
     wx.navigateTo({
-      url: '../bindPhone/bindPhone?from=seat'
-    })
-  },
+      url: "../bindPhone/bindPhone?from=seat"
+    });
+  }
 });
-  
-
-
-
