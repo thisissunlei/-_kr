@@ -48,8 +48,9 @@
 							<view class="time-section" wx:if="{{item.minute>-1}}">
 								<image class="time-img" src="../images/public/clock_icon.png"></image>
 								<text class="time-name">剩余时间  </text>
-								<view class="time-down">{{item.minute}}:</view>
-								<view class="time-down">{{item.second}}</view>
+								<view class="time-down">0{{item.minute}}:</view>
+								<view class="time-down" wx:if="{{item.second*1 >= 10}}">{{item.second}}</view>
+								<view class="time-down" wx:else>0{{item.second}}</view>
 							</view>
 							<view class="button" bindtap="orderPay" data-order="{{item.orderId}}">立即支付</view>
 						</view>
@@ -117,8 +118,9 @@
 							<view class="time-section" wx:if="{{item.minute>-1}}">
 								<image class="time-img" src="../images/public/clock_icon.png"></image>
 								<text class="time-name">剩余时间  </text>
-								<view class="time-down">{{item.minute}}:</view>
-								<view class="time-down">{{item.second}}</view>
+								<view class="time-down">0{{item.minute}}:</view>
+								<view class="time-down" wx:if="{{item.second*1 >= 10}}">{{item.second}}</view>
+								<view class="time-down" wx:else>0{{item.second}}</view>
 							</view>
 							<view class="button" bindtap="orderPay1" data-order="{{item.orderId}}">立即支付</view>
 						</view>
