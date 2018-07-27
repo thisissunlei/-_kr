@@ -13,6 +13,7 @@ Page({
   },
   data: {
     //数据模拟
+    show_huiyi:"",
     arr: [],
     seatId:'',
     sanzuo: false,
@@ -107,7 +108,7 @@ Page({
     console.log(e.currentTarget.dataset.detail.goodsId,e.currentTarget.dataset.detail.seatId)
     wx.navigateTo({
       url:
-        "/pages/seatorderConfirmation/seatorderConfirmation?goodsId=" +e.currentTarget.dataset.detail.goodsId+'&seatId='+e.currentTarget.dataset.detail.seatId
+        "/pages/seatorderConfirmation/seatorderConfirmation?goodsId=" +e.currentTarget.dataset.detail.goodsId+'&seatId='+e.currentTarget.dataset.detail.seatId+'&show_true='+true
     });
   },
   //散座
@@ -233,6 +234,15 @@ Page({
       },
 
       success: res => {
+        if(res.data.data.items.length > 0){
+          this.setData({
+            show_huiyi : true
+          })
+        }else{
+          this.setData({
+            show_huiyi : false
+          })
+        }
         that.setData(
           {
             totalPages: res.data.data.totalPages,
@@ -245,6 +255,7 @@ Page({
             wx.hideLoading();
           }
         );
+        
         this.data.boardroomList.forEach(element => {
           wx.setNavigationBarTitle({
             title: element.buildName
@@ -275,7 +286,7 @@ Page({
           });
         } else {
           let arr_null = [];
-          // console.log(res)
+          console.log(res)
           arr_null.push(res.data.data);
           that.setData(
             {
@@ -904,7 +915,7 @@ Page({
         seatGoodsId: meetingRoomId
       },
       success: res => {
-        // console.log(res)
+        console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
           that.setData({
@@ -1013,7 +1024,7 @@ Page({
         that.button_boolean1 = true;
         setTimeout(function() {
           wx.navigateTo({
-            url: "/pages/seatorderConfirmation/seatorderConfirmation?seatId=" +arr.seatId
+            url: "/pages/seatorderConfirmation/seatorderConfirmation?seatId=" +arr.seatId+'&show_true='+false
           });
         }, 500);
       }

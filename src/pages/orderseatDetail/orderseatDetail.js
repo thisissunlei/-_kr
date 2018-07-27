@@ -52,17 +52,18 @@ Page({
   payOrder:function(){
     // this.getAppurl()
     let orderId=this.data.orderId;
-      let arr=wx.getStorageSync("myorder");
+      // let arr=wx.getStorageSync("myorder");
 
       app.getRequest({
         // 修改订单
         url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
         method:"get",
         data:{
-          alertTime	: arr.alertTime,
-          arravingTime	:arr.arrivingTime,
-          linkPhone	:	arr.linkPhone || wx.getStorageSync("order_pay").linkPhone,
-          orderId :orderId
+          orderId :orderId,
+          alertTime:this.data.alertTime,
+          arravingTime:this.data.time,
+          linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+
         },
         success:(res)=>{
     
@@ -115,7 +116,29 @@ Page({
     this.setData({
       time: e.detail.value
     })
-    
+    let orderId=this.data.orderId;
+      // let arr=wx.getStorageSync("myorder");
+
+      app.getRequest({
+        // 修改订单
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+        method:"get",
+        data:{
+          orderId :orderId,
+          alertTime:this.data.alertTime,
+          arravingTime:this.data.time,
+          linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+
+        },
+        success:(res)=>{
+          
+          console.log(res)
+        
+        },
+        fail:(error)=>{
+            
+        }
+      })
   },
   //  预计到场时间 隐藏
   jumpSetTime: function () {
@@ -170,6 +193,28 @@ Page({
     wx.navigateTo({
       url: '../warnseat/warnseat?type=storage&alertTime=' + data.alertTime
     })
+
+    let orderId=this.data.orderId;
+    app.getRequest({
+      // 修改订单
+      url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+      method:"get",
+      data:{
+        orderId :orderId,
+        alertTime:this.data.alertTime,
+        arrivingTime:this.data.time,
+        linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+
+      },
+      success:(res)=>{
+        
+        console.log(res)
+      
+      },
+      fail:(error)=>{
+          
+      }
+    })
    
   },
   // 联系电话
@@ -190,7 +235,27 @@ Page({
     wx.navigateTo({
       url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
     })
-    
+    let orderId=this.data.orderId;
+    app.getRequest({
+      // 修改订单
+      url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+      method:"get",
+      data:{
+        orderId :orderId,
+        alertTime:this.data.alertTime,
+        arrivingTime:this.data.time,
+        linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
+
+      },
+      success:(res)=>{
+        
+        console.log(res)
+      
+      },
+      fail:(error)=>{
+          
+      }
+    })
   },
   // 邀请
   onShareAppMessage: function (res) {
@@ -312,20 +377,20 @@ Page({
     this.getDetailInfo(this.data.orderId)
     var _this = this;
     this.getMeetId()
-    wx.getStorage({
-      key: 'order_pay',
-      success: function (res) {
-        if (Object.keys(res.data).length != 0) {
-          _this.setData({
-            themeName: res.data.themeName || _this.data.themeName,
-            remind: _this.getRemind(res.data.alertTime) || _this.getRemind('ONEDAY'),
-            linkPhone: res.data.linkPhone || _this.data.linkPhone,
-            order_pay: res.data,
-            alertTime: res.data.alertTime || 'ONEDAY'
-            })
-        }
-      }
-    })
+    // wx.getStorage({
+    //   key: 'order_pay',
+    //   success: function (res) {
+    //     if (Object.keys(res.data).length != 0) {
+    //       _this.setData({
+    //         themeName: res.data.themeName || _this.data.themeName,
+    //         remind: _this.getRemind(res.data.alertTime) || _this.getRemind('ONEDAY'),
+    //         linkPhone: res.data.linkPhone || _this.data.linkPhone,
+    //         order_pay: res.data,
+    //         alertTime: res.data.alertTime || 'ONEDAY'
+    //         })
+    //     }
+    //   }
+    // })
 
 
     if(this.data.isRouteMy=="2"){
@@ -514,7 +579,8 @@ Page({
        
 
         this.setData({
-          time:res.data.data.arrivingTimeDescr
+          time:res.data.data.arrivingTimeDescr,
+          linkPhone:res.data.linkPhone
         })
             let data=res.data.data;
             let isFirst=data.first
