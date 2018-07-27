@@ -52,7 +52,6 @@ Page({
       console.log(res);
       return {
         title: "来来来，发现一个办公的好地儿~",
-        desc: "KrMeeting会议室",
         path:
           "pages/invitationLetter/invitationLetter?type=TICKET&seatId=" +
           this.data.ticketId,
