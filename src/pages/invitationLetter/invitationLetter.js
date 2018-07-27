@@ -59,6 +59,7 @@ Page({
       mask: true
     });
     that.login();
+    that.getInvitation();
   },
   //邀请函接口
   getInvitation: function() {
@@ -70,7 +71,7 @@ Page({
         type: that.data.type
       },
       // data: {
-      //   id: 173,
+      //   id: 192,
       //   type: "TICKET"
       // },
       success: function(res) {
@@ -96,6 +97,10 @@ Page({
         id: that.data.seatId,
         type: that.data.type
       },
+      // data: {
+      //   id: 192,
+      //   type: "TICKET"
+      // },
       success: res => {
         console.log(res);
         if (res.data.code == 1) {
@@ -163,7 +168,7 @@ Page({
               // console.log(app.globalData.Cookie, "cookie");
               app.globalData.openid = res.data.data["openid"];
               // console.log(app.globalData.openid);
-              that.getInvitation();
+              // that.getInvitation();
             },
             fail: function(res) {
               console.log(res, 8888887777);
