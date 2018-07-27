@@ -52,7 +52,6 @@ Page({
       console.log(res);
       return {
         title: "来来来，发现一个办公的好地儿~",
-        desc: "KrMeeting会议室",
         path:
           "pages/invitationLetter/invitationLetter?type=TICKET&seatId=" +
           this.data.ticketId,
@@ -185,7 +184,10 @@ Page({
         // console.log(newUser.user_info);
         if (seatInfo.data.data.canInvite) {
           var result = inviteers.some(value => {
-            return value.wechatNick == newUser.user_info.nickName;
+            return (
+              value.wechatNick == newUser.user_info.nickName &&
+              value.wechatAvatar == newUser.user_info.avatarUrl
+            );
           });
           if (!result) {
             inviteers.push({
