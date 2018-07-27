@@ -6,6 +6,8 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    startTime:"",
+    endTime:"",
     price_y:0,
     price_all:0,
     new_arrup:[],
@@ -296,6 +298,10 @@ Page({
       },
       success: (res) => {
         console.log("散客详情1", res)
+        this.setData({
+          startTime:res.data.data.startTime,
+          endTime:res.data.data.endTime
+        })
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
           that.setData({
