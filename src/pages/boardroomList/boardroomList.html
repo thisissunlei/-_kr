@@ -196,7 +196,7 @@
       <view class="u-meet-content">
           <scroll-view scroll-y class="scroll-box"  bindscroll="scrollTopEvent" bindscrolltolower="scrollLowerEvent">
             <view class="u-meet-top" bindtap="closeMeetDetail"></view>
-            <view class="u-content-meet" style="padding-bottom: 122rpx;">
+            <view class="u-content-meet">
             <view class="u-swiper-content">
             <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
             <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
