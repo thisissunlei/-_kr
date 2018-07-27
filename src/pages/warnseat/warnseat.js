@@ -14,11 +14,15 @@ Page({
     submitError:true
   },
   button_boolean:true,
+  orderId:'',
+  alertTime:"",
   onShareAppMessage: function() {
     return app.globalData.share_data;
   },
   onLoad: function (options) {
     let type = options.type;
+    this.orderId = options.orderId;
+    this.alertTime = options.alertTime;
     let that = this;
     let alertTime = ''
     if(options.alertTime=='undefined'){
@@ -26,7 +30,7 @@ Page({
     }else{
       alertTime = options.alertTime
     }
-
+    console.log(alertTime,this.alertTime,99876)
     if(type == 'submit'){
       this.setData({
         activeTab: alertTime,
@@ -35,6 +39,7 @@ Page({
 
       })
     }else if(type == 'storage'){
+      console.log(555555,alertTime)
       wx.getStorage({
         key: 'order_pay',
         success: function(res) {
@@ -56,13 +61,19 @@ Page({
       })
     }
   },
+
   checkWarn:function(e){
+
+  
+
+
     wx.reportAnalytics('editenotice')
     let that = this;
     let type = this.data.type;
     var target = e.target.dataset;
     console.log('checkWarn',target)
     let order_pay = this.data.order_pay;
+
     if(type=='storage' && this.button_boolean){
       this.button_boolean = false;
       order_pay.alertTime = target.code;
@@ -83,54 +94,97 @@ Page({
         }
       })
     }else{
-      that.setData({
-        activeTab: target.code,
-      })
-      this.submitWarn()
+      
+      this.submitWarn(target.code,order_pay)
     }    
+
+
+
+
+
+    
+
+
   },
-  submitWarn:function(){
+  submitWarn:function(targetcode,order_pay){
+      
+
+
+
+
+
+
+
+
     let that = this;
-    //接口待定
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/updateExtInfo',
-        method:"POST",
+        // 修改订单
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+        method:"get",
         data:{
-          "orderId":that.data.orderId,
-          "alertTime":that.data.activeTab
+          orderId :that.orderId,
+          alertTime:targetcode,
         },
         success:(res)=>{
-          if(res.data.code>0){
-            wx.navigateBack({
-              delta: 1
-            })
-          }else{
-            that.setData({
-              submitError:false,
-              errorMessage:res.data.message
-            })
-            setTimeout(function(){
-              that.setData({
-                submitError:true,
-                errorMessage:''
+           that.button_boolean = false;
+           order_pay.alertTime = targetcode;
+           that.setData({
+             activeTab: targetcode,
+           })
+          console.log(res,1111)
+          setTimeout(function(){
+             wx.navigateBack({
+                delta: 1
               })
-            },2000)
-          }
-          
+              that.button_boolean = true;
+            },500)
+          // 
+        
         },
-        fail:(res)=>{
-          that.setData({
-              submitError:false,
-              errorMessage:res.data.message
-            })
-            setTimeout(function(){
-              that.setData({
-                submitError:true,
-                errorMessage:''
-              })
-            },2000)
-          
+        fail:(error)=>{
+            
         }
       })
+    //接口待定
+    // app.getRequest({
+    //     url:app.globalData.KrUrl+'api/gateway/krmting/order/updateExtInfo',
+    //     method:"POST",
+    //     data:{
+    //       "orderId":that.data.orderId,
+    //       "alertTime":that.data.activeTab
+    //     },
+    //     success:(res)=>{
+    //       if(res.data.code>0){
+    //         wx.navigateBack({
+    //           delta: 1
+    //         })
+    //       }else{
+    //         that.setData({
+    //           submitError:false,
+    //           errorMessage:res.data.message
+    //         })
+    //         setTimeout(function(){
+    //           that.setData({
+    //             submitError:true,
+    //             errorMessage:''
+    //           })
+    //         },2000)
+    //       }
+          
+    //     },
+    //     fail:(res)=>{
+    //       that.setData({
+    //           submitError:false,
+    //           errorMessage:res.data.message
+    //         })
+    //         setTimeout(function(){
+    //           that.setData({
+    //             submitError:true,
+    //             errorMessage:''
+    //           })
+    //         },2000)
+          
+    //     }
+    //   })
   },
 })
