@@ -251,7 +251,7 @@ Page({
   jumpSetRemind: function () {
     let data = this.data;
     wx.navigateTo({
-      url: '../warn/warn?type=storage&alertTime=' + data.alertTime
+      url: '../warnseat/warnseat?type=storage&alertTime=' + data.alertTime
     })
 
   },
@@ -532,6 +532,7 @@ Page({
       }
       return item;
     })
+    console.log(arr_a_a,9999999)
     this.setData({
       date_data1:arr_a_a
     })
@@ -575,7 +576,7 @@ Page({
         }
     }
     
-    console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
+    console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum,arr_a_a2)
     // if(this.data.number >= this.data.Maximum){
     //   this.setData({
     //     zheng:false
@@ -629,14 +630,15 @@ Page({
   },
   dateBtn :function(e){
     const today_a = parseInt(new Date().getDate())
-    // console.log(e)
-    if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
+     console.log(e,111111)
+    if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'||e.target.dataset.bool=='now'){
       // const new_data = this.data[e.target.dataset.data];//遍历的哪条数组
       var old_data = [];
       let aa = e.target.dataset
       let kong_index =this.data.inn
       let kong_index1 =this.data.inn1
       let kong_index_a = this.data.splice
+      console.log(e.target.dataset,9999)
       if(e.target.dataset.data=='date_data2'){
         let ios = this.data.date_data2
         let zuti = e.target.dataset.kg
@@ -1005,42 +1007,63 @@ Page({
       // }
       var curMonth = res.data.data.curMonth;
 
-      const today_month = new Date(curMonth[0].useTime);
+      const today_month = new Date();
       const today_day = today_month.getDate();
       today_month.setMonth(today_month.getMonth() + 1);
       today_month.setDate(0);
-      const day_num = today_month.getDate();
-      for(var i = 0;i<curMonth.length;i++){
-        var tdy = new Date(curMonth[i].useTime).getDate();
+      const day_num = parseInt(parseInt(today_month.getDate())-parseInt(today_day))+parseInt(1);
+      var day_num_f = 0;
+      for(var i = 0;i<day_num;i++){
 
-        if((i+today_day)==tdy){
-          curMonth[i].kg = false;
-          that.goodid_now.push(curMonth[i]);
-        }else{
-          that.goodid_now.push({
-            goodsId : "",
-            kg:false,
-            promotionCost:'',
-            remainQuantity:'',
-            seatId:'',
-            unitCost:'',
-            useTime:''
-          });
-        }
+        // if(!curMonth[i]){
+        //   console.log(curMonth[i],8888888)
+        //   that.goodid_now.push({
+        //       goodsId : "",
+        //       kg:false,
+        //       promotionCost:'',
+        //       remainQuantity:'',
+        //       seatId:'',
+        //       unitCost:'',
+        //       useTime:''
+        //     });
+          
+        // }else{
+          var tdy = new Date(curMonth[day_num_f].useTime).getDate();
+          if((i+today_day)==tdy){
+            curMonth[day_num_f].kg = false;
+            that.goodid_now.push(curMonth[day_num_f]);
+            day_num_f++;
+          }else{
+            
+            //day_num_f--;
+            that.goodid_now.push({
+              goodsId : "",
+              kg:false,
+              promotionCost:'',
+              remainQuantity:'',
+              seatId:'',
+              unitCost:'',
+              useTime:''
+            });
+          }
+        //}
       }
-      console.log(that.goodid_now,1111)
       var nextMonth = res.data.data.nextMonth;
 
-      const today_month1 = new Date(nextMonth[0].useTime);
+      /*const today_month1 = new Date(nextMonth[0].useTime);
       today_month1.setMonth(today_month1.getMonth() + 1);
       today_month1.setDate(0);
-      const day_num1 = today_month1.getDate();
-      for(var i = 0;i<nextMonth.length;i++){
-        var tdy1 = new Date(nextMonth[i].useTime).getDate();
+      const day_num1 = today_month1.getDate();*/
+      console.log(88888,30-day_num)
+      var day_num_f1 = 0;
+      for(var i = 0;i<(30-day_num);i++){
+        console.log(i,666666)
+        var tdy1 = new Date(nextMonth[day_num_f1].useTime).getDate();
         console.log(i+1,tdy1,222222)
         if((i+1)==tdy1){
-          nextMonth[i].kg = false;
-          that.goodid_now.push(nextMonth[i]);
+          nextMonth[day_num_f1].kg = false;
+          that.goodid_now.push(nextMonth[day_num_f1]);
+          day_num_f1++;
         }else{
           that.goodid_now.push({
             goodsId : "",
@@ -1211,36 +1234,36 @@ console.log(that.goodid_now,222222)
     
   },
   onClickDate: function (that){
-    let carendar = that.combination_new;
+    let carendar = JSON.parse(JSON.stringify(that.combination_new));
     console.log(that.data,carendar,777777)
     
     if(carendar){
-    carendar.map(item=>{
-      console.log(item)
-       item.month=getzf(item.month) 
-       item.value=getzf(item.value)
+      carendar.map(item=>{
+        console.log(item)
+         item.month=getzf(item.month) 
+         item.value=getzf(item.value)
 
-      if(item.value=="今天"){
-        item.month=getzf(parseInt(new Date().getMonth()+1))
-        item.value=getzf(parseInt(new Date().getDate()))
-        item.zhou="今天"
-      }
-      if(item.value=="明天"){
-        item.month=getzf(parseInt(new Date().getMonth()+1))
-        item.value=getzf(parseInt(new Date().getDate())+1)
-        item.zhou="明天"
-      }
-      console.log(item)
-      return item
-    }) 
+        if(item.value=="今天"){
+          item.month=getzf(parseInt(new Date().getMonth()+1))
+          item.value=getzf(parseInt(new Date().getDate()))
+          item.zhou="       今   天"
+        }
+        if(item.value=="明天"){
+          item.month=getzf(parseInt(new Date().getMonth()+1))
+          item.value=getzf(parseInt(new Date().getDate())+1)
+          item.zhou="       明   天"
+        }
+        console.log(item)
+        return item
+      }) 
    
-    that.setData({
-      sankeNum: carendar[0].number_a,
-      daynum: carendar.length,
-      carendarArr: carendar,
-      // seatGoodIds:
-    })
-  }
+      that.setData({
+        sankeNum: carendar[0].number_a,
+        daynum: carendar.length,
+        carendarArr: carendar,
+        // seatGoodIds:
+      })
+    }
   },
   heider(){
     console.log(1)
