@@ -175,7 +175,7 @@ Page({
       },
       success: function(res) {
         wx.hideLoading();
-        console.log(res);
+        // console.log(res);
         var seatInfo = Object.assign({}, res);
         console.log(seatInfo);
         var newUser = wx.getStorageSync("user_info");
@@ -201,11 +201,6 @@ Page({
           canInvite: seatInfo.data.data.canInvite,
           ticketId: seatInfo.data.data.ticketId
         });
-        // console.log(that.data.ticketId);
-        // console.log(that.data.seatStatus);
-        // seatInfo.data.data.sponsor = false;
-        // seatInfo.data.data.limitCount = 0;
-        // seatInfo.data.data.canInvite = true;
       }
     });
   }
