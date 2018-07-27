@@ -13,6 +13,7 @@ Page({
   },
   data: {
     //数据模拟
+    show_huiyi:"",
     arr: [],
     seatId:'',
     sanzuo: false,
@@ -233,7 +234,15 @@ Page({
       },
 
       success: res => {
-        console.log(res.data.data.items)
+        if(res.data.data.items.length > 0){
+          this.setData({
+            show_huiyi : true
+          })
+        }else{
+          this.setData({
+            show_huiyi : false
+          })
+        }
         that.setData(
           {
             totalPages: res.data.data.totalPages,
