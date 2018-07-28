@@ -665,28 +665,27 @@ Page({
   },
   // 获取详情
   getMeetDetail() {
-    
-    // let meetingRoomId = this.data.meetingRoomId;
+  
+    let meetingRoomId = this.data.meetingRoomId;
     let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/goods/detail',
       method: "GET",
       data: {
-        "seatGoodsId":this.orderId
+        "seatGoodsId":meetingRoomId 
       },
       success: (res) => {
         this.setData({
           startTime:res.data.data.startTime,
-          endTime:res.data.data.endTime,
-          meetingDetail: res.data.data
+          endTime:res.data.data.endTime
         })
         // console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
 
-          // that.setData({
-          //   meetingDetail: meetingDetail
-          // })
+          that.setData({
+            meetingDetail: meetingDetail
+          })
           // let price=this.data.sankeNum * this.data.daynum * meetingDetail.promotionCost
           // let oldprice=this.data.sankeNum * this.data.daynum * meetingDetail.unitCost
           that.setData({
