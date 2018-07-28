@@ -43,7 +43,7 @@
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{item.promotionCost}}</view>
-                    <view class="u-meet-old-num">¥ {{item.unitCost}}</view>
+                    <view class="u-meet-old-num" wx:if="{{item.promotionCost!=item.unitCost}}">¥ {{item.unitCost}}</view>
                     <view class="u-meet-old-unit"> / 个·天  </view>
                 </view>
                 <view >x <span class="spannum">{{quantity}}</span>  个</view>
@@ -64,7 +64,7 @@
             <view class="u-right" wx:if="{{isFirst&daynum<2}}">
                 <view class="u-right-top" >
                     <view class="u-right-top-left" style="font-size: 38rpx">¥  1 </view>
-                    <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view>
+                    <!-- <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view> -->
                 </view>
                 <view wx:if="{{!dialogShow}}" class="u-bottom">
                         （新人专享）2小时超值体验
@@ -74,7 +74,7 @@
             <view class="u-right" wx:if="{{isFirst&daynum>=2}}">
                 <view class="u-right-top" >
                     <view class="u-right-top-left" style="font-size: 38rpx">¥ {{detailInfo.paidAmount}}</view>
-                    <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view>
+                    <!-- <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view> -->
                 </view>
             </view>
 

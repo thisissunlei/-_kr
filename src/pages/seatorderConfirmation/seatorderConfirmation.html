@@ -51,7 +51,7 @@
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{item.no_mary}}</view>
-                    <view class="u-meet-old-num">¥ {{item.mary}}</view>
+                    <view class="u-meet-old-num" wx:if="{{item.no_mary!=item.mary}}">¥ {{item.mary}}</view>
                     <view class="u-meet-old-unit"> /个·天 </view>
                 </view>
                 <view class="u-time-col">x
@@ -162,7 +162,7 @@
                 <view class="u-price-num" wx:else>
                     0
                 </view>
-                <view class="u-old-price" wx:if="{{sankenum!=0&&daynum!=0}}">
+                <view class="u-old-price" wx:if="{{sankenum!=0&&daynum!=0&&price_all!=price_y}}">
                     ￥{{price_y}}
                 </view>
             </view>
@@ -181,7 +181,7 @@
                 <view class="u-price-num" wx:else>
                     0
                 </view>
-                <view class="u-old-no-first-price" wx:if="{{sankenum!=0&&daynum!=0}}">
+                <view class="u-old-no-first-price" wx:if="{{sankenum!=0&&daynum!=0&&price_all!=price_y}}">
                     ￥{{price_y}}
                 </view>
             </view>
@@ -355,8 +355,8 @@
                     data-month='{{date_next.month}}' data-year='{{date_next.year}}' data-data='date_data2' data-num='{{index}}'
                     wx:for-item="i" data-kg='{{i.kg}}' class="{{i.type}} day {{i.kg==true?'active':'before'}}" style="line-height: 30rpx;">
                     {{i.value}}
-                    <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_now.month}}'
-                        data-year='{{date_now.year}}' data-data='date_data2' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'
+                    <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_next.month}}'
+                        data-year='{{date_next.year}}' data-data='date_data2' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'
                         wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.no_mary :i.number == 0 ? '已售罄' : '数量不足'}}</view>
                 </view>
             </view>

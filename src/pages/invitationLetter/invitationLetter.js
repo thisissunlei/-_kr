@@ -115,7 +115,7 @@ Page({
             });
           }, 2000);
         } else if (res.data.code == -2) {
-          if (that.type == "ORDER") {
+          if (that.data.type == "ORDER") {
             wx.showToast({
               title: res.data.message,
               icon: "none",
