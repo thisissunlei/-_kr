@@ -306,14 +306,14 @@ Page({
           that.setData({
             meetingDetail: meetingDetail
           })
-          let price = this.data.sankeNum * this.data.daynum * meetingDetail.promotionCost
-          let oldprice = this.data.sankeNum * this.data.daynum * meetingDetail.unitCost
-          that.setData({
+          // let price = this.data.sankeNum * this.data.daynum * meetingDetail.promotionCost
+          // let oldprice = this.data.sankeNum * this.data.daynum * meetingDetail.unitCost
+          // that.setData({
             // price: price.toFixed(2),
             // oldprice: oldprice.toFixed(2)
-            price: price,
-            oldprice: oldprice
-          })
+            // price: price,
+            // oldprice: oldprice
+          // })
         } else {
           that.setData({
             phoneError: false,
@@ -1045,6 +1045,8 @@ console.log(that.goodid_now,222222)
 
   // 页面加载
   onLoad: function (options) {
+    
+
     this.show_true = options.show_true;
     this.nowDate = wx.getStorageSync('nowDate');
     this.setData({
@@ -1139,7 +1141,7 @@ console.log(that.goodid_now,222222)
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-     console.log(carendar,777777)
+     console.log(777777,carendar.length)
     let price_all = 0;
     let price_y = 0;
     if(carendar){
