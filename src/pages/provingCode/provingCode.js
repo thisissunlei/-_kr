@@ -249,13 +249,13 @@ Page({
             console.log(res.data,11111111)
             if (!wx.getStorageSync("order-info")) {
                 let orderArr = []
-                console.log(typeof orderArr,orderArr,res.data,333333)
-                orderArr.push(res.data)
+                console.log(typeof res.data.data,res.data.data,orderArr,res.data,333333)
+                orderArr.push(res.data.data)
                 wx.setStorageSync("order-info", orderArr)
               } else {
                 let orderseat = wx.getStorageSync("order-info")
-                console.log(typeof orderseat,orderseat,res.data,44444)
-                orderseat.push(res.data)
+                console.log(typeof res.data.data,res.data.data,orderseat,res.data,44444)
+                orderseat.push(res.data.data)
                 wx.setStorageSync("order-info", orderseat)
               }
             wx.requestPayment({
