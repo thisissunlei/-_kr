@@ -269,6 +269,16 @@ Page({
                     url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
                   })
                 }else{
+                  console.log(res.data,11111111)
+                  if (!wx.getStorageSync("order-info")) {
+                      let orderArr = []
+                      orderArr.push(res.data)
+                      wx.setStorageSync("order-info", orderArr)
+                    } else {
+                      let orderseat = wx.getStorageSync("order-info")
+                      orderseat.push(res.data)
+                      wx.setStorageSync("order-info", orderseat)
+                    }
                   wx.navigateTo({
                     url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
                   })
@@ -350,8 +360,8 @@ Page({
            console.log('========',res)
         }
       })
-      
-      
+
+
     }
     
     
