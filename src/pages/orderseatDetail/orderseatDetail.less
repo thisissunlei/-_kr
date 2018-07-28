@@ -355,6 +355,17 @@ page{
   position: absolute;
   bottom:0;
 }
+.u-meet-content:after {
+  content: '';
+  position: absolute;
+  bottom: -100rpx;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  height: 50%;
+  width: 100%;
+  background: #ffffff;
+}
 .scroll-box{
   height: 100%;
   overflow-y: auto;
@@ -372,6 +383,7 @@ page{
   width:100%;
   background: #fff;
   position: relative;
+  z-index: 1;
 }
 .u-swiper-content{
   position: relative;
