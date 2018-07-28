@@ -246,6 +246,18 @@ Page({
         success:(res)=>{
           console.log('res',res)
           if(res.data.code>0){
+            console.log(res.data,11111111)
+            if (!wx.getStorageSync("order-info")) {
+                let orderArr = []
+                console.log(typeof orderArr,orderArr,res.data,333333)
+                orderArr.push(res.data)
+                wx.setStorageSync("order-info", orderArr)
+              } else {
+                let orderseat = wx.getStorageSync("order-info")
+                console.log(typeof orderseat,orderseat,res.data,44444)
+                orderseat.push(res.data)
+                wx.setStorageSync("order-info", orderseat)
+              }
             wx.requestPayment({
               'timeStamp': res.data.data.timestamp,
               'nonceStr': res.data.data.noncestr,
@@ -269,16 +281,7 @@ Page({
                     url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
                   })
                 }else{
-                  console.log(res.data,11111111)
-                  if (!wx.getStorageSync("order-info")) {
-                      let orderArr = []
-                      orderArr.push(res.data)
-                      wx.setStorageSync("order-info", orderArr)
-                    } else {
-                      let orderseat = wx.getStorageSync("order-info")
-                      orderseat.push(res.data)
-                      wx.setStorageSync("order-info", orderseat)
-                    }
+
                   wx.navigateTo({
                     url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
                   })
