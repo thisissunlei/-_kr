@@ -201,7 +201,7 @@ Page({
             list1 = res.data.data.items.map((item,index)=>{
               if(item.orderShowStatus == 'OBLIGATION'){
                 let time = that.dealTime(item.expiredTime)
-                item.minute=that.getzf(time.minute);
+                item.minute=time.minute;
                 item.second=that.getzf(time.second);
               }
               console.log('=item.minute>-1',item.minute>-1,item.minute,item.second)

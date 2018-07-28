@@ -17,7 +17,7 @@
                 <image wx:if="{{item.seatStatus == 'TOUSE'}}" src=""  background-size="cover" class="bgc-b"></image>
                 <image wx:if="{{item.seatStatus == 'EXPIRED'}}" src="../images/orderimg/order-b.png" background-size="cover" class="bgc-c"></image>
                 <view class="detail" >
-                    <text class="meeting-time">{{item.useTime}}</text>
+                    <text class="{{item.kg == true ? 'meeting-time' : 'meeting-time_a'}}">{{item.useTime}}</text>
                     <text class="theme-name">{{item.seatName}}</text>
                 </view>
                 <view class="address-box">

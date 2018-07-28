@@ -34,7 +34,6 @@ Page({
               i.kg = false
             }
           }
-          console.log(res)
           wx.hideLoading();
           console.log(res)
           if(res.data.code>0){

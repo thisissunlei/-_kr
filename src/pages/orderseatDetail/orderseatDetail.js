@@ -50,7 +50,7 @@ Page({
   },
   choose_date: '',
   orderId:'',
-  
+ 
   //立即支付
   payOrder:function(){
 
@@ -399,20 +399,10 @@ Page({
 
 
     let carendar = wx.getStorageSync("data-index")
-    console.log(carendar,77777)
+    // console.log(carendar,77777)
     if(carendar){
       carendar.map(item=>{
-        // console.log(item)
-        if(item.value=="今天"){
-          item.month=parseInt(new Date().getMonth()+1)
-          item.value=parseInt(new Date().getDate())
-          item.zhou="今 天"
-        }
-        if(item.value=="明天"){
-          item.month=parseInt(new Date().getMonth()+1)
-          item.value=parseInt(new Date().getDate())+1
-          item.zhou="明 天"
-        }
+        
       })
       this.setData({
         carendarArr:carendar,
@@ -587,9 +577,11 @@ Page({
 
               let arr =[]
               let timeday=data.details;
+              
               timeday.map(item=>{
                   arr.push({
-                    enableDate:getMyDate(item.enableDate),
+                    // enableDate:getMyDate(item.enableDate),
+                    enableDate:item.enableDate,
                     promotionCost:item.promotionCost,
                     unitCost:item.unitCost
                   })
