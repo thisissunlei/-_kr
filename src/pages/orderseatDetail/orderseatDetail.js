@@ -581,7 +581,7 @@ Page({
               timeday.map(item=>{
                   arr.push({
                     // enableDate:getMyDate(item.enableDate),
-                    enableDate:item.enableDate,
+                    enableDateDescr:item.enableDateDescr,
                     promotionCost:item.promotionCost,
                     unitCost:item.unitCost
                   })
