@@ -10,14 +10,14 @@
   </view> -->
   <!-- 图片 -->
   <!-- <view><image src='{{boardroomList[0].imgUrl}}' style="height:374rpx"></image></view> -->
-  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' wx:if='{{boardroomList.length > 0}}' indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#FFDF00">
+  <!-- <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' wx:if='{{boardroomList.length > 0}}' indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#FFDF00">
       <block wx:for="{{boardroomList}}" wx:key  wx:for-index="index" wx:key>  
         <swiper-item>  
           <image src="{{item.imgUrl}}" style="height:374rpx;width:100%;"/>  
         </swiper-item>  
       </block>  
-    </swiper>
-    <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' wx:if='{{boardroomList.length == 0}}' indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#FFDF00">  
+    </swiper> -->
+    <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#FFDF00">  
         <block wx:for="{{scoll_arr}}" wx:key  wx:for-index="index" wx:key>  
           <swiper-item>  
             <image src="{{item}}" style="height:374rpx;width:100%;"/>  

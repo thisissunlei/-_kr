@@ -296,11 +296,13 @@ Page({
               sanzuo: true,
               scoll_arr:res.data.data.cmtImgUrls
             },
+            
             function() {
               that.reloadData();
               wx.hideLoading();
             }
           );
+          console.log(this.data.scoll_arr)
         }
         
       }
