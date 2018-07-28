@@ -163,6 +163,7 @@ Page({
               page:page || 1,
               totalPages:res.data.data.totalPages
             })
+            console.log(this.data.orderList)
           }else{
             that.setData({
               error:false,
