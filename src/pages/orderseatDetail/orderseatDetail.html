@@ -13,8 +13,8 @@
 
             <view class="u-order-right">
                 <text class="u-meet-title">散座</text>
-                <text class="u-meet-address">{{meetingDetail.buildFloorDescr}}  氪空间</text>
-                <view class="u-meet-price-info">{{meetingDetail.adress}}</view>
+                <text class="u-meet-address">{{detailInfo.buildAndFloorDescr}}  氪空间</text>
+                <view class="u-meet-price-info">{{detailInfo.adress}}</view>
                 <view class="u-btn-arrow u-head-arrow">
                     <image mode="scaleToFill" class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
                 </view>
@@ -46,7 +46,7 @@
                     <view class="u-meet-old-num">¥ {{item.unitCost}}</view>
                     <view class="u-meet-old-unit"> / 个·天  </view>
                 </view>
-                <view >x <span class="spannum">{{sankeNum}}</span>  个</view>
+                <view >x <span class="spannum">{{quantity}}</span>  个</view>
               </view>
         <!-- </scroll-view>    -->
           </view>

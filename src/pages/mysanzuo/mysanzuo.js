@@ -6,6 +6,7 @@ Page({
     meetingList:[],
     bg:'../images/my/bg.png'
   },
+  Bright:"",
   /*onShareAppMessage: function() {
     return app.globalData.share_data;
   },*/
@@ -18,10 +19,23 @@ Page({
   onLoad: function () {
     let that = this;
     // wx.reportAnalytics('viewmeeting')
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
     app.getRequest({///krseat//myseat/list
         url:app.globalData.KrUrl+'api/gateway/krseat//myseat/list',
         methods:"GET",
         success:(res)=>{
+          for(let i of res.data.data){
+            if(i.seatStatus == 'TOUSE'){
+              i.kg = true
+            }else{
+              i.kg = false
+            }
+          }
+          console.log(res)
+          wx.hideLoading();
           console.log(res)
           if(res.data.code>0){
             var list = []
