@@ -177,6 +177,10 @@ Page({
   },
   //散座订单列表
   getData1:function(type,page){
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
     let that = this;
     type = type || this.data.type;
     let orderOldList1 = this.data.orderList1;//[]
@@ -189,6 +193,7 @@ Page({
           pageSize:10
         },
         success:(res)=>{
+          wx.hideLoading();
           console.log(res)
           let oldList = []
           if(res.data.code>0){
