@@ -51,7 +51,7 @@
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{item.no_mary}}</view>
-                    <view class="u-meet-old-num">¥ {{item.mary}}</view>
+                    <view class="u-meet-old-num" wx:if="{{item.no_mary!=item.mary}}">¥ {{item.mary}}</view>
                     <view class="u-meet-old-unit"> /个·天 </view>
                 </view>
                 <view class="u-time-col">x
@@ -162,7 +162,7 @@
                 <view class="u-price-num" wx:else>
                     0
                 </view>
-                <view class="u-old-price" wx:if="{{sankenum!=0&&daynum!=0}}">
+                <view class="u-old-price" wx:if="{{sankenum!=0&&daynum!=0&&price_all!=price_y}}">
                     ￥{{price_y}}
                 </view>
             </view>
@@ -181,7 +181,7 @@
                 <view class="u-price-num" wx:else>
                     0
                 </view>
-                <view class="u-old-no-first-price" wx:if="{{sankenum!=0&&daynum!=0}}">
+                <view class="u-old-no-first-price" wx:if="{{sankenum!=0&&daynum!=0&&price_all!=price_y}}">
                     ￥{{price_y}}
                 </view>
             </view>

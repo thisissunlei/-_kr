@@ -70,7 +70,7 @@ Page({
         },
         success:(res)=>{
     
-          console.log(res)
+          // console.log(res)
         
         },
         fail:(error)=>{
@@ -143,7 +143,7 @@ Page({
         },
         success:(res)=>{
           
-          console.log(res)
+          // console.log(res)
         
         },
         fail:(error)=>{
@@ -198,7 +198,7 @@ Page({
   // 行程提醒jumpSetTheme
   jumpSetRemind: function () {
     let data = this.data;
-    console.log(this.data.alertTime,111111)
+    // console.log(this.data.alertTime,111111)
     wx.navigateTo({
       url: '../warnseat/warnseat?type=submit&alertTime=' + data.alertTime + '&orderId=' + this.orderId
     })
@@ -237,7 +237,7 @@ Page({
       // url: '../phone/phone?linkPhone='+data.linkPhone+'&type=submit'+'&orderId='+this.data.orderId
       url: '../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId
     })
-    console.log('../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId)
+    // console.log('../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId)
 
    
        
@@ -356,7 +356,7 @@ Page({
     this.getMeetId()
 
     
-    console.log(this.orderId,this.data.alertTime,666666)
+    // console.log(this.orderId,this.data.alertTime,666666)
 
     if(this.data.isRouteMy=="2"){
       wx.switchTab({
@@ -372,14 +372,14 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-    console.log(options)
+    // console.log(options)
   if(options.con){
       this.setData({
         con:options.con
       })
     }
     this.orderId = options.id;
-    console.log(111111111,this.orderId)
+    // console.log(111111111,this.orderId)
   
    
     
@@ -437,7 +437,7 @@ Page({
         wx.getStorage({
         key: 'detail-c',
         success: function (res) {
-          console.log(res)
+          // console.log(res)
           if (res.data) {
               _this.setData({
               detailInfo: res.data
@@ -529,7 +529,7 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-        console.log("订单详情",res)
+        // console.log("订单详情",res)
        
        
 
@@ -542,7 +542,7 @@ Page({
           quantity:res.data.data.details[0].quantity,
           daynum:res.data.data.dateQuantity
         })
-        console.log(this.orderId,this.data.alertTime,777777)
+        // console.log(this.orderId,this.data.alertTime,777777)
             let data=res.data.data;
             let isFirst=data.first
             
