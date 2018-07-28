@@ -529,7 +529,7 @@ Page({
         orderId:orderId
       },
       success:(res)=>{
-        // console.log("订单详情",res)
+        console.log("订单详情",res)
        
        
 
