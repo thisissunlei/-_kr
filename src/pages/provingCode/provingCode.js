@@ -236,7 +236,65 @@ Page({
   weChatPay:function(data){
     let id = data.orderId;
     let that = this;
-    app.getRequest({
+    if(that.data.from=='seat'){
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/order/pay',
+        methods:"GET",
+        data:{
+          orderId:id
+        },
+        success:(res)=>{
+          console.log('res',res)
+          if(res.data.code>0){
+            wx.requestPayment({
+              'timeStamp': res.data.data.timestamp,
+              'nonceStr': res.data.data.noncestr,
+              'package': res.data.data.packages,
+              'signType':res.data.data.signType,
+              'paySign': res.data.data.paySign,
+              'success':function(res){
+                wx.showLoading({
+                  title: '加载中',
+                  mask:true
+                })
+
+                setTimeout(function(){
+                  that.getInviteeId(id)
+                },2000)
+                
+              },
+              'fail':function(res){
+                if(that.data.from!='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
+                
+              }
+            })
+          }else{
+            if(that.data.from!='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
+          }
+          
+        },
+        fail:(res)=>{
+           console.log('========',res)
+        }
+      })
+    }else{
+      app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
         methods:"GET",
         data:{
@@ -292,6 +350,11 @@ Page({
            console.log('========',res)
         }
       })
+      
+      
+    }
+    
+    
    
   },
   clearStorage(){
