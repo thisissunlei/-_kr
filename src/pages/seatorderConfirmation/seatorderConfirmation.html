@@ -148,7 +148,9 @@
             </view>
         </view>
 
-        <view class="u-footer-left" wx:if="{{isFirst}}">
+     
+     
+        <view class="u-footer-left" wx:else>
             <view class="u-pay-price">
                 <view class="u-no-first-price-label">
                     应付：
@@ -167,28 +169,8 @@
                 </view>
             </view>
         </view>
-     
-        <view class="u-footer-left" wx:if="{{!isFirst}}">
-            <view class="u-pay-price">
-                <view class="u-no-first-price-label">
-                    应付：
-                </view>
-                <view class="u-no-first-price-unit">
-                    ¥
-                </view>
-                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
-                    {{price_all}}
-                </view>
-                <view class="u-price-num" wx:else>
-                    0
-                </view>
-                <view class="u-old-no-first-price" wx:if="{{sankenum!=0&&daynum!=0&&price_all!=price_y}}">
-                    ￥{{price_y}}
-                </view>
-            </view>
-        </view>
 
-        <view class="u-footer-right u-active-btn" wx:if="{{daynum}}" bindtap="goToPay"> 立即支付</view>
+        <view class="u-footer-right u-active-btn" wx:if="{{daynum>=1}}" bindtap="goToPay"> 立即支付</view>
         <view class="u-footer-right" wx:if="{{!daynum}}"> 立即支付</view> 
     </view>
     <!-- 未填写报错 -->
