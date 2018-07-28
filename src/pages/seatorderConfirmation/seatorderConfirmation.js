@@ -816,9 +816,9 @@ Page({
               value:'明天',
               type:'before',
               kg:false,
-              number:this.goodid_now[i+1-today].remainQuantity,
-              mary:this.goodid_now[i+1-today].unitCost,
-              no_mary:this.goodid_now[i+1-today].promotionCost,
+              // number:this.goodid_now[i+1-today].remainQuantity,
+              // mary:this.goodid_now[i+1-today].unitCost,
+              // no_mary:this.goodid_now[i+1-today].promotionCost,
               month:this.goodid_now[i-today+1].month,
               zhou:this.goodid_now[i-today+1].zhou
             });
