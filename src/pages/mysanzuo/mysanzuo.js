@@ -53,6 +53,7 @@ Page({
           
         },
         fail:(res)=>{
+          wx.hideLoading();
           console.log('请求失败')
         }
       })
