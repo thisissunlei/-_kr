@@ -224,7 +224,7 @@ Page({
     // this.getAllInfo();
   },
   onShow: function() {
-    // this.getAllInfo();
+    this.getAllInfo();
   },
   getAllInfo: function() {
     var that = this;
