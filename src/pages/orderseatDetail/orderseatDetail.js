@@ -15,7 +15,7 @@ Page({
     con:'',
     sankeNum:"",
     payTitle:'',
-    
+    quantity:"",
     meetDetailShow:false,
     autoplay: false,
     duration: 1000,
@@ -415,8 +415,6 @@ Page({
         }
       })
       this.setData({
-        sankeNum:carendar[0].number_a,
-        daynum:carendar.length,
         carendarArr:carendar,
         
       })
@@ -550,6 +548,9 @@ Page({
           linkPhone:res.data.data.linkPhone ,
           alertTime:res.data.data.alertTime,
           remind: _this.getRemind(res.data.data.alertTime) ,
+          sankeNum:res.data.data.quantity,
+          quantity:res.data.data.details[0].quantity,
+          daynum:res.data.data.dateQuantity
         })
         console.log(this.orderId,this.data.alertTime,777777)
             let data=res.data.data;
@@ -664,32 +665,33 @@ Page({
   },
   // 获取详情
   getMeetDetail() {
- 
-    let meetingRoomId = this.data.meetingRoomId;
+    
+    // let meetingRoomId = this.data.meetingRoomId;
     let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/goods/detail',
       method: "GET",
       data: {
-        "seatGoodsId":meetingRoomId 
+        "seatGoodsId":this.orderId
       },
       success: (res) => {
         this.setData({
           startTime:res.data.data.startTime,
-          endTime:res.data.data.endTime
+          endTime:res.data.data.endTime,
+          meetingDetail: res.data.data
         })
         // console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
 
+          // that.setData({
+          //   meetingDetail: meetingDetail
+          // })
+          // let price=this.data.sankeNum * this.data.daynum * meetingDetail.promotionCost
+          // let oldprice=this.data.sankeNum * this.data.daynum * meetingDetail.unitCost
           that.setData({
-            meetingDetail: meetingDetail
-          })
-          let price=this.data.sankeNum * this.data.daynum * meetingDetail.promotionCost
-          let oldprice=this.data.sankeNum * this.data.daynum * meetingDetail.unitCost
-          that.setData({
-            price:price.toFixed(2),
-            oldprice:oldprice.toFixed(2)
+            // price:price.toFixed(2),
+            // oldprice:oldprice.toFixed(2)
           })
         } else {
           that.setData({
