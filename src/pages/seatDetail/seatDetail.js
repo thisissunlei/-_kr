@@ -108,7 +108,6 @@ Page({
     this.getSeatInfo();
   },
   onReady: function() {
-    // console.log(this.data.seatStatus);
     var that = this;
     console.log(that.data.seatStatus);
     //设置canvsa大小
