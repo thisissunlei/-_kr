@@ -26,6 +26,7 @@ Page({
         },
         success:(res)=>{
           console.log('res',res.data.data.items)
+          
           if(res.data.code>0){
             var list = []
             list = res.data.data.items.map((item,index)=>{

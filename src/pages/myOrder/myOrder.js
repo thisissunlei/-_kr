@@ -177,6 +177,10 @@ Page({
   },
   //散座订单列表
   getData1:function(type,page){
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
     let that = this;
     type = type || this.data.type;
     let orderOldList1 = this.data.orderList1;//[]
@@ -189,6 +193,7 @@ Page({
           pageSize:10
         },
         success:(res)=>{
+          wx.hideLoading();
           console.log(res)
           let oldList = []
           if(res.data.code>0){
@@ -196,7 +201,7 @@ Page({
             list1 = res.data.data.items.map((item,index)=>{
               if(item.orderShowStatus == 'OBLIGATION'){
                 let time = that.dealTime(item.expiredTime)
-                item.minute=that.getzf(time.minute);
+                item.minute=time.minute;
                 item.second=that.getzf(time.second);
               }
               console.log('=item.minute>-1',item.minute>-1,item.minute,item.second)

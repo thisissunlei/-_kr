@@ -372,7 +372,7 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-    
+    console.log(options)
   if(options.con){
       this.setData({
         con:options.con
