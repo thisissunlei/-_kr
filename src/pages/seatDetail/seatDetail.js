@@ -128,7 +128,7 @@ Page({
         that.data.width / 2.5,
         that.data.width / 2.5,
         null,
-        "rgba(0,0,0,0.6)"
+        "rgba(0,0,0,0.3)"
       );
       that.setData({ canInvite: false });
       // console.log(that.data.canInvite);
