@@ -224,6 +224,7 @@ Page({
           }
         },
         fail:(res)=>{
+          wx.hideLoading();
            console.log('========',res)
         }
       })

@@ -27,16 +27,18 @@ Page({
         url:app.globalData.KrUrl+'api/gateway/krseat//myseat/list',
         methods:"GET",
         success:(res)=>{
-          for(let i of res.data.data){
-            if(i.seatStatus == 'TOUSE'){
-              i.kg = true
-            }else{
-              i.kg = false
-            }
-          }
           wx.hideLoading();
+          
+         
           console.log(res)
           if(res.data.code>0){
+            for(let i of res.data.data){
+              if(i.seatStatus == 'TOUSE'){
+                i.kg = true
+              }else{
+                i.kg = false
+              }
+            }
             var list = []
             list = res.data.data.map((item,index)=>{
               return item;
@@ -53,6 +55,7 @@ Page({
           
         },
         fail:(res)=>{
+          wx.hideLoading();
           console.log('请求失败')
         }
       })
