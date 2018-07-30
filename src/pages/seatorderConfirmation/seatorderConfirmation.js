@@ -363,11 +363,11 @@ Page({
   },
 
   // 日历
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
+  // bindViewTap: function() {
+  //   wx.navigateTo({
+  //     url: '../logs/logs'
+  //   })
+  // },
   diantrue(){
     var that = this;
     
@@ -383,8 +383,8 @@ Page({
         fuxiu_a.push(item)
       }
     })
-    // console.log(fuxiu,fuxiu_a)
     let combination = fuxiu.concat(fuxiu_a)
+   
 
     combination.map(item=>{
       item.number_a = this.data.number
@@ -402,7 +402,7 @@ Page({
        
     })
 
-    wx.setStorageSync('data-index',this.data.combination)
+    // wx.setStorageSync('data-index',this.data.combination)
 
     this.onClickDate(that);
     this.setData({
@@ -556,6 +556,7 @@ Page({
     return this.data.show
   },
   dateBtn :function(e){
+    // console.log(5555555555,e)
     const today_a = parseInt(new Date().getDate())
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'||e.target.dataset.bool=='now'){
       // const new_data = this.data[e.target.dataset.data];//遍历的哪条数组
@@ -609,7 +610,7 @@ Page({
                     weekDay[dt.getDay()] = '明天'
                   }
                 // console.log(weekDay[dt.getDay()])
-                item.zhou = weekDay[dt.getDay()]
+                item.zhou = e.target.dataset.zhou
                 item.value = e.target.dataset.value
                 item.month = e.target.dataset.month
                 item.year = e.target.dataset.year
@@ -659,7 +660,7 @@ Page({
                   }else if (date == '明天'){
                     weekDay[dt.getDay()] = '明天'
                   }
-                item.zhou = weekDay[dt.getDay()]
+                item.zhou =  e.target.dataset.zhou
                 item.value = e.target.dataset.value
                 item.month = e.target.dataset.month
                 item.year = e.target.dataset.year
@@ -1141,7 +1142,7 @@ console.log(that.goodid_now,222222)
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-     console.log(777777,carendar.length)
+     console.log(777777,carendar)
     let price_all = 0;
     let price_y = 0;
     if(carendar){
@@ -1157,12 +1158,12 @@ console.log(that.goodid_now,222222)
         if(item.value=="今天"){
           item.month=getzf(parseInt(new Date().getMonth()+1))
           item.value=getzf(parseInt(new Date().getDate()))
-          item.zhou="今     天"
+          // item.zhou="今     天"
         }
         if(item.value=="明天"){
           item.month=getzf(parseInt(new Date().getMonth()+1))
           item.value=getzf(parseInt(new Date().getDate())+1)
-          item.zhou="明     天"
+          // item.zhou="明     天"
         }
         return item
       }) 

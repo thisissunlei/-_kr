@@ -115,15 +115,6 @@
 
     <!-- 隐藏的 预计到场时间 -->
     <view class="section" wx:if="{{timeFlag}}">
-        <!-- <view class="section_top" bindtap="jumpSetTime"></view> -->
-        <!-- <view class="section_bottom"> -->
-            <!-- <view class="section_title">预计到场时间</view> -->
-            <!-- <picker mode="time" value="{{time}}" start="09:00" end="19:00" bindchange="bindTimeChange">
-                <view class="picker">
-                    {{time}}
-                </view>
-            </picker> -->
-        <!-- </view> -->
 
     </view>
 
@@ -323,22 +314,22 @@
             <view class="now-date">{{date_now.value}}</view>
             <view bindtap="dateBtn" class="padg_top">
                 <view wx:for="{{date_data1}}" wx:key='this' data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}'
-                    data-month='{{date_now.month}}' data-year='{{date_now.year}}' data-data='date_data1' data-num='{{index}}'
+                    data-month='{{date_now.month}}' data-year='{{date_now.year}}' data-data='date_data1' data-num='{{index}}' data-zhou="{{i.zhou}}"
                     wx:for-item="i" data-kg='{{i.kg}}' class="{{i.type}} day {{i.kg==true?'active':'before'}}" style="line-height: 30rpx;">
                     {{i.value}}
                     <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_now.month}}'
-                        data-year='{{date_now.year}}' data-data='date_data1' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'
+                        data-year='{{date_now.year}}' data-data='date_data1' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'  data-zhou="{{i.zhou}}"
                         wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.no_mary :i.number == 0 ? '已售罄' : '数量不足'}}</view>
                 </view>
             </view>
             <view class="now-date">{{date_next.value}}</view>
             <view bindtap="dateBtn" class="padg_top">
                 <view wx:for="{{date_data2}}" wx:key='this' data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}'
-                    data-month='{{date_next.month}}' data-year='{{date_next.year}}' data-data='date_data2' data-num='{{index}}'
+                    data-month='{{date_next.month}}' data-year='{{date_next.year}}' data-data='date_data2' data-num='{{index}}' data-zhou="{{i.zhou}}"
                     wx:for-item="i" data-kg='{{i.kg}}' class="{{i.type}} day {{i.kg==true?'active':'before'}}" style="line-height: 30rpx;">
                     {{i.value}}
                     <view data-value="{{i.value}}" data-bool='{{i.type}}' data-number='{{i.number}}' data-mary='{{i.mary}}' data-month='{{date_next.month}}'
-                        data-year='{{date_next.year}}' data-data='date_data2' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}'
+                        data-year='{{date_next.year}}' data-data='date_data2' data-num='{{index}}' wx:for-item="i" data-kg='{{i.kg}}' data-zhou="{{i.zhou}}"
                         wx:if='{{i.mary}}' class="mary-index">{{i.number >= number ? '￥'+i.no_mary :i.number == 0 ? '已售罄' : '数量不足'}}</view>
                 </view>
             </view>
