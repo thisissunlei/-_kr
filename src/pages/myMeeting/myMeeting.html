@@ -3,12 +3,12 @@
 	<view  wx:for="{{meetingList}}"  style="display: inline-block;" class="list-box" wx:key="{{item.id}}">
 		<navigator url="/pages/meetingDetail/meetingDetail?inviteeId={{item.id}}" class="box">
 			<image class="bgc" src="../images/my/bg.png" background-size="cover"></image>
-			<text class="status wating" wx:if="{{item.meetingStatus == 'WAIT'}}">待入场</text>
+			<!-- <text class="status wating" wx:if="{{item.meetingStatus == 'WAIT'}}">待入场</text>
 			<text class="status expired" wx:if="{{item.meetingStatus == 'EXPIRED'}}">已过期</text>
-			<text class="status used" wx:if="{{item.meetingStatus == 'ARRVING'}}">已入场</text>
-			<!-- <image wx:if="{{item.meetingStatus == 'ARRVING'}}" src="../images/orderimg/order-a.png"  background-size="cover" class="bgc-b"></image>
+			<text class="status used" wx:if="{{item.meetingStatus == 'ARRVING'}}">已入场</text> -->
+			<image wx:if="{{item.meetingStatus == 'ARRVING'}}" src="../images/orderimg/order-a.png"  background-size="cover" class="bgc-b"></image>
 			<image wx:if="{{item.seatStatus == 'WAIT'}}" src=""  background-size="cover" class="bgc-b"></image>
-			<image wx:if="{{item.meetingStatus == 'EXPIRED'}}" src="../images/orderimg/order-b.png" background-size="cover" class="bgc-c"></image> -->
+			<image wx:if="{{item.meetingStatus == 'EXPIRED'}}" src="../images/orderimg/order-b.png" background-size="cover" class="bgc-c"></image>
 			<view class="detail" >
 				<text class="meeting-time">{{item.meetingTime}}</text>
 				<text class="theme-name">{{item.theme}}</text>
