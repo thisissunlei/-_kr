@@ -16,7 +16,7 @@
                 <text>办公。</text>
             </view>
         </view>
-        <view class='hint'>
+        <!-- <view class='hint'>
             <text class='hint_title'>移动办公小贴士</text>
             <block wx:for="{{hint}}" wx:key>
                 <view class='list'>
@@ -24,6 +24,22 @@
                     <text class='text'>{{item.text}}</text>
                 </view>
             </block>
+        </view> -->
+        <view class='hint'>
+            <text class='hint_title'>散座小贴士</text>
+            <block wx:for="{{hint}}" wx:key="{{hint}}">
+                <view class='list'>
+                    <text class='title'>{{item.title}}</text>
+                    <text class='text'>{{item.text}}</text>
+                </view>
+            </block>
+            <view class="kr-hint">
+                <text class="kr-hint-title">小氪重要提示：</text>
+                <view class="kr-hint-content">
+                    <text class="kr-hint-attention" wx:for="{{hintPlus}}" wx:key>{{item.text}}</text>
+                </view>
+                <text class="kr-hint-bottom">如您违反以上任意一条或多条，保安小哥哥会依依不舍的送您离开社区～</text>
+            </view>
         </view>
     </view>
     <button class="accept-invitation" wx:if="{{bookUserAvatar != ''}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">接受邀请函</button>
