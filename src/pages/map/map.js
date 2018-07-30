@@ -152,15 +152,9 @@ Page({
     // console.log(this.data.allCommunity);
     var that = this;
     that.data.allCommunity.map((item, value) => {
-      var str = "markers[" + value + "].iconPath";
-      var strWidth = "markers[" + value + "].width";
-      var strHeight = "markers[" + value + "].height";
       if (item.communityId == e.markerId) {
         that.setData({
-          cityList: item,
-          [str]: "../images/map/mark.png",
-          [strWidth]: 35,
-          [strHeight]: 48
+          cityList: item
         });
       }
       return item;
