@@ -228,7 +228,6 @@ Page({
   },
   getAllInfo: function() {
     var that = this;
-    //首页接口 krmting/home?latitude=39.916576&longitude=116.443737
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krmting/home",
       data: {
@@ -236,7 +235,6 @@ Page({
         longitude: that.rq_data.longitude
       },
       success: res => {
-        //-----
         if (res.data.code == 1) {
           var mansion = Object.assign({}, res);
           console.log(mansion, "列表");
@@ -272,8 +270,6 @@ Page({
             noOpenBuilding: noOpenBuilding || []
           });
         }
-
-        //---------
       }
     });
     //白屏问题代码-------
