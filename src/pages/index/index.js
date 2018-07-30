@@ -15,12 +15,12 @@ Page({
   },
   data: {
     // noSwiper: true,
-    indicatorDots: true,
+    indicatorDots: false,
     autoplbuildAddressay: true,
     interval: 5000,
     duration: 1000,
     // swiper: false,
-    indicatorDots: true,
+    // indicatorDots: true,
     // metting: true,
     btn_bool: true,
     duration: 1000,
@@ -89,6 +89,16 @@ Page({
   func_bool_s: false,
   //打开地图
   openmap: function() {
+    // var that = this;
+    // wx.getSetting({
+    //   success: function(res) {
+    //     console.log(res);
+    //     if (!res.authSetting["scope.userLocation"]) {
+    //       console.log("用户没有授权地理信息");
+    //       // that.getLocation();
+    //     }
+    //   }
+    // });
     wx.navigateTo({
       url: "../map/map"
     });
@@ -99,6 +109,7 @@ Page({
     wx.getLocation({
       type: "wgs84",
       success: function(res) {
+        console.log(res);
         _this.rq_data = {
           latitude: res.latitude,
           longitude: res.longitude
@@ -215,9 +226,7 @@ Page({
             that.getInfo();
           }
 
-          that.setData({
-            btn_bool: false
-          });
+          that.setData({ btn_bool: false });
         }
       }
     });
@@ -269,6 +278,13 @@ Page({
             myMeeting: myMeeting || [],
             noOpenBuilding: noOpenBuilding || []
           });
+          // console.log(myMeeting.length);
+          //如果只有一张card 不显示小圆点
+          if (myMeeting.length > 1) {
+            that.setData({
+              indicatorDots: true
+            });
+          }
         }
       }
     });
