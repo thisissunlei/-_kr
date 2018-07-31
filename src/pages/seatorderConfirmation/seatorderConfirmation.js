@@ -353,7 +353,7 @@ Page({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
       method: "GET",
       success: (res) => {
-        console.log(res.data.data.first,222)
+        // console.log(res.data.data.first,222)
       this.setData({
         isFirst:res.data.data.first
       })
