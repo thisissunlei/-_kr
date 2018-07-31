@@ -32,13 +32,13 @@ Page({
   orderOldList1:[],
   //请求条数
   lower: function(e) {
-    console.log(this.data.totalPages)
+    // console.log(this.data.totalPages)
     // console.log('lower',e)
     let type=this.data.type;
     let page = ++this.data.page;//1,2,3,...
     let totalPages = this.data.totalPages;
-    console.log(totalPages)
-    console.log(this.data.orderOldList.length,10*page)
+    // console.log(totalPages)
+    // console.log(this.data.orderOldList.length,10*page)
     if(page>totalPages){
       return
     }else{
@@ -58,7 +58,7 @@ Page({
     let data = e.target.dataset;
     let type = data.type;
     let number = this.data.tabList[type];
-    console.log(number)
+    // console.log(number)
     this.setData({
       number:20*number + '%',
       type:type,
@@ -109,7 +109,7 @@ Page({
   },
   //倒计时
   dealTime(e){
-    console.log(e)
+    // console.log(e)
     var dates=new Date();
     var nowtime=Math.round(e-dates.getTime());
     var minute=Math.floor(nowtime/(60*1000))
@@ -128,7 +128,7 @@ Page({
     let that = this;
     type = type || this.data.type;
     let orderOldList = this.data.orderList;
-    console.log(orderOldList)
+    // console.log(orderOldList)
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/list',
         methods:"GET",
@@ -137,15 +137,15 @@ Page({
           page:page || 1,
         },
         success:(res)=>{
-          console.log (res) 
+          // console.log (res) 
           let oldList = []
           if(res.data.code>0){
             var list = []
             list = res.data.data.items.map((item,index)=>{
               if(item.orderShowStatus == 'OBLIGATION'){
-                console.log(item.expiredTime)
+                // console.log(item.expiredTime)
                 let time = this.dealTime(item.expiredTime)
-                console.log(time)
+                // console.log(time)
                 
                 item.minute=time.minute;
                 item.second=time.second;
@@ -154,16 +154,16 @@ Page({
               // console.log('=item.minute>-1',item.minute>-1,item.minute)
               return item;
             })
-            console.log(res)
+            // console.log(res)
             var allList = [].concat(orderOldList,list)
-            console.log(list.length,'totalCount',allList,allList.length)
+            // console.log(list.length,'totalCount',allList,allList.length)
             that.setData({
               orderOldList:allList,
               orderList:allList,
               page:page || 1,
               totalPages:res.data.data.totalPages
             })
-            console.log(this.data.orderList)
+            // console.log(this.data.orderList)
           }else{
             that.setData({
               error:false,
@@ -172,7 +172,7 @@ Page({
           }
         },
         fail:(res)=>{
-           console.log('========',res)
+          //  console.log('========',res)
         }
       })
   },
@@ -195,7 +195,7 @@ Page({
         },
         success:(res)=>{
           wx.hideLoading();
-          console.log(res)
+          // console.log(res)
           let oldList = []
           if(res.data.code>0){
             var list1 = []
@@ -205,7 +205,7 @@ Page({
                 item.minute=time.minute;
                 item.second=that.getzf(time.second);
               }
-              console.log('=item.minute>-1',item.minute>-1,item.minute,item.second)
+              // console.log('=item.minute>-1',item.minute>-1,item.minute,item.second)
               return item;
             })
             var allList1 = [].concat(orderOldList1,list1)
@@ -225,13 +225,13 @@ Page({
         },
         fail:(res)=>{
           wx.hideLoading();
-           console.log('========',res)
+          //  console.log('========',res)
         }
       })
   },
   //在线支付
   orderPay(e){
-   console.log(e)
+  //  console.log(e)
     let id = e.target.dataset.order;
     let that = this;
     app.getRequest({
@@ -241,7 +241,7 @@ Page({
           orderId:id
         },
         success:(res)=>{
-          console.log('res',res)
+          // console.log('res',res)
           if(res.data.code>0){
              // wx.reportAnalytics('confirmorder')
             wx.requestPayment({
@@ -272,26 +272,26 @@ Page({
           
         },
         fail:(res)=>{
-           console.log('========',res)
+          //  console.log('========',res)
         }
       })
   },
   orderPay1(e){
-    console.log(e)
+    // console.log(e)
     this.setData({
       orderId:e.currentTarget.dataset.order
     })
     let data_a = wx.getStorageSync('order-info')
     let orderId= e.currentTarget.dataset.order
-    console.log(orderId)
-    console.log(data_a,orderId)
+    // console.log(orderId)
+    // console.log(data_a,orderId)
     let data = null
     data_a.map((item,index)=>{
       if(item.orderId == orderId){
         data = item
       }
     })
-    console.log(data)
+    // console.log(data)
     wx.requestPayment({
       'timeStamp': data.timestamp,
       'nonceStr': data.noncestr,
@@ -304,7 +304,7 @@ Page({
         })
       },
       'fail':function(res){
-        console.log(res,1111111)
+        // console.log(res,1111111)
         wx.navigateTo({
           url: '../orderseatDetail/orderseatDetail?id='+orderId 
         })

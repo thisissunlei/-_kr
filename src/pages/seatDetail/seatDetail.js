@@ -49,7 +49,7 @@ Page({
   onShareAppMessage: function(res) {
     if (res.from === "button") {
       // console.log("来自页面赠送按钮");
-      console.log(res);
+      // console.log(res);
       return {
         title: "来来来，发现一个办公的好地儿~",
         path:
@@ -84,7 +84,7 @@ Page({
               ticketUserId: that.data.seatId
             },
             success: function(res) {
-              console.log(res, "取消散座");
+              // console.log(res, "取消散座");
               setTimeout(() => {
                 wx.reLaunch({
                   url: "../index/index"
@@ -97,7 +97,7 @@ Page({
     });
   },
   onLoad: function(options) {
-    console.log(options);
+    // console.log(options);
     wx.showLoading({ title: "加载中", mask: true });
     var that = this;
     if (options.seatId) {
@@ -109,7 +109,7 @@ Page({
   },
   onReady: function() {
     var that = this;
-    console.log(that.data.seatStatus);
+    // console.log(that.data.seatStatus);
     //设置canvsa大小
     wx.getSystemInfo({
       success: function(res) {
@@ -160,7 +160,7 @@ Page({
 
         // console.log(res);
         var seatInfo = Object.assign({}, res);
-        console.log(seatInfo);
+        // console.log(seatInfo);
         var inviteers = seatInfo.data.data.inviteers;
         that.setData({
           detail: seatInfo.data.data,

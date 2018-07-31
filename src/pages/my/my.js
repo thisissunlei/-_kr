@@ -52,9 +52,9 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-          console.log(res)
+          // console.log(res)
           let userInfo=Object.assign({},res.data.data);
-          console.log(userInfo)
+          // console.log(userInfo)
               userInfo.phone=userInfo.phone
             this.setData({
                 userInfo:userInfo
@@ -71,7 +71,7 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-          console.log(res)
+          // console.log(res)
             this.setData({
               count:res.data.data.count
             })
@@ -87,7 +87,7 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-          console.log(res)
+          // console.log(res)
           this.setData({
             number:res.data.data
           })
