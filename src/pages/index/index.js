@@ -14,14 +14,10 @@ Page({
     };
   },
   data: {
-    // noSwiper: true,
     indicatorDots: false,
     autoplbuildAddressay: true,
     interval: 5000,
     duration: 1000,
-    // swiper: false,
-    // indicatorDots: true,
-    // metting: true,
     btn_bool: true,
     duration: 1000,
     buildingList: [],
@@ -89,18 +85,30 @@ Page({
   func_bool_s: false,
   //打开地图
   openmap: function() {
-    // var that = this;
-    // wx.getSetting({
-    //   success: function(res) {
-    //     console.log(res);
-    //     if (!res.authSetting["scope.userLocation"]) {
-    //       console.log("用户没有授权地理信息");
-    //       // that.getLocation();
-    //     }
-    //   }
-    // });
-    wx.navigateTo({
-      url: "../map/map"
+    var that = this;
+    wx.getSetting({
+      success: function(res) {
+        console.log(res);
+        if (res.authSetting["scope.userLocation"]) {
+          wx.navigateTo({
+            url: "../map/map"
+          });
+        } else {
+          wx.showModal({
+            title: "温馨提示",
+            content:
+              "您没有授权地理信息或者没有开启定位，无法使用我们的地图功能~",
+            showCancel: false,
+            success: function(res) {
+              if (res.confirm) {
+                console.log("用户点击确定");
+              } else if (res.cancel) {
+                console.log("用户点击取消");
+              }
+            }
+          });
+        }
+      }
     });
   },
   //获取地理位置

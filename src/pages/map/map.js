@@ -8,6 +8,7 @@ Page({
     cityId: 1,
     latitude: 0,
     longitude: 0,
+    scale: 14,
     allCommunity: [],
     cityList: {},
     markers: []
@@ -24,7 +25,7 @@ Page({
     wx.getLocation({
       type: "gcj02",
       success: res => {
-        console.log(res);
+        // console.log(res);
         that.setData({
           longitude: res.longitude,
           latitude: res.latitude
@@ -34,8 +35,9 @@ Page({
     });
   },
   onShow: function() {
-    console.log(this.data.cityId);
+    // console.log(this.data.cityId);
     // this.getNearbyCity();
+    // this.getCitybyId();
   },
   //大厦城市id接口
   getCitybyId: function() {
@@ -53,11 +55,21 @@ Page({
             latitude: res.data.data.cityLatitude,
             longitude: res.data.data.cityLongitude
           });
-          console.log(res);
+          // console.log(res);
           var cityById = Object.assign({}, res);
           console.log(cityById);
           let makeArr = [];
           let cityIdList = cityById.data.data.communityVOS;
+          // console.log(typeof cityIdList[0].distance);
+          let cityNum = Number(cityIdList[0].distance);
+          console.log(cityNum);
+          if (cityNum < 1000) {
+            that.setData({ scale: 14 });
+          } else if (cityNum > 1000 && cityNum < 100000) {
+            that.setData({ scale: 10 });
+          } else if (cityNum > 100000 && cityNum < 5000000) {
+            that.setData({ scale: 6 });
+          }
           cityIdList.map((item, index) => {
             if (item.distance > 1000) {
               item.distance = (item.distance / 1000).toFixed(1) + "km";
@@ -76,12 +88,24 @@ Page({
             });
             return item;
           });
-
+          // console.log(makeArr);
+          var str = "markers[" + 0 + "].iconPath";
+          var strWidth = "markers[" + 0 + "].width";
+          var strHeight = "markers[" + 0 + "].height";
           that.setData({
             allCommunity: cityIdList,
             cityList: cityIdList[0],
-            markers: makeArr
+            markers: makeArr,
+            [str]: "../images/map/mark.png",
+            [strWidth]: 32,
+            [strHeight]: 45
           });
+          // that.setData({
+          //   allCommunity: cityIdList,
+          //   cityList: cityIdList[0],
+          //   markers: makeArr
+          // });
+          console.log(that.data.markers);
         }
 
         //---------
@@ -124,6 +148,7 @@ Page({
 
           return item;
         });
+        console.log(cityList[0]);
         var str = "markers[" + 0 + "].iconPath";
         var strWidth = "markers[" + 0 + "].width";
         var strHeight = "markers[" + 0 + "].height";
@@ -132,8 +157,8 @@ Page({
           cityList: cityList[0],
           markers: makArr,
           [str]: "../images/map/mark.png",
-          [strWidth]: 35,
-          [strHeight]: 48
+          [strWidth]: 32,
+          [strHeight]: 45
         });
       }
     });
@@ -149,14 +174,31 @@ Page({
   //点击标记点
   changeCommunity: function(e) {
     console.log(e);
-    // console.log(this.data.allCommunity);
     var that = this;
+    //点击标记切换card
     that.data.allCommunity.map((item, value) => {
       if (item.communityId == e.markerId) {
         that.setData({
           cityList: item
         });
       }
+      return item;
+    });
+    let arr = [];
+    //点击标记切换样式
+    that.data.markers.map((item, index) => {
+      item.iconPath = "../images/map/uncheck.png";
+      item.width = 27;
+      item.height = 37;
+      if (item.id == e.markerId) {
+        item.iconPath = "../images/map/mark.png";
+        item.width = 32;
+        item.height = 45;
+      }
+      arr.push(item);
+      that.setData({
+        markers: arr
+      });
       return item;
     });
   },
