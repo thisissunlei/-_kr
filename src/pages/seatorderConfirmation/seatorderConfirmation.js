@@ -56,7 +56,7 @@ Page({
     detailInfo: {}, //初始化遍历对象
     orderDate: {},
     meeting_time: {},
-    isFirst: true,
+    // isFirst: true,
     errorMessage: '',
     checkMessage: false,
     dialogDate: false, //判断门板是否显示
@@ -353,6 +353,7 @@ Page({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
       method: "GET",
       success: (res) => {
+        console.log(res.data.data.first,222)
       this.setData({
         isFirst:res.data.data.first
       })
@@ -471,7 +472,7 @@ Page({
     }
     // console.log(this.data.number,this.data.Maximum)
     
-    console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
+    // console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
   },
   jia(){
       this.setData({
@@ -692,7 +693,7 @@ Page({
   },
   test:function(today_month,bool){
     
-    console.log(">>>>>>>data>>>>>",this.goodid_now)
+    // console.log(">>>>>>>data>>>>>",this.goodid_now)
     let index_zhu = this.data
     const week = today_month.getDay();//月第一天星期几
     this.setData({
@@ -782,7 +783,7 @@ Page({
               type:'before',
             });
           }else{
-            console.log(this.show_true,'本月的arr') 
+            // console.log(this.show_true,'本月的arr') 
             if(this.goodid_now[i+1-today].remainQuantity < index_zhu.number){ 
               console.log("今天是false")
               data.push({//今天可选
@@ -923,7 +924,7 @@ Page({
           date_data2:data
         })
       }
-      console.log(data,6666)
+      // console.log(data,6666)
     
   },
   dealDate:function(today_month_new,bool){
@@ -936,7 +937,7 @@ Page({
       seatId:this.data.seatId
      },
      success:res=>{
-       console.log(res)
+      //  console.log(res)
       // for(let i of res.data.data){
       //   i.kg = false
       // }
@@ -956,7 +957,7 @@ Page({
           var tdy_choose = tdy+ (tdy_date.getMonth()+1);
           var nowDateArr = this.nowDate.split('-');
           var nowDate = parseInt(nowDateArr[1])+parseInt(nowDateArr[2]);
-          console.log(tdy_choose,nowDate)
+          // console.log(tdy_choose,nowDate)
           if((i+today_day)==tdy){
             if(tdy_choose==nowDate){
               curMonth[day_num_f].kg = true;
@@ -1013,7 +1014,7 @@ Page({
           });
         }
       }
-console.log(that.goodid_now,222222)
+// console.log(that.goodid_now,222222)
       if(that.combination_new.length===0){
 
       }else{
@@ -1142,13 +1143,13 @@ console.log(that.goodid_now,222222)
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-     console.log(777777,carendar)
+    //  console.log(777777,carendar)
     let price_all = 0;
     let price_y = 0;
     if(carendar){
       carendar.map(item=>{
         price_all = Number(price_all) + Number(item.no_mary*item.number_a);
-        console.log(typeof price_all)
+        // console.log(typeof price_all)
         price_all =  price_all.toFixed(2);
         price_y  = Number(price_y) + Number(item.mary*item.number_a);
         price_y  = price_y.toFixed(2)
@@ -1168,7 +1169,7 @@ console.log(that.goodid_now,222222)
         return item
       }) 
       
-      console.log(price_all,price_y,9999999)
+      // console.log(price_all,price_y,9999999)
       that.setData({
         sankeNum: carendar[0].number_a,
         daynum: carendar.length,

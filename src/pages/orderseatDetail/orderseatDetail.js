@@ -5,6 +5,7 @@ const app = getApp()
 Page({
 
     payTitle: '',
+    
     data: {
     flag: true,
     endTime: "",
