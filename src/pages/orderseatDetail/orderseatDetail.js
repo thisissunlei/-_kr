@@ -56,7 +56,7 @@ Page({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
       method: "GET",
       success: (res) => {
-        console.log(res.data.data.first,222)
+        // console.log(res.data.data.first,222)
       this.setData({
         isFirst:res.data.data.first
       })
@@ -496,7 +496,7 @@ Page({
         orderId: orderId
       },
       success: (res) => {
-        console.log("订单详情",res)
+        // console.log("订单详情",res)
         this.setData({
           time: res.data.data.arrivingTimeDescr,
           linkPhone: res.data.data.linkPhone,

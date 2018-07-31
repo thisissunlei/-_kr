@@ -5,7 +5,7 @@ const app = getApp();
 Page({
   onShareAppMessage: function(res) {
     wx.reportAnalytics("sharekrmeeting");
-    console.log(res);
+    // console.log(res);
     return {
       title: "KrMeeting会议室，让会议更轻松、更简单",
       desc: "KrMeeting会议室",
@@ -109,7 +109,7 @@ Page({
     wx.getLocation({
       type: "wgs84",
       success: function(res) {
-        console.log(res);
+        // console.log(res);
         _this.rq_data = {
           latitude: res.latitude,
           longitude: res.longitude
@@ -167,7 +167,7 @@ Page({
       wx.reportAnalytics("idx_channel", {
         channelname: channelname_v
       });
-      console.log(channelname_v, 11111);
+      // console.log(channelname_v, 11111);
     }
     wx.showLoading({
       title: "加载中",
@@ -207,7 +207,7 @@ Page({
             }
           });
         } else {
-          console.log("登录失败！" + res.errMsg);
+          // console.log("登录失败！" + res.errMsg);
         }
       }
     });
@@ -216,7 +216,7 @@ Page({
     wx.getSetting({
       success(res) {
         if (!res.authSetting["scope.userInfo"]) {
-          console.log("用户没有授权：用户信息！");
+          // console.log("用户没有授权：用户信息！");
         } else {
           that.func_bool_s = true;
           if (that.func_bool_s && that.func_bool_l2) {
@@ -246,7 +246,7 @@ Page({
       success: res => {
         if (res.data.code == 1) {
           var mansion = Object.assign({}, res);
-          console.log(mansion, "列表");
+          // console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
           var myMeeting = mansion.data.data.myTodo.slice(0, 5);
           //排序
@@ -358,7 +358,7 @@ Page({
   },
   //点击散座card
   moveToSeatDetail: res => {
-    console.log(res);
+    // console.log(res);
     var seatId = res.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../seatDetail/seatDetail?seatId=" + seatId

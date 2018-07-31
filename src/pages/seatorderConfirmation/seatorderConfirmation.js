@@ -638,7 +638,7 @@ Page({
           date_data1:ioi,
         });
         if(e.target.dataset.kg == true){//取消
-          console.log("用户取消了")
+          // console.log("用户取消了")
           let arr_index = []
           this.data.date_data1.map((item,index)=>{
             if(item.kg == true){
@@ -728,7 +728,7 @@ Page({
               })
             
           }else{
-            console.log(this.goodid_now[i-today+1],'----------------------------------')
+            // console.log(this.goodid_now[i-today+1],'----------------------------------')
             if(this.goodid_now[i-today+1].remainQuantity > 1 && index_zhu.number>this.goodid_now[i-today+1].remainQuantity){
               // this.goodid_now[i].mary='数量不足'
               // console.log("数量不足")
@@ -759,7 +759,7 @@ Page({
               });
             }
             else{
-              console.log(this.goodid_now1,this.goodid_now[i-today+1].kg,i-today+1,444441111111);
+              // console.log(this.goodid_now1,this.goodid_now[i-today+1].kg,i-today+1,444441111111);
               data.push({
                 value:i-week+1,
                 type:'next',
@@ -785,7 +785,7 @@ Page({
           }else{
             // console.log(this.show_true,'本月的arr') 
             if(this.goodid_now[i+1-today].remainQuantity < index_zhu.number){ 
-              console.log("今天是false")
+              // console.log("今天是false")
               data.push({//今天可选
                 value:'今天',
                 type:'before',

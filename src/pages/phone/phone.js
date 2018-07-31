@@ -129,7 +129,7 @@ Page({
           "linkPhone":that.data.inputValue,
         },
         success:(res)=>{
-          console.log(res)
+          // console.log(res)
 
           if(res.data.code>0){
             wx.navigateBack({
@@ -168,7 +168,7 @@ Page({
   onLoad: function (options) {
     let type = options.type;
     let phone = ''
-    console.log(options)
+    // console.log(options)
     if(options.linkPhone=='undefined'){
       phone = ''
     }else{
@@ -176,7 +176,7 @@ Page({
     }
     let that = this;
     if(type == 'submit'){
-      console.log(phone,options.type,options.orderId,88888)
+      // console.log(phone,options.type,options.orderId,88888)
       this.setData({
         inputValue: phone || '',
         type:options.type,
