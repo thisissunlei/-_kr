@@ -4,7 +4,7 @@ const app = getApp();
 
 Page({
   onShareAppMessage: function(res) {
-    wx.reportAnalytics("sharekrmeeting");
+    // wx.reportAnalytics("sharekrmeeting");
     // console.log(res);
     return {
       title: "开启轻松、灵活办公新方式",
