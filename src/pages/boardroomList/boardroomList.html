@@ -1,153 +1,53 @@
 <!--index.wxml-->
 <view class="container boardroom-list" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
- 
-  <!-- <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view> -->
-  <!-- 图片 -->
-  <!-- <view><image src='{{boardroomList[0].imgUrl}}' style="height:374rpx"></image></view> -->
-  <!-- <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' wx:if='{{boardroomList.length > 0}}' indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#FFDF00">
-      <block wx:for="{{boardroomList}}" wx:key  wx:for-index="index" wx:key>  
+  <scroll-view scroll-y class='list-outer meeting-hig' bindscrolltolower="toBottom">
+    <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#FFDF00">  
+      <block wx:for="{{scoll_arr}}" wx:key  wx:for-index="index" wx:key>  
         <swiper-item>  
-          <image src="{{item.imgUrl}}" style="height:374rpx;width:100%;"/>  
+          <image src="{{item}}" style="height:374rpx;width:100%;"/>  
         </swiper-item>  
       </block>  
-    </swiper> -->
-    <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#FFDF00">  
-        <block wx:for="{{scoll_arr}}" wx:key  wx:for-index="index" wx:key>  
-          <swiper-item>  
-            <image src="{{item}}" style="height:374rpx;width:100%;"/>  
-          </swiper-item>  
-        </block>  
-      </swiper>
+    </swiper>
     <!-- <image wx:for='{{boardroomList}}' src='{{item.imgUrl}}' style="height:374rpx"></image> -->
-  <!-- 日历部分 -->
-  <view class="top-date" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
-    <scroll-view style="width:656rpx" scroll-x scroll-left="{{dateScrollLeft}}">
-      <view class="left">
-        <view 
-         wx:for="{{topDate}}" 
-         wx:key="*this"
-         class="date-item {{item.class_bool}} {{item.actived?'date-item-actived':''}}"
-         bindtap="selectTopDate"
-         data-index="{{index}}"
-         data-bool="{{item.bool}}"
-         data-date="{{item.date}}"
-         data-week="{{item.week}}"
-        >
+    <!-- 日历部分 -->
+    <view class="top-date" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
+      <scroll-view style="width:656rpx" scroll-x scroll-left="{{dateScrollLeft}}">
+        <view class="left">
+          <view 
+          wx:for="{{topDate}}" 
+          wx:key="*this"
+          class="date-item {{item.class_bool}} {{item.actived?'date-item-actived':''}}"
+          bindtap="selectTopDate"
+          data-index="{{index}}"
+          data-bool="{{item.bool}}"
+          data-date="{{item.date}}"
+          data-week="{{item.week}}"
+          >
             <view class="week">{{item.week}}</view>
             <view class="day">{{item.day}}</view>
             <view class="bottom-border {{item.actived?'bottom-border-activied':''}}"></view>
+          </view>
         </view>
-      </view>
-    </scroll-view>
+      </scroll-view>
       <view class="gray-border"></view>
       <view bindtap="closeDialogDate" class="right">
         <image src="../images/boardroomList/rili.png"></image>
       </view>
-  </view>
-
-  <view class="san-zuo" wx:if='{{sanzuo == true}}'><view class="num_num">散座 <view class="child"></view> </view></view>
-  <!-- <view class="san-zuo-one" wx:for='{{arr}}'>
-    <image src='{{item.imgUrl}}' class="sanzuo-img"></image>
-    <view class="sanzuo-box">
-      <view class="sanzuo-one"> <text>{{item.buildName}}</text> <view class="sanzuo-jiu">{{item.capacity}}F</view> </view>
-      <view class="sanzuo-list">
-        <view class="sanzuo-child" wx:for='{{item.device}}' wx:key="this" wx:if="{{index<5}}">{{item}}</view>
-      </view>
-      <view>
-        <text class="sanzuo-red">￥{{item.promotionCost}}</text> <text class="sanzuo-splice">￥{{item.unitCost}}/个·天</text> 
-      </view>
     </view>
-    <view class="sanzuo-view">
-      <view></view>
-      <text class="sanzuo-xiao"> 可预订 <text class="sanzuo-da">{{item.rangeBegin}}</text> 个 </text>
-      <view class="sanzuo-yu" bindtap='list'>预定</view>
-    </view>
-    
-  </view> -->
-  <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom" wx:if='{{sanzuo == true}}'>
-    <view 
-      wx:for="{{arr}}"
-      wx:key="*this"
-      class='list-item'
-    > 
-      <view class="top" bindtap="openMeetDetail1" data-item="{{item}}">
-        <view>
-            <!-- {{item.imgUrl}}?x-oss-process=image/resize,p_10 -->
-            <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}"></image>
-        </view>
-        <view class="top-right">
-          <view class="first-row" style=" display:flex; justify-content: center;align-items: center;">
-              <text class="room-size">{{item.buildName}}散座</text>
-              <text class="room-floor" style="font-size:32rpx;">{{item.floor}}</text><text class="cente">层</text>
-          </view>
+    <!-- 散座 -->
+    <view class="san-zuo" wx:if='{{sanzuo == true}}'><view class="num_num">散座 <view class="child"></view> </view></view>
 
-          <view class="second-row">
-              <view 
-                wx:for="{{item.device}}"
-                wx:key="*this"
-                class="device"
-                wx:for-item="deviceItem"
-                wx:if='{{index<5}}'
-              >
-                {{deviceItem}}
-              </view>
-          </view>
-
-          <view class="third-row">
-              <text class="orange text12" style="margin-left:-2rpx;">￥ </text><text class="orange" style="font-weight:600;">{{item.promotionCost}} </text>
-              <text wx:if="{{item.promotionCost!=item.unitCost}}" class="orignal-price" style="text-decoration:line-through">￥ {{item.unitCost}}</text><text class="text12" style="color:#999;"> / 个·天</text>
-          </view>
-          
-        </view> 
-      </view>
-      <view class="bottom" style="margin-top: 34rpx;">
-          <!-- <view class="left">
-            <image wx:key="*this" wx:for="{{item.rangeTime}}" wx:for-item="rangeTimeItem" mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="{{rangeTimeItem.disabled?'gray-actived gray':'gray'}}">
-              
-            </image> -->
-            <!-- <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
-
-            </image>
-            <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray-actived">
-
-            </image> -->
-          <!-- </view> -->
-         
-            
-            
-              <view class="sanzuo-xiao"> 剩余可订 <text class="sanzuo-da">{{item.capacity}}</text> 个 </view>
-              
-              <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}"
-                    style="margin-top: 0;"
-                    data-id="{{item.id}}" bindtap='list'>预订</view>
-            
-      </view>
-      
-    </view>
-</scroll-view>
-<view class="san-zuo" wx:if='{{show_huiyi}}'><view class="num_num1">会议室 <view class="child"></view> </view></view>
-  <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom">
-      <view 
-        wx:for="{{boardroomList}}"
-        wx:key="*this"
-        class='list-item'
-        data-item="{{item}}"
-        bindtap="openMeetDetail"
-      > 
-        <view class="top">
+    <!-- <scroll-view scroll-y class='list-outer' bindscrolltolower="toBottom" wx:if='{{sanzuo == true}}'> -->
+      <view  wx:for="{{arr}}" wx:key="*this"  class='list-item'> 
+        <view class="top" bindtap="openMeetDetail1" data-item="{{item}}">
           <view>
-              <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_10"></image>
+              <!-- {{item.imgUrl}}?x-oss-process=image/resize,p_10 -->
+              <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}"></image>
           </view>
           <view class="top-right">
             <view class="first-row" style=" display:flex; justify-content: center;align-items: center;">
-                <text class="room-size">{{item.capacity}}人间 | {{item.roomName}}会议室</text>
-                <text class="room-floor">{{item.floor}}</text><text class="cente">层</text>
+                <text class="room-size">{{item.buildName}}散座</text>
+                <text class="room-floor" style="font-size:32rpx;">{{item.floor}}</text><text class="cente">层</text>
             </view>
 
             <view class="second-row">
@@ -156,6 +56,7 @@
                   wx:key="*this"
                   class="device"
                   wx:for-item="deviceItem"
+                  wx:if='{{index<5}}'
                 >
                   {{deviceItem}}
                 </view>
@@ -163,95 +64,104 @@
 
             <view class="third-row">
                 <text class="orange text12" style="margin-left:-2rpx;">￥ </text><text class="orange" style="font-weight:600;">{{item.promotionCost}} </text>
-                <text wx:if="{{item.promotionCost!=item.unitCost}}" class="orignal-price" style="text-decoration:line-through">￥ {{item.unitCost}}</text><text class="text12" style="color:#999;"> / 半小时</text>
+                <text wx:if="{{item.promotionCost!=item.unitCost}}" class="orignal-price" style="text-decoration:line-through">￥ {{item.unitCost}}</text><text class="text12" style="color:#999;"> / 个·天</text>
             </view>
             
           </view> 
         </view>
-        <view class="bottom">
-            <view class="left">
-              <image wx:key="*this" wx:for="{{item.rangeTime}}" wx:for-item="rangeTimeItem" mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="{{rangeTimeItem.disabled?'gray-actived gray':'gray'}}">
-                
-              </image>
-              <!-- <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray">
-
-              </image>
-              <image mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="gray-actived">
-
-              </image> -->
-            </view>
-            <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}" catchtap="reserve">预订</view>
+        <view class="bottom" style="margin-top: 34rpx;">
+          <view class="sanzuo-xiao"> 剩余可订 <text class="sanzuo-da">{{item.capacity}}</text> 个 </view>
+          <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}" style="margin-top: 0;"
+          data-id="{{item.id}}" bindtap='list'>预订</view>
         </view>
-        
       </view>
+    <!-- </scroll-view> -->
+    <!-- 会议 -->
+    <view class="san-zuo" wx:if='{{show_huiyi}}'>
+      <view class="num_num1">会议室 <view class="child"></view> </view>
+    </view>
+    <view wx:for="{{boardroomList}}" wx:key="*this"  class='list-item' data-item="{{item}}" bindtap="openMeetDetail"> 
+      <view class="top">
+        <view>
+          <image class="top-left" mode="aspectFill" src="{{item.imgUrl}}?x-oss-process=image/resize,p_10"></image>
+        </view>
+        <view class="top-right">
+          <view class="first-row" style=" display:flex; justify-content: center;align-items: center;">
+              <text class="room-size">{{item.capacity}}人间 | {{item.roomName}}会议室</text>
+              <text class="room-floor">{{item.floor}}</text><text class="cente">层</text>
+          </view>
+          <view class="second-row">
+            <view wx:for="{{item.device}}" wx:key="*this" class="device" wx:for-item="deviceItem">{{deviceItem}}</view>
+          </view>
+          <view class="third-row">
+            <text class="orange text12" style="margin-left:-2rpx;">￥ </text><text class="orange" style="font-weight:600;">{{item.promotionCost}} </text>
+            <text wx:if="{{item.promotionCost!=item.unitCost}}" class="orignal-price" style="text-decoration:line-through">￥ {{item.unitCost}}</text><text class="text12" style="color:#999;"> / 半小时</text>
+          </view>
+        </view> 
+      </view>
+      <view class="bottom">
+        <view class="left">
+          <image wx:key="*this" wx:for="{{item.rangeTime}}" wx:for-item="rangeTimeItem" mode="scaleToFill" src="../images/boardroomList/kedu_gray.png" class="{{rangeTimeItem.disabled?'gray-actived gray':'gray'}}"></image>
+        </view>
+        <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}" catchtap="reserve">预订</view>
+      </view>
+    </view>
   </scroll-view>
   <!-- <picker bindchange="changeCommunity" range-key="name" range="{{communityList}}" value="{{id}}" class="select-community">
     切换地点
   </picker> -->
-
-  
   <!-- 会议室详情 -->
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}" catchtouchmove="preventTouchMove">
-      <view class="u-meet-detail-content">
+    <view class="u-meet-detail-content">
       <view class="u-meet-content">
-          <scroll-view scroll-y class="scroll-box"  bindscroll="scrollTopEvent" bindscrolltolower="scrollLowerEvent">
+        <scroll-view scroll-y class="scroll-box"  bindscroll="scrollTopEvent" bindscrolltolower="scrollLowerEvent">
             <view class="u-meet-top" bindtap="closeMeetDetail"></view>
             <view class="u-content-meet">
-            <view class="u-swiper-content">
-            <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
-            <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
+              <view class="u-swiper-content">
+                <image class="u-meet-img-only" src="{{meetingDetail.roomImg[0]}}"  wx:if="{{meetingDetail.roomImg.length==1}}"></image>
+                <swiper class="u-meet-swiper" wx:if="{{meetingDetail.roomImg.length>1}}" indicator-dots="{{indicatorDots}}"
                   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"
-                  bindchange="currentChange"
-                  
-                  >
+                    bindchange="currentChange">
                   <view wx:for="{{meetingDetail.roomImg}}" wx:key="*this">
                     <swiper-item>
-                      <image class="u-swiper-img" src="{{item}}"  />
+                      <image class="u-swiper-img" src="{{item}}"/>
                     </swiper-item>
                   </view>
-            </swiper>
-            <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
-          </view>
+                </swiper>
+                <view class="u-img-num" wx:if="{{meetingDetail.roomImg.length>1}}">{{currentNum}}/{{meetingDetail.roomImg.length}}</view>
+              </view>
           <!-- <image class="u-meet-detail-close" style="{{ifFixed?'position: fixed;':''}}" bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image> -->
-          <image class="u-meet-detail-close"  bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
+              <image class="u-meet-detail-close"  bindtap="closeMeetDetail" src="../images/public/icon_close.png"></image>
          
-          <view class="u-meeting-info">
-              <view class="u-meet-info">
-                  <view class="u-meet-name">
-                    {{meetingDetail.capacity}}人间  {{meetingDetail.meetingRoomName}}
-                  </view>
+              <view class="u-meeting-info">
+                <view class="u-meet-info">
+                  <view class="u-meet-name">{{meetingDetail.capacity}}人间  {{meetingDetail.meetingRoomName}}</view>
                   <view class="u-meet-detail-price-info">
-                      <view class="u-meet-unit">¥</view>
-                      <view class="u-meet-num"> {{meetingDetail.promotionCost}}</view>
-                      <view class="u-meet-old-num" wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost}}">¥ {{meetingDetail.unitCost}}</view>
-                      <view class="u-meet-old-unit"> / 半小时  </view>
+                    <view class="u-meet-unit">¥</view>
+                    <view class="u-meet-num"> {{meetingDetail.promotionCost}}</view>
+                    <view class="u-meet-old-num" wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost}}">¥ {{meetingDetail.unitCost}}</view>
+                    <view class="u-meet-old-unit"> / 半小时  </view>
                   </view>
                   <view class="u-meet-sale"  wx:if="{{meetingDetail.promotionDescr && meetingDetail.promotionDescr.length}}">{{meetingDetail.promotionDescr}}</view>
-              </view>
-              <view class="u-meet-address">
+                </view>
+                <view class="u-meet-address">
                   <view class="u-address">
-                      <image class="u-address-icon" src="../images/public/icon_didian.png"></image>
-                      <view class="u-address-txt">{{meetingDetail.buildName}} {{meetingDetail.floor}}层</view>
+                    <image class="u-address-icon" src="../images/public/icon_didian.png"></image>
+                    <view class="u-address-txt">{{meetingDetail.buildName}} {{meetingDetail.floor}}层</view>
                   </view>
                   <view class="u-address" wx:if="{{meetingDetail.address}}"  style="margin-top: 28rpx">
-                    <image class="u-address-icon"  src="../images/public/icon_dizhi.png" style="vertical-align: center"></image>
+                     <image class="u-address-icon"  src="../images/public/icon_dizhi.png" style="vertical-align: center"></image>
                     <view class="u-address-txt" style="width:90%;vertical-align: top;line-height: 40rpx">{{meetingDetail.address}}</view>
+                  </view>
                 </view>
               </view>
-          </view>
-          <view class="u-meet-facility" wx:if="{{meetingDetail.device.length}}">
-              <view 
-                class="u-icon-list"  
-                wx:for="{{meetingDetail.device}}"
-                wx:key="*this"
-                wx:for-item="meetItem"
-              >
+              <view class="u-meet-facility" wx:if="{{meetingDetail.device.length}}">
+                <view class="u-icon-list"  wx:for="{{meetingDetail.device}}" wx:key="*this" wx:for-item="meetItem">
                   <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image>
                   <view class="u-facility-txt">{{meetItem.name}}</view>
+                </view>
               </view>
-          </view>
-        </view>
-        
+            </view>
         </scroll-view>
       </view>
     </view>
@@ -332,66 +242,51 @@
   </view>
   <!-- 日历选择 -->
   <view class="u-dialog" catchtap="closeDialogDate" wx:if="{{dialogDate}}">
-      <!-- <view class="wrapper"> -->
-          <view class="date">
-                
-                <view class="select-data">请选择日期</view>
-        
-                <view class="week">
-                  <text class="week-day">日</text>
-                  <text class="week-day">一</text>
-                  <text class="week-day">二</text>
-                  <text class="week-day">三</text>
-                  <text class="week-day">四</text>
-                  <text class="week-day">五</text>
-                  <text class="week-day">六</text>
-                </view>
-                <view class="now-date" style="padding-top:30rpx">{{date_now.value}}</view>
-                <view  catchtap="dateBtn">
-                <view wx:for="{{date_data1}}" 
-                      data-value="{{i.value}}" 
-                      data-bool='{{i.type}}' 
-                      data-day='{{i.day}}' 
-                      data-month='{{date_now.month}}' 
-                      data-year='{{date_now.year}}' 
-                      data-data='date_data1'
-                      data-num='{{index}}'
-                      data-valid-index="{{i.validDateNum}}"
-                      wx:for-item="i" 
-                      class='{{i.type}} day'>
-            
-                  {{i.value}}
-                </view>
-                </view>
-                 
-                <!-- <view  bindtap="dateBtn" class="week">
-                  <text class="week-day">日</text>
-                  <text class="week-day">一</text>
-                  <text class="week-day">二</text>
-                  <text class="week-day">三</text>
-                  <text class="week-day">四</text>
-                  <text class="week-day">五</text>
-                  <text class="week-day">六</text>
-                </view> -->
-                <view class="now-date">{{date_next.value}}</view>
-                <view  catchtap="dateBtn">
-                  <view  wx:for="{{date_data2}}" 
-                        data-value="{{i.value}}" 
-                        data-bool='{{i.type}}' 
-                        data-day='{{i.day}}' 
-                        data-month='{{date_next.month}}'
-                        data-year='{{date_next.year}}' 
-                        data-data='date_data2' 
-                        data-num='{{index}}'  
-                        data-valid-index="{{i.validDateNum}}"
-                        wx:for-item="i"  
-                        class='{{i.type}} day'>
-                    {{i.value}}
-                  </view>
-                </view>
-            
-            
-          <!-- </view> -->
+    <!-- <view class="wrapper"> -->
+    <view class="date">
+      <view class="select-data">请选择日期</view>
+        <view class="week">
+          <text class="week-day">日</text>
+          <text class="week-day">一</text>
+          <text class="week-day">二</text>
+          <text class="week-day">三</text>
+          <text class="week-day">四</text>
+          <text class="week-day">五</text>
+          <text class="week-day">六</text>
         </view>
+        <view class="now-date" style="padding-top:30rpx">{{date_now.value}}</view>
+        <view  catchtap="dateBtn">
+          <view wx:for="{{date_data1}}" 
+            data-value="{{i.value}}" 
+            data-bool='{{i.type}}' 
+            data-day='{{i.day}}' 
+            data-month='{{date_now.month}}' 
+            data-year='{{date_now.year}}' 
+            data-data='date_data1'
+            data-num='{{index}}'
+            data-valid-index="{{i.validDateNum}}"
+            wx:for-item="i" 
+            class='{{i.type}} day'>
+              {{i.value}}
+          </view>
+        </view>
+        <view class="now-date">{{date_next.value}}</view>
+        <view  catchtap="dateBtn">
+          <view  wx:for="{{date_data2}}" 
+            data-value="{{i.value}}" 
+            data-bool='{{i.type}}' 
+            data-day='{{i.day}}' 
+            data-month='{{date_next.month}}'
+            data-year='{{date_next.year}}' 
+            data-data='date_data2' 
+            data-num='{{index}}'  
+            data-valid-index="{{i.validDateNum}}"
+            wx:for-item="i"  
+            class='{{i.type}} day'>
+              {{i.value}}
+          </view>
+        </view>
+          <!-- </view> -->
+    </view>
   </view>
 </view>
