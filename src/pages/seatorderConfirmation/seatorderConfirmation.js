@@ -941,49 +941,58 @@ Page({
       // for(let i of res.data.data){
       //   i.kg = false
       // }
-      var curMonth = res.data.data.curMonth;
+
       var weekDay = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-      const today_month = new Date();
-      const today_day = today_month.getDate();
-      today_month.setMonth(today_month.getMonth() + 1);
-      today_month.setDate(0);
-      const day_num = parseInt(parseInt(today_month.getDate())-parseInt(today_day))+parseInt(1);
-      var day_num_f = 0;
-      for(var i = 0;i<day_num;i++){
-
-          var tdy_date = new Date(curMonth[day_num_f].useTime);
-
-          var tdy = tdy_date.getDate();
-          var tdy_choose = tdy+ (tdy_date.getMonth()+1);
-          var nowDateArr = this.nowDate.split('-');
-          var nowDate = parseInt(nowDateArr[1])+parseInt(nowDateArr[2]);
-          // console.log(tdy_choose,nowDate)
-          if((i+today_day)==tdy){
-            if(tdy_choose==nowDate){
-              curMonth[day_num_f].kg = true;
+        const today_month = new Date();
+        const today_day = today_month.getDate();
+        today_month.setMonth(today_month.getMonth() + 1);
+        today_month.setDate(0);
+        const day_num = parseInt(parseInt(today_month.getDate())-parseInt(today_day))+parseInt(1);
+      if(res.data.data.curMonth.length){
+        console.log("cur",res.data.data.curMonth.length);
+        var curMonth = res.data.data.curMonth;
+        
+        var day_num_f = 0;
+        for(var i = 0;i<day_num;i++){
+  
+            var tdy_date = new Date(curMonth[day_num_f].useTime);
+  
+            var tdy = tdy_date.getDate();
+            var tdy_choose = tdy+ (tdy_date.getMonth()+1);
+            var nowDateArr = this.nowDate.split('-');
+            var nowDate = parseInt(nowDateArr[1])+parseInt(nowDateArr[2]);
+            // console.log(tdy_choose,nowDate)
+            if((i+today_day)==tdy){
+              if(tdy_choose==nowDate){
+                curMonth[day_num_f].kg = true;
+              }else{
+                curMonth[day_num_f].kg = false;
+              }
+              curMonth[day_num_f].zhou = weekDay[tdy_date.getDay()];
+              that.goodid_now.push(curMonth[day_num_f]);
+              day_num_f++;
             }else{
-              curMonth[day_num_f].kg = false;
+              
+              //day_num_f--;
+              that.goodid_now.push({
+                goodsId : "",
+                kg:false,
+                promotionCost:'',
+                remainQuantity:'',
+                seatId:'',
+                unitCost:'',
+                useTime:'',
+                zhou:''
+              });
             }
-            curMonth[day_num_f].zhou = weekDay[tdy_date.getDay()];
-            that.goodid_now.push(curMonth[day_num_f]);
-            day_num_f++;
-          }else{
-            
-            //day_num_f--;
-            that.goodid_now.push({
-              goodsId : "",
-              kg:false,
-              promotionCost:'',
-              remainQuantity:'',
-              seatId:'',
-              unitCost:'',
-              useTime:'',
-              zhou:''
-            });
-          }
-        //}
+          //}
+        }
       }
-      var nextMonth = res.data.data.nextMonth;
+      
+
+      if(res.data.data.nextMonth.length){
+        console.log("111next",res.data.data.nextMonth.length);
+        var nextMonth = res.data.data.nextMonth;
 
       var day_num_f1 = 0;
       for(var i = 0;i<(30-day_num);i++){
@@ -1014,6 +1023,8 @@ Page({
           });
         }
       }
+      }
+      
 // console.log(that.goodid_now,222222)
       if(that.combination_new.length===0){
 
@@ -1036,8 +1047,17 @@ Page({
       const today_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth(),1)
       const next_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth()+1,1)
       
-      that.test(today_month_1,true);
-      that.test(next_month_1,false);
+
+
+      if(res.data.data.curMonth.length){
+        that.test(today_month_1,true);
+      }
+
+      if(res.data.data.nextMonth.length){
+        that.test(next_month_1,false);
+      }
+      
+      
      }
    })
     
