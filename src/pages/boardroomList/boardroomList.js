@@ -103,10 +103,10 @@ Page({
     let rangeTime = e.currentTarget.dataset.rangetime;
     let detail = e.currentTarget.dataset.detail;
     let id = 111;
-    console.log(e);
+    // console.log(e);
     wx.setStorageSync("rangeTime-c", rangeTime);
     wx.setStorageSync("detail-c", detail);
-    console.log(e.currentTarget.dataset.detail.goodsId,e.currentTarget.dataset.detail.seatId)
+    // console.log(e.currentTarget.dataset.detail.goodsId,e.currentTarget.dataset.detail.seatId)
     wx.navigateTo({
       url:
         "/pages/seatorderConfirmation/seatorderConfirmation?goodsId=" +e.currentTarget.dataset.detail.goodsId+'&seatId='+e.currentTarget.dataset.detail.seatId+'&show_true='+true
@@ -114,7 +114,7 @@ Page({
   },
   //散座
   openMeetDetail1: function(e) {
-    console.log(e);
+    // console.log(e);
     wx.showLoading({
       title: "加载中"
     });
@@ -214,7 +214,7 @@ Page({
         wx.setStorageSync("nowDate", topDate[validIndex].date);
         wx.setStorageSync("orderDate", orderDate);
         wx.setStorageSync("nowDateIndex", validIndex);
-        console.log(newData);
+        // console.log(newData);
       }
     );
   },
@@ -270,7 +270,7 @@ Page({
   getData1: function() {
     let that = this;
     // console.log(that.data.communityId,that.data.nowDate)
-    console.log(that.data.communityId,that.data.nowDate)
+    // console.log(that.data.communityId,that.data.nowDate)
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/seat/goods/cmt",
       methods: "GET",
@@ -279,7 +279,7 @@ Page({
         dateTime: that.data.nowDate
       },
       success: res => {
-        console.log(res);
+        // console.log(res);
         
         var b = JSON.stringify(res.data.data) == "{}";
         if (res.data.code == 1 && b == true) {
@@ -288,7 +288,7 @@ Page({
           });
         } else {
           let arr_null = [];
-          console.log(res)
+          // console.log(res)
           arr_null.push(res.data.data);
           that.setData(
             {
@@ -301,7 +301,7 @@ Page({
               wx.hideLoading();
             }
           );
-          console.log(this.data.scoll_arr)
+          // console.log(this.data.scoll_arr)
         }
         
       }
@@ -463,7 +463,7 @@ Page({
     );
   },
   selectTopDate: function(e) {
-    console.log(e)
+    // console.log(e)
     var topDate = this.data.topDate; //[]
     var indexParam = e.currentTarget.dataset.index;
     this.changeTimeColor(indexParam);
@@ -587,7 +587,7 @@ Page({
         pageSize: that.data.pageSize
       },
       success: res => {
-        console.log(res)
+        // console.log(res)
         that.setData(
           {
             boardroomList: [].concat(
@@ -875,13 +875,13 @@ Page({
         meetingRoomId: meetingRoomId
       },
       success: res => {
-        console.log(res)
+        // console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
           that.setData({
             meetingDetail: meetingDetail
           });
-          console.log(this.data.meetingDetail);
+          // console.log(this.data.meetingDetail);
         } else {
           that.setData({
             phoneError: false,
@@ -913,7 +913,7 @@ Page({
   //散座详情列表
   getMeetDetail1() {
     wx.reportAnalytics("goodsdetails");
-    console.log(this.data.meetingRoomId1)
+    // console.log(this.data.meetingRoomId1)
     let meetingRoomId = this.data.meetingRoomId1;
     // console.log(meetingRoomId)
     let that = this;
@@ -924,13 +924,13 @@ Page({
         seatGoodsId: meetingRoomId
       },
       success: res => {
-        console.log(res)
+        // console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
           that.setData({
             meetingDetail: meetingDetail
           });
-          console.log(this.data.meetingDetail);
+          // console.log(this.data.meetingDetail);
         } else {
           that.setData({
             phoneError: false,
@@ -985,7 +985,7 @@ Page({
   //散座立即约定
   nowReserve1(e) {
     let that = this;
-    console.log(e);
+    // console.log(e);
     let meetingRoomId1 = e.currentTarget.dataset.mid;
     let meetingDetail;
     if (this.button_boolean1) {
@@ -1024,7 +1024,7 @@ Page({
   },
   //散座跳转日历
   setDetail1(arr) {
-    console.log(arr);
+    // console.log(arr);
     let that = this;
     wx.setStorage({
       key: "meet_detail1",

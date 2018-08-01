@@ -30,7 +30,7 @@ Page({
           wx.hideLoading();
           
          
-          console.log(res)
+          // console.log(res)
           if(res.data.code>0){
             for(let i of res.data.data){
               if(i.seatStatus == 'TOUSE'){
@@ -56,7 +56,7 @@ Page({
         },
         fail:(res)=>{
           wx.hideLoading();
-          console.log('请求失败')
+          // console.log('请求失败')
         }
       })
   },
