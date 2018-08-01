@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="page-body">
     <view class="page-section">
-        <map id="myMap" scale="14" style="width: 100%; height: 100%;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}"
+        <map id="myMap" scale="{{scale}}" style="width: 100%; height: 100%;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}"
             show-location bindmarkertap="changeCommunity"></map>
     </view>
     <cover-view class="city" bindtap="selectCity">
@@ -27,10 +27,10 @@
                 <text class='lct_distance'>{{cityList.distance}}</text>
             </view>
             <view class="page-num">
-                <text class="num-num">{{cityList.seatCount}}</text>
-                <text class="num-text" style="margin-right: 62rpx;">个散座</text>
-                <text class="num-arr">{{cityList.meetingCount}}</text>
-                <text class="num-text">个会议室</text>
+                <text class="num-num" wx:if="{{cityList.seatCount>0}}">{{cityList.seatCount}}</text>
+                <text class="num-text" wx:if="{{cityList.seatCount>0}}" style="margin-right: 62rpx;">个散座</text>
+                <text class="num-arr" wx:if="{{cityList.meetingCount>0}}">{{cityList.meetingCount}}</text>
+                <text class="num-text" wx:if="{{cityList.meetingCount>0}}">个会议室</text>
             </view>
             <!-- <view class="page-see"> -->
 

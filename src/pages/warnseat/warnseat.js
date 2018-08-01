@@ -30,7 +30,7 @@ Page({
     }else{
       alertTime = options.alertTime
     }
-    console.log(alertTime,this.alertTime,99876)
+    // console.log(alertTime,this.alertTime,99876)
     if(type == 'submit'){
       this.setData({
         activeTab: alertTime,
@@ -39,7 +39,7 @@ Page({
 
       })
     }else if(type == 'storage'){
-      console.log(555555,alertTime)
+      // console.log(555555,alertTime)
       wx.getStorage({
         key: 'order_pay',
         success: function(res) {
@@ -71,7 +71,7 @@ Page({
     let that = this;
     let type = this.data.type;
     var target = e.target.dataset;
-    console.log('checkWarn',target)
+    // console.log('checkWarn',target)
     let order_pay = this.data.order_pay;
 
     if(type=='storage' && this.button_boolean){
@@ -131,7 +131,7 @@ Page({
            that.setData({
              activeTab: targetcode,
            })
-          console.log(res,1111)
+          // console.log(res,1111)
           setTimeout(function(){
              wx.navigateBack({
                 delta: 1

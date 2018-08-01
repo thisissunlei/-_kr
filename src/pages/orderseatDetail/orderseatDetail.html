@@ -53,25 +53,19 @@
           <!--应付款-->
           <view class="u-meeting">
             <view class="u-left">{{payTitle}} </view>
-            <view class="u-right" wx:if="{{!isFirst}}">
-                <view class="u-right-top" >
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥ {{detailInfo.paidAmount}}</view>
-                    <!-- <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view> -->
-                </view>
-               
-            </view>
+          
 
-            <view class="u-right" wx:if="{{isFirst&daynum<2}}">
+            <view class="u-right" wx:if="{{isFirst&&(daynum==1)&&(sankeNum==1)}}">
                 <view class="u-right-top" >
                     <view class="u-right-top-left" style="font-size: 38rpx">¥  1 </view>
                     <!-- <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view> -->
                 </view>
-                <view wx:if="{{!dialogShow}}" class="u-bottom">
-                        （新人专享）2小时超值体验
+                <view class="u-bottom">
+                        （新人专享）1天超值体验
                 </view>
             </view>
 
-            <view class="u-right" wx:if="{{isFirst&daynum>=2}}">
+            <view class="u-right" wx:else>
                 <view class="u-right-top" >
                     <view class="u-right-top-left" style="font-size: 38rpx">¥ {{detailInfo.paidAmount}}</view>
                     <!-- <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view> -->
@@ -204,6 +198,7 @@
                 wx:for="{{meetingDetail.devices}}"
                 wx:key="*this"
                 wx:for-item="meetItem"
+                wx:key
               >
                   <image class="u-facility-icon" src="{{meetItem.imgurl}}"></image>
                   <view class="u-facility-txt">{{meetItem.name}}</view>

@@ -5,7 +5,7 @@ const app = getApp();
 Page({
   onShareAppMessage: function(res) {
     wx.reportAnalytics("sharekrmeeting");
-    console.log(res);
+    // console.log(res);
     return {
       title: "KrMeeting会议室，让会议更轻松、更简单",
       desc: "KrMeeting会议室",
@@ -14,14 +14,10 @@ Page({
     };
   },
   data: {
-    // noSwiper: true,
-    indicatorDots: true,
+    indicatorDots: false,
     autoplbuildAddressay: true,
     interval: 5000,
     duration: 1000,
-    // swiper: false,
-    indicatorDots: true,
-    // metting: true,
     btn_bool: true,
     duration: 1000,
     buildingList: [],
@@ -89,8 +85,30 @@ Page({
   func_bool_s: false,
   //打开地图
   openmap: function() {
-    wx.navigateTo({
-      url: "../map/map"
+    var that = this;
+    wx.getSetting({
+      success: function(res) {
+        console.log(res);
+        if (res.authSetting["scope.userLocation"]) {
+          wx.navigateTo({
+            url: "../map/map"
+          });
+        } else {
+          wx.showModal({
+            title: "温馨提示",
+            content:
+              "您没有授权地理信息或者没有开启定位，无法使用我们的地图功能~",
+            showCancel: false,
+            success: function(res) {
+              if (res.confirm) {
+                console.log("用户点击确定");
+              } else if (res.cancel) {
+                console.log("用户点击取消");
+              }
+            }
+          });
+        }
+      }
     });
   },
   //获取地理位置
@@ -99,6 +117,7 @@ Page({
     wx.getLocation({
       type: "wgs84",
       success: function(res) {
+        // console.log(res);
         _this.rq_data = {
           latitude: res.latitude,
           longitude: res.longitude
@@ -156,7 +175,7 @@ Page({
       wx.reportAnalytics("idx_channel", {
         channelname: channelname_v
       });
-      console.log(channelname_v, 11111);
+      // console.log(channelname_v, 11111);
     }
     wx.showLoading({
       title: "加载中",
@@ -196,7 +215,7 @@ Page({
             }
           });
         } else {
-          console.log("登录失败！" + res.errMsg);
+          // console.log("登录失败！" + res.errMsg);
         }
       }
     });
@@ -205,7 +224,7 @@ Page({
     wx.getSetting({
       success(res) {
         if (!res.authSetting["scope.userInfo"]) {
-          console.log("用户没有授权：用户信息！");
+          // console.log("用户没有授权：用户信息！");
         } else {
           that.func_bool_s = true;
           if (that.func_bool_s && that.func_bool_l2) {
@@ -215,9 +234,7 @@ Page({
             that.getInfo();
           }
 
-          that.setData({
-            btn_bool: false
-          });
+          that.setData({ btn_bool: false });
         }
       }
     });
@@ -237,7 +254,7 @@ Page({
       success: res => {
         if (res.data.code == 1) {
           var mansion = Object.assign({}, res);
-          console.log(mansion, "列表");
+          // console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
           var myMeeting = mansion.data.data.myTodo.slice(0, 5);
           //排序
@@ -269,6 +286,13 @@ Page({
             myMeeting: myMeeting || [],
             noOpenBuilding: noOpenBuilding || []
           });
+          // console.log(myMeeting.length);
+          //如果只有一张card 不显示小圆点
+          if (myMeeting.length > 1) {
+            that.setData({
+              indicatorDots: true
+            });
+          }
         }
       }
     });
@@ -342,7 +366,7 @@ Page({
   },
   //点击散座card
   moveToSeatDetail: res => {
-    console.log(res);
+    // console.log(res);
     var seatId = res.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../seatDetail/seatDetail?seatId=" + seatId
