@@ -121,6 +121,7 @@ Page({
   goodid_now:[],
   goodid_next:[],
   show_true:"",
+  cur_mon_num:0,
   // 散座s详情弹窗
   openMeetDetail: function (e) {
     let that = this;
@@ -694,6 +695,7 @@ Page({
   test:function(today_month,bool){
     
     // console.log(">>>>>>>data>>>>>",this.goodid_now)
+    let _this = this;
     let index_zhu = this.data
     const week = today_month.getDay();//月第一天星期几
     this.setData({
@@ -702,7 +704,12 @@ Page({
     const today = parseInt(new Date().getDate());//今天是几号
     today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
-    const day_num = today_month.getDate()+week;//31天+ 星期三==34
+    let day_num = today_month.getDate()+week;//31天+ 星期三==34
+    console.log(day_num,88888)
+    // if((_this.cur_mon_num==30)&&(day_num-week)>30){
+    //       day_num = 30+week;
+    // }
+    console.log(day_num,999999,this.goodid_now)
     let fu_arr = this.goodid_now
     let fu_arr1 = this.goodid_now
 
@@ -710,11 +717,12 @@ Page({
     // console.log(new_arr)
     let new_arr1 = fu_arr.slice(day_num-week-today+1);
     this.goodid_next = new_arr1;
-    let _this = this
+    
     
     const data = [];
     for (var i = 0; i < day_num; i++) {
       switch (true){
+
         case i<week:
           data.push({//不是从星期日开始补零
             value:''
@@ -728,50 +736,59 @@ Page({
               })
             
           }else{
-            // console.log(this.goodid_now[i-today+1],'----------------------------------')
-            if(this.goodid_now[i-today+1].remainQuantity > 1 && index_zhu.number>this.goodid_now[i-today+1].remainQuantity){
-              // this.goodid_now[i].mary='数量不足'
-              // console.log("数量不足")
-              data.push({//除周六日可选
-                value:i-week+1,
-                type:'before',
-                kg:false,
-                id:this.goodid_now[i-today+1].goodsId,
-                number:this.goodid_now[i-today+1].remainQuantity,
-                mary:this.goodid_now[i-today+1].unitCost,
-                no_mary:this.goodid_now[i-today+1].promotionCost,
-                month:this.goodid_now[i-today+1].month,
-                zhou:this.goodid_now[i-today+1].zhou
-              });
-            }else if(this.goodid_now[i-today+1].remainQuantity == 0){
-              // this.goodid_now[i].mary='已售完'
-              // console.log("已售完")
-              data.push({//除周六日可选
-                value:i-week+1,
-                type:'before',
-                kg:false,
-                number:this.goodid_now[i-today+1].remainQuantity,
-                id:this.goodid_now[i-today+1].goodsId,
-                mary:this.goodid_now[i-today+1].unitCost,
-                no_mary:this.goodid_now[i-today+1].promotionCost,
-                month:this.goodid_now[i-today+1].month,
-                zhou:this.goodid_now[i-today+1].zhou
-              });
-            }
-            else{
-              // console.log(this.goodid_now1,this.goodid_now[i-today+1].kg,i-today+1,444441111111);
-              data.push({
-                value:i-week+1,
-                type:'next',
-                kg:this.goodid_now[i-today+1].kg,
-                number:this.goodid_now[i-today+1].remainQuantity,
-                id:this.goodid_now[i-today+1].goodsId,
-                mary:this.goodid_now[i-today+1].unitCost,
-                no_mary:this.goodid_now[i-today+1].promotionCost,
-                month:this.goodid_now[i-today+1].month,
-                zhou:this.goodid_now[i-today+1].zhou
-              })
+             console.log(this.goodid_now[i-today+1-week],i,i-today+1-week,'----------------------------------')
+             if(!(_this.cur_mon_num==30&&(i-today+1-week)>=30)){
               
+              if(this.goodid_now[i-today+1-week].remainQuantity > 1 && index_zhu.number>this.goodid_now[i-today+1-week].remainQuantity){
+                // this.goodid_now[i].mary='数量不足'
+                // console.log("数量不足")
+                data.push({//除周六日可选
+                  value:i-week+1,
+                  type:'before',
+                  kg:false,
+                  id:this.goodid_now[i-today+1-week].goodsId,
+                  number:this.goodid_now[i-today+1-week].remainQuantity,
+                  mary:this.goodid_now[i-today+1-week].unitCost,
+                  no_mary:this.goodid_now[i-today+1-week].promotionCost,
+                  month:this.goodid_now[i-today+1-week].month,
+                  zhou:this.goodid_now[i-today+1-week].zhou
+                });
+              }else if(this.goodid_now[i-today+1-week].remainQuantity == 0){
+                // this.goodid_now[i].mary='已售完'
+                // console.log("已售完")
+                data.push({//除周六日可选
+                  value:i-week+1,
+                  type:'before',
+                  kg:false,
+                  number:this.goodid_now[i-today+1-week].remainQuantity,
+                  id:this.goodid_now[i-today+1-week].goodsId,
+                  mary:this.goodid_now[i-today+1-week].unitCost,
+                  no_mary:this.goodid_now[i-today+1-week].promotionCost,
+                  month:this.goodid_now[i-today+1-week].month,
+                  zhou:this.goodid_now[i-today+1-week].zhou
+                });
+              }
+              else{
+                // console.log(this.goodid_now1,this.goodid_now[i-today+1-week].kg,i-today+1-week,444441111111);
+                data.push({
+                  value:i-week+1,
+                  type:'next',
+                  kg:this.goodid_now[i-today+1-week].kg,
+                  number:this.goodid_now[i-today+1-week].remainQuantity,
+                  id:this.goodid_now[i-today+1-week].goodsId,
+                  mary:this.goodid_now[i-today+1-week].unitCost,
+                  no_mary:this.goodid_now[i-today+1-week].promotionCost,
+                  month:this.goodid_now[i-today+1-week].month,
+                  zhou:this.goodid_now[i-today+1-week].zhou
+                })
+                
+              }
+            }else{
+              console.log(i-week-today+1,77777)
+               data.push({//本月部分不可选，可能数量不足或买完
+                value:i-week+1,
+                type:'before',
+              });
             }
           }
           this.all_day_num++;
@@ -784,29 +801,29 @@ Page({
             });
           }else{
             // console.log(this.show_true,'本月的arr') 
-            if(this.goodid_now[i+1-today].remainQuantity < index_zhu.number){ 
+            if(this.goodid_now[i+1-today-week].remainQuantity < index_zhu.number){ 
               // console.log("今天是false")
               data.push({//今天可选
                 value:'今天',
                 type:'before',
                 kg:false,
-                mary:this.goodid_now[i+1-today].unitCost,
-                no_mary:this.goodid_now[i+1-today].promotionCost,
-                month:this.goodid_now[i-today+1].month,
-                zhou:this.goodid_now[i-today+1].zhou
+                mary:this.goodid_now[i+1-today-week].unitCost,
+                no_mary:this.goodid_now[i+1-today-week].promotionCost,
+                month:this.goodid_now[i-today+1-week].month,
+                zhou:this.goodid_now[i-today+1-week].zhou
               });
             }
             else{
                 data.push({//今天可选
                   value:'今天',
                   type:'now',
-                  kg:this.goodid_now[i+1-today].kg,
-                  number:this.goodid_now[i+1-today].remainQuantity,
-                  mary:this.goodid_now[i+1-today].unitCost,
-                  id:this.goodid_now[i-today+1].goodsId,
-                  no_mary:this.goodid_now[i+1-today].promotionCost,
-                  month:this.goodid_now[i-today+1].month,
-                  zhou:this.goodid_now[i-today+1].zhou
+                  kg:this.goodid_now[i+1-today-week].kg,
+                  number:this.goodid_now[i+1-today-week].remainQuantity,
+                  mary:this.goodid_now[i+1-today-week].unitCost,
+                  id:this.goodid_now[i-today+1-week].goodsId,
+                  no_mary:this.goodid_now[i+1-today-week].promotionCost,
+                  month:this.goodid_now[i-today+1-week].month,
+                  zhou:this.goodid_now[i-today+1-week].zhou
                 });
             }
           }
@@ -818,35 +835,35 @@ Page({
               value:'明天',
               type:'before',
               kg:false,
-              // number:this.goodid_now[i+1-today].remainQuantity,
-              // mary:this.goodid_now[i+1-today].unitCost,
-              // no_mary:this.goodid_now[i+1-today].promotionCost,
-              month:this.goodid_now[i-today+1].month,
-              zhou:this.goodid_now[i-today+1].zhou
+              // number:this.goodid_now[i+1-today-week].remainQuantity,
+              // mary:this.goodid_now[i+1-today-week].unitCost,
+              // no_mary:this.goodid_now[i+1-today-week].promotionCost,
+              month:this.goodid_now[i-today+1-week].month,
+              zhou:this.goodid_now[i-today+1-week].zhou
             });
           }else{
-            if(this.goodid_now[i+1-today].remainQuantity <= this.data.number || this.goodid_now[i+1-today].remainQuantity == 0){
+            if(this.goodid_now[i+1-today-week].remainQuantity <= this.data.number || this.goodid_now[i+1-today-week].remainQuantity == 0){
               data.push({//本月明天可选
                 value:'明天',
                 type:'before',
                 kg:false,
-                number:this.goodid_now[i+1-today].remainQuantity,
-                mary:this.goodid_now[i+1-today].unitCost,
-                no_mary:this.goodid_now[i+1-today].promotionCost,
-                month:this.goodid_now[i-today+1].month,
-                zhou:this.goodid_now[i-today+1].zhou
+                number:this.goodid_now[i+1-today-week].remainQuantity,
+                mary:this.goodid_now[i+1-today-week].unitCost,
+                no_mary:this.goodid_now[i+1-today-week].promotionCost,
+                month:this.goodid_now[i-today+1-week].month,
+                zhou:this.goodid_now[i-today+1-week].zhou
               });
             }else{
               data.push({//本月明天可选
                 value:'明天',
                 type:'now',
-                kg:this.goodid_now[i+1-today].kg,
-                number:this.goodid_now[i+1-today].remainQuantity,
-                mary:this.goodid_now[i+1-today].unitCost,
-                id:this.goodid_now[i+1-today].goodsId,
-                no_mary:this.goodid_now[i+1-today].promotionCost,
-                month:this.goodid_now[i-today+1].month,
-                zhou:this.goodid_now[i-today+1].zhou
+                kg:this.goodid_now[i+1-today-week].kg,
+                number:this.goodid_now[i+1-today-week].remainQuantity,
+                mary:this.goodid_now[i+1-today-week].unitCost,
+                id:this.goodid_now[i+1-today-week].goodsId,
+                no_mary:this.goodid_now[i+1-today-week].promotionCost,
+                month:this.goodid_now[i-today+1-week].month,
+                zhou:this.goodid_now[i-today+1-week].zhou
               }); 
             }
             
@@ -941,49 +958,62 @@ Page({
       // for(let i of res.data.data){
       //   i.kg = false
       // }
-      var curMonth = res.data.data.curMonth;
+      that.cur_mon_num = res.data.data.curMonth.length;
       var weekDay = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-      const today_month = new Date();
-      const today_day = today_month.getDate();
-      today_month.setMonth(today_month.getMonth() + 1);
-      today_month.setDate(0);
-      const day_num = parseInt(parseInt(today_month.getDate())-parseInt(today_day))+parseInt(1);
-      var day_num_f = 0;
-      for(var i = 0;i<day_num;i++){
+        const today_month = new Date();
+        const today_day = today_month.getDate();
+        today_month.setMonth(today_month.getMonth() + 1);
+        today_month.setDate(0);
+        let day_num = parseInt(parseInt(today_month.getDate())-parseInt(today_day))+parseInt(1);
+        if((that.cur_mon_num==30)&&day_num>30){
+          day_num = 30;
+        }
+      if(res.data.data.curMonth.length){
+        console.log("cur",res.data.data.curMonth.length,day_num);
 
-          var tdy_date = new Date(curMonth[day_num_f].useTime);
-
-          var tdy = tdy_date.getDate();
-          var tdy_choose = tdy+ (tdy_date.getMonth()+1);
-          var nowDateArr = this.nowDate.split('-');
-          var nowDate = parseInt(nowDateArr[1])+parseInt(nowDateArr[2]);
-          // console.log(tdy_choose,nowDate)
-          if((i+today_day)==tdy){
-            if(tdy_choose==nowDate){
-              curMonth[day_num_f].kg = true;
+        var curMonth = res.data.data.curMonth;
+        
+        var day_num_f = 0;
+        for(var i = 0;i<day_num;i++){
+  
+            var tdy_date = new Date(curMonth[day_num_f].useTime);
+  
+            var tdy = tdy_date.getDate();
+            var tdy_choose = tdy+ (tdy_date.getMonth()+1);
+            var nowDateArr = this.nowDate.split('-');
+            var nowDate = parseInt(nowDateArr[1])+parseInt(nowDateArr[2]);
+            // console.log(tdy_choose,nowDate)
+            if((i+today_day)==tdy){
+              if(tdy_choose==nowDate){
+                curMonth[day_num_f].kg = true;
+              }else{
+                curMonth[day_num_f].kg = false;
+              }
+              curMonth[day_num_f].zhou = weekDay[tdy_date.getDay()];
+              that.goodid_now.push(curMonth[day_num_f]);
+              day_num_f++;
             }else{
-              curMonth[day_num_f].kg = false;
+              
+              //day_num_f--;
+              that.goodid_now.push({
+                goodsId : "",
+                kg:false,
+                promotionCost:'',
+                remainQuantity:'',
+                seatId:'',
+                unitCost:'',
+                useTime:'',
+                zhou:''
+              });
             }
-            curMonth[day_num_f].zhou = weekDay[tdy_date.getDay()];
-            that.goodid_now.push(curMonth[day_num_f]);
-            day_num_f++;
-          }else{
-            
-            //day_num_f--;
-            that.goodid_now.push({
-              goodsId : "",
-              kg:false,
-              promotionCost:'',
-              remainQuantity:'',
-              seatId:'',
-              unitCost:'',
-              useTime:'',
-              zhou:''
-            });
-          }
-        //}
+          //}
+        }
       }
-      var nextMonth = res.data.data.nextMonth;
+      
+
+      if(res.data.data.nextMonth.length){
+        console.log("111next",res.data.data.nextMonth.length);
+        var nextMonth = res.data.data.nextMonth;
 
       var day_num_f1 = 0;
       for(var i = 0;i<(30-day_num);i++){
@@ -1014,6 +1044,8 @@ Page({
           });
         }
       }
+      }
+      
 // console.log(that.goodid_now,222222)
       if(that.combination_new.length===0){
 
@@ -1036,8 +1068,17 @@ Page({
       const today_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth(),1)
       const next_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth()+1,1)
       
-      that.test(today_month_1,true);
-      that.test(next_month_1,false);
+
+
+      if(res.data.data.curMonth.length){
+        that.test(today_month_1,true);
+      }
+
+      if(res.data.data.nextMonth.length){
+        that.test(next_month_1,false);
+      }
+      
+      
      }
    })
     
