@@ -8,7 +8,7 @@ Page({
     cityId: 1,
     latitude: 0,
     longitude: 0,
-    scale: 14,
+    scale: 11,
     allCommunity: [],
     cityList: {},
     markers: []
@@ -36,7 +36,6 @@ Page({
   },
   onShow: function() {
     // console.log(this.data.cityId);
-    // this.getNearbyCity();
     // this.getCitybyId();
   },
   //大厦城市id接口
@@ -60,16 +59,7 @@ Page({
           console.log(cityById);
           let makeArr = [];
           let cityIdList = cityById.data.data.communityVOS;
-          // console.log(typeof cityIdList[0].distance);
-          let cityNum = Number(cityIdList[0].distance);
-          console.log(cityNum);
-          if (cityNum < 1000) {
-            that.setData({ scale: 14 });
-          } else if (cityNum > 1000 && cityNum < 100000) {
-            that.setData({ scale: 10 });
-          } else if (cityNum > 100000 && cityNum < 5000000) {
-            that.setData({ scale: 6 });
-          }
+
           cityIdList.map((item, index) => {
             if (item.distance > 1000) {
               item.distance = (item.distance / 1000).toFixed(1) + "km";
