@@ -88,7 +88,7 @@ Page({
     var that = this;
     wx.getSetting({
       success: function(res) {
-        console.log(res);
+        // console.log(res);
         if (res.authSetting["scope.userLocation"]) {
           wx.navigateTo({
             url: "../map/map"
@@ -102,8 +102,7 @@ Page({
             success: function(res) {
               if (res.confirm) {
                 console.log("用户点击确定");
-              } else if (res.cancel) {
-                console.log("用户点击取消");
+                that.getLocation();
               }
             }
           });
