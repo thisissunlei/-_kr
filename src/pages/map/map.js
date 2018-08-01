@@ -72,7 +72,7 @@ Page({
               id: item.communityId,
               latitude: item.latitude,
               longitude: item.longitude,
-              name: item.buildName,
+              // name: item.buildName,
               width: 27,
               height: 37
             });
@@ -133,11 +133,11 @@ Page({
             longitude: item.longitude,
             // name: item.buildName,
             width: 27,
-            height: 37,
-            callout: {
-              content: item.buildName,
-              display: "BYCLICK"
-            }
+            height: 37
+            // callout: {
+            //   content: item.buildName,
+            //   display: "BYCLICK"
+            // }
           });
 
           return item;
