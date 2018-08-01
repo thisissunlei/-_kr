@@ -56,7 +56,7 @@ Page({
     detailInfo: {}, //初始化遍历对象
     orderDate: {},
     meeting_time: {},
-    // isFirst: true,
+    isFirst: true,
     errorMessage: '',
     checkMessage: false,
     dialogDate: false, //判断门板是否显示
@@ -353,7 +353,6 @@ Page({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
       method: "GET",
       success: (res) => {
-        // console.log(res.data.data.first,222)
       this.setData({
         isFirst:res.data.data.first
       })
@@ -472,7 +471,7 @@ Page({
     }
     // console.log(this.data.number,this.data.Maximum)
     
-    // console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
+    console.log('最大是'+this.data.Maximum,'最小是'+this.data.Minimum)
   },
   jia(){
       this.setData({
@@ -638,7 +637,7 @@ Page({
           date_data1:ioi,
         });
         if(e.target.dataset.kg == true){//取消
-          // console.log("用户取消了")
+          console.log("用户取消了")
           let arr_index = []
           this.data.date_data1.map((item,index)=>{
             if(item.kg == true){
@@ -693,7 +692,7 @@ Page({
   },
   test:function(today_month,bool){
     
-    // console.log(">>>>>>>data>>>>>",this.goodid_now)
+    console.log(">>>>>>>data>>>>>",this.goodid_now)
     let index_zhu = this.data
     const week = today_month.getDay();//月第一天星期几
     this.setData({
@@ -728,7 +727,7 @@ Page({
               })
             
           }else{
-            // console.log(this.goodid_now[i-today+1],'----------------------------------')
+            console.log(this.goodid_now[i-today+1],'----------------------------------')
             if(this.goodid_now[i-today+1].remainQuantity > 1 && index_zhu.number>this.goodid_now[i-today+1].remainQuantity){
               // this.goodid_now[i].mary='数量不足'
               // console.log("数量不足")
@@ -759,7 +758,7 @@ Page({
               });
             }
             else{
-              // console.log(this.goodid_now1,this.goodid_now[i-today+1].kg,i-today+1,444441111111);
+              console.log(this.goodid_now1,this.goodid_now[i-today+1].kg,i-today+1,444441111111);
               data.push({
                 value:i-week+1,
                 type:'next',
@@ -783,9 +782,9 @@ Page({
               type:'before',
             });
           }else{
-            // console.log(this.show_true,'本月的arr') 
+            console.log(this.show_true,'本月的arr') 
             if(this.goodid_now[i+1-today].remainQuantity < index_zhu.number){ 
-              // console.log("今天是false")
+              console.log("今天是false")
               data.push({//今天可选
                 value:'今天',
                 type:'before',
@@ -924,7 +923,7 @@ Page({
           date_data2:data
         })
       }
-      // console.log(data,6666)
+      console.log(data,6666)
     
   },
   dealDate:function(today_month_new,bool){
@@ -937,62 +936,53 @@ Page({
       seatId:this.data.seatId
      },
      success:res=>{
-      //  console.log(res)
+       console.log(res)
       // for(let i of res.data.data){
       //   i.kg = false
       // }
-
+      var curMonth = res.data.data.curMonth;
       var weekDay = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-        const today_month = new Date();
-        const today_day = today_month.getDate();
-        today_month.setMonth(today_month.getMonth() + 1);
-        today_month.setDate(0);
-        const day_num = parseInt(parseInt(today_month.getDate())-parseInt(today_day))+parseInt(1);
-      if(res.data.data.curMonth.length){
-        console.log("cur",res.data.data.curMonth.length);
-        var curMonth = res.data.data.curMonth;
-        
-        var day_num_f = 0;
-        for(var i = 0;i<day_num;i++){
-  
-            var tdy_date = new Date(curMonth[day_num_f].useTime);
-  
-            var tdy = tdy_date.getDate();
-            var tdy_choose = tdy+ (tdy_date.getMonth()+1);
-            var nowDateArr = this.nowDate.split('-');
-            var nowDate = parseInt(nowDateArr[1])+parseInt(nowDateArr[2]);
-            // console.log(tdy_choose,nowDate)
-            if((i+today_day)==tdy){
-              if(tdy_choose==nowDate){
-                curMonth[day_num_f].kg = true;
-              }else{
-                curMonth[day_num_f].kg = false;
-              }
-              curMonth[day_num_f].zhou = weekDay[tdy_date.getDay()];
-              that.goodid_now.push(curMonth[day_num_f]);
-              day_num_f++;
-            }else{
-              
-              //day_num_f--;
-              that.goodid_now.push({
-                goodsId : "",
-                kg:false,
-                promotionCost:'',
-                remainQuantity:'',
-                seatId:'',
-                unitCost:'',
-                useTime:'',
-                zhou:''
-              });
-            }
-          //}
-        }
-      }
-      
+      const today_month = new Date();
+      const today_day = today_month.getDate();
+      today_month.setMonth(today_month.getMonth() + 1);
+      today_month.setDate(0);
+      const day_num = parseInt(parseInt(today_month.getDate())-parseInt(today_day))+parseInt(1);
+      var day_num_f = 0;
+      for(var i = 0;i<day_num;i++){
 
-      if(res.data.data.nextMonth.length){
-        console.log("111next",res.data.data.nextMonth.length);
-        var nextMonth = res.data.data.nextMonth;
+          var tdy_date = new Date(curMonth[day_num_f].useTime);
+
+          var tdy = tdy_date.getDate();
+          var tdy_choose = tdy+ (tdy_date.getMonth()+1);
+          var nowDateArr = this.nowDate.split('-');
+          var nowDate = parseInt(nowDateArr[1])+parseInt(nowDateArr[2]);
+          console.log(tdy_choose,nowDate)
+          if((i+today_day)==tdy){
+            if(tdy_choose==nowDate){
+              curMonth[day_num_f].kg = true;
+            }else{
+              curMonth[day_num_f].kg = false;
+            }
+            curMonth[day_num_f].zhou = weekDay[tdy_date.getDay()];
+            that.goodid_now.push(curMonth[day_num_f]);
+            day_num_f++;
+          }else{
+            
+            //day_num_f--;
+            that.goodid_now.push({
+              goodsId : "",
+              kg:false,
+              promotionCost:'',
+              remainQuantity:'',
+              seatId:'',
+              unitCost:'',
+              useTime:'',
+              zhou:''
+            });
+          }
+        //}
+      }
+      var nextMonth = res.data.data.nextMonth;
 
       var day_num_f1 = 0;
       for(var i = 0;i<(30-day_num);i++){
@@ -1023,9 +1013,7 @@ Page({
           });
         }
       }
-      }
-      
-// console.log(that.goodid_now,222222)
+console.log(that.goodid_now,222222)
       if(that.combination_new.length===0){
 
       }else{
@@ -1047,17 +1035,8 @@ Page({
       const today_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth(),1)
       const next_month_1 = new Date(today_date_1.getFullYear(),today_date_1.getMonth()+1,1)
       
-
-
-      if(res.data.data.curMonth.length){
-        that.test(today_month_1,true);
-      }
-
-      if(res.data.data.nextMonth.length){
-        that.test(next_month_1,false);
-      }
-      
-      
+      that.test(today_month_1,true);
+      that.test(next_month_1,false);
      }
    })
     
@@ -1163,13 +1142,13 @@ Page({
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-    //  console.log(777777,carendar)
+     console.log(777777,carendar)
     let price_all = 0;
     let price_y = 0;
     if(carendar){
       carendar.map(item=>{
         price_all = Number(price_all) + Number(item.no_mary*item.number_a);
-        // console.log(typeof price_all)
+        console.log(typeof price_all)
         price_all =  price_all.toFixed(2);
         price_y  = Number(price_y) + Number(item.mary*item.number_a);
         price_y  = price_y.toFixed(2)
@@ -1189,7 +1168,7 @@ Page({
         return item
       }) 
       
-      // console.log(price_all,price_y,9999999)
+      console.log(price_all,price_y,9999999)
       that.setData({
         sankeNum: carendar[0].number_a,
         daynum: carendar.length,

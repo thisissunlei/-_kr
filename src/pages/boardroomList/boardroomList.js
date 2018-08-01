@@ -236,6 +236,7 @@ Page({
       },
 
       success: res => {
+        console.log(res)
         if(res.data.data.items.length > 0){
           this.setData({
             show_huiyi : true
@@ -875,7 +876,6 @@ Page({
         meetingRoomId: meetingRoomId
       },
       success: res => {
-        // console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
           that.setData({
