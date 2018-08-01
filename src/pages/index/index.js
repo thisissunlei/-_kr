@@ -7,8 +7,8 @@ Page({
     wx.reportAnalytics("sharekrmeeting");
     // console.log(res);
     return {
-      title: "KrMeeting会议室，让会议更轻松、更简单",
-      desc: "KrMeeting会议室",
+      title: "开启轻松、灵活办公新方式",
+      desc: "氪空间自由座",
       path: "pages/index/index",
       imageUrl: "../images/share_pic.jpg"
     };
