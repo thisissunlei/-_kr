@@ -12,9 +12,10 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    count:2,
-    number:2,
+    count:0,
+    number:0,
     tipShow:true,
+    activityCount:0,
   },
   mysan(){
     wx.navigateTo({
@@ -25,6 +26,11 @@ Page({
     wx.navigateTo({
       url: '../myMeeting/myMeeting'
     })
+  },
+  jumpMyActivityt:function(){
+    // wx.navigateTo({
+    //   url: '../myMeeting/myMeeting'
+    // })
   },
   jumpOderList:function(e){
     let status=e.currentTarget.dataset.status;
