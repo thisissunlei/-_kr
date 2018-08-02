@@ -24,7 +24,8 @@ Page({
     },
     user_info:{},
     success:false,
-    areaCode:''
+    areaCode:'',
+    form:'order'
     
   },
   onShareAppMessage: function() {
@@ -32,6 +33,12 @@ Page({
   },
   onLoad: function (options) {
     let that = this;
+    console.log('======>',options.from)
+    if(options.from){
+      this.setData({
+        from:options.from
+      })
+    }
      wx.getStorage({
       key: 'user_info',
       success: function(res) {
@@ -115,7 +122,15 @@ Page({
                     success:false
                   })
                 },2000)
-                that.getOrderData();
+
+                //处理判断散座还是订单
+                if(that.data.from=='seat'){
+                  that.getSeatData()
+                }else{
+                  that.getOrderData();
+                }
+                
+                
               }
             })
           }else{
@@ -159,6 +174,22 @@ Page({
         }
       }
     })
+    //orderData--->create_order取数据
+  },
+  getSeatData(){
+    let that = this;
+    let seat = {}
+    
+
+    wx.getStorage({
+      key: 'myorder',
+      success: function(res) {
+        if(res.data){
+          that.createSeat(res.data)
+        }
+      }
+    })
+    
     //orderData--->create_order取数据
   },
   createOrder:function(create_order){
@@ -205,7 +236,80 @@ Page({
   weChatPay:function(data){
     let id = data.orderId;
     let that = this;
-    app.getRequest({
+    if(that.data.from=='seat'){
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/order/pay',
+        methods:"GET",
+        data:{
+          orderId:id
+        },
+        success:(res)=>{
+          console.log('res',res)
+          if(res.data.code>0){
+            console.log(res.data,11111111)
+            if (!wx.getStorageSync("order-info")) {
+                let orderArr = []
+                console.log(typeof res.data.data,res.data.data,orderArr,res.data,333333)
+                orderArr.push(res.data.data)
+                wx.setStorageSync("order-info", orderArr)
+                wx.setStorageSync("order", res.data.data)
+              } else {
+                let orderseat = wx.getStorageSync("order-info")
+                console.log(typeof res.data.data,res.data.data,orderseat,res.data,44444)
+                orderseat.push(res.data.data)
+                wx.setStorageSync("order-info", orderseat)
+                wx.setStorageSync("order", res.data.data)
+              }
+            wx.requestPayment({
+              'timeStamp': res.data.data.timestamp,
+              'nonceStr': res.data.data.noncestr,
+              'package': res.data.data.packages,
+              'signType':res.data.data.signType,
+              'paySign': res.data.data.paySign,
+              'success':function(res){
+                wx.showLoading({
+                  title: '加载中',
+                  mask:true
+                })
+
+                setTimeout(function(){
+                  that.getInviteeId(id)
+                },2000)
+                
+              },
+              'fail':function(res){
+                if(that.data.from!='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
+                
+              }
+            })
+          }else{
+            if(that.data.from!='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
+          }
+          
+        },
+        fail:(res)=>{
+           console.log('========',res)
+        }
+      })
+    }else{
+      app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/order/pay',
         methods:"GET",
         data:{
@@ -232,15 +336,28 @@ Page({
                 
               },
               'fail':function(res){
-                wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
-                })
+                if(that.data.from!='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
+                
               }
             })
           }else{
-            wx.navigateTo({
-              url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
-            })
+            if(that.data.from!='seat'){
+                  wx.navigateTo({
+                    url: '../orderDetail/orderDetail?id='+data.orderId+'&con=1'
+                  })
+                }else{
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id='+data.orderId+'&con=1'
+                  })
+                }
           }
           
         },
@@ -248,6 +365,11 @@ Page({
            console.log('========',res)
         }
       })
+
+
+    }
+    
+    
    
   },
   clearStorage(){
@@ -264,7 +386,7 @@ Page({
         url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
         methods:"GET",
         data:{
-          "phone":that.data.phone
+          "phone":that.data.phone 
         },
         success:(res)=>{
           if(res.data.code>0){
@@ -326,4 +448,44 @@ Page({
     })
     
   },
+  createSeat(data){
+    let that = this;
+    app.getRequest({
+    // 散座下单
+    url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+    methods: "GET",
+    header: {
+      'content-type': "appication/json"
+    },
+    data: data,
+
+    success:(res)=>{
+            let code=res.data.code;
+            let rsData = res.data.data;
+            if(code==-1){
+              that.setData({
+                phoneError:false,
+                success:false,
+                errorMessage:res.data.message
+              })
+              setTimeout(function(){
+                that.setData({
+                  phoneError:true,
+                  errorMessage:'',
+
+                  
+                })
+              },2000)
+            }else{
+              that.weChatPay(rsData)
+              that.clearStorage()
+            }
+
+    },
+    fail:(res)=>{
+      console.log('=======',res)
+    }
+
+  })
+  }
 })

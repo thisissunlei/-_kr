@@ -25,7 +25,8 @@ Page({
           pageSize:100
         },
         success:(res)=>{
-          console.log('res',res.data.data.items)
+          // console.log('res',res.data.data.items)
+          
           if(res.data.code>0){
             var list = []
             list = res.data.data.items.map((item,index)=>{
@@ -43,7 +44,7 @@ Page({
           
         },
         fail:(res)=>{
-           console.log('========',res)
+          //  console.log('========',res)
         }
       })
   },

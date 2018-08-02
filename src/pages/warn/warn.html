@@ -1,21 +1,20 @@
-
 <view class="warn-chooce">
 	<ul class="tab-list">
 		<li class="{{activeTab=='NOALERT'?active:item}}" bindtap="checkWarn" data-code="NOALERT">
 			<text class="conten" data-code="THIRTY">无提醒</text>
-			<image wx:if="{{activeTab=='NOALERT'}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
+			<image wx:if="{{activeTab=='NOALERT'}}" class="seleced" src="../images/public/choose1.png" background-size="cover"></image>
 		</li>
 		<li data-code="FIVE" class="{{activeTab=='FIVE'?active:item}}" bindtap="checkWarn"  >
 			<text class="conten" data-code="FIVE">提前5分钟</text>
-			<image wx:if="{{activeTab=='FIVE'}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
+			<image wx:if="{{activeTab=='FIVE'}}" class="seleced" src="../images/public/choose1.png" background-size="cover"></image>
 		</li>
 		<li data-code="FIFTEEN" class="{{activeTab=='FIFTEEN'?active:item}}" bindtap="checkWarn" >
 			<text class="conten" data-code="FIFTEEN">提前15分钟</text>
-			<image wx:if="{{activeTab=='FIFTEEN'}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
+			<image wx:if="{{activeTab=='FIFTEEN'}}" class="seleced" src="../images/public/choose1.png" background-size="cover"></image>
 		</li>
 		<li class="{{activeTab=='THIRTY'?active:item}}" bindtap="checkWarn" data-code="THIRTY">
 			<text class="conten" data-code="THIRTY">提前30分钟</text>
-			<image wx:if="{{activeTab=='THIRTY'}}" class="seleced" src="../images/public/choose.png" background-size="cover"></image>
+			<image wx:if="{{activeTab=='THIRTY'}}" class="seleced" src="../images/public/choose1.png" background-size="cover"></image>
 		</li>
 	</ul>
 

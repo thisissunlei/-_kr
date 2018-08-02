@@ -208,7 +208,8 @@ page{
     color: #FFFFFF;
 }
 .u-active-btn{
-    background-image: linear-gradient(50deg, #F79C1C 0%, #FFD24C 89%);
+    background-image: linear-gradient(50deg, #FFDF00 0%, #FFDF00 89%);
+    color: #624D17;
 }
 .u-first-pay-price{
     width:100%;
@@ -220,19 +221,19 @@ page{
 .u-footer-tip{
     font-size: 24rpx;
     color: #FF6868; 
-    text-indent:22rpx; 
+    text-indent:-117rpx; 
 }
 .u-price-label{
     font-size: 28rpx;
     color:#666666;
     float:left;
-    margin-top:24rpx;
+    margin-top:34rpx;
 }
 .u-price-unit{
     font-size: 28rpx;
     color:#FF6868;
     float:left;
-    margin-top:22rpx;
+    margin-top:30rpx;
     padding-right:6rpx;
     
 }
@@ -240,7 +241,7 @@ page{
     font-size: 48rpx;
     color:#FF6868;
     float:left;
-    margin-top:4rpx;
+    margin-top:16rpx;
     height:42rpx;
     font-weight: 600;
    
@@ -258,7 +259,7 @@ page{
     line-height:30rpx;
     width:100%;
     box-sizing: border-box;
-    padding:0 120rpx;
+    padding:0 90rpx;
 
 }
 .u-protocol-image{
@@ -554,7 +555,8 @@ page{
 }
 
 .u-dialog-time .main .row .square .item.checked{
-    background: #FAC367;
+    background: #FFEB00;
+    color:#624D17;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -597,12 +599,11 @@ page{
 
 .u-dialog-time .tag .uncheck{
     background: #EDEDED;
-    border: 1px solid #E5E5E5;
     color: #666666;
 }
 
 .u-dialog-time .tag .checked{
-    background: #FAC367;
+    background: #FFEB00 ;
     margin-right: 0;
     color: #724500;
 }
@@ -621,8 +622,8 @@ page{
     height: 112rpx;
     line-height: 112rpx;
     font-size: 36rpx;
-    color: #FFFFFF;
-    background-image: linear-gradient(50deg, #F79C1C 0%, #FFD24C 89%);
+    color: #624D17;
+    background-image: linear-gradient(50deg, #FFDF00 0%, #FFEB00 89%);
 }
 .u-no-time{
     font-size:30rpx;
@@ -635,12 +636,12 @@ page{
     position: absolute;
 }
 .u-time-arrow{
-    right:35rpx ;
+    right:22rpx ;
     top:93rpx;
 }
 .u-hour-arrow{
     right:35rpx ;
-    top:93rpx;
+    top:89rpx;
 }
 
 .u-pay-price{
@@ -713,6 +714,17 @@ page{
     position: absolute;
     bottom:0;
   }
+  .u-meet-content:before {
+      content: '';
+      position: absolute;
+      bottom: -100rpx;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      height: 50%;
+      width: 100%;
+      background: #ffffff;
+  }
   .u-meet-top{
     width:100%;
     height:402rpx;
@@ -729,7 +741,7 @@ page{
     width:100%;
     background: #fff;
     position: relative;
-  
+      z-index:100;
   }
   
 

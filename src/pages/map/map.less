@@ -1,0 +1,226 @@
+/**index.wxss**/
+page {
+  height: 100%;
+}
+.page-body {
+  height: 100%;
+}
+.page-section {
+  width: 100%;
+  height: 73%;
+}
+.page-bottom {
+  height: 27%;
+  box-sizing: border-box;
+  padding: 32rpx 32rpx;
+  display: flex;
+  background: #ffffff;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.3);
+}
+.page-image {
+  width: 200rpx;
+  height: 266rpx;
+  border-radius: 16rpx;
+  border: 1px solid #f3f3f3;
+  overflow: hidden;
+}
+.page-image image {
+  width: 100%;
+  height: 100%;
+}
+.page-right {
+  margin-left: 20rpx;
+}
+.page-right .page-name {
+  display: block;
+  width: 210rpx;
+  height: 34rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 34rpx;
+  color: #333333;
+  line-height: 34rpx;
+  margin-bottom: 28rpx;
+}
+.page-right .page-address {
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 26rpx;
+  margin-bottom: 28rpx;
+}
+.page-right .page-address .page-site {
+  display: inline-block;
+  width: 340rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+}
+.page-right .page-address .page-distance {
+  width: 70rpx;
+  height: 26rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 26rpx;
+}
+.page-right .page-num {
+  font-family: PingFangSC-Medium;
+  font-size: 34rpx;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 24rpx;
+  margin-bottom: 28rpx;
+}
+.num-text {
+  font-family: "PingFang-SC-Medium";
+  font-size: 26rpx;
+  color: #666666;
+}
+.page-right .page-num .num-num,
+.num-arr {
+  display: inline-block;
+  width: 48rpx;
+  text-align: center;
+  font-family: PingFang-SC-Medium;
+  font-size: 34rpx;
+  color: #333333;
+  margin-right: 8rpx;
+  position: relative;
+  z-index: 2;
+}
+.num-num::after,
+.num-arr:after {
+  content: "";
+  position: absolute;
+  width: 48rpx;
+  height: 16rpx;
+  background-color: #ffe461;
+  right: 0;
+  left: 0;
+  top: 17rpx;
+  z-index: -1;
+}
+.price {
+  display: inline-block;
+  height: 48rpx;
+  font-size: 26rpx;
+  color: #ff6868;
+  background-color: #ffeeee;
+  padding: 0 20rpx;
+  line-height: 48rpx;
+  border-radius: 8rpx;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+}
+.page-see {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.city {
+  width: 180rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  opacity: 0.5;
+  background: #000000;
+  border-radius: 4px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 32rpx;
+  left: 32rpx;
+  z-index: 999;
+}
+.page-icom {
+  display: block;
+  margin-right: 4rpx;
+  margin-left: 6rpx;
+}
+.page-icom cover-image {
+  width: 24rpx;
+  height: 30.6rpx;
+  margin-left: 10rpx;
+}
+.city-name {
+  display: inline-block;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  color: #ffffff;
+  letter-spacing: 0;
+  margin-left: 10rpx;
+}
+.page-san {
+  width: 14rpx;
+  height: 14rpx;
+  position: absolute;
+  bottom: 30%;
+  right: 10%;
+}
+.gosee {
+  position: absolute;
+  right: 5%;
+  bottom: 2%;
+  width: 150rpx;
+  height: 60rpx;
+  background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
+  border-radius: 16rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #624d17;
+  text-align: center;
+  line-height: 60rpx;
+}
+.qukankan {
+  margin-left: 8rpx;
+  display: inline-block;
+  width: 16rpx;
+  height: 22rpx;
+}
+.city-san {
+  width: 0;
+  height: 0;
+  border-top: 12rpx solid #fff;
+  border-right: 12rpx solid transparent;
+  border-left: 12rpx solid transparent;
+  transform: rotate(-45deg);
+  position: absolute;
+  bottom: 6rpx;
+  right: 4rpx;
+}
+.location {
+  margin-bottom: 24rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.lct_con {
+  width: 350rpx;
+  height: 76rpx;
+  font-size: 26rpx;
+  color: #666666;
+  font-family: PingFangSC-Regular;
+  display: flex;
+  align-items: center;
+}
+.lct_txt {
+  display: block;
+  width: inherit;
+  height: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.lct_distance {
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  color: #666666;
+  letter-spacing: 0;
+  height: 60rpx;
+  width: 80rpx;
+  display: block;
+}

@@ -1,0 +1,7 @@
+<view>
+    <view class="u-my-meeting slot" bindtap="jumpMyMeet" >
+        <slot name='one' class="one-child"></slot>
+        <slot name='two'></slot>
+        <view> <text class="{{text=='../images/my/contact.png' ? '' : 'slot-list'}}" style="font-size:28rpx;margin-left:368rpx;color: #666666;">{{list}}</text> <image class="u-btn-arrow-meet" src="{{src}}" ></image></view>
+    </view>
+</view>

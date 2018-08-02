@@ -149,6 +149,7 @@ Page({
    
     
   },
+  
   getInviteeId(orderId,callback){
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
@@ -371,6 +372,8 @@ Page({
   
    
 })
+
+
 function changeTime(date){
   let  myDate =new Date(date) || new Date();
   var myArray =new Array();
@@ -405,5 +408,3 @@ function changeTime(date){
     myArray[5] = seconds;
     return myArray;
 }
-
- 

@@ -6,32 +6,32 @@
     </view>
     <view class="u-my-order">
         <view class="u-my-order-head">
-            <image class="u-my-order-icon" src="../images/my/order.png"></image>
+            <!-- <image class="u-my-order-icon" src="../images/my/order.png"></image> -->
             <text class="u-my-title">我的订单</text>
             <view class="u-order-btn" data-status="ALL" bindtap="jumpOderList" >全部订单 <image class="u-btn-arrow" src="../images/public/icon_arrow-right.png" ></image></view>
         </view>
         <view class="u-order-status-tab">
             <view class="u-order-tab u-order-tab-right" data-status="OBLIGATION" bindtap="jumpOderList">
-                    <image class="u-my-tab-icon" src="../images/my/icon_wait_pay.png"></image>
+                    <image class="u-my-tab-icon" src="../images/my/yiwancheng.png"></image>
                     <text class="u-my-tab-text">待支付</text>
             </view>
             <view class="u-order-tab u-order-tab-right" data-status="TOBEUSED" bindtap="jumpOderList">
-                    <image class="u-my-tab-icon" src="../images/my/icon_wait_use.png"></image>
+                    <image class="u-my-tab-icon" src="../images/my/daishiyong.png"></image>
                     <text class="u-my-tab-text">待使用</text>
             </view>
             <view class="u-order-tab" data-status="USED" bindtap="jumpOderList">
-                    <image class="u-my-tab-icon" src="../images/my/icon_used.png"></image>
+                    <image class="u-my-tab-icon" src="../images/my/daizhifu.png"></image>
                     <text class="u-my-tab-text">已使用</text>
             </view>
         </view>
     </view>
-    <view class="u-my-meeting" bindtap="jumpMyMeet" >
+    <!-- <view class="u-my-meeting" bindtap="jumpMyMeet" >
         <image class="u-my-meeting-icon"   src="../images/my/meet.png"></image>
         <text  class="u-my-meeting-title"  >我的会议</text>
         <text class="u-meet-count" wx:if="{{count>0}}">{{count}}</text>
         <image class="u-btn-arrow-meet" src="../images/public/icon_arrow-right.png" ></image>
-    </view>
-    <view class="u-contact-service">
+    </view> -->
+    <!-- <view class="u-contact-service">
         <image class="u-my-contact-icon" src="../images/my/contact.png"></image>
         <button class="u-my-contact-btn kefu" open-type="contact">联系客服</button>
         <image class="u-btn-arrow-meet" src="../images/public/icon_arrow-right.png" ></image>
@@ -43,5 +43,28 @@
                 <image class="u-tip-close" src="../images/my/close.png" ></image>
         </view>
        
+    </view> -->
+    <dialog class="u-my-meeting" bindtap="jumpMyMeet" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'>
+        <text slot='one' class="u-my-meeting-title"> 我的会议 </text>
+        <text slot='two' class="u-meet-count" wx:if="{{count>0}}">{{count}}</text>
+    </dialog>
+    <view class="u-my-box-a"></view>
+    <dialog class="u-contact-service" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png' bindtap='mysan'>
+        <text slot='one' class="u-my-meeting-title">我的散座</text>
+        <text slot='two' class="u-meet-count" wx:if="{{number>0}}"> {{number}} </text>
+    </dialog>
+    <view class="u-my-box"></view>
+    <view class="u-btn">
+           
+            <button class="u-my-contact-btn kefu" open-type="contact">联系客服</button>
+            <image class="u-img"  src="../images/public/icon_arrow-right.png" ></image>
+    </view>
+    <view class="u-tip-contact" wx:if="{{tipShow}}">
+            <image class="u-tip-triangle" src="../images/my/triangle.png" ></image>
+            如需开发票，请联系客服
+            <view class="u-close-content" bindtap="closeTip">
+                    <image class="u-tip-close" src="../images/my/close.png" ></image>
+            </view>
+           
     </view>
 </view>

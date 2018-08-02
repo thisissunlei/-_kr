@@ -2,33 +2,36 @@
     <view class='top'>
         <view class="top-banner">
             <image src="../images/indexImg/card.png" class="img"></image>
-            <image src="../images/indexImg/overdue.png" class="overdue" wx:if="{{meetingDetailData.meetingStatus==='EXPIRED'}}"></image>
+            <!-- 已过期 -->
+            <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{meetingDetailData.meetingStatus==='EXPIRED'}}"></image>
+            <!-- 已入场 -->
+            <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{meetingDetailData.meetingStatus==='ARRVING'}}"></image>
             <view class="content">
-            <view class='title'>
-                <text class='meetingTime'>{{meetingDetailData.meetingTime}}</text>
-                <text class="themeName">{{meetingDetailData.theme}}</text>
-            </view>
-            <view class='pics'>
-                <view class="shade">
-                <view class="code-pic">
-                    <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{meetingDetailData.meetingStatus==='EXPIRED'}}"></image>
-                    <image src="../images/indexImg/code.png" wx:if="{{meetingDetailData.meetingStatus!=='EXPIRED'}}" class="img"></image>
-                    <view class="img-box">
-                    <canvas bindtap="previewImg" hidden="{{canvasHidden}}" canvas-id="mycanvas" class="mycanvas"/>
-                    <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
+                <view class='title'>
+                    <text class='meetingTime'>{{meetingDetailData.meetingTime}}</text>
+                    <text class="themeName">{{meetingDetailData.theme}}</text>
+                </view>
+                <view class='pics'>
+                    <view class="shade">
+                        <view class="code-pic">
+                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{meetingDetailData.meetingStatus==='EXPIRED'}}"></image>
+                            <image src="../images/indexImg/code.png" wx:if="{{meetingDetailData.meetingStatus!=='EXPIRED'}}" class="img"></image>
+                            <view class="img-box">
+                                <canvas bindtap="previewImg" hidden="{{canvasHidden}}" canvas-id="mycanvas" class="mycanvas" />
+                                <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
+                            </view>
+                        </view>
+                        <view class="code-desc">请入场时出示此二维码</view>
                     </view>
-                </view>     
-                <view class="code-desc">请入场时出示此二维码</view>
                 </view>
-            </view>
-            <view class='bottom_text'>
-                <text class="metting-house">{{meetingDetailData.meetingRoomName}}</text>
-                <view class='icons address-detail'>
-                    <image src='../images/indexImg/dizhi2.png'></image>
-                    {{meetingDetailData.address}}
-                    <!-- <span class="address-detail"></span> -->
+                <view class='bottom_text'>
+                    <text class="metting-house">{{meetingDetailData.meetingRoomName}}</text>
+                    <view class='icons address-detail'>
+                        <image src='../images/indexImg/dizhi2.png'></image>
+                        {{meetingDetailData.address}}
+                        <!-- <span class="address-detail"></span> -->
+                    </view>
                 </view>
-            </view>
             </view>
         </view>
     </view>
@@ -36,12 +39,12 @@
 <template name="conferee">
     <block wx:for="{{inviteers}}" wx:key="{{inviteers}}">
         <view class='list'>
-        <view class='pic'>
-            <image src="{{item.wechatAvatar}}"></image>
-        </view>
-        <text>{{item.wechatNick}}</text>
-        <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true}}"></image>
-        <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===true}}"></image>
+            <view class='pic'>
+                <image src="{{item.wechatAvatar}}"></image>
+            </view>
+            <text>{{item.wechatNick}}</text>
+            <image src="../images/indexImg/icon_faqiren.png" class="originator" wx:if="{{item.sponsor===true}}"></image>
+            <image src="../images/indexImg/icon-confirm.png" class="confirm" wx:if="{{item.arrving===true}}"></image>
         </view>
     </block>
 </template>
@@ -54,5 +57,5 @@
                 <text class='text'>{{item.text}}</text>
             </view>
         </block>
-    </view>      
+    </view>
 </template>

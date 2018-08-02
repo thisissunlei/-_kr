@@ -1,30 +1,39 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
-    "pages/meetingTem/meetingTem",
+    "pages/invitationLetter/invitationLetter",
+    "pages/meeting/meeting",
+    "pages/seatorderConfirmation/seatorderConfirmation",
+    "pages/orderseatDetail/orderseatDetail",
+    "pages/my/my",
+    "pages/myOrder/myOrder",
+    "pages/map/map",
+    "pages/seatDetail/seatDetail",
     "pages/meetingStatus/meetingStatus",
     "pages/paySuccess/paySuccess",
-    "pages/orderConfirmation/orderConfirmation",
     "pages/meetingDetail/meetingDetail",
+    "pages/mysanzuo/mysanzuo",
+    "pages/cityList/cityList",
+    "pages/logs/logs",
+    "pages/meetingTem/meetingTem",
+    "pages/orderConfirmation/orderConfirmation",
     "pages/meetingTheme/meetingTheme",
     "pages/orderDetail/orderDetail",
-    "pages/myOrder/myOrder",
-    "pages/meeting/meeting",
     "pages/boardroomList/boardroomList",
-    "pages/my/my",
     "pages/myMeeting/myMeeting",
     "pages/phone/phone",
     "pages/regionList/regionList",
     "pages/warn/warn",
+    "pages/warnseat/warnseat",
     "pages/guide/guide",
     "pages/provingCode/provingCode",
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
-    "pages/logs/logs"
+    "pages/component/component"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff"
   }
 }

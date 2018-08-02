@@ -1,0 +1,10 @@
+<!--index.wxml-->
+<view class="page-city-list">
+    <view class="page-city-choice {{item.cityId==value?'page-city-active':''}}" data-city="{{item}}" wx:for="{{cityList}}" wx:key
+        bindtap="choiceCity">
+        <text>{{item.cityName}}</text>
+        <text class="page-city-icom" class="{{item.cityId==value ? 'page-city-icom' :''}}">
+            <text class="{{item.cityId==value ? 'city-selected' :''}}"></text>
+        </text>
+    </view>
+</view>

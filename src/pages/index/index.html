@@ -1,12 +1,16 @@
 <!--index.wxml-->
 <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;width:100%;height:100%;opacity:0;'></button>
 <view class="container container-wrapper">
-  
+  <!-- 头部信息 -->
   <view class="idx_header">
-    <!-- 头部信息 -->
     <view class="title-msg">
       <view class="E-title">
-        KrMeeting<text style="font-size: 52rpx">会议室</text></view>
+        <view style="display: flex;flex-wrap: wrap;">
+          <text class="e-title-textt">自由座</text>
+          <text class="e-title-textb">轻松、灵活办公新方式</text>
+
+        </view>
+      </view>
       <view class="my" bindtap="moveToMy">
         <view class="my-img">
           <image src="{{avatarUrl}}"></image>
@@ -14,62 +18,58 @@
         <button open-type="getUserInfo"></button>
         <text class="my-name">我的</text>
       </view>
-    </view> 
-  
+    </view>
+
   </view>
+  <!-- 轮播图 -->
   <view class="metting-wrap">
 
-    <view class="metting" wx:if="{{metting}}">
+    <view class="metting" wx:if="{{myMeeting.length>0}}">
       <image src="../images/indexImg/mettingBg.png" style="width: 100%;height: 100%;position: relative;"></image>
-      <swiper interval="{{interval}}" 
-              circular="true"
-              indicator-dots="{{indicatorDots}}"
-              indicator-color="#D5D8DF" 
-              indicator-active-color='rgba(255,198,52,100)'
-              class="swiper-box"
-              wx:if="{{swiper}}"> 
-        <block wx:for="{{myMeeting}}" wx:key="{{myMeeting}}">
-          <swiper-item class="my-metting" data-id="{{item.id}}" bindtap="moveToMeetingDetail">
+      <swiper interval="{{interval}}" autoplay="true" circular="true" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF"
+        indicator-active-color='rgba(255,198,52,100)' class="swiper-box">
+        <block wx:for="{{myMeeting}}" wx:key>
+          <swiper-item class="my-metting" data-id="{{item.targetId}}" bindtap="{{item.targetType=='SEAT'?'moveToSeatDetail':'moveToMeetingDetail'}}">
             <view class="metting-content">
-                <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'待入场':'已入场'}}</view>
-                <view class="metting-title"> 
-                    <text class="metting-time">{{item.meetingTime}}</text>
-                    <text class="metting-name">{{item.theme}}</text>
+              <view class="metting-mark {{item.targetType === 'SEAT'?'wait':'already'}}">{{item.targetType === 'SEAT'?'散座':'会议'}}</view>
+              <view class="metting-title">
+                <text class="metting-time">{{item.todoTime}}</text>
+                <text class="metting-name">{{item.title}}</text>
+              </view>
+              <view class="metting-address">
+                <text class="meetingRoomName">{{item.content}}</text>
+                <view class="address-wrapper">
+                  <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
+                  <text class="metting-map">{{item.descr}}</text>
                 </view>
-                <view class="metting-address">
-                  <text class="meetingRoomName">{{item.meetingRoomName}}</text>
-                  <view class="address-wrapper">
-                    <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
-                    <text class="metting-map">{{item.address}}</text>
-                  </view>
-                </view> 
+              </view>
             </view>
           </swiper-item>
         </block>
-      </swiper>  
+      </swiper>
 
-      <block wx:for="{{myMeeting}}" wx:if="{{!swiper}}" wx:key="{{myMeeting}}">
+      <!-- <block wx:for="{{myMeeting}}" wx:if="{{!swiper}}" wx:key="{{myMeeting}}">
         <view class="metting-content" bindtap="jumpToMeetingDetail">
           <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'待入场':'已入场'}}</view>
-          <view class="metting-title"> 
+          <view class="metting-title">
             <text class="metting-time">{{item.meetingTime}}</text>
             <text class="metting-name">{{item.theme}}</text>
           </view>
-          
+
           <view class="metting-address" style="padding-top: 40rpx;">
             <text class="meetingRoomName">{{item.meetingRoomName}}</text>
             <view class="address-wrapper">
               <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
               <text class="metting-map">{{item.address}}</text>
             </view>
-          </view> 
+          </view>
         </view>
-      </block>
+      </block> -->
 
 
-      
+
     </view>
-
+    <!-- 新人引导 -->
     <view class="adver">
       <view class="adver1" bindtap="point">
         <image src="../images/indexImg/banner1.png"></image>
@@ -84,61 +84,92 @@
       </view>
     </view>
   </view>
-  
+
 
 
 
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
-    <view class='rm_title'>周边会议室</view>
-    <view class="community-wrapper"  wx:for="{{buildingList}}" wx:key="{{buildingList}}">
-          <!-- 已开放 -->
-          <view class='community' wx:if="{{item.published}}"   data-id="{{item.communityId}}" bindtap="moveToMeetingRoom" >
-              <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50" class="community_pic"></image>
-              <view class='cmty_con'>
-                <view class='cmty_title'>{{item.buildName}}</view>
-                <view class='location'>
-                  <text class='lct_con'>{{item.buildAddress}}</text>
-                  <text class='lct_distance'>{{item.distance}}</text>
-                </view>
-                <view class='room_num'>
-                  <text class="num_num">{{item.meetingCount}}</text>
-                  <text class="num_text">个可用会议室</text>
-                  </view>
-                <view class='price'wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
-              </view>
-            </view>
-            <!-- 未开放 -->
-          <view class='community noopen' wx:if="{{!item.published}}"  >
-              <view class="buildImg">
-                <image src="{{item.buildImgUrl}}" class="community_pic"></image>
-                <image src="../images/indexImg/open.png" class="open"></image>
-              </view>
-              
-              <view class='cmty_con'>
-                <view class='cmty_title color'>{{item.buildName}}</view>
-                <view class='location'>
-                  <text class='lct_con color'>{{item.buildAddress}}</text>
-                  <text class='lct_distance color'>{{item.distance}}</text>
-                </view>
-                <view class='room_num'>
-                  <text class="num_num color">{{item.meetingCount}}</text>
-                  <text class="num_text color">个可用会议室</text>
-                </view>
-              </view>
-            </view>
+    <view class='rm_title'>
+      <text style="margin-left: 36rpx;">周边大厦</text>
+      <!-- <view class="page-box" bindtap="openmap">
+        <text class="page-map">
+          <text class="page-water"></text>
+          <text class="page-point"></text>
+        </text>
+      </view> -->
+      <view class="page-mapicon" bindtap="openmap">
+        <image src="../images/indexImg/mapicon.png"></image>
       </view>
-     
 
-    
+    </view>
+    <view class="community-wrapper">
+      <!-- 已开放大厦 -->
+      <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom" wx:key>
+        <view class="community_pic">
+          <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50"></image>
+        </view>
+        <view class='cmty_con'>
+          <view class='cmty_title'>{{item.buildName}}</view>
+          <view class='location'>
+            <view class='lct_con'>
+              <!-- <image src="../images/indexImg/icon_loation.png" class="map-icon"></image> -->
+              <text class="lct_txt">{{item.buildAddress}}</text>
+            </view>
+            <text class='lct_distance'>{{item.distance}}</text>
+          </view>
+          <view class='room_num'>
+            <text class="num_num" wx:if="{{item.seatCount > 0}}">{{item.seatCount}}</text>
+            <text class="num_text" style="margin-right: 62rpx;" wx:if="{{item.seatCount > 0}}">个散座</text>
+            <text class="num_arr" wx:if="{{item.meetingCount > 0}}">{{item.meetingCount}}</text>
+            <text class="num_text" wx:if="{{item.meetingCount > 0}}">个会议室</text>
+          </view>
+          <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
+        </view>
+      </view>
+
+
+      <!-- 未开放大厦 -->
+      <view class='community noopen' wx:for="{{noOpenBuilding}}" data-id="{{item.communityId}}" wx:key>
+        <view class="buildImg">
+          <image src="{{item.buildImgUrl}}" class="community_pic"></image>
+          <image src="../images/indexImg/open.png" class="open"></image>
+        </view>
+
+        <view class='cmty_con'>
+          <view class='cmty_title color'>{{item.buildName}}</view>
+          <view class='location'>
+            <!-- <text class='lct_con color'>{{item.buildAddress}}</text>
+          <text class='lct_distance color'>{{item.distance}}</text> -->
+            <view class='lct_con'>
+              <!-- <image src="../images/indexImg/icon_loation.png" class="map-icon"></image> -->
+              <text class="lct_txt color">{{item.buildAddress}}</text>
+            </view>
+            <!-- <text class='lct_distance color'>{{item.distance}}</text> -->
+
+          </view>
+          <view class='room_num'>
+            <!-- <text class="num_num color">{{item.meetingCount}}</text>
+          <text class="num_text color">个可用会议室</text> -->
+            <text class="num_arr color">{{item.meetingCount}}</text>
+            <text class="num_text color" style="margin-right: 62rpx;">个会议室</text>
+            <text class="num_arr color">{{item.seatCount}}</text>
+            <text class="num_text color">个散座</text>
+          </view>
+          <!-- <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view> -->
+
+        </view>
+      </view>
 
 
 
+    </view>
+    <!-- 客服 -->
+    <button class="contact" open-type="contact">
+      <image src="../images/indexImg/contactcopy.png"></image>
+    </button>
+    <!-- 氪空间出品图片 -->
+    <view class="more">
+      <image src="../images/indexImg/more.png"></image>
+    </view>
   </view>
-  <view class="more">
-    <image src="../images/indexImg/more.png"></image>
-  </view>
-  
 </view>
-
-
-

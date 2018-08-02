@@ -7,12 +7,19 @@ Page({
     return app.globalData.share_data;
   },*/
   data: {
+    con:1,
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    count:0,
+    count:2,
+    number:2,
     tipShow:true,
+  },
+  mysan(){
+    wx.navigateTo({
+      url: '../mysanzuo/mysanzuo'
+    })
   },
   jumpMyMeet:function() {
     wx.navigateTo({
@@ -22,7 +29,7 @@ Page({
   jumpOderList:function(e){
     let status=e.currentTarget.dataset.status;
     wx.navigateTo({
-      url: '../myOrder/myOrder?orderShowStatus='+status
+      url: '../myOrder/myOrder?orderShowStatus='+status+'&con='+1
      })
   },
   closeTip:function(){
@@ -32,8 +39,8 @@ Page({
   },
   onLoad: function () {
     this.getCount();
-    this.getPhone()
-   
+    this.getPhone();
+    this.getCounts()
     
   },
   getPhone:function(){
@@ -45,7 +52,9 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
+          // console.log(res)
           let userInfo=Object.assign({},res.data.data);
+          // console.log(userInfo)
               userInfo.phone=userInfo.phone
             this.setData({
                 userInfo:userInfo
@@ -53,6 +62,7 @@ Page({
         }
     })
   },
+  //我的会议的length
   getCount:function(){
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',
@@ -61,13 +71,28 @@ Page({
           'content-type':"appication/json"
         },
         success:(res)=>{
-              console.log(res)
-              this.setData({
-                count:res.data.data.count
-              })
+          // console.log(res)
+            this.setData({
+              count:res.data.data.count
+            })
         }
     })
   },
-
+  //我的散座的length
+  getCounts:function(){
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/myseat/remainingCount',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+          // console.log(res)
+          this.setData({
+            number:res.data.data
+          })
+        }
+    })
+  },
  
 })

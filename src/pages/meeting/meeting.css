@@ -64,12 +64,17 @@
   border-radius: 50%;
   color: #fff;
 }
+.mary-index{
+  font-size: 20rpx;
+}
+
 .day {
   display: inline-block;
+  line-height: 0 !important;
   width: 72rpx;
   height: 72rpx;
   margin: 0 17.57rpx;
-  line-height: 72rpx;
+  
   text-align: center;
 }
 .wrapper {
@@ -84,4 +89,38 @@
   background: #fff;
   position: absolute;
   bottom: 0;
+}
+.los{
+  width: 100%;
+  display: flex
+  
+}
+
+.week-index{
+  width: 20%;
+  text-align: center;
+}
+.number-x{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.number-index{
+  width: 104rpx;
+  height: 6rpx;
+}
+.inner{
+ background-color: red;
+}
+.innon{
+  color: green
+}
+.jia-img{
+  width: 78rpx;
+  height: 78rpx
+}
+.jian-img{
+  width: 78rpx;
+  height: 78rpx
 }

@@ -63,8 +63,11 @@ Page({
           })
         }
       })
-    }else{
+    }else if(type=='submit'){
       this.submitPhone()
+    }else if(type=='seat_submit'){
+      console.log(1111)
+      this.submitSeatPhone()
     }
     
   },
@@ -79,8 +82,54 @@ Page({
           "linkPhone":that.data.inputValue,
         },
         success:(res)=>{
-          
+          console.log(res)
 
+          if(res.data.code>0){
+            wx.navigateBack({
+              delta: 1
+            })
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+        },
+        fail:(res)=>{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          
+        }
+      })
+  },
+  submitSeatPhone:function(){
+    let that = this;
+    //接口待定
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/seat/order/edit',
+        method:"get",
+        data:{
+          'orderId':that.data.orderId,
+          "linkPhone":that.data.inputValue,
+        },
+        success:(res)=>{
+          // console.log(res)
 
           if(res.data.code>0){
             wx.navigateBack({
@@ -119,6 +168,7 @@ Page({
   onLoad: function (options) {
     let type = options.type;
     let phone = ''
+    // console.log(options)
     if(options.linkPhone=='undefined'){
       phone = ''
     }else{
@@ -126,12 +176,16 @@ Page({
     }
     let that = this;
     if(type == 'submit'){
+      // console.log(phone,options.type,options.orderId,88888)
       this.setData({
         inputValue: phone || '',
         type:options.type,
         orderId:options.orderId
 
       })
+       
+      
+
     }else if(type == 'storage'){
       wx.getStorage({
         key: 'order_pay',
@@ -149,6 +203,14 @@ Page({
             order_pay:{},
           })
         }
+      })
+    }else if(type == 'seat_submit'){
+
+      this.setData({
+        inputValue: phone || '',
+        type:options.type,
+        orderId:options.orderId
+
       })
     }
   },
