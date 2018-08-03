@@ -31,7 +31,8 @@
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
-    "pages/component/component"
+    "pages/component/component",
+    "pages/activityDetails/activity"
   ],
   "window": {
     "backgroundTextStyle": "light",
