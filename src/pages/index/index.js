@@ -22,58 +22,33 @@ Page({
     duration: 1000,
     buildingList: [],
     myMeeting: [],
-    noOpenBuilding: []
-    // noOpenBuilding: [
-    //   {
-    //     buildName: "海峡国际大厦",
-    //     buildAddress: "北京市西城区三里河东路30号院1号楼海峡国际大厦",
-    //     buildImgUrl: "../images/indexImg/hxgj.jpg",
-    //     distance: "",
-    //     meetingCount: "18"
-    //   },
-    //   {
-    //     buildName: "吉祥大厦",
-    //     buildAddress: "北京市东城区王府井大街88号",
-    //     buildImgUrl: "../images/indexImg/jxds.jpg",
-    //     distance: "",
-    //     meetingCount: "6"
-    //   },
-    //   {
-    //     buildName: "华山路",
-    //     buildAddress: "上海市静安区华山路328号",
-    //     buildImgUrl: "../images/indexImg/hsl.jpg",
-    //     distance: "",
-    //     meetingCount: "18"
-    //   },
-    //   {
-    //     buildName: "凯旋路",
-    //     buildAddress: "上海市长宁区凯旋路399号1幢",
-    //     buildImgUrl: "../images/indexImg/kxl.jpg",
-    //     distance: "",
-    //     meetingCount: "18"
-    //   },
-    //   {
-    //     buildName: "由由国际",
-    //     buildAddress: "上海市浦东新区浦建路76号由由国际广场写字楼",
-    //     buildImgUrl: "../images/indexImg/zygj.jpg",
-    //     distance: "",
-    //     meetingCount: "6"
-    //   },
-    //   {
-    //     buildName: "由由世纪",
-    //     buildAddress: "上海市浦东新区杨高南路428号由由世纪1号楼写字楼名义楼层",
-    //     buildImgUrl: "../images/indexImg/zysj.jpg",
-    //     distance: "",
-    //     meetingCount: "6"
-    //   },
-    //   {
-    //     buildName: "田林路",
-    //     buildAddress: "上海市徐汇区田林路130号20号楼",
-    //     buildImgUrl: "../images/indexImg/tll.jpg",
-    //     distance: "",
-    //     meetingCount: "8"
-    //   }
-    // ]
+    noOpenBuilding: [],
+    preIndex: 0,
+    activity: {
+      flag: true,
+      current: 0,
+      duration: 500,
+      previousMargin: "26rpx",
+      nextMargin: "26rpx",
+      circular: false,
+      imageUrl: [
+        {
+          id: 1,
+          url:
+            "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg"
+        },
+        {
+          id: 2,
+          url:
+            "http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg"
+        },
+        {
+          id: 3,
+          url:
+            "http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg"
+        }
+      ]
+    }
   },
   rq_data: {
     latitude: "",
@@ -83,6 +58,31 @@ Page({
   func_bool_l: false,
   func_bool_l2: false,
   func_bool_s: false,
+  //活动轮播变化
+  acitvityChange: function(e) {
+    console.log(e.detail);
+
+    if (e.detail.source == "touch") {
+      this.setData({
+        preIndex: e.detail.current
+      });
+
+      // if (this.data.preIndex == 0 && this.data.activity.current > 0) {
+      //   this.setData({
+      //     preIndex: this.data.activity.current
+      //   });
+      // } else {
+      //   this.setData({
+      //     "activity.current": this.data.preIndex
+      //   });
+      // }
+      // console.log(this.data.activity.imageUrl.length - 1);
+    }
+  },
+  //活动详情页
+  goActivityDetail: function(e) {
+    console.log(e.currentTarget.dataset.id);
+  },
   //打开地图
   openmap: function() {
     var that = this;
@@ -203,12 +203,14 @@ Page({
                 that.func_bool_g = false;
                 that.func_bool_l = false;
                 that.getAllInfo();
+                // that.getActivity();
                 that.getInfo();
               }
               if (that.func_bool_l2 && that.func_bool_s) {
                 that.func_bool_s = false;
                 that.func_bool_l2 = false;
                 that.getAllInfo();
+
                 that.getInfo();
               }
             }
@@ -237,11 +239,21 @@ Page({
         }
       }
     });
-    // this.getAllInfo();
   },
   onShow: function() {
     this.getAllInfo();
   },
+  //首页活动接口
+  getActivity: function() {
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmactivity/my/list",
+      success: res => {
+        console.log(res);
+      }
+    });
+  },
+  //首页接口
   getAllInfo: function() {
     var that = this;
     app.getRequest({
@@ -255,7 +267,17 @@ Page({
           var mansion = Object.assign({}, res);
           // console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
-          var myMeeting = mansion.data.data.myTodo.slice(0, 5);
+          var myMeeting = mansion.data.data.myTodo;
+          myMeeting.push({
+            todoTime: "11-29 (周三)  9:00-10:30",
+            title: "【王牌之夜】氪空间大都会社区开业...",
+            content: "海航实业大厦8层(氪空间)  8G",
+            descr:
+              "北京市朝阳区建国路108号建国路108号号8层氪空间8层氪空间8层氪空间8层氪8",
+            targetType: "huodong",
+            targetId: 123
+          });
+          // var myMeeting = mansion.data.data.myTodo.slice(0, 5);
           //排序
           buildingList.sort(function(a, b) {
             return a.distance - b.distance;
@@ -290,6 +312,13 @@ Page({
           if (myMeeting.length > 1) {
             that.setData({
               indicatorDots: true
+            });
+          }
+          //如果只有一个活动
+          if (that.data.activity.imageUrl.length == 1) {
+            that.setData({
+              "activity.nextMargin": "0rpx",
+              "activity.previousMargin": "0rpx"
             });
           }
         }
@@ -370,6 +399,10 @@ Page({
     wx.navigateTo({
       url: "../seatDetail/seatDetail?seatId=" + seatId
     });
+  },
+  //点击活动card
+  moveToActivity: res => {
+    console.log(res);
   },
   // jumpToMeetingDetail: function() {
   //   var inviteeId = this.data.myMeeting[0].id;
