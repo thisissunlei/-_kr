@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/activityQuickMark/activityQuickMark",
     "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",
     "pages/seatorderConfirmation/seatorderConfirmation",

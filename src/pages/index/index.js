@@ -388,7 +388,11 @@ Page({
   },
   //点击活动card
   moveToActivity: res => {
-    console.log(res);
+    // console.log(res);
+    var joinId = res.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "../activityQuickMark/activityQuickMark?joinId=" + joinId
+    });
   },
   // jumpToMeetingDetail: function() {
   //   var inviteeId = this.data.myMeeting[0].id;

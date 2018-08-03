@@ -4,7 +4,7 @@ var QR = require("../../utils/qrcode.js");
 const app = getApp();
 Page({
   data: {
-    width: 0,
+    // width: 0,
     seatId: 0, //我的散座传过来的id
     seatStatus: "",
     canInvite: "",
@@ -111,12 +111,12 @@ Page({
     var that = this;
     // console.log(that.data.seatStatus);
     //设置canvsa大小
-    wx.getSystemInfo({
-      success: function(res) {
-        // console.log(res);
-        that.data.width = res.windowWidth;
-      }
-    });
+    // wx.getSystemInfo({
+    //   success: function(res) {
+    // console.log(res);
+    //     that.data.width = res.windowWidth;
+    //   }
+    // });
 
     if (that.data.seatStatus == "EXPIRED" || that.data.seatStatus == "USED") {
       QR.qrApi.draw(
@@ -124,8 +124,8 @@ Page({
         "https://web.krspace.cn/kr_seat/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
-        that.data.width / 2.5,
-        that.data.width / 2.5,
+        150,
+        150,
         null,
         "rgba(0,0,0,0.3)"
       );
@@ -136,8 +136,8 @@ Page({
         "https://web.krspace.cn/kr_seat/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
-        that.data.width / 2.5,
-        that.data.width / 2.5
+        150,
+        150
       );
     }
   },
