@@ -33,17 +33,17 @@ Page({
       circular: false,
       imageUrl: [
         {
-          id: 1,
+          activityId: 520,
           url:
             "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg"
         },
         {
-          id: 2,
+          activityId: 38,
           url:
             "http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg"
         },
         {
-          id: 3,
+          activityId: 438,
           url:
             "http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg"
         }
@@ -60,28 +60,21 @@ Page({
   func_bool_s: false,
   //活动轮播变化
   acitvityChange: function(e) {
-    console.log(e.detail);
+    // console.log(e.detail);
 
     if (e.detail.source == "touch") {
       this.setData({
         preIndex: e.detail.current
       });
-
-      // if (this.data.preIndex == 0 && this.data.activity.current > 0) {
-      //   this.setData({
-      //     preIndex: this.data.activity.current
-      //   });
-      // } else {
-      //   this.setData({
-      //     "activity.current": this.data.preIndex
-      //   });
-      // }
-      // console.log(this.data.activity.imageUrl.length - 1);
     }
   },
   //活动详情页
   goActivityDetail: function(e) {
     console.log(e.currentTarget.dataset.id);
+    let activityId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "../activityDetails/activityDetails?activityId=" + activityId
+    });
   },
   //打开地图
   openmap: function() {
@@ -312,13 +305,6 @@ Page({
           if (myMeeting.length > 1) {
             that.setData({
               indicatorDots: true
-            });
-          }
-          //如果只有一个活动
-          if (that.data.activity.imageUrl.length == 1) {
-            that.setData({
-              "activity.nextMargin": "0rpx",
-              "activity.previousMargin": "0rpx"
             });
           }
         }
