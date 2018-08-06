@@ -2,23 +2,24 @@
 <template name="seat">
     <view class="wrapper">
 	    <view class="date">
-	            <view class="number-x">
-	                <image src='../images/date/zuo.png' class="number-index"></image>
-	                <text class="count">数量</text>
-	                <image src='../images/date/you.png' class="number-index"></image>
-	            </view>
-	            <view class="los" style="display:flex;  align-items: center;">
-	                <view class="week-index" bindtap='reduceNum'>
-	                    <image src="{{reduce_btn ? '../images/date/jia_a.png' : '../images/date/jian.png'}}" class="jia-img"></image>
-	                </view>
-	                <view class="week-index1">{{number}}</view>
-	                <view class="week-index" bindtap='addNum' style="{{zheng == false ? 'pointer-events:none;' :''}}">
-	                    <image src="{{add_btn  ? '../images/date/huang.png' : '../images/date/hui.png'}} "  class="jian-img {{number < Maximum?'huang':'hui'}}"></image>
-	                </view>
-	            </view>
-	          <view class="select-data">请选择会议日期</view>
-	  
-	          <view class="week">
+          	<view class="number-x">
+                <image src='../images/date/zuo.png' class="number-index"></image>
+                <text class="count">数量</text>
+                <image src='../images/date/you.png' class="number-index"></image>
+            </view>
+            <view class="los" style="display:flex;  align-items: center;">
+                <view class="week-index" bindtap='reduceNum'>
+                    <image src="{{reduce_btn ? '../images/date/jia_a.png' : '../images/date/jian.png'}}" class="jia-img"></image>
+                </view>
+                <view class="week-index1">{{final_num}}</view>
+                <view class="week-index" bindtap='addNum' style="{{zheng == false ? 'pointer-events:none;' :''}}">
+                    <image src="{{add_btn  ? '../images/date/huang.png' : '../images/date/hui.png'}} "  class="jian-img {{number < Maximum?'huang':'hui'}}"></image>
+                </view>
+            </view>
+
+          	<view class="select-data">请选择会议日期</view>
+  
+	         <view class="week">
 	            <text class="week-day">日</text>
 	            <text class="week-day">一</text>
 	            <text class="week-day">二</text>
@@ -26,54 +27,25 @@
 	            <text class="week-day">四</text>
 	            <text class="week-day">五</text>
 	            <text class="week-day">六</text>
-	          </view>
-	          <view class="now-date">{{date_now.value}}</view>
-	          <view  bindtap="dateBtn">
-	            <view wx:for="{{date_data1}}" 
-	            	  wx:key="{{index}}"
-	                  data-value="{{i.value}}" 
-	                  data-bool='{{i.type}}' 
-	                  data-seat='{{i.seat}}'
-	                  data-date_times='{{i.date_times}}'
-	                  data-data='date_data1'
-	                  data-num='{{index}}'
-	                  wx:for-item="i" 
-	                  class='{{i.type}} day {{i.seat?"seat-date":""}}'>
-	        
-	              {{i.value}}
-	                <view  data-value="{{i.value}}" 
-	                  data-bool='{{i.type}}' 
-	                  data-seat='{{i.seat}}'
-	                  data-date_times='{{i.date_times}}'
-	                  data-data='date_data1'
-	                  data-num='{{index}}' wx:if="{{i.seat}}" class="price">¥ {{i.price_vlue}}
-	                </view>
-	            </view>
-	          
-	          </view>
-	          <view class="now-date">{{date_next.value}}</view>
-	          <view  bindtap="dateBtn">
-	            <view  wx:for="{{date_data2}}" 
-	            	   wx:key="{{index}}"
-	                  data-value="{{i.value}}" 
-	                  data-bool='{{i.type}}' 
-	                  data-month='{{date_next.month}}'
-	                  data-year='{{date_next.year}}' 
-	                  data-data='date_data2' 
-	                  data-num='{{index}}'  
-	                  wx:for-item="i"  
-	                  class='{{i.type}} day {{i.seat?"seat-date":""}}'>
-	              {{i.value}}
-	              <view  data-value="{{i.value}}" 
-	                  data-bool='{{i.type}}' 
-	                  data-seat='{{i.seat}}'
-	                  data-date_times='{{i.date_times}}'
-	                  data-data='date_data1'
-	                  data-num='{{index}}' wx:if="{{i.seat}}" class="price">¥ {{i.price_vlue}}
-	               </view>
-	            </view>
-	          </view>
-	    </view>
+	         </view>
+          	<view class="now-date">{{date_now.value}}</view>
+          	<view  bindtap="dateBtn">
+	          	<view wx:for="{{date_data1}}" wx:for-item="i"  wx:key='{{index}}' data-alldata='{{i}}' data-data='date_data1' class='{{i.type}} day {{i.seat?"seat-date":""}}'>
+	            	{{i.value}}
+	            	<view class="price" data-alldata='{{i}}' data-data='date_data1' wx:if="{{i.seat}}">¥ {{i.price_vlue}}</view>
+          		</view> 
+          	</view>
+          	<view class="now-date">{{date_next.value}}</view>
+          	<view  bindtap="dateBtn">
+            	<view  wx:for="{{date_data2}}" wx:for-item="i" wx:key='{{index}}' data-alldata='{{i}}' data-data='date_data2' class='{{i.type}} day {{i.seat?"seat-date":""}}' wx:key='{{index}}'>
+              		{{i.value}}
+              		<view wx:if="{{i.seat}}"  data-alldata='{{i}}' data-data='date_data2' class="price">¥ {{i.price_vlue}}</view>
+            	</view>
+
+          	</view>
+      
+      
+    	</view>
   	</view>
 </template>
 <!-- 单纯的日历 -->
@@ -81,8 +53,8 @@
     <view class="wrapper">
 	    <view class="date">
 	          <view class="select-data">请选择会议日期</view>
-	  
-	          <view class="week">
+  
+	         <view class="week">
 	            <text class="week-day">日</text>
 	            <text class="week-day">一</text>
 	            <text class="week-day">二</text>
@@ -90,39 +62,20 @@
 	            <text class="week-day">四</text>
 	            <text class="week-day">五</text>
 	            <text class="week-day">六</text>
-	          </view>
-	          <view class="now-date">{{date_now.value}}</view>
-	          <view  bindtap="dateBtn">
-	            <view wx:for="{{date_data1}}" 
-	            	  wx:key="{{index}}"
-	                  data-value="{{i.value}}" 
-	                  data-bool='{{i.type}}' 
-	                  data-seat='{{i.seat}}'
-	                  data-date_times='{{i.date_times}}'
-	                  data-data='date_data1'
-	                  data-num='{{index}}'
-	                  wx:for-item="i" 
-	                  class='{{i.type}} day'>
-	        
-	              {{i.value}}
-	            </view>
-	          
-	          </view>
-	          <view class="now-date">{{date_next.value}}</view>
-	          <view  bindtap="dateBtn">
-	            <view  wx:for="{{date_data2}}" 
-	            	   wx:key="{{index}}"
-	                  data-value="{{i.value}}" 
-	                  data-bool='{{i.type}}' 
-	                  data-month='{{date_next.month}}'
-	                  data-year='{{date_next.year}}' 
-	                  data-data='date_data2' 
-	                  data-num='{{index}}'  
-	                  wx:for-item="i"  
-	                  class='{{i.type}} day'>
-	              	{{i.value}}
-	            </view>
-	          </view>
+	         </view>
+          	<view class="now-date">{{date_now.value}}</view>
+          	<view  bindtap="dateBtn">
+	          	<view wx:for="{{date_data1}}" wx:for-item="i"  wx:key='{{index}}' data-alldata='{{i}}' data-data='date_data1' class='{{i.type}} day '>
+	            	{{i.value}}
+          		</view> 
+          	</view>
+          	<view class="now-date">{{date_next.value}}</view>
+          	<view  bindtap="dateBtn">
+            	<view  wx:for="{{date_data2}}" wx:for-item="i" wx:key='{{index}}' data-alldata='{{i}}' data-data='date_data2' class='{{i.type}} day ' wx:key='{{index}}'>
+              		{{i.value}}
+            	</view>
+
+          	</view>
 	    </view>
   	</view>
 </template>
