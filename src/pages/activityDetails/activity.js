@@ -5,11 +5,13 @@ Page({
     data: {
         activityId: null,
         info: {},
+        beginTime: {},
+        endTime: {},
         markShow: false,
         presonModalShow: false, // 显示已报名人弹窗
         signUpShow: false, // 显示立即报名弹窗
         tip: '报名成功', // 提示文字 报名失败 网络粗错了，请稍后再试
-        tipSrc: '../images/public/error.png', // 提示图片 success.png https://web.krspace.cn/kr-meeting/images/activity/icon_i.png
+        tipSrc: '', // 提示图片 success.png https://web.krspace.cn/kr-meeting/images/activity/icon_i.png
         tipWidth: 280, // 提示宽度 280 424
         tipShow: false,
         apiTipShow: false,
@@ -34,44 +36,59 @@ Page({
                 activityId: this.data.activityId
             },
             success: (res) => {
+                console.log(res)
+                // if ( res.data.code == -1 ) {} else {}
+
                 this.setData({
                     info: {
-                        "address": "测试内容nd7a",
+                        "address": "地址",
                         "beginDate": "测试内容z2gc",
-                        "beginTime": "测试内容brkf",
-                        "canJoin": false,
+                        "beginTime": 1533275560000,
+                        "canJoin": true,
                         "content": "测试内容33t1",
                         "coverPic": "测试内容2tm2",
                         "endDate": "测试内容aet7",
-                        "endTime": "测试内容80p1",
+                        "endTime": 1533225600000,
                         "isBind": true,
                         "isExpire": false,
-                        "joinCount": "测试内容l5j4",
+                        "joinCount": 8,
                         "joiners": [
-                            {
-                                "wechatAvatar": "测试内容ge0b",
-                                "wechatId": 56346,
-                                "wechatNick": "测试内容i6j2"
-                            }
+                            {"wechatAvatar": "../images/share_pic.jpg"},
+                            {"wechatAvatar": "../images/share_pic.jpg"},
+                            {"wechatAvatar": "../images/share_pic.jpg"},
+                            {"wechatAvatar": "../images/share_pic.jpg"},
+                            {"wechatAvatar": "../images/share_pic.jpg"},
+                            {"wechatAvatar": "../images/share_pic.jpg"},
+                            {"wechatAvatar": "../images/share_pic.jpg"},
+                            {"wechatAvatar": "../images/share_pic.jpg"},
+                            {"wechatAvatar": "../images/share_pic.jpg"}
                         ],
                         "latitude": "测试内容0kc5",
-                        "limitCount": 56307,
+                        "limitCount": 10,
                         "longtitude": "测试内容4wpf",
                         "notice": "测试内容hl75",
                         "partners": [
                             {
-                                "partnerLogo": "测试内容727h"
+                                "partnerLogo": "../images/share_pic.jpg"
+                            },
+                            {
+                                "partnerLogo": "../images/share_pic.jpg"
                             }
                         ],
-                        "price": 41671,
-                        "sharePic": "测试内容o570",
+                        "price": 0,
+                        "sharePic": "../images/share_pic.jpg",
                         "site": "测试内容9r2f",
                         "sponsorIntro": "测试内容jv08",
-                        "sponsorLogo": "测试内容9h84",
+                        "sponsorLogo": "../images/share_pic.jpg",
                         "sponsorName": "测试内容7j9e",
                         "title": "测试内容wu13"
                     }
                 })
+                wx.setNavigationBarTitle({
+                    title: this.data.info.title
+                })
+                this.getTime('beginTime', this.data.info.beginTime)
+                this.getTime('endTime', this.data.info.endTime)
             },
             fail: (res) => {
                 console.log(1)
@@ -80,10 +97,10 @@ Page({
     },
     onShareAppMessage(res) {
         return {
-            title: "开启轻松、灵活办公新方式",
+            title: this.data.info.title,
             desc: "氪空间自由座",
             path: "pages/activityDetails/activity",
-            imageUrl: "../images/share_pic.jpg"
+            imageUrl: this.data.info.sharePic
         };
     },
     getPresonList() {
@@ -93,10 +110,16 @@ Page({
         })
     },
     signUpShow() {
-        this.setData({
-            markShow: true,
-            signUpShow: true
-        })
+        if ( !!this.data.info.isBind ) {
+            this.setData({
+                markShow: true,
+                signUpShow: true
+            })
+        } else {
+            wx.navigateTo({
+                url: '../bindPhone/bindPhone'
+            });
+        }
     },
     modalHide() {
         if ( !!this.data.tipShow || !!this.data.apiTipShow ) {
@@ -146,18 +169,56 @@ Page({
             markShow: false,
             signUpShow: false
         })
+
+        app.getRequest({
+            url: app.globalData.KrUrl + 'api/gateway/kmactivity/detail',
+            methods: "GET",
+            data: this.data.signUpData,
+            success: (res) => {
+                if ( res.data.code == -1 ) {
+                    this.setTip('apiTip', res.message, '../images/public/error.png')
+                } else {
+                    this.setTip('apiTip', '报名成功', '../images/public/success.png')
+                    setTimeout(() => {
+                        this.setData({
+                            markShow: false,
+                            signUpShow: false
+                        })
+                    }, 2000)
+                }
+            },
+            fail: (res) => {
+                this.setTip('netTip', '网络粗错了，请稍后再试', 'https://web.krspace.cn/kr-meeting/images/activity/icon_i.png')
+            }
+        })
     },
-    setTip(type, txt) {
+    setTip(type, txt, icon) {
         if ( type === 'tip' ) {
             this.setData({
                 tip: txt,
                 tipShow: true
             })
+        } else if (type === 'apiTip') {
+            this.setData({
+                tip: txt,
+                tipSrc: icon,
+                tipWidth: 280,
+                apiTipShow: true
+            })
+        } else {
+            this.setData({
+                tip: txt,
+                tipSrc: icon,
+                tipWidth: 424,
+                apiTipShow: true
+            })
         }
         setTimeout(() => {
             this.setData({
                 tip: '',
-                tipShow: false
+                tipSrc: '',
+                tipShow: false,
+                apiTipShow: false
             })
         }, 2000)
     },
@@ -169,6 +230,28 @@ Page({
     clearPhoneInput() {
         this.setData({
             ['signUpData.phone']: ''
+        })
+    },
+    getTime(state, time) {
+        let week = ''
+        switch ( new Date(parseInt(time)).getDay() ) {
+            case 0:week="周日";break
+            case 1:week="周一";break
+            case 2:week="周二";break
+            case 3:week="周三";break
+            case 4:week="周四";break
+            case 5:week="周五";break
+            case 6:week="周六";break
+        }
+        let h = new Date(parseInt(time)).getHours() >= 10 ? new Date(parseInt(time)).getHours() : '0' + new Date(parseInt(time)).getHours()
+        let m = new Date(parseInt(time)).getMinutes() >= 10 ? new Date(parseInt(time)).getMinutes() : '0' + new Date(parseInt(time)).getMinutes()
+        let day = {
+            y: new Date(parseInt(time)).getFullYear(),
+            d: new Date(parseInt(time)).getMonth() + 1 + '月' + new Date(parseInt(time)).getDate() + '日' + '（' + week + '）',
+            t: h + ':' + m
+        }
+        this.setData({
+            [state]: day
         })
     }
 })

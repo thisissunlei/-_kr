@@ -47,6 +47,7 @@ Page({
     this.getCount();
     this.getPhone();
     this.getCounts()
+    this.getActivityCount();
     
   },
   getPhone:function(){
@@ -97,6 +98,20 @@ Page({
           this.setData({
             number:res.data.data
           })
+        }
+    })
+  },
+  getActivityCount:function(){
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/kmactivity/my/remaing/count',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+            this.setData({
+              activityCount:res.data.data
+            })
         }
     })
   },
