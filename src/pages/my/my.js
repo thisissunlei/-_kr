@@ -103,14 +103,14 @@ Page({
   },
   getActivityCount:function(){
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/invitee/count',
+        url:app.globalData.KrUrl+'api/gateway/kmactivity/my/remaing/count',
         methods:"GET",
         header:{
           'content-type':"appication/json"
         },
         success:(res)=>{
             this.setData({
-              activityCount:res.data.data.count
+              activityCount:res.data.data
             })
         }
     })
