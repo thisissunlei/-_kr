@@ -37,7 +37,8 @@ export class dateData{
       switch (true){
         case i<week:
           data.push({
-            value:''
+            value:'',
+            num:i
           });
           break;
         case i>(today+week)&&bool:
@@ -46,14 +47,16 @@ export class dateData{
               value:i-week+1,
               day_num:i-week+1,
               type:'before',
-              date_times:t_times+24*3600*1000*(i-week)
+              date_times:t_times+24*3600*1000*(i-week),
+              num:i
             });
           }else{
             data.push({
               value:i-week+1,
               day_num:i-week+1,
               type:'next',
-              date_times:t_times+24*3600*1000*(i-week)
+              date_times:t_times+24*3600*1000*(i-week),
+              num:i
             });
           }
           this.all_day_num++;
@@ -64,14 +67,16 @@ export class dateData{
               value:'今天',
               day_num:i-week+1,
               type:'before',
-              date_times:t_times+24*3600*1000*(i-week)
+              date_times:t_times+24*3600*1000*(i-week),
+              num:i
             });
           }else{
             data.push({
               value:'今天',
               day_num:i-week+1,
               type:'now',
-              date_times:t_times+24*3600*1000*(i-week)
+              date_times:t_times+24*3600*1000*(i-week),
+              num:i
             });
           }
           this.all_day_num++;
@@ -82,14 +87,16 @@ export class dateData{
               value:'明天',
               day_num:i-week+1,
               type:'before',
-              date_times:t_times+24*3600*1000*(i-week)
+              date_times:t_times+24*3600*1000*(i-week),
+              num:i
             });
           }else{
             data.push({
               value:'明天',
               day_num:i-week+1,
               type:'now',
-              date_times:t_times+24*3600*1000*(i-week)
+              date_times:t_times+24*3600*1000*(i-week),
+              num:i
             });
           }
           
@@ -101,14 +108,16 @@ export class dateData{
               value:i-week+1,
               day_num:i-week+1,
               type:'before',
-              date_times:t_times+24*3600*1000*(i-week)
+              date_times:t_times+24*3600*1000*(i-week),
+              num:i
             });
           }else{
             data.push({
               value:i-week+1,
               day_num:i-week+1,
               type:'next',
-              date_times:t_times+24*3600*1000*(i-week)
+              date_times:t_times+24*3600*1000*(i-week),
+              num:i
             });
           }
   
@@ -118,29 +127,46 @@ export class dateData{
             value:i-week+1,
             day_num:i-week+1,
             type:'before',
-            date_times:t_times+24*3600*1000*(i-week)
+            date_times:t_times+24*3600*1000*(i-week),
+            num:i
           });
         }
       }
     return data;
     
   }
+  //bool、this.btn_bool:true为会议室，单选
   dateBtn(e,bool){
-    if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
+    if(e.target.dataset.bool&&(e.target.dataset.bool.indexOf('next')>-1||e.target.dataset.bool.indexOf('now')>-1)){
       const new_data = this[e.target.dataset.data];
       if(this[this.last_data]!='false'&&this.btn_bool){
         this[this.last_data][this.last_btn_num]['type'] = this[this.last_data][this.last_btn_num]['type'].replace('active ','');
-      }     
-      new_data[parseInt(e.target.dataset.num)]['type'] = 'active ' + new_data[parseInt(e.target.dataset.num)]['type'];
-       this.last_btn_num = e.target.dataset.num;
-       this.last_data = e.target.dataset.data;  
-      if(this.btn_bool){
-        this.get_value = [e.target.dataset];
-      }else{
-        this.get_value.push(e.target.dataset);
       }
-      console.log(this.getValue())
-      return e.target
+
+      //双击取消
+      let e_type = new_data[parseInt(e.target.dataset.num)]['type'];
+      console.log(e_type,this.btn_bool)
+      if(e_type.indexOf('active')>-1&&!this.btn_bool){
+        new_data[parseInt(e.target.dataset.num)]['type'] =  e_type.replace('active ','');
+        console.log(new_data[parseInt(e.target.dataset.num)]['type'])
+        for(let i = 0;i<this.get_value.length;i++){
+          console.log(e.target.dataset.num , this.get_value[i].num)
+          if(e.target.dataset.num == this.get_value[i].num){
+            this.get_value.splice(i,1);
+          }
+        }
+      }else{
+        new_data[parseInt(e.target.dataset.num)]['type'] = 'active ' + e_type;
+        this.last_btn_num = e.target.dataset.num;
+        this.last_data = e.target.dataset.data;  
+        if(this.btn_bool){
+          this.get_value = [e.target.dataset];
+        }else{
+          this.get_value.push(e.target.dataset);
+        }
+        return e.target
+      }
+      
 
     }
   }
@@ -168,7 +194,7 @@ export class dateDataPrice extends dateData{
     ////console.log(this.curMonth)
     this.dealDataPrice(this.curMonth,this.date_data1);
     this.dealDataPrice(this.nextMonth,this.date_data2);
-    console.log(this.getValue())
+    console.log(this.date_data1,this.date_data2,9999)
   }
   max_num = 1;
   final_num = 1;
@@ -206,7 +232,7 @@ export class dateDataPrice extends dateData{
     }
   }
   addNum(){
-    if(this.final_num<=this.max_num){
+    if(this.final_num<this.max_num){
       this.final_num++;
       for(let i=0;i<this.date_data1.length;i++){
         if(this.date_data1[i].type!='before'){
@@ -238,10 +264,16 @@ export class dateDataPrice extends dateData{
     }
     if(this.final_num>this.max_num){
 
-      return false;
-      console.log(111122333)
+      return {
+        final_num:this.final_num,
+        final_bool:false
+      };
+      
     }else{
-      return true;
+      return {
+        final_num:this.final_num,
+        final_bool:true
+      };
     }
   }
   reduceNum(){
@@ -251,7 +283,7 @@ export class dateDataPrice extends dateData{
         if(this.date_data1[i].value!=''){
           //console.log(this.date_data1[i])
           if(this.date_data1[i]['seat']){
-            if(this.date_data1[i]['seat']['remainQuantity']>this.final_num){
+            if(this.date_data1[i]['seat']['remainQuantity']<=this.final_num){
               if(this.date_data1[i]['price_vlue']=='数量不足'){
                 this.date_data1[i]['type'] = (this.date_data1[i]['value']=='今天'||this.date_data1[i]['value']=='明天') ? 'now' : 'next';
                 this.date_data1[i]['price_vlue'] = this.date_data1[i]['seat']['promotionCost'];
@@ -264,7 +296,7 @@ export class dateDataPrice extends dateData{
         if(this.date_data2[j].value!=''){
           
           if(this.date_data2[j]['seat']){
-            if(this.date_data2[j]['seat']['remainQuantity']<this.final_num){
+            if(this.date_data2[j]['seat']['remainQuantity']<=this.final_num){
               if(this.date_data1[i]['price_vlue']=='数量不足'){
                 this.date_data2[j]['type'] = (this.date_data2[j]['value']=='今天'||this.date_data2[j]['value']=='明天') ? 'now' : 'next';;
                 this.date_data2[j]['price_vlue'] = this.date_data2[j]['seat']['promotionCost'];
@@ -277,11 +309,20 @@ export class dateDataPrice extends dateData{
     }
     if(this.final_num>this.max_num){
 
-      return false;
-      console.log(111122333)
+      return {
+        final_num:this.final_num,
+        final_bool:false
+      };
+      
     }else{
-      return true;
+      console.log(111122333)
+      return {
+        final_num:this.final_num,
+        final_bool:true
+      };
     }
   }
-
+  getFinalNum(){
+    return this.final_num
+  }
 }

@@ -27,7 +27,7 @@
                 <view class="week-index" bindtap='reduceNum'>
                     <image src="{{reduce_btn ? '../images/date/jia_a.png' : '../images/date/jian.png'}}" class="jia-img"></image>
                 </view>
-                <view class="week-index1">{{number}}</view>
+                <view class="week-index1">{{final_num}}</view>
                 <view class="week-index" bindtap='addNum' style="{{zheng == false ? 'pointer-events:none;' :''}}">
                     <image src="{{add_btn  ? '../images/date/huang.png' : '../images/date/hui.png'}} "  class="jian-img {{number < Maximum?'huang':'hui'}}"></image>
                 </view>
@@ -56,12 +56,9 @@
                 class='{{i.type}} day'>
       
             {{i.value}}
-            <view  data-value="{{i.value}}" 
-                data-bool='{{i.type}}' 
-                data-seat='{{i.seat}}'
-                data-date_times='{{i.date_times}}'
-                data-data='date_data1'
-                data-num='{{index}}' wx:if="{{i.seat}}">¥ {{i.price_vlue}}</view>
+            <view  data-value="{{i.value}}" data-bool='{{i.type}}' data-seat='{{i.seat}}' data-date_times='{{i.date_times}}' data-data='date_data1' data-num='{{index}}' wx:if="{{i.seat}}">¥ {{i.price_vlue}}</view>
+
+
           </view>
           
           </view>
