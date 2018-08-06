@@ -78,7 +78,7 @@ Page({
             url:"/pages/seatorderConfirmation/seatorderConfirmation?id="+ss
           })
             },0)
-
+ 
       }
     })
   },
