@@ -45,24 +45,24 @@
           </view>
           <view class="now-date">{{date_now.value}}</view>
           <view  bindtap="dateBtn">
-          <view wx:for="{{date_data1}}" 
-                data-value="{{i.value}}" 
-                data-bool='{{i.type}}' 
-                data-seat='{{i.seat}}'
-                data-date_times='{{i.date_times}}'
-                data-data='date_data1'
-                data-num='{{index}}'
-                wx:for-item="i" 
-                class='{{i.type}} day'>
-      
-            {{i.value}}
-            <view  data-value="{{i.value}}" 
-                data-bool='{{i.type}}' 
-                data-seat='{{i.seat}}'
-                data-date_times='{{i.date_times}}'
-                data-data='date_data1'
-                data-num='{{index}}' wx:if="{{i.seat}}">¥ {{i.price_vlue}}</view>
-          </view>
+            <view wx:for="{{date_data1}}" 
+                  data-value="{{i.value}}" 
+                  data-bool='{{i.type}}' 
+                  data-seat='{{i.seat}}'
+                  data-date_times='{{i.date_times}}'
+                  data-data='date_data1'
+                  data-num='{{index}}'
+                  wx:for-item="i" 
+                  class='{{i.type}} day {{i.seat?"seat-date":""}}'>
+        
+              {{i.value}}
+              <view  data-value="{{i.value}}" 
+                  data-bool='{{i.type}}' 
+                  data-seat='{{i.seat}}'
+                  data-date_times='{{i.date_times}}'
+                  data-data='date_data1'
+                  data-num='{{index}}' wx:if="{{i.seat}}" class="price">¥ {{i.price_vlue}}</view>
+            </view>
           
           </view>
            
@@ -85,9 +85,9 @@
                   data-data='date_data2' 
                   data-num='{{index}}'  
                   wx:for-item="i"  
-                  class='{{i.type}} day'>
+                  class='{{i.type}} day {{i.seat?"seat-date":""}}'>
               {{i.value}}
-              <view class="u-meet-old-num" wx:if="{{i.seat}}">¥ {{i.price_vlue}}</view>
+              <view class="u-meet-old-num" wx:if="{{i.seat}}" class="price">¥ {{i.price_vlue}}</view>
             </view>
 
           </view>
