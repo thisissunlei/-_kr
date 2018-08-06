@@ -46,14 +46,14 @@
           <view class="now-date">{{date_now.value}}</view>
           <view  bindtap="dateBtn">
 
-          <view wx:for="{{date_data1}}" 
+          <view wx:for="{{date_data1}}" wx:for-item="i"  data-alldata="{{i}}"
                 data-value="{{i.value}}" 
                 data-bool='{{i.type}}' 
                 data-seat='{{i.seat}}'
                 data-date_times='{{i.date_times}}'
                 data-data='date_data1'
                 data-num='{{index}}'
-                wx:for-item="i" 
+                
                 class='{{i.type}} day {{i.seat?"seat-date":""}}'>
       
             {{i.value}}

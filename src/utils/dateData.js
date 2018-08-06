@@ -137,7 +137,7 @@ export class dateData{
   }
   //bool、this.btn_bool:true为会议室，单选
   dateBtn(e,bool){
-    if(e.target.dataset.bool&&(e.target.dataset.bool.indexOf('next')>-1||e.target.dataset.bool.indexOf('now')>-1)){
+    if(e.target.dataset.alldata.type&&(e.target.dataset.alldata.type.indexOf('next')>-1||e.target.dataset.alldata.type.indexOf('now')>-1)){
       const new_data = this[e.target.dataset.data];
       if(this[this.last_data]!='false'&&this.btn_bool){
         this[this.last_data][this.last_btn_num]['type'] = this[this.last_data][this.last_btn_num]['type'].replace('active ','');
@@ -201,31 +201,34 @@ export class dateDataPrice extends dateData{
   
   dealDataPrice(month_arr,store_data){
     let data_num = 0;
-    if(month_arr&&month_arr.length>0){
+    if(month_arr){
       for(let i = 0;i<store_data.length;i++){
-        //console.log(month_arr[data_num])
-        if(month_arr[data_num]){
+        
+        if(month_arr[data_num]&&month_arr.length>0){
           const data_day = new Date(month_arr[data_num].useTime).getDate();
-          //console.log(data_day,store_data[i].day_num,new Date(store_data[i].date_times).getDate(),store_data[i],1111)
-   
+          console.log(store_data[i].day_num,data_day)
           if(store_data[i].day_num == data_day){
-            if(store_data[i].type&&store_data[i].type!='before'){
-              store_data[i].seat = month_arr[data_num];
-
-              const arr_num = month_arr[data_num]['remainQuantity'];
-              if(arr_num<1){
-                store_data[i].type = 'before';
-                store_data[i].price_vlue = '已售罄'
-              }else{
-                store_data[i].price_vlue = month_arr[data_num]['promotionCost'];
+              if(store_data[i].type&&store_data[i].type!='before'){
+                  store_data[i].seat = month_arr[data_num];
+                  const arr_num = month_arr[data_num]['remainQuantity'];
+                  if(arr_num<1){
+                    store_data[i].type = 'before';
+                    store_data[i].price_vlue = '已售罄'
+                  }else{
+                    store_data[i].price_vlue = month_arr[data_num]['promotionCost'];
+                  }
+                  if(this.max_num<arr_num){
+                    this.max_num = arr_num;
+                  }
               }
-              if(this.max_num<arr_num){
-                this.max_num = arr_num;
-              }
-            }
-            
-            data_num++;
+              data_num++;
+          }else{
+            //返回数据没有数量的，不可点击
+            store_data[i].type = 'before';
           }
+        }else{
+          //下个月没有价格数据，全部不可点
+            store_data[i].type = 'before';
         }
         
       }
@@ -236,10 +239,8 @@ export class dateDataPrice extends dateData{
       this.final_num++;
       for(let i=0;i<this.date_data1.length;i++){
         if(this.date_data1[i].type!='before'){
-          //console.log(this.date_data1[i])
           if(this.date_data1[i]['seat']){
             if(this.date_data1[i]['seat']['remainQuantity']<this.final_num){
-
               this.date_data1[i]['type'] = 'before';
               this.date_data1[i]['price_vlue'] = '数量不足';
             }
@@ -248,14 +249,10 @@ export class dateDataPrice extends dateData{
       }
       for(let j=0;j<this.date_data2.length;j++){
         if(this.date_data2[j].type!='before'){
-          
           if(this.date_data2[j]['seat']){
-            console.log(888,this.date_data2[j]['seat']['remainQuantity'],this.final_num)
             if(this.date_data2[j]['seat']['remainQuantity']<this.final_num){
-              
               this.date_data2[j]['type'] = 'before';
               this.date_data2[j]['price_vlue'] = '数量不足';
-              console.log(999,this.date_data2[j]['type'],this.date_data2[j])
             }
           }
         }
@@ -263,12 +260,10 @@ export class dateDataPrice extends dateData{
       
     }
     if(this.final_num>this.max_num){
-
       return {
         final_num:this.final_num,
         final_bool:false
       };
-      
     }else{
       return {
         final_num:this.final_num,
@@ -281,7 +276,6 @@ export class dateDataPrice extends dateData{
       this.final_num--;
       for(let i=0;i<this.date_data1.length;i++){
         if(this.date_data1[i].value!=''){
-          //console.log(this.date_data1[i])
           if(this.date_data1[i]['seat']){
             if(this.date_data1[i]['seat']['remainQuantity']<=this.final_num){
               if(this.date_data1[i]['price_vlue']=='数量不足'){
@@ -293,8 +287,7 @@ export class dateDataPrice extends dateData{
         }
       }
       for(let j=0;j<this.date_data2.length;j++){
-        if(this.date_data2[j].value!=''){
-          
+        if(this.date_data2[j].value!=''){         
           if(this.date_data2[j]['seat']){
             if(this.date_data2[j]['seat']['remainQuantity']<=this.final_num){
               if(this.date_data1[i]['price_vlue']=='数量不足'){
@@ -305,17 +298,13 @@ export class dateDataPrice extends dateData{
           }
         }
       }
-      
     }
     if(this.final_num>this.max_num){
-
       return {
         final_num:this.final_num,
         final_bool:false
       };
-      
     }else{
-      console.log(111122333)
       return {
         final_num:this.final_num,
         final_bool:true

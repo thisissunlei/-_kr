@@ -192,7 +192,7 @@ Page({
      methods:"GET",
      data:{
       seatId:1,
-      dateTime:'2018-08-08'
+      //dateTime:'2018-08-25'
      },
      success:res=>{
       //console.log(dateData,res,new dateDataPrice(res.data.data))
@@ -202,7 +202,7 @@ Page({
                   //btn_bool:true,
                   data:res.data.data,
                   init_data:{
-                    last_btn_num:22,
+                    last_btn_num:22,//日期+week-1
                     last_data:'date_data1',        
                   },
                 });
