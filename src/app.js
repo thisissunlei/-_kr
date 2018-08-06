@@ -57,7 +57,7 @@ App({
       method: data.method || "get",
       header: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Cookie: this.globalData.Cookie
+        Cookie: 'accessToken=oteAb5Fjm-qhr4biiLlUvVj-tQIw; domain=krspace.cn; path=/; expires=Fri, 02-Aug-2019 08:58:54 GMT'
       },
       data: data.data,
       success: function(data_new) {
