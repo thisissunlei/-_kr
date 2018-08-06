@@ -2,18 +2,21 @@
     <image class="top-img" mode="aspectFill" src="../images/share_pic.jpg"></image>
 
     <view class="bgF">
-        <view class="title-h1">热力猫俱乐部——周三中文脱口秀开放麦比赛正式开始有多少显示多少</view>
+        <view class="title-h1">{{info.title}}</view>
         <view class="price">
-            <text class="txt">免费</text>
-            <text class="yuan">¥</text><text class="num">200</text>
+            <view wx:if="{{info.price*1 >= 0}}">
+                <text class="yuan">¥</text><text class="num">{{info.price}}</text>
+            </view>
+
+            <text class="txt" wx:else>免费</text>
         </view>
 
-        <view class="preson">
-            <view class="preson-img" wx:for="{{5}}" wx:key="{{index}}"><image mode="aspectFill" src="../images/share_pic.jpg"></image></view>
+        <view class="preson" wx:if="{{!!info.joiners && info.joiners.length > 0}}">
+            <view class="preson-img" wx:for="{{info.joiners}}" wx:key="{{index}}" wx:if="{{index <= 4}}"><image mode="aspectFill" src="{{item.wechatAvatar}}"></image></view>
             <viwe class="preson-right" bindtap="getPresonList">{{info.joinCount}}人已报名</viwe>
         </view>
 
-        <view class="preson">
+        <view class="preson" wx:else>
             <view class="preson-img select"></view>
             <view class="preson-right select">别着急，小伙伴们都在赶来报名的路上呢👉</view>
         </view>
@@ -21,19 +24,19 @@
         <view class="start-stop">
             <view class="time">
                 <view class="start">始</view>
-                <view class="num"><text>{{info.beginTime}} - {{info.endTime}}</text></view>
+                <view class="num"><text>{{beginTime.t}} - {{endTime.t}}</text></view>
                 <view class="stop">终</view>
             </view>
             <view class="data">
-                <view class="start">{{info.beginDate}}</view>
-                <view class="stop">{{info.endDate}}</view>
+                <view class="start">{{beginTime.d}}</view>
+                <view class="stop"><text wx:if="{{beginTime.y != endTime.y}}">{{endTime.y}}年</text>{{endTime.d}}</view>
             </view>
         </view>
 
         <view class="com-site-warp">
             <view class="com-site">
                 <view class="com-site-td">
-                    <view class="name">万科大都会9层·氪空间</view>
+                    <view class="name">{{info.site}}</view>
                     <view class="address">
                         <image mode="scaleToFill" src="https://web.krspace.cn/kr-meeting/images/activity/address.png"></image>
                         <text>{{info.address}}</text>
@@ -46,14 +49,15 @@
 
     <view class="sponsor">
         <view class="sponsor-warp">
-            <image class="img" mode="aspectFill" src="../images/share_pic.jpg"></image>
+            <image class="img" mode="aspectFill" src="{{info.sponsorLogo}}"></image>
             <view class="txt">
                 <view class="title">
-                    <text>北京严肃科技有严肃科技有限公司北京严肃科技有严肃科技有限公司</text>
+                    <text>{{info.sponsorName}}</text>
                 </view>
-                <view class="con">最多显示三行最多显示三行最多显示三行最多显示三行最多显示三行最多显示三行最多显示三行最多显示三行最多显示三行</view>
+                <view class="con">{{info.sponsorIntro}}</view>
             </view>
-            <view class="tip">主办方</view>
+            <!--scaleToFill-->
+            <image class="tip" mode="scaleToFill" src="https://web.krspace.cn/kr-meeting/images/activity/icon_card.png"></image>
         </view>
     </view>
 
@@ -66,10 +70,10 @@
 
     </view>
 
-    <view class="special-thanks">
+    <view class="special-thanks" wx:if="{{!!info.partners && info.partners.length > 0}}">
         <view class="title">特别鸣谢</view>
         <view class="img-list">
-            <view class="img" wx:for="{{8}}" wx:key="{{index}}"><image mode="aspectFill" src="../images/share_pic.jpg"></image></view>
+            <view class="img" wx:for="{{info.partners}}" wx:key="{{index}}"><image mode="aspectFill" src="{{item.partnerLogo}}"></image></view>
         </view>
     </view>
 
@@ -78,9 +82,9 @@
             <image mode="scaleToFill" src="https://web.krspace.cn/kr-meeting/images/activity/icon_share.png"></image>
             <text>分享</text>
         </button>
-        <view class="bind" bindtap="signUpShow">立即报名</view>
-        <!--<view class="bind select">活动结束</view>-->
-        <!--<view class="bind select">报名已满</view>-->
+        <view class="bind" bindtap="signUpShow" wx:if="{{!!info.canJoin && info.joinCount*1 < info.limitCount*1}}">立即报名</view>
+        <view class="bind select" wx:if="{{!info.canJoin}}">活动结束</view>
+        <view class="bind select" wx:if="{{!!info.canJoin && info.joinCount*1 === info.limitCount*1}}">报名已满</view>
     </view>
 
     <view class="activity-mark" wx:if="{{!!markShow}}" bindtap="modalHide"></view>
@@ -90,7 +94,7 @@
                src="https://web.krspace.cn/kr-meeting/images/activity/close.png"></image>
         <scroll-view scroll-y style="max-height: 448rpx;">
             <view class="pmw-img">
-                <view class="pmw-img-list" wx:for="{{20}}" wx:key="{{index}}"><image mode="aspectFill" src="../images/share_pic.jpg"></image></view>
+                <view class="pmw-img-list" wx:for="{{info.joiners}}" wx:key="{{index}}"><image mode="aspectFill" src="{{item.wechatAvatar}}"></image></view>
             </view>
         </scroll-view>
     </view>
