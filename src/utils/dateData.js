@@ -189,13 +189,10 @@ export class dateDataPrice extends dateData{
 
   constructor (parameter){
     super(parameter);
-    //console.log(this,1111,data)
     this.curMonth = parameter.data.curMonth || [];
     this.nextMonth = parameter.data.nextMonth || [];
-    ////console.log(this.curMonth)
     this.dealDataPrice(this.curMonth,this.date_data1);
     this.dealDataPrice(this.nextMonth,this.date_data2);
-    console.log(this.date_data1,this.date_data2,9999)
   }
   max_num = 1;
   final_num = 1;
