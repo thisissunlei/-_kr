@@ -468,20 +468,24 @@ Page({
   },
   reduceNum:function(){
     const reduce_btn_f = this.james.reduceNum();
+     let selecedList = this.james.getValue()
     this.setData({
           date_data1:this.date_data1,
           date_data2:this.date_data2,
+          selecedList: selecedList ,
           add_btn :  reduce_btn_f.final_bool,
           final_num : reduce_btn_f.final_num
         });
   },
   addNum:function(){
     const add_btn_f = this.james.addNum();
+     let selecedList = this.james.getValue()
     this.setData({
           date_data1:this.date_data1,
           date_data2:this.date_data2, 
           add_btn :  add_btn_f.final_bool,
-          final_num : add_btn_f.final_num
+          final_num : add_btn_f.final_num,
+          selecedList: selecedList 
         });
     console.log(this.james.getValue())
   },
@@ -585,11 +589,12 @@ Page({
   },
   onClickDate: function (that){
     let carendar = JSON.parse(JSON.stringify(that.combination_new));
-     console.log(777777,carendar)
     let price_all = 0;
     let price_y = 0;
+    let number = 1;
     if(carendar){
       carendar.map(item=>{
+        number = item.number;
         price_all = Number(price_all) + Number(item.seat.promotionCost*item.number);
         // console.log(typeof price_all)
         price_all =  price_all.toFixed(2);
@@ -613,7 +618,7 @@ Page({
       
       // console.log(price_all,price_y,9999999)
       that.setData({
-        sankeNum: carendar[0].number,
+        sankeNum: number ,
         daynum: carendar.length,
         carendarArr: carendar,
         price_all:price_all,
