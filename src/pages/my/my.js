@@ -27,10 +27,10 @@ Page({
       url: '../myMeeting/myMeeting'
     })
   },
-  jumpMyActivityt:function(){
-    // wx.navigateTo({
-    //   url: '../myMeeting/myMeeting'
-    // })
+  jumpMyActivity:function(){
+    wx.navigateTo({
+      url: '../myActivity/myActivity'
+    })
   },
   jumpOderList:function(e){
     let status=e.currentTarget.dataset.status;
