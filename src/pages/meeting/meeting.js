@@ -15,7 +15,8 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    add_btn : 'true'
+    add_btn : 'true',
+    final_num : 1
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -166,7 +167,8 @@ Page({
     this.setData({
           date_data1:this.date_data1,
           date_data2:this.date_data2,
-          add_btn :  reduce_btn_f     
+          add_btn :  reduce_btn_f.final_bool,
+          final_num : reduce_btn_f.final_num
         });
   },
   addNum:function(){
@@ -174,8 +176,10 @@ Page({
     this.setData({
           date_data1:this.date_data1,
           date_data2:this.date_data2, 
-          add_btn :  add_btn_f       
+          add_btn :  add_btn_f.final_bool,
+          final_num : add_btn_f.final_num
         });
+    console.log(this.james.getValue())
   },
   onLoad: function () {
     let that = this;
@@ -187,39 +191,48 @@ Page({
      url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
      methods:"GET",
      data:{
-      seatId:2
+      seatId:1,
+      //dateTime:'2018-08-25'
      },
      success:res=>{
       //console.log(dateData,res,new dateDataPrice(res.data.data))
 
 
-        that.james = new dateDataPrice({
-            //btn_bool:true,
-            data:res.data.data,
-            init_data:{
-              last_btn_num:22,
-              last_data:'date_data1',        
-            },
-          });
-        this.date_data1 = that.james.date_data1;
-        this.date_data2 = that.james.date_data2; 
-     
-        this.setData({
-          date_data1:this.date_data1,
-          date_data2:this.date_data2,
-          date_now:{
-            month:today_date.getMonth()+1,
-            year:today_date.getFullYear(),
-            value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',
-            choose:''
-          },
-          date_next:{
-            month:today_date.getMonth()+2,
-            year:today_date.getFullYear(),
-            value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
-            choose:''
-          }
-        });
+              that.james = new dateDataPrice({
+                  //btn_bool:true,
+                  data:res.data.data,
+                  init_data:{
+                    last_btn_num:22,//日期+week-1
+                    last_data:'date_data1',        
+                  },
+                });
+              this.date_data1 = that.james.date_data1;
+              this.date_data2 = that.james.date_data2; 
+           
+              this.setData({
+                date_data1:this.date_data1,
+                date_data2:this.date_data2,
+                date_now:{
+                  month:today_date.getMonth()+1,
+                  year:today_date.getFullYear(),
+                  value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',
+                  choose:''
+                },
+                date_next:{
+                  month:today_date.getMonth()+2,
+                  year:today_date.getFullYear(),
+                  value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
+                  choose:''
+                }
+              });
+
+
+              // setTimeout(function(){
+              //   console.log(that.james.getValue())
+              // },5000)
+              // setTimeout(function(){
+              //   console.log(that.james.getValue())
+              // },10000)
 
       }
     })
