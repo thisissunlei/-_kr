@@ -1,6 +1,6 @@
 <!-- 带价钱数量的日历 -->
 <template name="seat">
-	    <view class="date" style="height:90vh;overflow:auto;">
+	    <view class="date">
           	<view class="number-x">
                 <image src='../images/date/zuo.png' class="number-index"></image>
                 <text class="count">数量</text>
@@ -27,6 +27,7 @@
 	            <text class="week-day">五</text>
 	            <text class="week-day">六</text>
 	         </view>
+          <scroll-view scroll-y class="fixed_a">
           	<view class="now-date">{{date_now.value}}</view>
           	<view  bindtap="dateBtn">
 	          	<view wx:for="{{date_data1}}" wx:for-item="i"  wx:key='{{index}}' data-alldata='{{i}}' data-data='date_data1' class='{{i.type}} day {{i.seat?"seat-date":""}}'>
@@ -35,13 +36,15 @@
           		</view> 
           	</view>
           	<view class="now-date">{{date_next.value}}</view>
-          	<view  bindtap="dateBtn">
+          	<view  bindtap="dateBtn" style="margin-bottom:122rpx">
             	<view  wx:for="{{date_data2}}" wx:for-item="i" wx:key='{{index}}' data-alldata='{{i}}' data-data='date_data2' class='{{i.type}} day {{i.seat?"seat-date":""}}' wx:key='{{index}}'>
               		{{i.value}}
-              		<view wx:if="{{i.seat}}"  data-alldata='{{i}}' data-data='date_data2' class="price">¥ {{i.price_vlue}}</view>
+              		<view wx:if="{{i.seat}}"  data-alldata='{{i}}' data-data='date_data2' class="price">¥ {{i.price_vlue}}
+                  </view>
             	</view>
 
           	</view>
+          </scroll-view>
       
       
     	</view>
