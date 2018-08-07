@@ -12,8 +12,12 @@
                 <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='ARRVING'}}"></image>
                 <view class="content">
                     <view class='title'>
-                        <text class='title-time'>11-29 (周三) 至 11-30 (周四) </text>
-                        <text class="title-plus">9:00-10:30</text>
+                        <view class="title-top">
+                            <text style="padding-right: 10rpx;">{{beginTime.d}} 至</text>
+                            <text wx:if="{{beginTime.y!=endTime.y}}">{{endTime.y}}</text>
+                            <text>{{endTime.d}}</text>
+                        </view>
+                        <text class="title-plus">{{beginTime.t}}-{{endTime.t}}</text>
                         <text class="activity-name">{{info.title}}</text>
                     </view>
                     <view class='pics'>
@@ -26,7 +30,7 @@
                         </view>
                         <view class="code-desc">请入场时出示此二维码</view>
                     </view>
-                    <view class='bottom_text'>
+                    <view class='bottom-text'>
                         <text class="metting-house">{{info.site}}</text>
                         <view class='icons'>
                             <image src='../images/indexImg/dizhi2.png'></image>
@@ -44,7 +48,8 @@
         </view>
         <!-- 底部定位 -->
         <view class="footer">
-            <text class="cancel-seat" bindtap="cancel">取消报名</text>
+            <text class="cancel-seat" bindtap="cancel" wx:if="{{seatStatus==='WAIT'}}">取消报名</text>
+            <text wx:else></text>
             <view class="invitee-btn">
                 <button open-type="contact" class="contact">
                     <text>联系客服</text>

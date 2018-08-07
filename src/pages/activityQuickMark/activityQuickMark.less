@@ -149,15 +149,17 @@ button {
 .top .title text {
   display: block;
 }
-.title-time {
+.title-top {
+  width: 100%;
   height: 22px;
   margin-top: 20px;
   font-family: PingFangSC-Medium;
   font-size: 20px;
   color: #333333;
-  letter-spacing: 0;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
+
 .title-plus {
   height: 22px;
   font-family: PingFangSC-Medium;
@@ -209,22 +211,30 @@ button {
   letter-spacing: 0;
   text-align: center;
 }
-.bottom_text {
-  width: 550rpx;
-  height: 30rpx;
+.bottom-text {
+  width: 100%;
+  height: auto;
   position: absolute;
-  left: 50%;
-  margin-left: -275rpx;
-  top: 382px;
 }
-.bottom_text image {
+.bottom-text .metting-house {
+  display: inline-block;
+  font-size: 14px;
+  color: #333;
+  height: 14px;
+}
+.bottom-text .icons,
+.pics .code-desc {
+  font-family: PingFangSC-Regular;
+  color: #666;
+}
+.bottom-text image {
   width: 12px;
   height: 14px;
   margin-right: 0rpx;
   vertical-align: top;
   margin-top: 4rpx;
 }
-.bottom_text .icons {
+.bottom-text .icons {
   font-family: PingFangSC-Regular;
   font-size: 26rpx;
   color: #666666;
