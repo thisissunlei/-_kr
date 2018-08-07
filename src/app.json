@@ -1,11 +1,13 @@
 {
-  "pages": [
+  "pages": [ 
+    
     "pages/index/index",
 
     "pages/activityQuickMark/activityQuickMark",
 
     "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",
+    
     "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
     "pages/my/my",
@@ -34,7 +36,8 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
-    "pages/activityDetails/activity"
+    "pages/activityDetails/activity",
+    "pages/locationMap/locationMap"
   ],
   "window": {
     "backgroundTextStyle": "light",

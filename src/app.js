@@ -58,6 +58,7 @@ App({
       header: {
         "Content-Type": "application/x-www-form-urlencoded",
         Cookie: this.globalData.Cookie
+     
       },
       data: data.data,
       success: function(data_new) {

@@ -24,8 +24,13 @@ Page({
     },
     onLoad(options) {
         this.setData({
-            activityId: options.activityId || 0
+            activityId: options.activityId || 0,
+            ['signUpData.activityId']: options.activityId || 0
         })
+        wx.showLoading({
+            title: "加载中",
+            mask: true
+        });
         this.getDetail()
     },
     getDetail() {
@@ -36,62 +41,22 @@ Page({
                 activityId: this.data.activityId
             },
             success: (res) => {
-                console.log(res)
-                // if ( res.data.code == -1 ) {} else {}
-
-                this.setData({
-                    info: {
-                        "address": "地址",
-                        "beginDate": "测试内容z2gc",
-                        "beginTime": 1533275560000,
-                        "canJoin": true,
-                        "content": "测试内容33t1",
-                        "coverPic": "测试内容2tm2",
-                        "endDate": "测试内容aet7",
-                        "endTime": 1533225600000,
-                        "isBind": true,
-                        "isExpire": false,
-                        "joinCount": 8,
-                        "joiners": [
-                            {"wechatAvatar": "../images/share_pic.jpg"},
-                            {"wechatAvatar": "../images/share_pic.jpg"},
-                            {"wechatAvatar": "../images/share_pic.jpg"},
-                            {"wechatAvatar": "../images/share_pic.jpg"},
-                            {"wechatAvatar": "../images/share_pic.jpg"},
-                            {"wechatAvatar": "../images/share_pic.jpg"},
-                            {"wechatAvatar": "../images/share_pic.jpg"},
-                            {"wechatAvatar": "../images/share_pic.jpg"},
-                            {"wechatAvatar": "../images/share_pic.jpg"}
-                        ],
-                        "latitude": "测试内容0kc5",
-                        "limitCount": 10,
-                        "longtitude": "测试内容4wpf",
-                        "notice": "测试内容hl75",
-                        "partners": [
-                            {
-                                "partnerLogo": "../images/share_pic.jpg"
-                            },
-                            {
-                                "partnerLogo": "../images/share_pic.jpg"
-                            }
-                        ],
-                        "price": 0,
-                        "sharePic": "../images/share_pic.jpg",
-                        "site": "测试内容9r2f",
-                        "sponsorIntro": "测试内容jv08",
-                        "sponsorLogo": "../images/share_pic.jpg",
-                        "sponsorName": "测试内容7j9e",
-                        "title": "测试内容wu13"
-                    }
-                })
+                if ( res.data.code == -1 ) {
+                    this.setTip('apiTip', res.data.message, '../images/public/error.png')
+                } else {
+                    this.setData({
+                        info: res.data.data
+                    })
+                }
                 wx.setNavigationBarTitle({
                     title: this.data.info.title
                 })
+                wx.hideLoading();
                 this.getTime('beginTime', this.data.info.beginTime)
                 this.getTime('endTime', this.data.info.endTime)
             },
             fail: (res) => {
-                console.log(1)
+                this.setTip('netTip', '网络粗错了，请稍后再试', 'https://web.krspace.cn/kr-meeting/images/activity/icon_i.png')
             }
         })
     },
@@ -110,14 +75,14 @@ Page({
         })
     },
     signUpShow() {
-        if ( !!this.data.info.isBind ) {
+        if ( !!this.data.info.bind ) {
             this.setData({
                 markShow: true,
                 signUpShow: true
             })
         } else {
             wx.navigateTo({
-                url: '../bindPhone/bindPhone'
+                url: "../bindPhone/bindPhone?from=activity"
             });
         }
     },
@@ -165,24 +130,25 @@ Page({
             return
         }
 
-        this.setData({
-            markShow: false,
-            signUpShow: false
-        })
-
         app.getRequest({
-            url: app.globalData.KrUrl + 'api/gateway/kmactivity/detail',
+            url: app.globalData.KrUrl + 'api/gateway/kmactivity/join/signup',
             methods: "GET",
             data: this.data.signUpData,
             success: (res) => {
                 if ( res.data.code == -1 ) {
-                    this.setTip('apiTip', res.message, '../images/public/error.png')
+                    this.setTip('apiTip', res.data.message, '../images/public/error.png')
                 } else {
                     this.setTip('apiTip', '报名成功', '../images/public/success.png')
                     setTimeout(() => {
                         this.setData({
                             markShow: false,
                             signUpShow: false
+                        })
+                        wx.navigateTo({
+                            url: '../activityQuickMark/activityQuickMark?joinId=' + res.data.data.joinId,
+                            success: () => {
+                                this.getDetail()
+                            }
                         })
                     }, 2000)
                 }
@@ -233,25 +199,52 @@ Page({
         })
     },
     getTime(state, time) {
-        let week = ''
-        switch ( new Date(parseInt(time)).getDay() ) {
-            case 0:week="周日";break
-            case 1:week="周一";break
-            case 2:week="周二";break
-            case 3:week="周三";break
-            case 4:week="周四";break
-            case 5:week="周五";break
-            case 6:week="周六";break
+        let week = '',y = new Date().getFullYear(), M = '', d = '', h = '00', m = '00', day
+        if ( !!time ) {
+            switch ( new Date(parseInt(time)).getDay() ) {
+                case 0:week="周日";break
+                case 1:week="周一";break
+                case 2:week="周二";break
+                case 3:week="周三";break
+                case 4:week="周四";break
+                case 5:week="周五";break
+                case 6:week="周六";break
+            }
+            y = new Date(parseInt(time)).getFullYear()
+            M = new Date(parseInt(time)).getMonth()
+            d = new Date(parseInt(time)).getDate()
+            h = new Date(parseInt(time)).getHours() >= 10 ? new Date(parseInt(time)).getHours() : '0' + new Date(parseInt(time)).getHours()
+            m = new Date(parseInt(time)).getMinutes() >= 10 ? new Date(parseInt(time)).getMinutes() : '0' + new Date(parseInt(time)).getMinutes()
         }
-        let h = new Date(parseInt(time)).getHours() >= 10 ? new Date(parseInt(time)).getHours() : '0' + new Date(parseInt(time)).getHours()
-        let m = new Date(parseInt(time)).getMinutes() >= 10 ? new Date(parseInt(time)).getMinutes() : '0' + new Date(parseInt(time)).getMinutes()
-        let day = {
-            y: new Date(parseInt(time)).getFullYear(),
-            d: new Date(parseInt(time)).getMonth() + 1 + '月' + new Date(parseInt(time)).getDate() + '日' + '（' + week + '）',
+        day = {
+            y: y,
+            d: M + 1 + '月' + d + '日' + '（' + week + '）',
             t: h + ':' + m
         }
+
         this.setData({
             [state]: day
+        })
+    },
+    jumpToMap() {
+        wx.setStorage({
+            key:"mapOptions",
+            data:{
+                latitude: this.data.info.latitude,
+                longtitude: this.data.info.longtitude,
+                address: this.data.info.address,
+                site: this.data.info.site
+            },
+            success: () => {
+                wx.navigateTo({
+                    url: '../locationMap/locationMap'
+                });
+            }
+        })
+    },
+    imgError(e) {
+        this.setData({
+            ['info.'+e.target.id]: ''
         })
     }
 })
