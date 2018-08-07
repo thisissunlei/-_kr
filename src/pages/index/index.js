@@ -219,6 +219,7 @@ Page({
   },
   onShow: function() {
     this.getAllInfo();
+    this.getActivity();
   },
   //首页活动接口
   getActivity: function() {
@@ -247,10 +248,11 @@ Page({
       success: res => {
         if (res.data.code == 1) {
           var mansion = Object.assign({}, res);
-          console.log(mansion, "列表");
+          // console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
 
           var myMeeting = mansion.data.data.myTodo.slice(0, 5);
+
           //排序
           buildingList.sort(function(a, b) {
             return a.distance - b.distance;

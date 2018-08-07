@@ -17,8 +17,10 @@ Page({
       console.log("来自页面赠送按钮");
       // console.log(res);
       return {
-        title: this.data.info.title + "活动来咯，戳我参加",
-        path: "pages/activityDetails/activity?joinId=" + this.data.joinId,
+        title: this.data.info.title + "活动来咯，戳我参加~",
+        path:
+          "pages/activityDetails/activity?activityId=" +
+          this.data.info.activityId,
         imageUrl: this.data.info.coverPic
       };
     } else {
@@ -28,7 +30,7 @@ Page({
   },
 
   onLoad: function(options) {
-    console.log(new Date("2019-08-08 11:00:00").getTime());
+    // console.log(new Date("2019-08-08 11:00:00").getTime());
     console.log(options);
     if (options.joinId) {
       this.setData({

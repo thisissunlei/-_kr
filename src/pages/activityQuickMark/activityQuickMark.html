@@ -4,11 +4,8 @@
         <!-- 散座详情 -->
         <view class='top'>
             <view class="top-banner">
-                <!-- 背景大图 -->
                 <image src="../images/indexImg/card.png" class="img"></image>
-                <!-- 已过期png -->
                 <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{seatStatus==='EXPIRED'}}"></image>
-                <!-- 已入场 -->
                 <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='ARRVING'}}"></image>
                 <view class="content">
                     <view class='title'>
@@ -22,10 +19,8 @@
                     </view>
                     <view class='pics'>
                         <view class="code-pic code-pics">
-                            <!-- 已过期边框 -->
-                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus==='EXPIRED'}}"></image>
-                            <!-- 未过期边框 -->
-                            <image src="../images/indexImg/code.png" wx:if="{{seatStatus!=='EXPIRED'}}" class="img"></image>
+                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus!=='WAIT'}}"></image>
+                            <image src="../images/indexImg/code.png" wx:if="{{seatStatus==='WAIT'}}" class="img"></image>
                             <canvas canvas-id="mycanvas" class="mycanvas" />
                         </view>
                         <view class="code-desc">请入场时出示此二维码</view>
@@ -41,9 +36,9 @@
             </view>
         </view>
         <!-- 分享提示 -->
-        <view class="share-hint" wx:if="{{showHint}}">
+        <view class="share-hint" wx:if="{{showHint}}" bindtap="close">
             <text class="hint-content">独乐乐不如众乐乐，快来邀请小伙伴一起参加吧～</text>
-            <text class="hint-close" bindtap="close"></text>
+            <text class="hint-close"></text>
             <text class="hint-triangle"></text>
         </view>
         <!-- 底部定位 -->
