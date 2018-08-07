@@ -27,9 +27,9 @@ Page({
       url: '../myMeeting/myMeeting'
     })
   },
-  jumpMyActivityt:function(){
+  jumpMyActivity:function(){
     wx.navigateTo({
-      url: '../pages/myActivity/myActivity'
+      url: '../myActivity/myActivity'
     })
   },
   jumpOderList:function(e){
