@@ -138,7 +138,7 @@ export class dateData{
   //bool、this.btn_bool:true为会议室，单选
   dateBtn(e,bool){
     console.log(e.target.dataset)
-    if(e.target.dataset.alldata.type&&(e.target.dataset.alldata.type.indexOf('next')>-1||e.target.dataset.alldata.type.indexOf('now')>-1)){
+    if(e.target.dataset.alldata&&(e.target.dataset.alldata.type.indexOf('next')>-1||e.target.dataset.alldata.type.indexOf('now')>-1)){
       const new_data = this[e.target.dataset.data];
       if(this[this.last_data]!='false'&&this.btn_bool){
         this[this.last_data][this.last_btn_num]['type'] = this[this.last_data][this.last_btn_num]['type'].replace('active ','');
@@ -151,8 +151,8 @@ export class dateData{
         new_data[parseInt(e.target.dataset.alldata.num)]['type'] =  e_type.replace('active ','');
         console.log(new_data[parseInt(e.target.dataset.alldata.num)]['type'])
         for(let i = 0;i<this.get_value.length;i++){
-          console.log(e.target.dataset.alldata.num , this.get_value[i].num)
-          if(e.target.dataset.alldata.num == this.get_value[i].num){
+          console.log(e.target.dataset.alldata.num , this.get_value[i])
+          if((this.get_value[i].alldata&&(e.target.dataset.alldata.num == this.get_value[i].alldata.num))||(e.target.dataset.alldata.num == this.get_value[i].num)){
             this.get_value.splice(i,1);
           }
         }
