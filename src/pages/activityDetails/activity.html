@@ -1,10 +1,11 @@
 <view class="activity">
-    <image class="top-img" mode="aspectFill" src="../images/share_pic.jpg"></image>
+    <image class="top-img" mode="aspectFill" src="{{info.coverPic}}" wx:if="{{!!info.coverPic}}"
+           binderror="imgError" id="coverPic"></image>
 
     <view class="bgF">
         <view class="title-h1">{{info.title}}</view>
         <view class="price">
-            <view wx:if="{{info.price*1 >= 0}}">
+            <view wx:if="{{info.price*1 > 0}}">
                 <text class="yuan">¥</text><text class="num">{{info.price}}</text>
             </view>
 
@@ -33,7 +34,7 @@
             </view>
         </view>
 
-        <view class="com-site-warp">
+        <view class="com-site-warp" bindtap="jumpToMap">
             <view class="com-site">
                 <view class="com-site-td">
                     <view class="name">{{info.site}}</view>
@@ -49,7 +50,8 @@
 
     <view class="sponsor">
         <view class="sponsor-warp">
-            <image class="img" mode="aspectFill" src="{{info.sponsorLogo}}"></image>
+            <image class="img" mode="aspectFill" wx:if="{{!!info.sponsorLogo}}" src="{{info.sponsorLogo}}"
+                   binderror="imgError" id="sponsorLogo"></image>
             <view class="txt">
                 <view class="title">
                     <text>{{info.sponsorName}}</text>
@@ -61,13 +63,13 @@
         </view>
     </view>
 
-    <view class="activity-info">
+    <view class="activity-info" wx:if="{{!!info.content}}">
         <view class="title">活动详情</view>
-
+        <rich-text nodes="{{info.content}}"></rich-text>
     </view>
-    <view class="activity-info">
+    <view class="activity-info" wx:if="{{!!info.notice}}">
         <view class="title">活动须知</view>
-
+        <rich-text nodes="{{info.notice}}"></rich-text>
     </view>
 
     <view class="special-thanks" wx:if="{{!!info.partners && info.partners.length > 0}}">
@@ -84,7 +86,7 @@
         </button>
         <view class="bind" bindtap="signUpShow" wx:if="{{!!info.canJoin && info.joinCount*1 < info.limitCount*1}}">立即报名</view>
         <view class="bind select" wx:if="{{!info.canJoin}}">活动结束</view>
-        <view class="bind select" wx:if="{{!!info.canJoin && info.joinCount*1 === info.limitCount*1}}">报名已满</view>
+        <view class="bind select" wx:if="{{!!info.canJoin && info.joinCount*1 >= info.limitCount*1}}">报名已满</view>
     </view>
 
     <view class="activity-mark" wx:if="{{!!markShow}}" bindtap="modalHide"></view>
