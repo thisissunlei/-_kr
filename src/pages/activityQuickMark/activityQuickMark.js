@@ -7,6 +7,8 @@ Page({
     joinId: null,
     seatStatus: "",
     showHint: true,
+    beginTime: {},
+    endTime: {},
     info: {}
   },
   //分享
@@ -15,7 +17,7 @@ Page({
       console.log("来自页面赠送按钮");
       // console.log(res);
       return {
-        title: "最酷的【王牌之夜】氪空间大都会社区开业派对活动来咯，戳我参加",
+        title: this.data.info.title + "活动来咯，戳我参加",
         path: "pages/activityDetails/activity?joinId=" + this.data.joinId,
         imageUrl: this.data.info.coverPic
       };
@@ -26,6 +28,7 @@ Page({
   },
 
   onLoad: function(options) {
+    console.log(new Date("2019-08-08 11:00:00").getTime());
     console.log(options);
     if (options.joinId) {
       this.setData({
@@ -46,16 +49,13 @@ Page({
       success: function(res) {
         var activityInfo = Object.assign({}, res);
         console.log(activityInfo, "活动详情");
-        // console.log(
-        //   that.timestamp2Time(`Data(${activityInfo.data.data.endTime})`, "-")
-        // );
-        // var str = new Date(activityInfo.data.data.beginTime);
-        // console.log(str.toLocaleString());
         that.setData({
           info: activityInfo.data.data,
           seatStatus: activityInfo.data.data.joinStatus
         });
-        console.log(that.data.info);
+        that.getTime("beginTime", that.data.info.beginTime);
+        that.getTime("endTime", that.data.info.endTime);
+        console.log(that.data.beginTime, that.data.endTime);
       },
       fail: function(err) {
         console.log(err);
@@ -145,26 +145,53 @@ Page({
     //调用插件中的draw方法，绘制二维码图片
   },
   onShow: function() {},
-  timestamp2Time: function(timestamp, separator) {
-    var result = "";
-
-    if (timestamp) {
-      var reg = new RegExp(/\D/, "g"); //提取数字字符串
-      var timestamp_str = timestamp.replace(reg, "");
-
-      var d = new Date();
-      d.setTime(timestamp_str);
-      var year = d.getFullYear();
-      var month = d.getMonth() + 1;
-      var day = d.getDate();
-      if (month < 10) {
-        month = "0" + month;
-      }
-      if (day < 10) {
-        day = "0" + day;
-      }
-      result = year + separator + month + separator + day;
+  getTime(state, time) {
+    let week = "";
+    switch (new Date(parseInt(time)).getDay()) {
+      case 0:
+        week = "周日";
+        break;
+      case 1:
+        week = "周一";
+        break;
+      case 2:
+        week = "周二";
+        break;
+      case 3:
+        week = "周三";
+        break;
+      case 4:
+        week = "周四";
+        break;
+      case 5:
+        week = "周五";
+        break;
+      case 6:
+        week = "周六";
+        break;
     }
-    return result;
+    let h =
+      new Date(parseInt(time)).getHours() >= 10
+        ? new Date(parseInt(time)).getHours()
+        : "0" + new Date(parseInt(time)).getHours();
+    let m =
+      new Date(parseInt(time)).getMinutes() >= 10
+        ? new Date(parseInt(time)).getMinutes()
+        : "0" + new Date(parseInt(time)).getMinutes();
+    let day = {
+      y: new Date(parseInt(time)).getFullYear() + "-",
+      d:
+        new Date(parseInt(time)).getMonth() +
+        1 +
+        "-" +
+        new Date(parseInt(time)).getDate() +
+        " (" +
+        week +
+        ") ",
+      t: h + ":" + m
+    };
+    this.setData({
+      [state]: day
+    });
   }
 });

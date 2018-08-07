@@ -20,35 +20,18 @@ Page({
     duration: 1000,
     btn_bool: true,
     duration: 1000,
-    buildingList: [],
-    myMeeting: [],
-    noOpenBuilding: [],
+    buildingList: [], //周边大厦
+    myMeeting: [], //会议、散座、活动轮播
+    noOpenBuilding: [], //未开放大厦
     preIndex: 0,
-    activityList: [],
+    activityList: [], //活动轮播
     activity: {
-      flag: true,
+      //活动轮播参数
       current: 0,
       duration: 500,
       previousMargin: "26rpx",
       nextMargin: "26rpx",
       circular: false
-      // imageUrl: [
-      //   {
-      //     activityId: 520,
-      //     url:
-      //       "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg"
-      //   },
-      //   {
-      //     activityId: 38,
-      //     url:
-      //       "http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg"
-      //   },
-      //   {
-      //     activityId: 438,
-      //     url:
-      //       "http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg"
-      //   }
-      // ]
     }
   },
   rq_data: {
@@ -71,7 +54,7 @@ Page({
   },
   //活动详情页
   goActivityDetail: function(e) {
-    console.log(e.currentTarget.dataset.id);
+    // console.log(e.currentTarget.dataset.id);
     let activityId = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../activityDetails/activity?activityId=" + activityId
@@ -244,11 +227,11 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmactivity/home/list",
       success: res => {
         var activityList = Object.assign({}, res);
-        // console.log(activityList, "活动列表");
+        console.log(activityList, "活动列表");
         that.setData({
           activityList: activityList.data.data
         });
-        console.log(that.data.activityList);
+        // console.log(that.data.activityList);
       }
     });
   },
@@ -385,7 +368,7 @@ Page({
   },
   //点击活动card
   moveToActivity: res => {
-    console.log(res);
+    // console.log(res);
     var targetId = res.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../activityQuickMark/activityQuickMark?joinId=" + targetId
