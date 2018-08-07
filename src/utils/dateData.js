@@ -139,7 +139,7 @@ export class dateData{
   dateBtn(e,bool){
     if(e.target.dataset.alldata&&(e.target.dataset.alldata.type.indexOf('next')>-1||e.target.dataset.alldata.type.indexOf('now')>-1)){
       const new_data = this[e.target.dataset.data];
-      if(this[this.last_data]!='false'&&this.btn_bool){
+      if(!this[this.last_data]&&this.btn_bool){
         this[this.last_data][this.last_btn_num]['type'] = this[this.last_data][this.last_btn_num]['type'].replace('active ','');
       }
 
