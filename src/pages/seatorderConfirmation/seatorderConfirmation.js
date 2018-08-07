@@ -383,8 +383,12 @@ Page({
   },
   diantrue(){
     var that = this;
-    
     let selecedList = this.data.selecedList
+    if(!selecedList.length){
+      selecedList = this.james.getValue()
+    }
+    
+     
 
     selecedList = selecedList.map((item,index)=>{
       if(item.alldata){
@@ -401,9 +405,7 @@ Page({
     })
     this.combination_new= selecedList;
     let seatGoodIds=[]
-    console.log('diantrue==========2',selecedList)
     seatGoodIds = this.combination_new.map(item=>{
-      console.log("--->",item,'===',item.seat)
       return item.seat.goodsId
     })
     this.setData({
@@ -423,8 +425,12 @@ Page({
     
     let that = this;
     const today_date = new Date();
+    const days = today_date.getDate();
     
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
+    let beginDay = today_month.getDay();
+    console.log('dealDate=======',beginDay,days)
+    let today = parseInt(beginDay+days-1)
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
     app.getRequest({
       url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
@@ -437,7 +443,7 @@ Page({
           //btn_bool:true,
           data: res.data.data,
           init_data: {
-            last_btn_num: 22, //日期+week-1
+            last_btn_num: today, //日期+week-1
             last_data: 'date_data1',
           },
         });
