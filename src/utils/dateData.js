@@ -137,7 +137,6 @@ export class dateData{
   }
   //bool、this.btn_bool:true为会议室，单选
   dateBtn(e,bool){
-    console.log(e.target.dataset)
     if(e.target.dataset.alldata&&(e.target.dataset.alldata.type.indexOf('next')>-1||e.target.dataset.alldata.type.indexOf('now')>-1)){
       const new_data = this[e.target.dataset.data];
       if(this[this.last_data]!='false'&&this.btn_bool){
@@ -146,13 +145,10 @@ export class dateData{
 
       //双击取消
       let e_type = new_data[parseInt(e.target.dataset.alldata.num)]['type'];
-      console.log(e_type,this.btn_bool)
       if(e_type.indexOf('active')>-1&&!this.btn_bool){
         new_data[parseInt(e.target.dataset.alldata.num)]['type'] =  e_type.replace('active ','');
-        console.log(new_data[parseInt(e.target.dataset.alldata.num)]['type'])
         for(let i = 0;i<this.get_value.length;i++){
-          console.log(e.target.dataset.alldata.num , this.get_value[i])
-          if((this.get_value[i].alldata&&(e.target.dataset.alldata.num == this.get_value[i].alldata.num))||(e.target.dataset.alldata.num == this.get_value[i].num)){
+          if(e.target.dataset.alldata.num == this.get_value[i].alldata.num){
             this.get_value.splice(i,1);
           }
         }
@@ -178,8 +174,10 @@ export class dateData{
     this.date_data1 = this.dealDate(today_month,true);
     this.date_data2 = this.dealDate(next_month,false);
     this[this.last_data][this.last_btn_num]['type'] = 'active ' + this[this.last_data][this.last_btn_num]['type']; 
-    this.get_value = [this[this.last_data][this.last_btn_num]];
-    console.log(this.get_value,9999)
+    this.get_value = [{
+      alldata:this[this.last_data][this.last_btn_num],
+      data:this.last_data
+    }];
   }
   getValue(){
     return this.get_value;
@@ -201,7 +199,6 @@ export class dateDataPrice extends dateData{
     let data_num = 0;
     
       for(let i = 0;i<store_data.length;i++){
-        console.log(month_arr)
         if(month_arr&&month_arr.length>0&&month_arr[data_num]){
           const data_day = new Date(month_arr[data_num].useTime).getDate();
           
@@ -233,6 +230,9 @@ export class dateDataPrice extends dateData{
     
   }
   addNum(){
+
+
+   console.log(this.get_value,1111)
     if(this.final_num<this.max_num){
       this.final_num++;
       for(let i=0;i<this.date_data1.length;i++){
@@ -255,7 +255,14 @@ export class dateDataPrice extends dateData{
           }
         }
       }
-      
+      for (let k = 0; k < this.get_value.length; k++) {
+        
+        let v_type = this.get_value[k]['alldata']['type'];
+        console.log(v_type)
+        if(this.get_value[k].alldata&&v_type.indexOf('before')>-1){
+          this.get_value.splice(k,1);
+        }
+      }
     }
     if(this.final_num>this.max_num){
       return {
