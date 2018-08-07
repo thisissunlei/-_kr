@@ -28,9 +28,9 @@ Page({
     })
   },
   jumpMyActivityt:function(){
-    // wx.navigateTo({
-    //   url: '../myMeeting/myMeeting'
-    // })
+    wx.navigateTo({
+      url: '../pages/myActivity/myActivity'
+    })
   },
   jumpOderList:function(e){
     let status=e.currentTarget.dataset.status;
