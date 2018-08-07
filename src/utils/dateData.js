@@ -258,8 +258,10 @@ export class dateDataPrice extends dateData{
       for (let k = 0; k < this.get_value.length; k++) {
         let v_type = this.get_value[k]['alldata']['num'];
         let v_data = this.get_value[k]['data'];
+        console.log(this[v_data][v_type]['type'].indexOf('before'),this[v_data][v_type])
         if(this[v_data][v_type]['type'].indexOf('before')>-1){
           this.get_value.splice(k,1);
+          k--;
         }
       }
     }
