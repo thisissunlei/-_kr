@@ -4,35 +4,47 @@ const app = getApp();
 
 Page({
   data: {
-    latitude: 0,
-    longitude: 0,
+    latitude: '39.9219',
+    longitude: '116.44355',
     scale: 18,
+    markers:[
+      {
+        iconPath: "../images/map/mark.png",
+        id: 1,
+        latitude: '39.9219',
+        longitude: '116.44355',
+        width: 26,
+        height: 35
+      }
+    ]
   },
   
   onLoad: function() {
-    var that = this;
+    var _this = this;
    
-    wx.getLocation({
-      type: "gcj02",
-      success: res => {
-        console.log('res---',res)
-        that.setData({
-          longitude: res.longitude,
-          latitude: res.latitude,
-          markers:[
-            {
-              iconPath: "../images/map/mark.png",
-              id: 1,
-              latitude: res.latitude,
-              longitude: res.longitude,
-              width: 26,
-              height: 35
-            }
-          ]
-        });
-       
-      }
-    });
+    // wx.getStorage({
+    //   key:'mapOptions',
+    //   success:function(res){
+    //     let data=res.data
+    //     if(data){
+    //       _this.setData({
+    //         longitude: data.longitude,
+    //         latitude: data.latitude,
+    //         markers:[
+    //           {
+    //             iconPath: "../images/map/mark.png",
+    //             id: 1,
+    //             latitude: data.latitude,
+    //             longitude: data.longitude,
+    //             width: 26,
+    //             height: 35
+    //           }
+    //         ]
+    //       });
+    //     }
+    //   }
+    // })
+   
   },
   
   onReady: function() {
