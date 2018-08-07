@@ -24,30 +24,31 @@ Page({
     myMeeting: [],
     noOpenBuilding: [],
     preIndex: 0,
+    activityList: [],
     activity: {
       flag: true,
       current: 0,
       duration: 500,
       previousMargin: "26rpx",
       nextMargin: "26rpx",
-      circular: false,
-      imageUrl: [
-        {
-          activityId: 520,
-          url:
-            "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg"
-        },
-        {
-          activityId: 38,
-          url:
-            "http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg"
-        },
-        {
-          activityId: 438,
-          url:
-            "http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg"
-        }
-      ]
+      circular: false
+      // imageUrl: [
+      //   {
+      //     activityId: 520,
+      //     url:
+      //       "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg"
+      //   },
+      //   {
+      //     activityId: 38,
+      //     url:
+      //       "http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg"
+      //   },
+      //   {
+      //     activityId: 438,
+      //     url:
+      //       "http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg"
+      //   }
+      // ]
     }
   },
   rq_data: {
@@ -73,7 +74,7 @@ Page({
     console.log(e.currentTarget.dataset.id);
     let activityId = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: "../activityDetails/activityDetails?activityId=" + activityId
+      url: "../activityDetails/activity?activityId=" + activityId
     });
   },
   //打开地图
@@ -196,7 +197,7 @@ Page({
                 that.func_bool_g = false;
                 that.func_bool_l = false;
                 that.getAllInfo();
-                // that.getActivity();
+                that.getActivity();
                 that.getInfo();
               }
               if (that.func_bool_l2 && that.func_bool_s) {
@@ -240,9 +241,14 @@ Page({
   getActivity: function() {
     var that = this;
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmactivity/my/list",
+      url: app.globalData.KrUrl + "api/gateway/kmactivity/home/list",
       success: res => {
-        console.log(res);
+        var activityList = Object.assign({}, res);
+        // console.log(activityList, "活动列表");
+        that.setData({
+          activityList: activityList.data.data
+        });
+        console.log(that.data.activityList);
       }
     });
   },
@@ -258,19 +264,10 @@ Page({
       success: res => {
         if (res.data.code == 1) {
           var mansion = Object.assign({}, res);
-          // console.log(mansion, "列表");
+          console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
-          var myMeeting = mansion.data.data.myTodo;
-          myMeeting.push({
-            todoTime: "11-29 (周三)  9:00-10:30",
-            title: "【王牌之夜】氪空间大都会社区开业...",
-            content: "海航实业大厦8层(氪空间)  8G",
-            descr:
-              "北京市朝阳区建国路108号建国路108号号8层氪空间8层氪空间8层氪空间8层氪8",
-            targetType: "huodong",
-            targetId: 123
-          });
-          // var myMeeting = mansion.data.data.myTodo.slice(0, 5);
+
+          var myMeeting = mansion.data.data.myTodo.slice(0, 5);
           //排序
           buildingList.sort(function(a, b) {
             return a.distance - b.distance;
@@ -388,10 +385,10 @@ Page({
   },
   //点击活动card
   moveToActivity: res => {
-    // console.log(res);
-    var joinId = res.currentTarget.dataset.id;
+    console.log(res);
+    var targetId = res.currentTarget.dataset.id;
     wx.navigateTo({
-      url: "../activityQuickMark/activityQuickMark?joinId=" + joinId
+      url: "../activityQuickMark/activityQuickMark?joinId=" + targetId
     });
   },
   // jumpToMeetingDetail: function() {

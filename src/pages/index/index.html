@@ -86,21 +86,21 @@
   </view>
 
   <!-- 最新活动 -->
-  <view class="activity" wx:if="{{activity.flag}}">
+  <view class="activity" wx:if="{{activityList.length>0}}">
     <view class="activity-text">
       <text>最新活动</text>
-      <view wx:if="{{activity.imageUrl.length>1}}">
+      <view wx:if="{{activityList.length>1}}">
         <text style="font-size: 36rpx;">{{preIndex+1}}</text>
         <text style="font-size: 32rpx;">/</text>
-        <text style="font-size: 28rpx;color: #2a2a2a;">{{activity.imageUrl.length}}</text>
+        <text style="font-size: 28rpx;color: #2a2a2a;">{{activityList.length}}</text>
       </view>
     </view>
     <view class="activity-swiper">
       <swiper class="activity-box" previous-margin="{{activity.previousMargin}}" current="{{activity.current}}" duration="{{activity.duration}}"
         bindchange="acitvityChange" next-margin="{{activity.nextMargin}}" circular="{{activity.circular}}">
-        <block wx:for="{{activity.imageUrl}}" wx:key>
+        <block wx:for="{{activityList}}" wx:key>
           <swiper-item bindtap="goActivityDetail" data-id="{{item.activityId}}" style="padding: 0 16rpx;box-sizing: border-box;">
-            <image src="{{item.url}}" class="activity-slide" />
+            <image src="{{item.coverPic}}" class="activity-slide" />
           </swiper-item>
         </block>
       </swiper>

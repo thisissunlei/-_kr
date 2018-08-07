@@ -9,45 +9,52 @@
                 <!-- 已过期png -->
                 <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{seatStatus==='EXPIRED'}}"></image>
                 <!-- 已入场 -->
-                <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='USED'}}"></image>
+                <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='ARRVING'}}"></image>
                 <view class="content">
                     <view class='title'>
                         <text class='title-time'>11-29 (周三) 至 11-30 (周四) </text>
                         <text class="title-plus">9:00-10:30</text>
-                        <text class="activity-name">【王牌之夜】氪空间大都会社区开业派对</text>
+                        <text class="activity-name">{{info.title}}</text>
                     </view>
                     <view class='pics'>
                         <view class="code-pic code-pics">
                             <!-- 已过期边框 -->
-                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus!=='TOUSE'}}"></image>
+                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus==='EXPIRED'}}"></image>
                             <!-- 未过期边框 -->
-                            <image src="../images/indexImg/code.png" wx:if="{{seatStatus==='TOUSE'}}" class="img"></image>
+                            <image src="../images/indexImg/code.png" wx:if="{{seatStatus!=='EXPIRED'}}" class="img"></image>
                             <canvas canvas-id="mycanvas" class="mycanvas" />
                         </view>
                         <view class="code-desc">请入场时出示此二维码</view>
                     </view>
                     <view class='bottom_text'>
-                        <text class="metting-house">万科大都会9层 (氪空间)</text>
+                        <text class="metting-house">{{info.site}}</text>
                         <view class='icons'>
                             <image src='../images/indexImg/dizhi2.png'></image>
-                            北京市朝阳区建国路108号北京市朝阳区建北京市朝阳市朝阳区建
+                            {{info.address}}
                         </view>
                     </view>
                 </view>
             </view>
         </view>
-
+        <!-- 分享提示 -->
+        <view class="share-hint" wx:if="{{showHint}}">
+            <text class="hint-content">独乐乐不如众乐乐，快来邀请小伙伴一起参加吧～</text>
+            <text class="hint-close" bindtap="close"></text>
+            <text class="hint-triangle"></text>
+        </view>
+        <!-- 底部定位 -->
         <view class="footer">
-            <text class="cancel-seat">取消报名</text>
+            <text class="cancel-seat" bindtap="cancel">取消报名</text>
             <view class="invitee-btn">
                 <button open-type="contact" class="contact">
                     <text>联系客服</text>
                 </button>
-                <button class="share">
+                <button class="share" open-type="share">
                     <text>分享活动</text>
                 </button>
             </view>
         </view>
+
 
     </view>
 </view>
