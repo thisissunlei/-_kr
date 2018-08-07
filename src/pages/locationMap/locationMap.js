@@ -7,43 +7,37 @@ Page({
     latitude: '39.9219',
     longitude: '116.44355',
     scale: 18,
-    markers:[
-      {
-        iconPath: "../images/map/mark.png",
-        id: 1,
-        latitude: '39.9219',
-        longitude: '116.44355',
-        width: 26,
-        height: 35
-      }
-    ]
+    site:'',
+    address:''
   },
   
   onLoad: function() {
     var _this = this;
    
-    // wx.getStorage({
-    //   key:'mapOptions',
-    //   success:function(res){
-    //     let data=res.data
-    //     if(data){
-    //       _this.setData({
-    //         longitude: data.longitude,
-    //         latitude: data.latitude,
-    //         markers:[
-    //           {
-    //             iconPath: "../images/map/mark.png",
-    //             id: 1,
-    //             latitude: data.latitude,
-    //             longitude: data.longitude,
-    //             width: 26,
-    //             height: 35
-    //           }
-    //         ]
-    //       });
-    //     }
-    //   }
-    // })
+    wx.getStorage({
+      key:'mapOptions',
+      success:function(res){
+        let data=res.data
+        if(data){
+          _this.setData({
+            longitude: data.longtitude,
+            latitude: data.latitude,
+            site:data.site,
+            address:data.address,
+            markers:[
+              {
+                iconPath: "../images/map/mark.png",
+                id: 1,
+                latitude: data.latitude,
+                longitude: data.longtitude,
+                width: 26,
+                height: 35
+              }
+            ]
+          });
+        }
+      }
+    })
    
   },
   
