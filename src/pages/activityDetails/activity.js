@@ -216,6 +216,7 @@ Page({
             h = new Date(parseInt(time)).getHours() >= 10 ? new Date(parseInt(time)).getHours() : '0' + new Date(parseInt(time)).getHours()
             m = new Date(parseInt(time)).getMinutes() >= 10 ? new Date(parseInt(time)).getMinutes() : '0' + new Date(parseInt(time)).getMinutes()
         }
+
         day = {
             y: y,
             d: M + 1 + '月' + d + '日' + '（' + week + '）',

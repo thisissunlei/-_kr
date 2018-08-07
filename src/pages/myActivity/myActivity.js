@@ -18,12 +18,17 @@ Page({
             success: ( res ) => {
                 if( res.data.code > 0 ){
                     that.setData({
-                        list: res.data.data || []
+                        list: []
                     })
-                    that.data.list.forEach((val, i) => {
-                        that.getTime('bt', val.beginTime, i)
-                        that.getTime('et', val.endTime, i)
-                    })
+                    if ( !!res.data.data && res.data.data.length > 0 ) {
+                        that.setData({
+                            list: res.data.data || []
+                        })
+                        that.data.list.forEach((val, i) => {
+                            that.getTime('bt', val.beginTime, i)
+                            that.getTime('et', val.endTime, i)
+                        })
+                    }
                 }
             },
             fail:(res)=>{

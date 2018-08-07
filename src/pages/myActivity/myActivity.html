@@ -20,10 +20,10 @@
                         <view wx:else>
                             <text>{{item.bt.d}}</text>
                             <text wx:if="{{item.bt.t != '00:00'}}">{{item.bt.t}}</text>
+                            <text wx:if="{{item.bt.t != '00:00' && item.et.t == '00:00'}}">开始</text>
                             <text wx:if="{{item.bt.t != '00:00' && item.et.t != '00:00'}}">-</text>
                             <text wx:if="{{item.et.t != '00:00'}}">{{item.et.t}}</text>
-                            <text wx:if="{{item.et.t == '00:00'}}">开始</text>
-                            <text wx:if="{{item.bt.t == '00:00'}}">结束</text>
+                            <text wx:if="{{item.et.t != '00:00' && item.bt.t == '00:00'}}">结束</text>
                         </view>
                     </view>
                     <view class="my-activity-title">{{item.title}}</view>
@@ -40,7 +40,7 @@
         </navigator>
     </view>
 </view>
-<view class="my-meeting-list-none" wx:if="{{list.length == 0}}">
+<view class="my-meeting-list-none" wx:if="{{!list || list.length == 0}}">
     <view class="content-none">
         <image class="none-img" src="../images/public/none.png" background-size="cover"></image>
         <text class="warn">还没有活动呢~</text>
