@@ -32,7 +32,8 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
-    "pages/activityDetails/activity"
+    "pages/activityDetails/activity",
+    "pages/locationMap/locationMap"
   ],
   "window": {
     "backgroundTextStyle": "light",
