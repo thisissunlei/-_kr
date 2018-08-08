@@ -74,7 +74,7 @@ Page({
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
     add_btn : true,
-    reduce_btn : true,
+    reduce_btn : false,
     final_num : 1,
     show_a:false,
     selecedList:[],
@@ -494,26 +494,26 @@ Page({
     // 日历
 
 
-    // const today_date = new Date();
+     const today_date = new Date();
     
-    // const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
-    // const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
+     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
+     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
     this.dealDate(this.nowDate);
-    // this.setData({
+     this.setData({
       
-    //   date_now:{
-    //     month:today_date.getMonth()+1,//月
-    //     year:today_date.getFullYear(),//年
-    //     value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',  //年月
-    //     choose:''
-    //   },
-    //   date_next:{
-    //     month:today_date.getMonth()+2,
-    //     year:today_date.getFullYear(),
-    //     value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
-    //     choose:''
-    //   }
-    // });
+      date_now:{
+        month:today_date.getMonth()+1,//月
+        year:today_date.getFullYear(),//年
+        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',  //年月
+        choose:''
+      },
+      date_next:{
+        month:today_date.getMonth()+2,
+        year:today_date.getFullYear(),
+        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
+        choose:''
+      }
+    });
 
 
 
