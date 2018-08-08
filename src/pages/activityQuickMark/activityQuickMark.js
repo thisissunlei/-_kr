@@ -50,7 +50,7 @@ Page({
       },
       success: function(res) {
         var activityInfo = Object.assign({}, res);
-        // console.log(activityInfo, "活动详情");
+        console.log(activityInfo, "活动详情");
         that.setData({
           info: activityInfo.data.data,
           seatStatus: activityInfo.data.data.joinStatus
@@ -120,14 +120,13 @@ Page({
     var that = this;
 
     if (
-      that.data.seatStatus == "EXPIRED" ||
-      that.data.seatStatus == "ARRVING"
+      that.data.seatStatus === "EXPIRED" ||
+      that.data.seatStatus === "ARRVING"
     ) {
       QR.qrApi.draw(
         "http://web.krspace.cn/devtest/kr-meeting-activity02/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
-        150,
         150,
         150,
         null,
@@ -146,7 +145,9 @@ Page({
   createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
   },
-  onShow: function() {},
+  onShow: function() {
+    this.getActivityDetail();
+  },
   getTime(state, time) {
     let week = "";
     switch (new Date(parseInt(time)).getDay()) {
