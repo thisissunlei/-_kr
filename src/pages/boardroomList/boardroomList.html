@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container boardroom-list" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
-  <scroll-view scroll-y class='list-outer meeting-hig' bindscrolltolower="toBottom">
+  <view scroll-y class='list-outer meeting-hig'>
     <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#FFDF00">  
       <block wx:for="{{scoll_arr}}" wx:key  wx:for-index="index" wx:key>  
         <swiper-item>  
@@ -106,7 +106,7 @@
         <view class="right" data-detail="{{item}}" data-rangetime="{{item.rangeTime}}" catchtap="reserve">预订</view>
       </view>
     </view>
-  </scroll-view>
+  </view>
   <!-- <picker bindchange="changeCommunity" range-key="name" range="{{communityList}}" value="{{id}}" class="select-community">
     切换地点
   </picker> -->
