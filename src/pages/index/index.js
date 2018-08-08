@@ -176,18 +176,17 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
+              that.getActivity();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
                 that.getAllInfo();
-                that.getActivity();
                 that.getInfo();
               }
               if (that.func_bool_l2 && that.func_bool_s) {
                 that.func_bool_s = false;
                 that.func_bool_l2 = false;
                 that.getAllInfo();
-
                 that.getInfo();
               }
             }
@@ -219,7 +218,7 @@ Page({
   },
   onShow: function() {
     this.getAllInfo();
-    this.getActivity();
+    that.getActivity();
   },
   //首页活动接口
   getActivity: function() {
