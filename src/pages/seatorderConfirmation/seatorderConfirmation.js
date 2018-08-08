@@ -550,7 +550,8 @@ Page({
         price_y  = price_y.toFixed(2)
          item.month=getzf(item.month) 
          item.value=getzf(item.value)
-
+         item.seat.weeks =this.getWeek(item.seat.useTime)
+         item.seat.dates = item.seat.useTimeDescr.slice(0,5) + '(' + item.seat.weeks + ')';
         if(item.value=="今天"){
           item.month=getzf(parseInt(new Date().getMonth()+1))
           item.value=getzf(parseInt(new Date().getDate()))
@@ -574,6 +575,23 @@ Page({
         price_y:price_y
       })
     }
+  },
+  getWeek(init){
+    var mydate=new Date(init); 
+    var myday=mydate.getDay()
+    let xingqi = ''
+    switch(myday) { 
+      case 0:xingqi="星期日";break; 
+      case 1:xingqi="星期一";break; 
+      case 2:xingqi="星期二";break; 
+      case 3:xingqi="星期三";break; 
+      case 4:xingqi="星期四";break; 
+      case 5:xingqi="星期五";break; 
+      case 6:xingqi="星期六";break; 
+      default:xingqi="系统错误！" 
+    } 
+    return xingqi;
+
   },
   // 日历点击空白处隐藏
   heider : function(e){
