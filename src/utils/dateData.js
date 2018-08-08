@@ -182,6 +182,9 @@ export class dateData{
   getValue(){
     return this.get_value;
   }
+  setValue(value){
+    this.get_value = value;
+  }
 }
 export class dateDataPrice extends dateData{
 
@@ -189,8 +192,12 @@ export class dateDataPrice extends dateData{
     super(parameter);
     this.curMonth = parameter.data.curMonth || [];
     this.nextMonth = parameter.data.nextMonth || [];
+    this.init_data = parameter.init_data;
+    console.log(parameter,888888)
     this.dealDataPrice(this.curMonth,this.date_data1);
     this.dealDataPrice(this.nextMonth,this.date_data2);
+    
+    
   }
   max_num = 1;
   final_num = 1;
@@ -201,7 +208,7 @@ export class dateDataPrice extends dateData{
       for(let i = 0;i<store_data.length;i++){
         if(month_arr&&month_arr.length>0&&month_arr[data_num]){
           const data_day = new Date(month_arr[data_num].useTime).getDate();
-          
+          console.log(this.init_data,1111)
           if(store_data[i].day_num == data_day){
               if(store_data[i].type&&store_data[i].type!='before'){
                   store_data[i].seat = month_arr[data_num];
@@ -218,6 +225,9 @@ export class dateDataPrice extends dateData{
               }
               data_num++;
           }else{
+            if(this.init_data.last_btn_num == data_day){
+              this.setValue([]);
+            }
             //返回数据没有数量的，不可点击
             store_data[i].type = 'before';
           }
