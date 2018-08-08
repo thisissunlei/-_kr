@@ -218,7 +218,7 @@ Page({
   },
   onShow: function() {
     this.getAllInfo();
-    that.getActivity();
+    this.getActivity();
   },
   //首页活动接口
   getActivity: function() {
