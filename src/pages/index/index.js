@@ -261,7 +261,7 @@ Page({
             }
             return value;
           });
-          console.log(myMeeting);
+          // console.log(myMeeting);
 
           //排序
           buildingList.sort(function(a, b) {

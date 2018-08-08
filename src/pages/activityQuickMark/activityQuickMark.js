@@ -57,7 +57,7 @@ Page({
         });
         that.getTime("beginTime", that.data.info.beginTime);
         that.getTime("endTime", that.data.info.endTime);
-        // console.log(that.data.beginTime, that.data.endTime);
+        console.log(that.data.beginTime, that.data.endTime);
       },
       fail: function(err) {
         console.log(err);
