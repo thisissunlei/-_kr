@@ -280,14 +280,15 @@ Page({
         dateTime: that.data.nowDate
       },
       success: res => {
-        console.log(res);
         
-        var b = JSON.stringify(res.data.data) == "{}";
-        if (res.data.code == 1 && b == true) {
-          this.setData({
-            sanzuo: false
+        
+        var showData = res.data.data.goodsId?true:false;
+        if(res.data.data.cmtImgUrls && res.data.data.cmtImgUrls.length){
+          that.setData({
+              scoll_arr:res.data.data.cmtImgUrls
           });
-        } else {
+        }
+        if(showData){
           let arr_null = [];
           // console.log(res)
           arr_null.push(res.data.data);
@@ -303,6 +304,10 @@ Page({
             }
           );
           // console.log(this.data.scoll_arr)
+        }else{
+          this.setData({
+            sanzuo: false
+          });
         }
         
       },

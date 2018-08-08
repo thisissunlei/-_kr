@@ -424,8 +424,6 @@ Page({
     let beginDay = today_month.getDay();
 
     let today = parseInt(beginDay+days-1)
-    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1);
-    console.log(' today_month', today_month)
 
     let init_month = today_month.getTime()
     app.getRequest({
@@ -437,9 +435,6 @@ Page({
       success:res=>{
         let first = new Date(res.data.data.curMonth[0].useTime);
         const first_month = new Date(first.getFullYear(),first.getMonth(),1).getTime();
-        let second = new Date(res.data.data.nextMonth[0].useTime);
-        const second_month = new Date(second.getFullYear(),second.getMonth(),1).getTime();
-        console.log('response--first_month',first_month,'--',second_month)
         let last_data = init_month == first_month?'date_data1':'date_data2'
         that.james = new dateDataPrice({
           //btn_bool:true,
