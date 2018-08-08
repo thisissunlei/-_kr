@@ -11,6 +11,9 @@ Page({
       imageUrl: "../images/share_pic.jpg"
     };
   },
+  onReachBottom:function(){
+    this.loadNext();
+  },
   data: {
     //数据模拟
     
@@ -98,6 +101,7 @@ Page({
       });
     }
   },
+  
   //预定跳转页面
   list(e) {
     let rangeTime = e.currentTarget.dataset.rangetime;
