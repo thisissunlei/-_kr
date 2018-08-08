@@ -64,16 +64,7 @@ Page({
     nowDateIndex: wx.getStorageSync('nowDateIndex'),
     topDate: wx.getStorageSync('topDate'),
  
-    date_now: {
-      month: '',
-      year: '',
-      value: ''
-    },
-    date_next: {
-      month: '',
-      year: '',
-      value: ''
-    },
+    
     ifFirst: false,
 
     // 日历
@@ -82,7 +73,8 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    add_btn : 'true',
+    add_btn : true,
+    reduce_btn : true,
     final_num : 1,
     show_a:false,
     selecedList:[],
@@ -421,17 +413,18 @@ Page({
       show_a:true
     })
   },
-  dealDate:function(today_month_new,bool){
+  dealDate:function(init_date){
     
     let that = this;
-    const today_date = new Date();
+    const today_date = new Date(init_date);
     const days = today_date.getDate();
     
-    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
+    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
     let beginDay = today_month.getDay();
-    console.log('dealDate=======',beginDay,days)
     let today = parseInt(beginDay+days-1)
-    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
+    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1);
+
+
     app.getRequest({
       url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
       methods:"GET",
@@ -453,18 +446,6 @@ Page({
         this.setData({
           date_data1: this.date_data1,
           date_data2: this.date_data2,
-          date_now: {
-            month: today_date.getMonth() + 1,
-            year: today_date.getFullYear(),
-            value: today_date.getFullYear() + '年' + (parseInt(today_date.getMonth()) + 1) + '月',
-            choose: ''
-          },
-          date_next: {
-            month: today_date.getMonth() + 2,
-            year: today_date.getFullYear(),
-            value: today_date.getFullYear() + '年' + (parseInt(today_date.getMonth()) + 2) + '月',
-            choose: ''
-          }
         });
        
       }
@@ -480,6 +461,7 @@ Page({
           date_data2:this.date_data2,
           selecedList: selecedList ,
           add_btn :  reduce_btn_f.final_bool,
+          reduce_btn :  reduce_btn_f.final_r_bool,
           final_num : reduce_btn_f.final_num
         });
   },
@@ -490,6 +472,7 @@ Page({
           date_data1:this.date_data1,
           date_data2:this.date_data2, 
           add_btn :  add_btn_f.final_bool,
+          reduce_btn :  add_btn_f.final_r_bool,
           final_num : add_btn_f.final_num,
           selecedList: selecedList 
         });
@@ -511,26 +494,26 @@ Page({
     // 日历
 
 
-    const today_date = new Date();
+    // const today_date = new Date();
     
-    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
-    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    this.dealDate();
-    this.setData({
+    // const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
+    // const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
+    this.dealDate(this.nowDate);
+    // this.setData({
       
-      date_now:{
-        month:today_date.getMonth()+1,//月
-        year:today_date.getFullYear(),//年
-        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',  //年月
-        choose:''
-      },
-      date_next:{
-        month:today_date.getMonth()+2,
-        year:today_date.getFullYear(),
-        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
-        choose:''
-      }
-    });
+    //   date_now:{
+    //     month:today_date.getMonth()+1,//月
+    //     year:today_date.getFullYear(),//年
+    //     value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',  //年月
+    //     choose:''
+    //   },
+    //   date_next:{
+    //     month:today_date.getMonth()+2,
+    //     year:today_date.getFullYear(),
+    //     value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
+    //     choose:''
+    //   }
+    // });
 
 
 
@@ -593,8 +576,8 @@ Page({
     })
     
   },
-  onClickDate: function (that){
-    let carendar = JSON.parse(JSON.stringify(that.combination_new));
+  onClickDate: function (){
+    let carendar = JSON.parse(JSON.stringify(this.combination_new));
     let price_all = 0;
     let price_y = 0;
     let number = 1;
@@ -623,7 +606,7 @@ Page({
       }) 
       
       // console.log(price_all,price_y,9999999)
-      that.setData({
+      this.setData({
         sankeNum: number ,
         daynum: carendar.length,
         carendarArr: carendar,

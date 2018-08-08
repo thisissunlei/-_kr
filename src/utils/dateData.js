@@ -265,15 +265,23 @@ export class dateDataPrice extends dateData{
         }
       }
     }
-    if(this.final_num>this.max_num){
+    if(this.final_num>=this.max_num){
       return {
         final_num:this.final_num,
-        final_bool:false
+        final_bool:false,
+        final_r_bool:true
+      };
+    }else if(this.final_num<=1){
+      return {
+        final_num:this.final_num,
+        final_bool:true,
+        final_r_bool:false
       };
     }else{
       return {
         final_num:this.final_num,
-        final_bool:true
+        final_bool:true,
+        final_r_bool:true
       };
     }
   }
@@ -283,7 +291,7 @@ export class dateDataPrice extends dateData{
       for(let i=0;i<this.date_data1.length;i++){
         if(this.date_data1[i].value!=''){
           if(this.date_data1[i]['seat']){
-            if(this.date_data1[i]['seat']['remainQuantity']<=this.final_num){
+            if(this.date_data1[i]['seat']['remainQuantity']>=this.final_num){
               if(this.date_data1[i]['price_vlue']=='数量不足'){
                 this.date_data1[i]['type'] = (this.date_data1[i]['value']=='今天'||this.date_data1[i]['value']=='明天') ? 'now' : 'next';
                 this.date_data1[i]['price_vlue'] = this.date_data1[i]['seat']['promotionCost'];
@@ -295,8 +303,8 @@ export class dateDataPrice extends dateData{
       for(let j=0;j<this.date_data2.length;j++){
         if(this.date_data2[j].value!=''){         
           if(this.date_data2[j]['seat']){
-            if(this.date_data2[j]['seat']['remainQuantity']<=this.final_num){
-              if(this.date_data1[i]['price_vlue']=='数量不足'){
+            if(this.date_data2[j]['seat']['remainQuantity']>=this.final_num){
+              if(this.date_data2[j]['price_vlue']=='数量不足'){
                 this.date_data2[j]['type'] = (this.date_data2[j]['value']=='今天'||this.date_data2[j]['value']=='明天') ? 'now' : 'next';;
                 this.date_data2[j]['price_vlue'] = this.date_data2[j]['seat']['promotionCost'];
               }
@@ -305,17 +313,26 @@ export class dateDataPrice extends dateData{
         }
       }
     }
-    if(this.final_num>this.max_num){
+    if(this.final_num>=this.max_num){
       return {
         final_num:this.final_num,
-        final_bool:false
+        final_bool:false,
+        final_r_bool:true
+      };
+    }else if(this.final_num<=1){
+      return {
+        final_num:this.final_num,
+        final_bool:true,
+        final_r_bool:false
       };
     }else{
       return {
         final_num:this.final_num,
-        final_bool:true
+        final_bool:true,
+        final_r_bool:true
       };
     }
+
   }
   getFinalNum(){
     return this.final_num
