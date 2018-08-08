@@ -12,7 +12,6 @@ Page({
     price_y:0,
     price_all:0,
     new_arrup:[],
-    seatGoodIds:"",
     orderId:"",
     seatId:"",
     timeweekArr:{},
@@ -44,11 +43,6 @@ Page({
     duration: 1000,
     currentNum: 1,
     timeText: '',
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
     meetingRoomId: '',
     alertTime: 'ONEDAY',
     order_pay: {},
@@ -335,32 +329,6 @@ Page({
     })
   },
 
-  // 日历
-  // bindViewTap: function() {
-  //   wx.navigateTo({
-  //     url: '../logs/logs'
-  //   })
-  // },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  arr(x){
-    x.map((item,index)=>{
-      if(item.kg == false){
-        this.setData({
-          show:false
-        })
-      }else{
-        this.setData({
-          show:true
-        })
-      }
-    })
-    return this.data.show
-  },
   dateBtn : function (e){
       let evlue = this.james.dateBtn(e);
       console.log('dateBtn',this.james.getValue())
@@ -376,12 +344,14 @@ Page({
   diantrue(){
     var that = this;
     let selecedList = this.data.selecedList
+    console.log('=======',selecedList)
+
     if(!selecedList.length){
       selecedList = this.james.getValue()
     }
     
      
-
+    console.log('=======',selecedList)
     selecedList = selecedList.map((item,index)=>{
       if(item.alldata){
         item.alldata.number = that.data.final_num
@@ -392,22 +362,13 @@ Page({
       }
       
     })
-    this.setData({
-      combination:selecedList
-    })
     this.combination_new= selecedList;
     let seatGoodIds=[]
     seatGoodIds = this.combination_new.map(item=>{
       return item.seat.goodsId
     })
-    this.setData({
-      seatGoodIds:seatGoodIds.join(",")
-    },function(){
-      that.onClickDate(that);
-    })
-
-    // wx.setStorageSync('data-index',this.data.combination)
-
+    this.seatGoodIds = seatGoodIds.join(",")
+    this.onClickDate(that);
     
     this.setData({
       show_a:true
@@ -531,19 +492,7 @@ Page({
 
     var _this = this;
 
-    if (options.from == 'list') {
-      // wx.getStorage({
-      //   key: 'meet_detail',
-      //   success: function (res) {
-      //     if (res.data) {
-
-      //       _this.setData({
-      //         detailInfo: res.data
-      //       })
-      //     }
-      //   }
-      // })
-    } else {
+    if (options.from != 'list'){
       wx.getStorage({
         key: 'detail-c',
         success: function (res) {
@@ -557,15 +506,6 @@ Page({
       })
     }
 
-
-    // wx.getStorage({ //获取今天
-    //   key: 'orderDate',
-    //   success: function (res) {
-    //     if (res.data) {
-    //       _this.getThemeName(res.data);
-    //     }
-    //   }
-    // })
     wx.getStorage({
       key: 'order_pay',
       success: function (res) {
@@ -579,6 +519,23 @@ Page({
       }
     })
     
+  },
+  getPhone: function () {
+    var _this = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
+      methods: "GET",
+      header: {
+        'content-type': "appication/json"
+      },
+      success: (res) => {
+        let userInfo = Object.assign({}, res.data.data);
+        let linkPhone = _this.data.linkPhone;
+        _this.setData({
+          linkPhone: userInfo.phone || linkPhone
+        })
+      }
+    })
   },
   onClickDate: function (){
     let carendar = JSON.parse(JSON.stringify(this.combination_new));
@@ -619,6 +576,7 @@ Page({
       })
     }
   },
+  // 日历点击空白处隐藏
   heider : function(e){
     if(e.target.dataset.wrapper=='wrapper'){
       this.setData({
@@ -652,47 +610,6 @@ Page({
         carendarArr:{}
       })
   },
-
-
-  bool: true,
-  getThemeName: function (res) {
-    let timeArr = res.time.split('-');
-    let month = timeArr[1];
-    let day = timeArr[2];
-    // if(month<10){
-    //   month=`0${month}`
-    // }
-    // if(day<10){
-    //   day=`0${day}`
-    // }
-    let date = `${month}${day}`; //0716
-    let themeName = date + '会议'; //0716会议
-    this.setData({
-      orderDate: res, //今天time:"2018-07-16"timeText:"今天"
-      themeName: themeName //0716会议
-    });
-    this.choose_date = res.time //2018-07-16
-    
-  },
- 
-
-  getPhone: function () {
-    var _this = this;
-    app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
-      methods: "GET",
-      header: {
-        'content-type': "appication/json"
-      },
-      success: (res) => {
-        let userInfo = Object.assign({}, res.data.data);
-        let linkPhone = _this.data.linkPhone;
-        _this.setData({
-          linkPhone: userInfo.phone || linkPhone
-        })
-      }
-    })
-  },
  // 去支付
  createOrder: function () {
   this.setData({
@@ -700,14 +617,14 @@ Page({
   })
 
   let data = this.data;
+  let that = this;
   let orderData = {
 
     alertTime: data.alertTime,
     linkPhone: data.order_pay.linkPhone || data.linkPhone,
     arrivingTime: data.time,
     quantity: data.sankeNum,
-    // seatGoodIds: "135,136"
-    seatGoodIds: data.seatGoodIds,
+    seatGoodIds: that.seatGoodIds,
 
   }
 
@@ -835,17 +752,6 @@ Page({
             },
 
           })
-          // _this.weChatPay(res.data.data);
-          // _this.closeDialog();
-          // wx.setStorage({
-          //   key:"order_pay",
-          //   data:{},
-          //   success:function(){
-          //       _this.setData({
-          //         order_pay:{}
-          //       })
-          //   }
-          // })
           break;
       }
 
