@@ -3,12 +3,10 @@
 const app = getApp()
 Page({
     data: {
-        list: [],
-        bg: '../images/my/bg.png'
+        list: []
     },
-    onLoad: function () {
+    onShow: function () {
         let that = this;
-        // wx.reportAnalytics('viewmeeting')
         app.getRequest({
             url: app.globalData.KrUrl+'api/gateway/kmactivity/my/list',
             methods: "GET",
@@ -50,14 +48,14 @@ Page({
                 case 6:week="周六";break
             }
             y = new Date(parseInt(time)).getFullYear()
-            M = new Date(parseInt(time)).getMonth()
-            d = new Date(parseInt(time)).getDate()
+            M = new Date(parseInt(time)).getMonth()+1 >= 10 ? new Date(parseInt(time)).getMonth()+1 : '0' + (new Date(parseInt(time)).getMonth()+1)
+            d = new Date(parseInt(time)).getDate() >= 10 ? new Date(parseInt(time)).getDate() : '0' + new Date(parseInt(time)).getDate()
             h = new Date(parseInt(time)).getHours() >= 10 ? new Date(parseInt(time)).getHours() : '0' + new Date(parseInt(time)).getHours()
             m = new Date(parseInt(time)).getMinutes() >= 10 ? new Date(parseInt(time)).getMinutes() : '0' + new Date(parseInt(time)).getMinutes()
         }
         day = {
             y: y,
-            d: M + 1 + '-' + d + ' (' + week + ')',
+            d: M + '-' + d + ' (' + week + ')',
             t: h + ':' + m
         }
         list[i][state] = day
@@ -65,6 +63,5 @@ Page({
         this.setData({
             list: list
         })
-        console.log(this.data.list)
     }
 })

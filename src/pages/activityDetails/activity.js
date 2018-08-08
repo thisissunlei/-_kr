@@ -33,7 +33,35 @@ Page({
         });
     },
     onShow() {
-        this.getDetail()
+        if ( !!app.globalData.Cookie ) {
+            this.getDetail()
+        } else {
+            this.loginAgain()
+        }
+    },
+    loginAgain() {
+        wx.login({
+            success: (res) => {
+                if (res.code) {
+                    app.getRequest({
+                        url: app.globalData.KrUrl + "api/gateway/krmting/common/login",
+                        methods: "GET",
+                        data: {
+                            code: res.code
+                        },
+                        success: (logRes) => {
+                            app.globalData.Cookie = logRes.header["Set-Cookie"] || logRes.header["set-cookie"];
+                            this.getDetail()
+                        },
+                        fail: (logRes) => {
+                            this.setTip('netTip', '网络粗错了，请稍后再试', 'https://web.krspace.cn/kr-meeting/images/activity/icon_i.png')
+                        }
+                    })
+                } else {
+                    console.log("登录失败！" + res.errMsg);
+                }
+            }
+        });
     },
     getDetail() {
         app.getRequest({
@@ -88,7 +116,7 @@ Page({
         return {
             title: this.data.info.title,
             desc: "氪空间自由座",
-            path: "pages/activityDetails/activity",
+            path: "pages/activityDetails/activity?activityId=" + this.data.activityId,
             imageUrl: this.data.info.sharePic
         };
     },
@@ -232,14 +260,14 @@ Page({
                 case 6:week="周六";break
             }
             y = new Date(parseInt(time)).getFullYear()
-            M = new Date(parseInt(time)).getMonth()
-            d = new Date(parseInt(time)).getDate()
+            M = new Date(parseInt(time)).getMonth()+1 >= 10 ? new Date(parseInt(time)).getMonth()+1 : '0' + (new Date(parseInt(time)).getMonth()+1)
+            d = new Date(parseInt(time)).getDate() >= 10 ? new Date(parseInt(time)).getDate() : '0' + new Date(parseInt(time)).getDate()
             h = new Date(parseInt(time)).getHours() >= 10 ? new Date(parseInt(time)).getHours() : '0' + new Date(parseInt(time)).getHours()
             m = new Date(parseInt(time)).getMinutes() >= 10 ? new Date(parseInt(time)).getMinutes() : '0' + new Date(parseInt(time)).getMinutes()
         }
         day = {
             y: y,
-            d: M + 1 + '月' + d + '日' + ' (' + week + ')',
+            d: M + '月' + d + '日' + ' (' + week + ')',
             t: h + ':' + m
         }
 
