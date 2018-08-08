@@ -379,12 +379,10 @@ Page({
     let that = this;
 
     const today_date = new Date(init_date);
-    const days = today_date.getDate();
+    //const today = today_date.getDate();
 
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
-    let beginDay = today_month.getDay();
 
-    let today = parseInt(beginDay+days-1)
 
     let init_month = today_month.getTime()
     app.getRequest({
@@ -401,7 +399,7 @@ Page({
           //btn_bool:true,
           data: res.data.data,
           init_data: {
-            last_btn_num: today, //日期+week-1
+            last_btn_num: init_date, //日期
             last_data: last_data,
           },
         });
