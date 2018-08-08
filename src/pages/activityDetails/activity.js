@@ -74,6 +74,13 @@ Page({
                 if ( res.data.code == -1 ) {
                     this.setTip('apiTip', res.data.message, '../images/public/error.png')
                 } else {
+                    // if ( !!res.data.data.joiners && res.data.data.joiners.length > 0 ) {
+                    //     res.data.data.joiners.forEach( (val, i) => {
+                    //         val.wechatAvatar = util.imgHttps(val.wechatAvatar)
+                    //     })
+                    // }
+                    res.data.data.content = res.data.data.content.replace(/\<img/gi, '<img style="width:100%;height:auto;display: block;" ')
+                    res.data.data.notice = res.data.data.notice.replace(/\<img/gi, '<img style="width:100%;height:auto;display: block;" ')
                     this.setData({
                         info: res.data.data,
                         signUpData: {
@@ -83,6 +90,7 @@ Page({
                             phone: res.data.data.phone // 手机号
                         }
                     })
+                    console.log(this.data.info)
                 }
                 wx.setNavigationBarTitle({
                     title: this.data.info.title
@@ -270,7 +278,6 @@ Page({
             d: M + '月' + d + '日' + ' (' + week + ')',
             t: h + ':' + m
         }
-
         this.setData({
             [state]: day
         })

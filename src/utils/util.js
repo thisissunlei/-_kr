@@ -19,7 +19,17 @@ const phone = n =>{
   let value = phoneTest.test(n);
   return value;
 }
+
+const imgHttps = url => {
+    let img = url.split(':')
+    if ( img[0] === 'http' ) {
+        img[0] = 'https'
+    }
+    return img.join(':')
+}
+
 module.exports = {
   formatTime: formatTime,
-  phone:phone
+  phone:phone,
+  imgHttps: imgHttps
 }

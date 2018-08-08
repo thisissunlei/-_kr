@@ -60,7 +60,7 @@
 
     <view class="sponsor">
         <view class="sponsor-warp">
-            <image class="img" mode="aspectFill" wx:if="{{!!info.sponsorLogo}}" src="{{info.sponsorLogo}}"
+            <image class="img" mode="aspectFit" wx:if="{{!!info.sponsorLogo}}" src="{{info.sponsorLogo}}"
                    binderror="imgError" id="sponsorLogo"></image>
             <view class="txt">
                 <view class="title">
@@ -96,7 +96,7 @@
         </button>
         <view class="bind" bindtap="signUpShow" wx:if="{{!info.isExpire && !!info.canJoin && info.joinCount*1 < info.limitCount*1}}">立即报名</view>
         <view class="bind select" wx:if="{{!!info.isExpire}}">活动结束</view>
-        <view class="bind select" wx:if="{{!!info.canJoin && info.joinCount*1 >= info.limitCount*1}}">报名已满</view>
+        <view class="bind select" wx:if="{{!info.canJoin && !info.isExpire && info.joinCount*1 >= info.limitCount*1}}">报名已满</view>
     </view>
 
     <view class="activity-mark" wx:if="{{!!markShow}}" bindtap="modalHide"></view>
