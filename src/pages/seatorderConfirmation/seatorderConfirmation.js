@@ -561,6 +561,7 @@ Page({
           item.value=getzf(parseInt(new Date().getDate())+1)
           // item.zhou="明     天"
         }
+        console.log(item)
         return item
       }) 
       
