@@ -416,15 +416,18 @@ Page({
   dealDate:function(init_date){
     
     let that = this;
+
     const today_date = new Date(init_date);
     const days = today_date.getDate();
-    
+
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
     let beginDay = today_month.getDay();
+
     let today = parseInt(beginDay+days-1)
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1);
+    console.log(' today_month', today_month)
 
-
+    let init_month = today_month.getTime()
     app.getRequest({
       url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
       methods:"GET",
@@ -432,12 +435,18 @@ Page({
        seatId:this.data.seatId
       },
       success:res=>{
+        let first = new Date(res.data.data.curMonth[0].useTime);
+        const first_month = new Date(first.getFullYear(),first.getMonth(),1).getTime();
+        let second = new Date(res.data.data.nextMonth[0].useTime);
+        const second_month = new Date(second.getFullYear(),second.getMonth(),1).getTime();
+        console.log('response--first_month',first_month,'--',second_month)
+        let last_data = init_month == first_month?'date_data1':'date_data2'
         that.james = new dateDataPrice({
           //btn_bool:true,
           data: res.data.data,
           init_data: {
             last_btn_num: today, //日期+week-1
-            last_data: 'date_data1',
+            last_data: last_data,
           },
         });
         this.date_data1 = that.james.date_data1;
@@ -492,7 +501,7 @@ Page({
       
     })
     // 日历
-
+    console.log('this.nowDate',this.nowDate)
 
      const today_date = new Date();
     

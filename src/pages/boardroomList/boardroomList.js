@@ -280,7 +280,7 @@ Page({
         dateTime: that.data.nowDate
       },
       success: res => {
-        // console.log(res);
+        console.log(res);
         
         var b = JSON.stringify(res.data.data) == "{}";
         if (res.data.code == 1 && b == true) {
@@ -305,6 +305,12 @@ Page({
           // console.log(this.data.scoll_arr)
         }
         
+      },
+      fail:res=>{
+        console.log('============')
+        this.setData({
+          sanzuo: true
+        });
       }
     });
     
