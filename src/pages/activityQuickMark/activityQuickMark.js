@@ -118,7 +118,6 @@ Page({
   },
   onReady: function() {
     var that = this;
-
     if (
       that.data.seatStatus === "EXPIRED" ||
       that.data.seatStatus === "ARRVING"
