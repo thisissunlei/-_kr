@@ -31,6 +31,8 @@ Page({
             title: "加载中",
             mask: true
         });
+    },
+    onShow() {
         this.getDetail()
     },
     getDetail() {
@@ -45,7 +47,13 @@ Page({
                     this.setTip('apiTip', res.data.message, '../images/public/error.png')
                 } else {
                     this.setData({
-                        info: res.data.data
+                        info: res.data.data,
+                        signUpData: {
+                            activityId: this.data.activityId, // 活动
+                            companyName: res.data.data.companyName, // 公司
+                            name: res.data.data.name, // 姓名
+                            phone: res.data.data.phone // 手机号
+                        }
                     })
                 }
                 wx.setNavigationBarTitle({
@@ -54,6 +62,22 @@ Page({
                 wx.hideLoading();
                 this.getTime('beginTime', this.data.info.beginTime)
                 this.getTime('endTime', this.data.info.endTime)
+            },
+            fail: (res) => {
+                this.setTip('netTip', '网络粗错了，请稍后再试', 'https://web.krspace.cn/kr-meeting/images/activity/icon_i.png')
+            }
+        })
+    },
+    getUserInfo() {
+        app.getRequest({
+            url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
+            methods: "GET",
+            success: (res) => {
+                if ( res.data.code == -1 ) {
+                    this.setTip('apiTip', res.data.message, '../images/public/error.png')
+                } else {
+
+                }
             },
             fail: (res) => {
                 this.setTip('netTip', '网络粗错了，请稍后再试', 'https://web.krspace.cn/kr-meeting/images/activity/icon_i.png')
@@ -146,9 +170,6 @@ Page({
                         })
                         wx.navigateTo({
                             url: '../activityQuickMark/activityQuickMark?joinId=' + res.data.data.joinId,
-                            success: () => {
-                                this.getDetail()
-                            }
                         })
                     }, 2000)
                 }
@@ -216,10 +237,9 @@ Page({
             h = new Date(parseInt(time)).getHours() >= 10 ? new Date(parseInt(time)).getHours() : '0' + new Date(parseInt(time)).getHours()
             m = new Date(parseInt(time)).getMinutes() >= 10 ? new Date(parseInt(time)).getMinutes() : '0' + new Date(parseInt(time)).getMinutes()
         }
-
         day = {
             y: y,
-            d: M + 1 + '月' + d + '日' + '（' + week + '）',
+            d: M + 1 + '月' + d + '日' + ' (' + week + ')',
             t: h + ':' + m
         }
 

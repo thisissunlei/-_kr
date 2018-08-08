@@ -57,7 +57,7 @@ Page({
         }
         day = {
             y: y,
-            d: M + 1 + '-' + d + '（' + week + '）',
+            d: M + 1 + '-' + d + ' (' + week + ')',
             t: h + ':' + m
         }
         list[i][state] = day

@@ -9,12 +9,12 @@
                 <view class="info-table-td">
 
                     <view wx:if="{{item.bt.y != item.et.y}}">
-                        <view>{{item.bt.d}}至 {{item.et.y}}-{{item.et.d}}</view>
+                        <view>{{item.bt.d}} 至 {{item.et.y}}-{{item.et.d}}</view>
                         <view wx:if="{{item.bt.t != '00:00'}}">{{item.bt.t}}开始</view>
                     </view>
                     <view wx:else>
                         <view wx:if="{{item.bt.d != item.et.d}}">
-                            <view>{{item.bt.d}}至 {{item.et.d}}</view>
+                            <view>{{item.bt.d}} 至 {{item.et.d}}</view>
                             <view wx:if="{{item.bt.t != '00:00'}}">{{item.bt.t}}开始</view>
                         </view>
                         <view wx:else>
@@ -22,8 +22,7 @@
                             <text wx:if="{{item.bt.t != '00:00'}}">{{item.bt.t}}</text>
                             <text wx:if="{{item.bt.t != '00:00' && item.et.t == '00:00'}}">开始</text>
                             <text wx:if="{{item.bt.t != '00:00' && item.et.t != '00:00'}}">-</text>
-                            <text wx:if="{{item.et.t != '00:00'}}">{{item.et.t}}</text>
-                            <text wx:if="{{item.et.t != '00:00' && item.bt.t == '00:00'}}">结束</text>
+                            <text wx:if="{{item.bt.t != '00:00' && item.et.t != '00:00'}}">{{item.et.t}}</text>
                         </view>
                     </view>
                     <view class="my-activity-title">{{item.title}}</view>
