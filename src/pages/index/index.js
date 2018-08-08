@@ -228,7 +228,7 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmactivity/home/list",
       success: res => {
         var activityList = Object.assign({}, res);
-        console.log(activityList, "活动列表");
+        // console.log(activityList, "活动列表");
         that.setData({
           activityList: activityList.data.data
         });
@@ -252,6 +252,16 @@ Page({
           var buildingList = mansion.data.data.buildingList;
 
           var myMeeting = mansion.data.data.myTodo.slice(0, 5);
+
+          myMeeting.map(value => {
+            // console.log(value.todoTime.split("#")[0]);
+            if (value.targetType == "ACTIVITY") {
+              value.before = value.todoTime.split("#")[0];
+              value.last = value.todoTime.split("#")[1];
+            }
+            return value;
+          });
+          console.log(myMeeting);
 
           //排序
           buildingList.sort(function(a, b) {

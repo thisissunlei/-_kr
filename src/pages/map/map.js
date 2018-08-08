@@ -73,8 +73,8 @@ Page({
               latitude: item.latitude,
               longitude: item.longitude,
               // name: item.buildName,
-              width: 27,
-              height: 37
+              width: 24,
+              height: 34
             });
             return item;
           });
@@ -132,8 +132,8 @@ Page({
             latitude: item.latitude,
             longitude: item.longitude,
             // name: item.buildName,
-            width: 27,
-            height: 37
+            width: 24,
+            height: 34
             // callout: {
             //   content: item.buildName,
             //   display: "BYCLICK"

@@ -50,14 +50,14 @@ Page({
       },
       success: function(res) {
         var activityInfo = Object.assign({}, res);
-        console.log(activityInfo, "活动详情");
+        // console.log(activityInfo, "活动详情");
         that.setData({
           info: activityInfo.data.data,
           seatStatus: activityInfo.data.data.joinStatus
         });
         that.getTime("beginTime", that.data.info.beginTime);
         that.getTime("endTime", that.data.info.endTime);
-        console.log(that.data.beginTime, that.data.endTime);
+        // console.log(that.data.beginTime, that.data.endTime);
       },
       fail: function(err) {
         console.log(err);
@@ -124,7 +124,7 @@ Page({
       that.data.seatStatus == "ARRVING"
     ) {
       QR.qrApi.draw(
-        "https://web.krspace.cn/test/kr-meeting-activity-test/kr-meeting-activity01/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         150,
@@ -135,7 +135,7 @@ Page({
       );
     } else {
       QR.qrApi.draw(
-        "https://web.krspace.cn/test/kr-meeting-activity-test/kr-meeting-activity01/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         150,

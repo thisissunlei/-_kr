@@ -10,11 +10,20 @@
                 <view class="content">
                     <view class='title'>
                         <view class="title-top">
-                            <text style="padding-right: 10rpx;">{{beginTime.d}} 至</text>
-                            <text wx:if="{{beginTime.y!=endTime.y}}">{{endTime.y}}</text>
-                            <text>{{endTime.d}}</text>
+                            <view wx:if="{{beginTime.y != endTime.y}}">
+                                <text style="padding-right: 10rpx;">{{beginTime.d}} 至</text>
+                                <text>{{endTime.y}}</text>
+                                <text>{{endTime.d}}</text>
+                            </view>
+                            <view wx:else>
+                                <text style="padding-right: 10rpx;">{{beginTime.d}} 至</text>
+                                <text>{{endTime.d}}</text>
+                            </view>
                         </view>
-                        <text class="title-plus">{{beginTime.t}}-{{endTime.t}}</text>
+                        <view class="title-plus" wx:if="{{(beginTime.t != '00:00') && (endTime.t != '00:00')}}">
+                            <text wx:if="{{endTime.t=='00:00'}}">{{beginTime.t}}开始</text>
+                            <text wx:else>{{beginTime.t}}-{{endTime.t}}</text>
+                        </view>
                         <text class="activity-name">{{info.title}}</text>
                     </view>
                     <view class='pics'>
