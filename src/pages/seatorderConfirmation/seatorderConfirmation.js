@@ -551,7 +551,7 @@ Page({
          item.month=getzf(item.month) 
          item.value=getzf(item.value)
          item.seat.weeks =this.getWeek(item.seat.useTime)
-         item.seat.dates = item.seat.useTimeDescr.slice(0,5) + '(' + item.seat.weeks + ')';
+         item.seat.dates = item.seat.useTimeDescr.slice(0,5);
         if(item.value=="今天"){
           item.month=getzf(parseInt(new Date().getMonth()+1))
           item.value=getzf(parseInt(new Date().getDate()))
