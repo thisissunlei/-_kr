@@ -57,7 +57,7 @@ Page({
         });
         that.getTime("beginTime", that.data.info.beginTime);
         that.getTime("endTime", that.data.info.endTime);
-        console.log(that.data.beginTime, that.data.endTime);
+        // console.log(that.data.beginTime, that.data.endTime);
       },
       fail: function(err) {
         console.log(err);
@@ -124,7 +124,7 @@ Page({
       that.data.seatStatus == "ARRVING"
     ) {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity02/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         150,
@@ -135,7 +135,7 @@ Page({
       );
     } else {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity02/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         150,
