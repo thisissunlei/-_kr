@@ -26,14 +26,11 @@
             <view class="time">
                 <view class="start">始</view>
                 <view class="num">
-                    <view class="text" wx:if="{{beginTime.y == endTime.y}}">
+                    <view class="text">
                         <text wx:if="{{beginTime.t != '00:00'}}">{{beginTime.t}}</text>
                         <text wx:if="{{beginTime.t != '00:00' && endTime.t == '00:00'}}">开始</text>
                         <text wx:if="{{beginTime.t != '00:00' && endTime.t != '00:00'}}">-</text>
                         <text wx:if="{{beginTime.t != '00:00' && endTime.t != '00:00'}}">{{endTime.t}}</text>
-                    </view>
-                    <view class="text" wx:else>
-                        <text wx:if="{{beginTime.t != '00:00'}}">{{beginTime.t}}开始</text>
                     </view>
                 </view>
                 <view class="stop">终</view>
