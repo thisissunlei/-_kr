@@ -73,12 +73,12 @@
         </view>
     </view>
 
-    <view class="activity-info" wx:if="{{!!info.content}}">
+    <view class="activity-info" wx:if="{{!!info.pics && info.pics.length > 0}}">
         <view class="title">活动详情</view>
-        <rich-text nodes="{{info.content}}"></rich-text>
+        <image mode="widthFix" wx:for="{{info.pics}}" wx:key="{{index}}" src="{{item.url}}"></image>
     </view>
     <view class="activity-info" wx:if="{{!!info.notice}}">
-        <view class="title">活动须知</view>
+        <view class="title">温馨提示</view>
         <rich-text nodes="{{info.notice}}"></rich-text>
     </view>
 
