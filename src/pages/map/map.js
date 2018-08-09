@@ -4,6 +4,7 @@ const app = getApp();
 
 Page({
   data: {
+    showCard: true,
     cityName: "北京市",
     cityId: 1,
     latitude: 0,
@@ -33,11 +34,13 @@ Page({
         that.getNearbyCity();
       },
       fail: err => {
+        //108.890637,34.247561
         console.log(err);
         that.setData({
-          latitude: 23.10229,
-          longitude: 113.3345211,
-          scale: 6
+          latitude: 34.247561,
+          longitude: 108.890637,
+          scale: 4,
+          showCard: false
         });
 
         wx.showModal({
