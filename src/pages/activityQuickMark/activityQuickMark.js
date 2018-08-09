@@ -123,7 +123,7 @@ Page({
       that.data.seatStatus === "ARRVING"
     ) {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity02/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity03/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         150,
@@ -133,7 +133,7 @@ Page({
       );
     } else {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity02/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity03/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         150,

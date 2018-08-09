@@ -103,7 +103,7 @@
       <swiper class="activity-box" previous-margin="{{activity.previousMargin}}" current="{{activity.current}}" duration="{{activity.duration}}"
         bindchange="acitvityChange" next-margin="{{activity.nextMargin}}" circular="{{activity.circular}}">
         <block wx:for="{{activityList}}" wx:key>
-          <swiper-item bindtap="goActivityDetail" data-id="{{item.activityId}}" style="padding: 0 20rpx;box-sizing: border-box;">
+          <swiper-item bindtap="goActivityDetail" data-id="{{item.activityId}}" style="padding: 0 5px;box-sizing: border-box;">
             <image src="{{item.coverPic}}" class="activity-slide" />
           </swiper-item>
         </block>
