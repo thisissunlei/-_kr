@@ -58,6 +58,23 @@
                     <span class="spannum">{{sankeNum}}</span> 个</view>
             </view>
         </view>
+        <!--优惠券选项 -->
+        <view class="u-meeting-sale">
+            <view class="u-meeting-title sale-title">
+                优惠券
+            </view>
+            <!-- <view class="u-meet-text meet-theme">{{time}}</view> -->
+            <view class="u-meet-text meet-theme red" wx:if="{{saleStatus==='new'}}">与新人专享优惠不可同享</view>
+            <view class="u-meet-text meet-theme" wx:else>
+                <view class="u-meet-choose sale-content">已选一张</view>
+                <view class="u-meet-money sale-content">-￥50</view>
+
+            </view>
+            <view class="u-btn-arrow u-meeting-btn-arrow">
+                <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+            </view>
+
+        </view>
     </view>
 
 

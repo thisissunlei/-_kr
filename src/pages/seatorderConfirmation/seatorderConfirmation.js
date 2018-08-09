@@ -72,6 +72,8 @@ Page({
     final_num : 1,
     show_a:false,
     selecedList:[],
+    //当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
+    saleStatus:'nothing'
   },
 
   nowDate: '',
@@ -311,8 +313,13 @@ Page({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
       method: "GET",
       success: (res) => {
+        let saleStatus = 'nothing'
+        if(res.data.data.first){
+          saleStatus = 'new'
+        }
       this.setData({
-        isFirst:res.data.data.first
+        isFirst:res.data.data.first,
+        saleStatus:saleStatus
       })
 
       },
