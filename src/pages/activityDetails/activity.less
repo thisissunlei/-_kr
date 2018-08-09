@@ -13,6 +13,7 @@
 }
 .activity .title-h1 {
   color: #333333;
+  font-weight: bold;
   font-size: 36rpx;
   line-height: 46rpx;
   padding: 36rpx 32rpx 0;
@@ -22,6 +23,7 @@
   padding: 10rpx 32rpx 0;
 }
 .price .txt {
+  font-weight: bold;
   font-size: 32rpx;
 }
 .price .yuan {
@@ -39,8 +41,8 @@
   padding: 20rpx 6rpx 30rpx;
 }
 .preson .preson-img {
-  border: 1px #fff solid;
-  background: #fff;
+  border: 1px #f6f6f6 solid;
+  background: #f6f6f6;
   border-radius: 100%;
   float: left;
   height: 60rpx;
@@ -112,7 +114,7 @@
   position: absolute;
   top: 50%;
   right: 4rpx;
-  margin-top: -4rpx;
+  margin-top: -3rpx;
   border-width: 2rpx 2rpx 0 0;
   border-color: #666;
   border-style: solid;
@@ -168,6 +170,7 @@
   background-image: linear-gradient(-217deg, #FFEB00 0%, #FFDF00 100%);
   border-radius: 100%;
   color: #624d17;
+  font-weight: bold;
   font-size: 30rpx;
   height: 60rpx;
   line-height: 60rpx;
@@ -213,17 +216,19 @@
 
 .com-site-warp .name {
   color: #333333;
+  font-weight: bold;
   font-size: 32rpx;
   line-height: 40rpx;
   padding-bottom: 20rpx;
 }
 .com-site-warp .address {
   display: flex;
+  font-weight: 400;
   line-height: 40rpx;
 }
 .com-site-warp .address image {
   display: inline-block;
-  height: 32rpx;
+  height: 28rpx;
   margin: 4rpx 10rpx 0 0;
   vertical-align: middle;
   width: 28rpx;
@@ -259,11 +264,13 @@
 }
 .sponsor-warp .txt .title {
   color: #333333;
+  font-weight: bold;
   font-size: 30rpx;
   height: 40rpx;
   line-height: 40rpx;
   max-width: 468rpx;
   overflow: hidden;
+  padding-bottom: 10rpx;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -271,8 +278,8 @@
 .sponsor-warp .txt .con rich-text {
   color: #999999;
   font-size: 26rpx;
-  height: 120rpx;
-  line-height: 40rpx;
+  height: 110rpx;
+  line-height: 36rpx;
   overflow: hidden;
 }
 
@@ -301,6 +308,7 @@
 }
 .activity-info .title {
   color: #232428;
+  font-weight: bold;
   font-size: 36rpx;
   padding-bottom: 20rpx;
 }
@@ -317,6 +325,7 @@
 }
 .special-thanks .title {
   color: #232428;
+  font-weight: bold;
   font-size: 36rpx;
   padding: 0 32rpx 20rpx;
 }
@@ -468,11 +477,14 @@
   padding: 28rpx 0;
 }
 .sign-up-clear input,
-.sign-up-clear textarea {
+.sign-up-clear textarea,
+.sign-up-clear .textarea {
+  position: relative;
+  z-index: 0;
   color: #333333;
   flex: 1;
   font-size: 32rpx;
-  font-weight: lighter;
+  font-weight: 400;
   line-height: 44rpx;
   padding: 0 20rpx;
 }
@@ -483,7 +495,8 @@
 .sign-up-clear .clear {
   padding: 0 20rpx;
 }
-.sign-up-clear textarea {
+.sign-up-clear textarea,
+.sign-up-clear .textarea {
   height: 160rpx;
 }
 .sign-up-warp .btn {
@@ -513,9 +526,9 @@
 }
 .api-tip {
   position: fixed;
-  top: 500rpx;
+  top: 400rpx;
   left: 50%;
-  z-index: 12;
+  z-index: 120;
   background: rgba(0,0,0,0.80);
   border-radius: 16rpx;
   color: #ffffff;
