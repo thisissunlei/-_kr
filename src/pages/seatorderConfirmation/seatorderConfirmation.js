@@ -534,6 +534,7 @@ Page({
          item.seat.dates = item.seat.useTimeDescr.slice(0,5);
         return item
       }) 
+      this.getSaleList(price_all);
       
       this.setData({
         sankeNum: number ,
@@ -543,6 +544,10 @@ Page({
         price_y:price_y
       })
     }
+  },
+  getSaleList(price){
+    // 获取优惠券列表
+    
   },
   getWeek(init){
     var mydate=new Date(init); 
