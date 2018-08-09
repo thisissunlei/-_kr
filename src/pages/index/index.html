@@ -92,7 +92,7 @@
   <!-- 最新活动 -->
   <view class="activity" wx:if="{{activityList.length>0}}">
     <view class="activity-text">
-      <text>最新活动</text>
+      <text class="text-bold">最新活动</text>
       <view wx:if="{{activityList.length>1}}">
         <text>{{preIndex+1}}</text>
         <text>/</text>
@@ -116,7 +116,7 @@
 
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
     <view class='rm_title'>
-      <text style="margin-left: 36rpx;">周边大厦</text>
+      <text class="text-bold" style="margin-left: 36rpx;">周边大厦</text>
       <!-- <view class="page-box" bindtap="openmap">
         <text class="page-map">
           <text class="page-water"></text>
