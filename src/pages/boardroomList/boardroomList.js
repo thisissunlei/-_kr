@@ -110,6 +110,7 @@ Page({
     // console.log(e);
     wx.setStorageSync("rangeTime-c", rangeTime);
     wx.setStorageSync("detail-c", detail);
+    console.log('预定跳转页面=======',detail)
     // console.log(e.currentTarget.dataset.detail.goodsId,e.currentTarget.dataset.detail.seatId)
     wx.navigateTo({
       url:
@@ -1012,7 +1013,6 @@ Page({
             meetingDetail = Object.assign({}, that.data.meetDetail, res.data, {
               meetingRoomId1: meetingRoomId1
             });
-
             that.setDetail1(meetingDetail);
           }
         }
@@ -1039,10 +1039,9 @@ Page({
   },
   //散座跳转日历
   setDetail1(arr) {
-    // console.log(arr);
     let that = this;
     wx.setStorage({
-      key: "meet_detail1",
+      key: "detail-c",
       data: arr,
       success: function() {
         that.button_boolean1 = true;

@@ -272,14 +272,6 @@ Page({
           that.setData({
             meetingDetail: meetingDetail
           })
-          // let price = this.data.sankeNum * this.data.daynum * meetingDetail.promotionCost
-          // let oldprice = this.data.sankeNum * this.data.daynum * meetingDetail.unitCost
-          // that.setData({
-            // price: price.toFixed(2),
-            // oldprice: oldprice.toFixed(2)
-            // price: price,
-            // oldprice: oldprice
-          // })
         } else {
           that.setData({
             phoneError: false,
