@@ -76,10 +76,6 @@ Page({
       },2000)
       return;
     }
-    wx.navigateTo({
-              url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from
-            });
-    return;
     console.log(that.data)
 
       app.getRequest({
