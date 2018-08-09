@@ -272,14 +272,6 @@ Page({
           that.setData({
             meetingDetail: meetingDetail
           })
-          // let price = this.data.sankeNum * this.data.daynum * meetingDetail.promotionCost
-          // let oldprice = this.data.sankeNum * this.data.daynum * meetingDetail.unitCost
-          // that.setData({
-            // price: price.toFixed(2),
-            // oldprice: oldprice.toFixed(2)
-            // price: price,
-            // oldprice: oldprice
-          // })
         } else {
           that.setData({
             phoneError: false,
@@ -319,7 +311,6 @@ Page({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
       method: "GET",
       success: (res) => {
-        // console.log(res.data.data.first,222)
       this.setData({
         isFirst:res.data.data.first
       })
@@ -331,9 +322,7 @@ Page({
 
   dateBtn : function (e){
       let evlue = this.james.dateBtn(e);
-      console.log('dateBtn',this.james.getValue())
       let selecedList = this.james.getValue()
-      //console.log(this.date_data1)
         this.setData({
           date_data1:this.date_data1,
           date_data2:this.date_data2, 
@@ -344,14 +333,9 @@ Page({
   diantrue(){
     var that = this;
     let selecedList = this.data.selecedList
-    console.log('=======',selecedList)
-
     if(!selecedList.length){
       selecedList = this.james.getValue()
     }
-    
-     
-    console.log('=======',selecedList)
     selecedList = selecedList.map((item,index)=>{
       if(item.alldata){
         item.alldata.number = that.data.final_num
@@ -379,11 +363,7 @@ Page({
     let that = this;
 
     const today_date = new Date(init_date);
-    //const today = today_date.getDate();
-
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
-
-
     let init_month = today_month.getTime()
     app.getRequest({
       url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
@@ -396,7 +376,6 @@ Page({
         const first_month = new Date(first.getFullYear(),first.getMonth(),1).getTime();
         let last_data = init_month == first_month?'date_data1':'date_data2'
         that.james = new dateDataPrice({
-          //btn_bool:true,
           data: res.data.data,
           init_data: {
             last_btn_num: init_date, //日期
@@ -455,10 +434,7 @@ Page({
       
     })
     // 日历
-    console.log('this.nowDate',this.nowDate)
-
      const today_date = new Date();
-    
      const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
      const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
     this.dealDate(this.nowDate);
@@ -484,8 +460,6 @@ Page({
     
     this.getFirst()
     this.getMeetId()
-
-    
     this.getPhone();
 
     var _this = this;
@@ -544,7 +518,6 @@ Page({
       carendar.map(item=>{
         number = item.number;
         price_all = Number(price_all) + Number(item.seat.promotionCost*item.number);
-        // console.log(typeof price_all)
         price_all =  price_all.toFixed(2);
         price_y  = Number(price_y) + Number(item.seat.unitCost*item.number);
         price_y  = price_y.toFixed(2)
@@ -552,21 +525,9 @@ Page({
          item.value=getzf(item.value)
          item.seat.weeks =this.getWeek(item.seat.useTime)
          item.seat.dates = item.seat.useTimeDescr.slice(0,5);
-        if(item.value=="今天"){
-          item.month=getzf(parseInt(new Date().getMonth()+1))
-          item.value=getzf(parseInt(new Date().getDate()))
-          // item.zhou="今     天"
-        }
-        if(item.value=="明天"){
-          item.month=getzf(parseInt(new Date().getMonth()+1))
-          item.value=getzf(parseInt(new Date().getDate())+1)
-          // item.zhou="明     天"
-        }
-        console.log(item)
         return item
       }) 
       
-      // console.log(price_all,price_y,9999999)
       this.setData({
         sankeNum: number ,
         daynum: carendar.length,
@@ -664,7 +625,7 @@ Page({
     data: orderData,
 
     success: (res) => {
-
+      // 不确定这里存的数据有什么用（马）
       if (!wx.getStorageSync("order-info")) {
         let orderArr = []
         orderArr.push(res.data.data)
@@ -680,6 +641,7 @@ Page({
 
 
       wx.setStorageSync("order", res.data.data)
+
       let code = res.data.code;
       setTimeout(function () {
         wx.hideLoading();
@@ -745,7 +707,6 @@ Page({
                 mask: true
               })
               setTimeout(function () {
-                // _this.getInviteeId(res.data.data.orderId);
                 wx.navigateTo({
                   url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
                 })

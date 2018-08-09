@@ -40,7 +40,6 @@
             <view class="u-line"></view>
         </view>
         <!--隐藏 日期盒子 -->
-        <!-- <scroll-view scroll-y="true" style="height:200rpx"class="u-time-box" wx:if="{{sankeNum && daynum}}"> -->
         <view class="u-time-box" wx:if="{{sankeNum && daynum}}">
             <view class="box2">
             </view>
@@ -59,12 +58,10 @@
                     <span class="spannum">{{sankeNum}}</span> 个</view>
             </view>
         </view>
-    <!-- </scroll-view> -->
     </view>
 
 
     <view class="u-meeting-info">
-        <!-- 预计到场时间 -->
         <view class="u-meeting-theme" bindtap="jumpSetTheme">
             <view class="u-meeting-title">
                 预计到场时间
@@ -75,7 +72,6 @@
             </view>
             <picker mode="time" value="{{time}}" start="{{startTime}}" end="{{endTime}}" bindchange="bindTimeChange">
                 <view class="picker">
-                    <!-- {{time}} -->
                 </view>
             </picker>
         </view>
