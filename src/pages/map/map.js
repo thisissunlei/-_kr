@@ -31,6 +31,27 @@ Page({
           latitude: res.latitude
         });
         that.getNearbyCity();
+      },
+      fail: err => {
+        console.log(err);
+        that.setData({
+          latitude: 23.10229,
+          longitude: 113.3345211,
+          scale: 6
+        });
+
+        wx.showModal({
+          title: "提示",
+          content:
+            "定位服务已关闭，请在“设置”中打开定位服务，以获取您的准确地址",
+          showCancel: false,
+          success: function(res) {
+            if (res.confirm) {
+              console.log("用户点击确定");
+              wx.navigateBack();
+            }
+          }
+        });
       }
     });
   },

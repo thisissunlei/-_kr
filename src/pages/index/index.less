@@ -521,7 +521,7 @@ button {
   align-items: center;
   position: fixed;
   right: 20rpx;
-  bottom: 20rpx;
+  bottom: 100rpx;
   z-index: 999;
 }
 .contact image {
@@ -537,6 +537,9 @@ button {
   display: flex;
   flex-wrap: wrap;
 }
+.activity-time > text {
+  height: 40rpx;
+}
 .activity-date {
   display: block;
   width: 100%;
@@ -545,4 +548,14 @@ button {
   display: block;
   width: 100%;
   text-align: center;
+}
+.activity-text > view > text:nth-child(1) {
+  font-size: 36rpx;
+}
+.activity-text > view > text:nth-child(2) {
+  font-size: 32rpx;
+}
+.activity-text > view > text:nth-child(3) {
+  font-size: 28rpx;
+  color: #666;
 }
