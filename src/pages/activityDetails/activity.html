@@ -56,7 +56,7 @@
 
     <view class="sponsor">
         <view class="sponsor-warp">
-            <image class="img" mode="aspectFit" wx:if="{{!!info.sponsorLogo}}" src="{{info.sponsorLogo}}"
+            <image class="img" mode="aspectFill" wx:if="{{!!info.sponsorLogo}}" src="{{info.sponsorLogo}}"
                    binderror="imgError" id="sponsorLogo"></image>
             <view class="txt">
                 <view class="title">
@@ -90,9 +90,10 @@
             <image mode="scaleToFill" src="https://web.krspace.cn/kr-meeting/images/activity/icon_share.png"></image>
             <text>分享</text>
         </button>
-        <view class="bind" bindtap="signUpShow" wx:if="{{!info.isExpire && !!info.canJoin && info.joinCount*1 < info.limitCount*1}}">立即报名</view>
-        <view class="bind select" wx:if="{{!!info.isExpire}}">活动结束</view>
-        <view class="bind select" wx:if="{{!info.canJoin && !info.isExpire && info.joinCount*1 >= info.limitCount*1}}">报名已满</view>
+        <view class="bind" bindtap="signUpShow" wx:if="{{!!canJoin}}">立即报名</view>
+        <view class="bind select" wx:if="{{!!expire}}">活动已结束</view>
+        <view class="bind select" wx:if="{{!expire && !!exist}}">已报名</view>
+        <view class="bind select" wx:if="{{!expire && !exist && !!full}}">报名已满</view>
     </view>
 
     <view class="activity-mark" wx:if="{{!!markShow}}" bindtap="modalHide"></view>
@@ -122,9 +123,11 @@
             <view class="clear" wx:if="{{!!signUpData.phone}}" bindtap="clearPhoneInput"><icon type="clear" size="12" color="#cccccc"/></view>
         </viwe>
         <viwe class="sign-up-clear">
+            <view style="color:{{!!signUpData.companyName?'#333333':'#cccccc'}}"
+                  class="textarea" wx-if="{{!!apiTipShow}}">{{signUpData.companyName || '请输入公司名称'}}</view>
             <textarea fixed="true" placeholder="请输入公司名称" value="{{signUpData.companyName}}"
-                      bindinput="bindKeyInputCompanyName"
-                      maxlength="30" placeholder-style="color:#cccccc;font-weight: lighter;"/>
+                      bindinput="bindKeyInputCompanyName" wx:else
+                      maxlength="30" placeholder-style="color:#cccccc;font-weight: 100;"/>
         </viwe>
         <view class="btn" bindtap="signUp">提交</view>
     </view>

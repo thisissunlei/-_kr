@@ -38,8 +38,9 @@ page{
   color: #333333;
   display: inline-table;
   font-size: 40rpx;
-  height: 200rpx;
+  height: 190rpx;
   line-height: 44rpx;
+  padding-top: 10rpx;
   text-align: center;
   width: 100%;
 }
@@ -50,14 +51,19 @@ page{
   width: 100%;
 }
 .info-table .day {
+  font-weight: bold;
   font-size: 40rpx;
 }
 .my-activity-title {
   color: #666666;
+  font-weight: 400;
   font-size: 36rpx;
   height: 44rpx;
   overflow: hidden;
-  padding-top: 20rpx;
+  padding-top: 12rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 600rpx;
 }
 .info-table.address-table {
   border: none;
@@ -71,10 +77,16 @@ page{
 .info-table.address-table .address {
    color: #9399a5;
    font-size: 26rpx;
-   padding-top: 16rpx;
+   padding-top: 10rpx;
  }
 .info-table.address-table .site {
   font-size: 30rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 522rpx;
 }
 .info-table.address-table .address image {
   height: 26rpx;

@@ -20,7 +20,12 @@ Page({
             companyName: '', // 公司
             name: '', // 姓名
             phone: '' // 手机号
-        }
+        },
+
+        canJoin: true, // 是否可以报名
+        full: false, // 人数已满
+        expire: false, // 是否过期
+        exist: false // 是否已经报名
     },
     onLoad(options) {
         this.setData({
@@ -74,15 +79,24 @@ Page({
                 if ( res.data.code == -1 ) {
                     this.setTip('apiTip', res.data.message, '../images/public/error.png')
                 } else {
-                    // if ( !!res.data.data.joiners && res.data.data.joiners.length > 0 ) {
-                    //     res.data.data.joiners.forEach( (val, i) => {
-                    //         val.wechatAvatar = util.imgHttps(val.wechatAvatar)
-                    //     })
-                    // }
                     res.data.data.content = res.data.data.content.replace(/\<img/gi, '<img style="width:100%;height:auto;display: block;" ')
                     res.data.data.notice = res.data.data.notice.replace(/\<img/gi, '<img style="width:100%;height:auto;display: block;" ')
+                    let full = false, expire = false, exist = false
+                    if ( !!res.data.data.enterStatus && res.data.data.enterStatus.length > 0 ) {
+                        if ( res.data.data.enterStatus.join(',').indexOf('EXPIRED') > -1 ) {
+                            expire = true
+                        } else if ( res.data.data.enterStatus.join(',').indexOf('EXIST') > -1 ) {
+                            exist = true
+                        } else if ( res.data.data.enterStatus.join(',').indexOf('FULL') > -1 ) {
+                            full = true
+                        }
+                    }
                     this.setData({
                         info: res.data.data,
+                        canJoin: res.data.data.canJoin, // 是否可以报名
+                        full: full, // 人数已满
+                        expire: expire, // 是否过期
+                        exist: exist, // 是否已经报名
                         signUpData: {
                             activityId: this.data.activityId, // 活动
                             companyName: res.data.data.companyName, // 公司
@@ -90,7 +104,6 @@ Page({
                             phone: res.data.data.phone // 手机号
                         }
                     })
-                    console.log(this.data.info)
                 }
                 wx.setNavigationBarTitle({
                     title: this.data.info.title
