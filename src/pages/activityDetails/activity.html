@@ -73,9 +73,9 @@
         </view>
     </view>
 
-    <view class="activity-info" wx:if="{{!!info.pics && info.pics.length > 0}}">
+    <view class="activity-info" wx:if="{{!!info.detailPics && info.detailPics.length > 0}}">
         <view class="title">活动详情</view>
-        <image mode="widthFix" wx:for="{{info.pics}}" wx:key="{{index}}" src="{{item.url}}"></image>
+        <image mode="widthFix" wx:for="{{info.detailPics}}" wx:key="{{index}}" src="{{item.url}}"></image>
     </view>
     <view class="activity-info" wx:if="{{!!info.notice}}">
         <view class="title">温馨提示</view>
