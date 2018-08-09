@@ -1,34 +1,25 @@
 page {
     height: 100%;
+    overflow:hidden;
 }
 .g-location-map{
     width:100%;
     height:100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction:column;
-    position:relative;
     
 }
 .u-map-section{
     width:100%;
-    height:100%;
+    height:81%;
 }
-.u-map{
-    width: 100%;
-    height:100%;
-}
+
 .u-map-footer{
     width:100%;
-    min-height:232rpx;
-    display: inline-block;
+    height:19%;
     background: #FFFFFF;
     border-top: 1px solid #DFDFDF;
-    bottom:0;
-    left:0;
-    position: absolute;
     padding:0 32rpx;
     box-sizing:border-box;
+    z-index:10000;
 }
 .u-map-info{
     width:100%;
@@ -48,7 +39,12 @@ page {
 }
 .u-address{
     font-size: 30rpx;
+    height:42rpx;
+    width:100%;
     color: #666666; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .u-address-icon{
     display: none;
