@@ -12,7 +12,6 @@ Page({
     price_y:0,
     price_all:0,
     new_arrup:[],
-    seatGoodIds:"",
     orderId:"",
     seatId:"",
     timeweekArr:{},
@@ -44,11 +43,6 @@ Page({
     duration: 1000,
     currentNum: 1,
     timeText: '',
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
     meetingRoomId: '',
     alertTime: 'ONEDAY',
     order_pay: {},
@@ -64,16 +58,7 @@ Page({
     nowDateIndex: wx.getStorageSync('nowDateIndex'),
     topDate: wx.getStorageSync('topDate'),
  
-    date_now: {
-      month: '',
-      year: '',
-      value: ''
-    },
-    date_next: {
-      month: '',
-      year: '',
-      value: ''
-    },
+    
     ifFirst: false,
 
     // 日历
@@ -82,7 +67,8 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    add_btn : 'true',
+    add_btn : true,
+    reduce_btn : false,
     final_num : 1,
     show_a:false,
     selecedList:[],
@@ -343,32 +329,6 @@ Page({
     })
   },
 
-  // 日历
-  // bindViewTap: function() {
-  //   wx.navigateTo({
-  //     url: '../logs/logs'
-  //   })
-  // },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  arr(x){
-    x.map((item,index)=>{
-      if(item.kg == false){
-        this.setData({
-          show:false
-        })
-      }else{
-        this.setData({
-          show:true
-        })
-      }
-    })
-    return this.data.show
-  },
   dateBtn : function (e){
       let evlue = this.james.dateBtn(e);
       console.log('dateBtn',this.james.getValue())
@@ -383,9 +343,15 @@ Page({
   },
   diantrue(){
     var that = this;
-    
     let selecedList = this.data.selecedList
+    console.log('=======',selecedList)
 
+    if(!selecedList.length){
+      selecedList = this.james.getValue()
+    }
+    
+     
+    console.log('=======',selecedList)
     selecedList = selecedList.map((item,index)=>{
       if(item.alldata){
         item.alldata.number = that.data.final_num
@@ -396,36 +362,29 @@ Page({
       }
       
     })
-    this.setData({
-      combination:selecedList
-    })
     this.combination_new= selecedList;
     let seatGoodIds=[]
-    console.log('diantrue==========2',selecedList)
     seatGoodIds = this.combination_new.map(item=>{
-      console.log("--->",item,'===',item.seat)
       return item.seat.goodsId
     })
-    this.setData({
-      seatGoodIds:seatGoodIds.join(",")
-    },function(){
-      that.onClickDate(that);
-    })
-
-    // wx.setStorageSync('data-index',this.data.combination)
-
+    this.seatGoodIds = seatGoodIds.join(",")
+    this.onClickDate(that);
     
     this.setData({
       show_a:true
     })
   },
-  dealDate:function(today_month_new,bool){
+  dealDate:function(init_date){
     
     let that = this;
-    const today_date = new Date();
-    
-    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
-    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
+
+    const today_date = new Date(init_date);
+    //const today = today_date.getDate();
+
+    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
+
+
+    let init_month = today_month.getTime()
     app.getRequest({
       url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
       methods:"GET",
@@ -433,12 +392,15 @@ Page({
        seatId:this.data.seatId
       },
       success:res=>{
+        let first = new Date(res.data.data.curMonth[0].useTime);
+        const first_month = new Date(first.getFullYear(),first.getMonth(),1).getTime();
+        let last_data = init_month == first_month?'date_data1':'date_data2'
         that.james = new dateDataPrice({
           //btn_bool:true,
           data: res.data.data,
           init_data: {
-            last_btn_num: 22, //日期+week-1
-            last_data: 'date_data1',
+            last_btn_num: init_date, //日期
+            last_data: last_data,
           },
         });
         this.date_data1 = that.james.date_data1;
@@ -447,18 +409,6 @@ Page({
         this.setData({
           date_data1: this.date_data1,
           date_data2: this.date_data2,
-          date_now: {
-            month: today_date.getMonth() + 1,
-            year: today_date.getFullYear(),
-            value: today_date.getFullYear() + '年' + (parseInt(today_date.getMonth()) + 1) + '月',
-            choose: ''
-          },
-          date_next: {
-            month: today_date.getMonth() + 2,
-            year: today_date.getFullYear(),
-            value: today_date.getFullYear() + '年' + (parseInt(today_date.getMonth()) + 2) + '月',
-            choose: ''
-          }
         });
        
       }
@@ -474,6 +424,7 @@ Page({
           date_data2:this.date_data2,
           selecedList: selecedList ,
           add_btn :  reduce_btn_f.final_bool,
+          reduce_btn :  reduce_btn_f.final_r_bool,
           final_num : reduce_btn_f.final_num
         });
   },
@@ -484,6 +435,7 @@ Page({
           date_data1:this.date_data1,
           date_data2:this.date_data2, 
           add_btn :  add_btn_f.final_bool,
+          reduce_btn :  add_btn_f.final_r_bool,
           final_num : add_btn_f.final_num,
           selecedList: selecedList 
         });
@@ -503,14 +455,14 @@ Page({
       
     })
     // 日历
+    console.log('this.nowDate',this.nowDate)
 
-
-    const today_date = new Date();
+     const today_date = new Date();
     
-    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
-    const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    this.dealDate();
-    this.setData({
+     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
+     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
+    this.dealDate(this.nowDate);
+     this.setData({
       
       date_now:{
         month:today_date.getMonth()+1,//月
@@ -538,19 +490,7 @@ Page({
 
     var _this = this;
 
-    if (options.from == 'list') {
-      // wx.getStorage({
-      //   key: 'meet_detail',
-      //   success: function (res) {
-      //     if (res.data) {
-
-      //       _this.setData({
-      //         detailInfo: res.data
-      //       })
-      //     }
-      //   }
-      // })
-    } else {
+    if (options.from != 'list'){
       wx.getStorage({
         key: 'detail-c',
         success: function (res) {
@@ -564,15 +504,6 @@ Page({
       })
     }
 
-
-    // wx.getStorage({ //获取今天
-    //   key: 'orderDate',
-    //   success: function (res) {
-    //     if (res.data) {
-    //       _this.getThemeName(res.data);
-    //     }
-    //   }
-    // })
     wx.getStorage({
       key: 'order_pay',
       success: function (res) {
@@ -587,8 +518,25 @@ Page({
     })
     
   },
-  onClickDate: function (that){
-    let carendar = JSON.parse(JSON.stringify(that.combination_new));
+  getPhone: function () {
+    var _this = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
+      methods: "GET",
+      header: {
+        'content-type': "appication/json"
+      },
+      success: (res) => {
+        let userInfo = Object.assign({}, res.data.data);
+        let linkPhone = _this.data.linkPhone;
+        _this.setData({
+          linkPhone: userInfo.phone || linkPhone
+        })
+      }
+    })
+  },
+  onClickDate: function (){
+    let carendar = JSON.parse(JSON.stringify(this.combination_new));
     let price_all = 0;
     let price_y = 0;
     let number = 1;
@@ -602,7 +550,8 @@ Page({
         price_y  = price_y.toFixed(2)
          item.month=getzf(item.month) 
          item.value=getzf(item.value)
-
+         item.seat.weeks =this.getWeek(item.seat.useTime)
+         item.seat.dates = item.seat.useTimeDescr.slice(0,5);
         if(item.value=="今天"){
           item.month=getzf(parseInt(new Date().getMonth()+1))
           item.value=getzf(parseInt(new Date().getDate()))
@@ -613,11 +562,12 @@ Page({
           item.value=getzf(parseInt(new Date().getDate())+1)
           // item.zhou="明     天"
         }
+        console.log(item)
         return item
       }) 
       
       // console.log(price_all,price_y,9999999)
-      that.setData({
+      this.setData({
         sankeNum: number ,
         daynum: carendar.length,
         carendarArr: carendar,
@@ -626,6 +576,24 @@ Page({
       })
     }
   },
+  getWeek(init){
+    var mydate=new Date(init); 
+    var myday=mydate.getDay()
+    let xingqi = ''
+    switch(myday) { 
+      case 0:xingqi="星期日";break; 
+      case 1:xingqi="星期一";break; 
+      case 2:xingqi="星期二";break; 
+      case 3:xingqi="星期三";break; 
+      case 4:xingqi="星期四";break; 
+      case 5:xingqi="星期五";break; 
+      case 6:xingqi="星期六";break; 
+      default:xingqi="系统错误！" 
+    } 
+    return xingqi;
+
+  },
+  // 日历点击空白处隐藏
   heider : function(e){
     if(e.target.dataset.wrapper=='wrapper'){
       this.setData({
@@ -659,47 +627,6 @@ Page({
         carendarArr:{}
       })
   },
-
-
-  bool: true,
-  getThemeName: function (res) {
-    let timeArr = res.time.split('-');
-    let month = timeArr[1];
-    let day = timeArr[2];
-    // if(month<10){
-    //   month=`0${month}`
-    // }
-    // if(day<10){
-    //   day=`0${day}`
-    // }
-    let date = `${month}${day}`; //0716
-    let themeName = date + '会议'; //0716会议
-    this.setData({
-      orderDate: res, //今天time:"2018-07-16"timeText:"今天"
-      themeName: themeName //0716会议
-    });
-    this.choose_date = res.time //2018-07-16
-    
-  },
- 
-
-  getPhone: function () {
-    var _this = this;
-    app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
-      methods: "GET",
-      header: {
-        'content-type': "appication/json"
-      },
-      success: (res) => {
-        let userInfo = Object.assign({}, res.data.data);
-        let linkPhone = _this.data.linkPhone;
-        _this.setData({
-          linkPhone: userInfo.phone || linkPhone
-        })
-      }
-    })
-  },
  // 去支付
  createOrder: function () {
   this.setData({
@@ -707,14 +634,14 @@ Page({
   })
 
   let data = this.data;
+  let that = this;
   let orderData = {
 
     alertTime: data.alertTime,
     linkPhone: data.order_pay.linkPhone || data.linkPhone,
     arrivingTime: data.time,
     quantity: data.sankeNum,
-    // seatGoodIds: "135,136"
-    seatGoodIds: data.seatGoodIds,
+    seatGoodIds: that.seatGoodIds,
 
   }
 
@@ -842,17 +769,6 @@ Page({
             },
 
           })
-          // _this.weChatPay(res.data.data);
-          // _this.closeDialog();
-          // wx.setStorage({
-          //   key:"order_pay",
-          //   data:{},
-          //   success:function(){
-          //       _this.setData({
-          //         order_pay:{}
-          //       })
-          //   }
-          // })
           break;
       }
 

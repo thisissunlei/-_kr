@@ -16,13 +16,26 @@ export class dateData{
 
     this.date_data1=[];
     this.date_data2=[];
-    this.last_btn_num = parameter.init_data.last_btn_num;
+
+    const last_date_obj = this.dateChange(parameter.init_data.last_btn_num)
+    this.last_btn_num = last_date_obj.num;
+    this.last_btn_date = last_date_obj.day_num
     this.last_data = parameter.init_data.last_data;
     this.btn_bool = parameter.btn_bool;
     this.initData();
   }
   all_day_num = 0;
   get_value = [];
+  dateChange(date_time){
+    const today_date = new Date(date_time);
+    const day_num = today_date.getDate(); 
+    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
+    let week = today_month.getDay();
+    return {
+      day_num : day_num, //具体日期号码
+      num : day_num+week-1, //在date_data1活date_data2数组中位置
+    };
+  }
   dealDate(today_month,bool){
     
     let t_times = today_month.getTime();
@@ -139,7 +152,7 @@ export class dateData{
   dateBtn(e,bool){
     if(e.target.dataset.alldata&&(e.target.dataset.alldata.type.indexOf('next')>-1||e.target.dataset.alldata.type.indexOf('now')>-1)){
       const new_data = this[e.target.dataset.data];
-      if(this[this.last_data]!='false'&&this.btn_bool){
+      if(!this[this.last_data]&&this.btn_bool){
         this[this.last_data][this.last_btn_num]['type'] = this[this.last_data][this.last_btn_num]['type'].replace('active ','');
       }
 
@@ -182,6 +195,9 @@ export class dateData{
   getValue(){
     return this.get_value;
   }
+  setValue(value){
+    this.get_value = value;
+  }
 }
 export class dateDataPrice extends dateData{
 
@@ -191,19 +207,25 @@ export class dateDataPrice extends dateData{
     this.nextMonth = parameter.data.nextMonth || [];
     this.dealDataPrice(this.curMonth,this.date_data1);
     this.dealDataPrice(this.nextMonth,this.date_data2);
+    
+    
   }
   max_num = 1;
   final_num = 1;
-  
+  init_bool = false;
   dealDataPrice(month_arr,store_data){
     let data_num = 0;
-    
       for(let i = 0;i<store_data.length;i++){
         if(month_arr&&month_arr.length>0&&month_arr[data_num]){
           const data_day = new Date(month_arr[data_num].useTime).getDate();
-          
+         
           if(store_data[i].day_num == data_day){
+              if(this.last_btn_date == data_day){
+                
+                this.init_bool = true;
+              }
               if(store_data[i].type&&store_data[i].type!='before'){
+                  
                   store_data[i].seat = month_arr[data_num];
                   const arr_num = month_arr[data_num]['remainQuantity'];
                   if(arr_num<1){
@@ -218,6 +240,8 @@ export class dateDataPrice extends dateData{
               }
               data_num++;
           }else{
+            
+            
             //返回数据没有数量的，不可点击
             store_data[i].type = 'before';
           }
@@ -227,7 +251,9 @@ export class dateDataPrice extends dateData{
         }
         
       }
-    
+    if(!this.init_bool){
+      this.setValue([]);
+    }
   }
   addNum(){
 
@@ -265,15 +291,23 @@ export class dateDataPrice extends dateData{
         }
       }
     }
-    if(this.final_num>this.max_num){
+    if(this.final_num>=this.max_num){
       return {
         final_num:this.final_num,
-        final_bool:false
+        final_bool:false,
+        final_r_bool:true
+      };
+    }else if(this.final_num<=1){
+      return {
+        final_num:this.final_num,
+        final_bool:true,
+        final_r_bool:false
       };
     }else{
       return {
         final_num:this.final_num,
-        final_bool:true
+        final_bool:true,
+        final_r_bool:true
       };
     }
   }
@@ -283,7 +317,7 @@ export class dateDataPrice extends dateData{
       for(let i=0;i<this.date_data1.length;i++){
         if(this.date_data1[i].value!=''){
           if(this.date_data1[i]['seat']){
-            if(this.date_data1[i]['seat']['remainQuantity']<=this.final_num){
+            if(this.date_data1[i]['seat']['remainQuantity']>=this.final_num){
               if(this.date_data1[i]['price_vlue']=='数量不足'){
                 this.date_data1[i]['type'] = (this.date_data1[i]['value']=='今天'||this.date_data1[i]['value']=='明天') ? 'now' : 'next';
                 this.date_data1[i]['price_vlue'] = this.date_data1[i]['seat']['promotionCost'];
@@ -295,8 +329,8 @@ export class dateDataPrice extends dateData{
       for(let j=0;j<this.date_data2.length;j++){
         if(this.date_data2[j].value!=''){         
           if(this.date_data2[j]['seat']){
-            if(this.date_data2[j]['seat']['remainQuantity']<=this.final_num){
-              if(this.date_data1[i]['price_vlue']=='数量不足'){
+            if(this.date_data2[j]['seat']['remainQuantity']>=this.final_num){
+              if(this.date_data2[j]['price_vlue']=='数量不足'){
                 this.date_data2[j]['type'] = (this.date_data2[j]['value']=='今天'||this.date_data2[j]['value']=='明天') ? 'now' : 'next';;
                 this.date_data2[j]['price_vlue'] = this.date_data2[j]['seat']['promotionCost'];
               }
@@ -305,17 +339,26 @@ export class dateDataPrice extends dateData{
         }
       }
     }
-    if(this.final_num>this.max_num){
+    if(this.final_num>=this.max_num){
       return {
         final_num:this.final_num,
-        final_bool:false
+        final_bool:false,
+        final_r_bool:true
+      };
+    }else if(this.final_num<=1){
+      return {
+        final_num:this.final_num,
+        final_bool:true,
+        final_r_bool:false
       };
     }else{
       return {
         final_num:this.final_num,
-        final_bool:true
+        final_bool:true,
+        final_r_bool:true
       };
     }
+
   }
   getFinalNum(){
     return this.final_num
