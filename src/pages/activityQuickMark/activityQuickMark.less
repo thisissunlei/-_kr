@@ -1,7 +1,4 @@
 @import "../meetingTem/meetingTem.less";
-page {
-  background: #ffffff;
-}
 .content-wrap {
   width: 100%;
   height: 100%;
@@ -118,7 +115,7 @@ button {
   width: 710rpx;
   height: 465px;
   padding: 0 20rpx;
-  margin-bottom: 300rpx;
+  margin-bottom: 450rpx;
 }
 .top-banner {
   width: 100%;
@@ -181,6 +178,10 @@ button {
   color: #666666;
   letter-spacing: 0;
   text-align: center;
+  padding: 0 60rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .pics {
   width: 710rpx;
@@ -227,9 +228,14 @@ button {
 }
 .bottom-text .metting-house {
   display: inline-block;
+  width: 200px;
+  height: 20px;
   font-size: 14px;
   color: #333;
-  height: 14px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .bottom-text .icons,
 .pics .code-desc {
@@ -244,8 +250,10 @@ button {
   margin-top: 4rpx;
 }
 .bottom-text .icons {
+  box-sizing: border-box;
   font-family: PingFangSC-Regular;
   font-size: 26rpx;
   color: #666666;
   margin-top: 6rpx;
+  padding: 0 60rpx;
 }

@@ -57,7 +57,7 @@ Page({
         });
         that.getTime("beginTime", that.data.info.beginTime);
         that.getTime("endTime", that.data.info.endTime);
-        // console.log(that.data.beginTime, that.data.endTime);
+        console.log(that.data.beginTime, that.data.endTime);
       },
       fail: function(err) {
         console.log(err);
@@ -141,7 +141,7 @@ Page({
       );
     }
   },
-  createQrCode: function(url, canvasId, cavW, cavH) {
+  createQrCode: function(url, canvasId, cavW, cavH, ecc, color_opacity) {
     //调用插件中的draw方法，绘制二维码图片
   },
   onShow: function() {
