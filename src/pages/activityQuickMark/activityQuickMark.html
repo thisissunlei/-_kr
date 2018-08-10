@@ -9,8 +9,10 @@
                 <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='ARRVING'}}"></image>
                 <view class="content">
                     <view class='title'>
-                        <view class="title-top" wx:if="{{beginTime.y == endTime.y && beginTime.d == endTime.d}}" style="text-align: center;">
-                            {{beginTime.d}} {{beginTime.t}}-{{endTime.t}}
+                        <view class="title-single" wx:if="{{beginTime.y == endTime.y && beginTime.d == endTime.d}}">
+                            <text style="padding-right: 10rpx;">{{beginTime.d}}</text>
+                            <text wx:if="{{endTime.t == '00:00'}}">{{beginTime.t}}开始</text>
+                            <text wx:else>{{beginTime.t}}-{{endTime.t}}</text>
                         </view>
                         <view wx:else>
                             <view class="title-top">
