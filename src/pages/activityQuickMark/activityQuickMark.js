@@ -58,7 +58,7 @@ Page({
         });
         that.getTime("beginTime", that.data.info.beginTime);
         that.getTime("endTime", that.data.info.endTime);
-        // console.log(that.data.beginTime, that.data.endTime);
+        console.log(that.data.beginTime, that.data.endTime);
       },
       fail: function(err) {
         console.log(err);
@@ -131,7 +131,7 @@ Page({
       that.data.seatStatus === "ARRVING"
     ) {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity05/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity06/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         160,
@@ -141,7 +141,7 @@ Page({
       );
     } else {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity05/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity06/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         160,
@@ -188,16 +188,14 @@ Page({
       new Date(parseInt(time)).getMinutes() >= 10
         ? new Date(parseInt(time)).getMinutes()
         : "0" + new Date(parseInt(time)).getMinutes();
+    let M =
+      new Date(parseInt(time)).getMonth() + 1 >= 10
+        ? new Date(parseInt(time)).getMonth() + 1
+        : "0" + (new Date(parseInt(time)).getMonth() + 1);
+
     let day = {
       y: new Date(parseInt(time)).getFullYear() + "-",
-      d:
-        new Date(parseInt(time)).getMonth() +
-        1 +
-        "-" +
-        new Date(parseInt(time)).getDate() +
-        " (" +
-        week +
-        ") ",
+      d: M + "-" + new Date(parseInt(time)).getDate() + " (" + week + ") ",
       t: h + ":" + m
     };
     this.setData({

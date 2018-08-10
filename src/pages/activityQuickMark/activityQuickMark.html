@@ -10,9 +10,7 @@
                 <view class="content">
                     <view class='title'>
                         <view class="title-top" wx:if="{{beginTime.y == endTime.y && beginTime.d == endTime.d}}">
-                            {{beginTime.d}}
-                            <text wx:if="{{endTime.t=='00:00'}}">{{beginTime.t}}开始</text>
-                            <text wx:else>{{beginTime.t}}-{{endTime.t}}</text>
+                            {{beginTime.d}} {{beginTime.t}}-{{endTime.t}}
                         </view>
                         <view wx:else>
                             <view class="title-top">
