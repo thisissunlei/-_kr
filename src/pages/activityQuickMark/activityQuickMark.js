@@ -118,15 +118,10 @@ Page({
               console.log(err);
             }
           });
-          //
-
-          //
         }
       }
     });
   },
-
-  //
 
   renderQR() {
     var that = this;
@@ -137,7 +132,7 @@ Page({
       that.data.seatStatus === "ARRVING"
     ) {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity09/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity10/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         160,
@@ -147,7 +142,7 @@ Page({
       );
     } else {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity09/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity10/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         160,
@@ -155,7 +150,6 @@ Page({
       );
     }
   },
-  //
   createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
   },
