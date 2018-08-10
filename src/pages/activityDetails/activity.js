@@ -145,6 +145,8 @@ Page({
                 activityId: this.data.activityId
             },
             success: (res) => {
+                console.log(res.data.data)
+                console.log(app.globalData.Cookie)
                 if ( res.data.code == -1 ) {
                     this.setTip('apiTip', res.data.message, '../images/public/error.png')
                 } else {
