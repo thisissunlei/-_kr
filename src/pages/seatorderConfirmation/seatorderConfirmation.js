@@ -11,6 +11,7 @@ Page({
     endTime:"",
     price_y:0,
     price_all:0,
+    salePrice:0,
     new_arrup:[],
     orderId:"",
     seatId:"",
@@ -73,7 +74,8 @@ Page({
     show_a:false,
     selecedList:[],
     //当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
-    saleStatus:'nothing'
+    saleStatus:'nothing',
+    saleContent:{},//优惠详情
   },
 
   nowDate: '',
@@ -433,6 +435,7 @@ Page({
   // 页面加载
   onLoad: function (options) {
     
+    console.log('onLoad==========')
 
     this.show_true = options.show_true;
     this.nowDate = wx.getStorageSync('nowDate');
@@ -485,6 +488,13 @@ Page({
         }
       })
     }
+      wx.getStorage({
+        key: 'seat_order-sale',
+        success: function (res) {
+         
+          console.log('======>',res)
+        }
+      })
 
     wx.getStorage({
       key: 'order_pay',
@@ -522,6 +532,8 @@ Page({
     let price_all = 0;
     let price_y = 0;
     let number = 1;
+    wx.setStorageSync("seat_order-sale", {sale:false})
+
     if(carendar){
       carendar.map(item=>{
         number = item.number;
@@ -547,13 +559,12 @@ Page({
     }
   },
   getSaleList(price,num,daynum){
-    // new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
+    // new：新人；chosen：已选，nothing:暂无可用；none:未选择）
     let saleStatus = this.data.saleStatus;
     let isFirst = this.data.isFirst;
     // 获取优惠券列表
     let saleList = [{},{}];
     let saleLength = 3;//循环列表得出（有效的）优惠券
-    console.log('=====>',num,isFirst)
     // let saleLength = saleList.length;
     if(num == 1 && isFirst && daynum ==1){
         // 新人且只选择了一个工位且一天
@@ -564,18 +575,23 @@ Page({
         saleStatus = 'nothing';
       }
       if(saleLength){
-        // 默认有效的第一个
-        saleStatus = 'chosen'
+        // 默认有效,
+        saleStatus = 'none'
       }
-      //如果没有选中项则为none
-
     }
     
     this.setData({
-      saleStatus:saleStatus
+      saleStatus:saleStatus,
+      saleContent:{sale:false}
     })
 
     
+  },
+  jumpSetSale(){
+    wx.navigateTo({
+      url: '../saleList/saleList?from=seat'
+    })
+
   },
   getWeek(init){
     var mydate=new Date(init); 
@@ -604,8 +620,11 @@ Page({
     
   },
   onShow: function () {
+    console.log('show---->',this.data.price_all)
     var _this = this;
     this.getMeetId()
+    let saleStatus = 'nothing';
+    let salePrice = this.data.price_all;
 
     wx.getStorage({
       key: 'order_pay',
@@ -621,9 +640,25 @@ Page({
         }
       }
     })
+    wx.getStorage({
+      key: 'seat_order-sale',
+      success: function (res) {
+        console.log('seat_order-sale========',res.data)
+        if(res.data.sale){
+          saleStatus = 'chosen';
+          salePrice = parseInt(salePrice-res.data.reduce)
+        }else{
+          saleStatus = 'none';
+        }
+        _this.setData({
+          saleStatus:saleStatus,
+          saleContent:res.data,
+          salePrice:salePrice
+        })
+      }
+    })
   },
   onUnload: function () {
-      
       this.setData({
         carendarArr:{}
       })
@@ -731,6 +766,8 @@ Page({
           break;
         default:
           // wx.reportAnalytics('confirmorder')
+          // 订单创建成功，清除优惠选择数据
+          wx.setStorageSync("seat_order-sale", {sale:false})
 
           wx.requestPayment({
             'nonceStr': res.data.data.noncestr,

@@ -59,7 +59,7 @@
             </view>
         </view>
         <!--优惠券选项 -->
-        <view class="u-meeting-sale">
+        <view class="u-meeting-sale" bindtap="jumpSetSale">
             <view class="u-meeting-title sale-title">
                 优惠券
             </view>
@@ -68,7 +68,7 @@
              <view class="u-meet-text meet-theme" style="color:#999" wx:if="{{saleStatus==='nothing'}}">暂无可用</view>
             <view class="u-meet-text meet-theme" wx:if="{{saleStatus==='chosen'}}" >
                 <view class="u-meet-choose sale-content">已选一张</view>
-                <view class="u-meet-money sale-content">-￥50</view>
+                <view class="u-meet-money sale-content">-￥{{saleContent.reduce}}</view>
 
             </view>
             <view class="u-meet-text meet-theme" wx:if="{{saleStatus==='none'}}" >
@@ -168,10 +168,13 @@
                 <view class="u-no-first-price-unit">
                     ¥
                 </view>
-                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
+                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&!saleContent.sale}}">
                     {{price_all}}
                 </view>
-                <view class="u-no-first-price-num" wx:else>
+                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&saleContent.sale}}">
+                    {{salePrice}}
+                </view>
+                <view class="u-no-first-price-num" wx:if="{{sankenum==0 || daynum==0}}">
                     0
                 </view>
                 <view class="u-old-no-first-price" wx:if="{{sankenum!=0&&daynum!=0&&price_all!=price_y}}">

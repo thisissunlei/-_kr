@@ -1,3 +1,9 @@
 <view class="content-wrap">
-
+    <view class="error-message" wx:for="{{saleList}}" wx:key="{{item.id}}">
+        <view bindtap="selectTab" data-content="{{item}}">
+            {{item.name}}-----{{item.reduce}}
+        </view>
+    </view>
+    <view class="error-message" bindtap="notUse">不使用</view>
+    
 </view>
