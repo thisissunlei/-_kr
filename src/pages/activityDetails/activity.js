@@ -79,8 +79,14 @@ Page({
                 if ( res.data.code == -1 ) {
                     this.setTip('apiTip', res.data.message, '../images/public/error.png')
                 } else {
-                    res.data.data.content = res.data.data.content.replace(/\<img/gi, '<img style="width:100%;height:auto;display: block;" ')
-                    res.data.data.notice = res.data.data.notice.replace(/\<img/gi, '<img style="width:100%;height:auto;display: block;" ')
+                    if ( !!res.data.data.content ) {
+                        res.data.data.content = res.data.data.content.replace(/\<img/gi, '<img style="width:100%;height:auto;display: block;" ')
+                    }
+                    if ( !!res.data.data.notice ) {
+                        res.data.data.notice = res.data.data.notice.replace(/\<img/gi, '<img style="width:100%;height:auto;display: block;" ')
+                    }
+
+
                     let full = false, expire = false, exist = false
                     if ( !!res.data.data.enterStatus && res.data.data.enterStatus.length > 0 ) {
                         if ( res.data.data.enterStatus.join(',').indexOf('EXPIRED') > -1 ) {
