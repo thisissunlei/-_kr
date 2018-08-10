@@ -27,6 +27,7 @@ Page({
         expire: false, // 是否过期
         exist: false // 是否已经报名
     },
+    singUpBtn: true,
     onLoad(options) {
         this.setData({
             activityId: options.activityId || 0,
@@ -191,7 +192,7 @@ Page({
         })
     },
     signUp() {
-        if ( !!this.data.tipShow || !!this.data.apiTipShow ) {
+        if ( !!this.data.tipShow || !!this.data.apiTipShow || !this.singUpBtn ) {
             return
         }
         let phoneTest = util.phone(this.data.signUpData.phone)
@@ -208,6 +209,7 @@ Page({
             this.setTip('tip', '请输入公司名称')
             return
         }
+        this.singUpBtn = false
 
         app.getRequest({
             url: app.globalData.KrUrl + 'api/gateway/kmactivity/join/signup',
@@ -216,9 +218,11 @@ Page({
             success: (res) => {
                 if ( res.data.code == -1 ) {
                     this.setTip('apiTip', res.data.message, '../images/public/error.png')
+                    this.singUpBtn = true
                 } else {
                     this.setTip('apiTip', '报名成功', '../images/public/success.png')
                     setTimeout(() => {
+                        this.singUpBtn = true
                         this.setData({
                             markShow: false,
                             signUpShow: false
@@ -231,6 +235,7 @@ Page({
             },
             fail: (res) => {
                 this.setTip('netTip', '网络粗错了，请稍后再试', 'https://web.krspace.cn/kr-meeting/images/activity/icon_i.png')
+                this.singUpBtn = true
             }
         })
     },
