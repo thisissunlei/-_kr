@@ -256,9 +256,18 @@ Page({
 
           myMeeting.map(value => {
             // console.log(value.todoTime.split("#")[0]);
+
             if (value.targetType == "ACTIVITY") {
-              value.before = value.todoTime.split("#")[0];
-              value.last = value.todoTime.split("#")[1];
+              if (value.todoTime.includes("至")) {
+                // console.log(1);
+                value.before = value.todoTime.split("#")[0];
+                value.last = value.todoTime.split("#")[1];
+                value.single = false;
+              } else {
+                value.before = value.todoTime.split("#")[0];
+                value.last = value.todoTime.split("#")[1];
+                value.single = true;
+              }
             }
             return value;
           });
