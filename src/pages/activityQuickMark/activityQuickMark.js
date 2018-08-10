@@ -37,7 +37,7 @@ Page({
         joinId: options.joinId || 0
       });
     }
-    // wx.showLoading({ title: "加载中" });
+    wx.showLoading({ title: "加载中" });
     this.getActivityDetail();
   },
   //我的活动详情接口
@@ -49,6 +49,7 @@ Page({
         joinId: that.data.joinId
       },
       success: function(res) {
+        wx.hideLoading();
         var activityInfo = Object.assign({}, res);
         console.log(activityInfo, "活动详情");
         that.setData({
@@ -57,7 +58,7 @@ Page({
         });
         that.getTime("beginTime", that.data.info.beginTime);
         that.getTime("endTime", that.data.info.endTime);
-        console.log(that.data.beginTime, that.data.endTime);
+        // console.log(that.data.beginTime, that.data.endTime);
       },
       fail: function(err) {
         console.log(err);
@@ -95,7 +96,8 @@ Page({
               if (res.data.code == 1) {
                 wx.showToast({
                   title: "取消报名成功",
-                  icon: "success"
+                  image: "../images/public/success.png",
+                  mask: true
                 });
                 setTimeout(() => {
                   wx.navigateBack();
@@ -103,6 +105,12 @@ Page({
                   //   delta: 2
                   // })
                 }, 1500);
+              } else if (res.data.code == -1) {
+                wx.showToast({
+                  title: res.data.message,
+                  image: "../images/public/error.png",
+                  mask: true
+                });
               }
             },
             fail: err => {
@@ -123,7 +131,7 @@ Page({
       that.data.seatStatus === "ARRVING"
     ) {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity03/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity04/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         150,
@@ -133,7 +141,7 @@ Page({
       );
     } else {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity03/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity04/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         150,
@@ -141,7 +149,7 @@ Page({
       );
     }
   },
-  createQrCode: function(url, canvasId, cavW, cavH, ecc, color_opacity) {
+  createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
   },
   onShow: function() {
