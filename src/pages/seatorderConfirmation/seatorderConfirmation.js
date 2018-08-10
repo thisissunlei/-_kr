@@ -317,6 +317,7 @@ Page({
         if(res.data.data.first){
           saleStatus = 'new'
         }
+        console.log('用户状态======>',res.data.data.first)
       this.setData({
         isFirst:res.data.data.first,
         saleStatus:saleStatus
@@ -534,7 +535,7 @@ Page({
          item.seat.dates = item.seat.useTimeDescr.slice(0,5);
         return item
       }) 
-      this.getSaleList(price_all);
+      this.getSaleList(price_all,number,carendar.length);
       
       this.setData({
         sankeNum: number ,
@@ -545,8 +546,35 @@ Page({
       })
     }
   },
-  getSaleList(price){
+  getSaleList(price,num,daynum){
+    // new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
+    let saleStatus = this.data.saleStatus;
+    let isFirst = this.data.isFirst;
     // 获取优惠券列表
+    let saleList = [{},{}];
+    let saleLength = 3;//循环列表得出（有效的）优惠券
+    console.log('=====>',num,isFirst)
+    // let saleLength = saleList.length;
+    if(num == 1 && isFirst && daynum ==1){
+        // 新人且只选择了一个工位且一天
+        saleStatus = 'new'
+    }else{
+      if(!saleLength){
+        // 如果不是新用户，且没有有效的优惠券，则显示暂无
+        saleStatus = 'nothing';
+      }
+      if(saleLength){
+        // 默认有效的第一个
+        saleStatus = 'chosen'
+      }
+      //如果没有选中项则为none
+
+    }
+    
+    this.setData({
+      saleStatus:saleStatus
+    })
+
     
   },
   getWeek(init){
