@@ -25,10 +25,13 @@ Page({
         canJoin: true, // 是否可以报名
         full: false, // 人数已满
         expire: false, // 是否过期
-        exist: false // 是否已经报名
+        exist: false, // 是否已经报名
+        btn_bool: true, // 授权
+        textShow: false
     },
     singUpBtn: true,
     onLoad(options) {
+        let that = this
         this.setData({
             activityId: options.activityId || 0,
             ['signUpData.activityId']: options.activityId || 0
@@ -37,6 +40,16 @@ Page({
             title: "加载中",
             mask: true
         });
+        this.getLocation()
+        wx.getSetting({
+            success(res) {
+                if (!res.authSetting["scope.userInfo"]) {
+                    // console.log("用户没有授权：用户信息！");
+                } else {
+                    that.setData({ btn_bool: false });
+                }
+            }
+        });
     },
     onShow() {
         if ( !!app.globalData.Cookie ) {
@@ -44,6 +57,60 @@ Page({
         } else {
             this.loginAgain()
         }
+    },
+    //获取地理位置
+    getLocation: function() {
+        var _this = this;
+        wx.getLocation({
+            type: "wgs84",
+            success: function(res) {
+                wx.setStorage({
+                    key: "lat_log",
+                    data: {
+                        lat_log: {
+                            latitude: res.latitude,
+                            longitude: res.longitude
+                        }
+                    }
+                })
+            },
+            fail: function(res) {
+                // _this.getAllInfo();
+            }
+        });
+    },
+    // 用户权限
+    onGotUserInfo(e) {
+        if (e.detail.userInfo) {
+            this.getInfo();
+            this.setData({
+                btn_bool: false
+            });
+        }
+    },
+    //获取用户信息
+    getInfo: function() {
+        var that = this;
+        wx.getUserInfo({
+            success: function(res) {
+                wx.setStorage({
+                    key: "user_info",
+                    data: {
+                        user_info: res.userInfo
+                    }
+                });
+                app.getRequest({
+                    url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
+                    data: {
+                        encryptedData: res.encryptedData,
+                        iv: res.iv
+                    },
+                    success: res => {
+                        that.getDetail()
+                    }
+                });
+            }
+        });
     },
     loginAgain() {
         wx.login({
@@ -57,6 +124,7 @@ Page({
                         },
                         success: (logRes) => {
                             app.globalData.Cookie = logRes.header["Set-Cookie"] || logRes.header["set-cookie"];
+                            app.globalData.openid = logRes.data.data["openid"]
                             this.getDetail()
                         },
                         fail: (logRes) => {
@@ -160,6 +228,11 @@ Page({
                 markShow: true,
                 signUpShow: true
             })
+            setTimeout(() => {
+                this.setData({
+                    textShow: true
+                })
+            }, 100)
         } else {
             wx.navigateTo({
                 url: "../bindPhone/bindPhone?from=activity"
@@ -282,6 +355,11 @@ Page({
     getTime(state, time) {
         let week = '',y = new Date().getFullYear(), M = '', d = '', h = '00', m = '00', day
         if ( !!time ) {
+            h = new Date(parseInt(time)).getHours() >= 10 ? new Date(parseInt(time)).getHours() : '0' + new Date(parseInt(time)).getHours()
+            m = new Date(parseInt(time)).getMinutes() >= 10 ? new Date(parseInt(time)).getMinutes() : '0' + new Date(parseInt(time)).getMinutes()
+            if ( state == 'endTime' && h == '00' && m == '00' ) {
+                time = time - 24*3600*1000
+            }
             switch ( new Date(parseInt(time)).getDay() ) {
                 case 0:week="周日";break
                 case 1:week="周一";break
@@ -294,14 +372,14 @@ Page({
             y = new Date(parseInt(time)).getFullYear()
             M = new Date(parseInt(time)).getMonth()+1 >= 10 ? new Date(parseInt(time)).getMonth()+1 : '0' + (new Date(parseInt(time)).getMonth()+1)
             d = new Date(parseInt(time)).getDate() >= 10 ? new Date(parseInt(time)).getDate() : '0' + new Date(parseInt(time)).getDate()
-            h = new Date(parseInt(time)).getHours() >= 10 ? new Date(parseInt(time)).getHours() : '0' + new Date(parseInt(time)).getHours()
-            m = new Date(parseInt(time)).getMinutes() >= 10 ? new Date(parseInt(time)).getMinutes() : '0' + new Date(parseInt(time)).getMinutes()
+
         }
         day = {
             y: y,
             d: M + '月' + d + '日' + ' (' + week + ')',
             t: h + ':' + m
         }
+        console.log(day)
         this.setData({
             [state]: day
         })
