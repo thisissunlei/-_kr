@@ -38,6 +38,11 @@ Page({
       url: '../myOrder/myOrder?orderShowStatus='+status+'&con='+1
      })
   },
+    jumpMyCoupon() {
+        wx.navigateTo({
+            url: '../myCoupon/myCoupon'
+        })
+    },
   closeTip:function(){
     this.setData({
       tipShow:!this.data.tipShow

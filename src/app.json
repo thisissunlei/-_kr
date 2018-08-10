@@ -38,7 +38,9 @@
     "pages/component/component",
     "pages/activityDetails/activity",
     "pages/locationMap/locationMap",
-    "pages/myActivity/myActivity"
+    "pages/myActivity/myActivity",
+    "pages/coupon/coupon",
+    "pages/myCoupon/myCoupon"
   ],
   "window": {
     "backgroundTextStyle": "light",

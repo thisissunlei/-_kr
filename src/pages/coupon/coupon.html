@@ -1,0 +1,9 @@
+<template name="coupon">
+    <view wx:for="{{list}}" wx:key="{{index}}" class="my-coupon-list">
+        <view class="{{item.id*1 == 2 ? 'list-warp select' : 'list-warp'}}">
+            <view class="top">{{item.id}}</view>
+            <view>{{state}}</view>
+        </view>
+        <image class="line" mode="scaleToFill" src="../images/share_pic.jpg"></image>
+    </view>
+</template>
