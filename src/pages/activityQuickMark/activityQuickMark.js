@@ -131,21 +131,21 @@ Page({
       that.data.seatStatus === "ARRVING"
     ) {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity04/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity05/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
-        150,
-        150,
+        160,
+        160,
         null,
         "rgba(0,0,0,0.3)"
       );
     } else {
       QR.qrApi.draw(
-        "http://web.krspace.cn/devtest/kr-meeting-activity04/index.html?joinId=" +
+        "http://web.krspace.cn/devtest/kr-meeting-activity05/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
-        150,
-        150
+        160,
+        160
       );
     }
   },
