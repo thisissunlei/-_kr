@@ -213,7 +213,7 @@ Page({
           : "0" + new Date(parseInt(time)).getDate();
     }
     day = {
-      y: y,
+      y: y + "-",
       d: M + "-" + d + " (" + week + ") ",
       t: h + ":" + m
     };
