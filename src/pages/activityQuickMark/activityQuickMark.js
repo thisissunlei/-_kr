@@ -160,52 +160,64 @@ Page({
     //调用插件中的draw方法，绘制二维码图片
   },
   getTime(state, time) {
-    let week = "";
-    switch (new Date(parseInt(time)).getDay()) {
-      case 0:
-        week = "周日";
-        break;
-      case 1:
-        week = "周一";
-        break;
-      case 2:
-        week = "周二";
-        break;
-      case 3:
-        week = "周三";
-        break;
-      case 4:
-        week = "周四";
-        break;
-      case 5:
-        week = "周五";
-        break;
-      case 6:
-        week = "周六";
-        break;
+    let week = "",
+      y = new Date().getFullYear(),
+      M = "",
+      d = "",
+      h = "00",
+      m = "00",
+      day;
+    if (!!time) {
+      h =
+        new Date(parseInt(time)).getHours() >= 10
+          ? new Date(parseInt(time)).getHours()
+          : "0" + new Date(parseInt(time)).getHours();
+      m =
+        new Date(parseInt(time)).getMinutes() >= 10
+          ? new Date(parseInt(time)).getMinutes()
+          : "0" + new Date(parseInt(time)).getMinutes();
+      if (state == "endTime" && h == "00" && m == "00") {
+        time = time - 24 * 3600 * 1000;
+      }
+      switch (new Date(parseInt(time)).getDay()) {
+        case 0:
+          week = "周日";
+          break;
+        case 1:
+          week = "周一";
+          break;
+        case 2:
+          week = "周二";
+          break;
+        case 3:
+          week = "周三";
+          break;
+        case 4:
+          week = "周四";
+          break;
+        case 5:
+          week = "周五";
+          break;
+        case 6:
+          week = "周六";
+          break;
+      }
+      y = new Date(parseInt(time)).getFullYear();
+      M =
+        new Date(parseInt(time)).getMonth() + 1 >= 10
+          ? new Date(parseInt(time)).getMonth() + 1
+          : "0" + (new Date(parseInt(time)).getMonth() + 1);
+      d =
+        new Date(parseInt(time)).getDate() >= 10
+          ? new Date(parseInt(time)).getDate()
+          : "0" + new Date(parseInt(time)).getDate();
     }
-    let h =
-      new Date(parseInt(time)).getHours() >= 10
-        ? new Date(parseInt(time)).getHours()
-        : "0" + new Date(parseInt(time)).getHours();
-    let m =
-      new Date(parseInt(time)).getMinutes() >= 10
-        ? new Date(parseInt(time)).getMinutes()
-        : "0" + new Date(parseInt(time)).getMinutes();
-    let M =
-      new Date(parseInt(time)).getMonth() + 1 >= 10
-        ? new Date(parseInt(time)).getMonth() + 1
-        : "0" + (new Date(parseInt(time)).getMonth() + 1);
-    let D =
-      new Date(parseInt(time)).getDate() >= 10
-        ? new Date(parseInt(time)).getDate()
-        : "0" + new Date(parseInt(time)).getDate();
-
-    let day = {
-      y: new Date(parseInt(time)).getFullYear() + "-",
-      d: M + "-" + D + " (" + week + ") ",
+    day = {
+      y: y,
+      d: M + "-" + d + " (" + week + ") ",
       t: h + ":" + m
     };
+    console.log(day);
     this.setData({
       [state]: day
     });
