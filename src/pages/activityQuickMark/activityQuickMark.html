@@ -9,8 +9,10 @@
                 <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='ARRVING'}}"></image>
                 <view class="content">
                     <view class='title'>
-                        <view class="title-top" wx:if="{{(beginTime.y == endTime.y) && (beginTime.d == endTime.d)}}">
-                            {{beginTime.d}} {{beginTime.t}}-{{endTime.t}}
+                        <view class="title-top" wx:if="{{beginTime.y == endTime.y && beginTime.d == endTime.d}}">
+                            {{beginTime.d}}
+                            <text wx:if="{{endTime.t=='00:00'}}">{{beginTime.t}}开始</text>
+                            <text wx:else>{{beginTime.t}}-{{endTime.t}}</text>
                         </view>
                         <view wx:else>
                             <view class="title-top">
@@ -24,9 +26,9 @@
                                     <text> 至 {{endTime.d}}</text>
                                 </view>
                             </view>
-                            <view class="title-plus" wx:if="{{(beginTime.t != '00:00') && (endTime.t != '00:00')}}">
-                                <text wx:if="{{endTime.t=='00:00'}}">{{beginTime.t}}开始</text>
-                                <text wx:else>{{beginTime.t}}-{{endTime.t}}</text>
+                            <view class="title-plus" wx:if="{{beginTime.t != '00:00' || endTime.t != '00:00'}}">
+                                <text wx:if="{{endTime.t != '00:00'}}">{{beginTime.t}}-{{endTime.t}}</text>
+                                <text wx:else>{{beginTime.t}}开始</text>
                             </view>
                         </view>
                         <text class="activity-name">{{info.title}}</text>
