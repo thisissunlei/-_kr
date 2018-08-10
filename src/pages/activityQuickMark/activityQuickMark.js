@@ -58,7 +58,8 @@ Page({
         });
         that.getTime("beginTime", that.data.info.beginTime);
         that.getTime("endTime", that.data.info.endTime);
-        console.log(that.data.beginTime, that.data.endTime);
+        that.renderQR();
+        // console.log(that.data.beginTime, that.data.endTime);
       },
       fail: function(err) {
         console.log(err);
@@ -124,8 +125,13 @@ Page({
       }
     });
   },
-  onReady: function() {
+
+  //
+
+  renderQR() {
     var that = this;
+    console.log("that.data.seatStatus", that.data.seatStatus);
+
     if (
       that.data.seatStatus === "EXPIRED" ||
       that.data.seatStatus === "ARRVING"
@@ -149,11 +155,9 @@ Page({
       );
     }
   },
+  //
   createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
-  },
-  onShow: function() {
-    this.getActivityDetail();
   },
   getTime(state, time) {
     let week = "";
@@ -192,10 +196,14 @@ Page({
       new Date(parseInt(time)).getMonth() + 1 >= 10
         ? new Date(parseInt(time)).getMonth() + 1
         : "0" + (new Date(parseInt(time)).getMonth() + 1);
+    let D =
+      new Date(parseInt(time)).getDate() >= 10
+        ? new Date(parseInt(time)).getDate()
+        : "0" + new Date(parseInt(time)).getDate();
 
     let day = {
       y: new Date(parseInt(time)).getFullYear() + "-",
-      d: M + "-" + new Date(parseInt(time)).getDate() + " (" + week + ") ",
+      d: M + "-" + D + " (" + week + ") ",
       t: h + ":" + m
     };
     this.setData({

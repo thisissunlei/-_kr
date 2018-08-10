@@ -9,7 +9,7 @@
                 <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='ARRVING'}}"></image>
                 <view class="content">
                     <view class='title'>
-                        <view class="title-top" wx:if="{{beginTime.y == endTime.y && beginTime.d == endTime.d}}">
+                        <view class="title-top" wx:if="{{beginTime.y == endTime.y && beginTime.d == endTime.d}}" style="text-align: center;">
                             {{beginTime.d}} {{beginTime.t}}-{{endTime.t}}
                         </view>
                         <view wx:else>
