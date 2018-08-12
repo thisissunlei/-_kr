@@ -249,7 +249,7 @@ Page({
       success: res => {
         if (res.data.code == 1) {
           var mansion = Object.assign({}, res);
-          console.log(mansion, "列表");
+          // console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
 
           var myMeeting = mansion.data.data.myTodo.slice(0, 5);
@@ -304,7 +304,11 @@ Page({
           });
           // console.log(myMeeting.length);
           //如果只有一张card 不显示小圆点
-          if (myMeeting.length > 1) {
+          if (myMeeting.length == 1) {
+            that.setData({
+              indicatorDots: false
+            });
+          } else {
             that.setData({
               indicatorDots: true
             });

@@ -51,7 +51,7 @@ Page({
       success: function(res) {
         wx.hideLoading();
         var activityInfo = Object.assign({}, res);
-        console.log(activityInfo, "活动详情");
+        // console.log(activityInfo, "活动详情");
         that.setData({
           info: activityInfo.data.data,
           seatStatus: activityInfo.data.data.joinStatus
@@ -59,7 +59,7 @@ Page({
         that.getTime("beginTime", that.data.info.beginTime);
         that.getTime("endTime", that.data.info.endTime);
         that.renderQR();
-        console.log(that.data.beginTime, that.data.endTime);
+        // console.log(that.data.beginTime, that.data.endTime);
       },
       fail: function(err) {
         console.log(err);
@@ -93,7 +93,7 @@ Page({
               joinId: that.data.joinId
             },
             success: res => {
-              console.log(res);
+              // console.log(res);
               if (res.data.code == 1) {
                 wx.showToast({
                   title: "取消报名成功",
@@ -208,7 +208,7 @@ Page({
     }
     day = {
       y: y + "-",
-      d: M + "-" + d + " (" + week + ") ",
+      d: M + "-" + d + " (" + week + ")",
       t: h + ":" + m
     };
     console.log(day);
