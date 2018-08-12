@@ -805,7 +805,7 @@ Page({
       this.createOrder()
     }else{
       //接口请求优惠券是否可用
-      let saleAble = false;//假设接口请求结果false:不可用；true:可用
+      let saleAble = true;//假设接口请求结果false:不可用；true:可用
       console.log('校验优惠券是否可用')
       if(!saleAble){
         console.log('优惠券不可用')
@@ -813,17 +813,22 @@ Page({
         that.setData({
           dialogShow:false,
           showError:false,
-          errorMessage:'优惠券不可用'
+          errorMessage:'优惠券不可用',
+          saleStatus:'none',
         })
         setTimeout(function(){
           that.setData({
             showError:true,
             errorMessage:'',
-            saleStatus:'none',
             saleContent:{sale:false}
           },function(){
             // 2.清除已选优惠，重新初始化优惠内容
-            console.log('重新获取优惠内容')
+            let price_all = that.data.price_all;
+            let number = that.data.sankeNum;
+            let daynum = that.data.daynum;
+            console.log('重新获取优惠内容',price_all,number,daynum)
+
+            that.getSaleList(price_all,number,daynum);
           })
         },2000)
         
