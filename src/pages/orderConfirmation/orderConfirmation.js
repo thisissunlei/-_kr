@@ -1176,6 +1176,11 @@ Page({
         }
       })
   },
+  jumpSelectSale(){
+    wx.navigateTo({
+      url: '../saleList/saleList?from=meeting'
+    })
+  }
   
 })
 
