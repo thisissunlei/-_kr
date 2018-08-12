@@ -13,32 +13,64 @@ Page({
         name:'122111',
         reduce:'30',
       },
-    ]
+    ],
+    from:''
   },
   onLoad: function (options) {
+      let from=options.from;
       console.log('saleList--->',options.from)
   },
   notUse:function(){
-    wx.setStorage({
-        key:"seat_order-sale",
-        data:{sale:false},
-        success:function(){
-          setTimeout(function(){
-            wx.navigateBack({
-              delta: 1
-            })
-          },500)
-          
-        }
-      })
+    if(this.from=="seat"){
+        wx.setStorage({
+          key:"seat_order-sale",
+          data:{sale:false},
+          success:function(){
+            setTimeout(function(){
+              wx.navigateBack({
+                delta: 1
+              })
+            },500)
+            
+          }
+        })
+    }else if(this.from=="meeting"){
+        wx.setStorage({
+          key:"meeting_order-sale",
+          data:{sale:false},
+          success:function(){
+            setTimeout(function(){
+              wx.navigateBack({
+                delta: 1
+              })
+            },500)
+            
+          }
+        })
+    }
+    
   },
   selectTab:function(e){
     var target = e.target.dataset;
     console.log('selectTab',target.content)
     let obj = target.content;
     obj.sale = true;
-    wx.setStorage({
-        key:"seat_order-sale",
+    if(this.from=="seat"){
+        wx.setStorage({
+            key:"seat_order-sale",
+            data:obj,
+            success:function(){
+              setTimeout(function(){
+                wx.navigateBack({
+                  delta: 1
+                })
+              },500)
+              
+            }
+          })
+    }else if(this.from=="meeting"){
+      wx.setStorage({
+        key:"meeting_order-sale",
         data:obj,
         success:function(){
           setTimeout(function(){
@@ -49,5 +81,6 @@ Page({
           
         }
       })
+  }
   }
 });
