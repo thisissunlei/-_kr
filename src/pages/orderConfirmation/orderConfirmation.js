@@ -66,6 +66,7 @@ Page({
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
     ifFirst:false,
+    couponCount:0,
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -842,7 +843,7 @@ Page({
   },
   getIsfirst:function(){
       app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/isFirstOrder',
+        url:app.globalData.KrUrl+'api/gateway/krmting/order/is-first-order',
         methods:"GET",
         header:{
           'content-type':"appication/json"
@@ -850,7 +851,8 @@ Page({
         success:(res)=>{
           this.setData({
             ifFirst:res.data.data.first,
-            isFirst:res.data.data.first
+            isFirst:res.data.data.first,
+            couponCount:res.data.data.couponCount
           })
         }
     })
