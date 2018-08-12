@@ -20,60 +20,19 @@ Page({
     duration: 1000,
     btn_bool: true,
     duration: 1000,
-    buildingList: [],
-    myMeeting: [],
-    noOpenBuilding: []
-    // noOpenBuilding: [
-    //   {
-    //     buildName: "海峡国际大厦",
-    //     buildAddress: "北京市西城区三里河东路30号院1号楼海峡国际大厦",
-    //     buildImgUrl: "../images/indexImg/hxgj.jpg",
-    //     distance: "",
-    //     meetingCount: "18"
-    //   },
-    //   {
-    //     buildName: "吉祥大厦",
-    //     buildAddress: "北京市东城区王府井大街88号",
-    //     buildImgUrl: "../images/indexImg/jxds.jpg",
-    //     distance: "",
-    //     meetingCount: "6"
-    //   },
-    //   {
-    //     buildName: "华山路",
-    //     buildAddress: "上海市静安区华山路328号",
-    //     buildImgUrl: "../images/indexImg/hsl.jpg",
-    //     distance: "",
-    //     meetingCount: "18"
-    //   },
-    //   {
-    //     buildName: "凯旋路",
-    //     buildAddress: "上海市长宁区凯旋路399号1幢",
-    //     buildImgUrl: "../images/indexImg/kxl.jpg",
-    //     distance: "",
-    //     meetingCount: "18"
-    //   },
-    //   {
-    //     buildName: "由由国际",
-    //     buildAddress: "上海市浦东新区浦建路76号由由国际广场写字楼",
-    //     buildImgUrl: "../images/indexImg/zygj.jpg",
-    //     distance: "",
-    //     meetingCount: "6"
-    //   },
-    //   {
-    //     buildName: "由由世纪",
-    //     buildAddress: "上海市浦东新区杨高南路428号由由世纪1号楼写字楼名义楼层",
-    //     buildImgUrl: "../images/indexImg/zysj.jpg",
-    //     distance: "",
-    //     meetingCount: "6"
-    //   },
-    //   {
-    //     buildName: "田林路",
-    //     buildAddress: "上海市徐汇区田林路130号20号楼",
-    //     buildImgUrl: "../images/indexImg/tll.jpg",
-    //     distance: "",
-    //     meetingCount: "8"
-    //   }
-    // ]
+    buildingList: [], //周边大厦
+    myMeeting: [], //会议、散座、活动轮播
+    noOpenBuilding: [], //未开放大厦
+    preIndex: 0,
+    activityList: [], //活动轮播
+    activity: {
+      //活动轮播参数
+      current: 0,
+      duration: 500,
+      previousMargin: "26rpx",
+      nextMargin: "26rpx",
+      circular: false
+    }
   },
   rq_data: {
     latitude: "",
@@ -83,6 +42,24 @@ Page({
   func_bool_l: false,
   func_bool_l2: false,
   func_bool_s: false,
+  //活动轮播变化
+  acitvityChange: function(e) {
+    // console.log(e.detail);
+
+    if (e.detail.source == "touch") {
+      this.setData({
+        preIndex: e.detail.current
+      });
+    }
+  },
+  //活动详情页
+  goActivityDetail: function(e) {
+    // console.log(e.currentTarget.dataset.id);
+    let activityId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "../activityDetails/activity?activityId=" + activityId
+    });
+  },
   //打开地图
   openmap: function() {
     var that = this;
@@ -199,6 +176,7 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
+              that.getActivity();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
@@ -237,11 +215,27 @@ Page({
         }
       }
     });
-    // this.getAllInfo();
   },
   onShow: function() {
     this.getAllInfo();
+    this.getActivity();
   },
+  //首页活动接口
+  getActivity: function() {
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmactivity/home/list",
+      success: res => {
+        var activityList = Object.assign({}, res);
+        // console.log(activityList, "活动列表");
+        that.setData({
+          activityList: activityList.data.data
+        });
+        // console.log(that.data.activityList);
+      }
+    });
+  },
+  //首页接口
   getAllInfo: function() {
     var that = this;
     app.getRequest({
@@ -253,9 +247,21 @@ Page({
       success: res => {
         if (res.data.code == 1) {
           var mansion = Object.assign({}, res);
-          // console.log(mansion, "列表");
+          console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
+
           var myMeeting = mansion.data.data.myTodo.slice(0, 5);
+
+          myMeeting.map(value => {
+            // console.log(value.todoTime.split("#")[0]);
+            if (value.targetType == "ACTIVITY") {
+              value.before = value.todoTime.split("#")[0];
+              value.last = value.todoTime.split("#")[1];
+            }
+            return value;
+          });
+          // console.log(myMeeting);
+
           //排序
           buildingList.sort(function(a, b) {
             return a.distance - b.distance;
@@ -369,6 +375,14 @@ Page({
     var seatId = res.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../seatDetail/seatDetail?seatId=" + seatId
+    });
+  },
+  //点击活动card
+  moveToActivity: res => {
+    // console.log(res);
+    var targetId = res.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "../activityQuickMark/activityQuickMark?joinId=" + targetId
     });
   },
   // jumpToMeetingDetail: function() {

@@ -2,6 +2,9 @@
   "pages": [ 
     
     "pages/index/index",
+
+    "pages/activityQuickMark/activityQuickMark",
+
     "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",
     
@@ -33,7 +36,12 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
-    "pages/saleList/saleList"
+    "pages/activityDetails/activity",
+    "pages/locationMap/locationMap",
+    "pages/myActivity/myActivity",
+    "pages/coupon/coupon",
+    "pages/myCoupon/myCoupon",
+     "pages/saleList/saleList"
   ],
   "window": {
     "backgroundTextStyle": "light",

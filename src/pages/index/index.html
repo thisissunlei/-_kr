@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;width:100%;height:100%;opacity:0;'></button>
+<button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;'></button>
 <view class="container container-wrapper">
   <!-- 头部信息 -->
   <view class="idx_header">
@@ -29,11 +29,15 @@
       <swiper interval="{{interval}}" autoplay="true" circular="true" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF"
         indicator-active-color='rgba(255,198,52,100)' class="swiper-box">
         <block wx:for="{{myMeeting}}" wx:key>
-          <swiper-item class="my-metting" data-id="{{item.targetId}}" bindtap="{{item.targetType=='SEAT'?'moveToSeatDetail':'moveToMeetingDetail'}}">
+          <swiper-item class="my-metting" data-id="{{item.targetId}}" bindtap="{{item.targetType=='SEAT'?'moveToSeatDetail':(item.targetType=='MEETING'?'moveToMeetingDetail':'moveToActivity')}}">
             <view class="metting-content">
-              <view class="metting-mark {{item.targetType === 'SEAT'?'wait':'already'}}">{{item.targetType === 'SEAT'?'散座':'会议'}}</view>
+              <view class="metting-mark {{item.targetType === 'SEAT'?'seat':(item.targetType === 'MEETING'?'metting':'activity')}}">{{item.targetType === 'SEAT'?'散座':(item.targetType === 'MEETING'?'会议':'活动')}}</view>
               <view class="metting-title">
-                <text class="metting-time">{{item.todoTime}}</text>
+                <view class="activity-time" wx:if="{{item.targetType=='ACTIVITY'}}">
+                  <text class="activity-date">{{item.before}}</text>
+                  <text class="activity-hour">{{item.last}}</text>
+                </view>
+                <text wx:else class="metting-time">{{item.todoTime}}</text>
                 <text class="metting-name">{{item.title}}</text>
               </view>
               <view class="metting-address">
@@ -85,12 +89,34 @@
     </view>
   </view>
 
+  <!-- 最新活动 -->
+  <view class="activity" wx:if="{{activityList.length>0}}">
+    <view class="activity-text">
+      <text class="text-bold">最新活动</text>
+      <view wx:if="{{activityList.length>1}}">
+        <text>{{preIndex+1}}</text>
+        <text>/</text>
+        <text>{{activityList.length}}</text>
+      </view>
+    </view>
+    <view class="activity-swiper">
+      <swiper class="activity-box" previous-margin="{{activity.previousMargin}}" current="{{activity.current}}" duration="{{activity.duration}}"
+        bindchange="acitvityChange" next-margin="{{activity.nextMargin}}" circular="{{activity.circular}}">
+        <block wx:for="{{activityList}}" wx:key>
+          <swiper-item bindtap="goActivityDetail" data-id="{{item.activityId}}" style="padding: 0 5px;box-sizing: border-box;">
+            <image src="{{item.coverPic}}" class="activity-slide" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+
 
 
 
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
     <view class='rm_title'>
-      <text style="margin-left: 36rpx;">周边大厦</text>
+      <text class="text-bold" style="margin-left: 36rpx;">周边大厦</text>
       <!-- <view class="page-box" bindtap="openmap">
         <text class="page-map">
           <text class="page-water"></text>

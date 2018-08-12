@@ -1,0 +1,21 @@
+<template name="coupon">
+    <view wx:for="{{list}}" wx:key="{{index}}" class="my-coupon-list">
+        <view class="{{!item.state ? 'list-warp select' : 'list-warp'}}">
+            <view class="top">
+                <view class="left">
+                    <view>
+                        <text>¥</text>
+                        <text>{{item.price}}</text>
+                    </view>
+                    <view>满300使用</view>
+                </view>
+                <view class="con">ddd</view>
+                <view class="right">
+                    <view>去使用</view>
+                </view>
+            </view>
+            <view>{{state}}</view>
+        </view>
+        <image class="line" mode="scaleToFill" src="../images/share_pic.jpg"></image>
+    </view>
+</template>

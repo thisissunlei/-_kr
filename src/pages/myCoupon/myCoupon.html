@@ -1,0 +1,15 @@
+
+<import src="../coupon/coupon.wxml" />
+
+<view class="my-coupon" wx:if="{{list.length > 0}}">
+    <template is="coupon" data="{{list: list, state: 'myList'}}"></template>
+
+    <template is="coupon" data="{{list: list2, state: 'changes'}}"></template>
+</view>
+
+<view class="my-meeting-list-none" wx:if="{{!list || list.length == 0}}">
+    <view class="content-none">
+        <image class="none-img" src="../images/public/none.png" background-size="cover"></image>
+        <text class="warn">还没有优惠券呢~</text>
+    </view>
+</view>

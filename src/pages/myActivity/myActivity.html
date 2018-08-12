@@ -1,0 +1,52 @@
+<view class="my-activity" wx:if="{{list.length > 0}}">
+    <view  class="{{item.joinStatus == 'ARRVING' || item.joinStatus == 'EXPIRED' ? 'list-box select' : 'list-box'}}"
+           wx:for="{{list}}" wx:key="{{item.joinId}}">
+        <navigator url="/pages/activityQuickMark/activityQuickMark?joinId={{item.joinId}}" class="box">
+            <image class="bgc" src="../images/my/bg.png" background-size="cover"></image>
+            <image class="status" wx:if="{{item.joinStatus == 'ARRVING'}}" src="../images/orderimg/order-a.png" background-size="cover"></image>
+            <image class="status" wx:if="{{item.joinStatus == 'EXPIRED'}}" src="../images/orderimg/order-b.png" background-size="cover"></image>
+            <view class="info-table">
+                <view class="info-table-td">
+
+                    <view wx:if="{{item.bt.y != item.et.y}}" class="selele">
+                        <view class="day">
+                            <text class="day">{{item.bt.d}} 至 {{item.et.y}}-{{item.et.d}} </text>
+                            <text class="day" wx:if="{{item.bt.t != '00:00'}}">{{item.bt.t}}</text>
+                            <text class="day" wx:if="{{item.bt.t != '00:00' && item.et.t == '00:00'}}">开始</text>
+                            <text class="day" wx:if="{{item.bt.t != '00:00' && item.et.t != '00:00'}}">-</text>
+                            <text class="day" wx:if="{{item.bt.t != '00:00' && item.et.t != '00:00'}}">{{item.et.t}}</text>
+                        </view>
+                    </view>
+                    <view wx:else>
+                        <view wx:if="{{item.bt.d != item.et.d}}">
+                            <view class="day">{{item.bt.d}} 至 {{item.et.d}}</view>
+                            <view class="day" wx:if="{{item.bt.t != '00:00'}}">{{item.bt.t}}开始</view>
+                        </view>
+                        <view wx:else>
+                            <text class="day">{{item.bt.d}}</text>
+                            <text class="day" wx:if="{{item.bt.t != '00:00'}}">{{item.bt.t}}</text>
+                            <text class="day" wx:if="{{item.bt.t != '00:00' && item.et.t == '00:00'}}">开始</text>
+                            <text class="day" wx:if="{{item.bt.t != '00:00' && item.et.t != '00:00'}}">-</text>
+                            <text class="day" wx:if="{{item.bt.t != '00:00' && item.et.t != '00:00'}}">{{item.et.t}}</text>
+                        </view>
+                    </view>
+                    <view class="my-activity-title">{{item.title}}</view>
+
+                </view>
+            </view>
+
+            <view class="info-table address-table">
+                <view class="info-table-td">
+                    <view class="site">{{item.site}}</view>
+                    <view class="address"><image mode="scaleToFill" src="../images/indexImg/dizhi2.png"></image>{{item.address}}</view>
+                </view>
+            </view>
+        </navigator>
+    </view>
+</view>
+<view class="my-meeting-list-none" wx:if="{{!list || list.length == 0}}">
+    <view class="content-none">
+        <image class="none-img" src="../images/public/none.png" background-size="cover"></image>
+        <text class="warn">还没有活动呢~</text>
+    </view>
+</view>

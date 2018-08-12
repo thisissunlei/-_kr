@@ -2,7 +2,7 @@
 	<view class="title">输入验证码</view>	
 	<view class="info">
 		<text class="phone-info">已发送验证码至   {{phone}}</text>
-		<text class="phone-again" wx:if="{{!time}}" bindtap="sendAgain">重新获取</text>
+		<text class="phone-again again-button" wx:if="{{!time}}" bindtap="sendAgain" >重新获取</text>
 		<text class="phone-again" wx:if="{{time}}">{{time}}s</text>
 	</view>	
 	<view class="input-box">

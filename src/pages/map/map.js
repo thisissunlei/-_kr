@@ -4,6 +4,7 @@ const app = getApp();
 
 Page({
   data: {
+    showCard: true,
     cityName: "北京市",
     cityId: 1,
     latitude: 0,
@@ -31,6 +32,29 @@ Page({
           latitude: res.latitude
         });
         that.getNearbyCity();
+      },
+      fail: err => {
+        //108.890637,34.247561
+        console.log(err);
+        that.setData({
+          latitude: 34.247561,
+          longitude: 108.890637,
+          scale: 4,
+          showCard: false
+        });
+
+        wx.showModal({
+          title: "提示",
+          content:
+            "定位服务已关闭，请在“设置”中打开定位服务，以获取您的准确地址",
+          showCancel: false,
+          success: function(res) {
+            if (res.confirm) {
+              console.log("用户点击确定");
+              wx.navigateBack();
+            }
+          }
+        });
       }
     });
   },
@@ -73,8 +97,8 @@ Page({
               latitude: item.latitude,
               longitude: item.longitude,
               // name: item.buildName,
-              width: 27,
-              height: 37
+              width: 24,
+              height: 34
             });
             return item;
           });
@@ -132,8 +156,8 @@ Page({
             latitude: item.latitude,
             longitude: item.longitude,
             // name: item.buildName,
-            width: 27,
-            height: 37
+            width: 24,
+            height: 34
             // callout: {
             //   content: item.buildName,
             //   display: "BYCLICK"

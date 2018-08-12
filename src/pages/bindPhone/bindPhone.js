@@ -16,6 +16,7 @@ Page({
     phoneError:true,
     errorMessage:''
   },
+  submit_buttom:true,
   onShareAppMessage: function() {
     return app.globalData.share_data;
   },
@@ -76,8 +77,12 @@ Page({
       },2000)
       return;
     }
-    console.log(that.data)
+    if(!this.submit_buttom ){
+      return;
+    }
+    
 
+      this.submit_buttom = false
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
         methods:"GET",
@@ -85,14 +90,13 @@ Page({
           "phone":that.data.inputValue
         },
         success:(res)=>{
-          console.log('success',res)
-          // wx.navigateTo({
-          //   url: '../provingCode/provingCode?phone='+that.data.inputValue
-          // });
-          if(res.data.code>0){
-            wx.navigateTo({
-              url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from
-            });
+          that.submit_buttom = true
+          if(res.data.code>0 ){
+              
+              wx.navigateTo({
+                url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from
+              }); 
+
           }else{
             that.setData({
               phoneError:false,
@@ -106,6 +110,7 @@ Page({
               })
             },2000)
           }
+          
           
         },
         fail:(res)=>{

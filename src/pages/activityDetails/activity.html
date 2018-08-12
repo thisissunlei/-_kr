@@ -1,0 +1,137 @@
+<view class="activity">
+    <image class="top-img" mode="aspectFill" src="{{info.coverPic}}" wx:if="{{!!info.coverPic}}"
+           binderror="imgError" id="coverPic"></image>
+
+    <view class="bgF">
+        <view class="title-h1">{{info.title}}</view>
+        <view class="price">
+            <view wx:if="{{info.priceDecimal*1 > 0}}">
+                <text class="yuan">¥</text><text class="num">{{info.priceDecimal}}</text>
+            </view>
+
+            <text class="txt" wx:else>免费</text>
+        </view>
+
+        <view class="preson" wx:if="{{!!info.joiners && info.joiners.length > 0}}">
+            <view class="preson-img" wx:for="{{info.joiners}}" wx:key="{{index}}" wx:if="{{index <= 4}}"><image mode="aspectFill" src="{{item.wechatAvatar}}"></image></view>
+            <viwe class="preson-right" bindtap="getPresonList">{{info.joinCount}}人已报名</viwe>
+        </view>
+
+        <view class="preson" wx:else>
+            <view class="preson-img select"></view>
+            <view class="preson-right select">别着急，小伙伴们都在赶来报名的路上呢👉</view>
+        </view>
+
+        <view class="start-stop">
+            <view class="time">
+                <view class="start">始</view>
+                <view class="num">
+                    <view class="text">
+                        <text wx:if="{{beginTime.t != '00:00'}}">{{beginTime.t}}</text>
+                        <text wx:if="{{beginTime.t != '00:00' && endTime.t == '00:00'}}">开始</text>
+                        <text wx:if="{{beginTime.t != '00:00' && endTime.t != '00:00'}}">-</text>
+                        <text wx:if="{{beginTime.t != '00:00' && endTime.t != '00:00'}}">{{endTime.t}}</text>
+                    </view>
+                </view>
+                <view class="stop">终</view>
+            </view>
+            <view class="data">
+                <view class="start">{{beginTime.d}}</view>
+                <view class="stop"><text wx:if="{{beginTime.y != endTime.y}}">{{endTime.y}}年</text>{{endTime.d}}</view>
+            </view>
+        </view>
+
+        <view class="com-site-warp" bindtap="jumpToMap">
+            <view class="name">{{info.site}}</view>
+            <view class="address">
+                <image mode="scaleToFill" src="https://web.krspace.cn/kr-meeting/images/activity/address.png"></image>
+                <text>{{info.address}}</text>
+            </view>
+        </view>
+    </view>
+
+
+    <view class="sponsor">
+        <view class="sponsor-warp">
+            <image class="img" mode="aspectFill" wx:if="{{!!info.sponsorLogo}}" src="{{info.sponsorLogo}}"
+                   binderror="imgError" id="sponsorLogo"></image>
+            <view class="txt">
+                <view class="title">
+                    <text>{{info.sponsorName}}</text>
+                </view>
+                <view class="con">{{info.sponsorIntro}}</view>
+            </view>
+            <!--scaleToFill-->
+            <image class="tip" mode="scaleToFill" src="https://web.krspace.cn/kr-meeting/images/activity/icon_card.png"></image>
+        </view>
+    </view>
+
+    <view class="activity-info" wx:if="{{!!info.detailPics && info.detailPics.length > 0}}">
+        <view class="title">活动详情</view>
+        <image mode="widthFix" wx:for="{{info.detailPics}}" wx:key="{{index}}" src="{{item.url}}"></image>
+    </view>
+    <view class="activity-info" wx:if="{{!!info.notice}}">
+        <view class="title">温馨提示</view>
+        <rich-text nodes="{{info.notice}}"></rich-text>
+    </view>
+
+    <view class="special-thanks" wx:if="{{!!info.partners && info.partners.length > 0}}">
+        <view class="title">特别鸣谢</view>
+        <view class="img-list">
+            <view class="img" wx:for="{{info.partners}}" wx:key="{{index}}"><image mode="aspectFill" src="{{item.partnerLogo}}"></image></view>
+        </view>
+    </view>
+
+    <view class="footer-fixed">
+        <button open-type="share" hover-class="none">
+            <image mode="scaleToFill" src="https://web.krspace.cn/kr-meeting/images/activity/icon_share.png"></image>
+            <text>分享</text>
+        </button>
+        <view class="bind" bindtap="signUpShow" wx:if="{{!!canJoin}}">立即报名</view>
+        <view class="bind select" wx:if="{{!!expire}}">活动已结束</view>
+        <view class="bind select" wx:if="{{!expire && !!exist}}">已报名</view>
+        <view class="bind select" wx:if="{{!expire && !exist && !!full}}">报名已满</view>
+    </view>
+
+    <view class="activity-mark" wx:if="{{!!markShow}}" bindtap="modalHide"></view>
+    <view class="preson-modal-warp" wx:if="{{!!presonModalShow}}">
+        <image class="preson-modal-top" mode="widthFix" src="https://web.krspace.cn/kr-meeting/images/activity/ta-top.png"></image>
+        <image class="preson-modal-close" mode="widthFix" bindtap="modalHide"
+               src="https://web.krspace.cn/kr-meeting/images/activity/close.png"></image>
+        <scroll-view scroll-y style="max-height: 448rpx;">
+            <view class="pmw-img">
+                <view class="pmw-img-list" wx:for="{{info.joiners}}" wx:key="{{index}}"><image mode="aspectFill" src="{{item.wechatAvatar}}"></image></view>
+            </view>
+        </scroll-view>
+    </view>
+
+    <view class="sign-up-warp" wx:if="{{!!signUpShow}}">
+        <image class="preson-modal-close" mode="widthFix" bindtap="modalHide"
+               src="https://web.krspace.cn/kr-meeting/images/activity/close.png"></image>
+        <view class="sign-up-title">请填写您的真实信息</view>
+        <viwe class="sign-up-clear">
+            <input placeholder="请输入姓名" value="{{signUpData.name}}" bindinput="bindKeyInputName"
+                   placeholder-style="color:#cccccc;font-weight: lighter;"/>
+            <view class="clear" wx:if="{{!!signUpData.name}}" bindtap="clearNameInput"><icon type="clear" size="12" color="#cccccc"/></view>
+        </viwe>
+        <viwe class="sign-up-clear">
+            <input placeholder="请输入手机号" value="{{signUpData.phone}}" type="number" bindinput="bindKeyInputPhone"
+                   placeholder-style="color:#cccccc;font-weight: lighter;"/>
+            <view class="clear" wx:if="{{!!signUpData.phone}}" bindtap="clearPhoneInput"><icon type="clear" size="12" color="#cccccc"/></view>
+        </viwe>
+        <viwe class="sign-up-clear">
+            <view style="color:{{!!signUpData.companyName?'#333333':'#cccccc'}}"
+                  class="textarea" wx-if="{{!!apiTipShow}}">{{signUpData.companyName || '请输入公司名称'}}</view>
+            <textarea fixed="true" placeholder="请输入公司名称" value="{{signUpData.companyName}}"
+                      bindinput="bindKeyInputCompanyName" wx:else
+                      maxlength="30" placeholder-style="color:#cccccc;font-weight: 100;"/>
+        </viwe>
+        <view class="btn" bindtap="signUp">提交</view>
+    </view>
+
+    <view class="mark-tip" wx:if="{{!!tipShow}}">{{tip}}</view>
+    <view class="api-tip" wx:if="{{!!apiTipShow}}" style="{{'width:'+tipWidth+'rpx;margin-left:-'+tipWidth/2+'rpx'}}">
+        <image mode="scaleToFill" src="{{tipSrc}}"></image>
+        <view>{{tip}}</view>
+    </view>
+</view>

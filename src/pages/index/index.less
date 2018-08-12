@@ -94,6 +94,37 @@
   height: 12rpx;
   margin-right: 12rpx;
 }
+.activity {
+  width: 100%;
+}
+.activity-text {
+  width: 100%;
+  height: 80rpx;
+  margin-top: 100rpx;
+  margin-bottom: 40rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 44rpx;
+  color: #000000;
+  letter-spacing: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 32rpx;
+}
+.activity-swiper {
+  width: 100%;
+}
+.activity-box {
+  width: 100%;
+  height: 380rpx;
+  border-radius: 16rpx;
+}
+.activity-box image {
+  width: 100%;
+  height: 100%;
+  border-radius: 16rpx;
+}
 
 .metting-wrap {
   margin-top: -166rpx;
@@ -161,12 +192,12 @@
 }
 .metting .metting-title .metting-name {
   font-family: PingFangSC-Regular;
-  font-size: 36rpx;
+  font-size: 30rpx;
   color: #666666;
   letter-spacing: 0;
   text-align: center;
-  line-height: 32rpx;
-  margin-top: 26rpx;
+  line-height: 30rpx;
+  margin-top: 20rpx;
 }
 .metting .metting-address {
   text-align: center;
@@ -174,24 +205,28 @@
   font-size: 30rpx;
   color: #666666;
   letter-spacing: 0;
-  padding-top: 30rpx;
+  padding-top: 16rpx;
 }
 .meetingRoomName {
   display: inline-block;
   height: 28rpx;
   line-height: 28rpx;
+  width: 400rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .address-wrapper {
   padding: 0 50rpx;
 }
-.metting .wait {
-  background-image: linear-gradient(46deg, #f79c1c 0%, #fad961 100%);
+.metting .seat {
+  background-image: linear-gradient(46deg, #fad961 0%, #f79c1c 100%);
 }
-.metting .already {
-  background-image: linear-gradient(45deg, #6176ff 0%, #96cbff 100%);
+.metting .metting {
+  background-image: linear-gradient(45deg, #96cbff 0%, #6176ff 100%);
 }
-.metting .overdue {
-  background-image: linear-gradient(44deg, #b1b3c9 0%, #7c7890 100%);
+.metting .activity {
+  background-image: linear-gradient(41deg, #c3b0ff 0%, #a642ff 100%);
 }
 .metting .metting-map {
   font-family: PingFangSC-Regular;
@@ -244,7 +279,9 @@
   width: 100%;
   font-family: "PingFangSC-Medium";
 }
-
+.text-bold {
+  font-weight: bold;
+}
 .rm_title {
   width: 100%;
   height: 80rpx;
@@ -318,7 +355,7 @@
   position: absolute;
   width: 52rpx;
   height: 16rpx;
-  background-color: #ffe461;
+  background-color: #ffeb00;
   right: 0;
   left: 0;
   top: 17rpx;
@@ -340,7 +377,7 @@
   position: absolute;
   width: 52rpx;
   height: 16rpx;
-  background-color: #ffe461;
+  background-color: #ffeb00;
   right: 0;
   left: 0;
   top: 17rpx;
@@ -490,10 +527,44 @@ button {
   align-items: center;
   position: fixed;
   right: 20rpx;
-  bottom: 20rpx;
+  bottom: 100rpx;
   z-index: 999;
 }
 .contact image {
   width: 50rpx;
   height: 50rpx;
+}
+.activity-time {
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #333333;
+  letter-spacing: 0;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+.activity-time > text:nth-of-type(1) {
+  height: 40rpx;
+}
+.activity-time > text:nth-of-type(2) {
+  height: 36rpx;
+}
+.activity-date {
+  display: block;
+  width: 100%;
+}
+.activity-hour {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.activity-text > view > text:nth-child(1) {
+  font-size: 36rpx;
+}
+.activity-text > view > text:nth-child(2) {
+  font-size: 32rpx;
+}
+.activity-text > view > text:nth-child(3) {
+  font-size: 28rpx;
+  color: #666;
 }
