@@ -14,10 +14,11 @@ Page({
         reduce:'30',
       },
     ],
-    from:''
+   
   },
   onLoad: function (options) {
-      let from=options.from;
+    this.from=options.from;
+    
       console.log('saleList--->',options.from)
   },
   notUse:function(){
@@ -52,7 +53,7 @@ Page({
   },
   selectTab:function(e){
     var target = e.target.dataset;
-    console.log('selectTab',target.content)
+    console.log('selectTab',target.content,'from===',this.from)
     let obj = target.content;
     obj.sale = true;
     if(this.from=="seat"){
