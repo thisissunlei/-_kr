@@ -546,7 +546,7 @@ Page({
     let isFirst = this.data.isFirst;
     // 获取优惠券列表
     let saleList = [{},{}];
-    let saleLength = 3;//循环列表得出（有效的）优惠券
+    let saleLength = 0;//循环列表得出（有效的）优惠券
     // let saleLength = saleList.length;
     if(num == 1 && isFirst && daynum ==1){
         // 新人且只选择了一个工位且一天
