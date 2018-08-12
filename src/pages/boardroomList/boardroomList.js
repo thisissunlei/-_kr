@@ -110,8 +110,6 @@ Page({
     // console.log(e);
     wx.setStorageSync("rangeTime-c", rangeTime);
     wx.setStorageSync("detail-c", detail);
-    console.log('预定跳转页面=======',detail)
-    // console.log(e.currentTarget.dataset.detail.goodsId,e.currentTarget.dataset.detail.seatId)
     wx.navigateTo({
       url:
         "/pages/seatorderConfirmation/seatorderConfirmation?goodsId=" +e.currentTarget.dataset.detail.goodsId+'&seatId='+e.currentTarget.dataset.detail.seatId+'&show_true='+true

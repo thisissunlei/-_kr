@@ -319,7 +319,6 @@ Page({
         if(res.data.data.first){
           saleStatus = 'new'
         }
-        console.log('用户状态======>',res.data.data.first)
       this.setData({
         isFirst:res.data.data.first,
         saleStatus:saleStatus
@@ -434,10 +433,6 @@ Page({
 
   // 页面加载
   onLoad: function (options) {
-    
-    console.log('onLoad==========')
-
-    this.show_true = options.show_true;
     this.nowDate = wx.getStorageSync('nowDate');
     this.setData({
       orderId:options.goodsId,
@@ -464,14 +459,9 @@ Page({
         choose:''
       }
     });
-
-
-
-
-    
-    this.getFirst()
-    this.getMeetId()
-    this.getPhone();
+    this.getFirst();//判断新人
+    this.getMeetId();//获取详情id
+    this.getPhone();//获取联系方式
 
     var _this = this;
 
@@ -479,7 +469,6 @@ Page({
       wx.getStorage({
         key: 'detail-c',
         success: function (res) {
-         
           if (res.data) {
             _this.setData({
               detailInfo: res.data //当前散座的一系列数据
@@ -488,13 +477,6 @@ Page({
         }
       })
     }
-      wx.getStorage({
-        key: 'seat_order-sale',
-        success: function (res) {
-         
-          console.log('======>',res)
-        }
-      })
 
     wx.getStorage({
       key: 'order_pay',
@@ -620,7 +602,6 @@ Page({
     
   },
   onShow: function () {
-    console.log('show---->',this.data.price_all)
     var _this = this;
     this.getMeetId()
     let saleStatus = 'nothing';
@@ -643,7 +624,6 @@ Page({
     wx.getStorage({
       key: 'seat_order-sale',
       success: function (res) {
-        console.log('seat_order-sale========',res.data)
         if(res.data.sale){
           saleStatus = 'chosen';
           salePrice = parseInt(salePrice-res.data.reduce)
@@ -664,161 +644,198 @@ Page({
       })
   },
  // 去支付
- createOrder: function () {
-  this.setData({
-    dialogShow: !this.data.dialogShow,
-  })
+  createOrder: function () {
+    this.setData({
+      dialogShow: !this.data.dialogShow,
+    })
 
-  let data = this.data;
-  let that = this;
-  let orderData = {
+    let data = this.data;
+    let that = this;
+    let orderData = {
 
-    alertTime: data.alertTime,
-    linkPhone: data.order_pay.linkPhone || data.linkPhone,
-    arrivingTime: data.time,
-    quantity: data.sankeNum,
-    seatGoodIds: that.seatGoodIds,
+      alertTime: data.alertTime,
+      linkPhone: data.order_pay.linkPhone || data.linkPhone,
+      arrivingTime: data.time,
+      quantity: data.sankeNum,
+      seatGoodIds: that.seatGoodIds,
 
+    }
+
+
+      wx.setStorageSync("myorder", orderData)
+
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+
+    var _this = this;
+    app.getRequest({
+      // 散座下单
+      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+      methods: "GET",
+      header: {
+        'content-type': "appication/json"
+      },
+      data: orderData,
+
+      success: (res) => {
+        // 不确定这里存的数据有什么用（马）
+        if (!wx.getStorageSync("order-info")) {
+          let orderArr = []
+          orderArr.push(res.data.data)
+          wx.setStorageSync("order-info", orderArr)
+        } else {
+          let orderseat = wx.getStorageSync("order-info")
+          orderseat.push(res.data.data)
+          wx.setStorageSync("order-info", orderseat)
+        }
+
+
+
+
+
+        wx.setStorageSync("order", res.data.data)
+
+        let code = res.data.code;
+        setTimeout(function () {
+          wx.hideLoading();
+        }, 1500)
+        switch (code) {
+          case -1:
+            this.setData({
+              checkMessage: true,
+              errorMessage: res.data.message
+            })
+            setTimeout(function () {
+              _this.setData({
+                checkMessage: false,
+                errorMessage: ''
+              })
+            }, 2000)
+            break;
+          case -2:
+            wx.setStorage({
+              key: "create_order",
+              data: {
+                create_order: orderData
+              },
+            })
+            wx.navigateTo({
+              url: '../bindPhone/bindPhone?from=seat'
+            })
+            break;
+          case -3:
+            this.setData({
+              checkMessage: true,
+              errorMessage: res.data.message,
+              selectedTime: [],
+              meeting_time: {
+                time: '',
+                beginTime: '',
+                endTime: '',
+                hours: 0,
+              }
+            })
+            setTimeout(function () {
+              _this.setData({
+                checkMessage: false,
+                errorMessage: ''
+              })
+            }, 2000)
+            break;
+          default:
+            // wx.reportAnalytics('confirmorder')
+            // 订单创建成功，清除优惠选择数据
+            wx.setStorageSync("seat_order-sale", {sale:false})
+
+            wx.requestPayment({
+              'nonceStr': res.data.data.noncestr,
+              'orderId': res.data.data.orderId,
+              'package': res.data.data.packages,
+              'paySign': res.data.data.paySign,
+              'signType': res.data.data.signType,
+              'timeStamp': res.data.data.timestamp,
+
+
+              'success': function (response) {
+                wx.showLoading({
+                  title: '加载中',
+                  mask: true
+                })
+                setTimeout(function () {
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                  })
+                  wx.hideLoading();
+                }, 1500)
+
+              },
+              'fail': function (response) {
+
+                wx.showLoading({
+                  title: '加载中',
+                  mask: true
+                })
+                setTimeout(function () {
+                  wx.hideLoading();
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                  })
+                }, 1500)
+
+              },
+
+            })
+            break;
+        }
+
+      },
+
+    })
+  },
+  // 校验优惠券是否可用
+  checkoutSale(){
+    //已选的优惠详情和当前优惠状态；
+    // 当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
+    let saleStatus = this.data.saleStatus;
+    let saleContent = this.data.saleContent;
+    let that = this;
+    if(saleStatus != 'chosen' ){
+      this.createOrder()
+    }else{
+      //接口请求优惠券是否可用
+      let saleAble = false;//假设接口请求结果false:不可用；true:可用
+      console.log('校验优惠券是否可用')
+      if(!saleAble){
+        console.log('优惠券不可用')
+        //1.消除提示窗，显示优惠不可用的错误提示
+        that.setData({
+          dialogShow:false,
+          showError:false,
+          errorMessage:'优惠券不可用'
+        })
+        setTimeout(function(){
+          that.setData({
+            showError:true,
+            errorMessage:'',
+            saleStatus:'none',
+            saleContent:{sale:false}
+          },function(){
+            // 2.清除已选优惠，重新初始化优惠内容
+            console.log('重新获取优惠内容')
+          })
+        },2000)
+        
+      }else{
+        // 会员券可，创建订单
+        that.createOrder()
+      }
+    }
+    
+    
+    
   }
-
-
-    wx.setStorageSync("myorder", orderData)
-
-  wx.showLoading({
-    title: '加载中',
-    mask: true
-  })
-
-  var _this = this;
-  app.getRequest({
-    // 散座下单
-    url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
-    methods: "GET",
-    header: {
-      'content-type': "appication/json"
-    },
-    data: orderData,
-
-    success: (res) => {
-      // 不确定这里存的数据有什么用（马）
-      if (!wx.getStorageSync("order-info")) {
-        let orderArr = []
-        orderArr.push(res.data.data)
-        wx.setStorageSync("order-info", orderArr)
-      } else {
-        let orderseat = wx.getStorageSync("order-info")
-        orderseat.push(res.data.data)
-        wx.setStorageSync("order-info", orderseat)
-      }
-
-
-
-
-
-      wx.setStorageSync("order", res.data.data)
-
-      let code = res.data.code;
-      setTimeout(function () {
-        wx.hideLoading();
-      }, 1500)
-      switch (code) {
-        case -1:
-          this.setData({
-            checkMessage: true,
-            errorMessage: res.data.message
-          })
-          setTimeout(function () {
-            _this.setData({
-              checkMessage: false,
-              errorMessage: ''
-            })
-          }, 2000)
-          break;
-        case -2:
-          wx.setStorage({
-            key: "create_order",
-            data: {
-              create_order: orderData
-            },
-          })
-          wx.navigateTo({
-            url: '../bindPhone/bindPhone?from=seat'
-          })
-          break;
-        case -3:
-          this.setData({
-            checkMessage: true,
-            errorMessage: res.data.message,
-            selectedTime: [],
-            meeting_time: {
-              time: '',
-              beginTime: '',
-              endTime: '',
-              hours: 0,
-            }
-          })
-          setTimeout(function () {
-            _this.setData({
-              checkMessage: false,
-              errorMessage: ''
-            })
-          }, 2000)
-          break;
-        default:
-          // wx.reportAnalytics('confirmorder')
-          // 订单创建成功，清除优惠选择数据
-          wx.setStorageSync("seat_order-sale", {sale:false})
-
-          wx.requestPayment({
-            'nonceStr': res.data.data.noncestr,
-            'orderId': res.data.data.orderId,
-            'package': res.data.data.packages,
-            'paySign': res.data.data.paySign,
-            'signType': res.data.data.signType,
-            'timeStamp': res.data.data.timestamp,
-
-
-            'success': function (response) {
-              wx.showLoading({
-                title: '加载中',
-                mask: true
-              })
-              setTimeout(function () {
-                wx.navigateTo({
-                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
-                })
-                wx.hideLoading();
-              }, 1500)
-
-            },
-            'fail': function (response) {
-
-              wx.showLoading({
-                title: '加载中',
-                mask: true
-              })
-              setTimeout(function () {
-                wx.hideLoading();
-                wx.navigateTo({
-                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
-                })
-              }, 1500)
-
-            },
-
-          })
-          break;
-      }
-
-    },
-
-  })
-  // 日历
-
-  
-
-
-},
   
 
 })
