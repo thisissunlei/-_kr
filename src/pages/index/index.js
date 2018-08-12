@@ -304,11 +304,7 @@ Page({
           });
           // console.log(myMeeting.length);
           //如果只有一张card 不显示小圆点
-          if (myMeeting.length == 1) {
-            that.setData({
-              indicatorDots: false
-            });
-          } else {
+          if (myMeeting.length > 1) {
             that.setData({
               indicatorDots: true
             });
