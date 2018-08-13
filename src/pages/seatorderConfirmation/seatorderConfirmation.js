@@ -320,8 +320,8 @@ Page({
 
     // 新人
     let data = {
-      couponCount:6,
-      first :true
+      couponCount:0,
+      first :false
     }
     // app.getRequest({
     //   url: app.globalData.KrUrl + 'api/gateway/krcoupon/seat/is-first-order',
@@ -357,7 +357,6 @@ Page({
     }
     this.saleLength=data.couponCount
     this.isFirst = data.first;
-    console.log('checkStatus==========')
     this.setData({
       saleStatus:saleStatus,
       saleContent:{sale:false},
@@ -639,6 +638,9 @@ Page({
         if(res.data.sale){
           saleStatus = 'chosen';
           salePrice = parseInt(salePrice-res.data.reduce)
+          if(salePrice<=0){
+            salePrice = 0
+          }
         }else{
           if(_this.isFirst){
             saleStatus = 'new';

@@ -6,7 +6,7 @@ Page({
       {
         id:1,
         name:'11111',
-        reduce:'50',
+        reduce:'150',
       },
       {
         id:2,
