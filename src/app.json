@@ -1,9 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-
     "pages/getGiftticket/getGiftticket",
-
     "pages/activityQuickMark/activityQuickMark",
     "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",
@@ -40,7 +38,7 @@
     "pages/myActivity/myActivity",
     "pages/coupon/coupon",
     "pages/myCoupon/myCoupon",
-     "pages/saleList/saleList"
+    "pages/saleList/saleList"
   ],
   "window": {
     "backgroundTextStyle": "light",
