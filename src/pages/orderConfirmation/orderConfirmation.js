@@ -562,23 +562,27 @@ Page({
         }
       }
     })
+   
     //礼品券数据
-    // wx.getStorage({
-    //   key: 'meeting_order-sale',
-    //   success: function (res) {
-    //     if(res.data.sale){
-    //       this.saleStatus = 'chosen';
+    wx.getStorage({
+      key: 'meeting_order_sale',
+      success: function (res) {
+        if(res.data.sale){
+          this.saleStatus = 'chosen';
          
-    //     }else{
-    //       this.saleStatus = 'none';
-    //     }
-    //     _this.setData({
+        }else{
+          this.saleStatus = 'none';
+        }
+        let data=_this.data;
+        let hours=data.meeting_time.hours;
+        _this.setData({
+          saleContent:res.data,
+          reducePrice:res.data.reduce,
+          priceCount:data.detailInfo.promotionCost*hours*2
+        })
         
-    //       saleContent:res.data,
-    //       salePrice:salePrice
-    //     })
-    //   }
-    // })
+      }
+    })
   },
   bool:true,
   //前一天  后一天
@@ -828,7 +832,6 @@ Page({
     let data=this.data;
     let price=data.detailInfo.promotionCost;
     let meetingRoomId=data.detailInfo.meetingRoomId;
-    console.log('meetingTime',meetingTime)
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
         methods:"GET",
@@ -843,11 +846,14 @@ Page({
         },
         success:(res)=>{
           let data=res.data.data;
-          this.setData({
-            isFirst:data.first,
-            couponCount:data.couponCount,
-            
-          })
+          console.log('777788')
+          if(data.first){
+            this.saleStatus='new';
+          }
+          // this.setData({
+          //   isFirst:data.first,
+          //   couponCount:data.couponCount,
+          // })
         }
     })
   },
