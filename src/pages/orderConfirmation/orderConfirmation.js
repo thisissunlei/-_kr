@@ -843,6 +843,9 @@ Page({
     })
   },
   getIsfirst:function(meetingTime){
+    let data=this.data;
+    let price=data.detailInfo.promotionCost;
+    let meetingRoomId=data.detailInfo.meetingRoomId;
     console.log('meetingTime',meetingTime)
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
@@ -850,12 +853,12 @@ Page({
         header:{
           'content-type':"appication/json"
         },
-        // data:{
-        //   amount:'',
-        //   meetingRoomId:'',
-        //   beginTime:'',
-        //   endTime:'',
-        // },
+        data:{
+          amount:price,
+          meetingRoomId:meetingRoomId,
+          beginTime:meetingTime.beginTime,
+          endTime:meetingTime.endTime,
+        },
         success:(res)=>{
           let data=res.data.data;
           // if(data.first){
