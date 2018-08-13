@@ -66,7 +66,7 @@ Page({
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
     couponCount:0,
-    saleStatus:'',
+    saleStatus:'none',
     saleContent:{},
     reducePrice:0,
   },
@@ -840,39 +840,52 @@ Page({
     let data=this.data;
     let price=data.detailInfo.promotionCost;
     let meetingRoomId=data.detailInfo.meetingRoomId;
-      this.setData({
-        isFirst:true,
-        saleStatus:'new'
-      })
-   
-      this.getPrice();
-    //   app.getRequest({
-    //     url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
-    //     methods:"GET",
-    //     header:{
-    //       'content-type':"appication/json"
-    //     },
-    //     data:{
-    //       amount:price,
-    //       meetingRoomId:meetingRoomId,
-    //       beginTime:meetingTime.beginTime,
-    //       endTime:meetingTime.endTime,
-    //     },
-    //     success:(res)=>{
-    //       let data=res.data.data; 
-    //       // if(data.first){
-    //       //   this.setData({
-    //       //     saleStatus:'new'
-    //       //   })
-    //       // }
-    //       // this.setData({
-    //       //   isFirst:data.first,
-    //       //   couponCount:data.couponCount,
-            
-    //       // })
-    //     }
-    // })
+
+      // data={
+      //   first:true,
+      //   couponCount:2
+      // }
+      // this.checkStatus(data);
+     
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        data:{
+          amount:price,
+          meetingRoomId:meetingRoomId,
+          beginTime:meetingTime.beginTime,
+          endTime:meetingTime.endTime,
+        },
+        success:(res)=>{
+          let data=res.data.data; 
+          this.checkStatus(data);
+        }
+    })
   },
+  //校验优惠券状态
+  checkStatus(data){
+    let saleStatus = '';
+    if(data.first){
+      saleStatus = 'new';
+    }else{
+      if(!data.couponCount){
+        saleStatus = 'nothing'
+      }else{
+        saleStatus = 'none'
+      }
+    }
+    this.setData({
+      saleStatus:saleStatus,
+      saleContent:{sale:false},
+      isFirst:data.first,
+      couponCount:data.couponCount,
+    })
+    this.getPrice();
+  },
+
   closeDialogTime:function(){
     var that = this;
     if(!that.data.dialogTimeShow){
@@ -1088,7 +1101,8 @@ Page({
                 setTimeout(function(){
                   _this.setData({
                     checkMessage:false,
-                    errorMessage:''
+                    errorMessage:'',
+                    saleContent:{sale:false}
                   })
                   _this.getPrice();
                 },2000)
