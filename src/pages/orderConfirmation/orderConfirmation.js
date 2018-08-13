@@ -76,6 +76,7 @@ Page({
   selectedTime:[],
   isSubTime:false,
   ifFixed:false,
+  saleStatus:'',
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -519,6 +520,7 @@ Page({
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
+      this.getIsfirst(this.data.meeting_time);
       this.closeDialogTime();
      
     }
@@ -579,22 +581,22 @@ Page({
       }
     })
     //礼品券数据
-    wx.getStorage({
-      key: 'meeting_order-sale',
-      success: function (res) {
-        // if(res.data.sale){
-        //   saleStatus = 'chosen';
-        //   salePrice = parseInt(salePrice-res.data.reduce)
-        // }else{
-        //   saleStatus = 'none';
-        // }
-        // _this.setData({
-        //   saleStatus:saleStatus,
-        //   saleContent:res.data,
-        //   salePrice:salePrice
-        // })
-      }
-    })
+    // wx.getStorage({
+    //   key: 'meeting_order-sale',
+    //   success: function (res) {
+    //     if(res.data.sale){
+    //       this.saleStatus = 'chosen';
+         
+    //     }else{
+    //       this.saleStatus = 'none';
+    //     }
+    //     _this.setData({
+        
+    //       saleContent:res.data,
+    //       salePrice:salePrice
+    //     })
+    //   }
+    // })
   },
   bool:true,
   //前一天  后一天
@@ -669,8 +671,7 @@ Page({
     }
   },
   onLoad: function (options) {
-    // var rangeTime = wx.getStorageSync('rangeTime');
-    this.getIsfirst();
+   
     this.getPhone();
     var _this=this;
     if(options.from=='list'){
@@ -841,18 +842,32 @@ Page({
       url: '../guide/guide'
     })
   },
-  getIsfirst:function(){
+  getIsfirst:function(meetingTime){
+    console.log('meetingTime',meetingTime)
       app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/is-first-order',
+        url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
         methods:"GET",
         header:{
           'content-type':"appication/json"
         },
+        // data:{
+        //   amount:'',
+        //   meetingRoomId:'',
+        //   beginTime:'',
+        //   endTime:'',
+        // },
         success:(res)=>{
+          let data=res.data.data;
+          // if(data.first){
+          //   this.saleStatus="new";
+          // }else if(!data.first && ){
+
+          // }
           this.setData({
-            ifFirst:res.data.data.first,
-            isFirst:res.data.data.first,
-            couponCount:res.data.data.couponCount
+            ifFirst:data.first,
+            isFirst:data.first,
+            couponCount:data.couponCount,
+            
           })
         }
     })
@@ -1201,47 +1216,45 @@ Page({
     })
   },
    // 校验优惠券是否可用
-   checkoutSale(){
-    //已选的优惠详情和当前优惠状态；
-    // 当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
-    let saleStatus = this.data.saleStatus;
-    let saleContent = this.data.saleContent;
-    let that = this;
-    if(saleStatus != 'chosen' ){
-      this.createOrder()
-    }else{
-      //接口请求优惠券是否可用
-      let saleAble = false;//假设接口请求结果false:不可用；true:可用
-      console.log('校验优惠券是否可用')
-      if(!saleAble){
-        console.log('优惠券不可用')
-        //1.消除提示窗，显示优惠不可用的错误提示
-        that.setData({
-          dialogShow:false,
-          showError:false,
-          errorMessage:'优惠券不可用'
-        })
-        setTimeout(function(){
-          that.setData({
-            showError:true,
-            errorMessage:'',
-            saleStatus:'none',
-            saleContent:{sale:false}
-          },function(){
-            // 2.清除已选优惠，重新初始化优惠内容
-            console.log('重新获取优惠内容')
-          })
-        },2000)
+  //  checkoutSale(){
+  //   //已选的优惠详情和当前优惠状态；
+  //   // 当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
+  //   let saleStatus = this.saleStatus;
+  //   let saleContent = this.saleContent;
+  //   let that = this;
+  //   if(saleStatus != 'chosen' ){
+  //     this.createOrder()
+  //   }else{
+  //     //接口请求优惠券是否可用
+  //     let saleAble = false;//假设接口请求结果false:不可用；true:可用
+  //     console.log('校验优惠券是否可用')
+  //     if(!saleAble){
+  //       console.log('优惠券不可用')
+  //       //1.消除提示窗，显示优惠不可用的错误提示
+  //       that.setData({
+  //         dialogShow:false,
+  //         showError:false,
+  //         errorMessage:'优惠券不可用'
+  //       })
+  //       setTimeout(function(){
+  //         that.setData({
+  //           showError:true,
+  //           errorMessage:'',
+  //           saleStatus:'none',
+  //           saleContent:{sale:false}
+  //         },function(){
+  //           // 2.清除已选优惠，重新初始化优惠内容
+  //           console.log('重新获取优惠内容')
+  //         })
+  //       },2000)
         
-      }else{
-        // 会员券可，创建订单
-        that.createOrder()
-      }
-    }
-    
-    
-    
-  }
+  //     }else{
+  //       // 会员券可，创建订单
+  //       that.createOrder()
+  //     }
+  //   }
+  // }
+
   
 })
 
