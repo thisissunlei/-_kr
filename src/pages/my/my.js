@@ -12,9 +12,10 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    count:2,
-    number:2,
+    count:0,
+    number:0,
     tipShow:true,
+    activityCount:0,
   },
   mysan(){
     wx.navigateTo({
@@ -24,6 +25,11 @@ Page({
   jumpMyMeet:function() {
     wx.navigateTo({
       url: '../myMeeting/myMeeting'
+    })
+  },
+  jumpMyActivity:function(){
+    wx.navigateTo({
+      url: '../myActivity/myActivity'
     })
   },
   jumpOderList:function(e){
@@ -41,6 +47,7 @@ Page({
     this.getCount();
     this.getPhone();
     this.getCounts()
+    this.getActivityCount();
     
   },
   getPhone:function(){
@@ -91,6 +98,20 @@ Page({
           this.setData({
             number:res.data.data
           })
+        }
+    })
+  },
+  getActivityCount:function(){
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/kmactivity/my/remaing/count',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        success:(res)=>{
+            this.setData({
+              activityCount:res.data.data
+            })
         }
     })
   },

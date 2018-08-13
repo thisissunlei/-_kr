@@ -1,0 +1,78 @@
+<!-- 活动二维码页面 -->
+<view class="content-wrap">
+    <view class="wrapper">
+        <!-- 散座详情 -->
+        <view class='top'>
+            <view class="top-banner">
+                <image src="../images/indexImg/card.png" class="img"></image>
+                <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{seatStatus==='EXPIRED'}}"></image>
+                <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='ARRVING'}}"></image>
+                <view class="content">
+                    <view class='title'>
+                        <view class="title-single" wx:if="{{beginTime.y == endTime.y && beginTime.d == endTime.d}}">
+                            <text>{{beginTime.d}}</text>
+                            <text wx:if="{{endTime.t != '00:00' && beginTime.t != '00:00'}}">{{beginTime.t}}-{{endTime.t}}</text>
+                            <text wx:elif="{{beginTime.t != '00:00'}}">{{beginTime.t}}开始</text>
+                            <text wx:else></text>
+                        </view>
+                        <view wx:else>
+                            <view class="title-top">
+                                <view wx:if="{{beginTime.y != endTime.y}}">
+                                    <text>{{beginTime.d}} 至 </text>
+                                    <text>{{endTime.y}}</text>
+                                    <text>{{endTime.d}}</text>
+                                </view>
+                                <view wx:else>
+                                    <text>{{beginTime.d}}</text>
+                                    <text> 至 {{endTime.d}}</text>
+                                </view>
+                            </view>
+                            <view class="title-plus" wx:if="{{beginTime.t != '00:00' || endTime.t != '00:00'}}">
+                                <text wx:if="{{endTime.t != '00:00' && beginTime.t != '00:00'}}">{{beginTime.t}}-{{endTime.t}}</text>
+                                <text wx:elif="{{beginTime.t != '00:00'}}">{{beginTime.t}}开始</text>
+                                <text wx:else></text>
+                            </view>
+                        </view>
+                        <text class="activity-name">{{info.title}}</text>
+                    </view>
+                    <view class='pics'>
+                        <view class="code-pic code-pics">
+                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus!=='WAIT'}}"></image>
+                            <image src="../images/indexImg/code.png" wx:if="{{seatStatus==='WAIT'}}" class="img"></image>
+                            <canvas canvas-id="mycanvas" class="mycanvas" />
+                        </view>
+                        <view class="code-desc">请入场时出示此二维码</view>
+                    </view>
+                    <view class='bottom-text'>
+                        <text class="metting-house">{{info.site}}</text>
+                        <view class='icons'>
+                            <image src='../images/indexImg/dizhi2.png'></image>
+                            {{info.address}}
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- 分享提示 -->
+        <view class="share-hint" wx:if="{{showHint}}" bindtap="close">
+            <text class="hint-content">独乐乐不如众乐乐，快来邀请小伙伴一起参加吧～</text>
+            <text class="hint-close"></text>
+            <text class="hint-triangle"></text>
+        </view>
+        <!-- 底部定位 -->
+        <view class="footer">
+            <text class="cancel-seat" bindtap="cancel" wx:if="{{seatStatus==='WAIT'}}">取消报名</text>
+            <text wx:else></text>
+            <view class="invitee-btn">
+                <button open-type="contact" class="contact">
+                    <text>联系客服</text>
+                </button>
+                <button class="share" open-type="share">
+                    <text>分享活动</text>
+                </button>
+            </view>
+        </view>
+
+
+    </view>
+</view>

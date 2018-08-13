@@ -4,7 +4,7 @@
         <map id="myMap" scale="{{scale}}" style="width: 100%; height: 100%;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}"
             show-location bindmarkertap="changeCommunity"></map>
     </view>
-    <cover-view class="city" bindtap="selectCity">
+    <cover-view class="city" bindtap="selectCity" wx:if="{{showCard}}">
         <cover-view class="page-icom">
             <cover-image src="../images/map/map.png"></cover-image>
         </cover-view>
@@ -13,7 +13,7 @@
         <cover-image src="../images/map/sanjiao.png" class="page-san"></cover-image>
         <!-- </conver-view> -->
     </cover-view>
-    <view class="page-bottom" bindtap="goBuildInfo" data-id="{{cityList.communityId}}">
+    <view class="page-bottom" wx:if="{{showCard}}" bindtap="goBuildInfo" data-id="{{cityList.communityId}}">
         <view class="page-image">
             <image src="{{cityList.buildImgUrl}}"></image>
         </view>
@@ -40,5 +40,8 @@
             <text>去看看</text>
             <image src="../images/map/qukankan.png" class="qukankan"></image>
         </view>
+    </view>
+    <view wx:else class="page-card">
+        <image src="../images/map/card.png"></image>
     </view>
 </view>

@@ -126,7 +126,11 @@ Page({
                 //处理判断散座还是订单
                 if(that.data.from=='seat'){
                   that.getSeatData()
-                }else{
+                } else if ( that.data.from == 'activity' ) {
+                    wx.navigateBack({
+                        delta: 2
+                    })
+                } else{
                   that.getOrderData();
                 }
                 

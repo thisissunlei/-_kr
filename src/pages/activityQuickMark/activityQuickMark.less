@@ -1,0 +1,281 @@
+@import "../meetingTem/meetingTem.less";
+.content-wrap {
+  width: 100%;
+  height: 100%;
+  background: #393f50;
+}
+.wrapper {
+  padding-top: 20rpx;
+  background: #393f50;
+  position: relative;
+}
+.share-hint {
+  width: 600rpx;
+  height: 80rpx;
+  background: #686c79;
+  border-radius: 16rpx;
+  position: fixed;
+  bottom: 110rpx;
+  left: 132rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #ffffff;
+  padding: 0 20rpx;
+  z-index: 9999;
+}
+.hint-close {
+  display: block;
+  width: 26rpx;
+  height: 2rpx;
+  background: #ffffff;
+  transform: rotate(45deg);
+}
+.hint-close:after {
+  content: "";
+  display: block;
+  width: 26rpx;
+  height: 2rpx;
+  background: #ffffff;
+  transform: rotate(-90deg);
+}
+.hint-triangle {
+  position: fixed;
+  bottom: 78rpx;
+  right: 14%;
+  width: 0;
+  height: 0;
+  border-width: 20rpx;
+  border-style: solid;
+  border-color: #686c79 transparent transparent transparent;
+}
+.footer {
+  width: 100%;
+  height: 110rpx;
+  background: #ffffff;
+  box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 32rpx;
+}
+.cancel-seat {
+  width: 150rpx;
+  display: inline-block;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #333333;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.contact {
+  width: 166rpx;
+  height: 72rpx;
+  font-family: PingFangSC-Regular;
+  color: #333333;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 16rpx;
+  margin-right: 18rpx;
+}
+button {
+  font-size: 28rpx;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+  display: inline-block;
+  background-color: transparent;
+  border-style: none;
+  border-width: 0px;
+}
+.share {
+  width: 166rpx;
+  height: 72rpx;
+  background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
+  border-radius: 16rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #624d17;
+}
+.share:after {
+  border: none;
+  outline: none;
+}
+.top {
+  width: 710rpx;
+  height: 465px;
+  padding: 0 20rpx;
+  margin-bottom: 450rpx;
+}
+.top-banner {
+  width: 100%;
+  height: 465px;
+  position: relative;
+}
+.img {
+  width: 100%;
+  height: 100%;
+}
+.content {
+  width: 100%;
+  height: 465px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+.top .overdue {
+  display: block;
+  width: 300rpx;
+  height: 300rpx;
+  position: absolute;
+  top: 430rpx;
+  right: 0;
+}
+.top .title {
+  padding: none;
+  height: 97px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.title > view {
+  margin-top: 20rpx;
+}
+.top .title text {
+  display: block;
+}
+.title-single {
+  width: 100%;
+  height: 22px;
+  margin-top: 20px;
+  font-family: PingFangSC-Medium;
+  font-size: 20px;
+  color: #333333;
+  display: flex;
+  justify-content: center;
+}
+.title-top {
+  width: 100%;
+  height: 22px;
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #333333;
+  justify-content: center;
+}
+.title-top > view {
+  width: inherit;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+}
+
+.title-plus {
+  height: 22px;
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #333333;
+  letter-spacing: 0;
+  text-align: center;
+}
+.activity-name {
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #666666;
+  letter-spacing: 0;
+  text-align: center;
+  padding: 0 60rpx;
+  margin-top: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pics {
+  width: 710rpx;
+  height: 640rpx;
+  position: relative;
+  box-sizing: border-box;
+  opacity: 0.6;
+}
+
+.pics .img-box {
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  top: 26rpx;
+  left: 26rpx;
+}
+.mycanvas {
+  display: block;
+  position: absolute;
+  margin: 8px;
+  padding: 0;
+  width: 160px;
+  height: 160px;
+  top: 0;
+  left: 0;
+}
+.over-date {
+  opacity: 0.4;
+}
+.pics .code-desc {
+  font-size: 28rpx;
+  color: #666666;
+  font-family: PingFangSC-Regular;
+  margin-top: 190px;
+  letter-spacing: 0;
+  text-align: center;
+}
+.bottom-text {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 370px;
+  left: 0;
+  height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bottom-text .metting-house {
+  display: inline-block;
+  width: 250px;
+  height: 20px;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.bottom-text .icons,
+.pics .code-desc {
+  font-family: PingFangSC-Regular;
+  color: #666;
+}
+.bottom-text image {
+  width: 12px;
+  height: 14px;
+  margin-right: 0rpx;
+  vertical-align: top;
+  margin-top: 4rpx;
+}
+.bottom-text .icons {
+  box-sizing: border-box;
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  color: #666666;
+  margin-top: 6rpx;
+  padding: 0 60rpx;
+}

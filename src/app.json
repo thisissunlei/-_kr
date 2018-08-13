@@ -1,10 +1,12 @@
 {
-  "pages": [ 
-    
+  "pages": [
     "pages/index/index",
+
+    "pages/getGiftticket/getGiftticket",
+
+    "pages/activityQuickMark/activityQuickMark",
     "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",
-    
     "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
     "pages/my/my",
@@ -32,7 +34,10 @@
     "pages/bindPhone/bindPhone",
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
-    "pages/component/component"
+    "pages/component/component",
+    "pages/activityDetails/activity",
+    "pages/locationMap/locationMap",
+    "pages/myActivity/myActivity"
   ],
   "window": {
     "backgroundTextStyle": "light",
