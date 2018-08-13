@@ -13,20 +13,20 @@ Page({
   },
   //分享
   onShareAppMessage: function(res) {
-    if (res.from === "button") {
-      console.log("来自页面赠送按钮");
-      // console.log(res);
-      return {
-        title: this.data.info.title + "活动来咯，戳我参加~",
-        path:
-          "pages/activityDetails/activity?activityId=" +
-          this.data.info.activityId,
-        imageUrl: this.data.info.coverPic
-      };
-    } else {
-      console.log("来自右上角转发菜单");
-      return app.globalData.share_data;
-    }
+    // if (res.from === "button") {
+    //   console.log("来自页面赠送按钮");
+    // console.log(res);
+    return {
+      title: this.data.info.title + "活动来咯，戳我参加~",
+      path:
+        "pages/activityDetails/activity?activityId=" +
+        this.data.info.activityId,
+      imageUrl: this.data.info.coverPic
+    };
+    // } else {
+    //   console.log("来自右上角转发菜单");
+    //   return app.globalData.share_data;
+    // }
   },
 
   onLoad: function(options) {

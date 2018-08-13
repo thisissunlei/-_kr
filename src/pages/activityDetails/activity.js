@@ -277,7 +277,7 @@ Page({
   },
   onShareAppMessage(res) {
     return {
-      title: this.data.info.title,
+      title: this.data.info.title + "活动来咯，戳我参加~",
       desc: "氪空间自由座",
       path: "pages/activityDetails/activity?activityId=" + this.data.activityId,
       imageUrl: this.data.info.sharePic
