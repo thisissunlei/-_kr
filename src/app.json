@@ -1,9 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-
-    "pages/getGiftticket/getGiftticket",
-
     "pages/activityQuickMark/activityQuickMark",
     "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",

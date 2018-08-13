@@ -39,7 +39,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    KrUrl: "https://i.krspace.cn/",
+    KrUrl: "https://i.krspace.cn/test02/",
     Cookie: "",
     share_data: {
       title: "开启轻松、灵活办公新方式",
@@ -58,7 +58,6 @@ App({
       header: {
         "Content-Type": "application/x-www-form-urlencoded",
         Cookie: this.globalData.Cookie
-     
       },
       data: data.data,
       success: function(data_new) {
