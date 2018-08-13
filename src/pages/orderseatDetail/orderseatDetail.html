@@ -50,15 +50,21 @@
               </view>
         <!-- </scroll-view>    -->
           </view>
+          <!-- 礼品券 -->
+          <view class="u-meeting" style="border-bottom:1rpx solid #F6F6F6" wx:if="{{detailInfo.couponPrice}}">
+            <view class="u-left">礼品券 </view>
+            <view class="u-right">
+                <view class="u-right-top" >
+                    <view class="u-right-top-left">-¥{{detailInfo.couponPrice}}</view>
+                </view>
+            </view>
+          </view>
           <!--应付款-->
           <view class="u-meeting">
             <view class="u-left">{{payTitle}} </view>
-          
-
             <view class="u-right" wx:if="{{isFirst&&(daynum==1)&&(sankeNum==1)}}">
                 <view class="u-right-top" >
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥  1 </view>
-                    <!-- <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view> -->
+                    <view class="u-right-top-left">¥  1 </view>
                 </view>
                 <view class="u-bottom">
                         （新人专享）1天超值体验
@@ -67,13 +73,9 @@
 
             <view class="u-right" wx:else>
                 <view class="u-right-top" >
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥ {{detailInfo.paidAmount}}</view>
-                    <!-- <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view> -->
+                    <view class="u-right-top-left">¥{{detailInfo.paidAmount}}</view>
                 </view>
             </view>
-
-
-
           </view>
           
 
@@ -234,5 +236,5 @@
    
 
 
- <viwe class="div" wx:if="{{flag & detailInfo.orderShowStatus === 'CLOSED' }}"></viwe>
+ <view class="div" wx:if="{{flag & detailInfo.orderShowStatus === 'CLOSED' }}"></view>
 </view> 

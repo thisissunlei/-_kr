@@ -52,7 +52,6 @@ Page({
     detailInfo: {}, //初始化遍历对象
     orderDate: {},
     meeting_time: {},
-    // isFirst: true,
     errorMessage: '',
     checkMessage: false,
     dialogDate: false, //判断门板是否显示
@@ -73,7 +72,7 @@ Page({
     final_num : 1,
     show_a:false,
     selecedList:[],
-    //当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
+    //当前礼品券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
     saleStatus:'nothing',
     saleContent:{},//优惠详情
   },
@@ -85,6 +84,7 @@ Page({
   isSubTime: false,
   ifFixed: false,
   combination_new:[],
+  isFirst:false,
 
   // 日历
   all_day_num:0,
@@ -308,24 +308,60 @@ Page({
       }
     })
   },
-  // 用户状态
-  getFirst(){
-   
-    app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
-      method: "GET",
-      success: (res) => {
-        let saleStatus = 'nothing'
-        if(res.data.data.first){
-          saleStatus = 'new'
-        }
-      this.setData({
-        isFirst:res.data.data.first,
-        saleStatus:saleStatus
-      })
+  // 获取优惠信息和新人判断
+  getSaleContent(number){
+    let that = this;
+    // 旧人
+    // let data = {
+    //   couponCount:7,
+    //   first :false
+    // };
+    console.log('getSaleContent==========',that.seatGoodIds)
 
-      },
+    // 新人
+    let data = {
+      couponCount:6,
+      first :true
+    }
+    // app.getRequest({
+    //   url: app.globalData.KrUrl + 'api/gateway/krcoupon/seat/is-first-order',
+    //   data:{
+    //     quantity:number,
+    //     seatGoodIds:that.seatGoodIds
+    //   },
+    //   method: "GET",
+    //   success: (res) => {
+    //     let code = res.data.code;
+    //     let data = res.data.data;
+    //     if(code>0){
+          that.checkStatus(data)
+    //     }
+
+    //   },
    
+    // })
+  },
+  checkStatus(data){
+    let saleStatus = ''
+    // new：新人；chosen：已选，nothing:暂无可用；none:未选择）
+    if(data.first){
+      //符合新人下单
+      saleStatus = 'new';
+    }else{
+      if(!data.couponCount){
+        //无可用优惠
+        saleStatus = 'nothing'
+      }else{
+        saleStatus = 'none'
+      }
+    }
+    this.saleLength=data.couponCount
+    this.isFirst = data.first;
+    console.log('checkStatus==========')
+    this.setData({
+      saleStatus:saleStatus,
+      saleContent:{sale:false},
+      saleLength:data.couponCount
     })
   },
 
@@ -459,7 +495,7 @@ Page({
         choose:''
       }
     });
-    this.getFirst();//判断新人
+    // this.getFirst();//判断新人
     this.getMeetId();//获取详情id
     this.getPhone();//获取联系方式
 
@@ -529,7 +565,7 @@ Page({
          item.seat.dates = item.seat.useTimeDescr.slice(0,5);
         return item
       }) 
-      this.getSaleList(price_all,number,carendar.length);
+      this.getSaleContent(number);
       
       this.setData({
         sankeNum: number ,
@@ -539,35 +575,6 @@ Page({
         price_y:price_y
       })
     }
-  },
-  getSaleList(price,num,daynum){
-    // new：新人；chosen：已选，nothing:暂无可用；none:未选择）
-    let saleStatus = this.data.saleStatus;
-    let isFirst = this.data.isFirst;
-    // 获取优惠券列表
-    let saleList = [{},{}];
-    let saleLength = 3;//循环列表得出（有效的）优惠券
-    // let saleLength = saleList.length;
-    if(num == 1 && isFirst && daynum ==1){
-        // 新人且只选择了一个工位且一天
-        saleStatus = 'new'
-    }else{
-      if(!saleLength){
-        // 如果不是新用户，且没有有效的优惠券，则显示暂无
-        saleStatus = 'nothing';
-      }
-      if(saleLength){
-        // 默认有效,
-        saleStatus = 'none'
-      }
-    }
-    
-    this.setData({
-      saleStatus:saleStatus,
-      saleContent:{sale:false}
-    })
-
-    
   },
   jumpSetSale(){
     wx.navigateTo({
@@ -602,11 +609,11 @@ Page({
     
   },
   onShow: function () {
+    console.log('=====>',this.data.saleStatus)
+    let saleStatus = this.data.saleStatus;
     var _this = this;
     this.getMeetId()
-    let saleStatus = 'nothing';
     let salePrice = this.data.price_all;
-
     wx.getStorage({
       key: 'order_pay',
       success: function (res) {
@@ -621,6 +628,11 @@ Page({
         }
       }
     })
+    if(!this.saleLength){
+      saleStatus = 'nothing';
+    }else{
+      saleStatus = 'none';
+    }
     wx.getStorage({
       key: 'seat_order-sale',
       success: function (res) {
@@ -628,7 +640,11 @@ Page({
           saleStatus = 'chosen';
           salePrice = parseInt(salePrice-res.data.reduce)
         }else{
-          saleStatus = 'none';
+          if(_this.isFirst){
+            saleStatus = 'new';
+          }else{
+            saleStatus = saleStatus
+          }
         }
         _this.setData({
           saleStatus:saleStatus,
@@ -658,6 +674,7 @@ Page({
       arrivingTime: data.time,
       quantity: data.sankeNum,
       seatGoodIds: that.seatGoodIds,
+      couponId:data.saleContent.id || null
 
     }
 
@@ -692,12 +709,9 @@ Page({
         }
 
 
-
-
-
         wx.setStorageSync("order", res.data.data)
-
-        let code = res.data.code;
+        // let code = res.data.code;
+        let code = -2;
         setTimeout(function () {
           wx.hideLoading();
         }, 1500)
@@ -743,6 +757,32 @@ Page({
                 errorMessage: ''
               })
             }, 2000)
+            break;
+          case -4://优惠券失效
+            console.log('礼品券不可用')
+            //1.消除提示窗，显示优惠不可用的错误提示
+            setTimeout(function(){
+              that.setData({
+                dialogShow:false,
+                showError:false,
+                errorMessage:'礼品券不可用',
+                saleStatus:'none',
+              })
+            },1500);
+            setTimeout(function(){
+              that.setData({
+                showError:true,
+                errorMessage:'',
+                saleContent:{sale:false}
+              },function(){
+                // 2.清除已选优惠，重新初始化优惠内容
+                let number = that.data.sankeNum;
+                console.log('重新获取优惠内容',number)
+
+                that.getSaleContent(number);
+              })
+            },2000)
+
             break;
           default:
             // wx.reportAnalytics('confirmorder')
@@ -794,48 +834,6 @@ Page({
 
     })
   },
-  // 校验优惠券是否可用
-  checkoutSale(){
-    //已选的优惠详情和当前优惠状态；
-    // 当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
-    let saleStatus = this.data.saleStatus;
-    let saleContent = this.data.saleContent;
-    let that = this;
-    if(saleStatus != 'chosen' ){
-      this.createOrder()
-    }else{
-      //接口请求优惠券是否可用
-      let saleAble = false;//假设接口请求结果false:不可用；true:可用
-      console.log('校验优惠券是否可用')
-      if(!saleAble){
-        console.log('优惠券不可用')
-        //1.消除提示窗，显示优惠不可用的错误提示
-        that.setData({
-          dialogShow:false,
-          showError:false,
-          errorMessage:'优惠券不可用'
-        })
-        setTimeout(function(){
-          that.setData({
-            showError:true,
-            errorMessage:'',
-            saleStatus:'none',
-            saleContent:{sale:false}
-          },function(){
-            // 2.清除已选优惠，重新初始化优惠内容
-            console.log('重新获取优惠内容')
-          })
-        },2000)
-        
-      }else{
-        // 会员券可，创建订单
-        that.createOrder()
-      }
-    }
-    
-    
-    
-  }
   
 
 })

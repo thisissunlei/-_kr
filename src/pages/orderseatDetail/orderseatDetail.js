@@ -520,7 +520,6 @@ Page({
           titleObj: titleObj,
           // isFirst: isFirst
         })
-        // console.log(isFirst)
         let payTitleObj = {
           'OBLIGATION': '应付款',
           'TOBEUSED': '实付款',
