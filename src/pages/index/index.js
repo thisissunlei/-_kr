@@ -176,6 +176,8 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
+              // console.log(app.globalData.Cookie);
+              // console.log(app.globalData.openid);
               that.getActivity();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
@@ -247,16 +249,25 @@ Page({
       success: res => {
         if (res.data.code == 1) {
           var mansion = Object.assign({}, res);
-          console.log(mansion, "列表");
+          // console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
 
           var myMeeting = mansion.data.data.myTodo.slice(0, 5);
 
           myMeeting.map(value => {
             // console.log(value.todoTime.split("#")[0]);
+
             if (value.targetType == "ACTIVITY") {
-              value.before = value.todoTime.split("#")[0];
-              value.last = value.todoTime.split("#")[1];
+              if (value.todoTime.includes("至")) {
+                // console.log(1);
+                value.before = value.todoTime.split("#")[0];
+                value.last = value.todoTime.split("#")[1];
+                value.single = false;
+              } else {
+                value.before = value.todoTime.split("#")[0];
+                value.last = value.todoTime.split("#")[1];
+                value.single = true;
+              }
             }
             return value;
           });

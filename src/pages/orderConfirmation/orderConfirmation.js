@@ -49,7 +49,7 @@ Page({
     detailInfo:{},
     orderDate:{},
     meeting_time:{},
-    isFirst:true,
+    isFirst:false,
     errorMessage:'',
     checkMessage:false,
     dialogDate:false,
@@ -65,7 +65,8 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    ifFirst:false,
+    couponCount:0,
+    saleStatus:'',
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -75,6 +76,7 @@ Page({
   selectedTime:[],
   isSubTime:false,
   ifFixed:false,
+  
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -518,6 +520,7 @@ Page({
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
+      this.getIsfirst(this.data.meeting_time);
       this.closeDialogTime();
      
     }
@@ -530,32 +533,15 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
-   
-    if(data.ifFirst){
-      if(hours>2){
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:false
-        })
-      }else if(hours>0 && hours<=2){
+    if(data.isFirst){
         this.setData({
           totalCount:totalCount,
           priceCount:1,
-          isFirst:true
         })
-      }else{
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:true
-        })
-      }
     }else {
         this.setData({
           totalCount:totalCount,
           priceCount:priceCount,
-          isFirst:false
         })
     }
    
@@ -577,21 +563,26 @@ Page({
         }
       }
     })
+   
     //礼品券数据
     wx.getStorage({
-      key: 'meeting_order-sale',
+      key: 'meeting_order_sale',
       success: function (res) {
-        // if(res.data.sale){
-        //   saleStatus = 'chosen';
-        //   salePrice = parseInt(salePrice-res.data.reduce)
-        // }else{
-        //   saleStatus = 'none';
-        // }
-        // _this.setData({
-        //   saleStatus:saleStatus,
-        //   saleContent:res.data,
-        //   salePrice:salePrice
-        // })
+        let saleStatus="";
+        if(res.data.sale){
+          saleStatus = 'chosen';
+        }else{
+          saleStatus = 'none';
+        }
+        let data=_this.data;
+        let hours=data.meeting_time.hours;
+        _this.setData({
+          saleStatus:saleStatus,
+          saleContent:res.data,
+          reducePrice:res.data.reduce,
+          priceCount:data.detailInfo.promotionCost*hours*2
+        })
+        
       }
     })
   },
@@ -668,8 +659,7 @@ Page({
     }
   },
   onLoad: function (options) {
-    // var rangeTime = wx.getStorageSync('rangeTime');
-    this.getIsfirst();
+   
     this.getPhone();
     var _this=this;
     if(options.from=='list'){
@@ -840,17 +830,33 @@ Page({
       url: '../guide/guide'
     })
   },
-  getIsfirst:function(){
+  getIsfirst:function(meetingTime){
+    let data=this.data;
+    let price=data.detailInfo.promotionCost;
+    let meetingRoomId=data.detailInfo.meetingRoomId;
       app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/isFirstOrder',
+        url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
         methods:"GET",
         header:{
           'content-type':"appication/json"
         },
+        data:{
+          amount:price,
+          meetingRoomId:meetingRoomId,
+          beginTime:meetingTime.beginTime,
+          endTime:meetingTime.endTime,
+        },
         success:(res)=>{
+          let data=res.data.data; 
+          if(data.first){
+            this.setData({
+              saleStatus:'new'
+            })
+          }
           this.setData({
-            ifFirst:res.data.data.first,
-            isFirst:res.data.data.first
+            isFirst:data.first,
+            couponCount:data.couponCount,
+            
           })
         }
     })
@@ -1236,10 +1242,8 @@ Page({
         that.createOrder()
       }
     }
-    
-    
-    
   }
+
   
 })
 

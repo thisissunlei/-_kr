@@ -46,13 +46,13 @@
           <view class="u-line"></view>
       </view>
   </view>
-  <view class="u-pay-info u-sale-info">
+  <view class="u-pay-info u-sale-info" wx:if="{{couponPrice>0}}">
         <view class="u-sale-content">
             <view class="u-sale-title">
                 礼品券
             </view>
             <view class="u-meeting-price" >
-                <view class="u-price-num">-￥50</view>
+                <view class="u-price-num">-￥{{couponPrice}}</view>
             </view>
         </view>
   </view>

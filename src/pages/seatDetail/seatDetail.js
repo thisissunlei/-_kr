@@ -124,8 +124,8 @@ Page({
         "https://web.krspace.cn/kr_seat/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
-        150,
-        150,
+        160,
+        160,
         null,
         "rgba(0,0,0,0.3)"
       );
@@ -136,8 +136,8 @@ Page({
         "https://web.krspace.cn/kr_seat/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
-        150,
-        150
+        160,
+        160
       );
     }
   },

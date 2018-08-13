@@ -34,8 +34,14 @@
               <view class="metting-mark {{item.targetType === 'SEAT'?'seat':(item.targetType === 'MEETING'?'metting':'activity')}}">{{item.targetType === 'SEAT'?'散座':(item.targetType === 'MEETING'?'会议':'活动')}}</view>
               <view class="metting-title">
                 <view class="activity-time" wx:if="{{item.targetType=='ACTIVITY'}}">
-                  <text class="activity-date">{{item.before}}</text>
-                  <text class="activity-hour">{{item.last}}</text>
+                  <view wx:if="{{item.single}}">
+                    <text>{{item.before}} {{item.last}}</text>
+                  </view>
+                  <view wx:else>
+                    <text class="activity-date">{{item.before}}</text>
+                    <text class="activity-hour">{{item.last}}</text>
+                  </view>
+
                 </view>
                 <text wx:else class="metting-time">{{item.todoTime}}</text>
                 <text class="metting-name">{{item.title}}</text>

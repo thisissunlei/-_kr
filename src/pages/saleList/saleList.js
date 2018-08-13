@@ -14,7 +14,7 @@ Page({
         reduce:'30',
       },
     ],
-    from:''
+   
   },
   onLoad: function (options) {
       this.from=options.from;
@@ -36,7 +36,7 @@ Page({
         })
     }else if(this.from=="meeting"){
         wx.setStorage({
-          key:"meeting_order-sale",
+          key:"meeting_order_sale",
           data:{sale:false},
           success:function(){
             setTimeout(function(){
@@ -52,7 +52,7 @@ Page({
   },
   selectTab:function(e){
     var target = e.target.dataset;
-    console.log('selectTab',target.content)
+    console.log('selectTab',target.content,'from===',this.from)
     let obj = target.content;
     obj.sale = true;
     if(this.from=="seat"){
@@ -70,7 +70,7 @@ Page({
           })
     }else if(this.from=="meeting"){
       wx.setStorage({
-        key:"meeting_order-sale",
+        key:"meeting_order_sale",
         data:obj,
         success:function(){
           setTimeout(function(){
