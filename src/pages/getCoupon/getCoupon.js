@@ -3,7 +3,9 @@ const app = getApp();
 Page({
   data: {
     hasUserInfo: false,
-    canIUse: wx.canIUse("button.open-type.getUserInfo")
+    canIUse: wx.canIUse("button.open-type.getUserInfo"),
+    couponList: [],
+    shareNo: ""
   },
   //事件处理函数
   bindViewTap: function() {
@@ -14,6 +16,11 @@ Page({
   onLoad: function(options) {
     var that = this;
     console.log(options);
+    if (options.shareNo) {
+      that.setData({
+        shareNo: options.shareNo
+      });
+    }
     wx.showLoading({
       title: "加载中",
       mask: true
@@ -31,6 +38,24 @@ Page({
       }
     });
   },
+  //礼品券详情接口
+  getCouponList: function() {
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krcoupon/share/list",
+      data: {
+        shareNo: that.data.shareNo
+      },
+      success: res => {
+        console.log(res);
+      },
+      fail: err => {
+        console.log(err);
+      }
+    });
+  },
+  //领取礼品券接口
+
   //登录
   login: function() {
     wx.login({
