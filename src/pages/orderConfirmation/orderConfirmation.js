@@ -67,6 +67,7 @@ Page({
     date_next:{month:'',year:'',value:''},
     couponCount:0,
     saleStatus:'',
+    saleContent:{},
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -182,10 +183,6 @@ Page({
        
       })
       
-
-      
-
-     
       
 
 
@@ -533,12 +530,20 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
-    if(data.isFirst){
+    if((data.isFirst && data.saleStatus=='new') || (data.isFirst && data.saleStatus=='none')){
         this.setData({
           totalCount:totalCount,
           priceCount:1,
         })
     }else {
+      if(data.saleStatus=='chosen'){
+        if(priceCount-data.reducePrice>0){
+          priceCount=priceCount-data.reducePrice
+        }else{
+          priceCount=0;
+        }
+       
+      }
         this.setData({
           totalCount:totalCount,
           priceCount:priceCount,
@@ -575,13 +580,13 @@ Page({
           saleStatus = 'none';
         }
         let data=_this.data;
-        let hours=data.meeting_time.hours;
+       
         _this.setData({
           saleStatus:saleStatus,
           saleContent:res.data,
           reducePrice:res.data.reduce,
-          priceCount:data.detailInfo.promotionCost*hours*2
         })
+        _this.getPrice();
         
       }
     })
@@ -834,32 +839,38 @@ Page({
     let data=this.data;
     let price=data.detailInfo.promotionCost;
     let meetingRoomId=data.detailInfo.meetingRoomId;
-      app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
-        methods:"GET",
-        header:{
-          'content-type':"appication/json"
-        },
-        data:{
-          amount:price,
-          meetingRoomId:meetingRoomId,
-          beginTime:meetingTime.beginTime,
-          endTime:meetingTime.endTime,
-        },
-        success:(res)=>{
-          let data=res.data.data; 
-          if(data.first){
-            this.setData({
-              saleStatus:'new'
-            })
-          }
-          this.setData({
-            isFirst:data.first,
-            couponCount:data.couponCount,
+      this.setData({
+        isFirst:true,
+        saleStatus:'new'
+      })
+   
+      this.getPrice();
+    //   app.getRequest({
+    //     url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
+    //     methods:"GET",
+    //     header:{
+    //       'content-type':"appication/json"
+    //     },
+    //     data:{
+    //       amount:price,
+    //       meetingRoomId:meetingRoomId,
+    //       beginTime:meetingTime.beginTime,
+    //       endTime:meetingTime.endTime,
+    //     },
+    //     success:(res)=>{
+    //       let data=res.data.data; 
+    //       // if(data.first){
+    //       //   this.setData({
+    //       //     saleStatus:'new'
+    //       //   })
+    //       // }
+    //       // this.setData({
+    //       //   isFirst:data.first,
+    //       //   couponCount:data.couponCount,
             
-          })
-        }
-    })
+    //       // })
+    //     }
+    // })
   },
   closeDialogTime:function(){
     var that = this;
