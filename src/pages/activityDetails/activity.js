@@ -54,6 +54,7 @@ Page({
     return paramValue;
   },
   onLoad(options) {
+    console.log(options);
     let that = this;
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "id");
