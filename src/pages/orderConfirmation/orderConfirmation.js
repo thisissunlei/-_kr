@@ -66,6 +66,7 @@ Page({
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
     couponCount:0,
+    saleStatus:'',
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -75,7 +76,7 @@ Page({
   selectedTime:[],
   isSubTime:false,
   ifFixed:false,
-  saleStatus:'',
+  
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -567,15 +568,16 @@ Page({
     wx.getStorage({
       key: 'meeting_order_sale',
       success: function (res) {
+        let saleStatus="";
         if(res.data.sale){
-          this.saleStatus = 'chosen';
-         
+          saleStatus = 'chosen';
         }else{
-          this.saleStatus = 'none';
+          saleStatus = 'none';
         }
         let data=_this.data;
         let hours=data.meeting_time.hours;
         _this.setData({
+          saleStatus:saleStatus,
           saleContent:res.data,
           reducePrice:res.data.reduce,
           priceCount:data.detailInfo.promotionCost*hours*2
@@ -845,15 +847,17 @@ Page({
           endTime:meetingTime.endTime,
         },
         success:(res)=>{
-          let data=res.data.data;
-          console.log('777788')
+          let data=res.data.data; 
           if(data.first){
-            this.saleStatus='new';
+            this.setData({
+              saleStatus:'new'
+            })
           }
-          // this.setData({
-          //   isFirst:data.first,
-          //   couponCount:data.couponCount,
-          // })
+          this.setData({
+            isFirst:data.first,
+            couponCount:data.couponCount,
+            
+          })
         }
     })
   },
@@ -1201,44 +1205,44 @@ Page({
     })
   },
    // 校验优惠券是否可用
-  //  checkoutSale(){
-  //   //已选的优惠详情和当前优惠状态；
-  //   // 当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
-  //   let saleStatus = this.saleStatus;
-  //   let saleContent = this.saleContent;
-  //   let that = this;
-  //   if(saleStatus != 'chosen' ){
-  //     this.createOrder()
-  //   }else{
-  //     //接口请求优惠券是否可用
-  //     let saleAble = false;//假设接口请求结果false:不可用；true:可用
-  //     console.log('校验优惠券是否可用')
-  //     if(!saleAble){
-  //       console.log('优惠券不可用')
-  //       //1.消除提示窗，显示优惠不可用的错误提示
-  //       that.setData({
-  //         dialogShow:false,
-  //         showError:false,
-  //         errorMessage:'优惠券不可用'
-  //       })
-  //       setTimeout(function(){
-  //         that.setData({
-  //           showError:true,
-  //           errorMessage:'',
-  //           saleStatus:'none',
-  //           saleContent:{sale:false}
-  //         },function(){
-  //           // 2.清除已选优惠，重新初始化优惠内容
-  //           console.log('重新获取优惠内容')
-  //         })
-  //       },2000)
+   checkoutSale(){
+    //已选的优惠详情和当前优惠状态；
+    // 当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
+    let saleStatus = this.data.saleStatus;
+    let saleContent = this.data.saleContent;
+    let that = this;
+    if(saleStatus != 'chosen' ){
+      this.createOrder()
+    }else{
+      //接口请求优惠券是否可用
+      let saleAble = false;//假设接口请求结果false:不可用；true:可用
+      console.log('校验优惠券是否可用')
+      if(!saleAble){
+        console.log('优惠券不可用')
+        //1.消除提示窗，显示优惠不可用的错误提示
+        that.setData({
+          dialogShow:false,
+          showError:false,
+          errorMessage:'优惠券不可用'
+        })
+        setTimeout(function(){
+          that.setData({
+            showError:true,
+            errorMessage:'',
+            saleStatus:'none',
+            saleContent:{sale:false}
+          },function(){
+            // 2.清除已选优惠，重新初始化优惠内容
+            console.log('重新获取优惠内容')
+          })
+        },2000)
         
-  //     }else{
-  //       // 会员券可，创建订单
-  //       that.createOrder()
-  //     }
-  //   }
-  // }
+      }else{
+        // 会员券可，创建订单
+        that.createOrder()
+      }
+    }
+  }
 
   
 })
