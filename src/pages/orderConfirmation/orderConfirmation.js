@@ -1011,7 +1011,8 @@ Page({
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName,
-      referrerPhone:data.order_pay.recommendedPhone || ''
+      referrerPhone:data.order_pay.recommendedPhone || '',
+      couponId:data.saleContent.id || null
     }
     wx.showLoading({
       title: '加载中',
@@ -1033,6 +1034,7 @@ Page({
             setTimeout(function(){
               wx.hideLoading();
             },1500)
+            code=-4;
             switch (code){
               case -1:
                   this.setData({
@@ -1075,6 +1077,22 @@ Page({
                       errorMessage:''
                     })
                   },2000)
+              break;
+              case -4:
+                this.setData({
+                  dialogShow:false,
+                  checkMessage:true,
+                  errorMessage:res.data.message,
+                  saleStatus:'none',
+                })
+                setTimeout(function(){
+                  _this.setData({
+                    checkMessage:false,
+                    errorMessage:''
+                  })
+                  _this.getPrice();
+                },2000)
+              
               break;
               default:
                 wx.reportAnalytics('confirmorder')
@@ -1216,46 +1234,6 @@ Page({
       url: '../saleList/saleList?from=meeting'
     })
   },
-   // 校验优惠券是否可用
-   checkoutSale(){
-    //已选的优惠详情和当前优惠状态；
-    // 当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
-    let saleStatus = this.data.saleStatus;
-    let saleContent = this.data.saleContent;
-    let that = this;
-    if(saleStatus != 'chosen' ){
-      this.createOrder()
-    }else{
-      //接口请求优惠券是否可用
-      let saleAble = false;//假设接口请求结果false:不可用；true:可用
-      console.log('校验优惠券是否可用')
-      if(!saleAble){
-        console.log('优惠券不可用')
-        //1.消除提示窗，显示优惠不可用的错误提示
-        that.setData({
-          dialogShow:false,
-          showError:false,
-          errorMessage:'优惠券不可用'
-        })
-        setTimeout(function(){
-          that.setData({
-            showError:true,
-            errorMessage:'',
-            saleStatus:'none',
-            saleContent:{sale:false}
-          },function(){
-            // 2.清除已选优惠，重新初始化优惠内容
-            console.log('重新获取优惠内容')
-          })
-        },2000)
-        
-      }else{
-        // 会员券可，创建订单
-        that.createOrder()
-      }
-    }
-  }
-
   
 })
 
