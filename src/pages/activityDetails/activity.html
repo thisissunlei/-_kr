@@ -1,3 +1,4 @@
+<button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;'></button>
 <view class="activity">
     <image class="top-img" mode="aspectFill" src="{{info.coverPic}}" wx:if="{{!!info.coverPic}}"
            binderror="imgError" id="coverPic"></image>
@@ -119,18 +120,18 @@
                    placeholder-style="color:#cccccc;font-weight: lighter;"/>
             <view class="clear" wx:if="{{!!signUpData.phone}}" bindtap="clearPhoneInput"><icon type="clear" size="12" color="#cccccc"/></view>
         </viwe>
-        <viwe class="sign-up-clear">
+        <viwe class="sign-up-clear" style="height: 160rpx;">
             <view style="color:{{!!signUpData.companyName?'#333333':'#cccccc'}}"
                   class="textarea" wx-if="{{!!apiTipShow}}">{{signUpData.companyName || '请输入公司名称'}}</view>
             <textarea fixed="true" placeholder="请输入公司名称" value="{{signUpData.companyName}}"
-                      bindinput="bindKeyInputCompanyName" wx:else
+                      bindinput="bindKeyInputCompanyName" wx:if="{{!!textShow && !apiTipShow}}"
                       maxlength="30" placeholder-style="color:#cccccc;font-weight: 100;"/>
         </viwe>
         <view class="btn" bindtap="signUp">提交</view>
     </view>
 
     <view class="mark-tip" wx:if="{{!!tipShow}}">{{tip}}</view>
-    <view class="api-tip" wx:if="{{!!apiTipShow}}" style="{{'width:'+tipWidth+'rpx;margin-left:-'+tipWidth/2+'rpx'}}">
+    <view class="api-tip" wx:if="{{!!apiTipShow}}" style="width: {{tipWidth+'rpx'}};margin-left: {{'-'+tipWidth/2+'rpx'}}">
         <image mode="scaleToFill" src="{{tipSrc}}"></image>
         <view>{{tip}}</view>
     </view>
