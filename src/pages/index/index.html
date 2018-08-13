@@ -180,12 +180,10 @@
 
           </view>
           <view class='room_num'>
-            <!-- <text class="num_num color">{{item.meetingCount}}</text>
-          <text class="num_text color">个可用会议室</text> -->
-            <text class="num_arr color">{{item.meetingCount}}</text>
-            <text class="num_text color" style="margin-right: 62rpx;">个会议室</text>
-            <text class="num_arr color">{{item.seatCount}}</text>
-            <text class="num_text color">个散座</text>
+            <text class="num_num color" wx:if="{{item.seatCount > 0}}">{{item.seatCount}}</text>
+            <text class="num_text color" style="margin-right: 62rpx;" wx:if="{{item.seatCount > 0}}">个散座</text>
+            <text class="num_arr color" wx:if="{{item.meetingCount > 0}}">{{item.meetingCount}}</text>
+            <text class="num_text color" wx:if="{{item.meetingCount > 0}}">个会议室</text>
           </view>
           <!-- <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view> -->
 
