@@ -101,7 +101,10 @@ Page({
                   mask: true
                 });
                 setTimeout(() => {
-                  wx.navigateBack();
+                  wx.reLaunch({
+                    url: "../index/index"
+                  });
+                  // wx.navigateBack();
                   // wx.navigateBack({
                   //   delta: 2
                   // })
