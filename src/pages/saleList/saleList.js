@@ -17,8 +17,7 @@ Page({
    
   },
   onLoad: function (options) {
-    this.from=options.from;
-    
+      this.from=options.from;
       console.log('saleList--->',options.from)
   },
   notUse:function(){
@@ -37,7 +36,7 @@ Page({
         })
     }else if(this.from=="meeting"){
         wx.setStorage({
-          key:"meeting_order-sale",
+          key:"meeting_order_sale",
           data:{sale:false},
           success:function(){
             setTimeout(function(){
@@ -71,7 +70,7 @@ Page({
           })
     }else if(this.from=="meeting"){
       wx.setStorage({
-        key:"meeting_order-sale",
+        key:"meeting_order_sale",
         data:obj,
         success:function(){
           setTimeout(function(){

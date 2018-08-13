@@ -49,7 +49,7 @@ Page({
     detailInfo:{},
     orderDate:{},
     meeting_time:{},
-    isFirst:true,
+    isFirst:false,
     errorMessage:'',
     checkMessage:false,
     dialogDate:false,
@@ -65,8 +65,10 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    ifFirst:false,
     couponCount:0,
+    saleStatus:'',
+    saleContent:{},
+    reducePrice:0,
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -76,7 +78,7 @@ Page({
   selectedTime:[],
   isSubTime:false,
   ifFixed:false,
-  saleStatus:'',
+  
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -182,10 +184,6 @@ Page({
        
       })
       
-
-      
-
-     
       
 
 
@@ -533,32 +531,23 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
-   
-    if(data.ifFirst){
-      if(hours>2){
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:false
-        })
-      }else if(hours>0 && hours<=2){
+    if((data.isFirst && data.saleStatus=='new') || (data.isFirst && data.saleStatus=='none')){
         this.setData({
           totalCount:totalCount,
           priceCount:1,
-          isFirst:true
         })
-      }else{
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:true
-        })
-      }
     }else {
+      if(data.saleStatus=='chosen'){
+        if(priceCount-data.reducePrice>0){
+          priceCount=priceCount-data.reducePrice
+        }else{
+          priceCount=0;
+        }
+       
+      }
         this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:false
+          totalCount:totalCount || 0,
+          priceCount:priceCount || 0,
         })
     }
    
@@ -580,23 +569,28 @@ Page({
         }
       }
     })
+   
     //礼品券数据
-    // wx.getStorage({
-    //   key: 'meeting_order-sale',
-    //   success: function (res) {
-    //     if(res.data.sale){
-    //       this.saleStatus = 'chosen';
-         
-    //     }else{
-    //       this.saleStatus = 'none';
-    //     }
-    //     _this.setData({
+    wx.getStorage({
+      key: 'meeting_order_sale',
+      success: function (res) {
+        let saleStatus="";
+        if(res.data.sale){
+          saleStatus = 'chosen';
+        }else{
+          saleStatus = 'none';
+        }
+        let data=_this.data;
+       
+        _this.setData({
+          saleStatus:saleStatus,
+          saleContent:res.data,
+          reducePrice:res.data.reduce,
+        })
+        _this.getPrice();
         
-    //       saleContent:res.data,
-    //       salePrice:salePrice
-    //     })
-    //   }
-    // })
+      }
+    })
   },
   bool:true,
   //前一天  后一天
@@ -843,34 +837,41 @@ Page({
     })
   },
   getIsfirst:function(meetingTime){
-    console.log('meetingTime',meetingTime)
-      app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
-        methods:"GET",
-        header:{
-          'content-type':"appication/json"
-        },
-        // data:{
-        //   amount:'',
-        //   meetingRoomId:'',
-        //   beginTime:'',
-        //   endTime:'',
-        // },
-        success:(res)=>{
-          let data=res.data.data;
-          // if(data.first){
-          //   this.saleStatus="new";
-          // }else if(!data.first && ){
-
-          // }
-          this.setData({
-            ifFirst:data.first,
-            isFirst:data.first,
-            couponCount:data.couponCount,
+    let data=this.data;
+    let price=data.detailInfo.promotionCost;
+    let meetingRoomId=data.detailInfo.meetingRoomId;
+      this.setData({
+        isFirst:true,
+        saleStatus:'new'
+      })
+   
+      this.getPrice();
+    //   app.getRequest({
+    //     url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
+    //     methods:"GET",
+    //     header:{
+    //       'content-type':"appication/json"
+    //     },
+    //     data:{
+    //       amount:price,
+    //       meetingRoomId:meetingRoomId,
+    //       beginTime:meetingTime.beginTime,
+    //       endTime:meetingTime.endTime,
+    //     },
+    //     success:(res)=>{
+    //       let data=res.data.data; 
+    //       // if(data.first){
+    //       //   this.setData({
+    //       //     saleStatus:'new'
+    //       //   })
+    //       // }
+    //       // this.setData({
+    //       //   isFirst:data.first,
+    //       //   couponCount:data.couponCount,
             
-          })
-        }
-    })
+    //       // })
+    //     }
+    // })
   },
   closeDialogTime:function(){
     var that = this;
@@ -1010,7 +1011,8 @@ Page({
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName,
-      referrerPhone:data.order_pay.recommendedPhone || ''
+      referrerPhone:data.order_pay.recommendedPhone || '',
+      couponId:data.saleContent.id || null
     }
     wx.showLoading({
       title: '加载中',
@@ -1032,6 +1034,7 @@ Page({
             setTimeout(function(){
               wx.hideLoading();
             },1500)
+            code=-4;
             switch (code){
               case -1:
                   this.setData({
@@ -1074,6 +1077,22 @@ Page({
                       errorMessage:''
                     })
                   },2000)
+              break;
+              case -4:
+                this.setData({
+                  dialogShow:false,
+                  checkMessage:true,
+                  errorMessage:res.data.message,
+                  saleStatus:'none',
+                })
+                setTimeout(function(){
+                  _this.setData({
+                    checkMessage:false,
+                    errorMessage:''
+                  })
+                  _this.getPrice();
+                },2000)
+              
               break;
               default:
                 wx.reportAnalytics('confirmorder')
@@ -1215,46 +1234,6 @@ Page({
       url: '../saleList/saleList?from=meeting'
     })
   },
-   // 校验优惠券是否可用
-  //  checkoutSale(){
-  //   //已选的优惠详情和当前优惠状态；
-  //   // 当前优惠券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
-  //   let saleStatus = this.saleStatus;
-  //   let saleContent = this.saleContent;
-  //   let that = this;
-  //   if(saleStatus != 'chosen' ){
-  //     this.createOrder()
-  //   }else{
-  //     //接口请求优惠券是否可用
-  //     let saleAble = false;//假设接口请求结果false:不可用；true:可用
-  //     console.log('校验优惠券是否可用')
-  //     if(!saleAble){
-  //       console.log('优惠券不可用')
-  //       //1.消除提示窗，显示优惠不可用的错误提示
-  //       that.setData({
-  //         dialogShow:false,
-  //         showError:false,
-  //         errorMessage:'优惠券不可用'
-  //       })
-  //       setTimeout(function(){
-  //         that.setData({
-  //           showError:true,
-  //           errorMessage:'',
-  //           saleStatus:'none',
-  //           saleContent:{sale:false}
-  //         },function(){
-  //           // 2.清除已选优惠，重新初始化优惠内容
-  //           console.log('重新获取优惠内容')
-  //         })
-  //       },2000)
-        
-  //     }else{
-  //       // 会员券可，创建订单
-  //       that.createOrder()
-  //     }
-  //   }
-  // }
-
   
 })
 

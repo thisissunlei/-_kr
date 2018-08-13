@@ -487,7 +487,9 @@ Page({
 
     },
     fail:(res)=>{
-      console.log('=======',res)
+      wx.navigateBack({
+        delta: 2
+      })
     }
 
   })
