@@ -17,7 +17,7 @@ Page({
     from:''
   },
   onLoad: function (options) {
-      let from=options.from;
+      this.from=options.from;
       console.log('saleList--->',options.from)
   },
   notUse:function(){
