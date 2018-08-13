@@ -36,6 +36,7 @@ Page({
     deal_url = decodeURIComponent(deal_url)
       .substring(1, deal_url.length)
       .split("?")[1];
+
     if (deal_url.indexOf("=") > 1) {
       let arrSource = deal_url.split("&");
       let i = 0;
@@ -51,12 +52,11 @@ Page({
         i++;
       }
     }
-
     return paramValue;
   },
   onLoad(options) {
     let that = this;
-    console.log(options, 99999);
+    // console.log(options, 99999);
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "activityId");
       that.setData({

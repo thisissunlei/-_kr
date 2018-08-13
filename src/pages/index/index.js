@@ -22,17 +22,17 @@ Page({
     duration: 1000,
     buildingList: [], //周边大厦
     myMeeting: [], //会议、散座、活动轮播
-    noOpenBuilding: [], //未开放大厦
-    preIndex: 0,
-    activityList: [], //活动轮播
-    activity: {
-      //活动轮播参数
-      current: 0,
-      duration: 500,
-      previousMargin: "26rpx",
-      nextMargin: "26rpx",
-      circular: false
-    }
+    noOpenBuilding: [] //未开放大厦
+    //preIndex: 0,
+    //activityList: [], //活动轮播
+    // activity: {
+    //   //活动轮播参数
+    //   current: 0,
+    //   duration: 500,
+    //   previousMargin: "26rpx",
+    //   nextMargin: "26rpx",
+    //   circular: false
+    // }
   },
   rq_data: {
     latitude: "",
@@ -43,23 +43,20 @@ Page({
   func_bool_l2: false,
   func_bool_s: false,
   //活动轮播变化
-  acitvityChange: function(e) {
-    // console.log(e.detail);
-
-    if (e.detail.source == "touch") {
-      this.setData({
-        preIndex: e.detail.current
-      });
-    }
-  },
+  // acitvityChange: function(e) {
+  //   if (e.detail.source == "touch") {
+  //     this.setData({
+  //       preIndex: e.detail.current
+  //     });
+  //   }
+  // },
   //活动详情页
-  goActivityDetail: function(e) {
-    // console.log(e.currentTarget.dataset.id);
-    let activityId = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: "../activityDetails/activity?activityId=" + activityId
-    });
-  },
+  // goActivityDetail: function(e) {
+  //   let activityId = e.currentTarget.dataset.id;
+  //   wx.navigateTo({
+  //     url: "../activityDetails/activity?activityId=" + activityId
+  //   });
+  // },
   //打开地图
   openmap: function() {
     var that = this;
@@ -140,7 +137,6 @@ Page({
         i++;
       }
     }
-
     return paramValue;
   },
   onLoad: function(options) {
@@ -151,7 +147,7 @@ Page({
       wx.reportAnalytics("idx_channel", {
         channelname: channelname_v
       });
-      console.log(channelname_v, 11111);
+      // console.log(channelname_v, 11111);
     }
     wx.showLoading({
       title: "加载中",
@@ -178,7 +174,7 @@ Page({
               app.globalData.openid = res.data.data["openid"];
               // console.log(app.globalData.Cookie);
               // console.log(app.globalData.openid);
-              that.getActivity();
+              // that.getActivity();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
@@ -220,23 +216,21 @@ Page({
   },
   onShow: function() {
     this.getAllInfo();
-    this.getActivity();
+    // this.getActivity();
   },
   //首页活动接口
-  getActivity: function() {
-    var that = this;
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmactivity/home/list",
-      success: res => {
-        var activityList = Object.assign({}, res);
-        // console.log(activityList, "活动列表");
-        that.setData({
-          activityList: activityList.data.data
-        });
-        // console.log(that.data.activityList);
-      }
-    });
-  },
+  // getActivity: function() {
+  //   var that = this;
+  //   app.getRequest({
+  //     url: app.globalData.KrUrl + "api/gateway/kmactivity/home/list",
+  //     success: res => {
+  //       var activityList = Object.assign({}, res);
+  //       that.setData({
+  //         activityList: activityList.data.data
+  //       });
+  //     }
+  //   });
+  // },
   //首页接口
   getAllInfo: function() {
     var that = this;
@@ -253,10 +247,8 @@ Page({
           var buildingList = mansion.data.data.buildingList;
 
           var myMeeting = mansion.data.data.myTodo.slice(0, 5);
-
+          //活动时间分割
           myMeeting.map(value => {
-            // console.log(value.todoTime.split("#")[0]);
-
             if (value.targetType == "ACTIVITY") {
               if (value.todoTime.includes("至")) {
                 // console.log(1);
@@ -271,7 +263,6 @@ Page({
             }
             return value;
           });
-          // console.log(myMeeting);
 
           //排序
           buildingList.sort(function(a, b) {
@@ -302,7 +293,6 @@ Page({
             myMeeting: myMeeting || [],
             noOpenBuilding: noOpenBuilding || []
           });
-          // console.log(myMeeting.length);
           //如果只有一张card 不显示小圆点
           if (myMeeting.length > 1) {
             that.setData({
@@ -374,8 +364,6 @@ Page({
   moveToMeetingDetail: function(e) {
     // console.log(e);
     var inviteeId = e.currentTarget.dataset.id;
-    // wx.reportAnalytics('goodsdetails')
-
     wx.navigateTo({
       url: "../meetingDetail/meetingDetail?inviteeId=" + inviteeId
     });
@@ -396,12 +384,6 @@ Page({
       url: "../activityQuickMark/activityQuickMark?joinId=" + targetId
     });
   },
-  // jumpToMeetingDetail: function() {
-  //   var inviteeId = this.data.myMeeting[0].id;
-  //   wx.navigateTo({
-  //     url: "../meetingDetail/meetingDetail?inviteeId=" + inviteeId
-  //   });
-  // },
   //点击周边大厦
   moveToMeetingRoom: function(e) {
     wx.reportAnalytics("viewcommunity");
@@ -425,10 +407,5 @@ Page({
         btn_bool: false
       });
     }
-  },
-  jumpMyMeet: function() {
-    wx.navigateTo({
-      url: "../bindPhone/bindPhone?from=seat"
-    });
   }
 });
