@@ -49,7 +49,7 @@ Page({
     detailInfo:{},
     orderDate:{},
     meeting_time:{},
-    isFirst:true,
+    isFirst:false,
     errorMessage:'',
     checkMessage:false,
     dialogDate:false,
@@ -65,7 +65,6 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    ifFirst:false,
     couponCount:0,
   },
   all_day_num:0,
@@ -533,32 +532,15 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
-   
-    if(data.ifFirst){
-      if(hours>2){
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:false
-        })
-      }else if(hours>0 && hours<=2){
+    if(data.isFirst){
         this.setData({
           totalCount:totalCount,
           priceCount:1,
-          isFirst:true
         })
-      }else{
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:true
-        })
-      }
     }else {
         this.setData({
           totalCount:totalCount,
           priceCount:priceCount,
-          isFirst:false
         })
     }
    
@@ -861,13 +843,7 @@ Page({
         },
         success:(res)=>{
           let data=res.data.data;
-          // if(data.first){
-          //   this.saleStatus="new";
-          // }else if(!data.first && ){
-
-          // }
           this.setData({
-            ifFirst:data.first,
             isFirst:data.first,
             couponCount:data.couponCount,
             
