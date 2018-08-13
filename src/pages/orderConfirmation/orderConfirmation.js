@@ -68,6 +68,7 @@ Page({
     couponCount:0,
     saleStatus:'',
     saleContent:{},
+    reducePrice:0,
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -545,8 +546,8 @@ Page({
        
       }
         this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
+          totalCount:totalCount || 0,
+          priceCount:priceCount || 0,
         })
     }
    
