@@ -151,7 +151,7 @@ Page({
       wx.reportAnalytics("idx_channel", {
         channelname: channelname_v
       });
-      // console.log(channelname_v, 11111);
+      console.log(channelname_v, 11111);
     }
     wx.showLoading({
       title: "加载中",
