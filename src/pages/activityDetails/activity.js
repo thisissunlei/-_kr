@@ -51,20 +51,27 @@ Page({
         i++;
       }
     }
+
     return paramValue;
   },
   onLoad(options) {
-    console.log(options);
     let that = this;
+    console.log(options, 99999);
     if (options.q) {
-      const channelname_v = that.getURLParam(options.q, "id");
-      wx.reportAnalytics("idx_channel", {
-        channelname: channelname_v
-      });
-      console.log(channelname_v, 11111);
+      const channelname_v = that.getURLParam(options.q, "activityId");
       that.setData({
-        activityId: channelname_v || 0,
-        ["signUpData.activityId"]: channelname_v || 0
+        activityId: channelname_v || 8,
+        ["signUpData.activityId"]: channelname_v || 8
+      });
+    } else if (options.activityId) {
+      that.setData({
+        activityId: options.activityId || 8,
+        ["signUpData.activityId"]: options.activityId || 8
+      });
+    } else {
+      that.setData({
+        activityId: 8,
+        ["signUpData.activityId"]: 8
       });
     }
 
