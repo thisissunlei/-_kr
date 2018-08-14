@@ -541,7 +541,7 @@ Page({
     let price_all = 0;
     let price_y = 0;
     let number = 1;
-    wx.setStorageSync("seat_order-sale", {sale:false})
+    wx.setStorageSync("seat_order_sale", {sale:false})
 
     if(carendar){
       carendar.map(item=>{
@@ -568,9 +568,20 @@ Page({
     }
   },
   jumpSetSale(){
-    wx.navigateTo({
-      url: '../saleList/saleList?from=seat'
+    let data = {
+      seatGoodIds:this.seatGoodIds,
+      quantity:this.data.sankeNum
+    }
+    wx.setStorage({
+      key: 'seat-sale',
+      data: data,
+      success: function(res){
+        wx.navigateTo({
+          url: '../saleList/saleList?from=seat'
+        })
+      }
     })
+    
 
   },
   getWeek(init){
@@ -624,7 +635,7 @@ Page({
       saleStatus = 'none';
     }
     wx.getStorage({
-      key: 'seat_order-sale',
+      key: 'seat_order_sale',
       success: function (res) {
         if(res.data.sale){
           saleStatus = 'chosen';
@@ -781,7 +792,7 @@ Page({
           default:
             // wx.reportAnalytics('confirmorder')
             // 订单创建成功，清除优惠选择数据
-            wx.setStorageSync("seat_order-sale", {sale:false})
+            wx.setStorageSync("seat_order_sale", {sale:false})
 
             wx.requestPayment({
               'nonceStr': res.data.data.noncestr,
