@@ -311,35 +311,27 @@ Page({
   // 获取优惠信息和新人判断
   getSaleContent(number){
     let that = this;
-    // 旧人
-    // let data = {
-    //   couponCount:7,
-    //   first :false
-    // };
+  
     console.log('getSaleContent==========',that.seatGoodIds)
 
-    // 新人
-    let data = {
-      couponCount:9,
-      first :true
-    }
-    // app.getRequest({
-    //   url: app.globalData.KrUrl + 'api/gateway/krcoupon/seat/is-first-order',
-    //   data:{
-    //     quantity:number,
-    //     seatGoodIds:that.seatGoodIds
-    //   },
-    //   method: "GET",
-    //   success: (res) => {
-    //     let code = res.data.code;
-    //     let data = res.data.data;
-    //     if(code>0){
-          that.checkStatus(data)
-    //     }
-
-    //   },
    
-    // })
+    app.getRequest({
+      url: app.globalData.KrUrl + 'api/gateway/krcoupon/seat/is-first-order',
+      data:{
+        quantity:number,
+        seatGoodIds:that.seatGoodIds
+      },
+      method: "GET",
+      success: (res) => {
+        let code = res.data.code;
+        let data = res.data.data;
+        if(code>0){
+          that.checkStatus(data)
+        }
+
+      },
+   
+    })
   },
   checkStatus(data){
     let saleStatus = ''
@@ -675,8 +667,10 @@ Page({
       arrivingTime: data.time,
       quantity: data.sankeNum,
       seatGoodIds: that.seatGoodIds,
-      couponId:data.saleContent.id || null
 
+    }
+    if(data.saleContent.couponId){
+      orderData.couponId = data.saleContent.couponId;
     }
 
 
@@ -711,8 +705,7 @@ Page({
 
 
         wx.setStorageSync("order", res.data.data)
-        // let code = res.data.code;
-        let code = -2;
+        let code = res.data.code;
         setTimeout(function () {
           wx.hideLoading();
         }, 1500)
