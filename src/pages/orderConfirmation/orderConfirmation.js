@@ -1025,8 +1025,8 @@ Page({
       referrerPhone:data.order_pay.recommendedPhone || '',
       
     }
-    if(data.saleContent.id){
-      orderData.couponId:data.saleContent.couponId
+    if(data.saleContent.couponId){
+      orderData.couponId=data.saleContent.couponId;
     }
     wx.showLoading({
       title: '加载中',
