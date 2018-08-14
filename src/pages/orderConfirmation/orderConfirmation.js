@@ -1023,7 +1023,10 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName,
       referrerPhone:data.order_pay.recommendedPhone || '',
-      couponId:data.saleContent.id || null
+      
+    }
+    if(data.saleContent.couponId){
+      orderData.couponId=data.saleContent.couponId;
     }
     wx.showLoading({
       title: '加载中',
