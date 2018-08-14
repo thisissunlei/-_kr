@@ -66,8 +66,8 @@
             <view class="u-meet-text meet-theme red" wx:if="{{saleStatus==='new'}}">与新人专享优惠不可同享</view>
              <view class="u-meet-text meet-theme" style="color:#999" wx:if="{{saleStatus==='nothing'}}">暂无可用</view>
             <view class="u-meet-text meet-theme" wx:if="{{saleStatus==='chosen'}}" >
-                <view class="u-meet-choose sale-content">已选一张</view>
-                <view class="u-meet-money sale-content">-￥{{saleContent.reduce}}</view>
+                <view class="u-meet-choose sale-content">已选1张</view>
+                <view class="u-meet-money sale-content">-￥{{saleContent.amount}}</view>
 
             </view>
             <view class="u-meet-text meet-theme" wx:if="{{saleStatus==='none'}}" >

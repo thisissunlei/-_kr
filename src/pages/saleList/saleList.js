@@ -6,7 +6,7 @@ Page({
       {
         id:1,
         name:'11111',
-        reduce:'50',
+        reduce:'150',
       },
       {
         id:2,
@@ -23,7 +23,7 @@ Page({
   notUse:function(){
     if(this.from=="seat"){
         wx.setStorage({
-          key:"seat_order-sale",
+          key:"seat_order_sale",
           data:{sale:false},
           success:function(){
             setTimeout(function(){
@@ -57,7 +57,7 @@ Page({
     obj.sale = true;
     if(this.from=="seat"){
         wx.setStorage({
-            key:"seat_order-sale",
+            key:"seat_order_sale",
             data:obj,
             success:function(){
               setTimeout(function(){
