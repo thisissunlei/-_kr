@@ -96,7 +96,7 @@
   </view>
 
   <!-- 最新活动 -->
-  <view class="activity" wx:if="{{activityList.length>0}}">
+  <!-- <view class="activity" wx:if="{{activityList.length>0}}">
     <view class="activity-text">
       <text class="text-bold">最新活动</text>
       <view wx:if="{{activityList.length>1}}">
@@ -115,14 +115,14 @@
         </block>
       </swiper>
     </view>
-  </view>
+  </view> -->
 
 
 
 
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
     <view class='rm_title'>
-      <text class="text-bold" style="margin-left: 36rpx;">周边大厦</text>
+      <text class="text-bold">周边大厦</text>
       <!-- <view class="page-box" bindtap="openmap">
         <text class="page-map">
           <text class="page-water"></text>
@@ -180,12 +180,10 @@
 
           </view>
           <view class='room_num'>
-            <!-- <text class="num_num color">{{item.meetingCount}}</text>
-          <text class="num_text color">个可用会议室</text> -->
-            <text class="num_arr color">{{item.meetingCount}}</text>
-            <text class="num_text color" style="margin-right: 62rpx;">个会议室</text>
-            <text class="num_arr color">{{item.seatCount}}</text>
-            <text class="num_text color">个散座</text>
+            <text class="num_num color" wx:if="{{item.seatCount > 0}}">{{item.seatCount}}</text>
+            <text class="num_text color" style="margin-right: 62rpx;" wx:if="{{item.seatCount > 0}}">个散座</text>
+            <text class="num_arr color" wx:if="{{item.meetingCount > 0}}">{{item.meetingCount}}</text>
+            <text class="num_text color" wx:if="{{item.meetingCount > 0}}">个会议室</text>
           </view>
           <!-- <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view> -->
 

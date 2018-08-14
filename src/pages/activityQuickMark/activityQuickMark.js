@@ -13,20 +13,20 @@ Page({
   },
   //分享
   onShareAppMessage: function(res) {
-    if (res.from === "button") {
-      console.log("来自页面赠送按钮");
-      // console.log(res);
-      return {
-        title: this.data.info.title + "活动来咯，戳我参加~",
-        path:
-          "pages/activityDetails/activity?activityId=" +
-          this.data.info.activityId,
-        imageUrl: this.data.info.coverPic
-      };
-    } else {
-      console.log("来自右上角转发菜单");
-      return app.globalData.share_data;
-    }
+    // if (res.from === "button") {
+    //   console.log("来自页面赠送按钮");
+    // console.log(res);
+    return {
+      title: this.data.info.title + "活动来咯，戳我参加~",
+      path:
+        "pages/activityDetails/activity?activityId=" +
+        this.data.info.activityId,
+      imageUrl: this.data.info.coverPic
+    };
+    // } else {
+    //   console.log("来自右上角转发菜单");
+    //   return app.globalData.share_data;
+    // }
   },
 
   onLoad: function(options) {
@@ -101,7 +101,10 @@ Page({
                   mask: true
                 });
                 setTimeout(() => {
-                  wx.navigateBack();
+                  wx.reLaunch({
+                    url: "../index/index"
+                  });
+                  // wx.navigateBack();
                   // wx.navigateBack({
                   //   delta: 2
                   // })
@@ -132,7 +135,7 @@ Page({
       that.data.seatStatus === "ARRVING"
     ) {
       QR.qrApi.draw(
-        "http://web.krspace.cn/kr-meeting-activity/index.html?joinId=" +
+        "http://web.krspace.cn/kr_meeting_activity/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         160,
@@ -142,7 +145,7 @@ Page({
       );
     } else {
       QR.qrApi.draw(
-        "http://web.krspace.cn/kr-meeting-activity/index.html?joinId=" +
+        "http://web.krspace.cn/kr_meeting_activity/index.html?joinId=" +
           that.data.joinId,
         "mycanvas",
         160,

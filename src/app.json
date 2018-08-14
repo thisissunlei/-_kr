@@ -33,7 +33,6 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
-    "pages/activityDetails/activity",
     "pages/locationMap/locationMap",
     "pages/myActivity/myActivity",
     "pages/coupon/coupon",
