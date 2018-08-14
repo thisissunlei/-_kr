@@ -21,7 +21,7 @@ Page({
       path:
         "pages/activityDetails/activity?activityId=" +
         this.data.info.activityId,
-      imageUrl: this.data.info.coverPic
+      imageUrl: this.data.info.sharePic
     };
     // } else {
     //   console.log("来自右上角转发菜单");
@@ -30,8 +30,7 @@ Page({
   },
 
   onLoad: function(options) {
-    // console.log(new Date("2019-08-08 11:00:00").getTime());
-    console.log(options);
+    // console.log(options);
     if (options.joinId) {
       this.setData({
         joinId: options.joinId || 0
