@@ -838,7 +838,6 @@ Page({
   },
   getIsfirst:function(meetingTime){
     let data=this.data;
-    let price=data.detailInfo.promotionCost;
     let meetingRoomId=data.detailInfo.meetingRoomId;
 
       // data={
@@ -854,7 +853,6 @@ Page({
           'content-type':"appication/json"
         },
         data:{
-          amount:price,
           meetingRoomId:meetingRoomId,
           beginTime:meetingTime.beginTime,
           endTime:meetingTime.endTime,
