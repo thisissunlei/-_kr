@@ -1,9 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-
-    "pages/getGiftticket/getGiftticket",
-
+    "pages/activityDetails/activity",
     "pages/activityQuickMark/activityQuickMark",
     "pages/invitationLetter/invitationLetter",
     "pages/meeting/meeting",
@@ -35,7 +33,6 @@
     "pages/point/point",
     "pages/recommendedPhone/recommendedPhone",
     "pages/component/component",
-    "pages/activityDetails/activity",
     "pages/locationMap/locationMap",
     "pages/myActivity/myActivity"
   ],
