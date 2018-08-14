@@ -1,0 +1,17 @@
+<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
+<view class="coupon">
+    <view class="coupon-top">
+        <view class="coupon-avatar">
+            <image src="{{donatorAvatar}}"></image>
+        </view>
+        <text class="coupon-name">{{donatorThirdNick}}给你送券啦~</text>
+    </view>
+    <view class="coupon-content">
+        <view class="coupon-list" wx:for="{{couponList}}" wx:key>
+            <view class="coupon-left">
+                {{item.couponId}}
+            </view>
+            <view class="coupon-right"></view>
+        </view>
+    </view>
+</view>
