@@ -320,8 +320,8 @@ Page({
 
     // 新人
     let data = {
-      couponCount:0,
-      first :false
+      couponCount:9,
+      first :true
     }
     // app.getRequest({
     //   url: app.globalData.KrUrl + 'api/gateway/krcoupon/seat/is-first-order',
@@ -608,7 +608,6 @@ Page({
     
   },
   onShow: function () {
-    console.log('=====>',this.data.saleStatus)
     let saleStatus = this.data.saleStatus;
     var _this = this;
     this.getMeetId()
