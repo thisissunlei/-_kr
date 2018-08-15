@@ -52,7 +52,7 @@ Page({
               inputValue:themeName,
               type:type,
               order_pay:res.data,
-              orderId:options.orderId
+              //orderId:options.orderId
 
             })
         },
