@@ -1,24 +1,75 @@
 <template name="coupon">
     <view class="{{!!item.usable ? 'my-coupon-list' : 'my-coupon-list select'}}">
         <view class="after" bindtap="cardToFront" data-index="{{index}}">
-            <view class="bg" wx:if="{{!!item.usable}}"></view>
-            <view class="bg select" wx:else></view>
+            <view class="bg" wx:if="{{!!item.usable}}">
+                <image src="../images/coupon/background1.jpg" mode="scaleToFill"></image>
+            </view>
+            <view class="bg select" wx:else>
+                <image src="../images/coupon/background2.jpg" mode="scaleToFill"></image>
+            </view>
             <view class="warp">
                 <view class="detail-title">使用规则：</view>
-                <view class="detail-con">{{item.conditionDesc}}使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则</view>
+                <view class="detail-con">{{item.conditionDesc}}</view>
             </view>
         </view>
 
         <view class="before">
-            <view class="bg" wx:if="{{!!item.usable}}"></view>
-            <view class="bg select" wx:else></view>
-            <view class="warp" bindtap="selectTab" data-content="{{item}}">
+            <view class="bg" wx:if="{{!!item.usable}}">
+                <image src="../images/coupon/background1.jpg" mode="scaleToFill"></image>
+            </view>
+            <view class="bg select" wx:else>
+                <image src="../images/coupon/background2.jpg" mode="scaleToFill"></image>
+            </view>
+            <image class="checked" wx:if="{{!!item.usable && !item.checked}}" src="../images/coupon/unchecked.png" mode="scaleToFill"></image>
+            <image class="checked" wx:if="{{!!item.usable && !!item.checked}}" src="../images/coupon/checked.png" mode="scaleToFill"></image>
+            <view class="warp" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}">
                 <view class="price">
                     <text class="icon">¥</text>
                     <text class="num">{{item.amount}}</text>
                 </view>
                 <view class="desc" wx:if="{{item.ruleType == 'FULL_REDUCTION'}}">满{{item.quata}}使用</view>
                 <view class="desc" wx:else>直减券</view>
+                <view class="name">{{item.couponName}}</view>
+                <view class="data">使用期限：{{item.bt[0]+'.'+item.bt[1]+'.'+item.bt[2]}} - {{item.et[0]+'.'+item.et[1]+'.'+item.et[2]}}</view>
+            </view>
+        </view>
+
+    </view>
+</template>
+
+
+<template name="myCoupon">
+    <view class="{{!!item.usable ? 'my-coupon-list' : 'my-coupon-list select'}}">
+        <view class="after" bindtap="cardToFront" data-index="{{index}}">
+            <view class="bg" wx:if="{{!!item.usable}}">
+                <image src="../images/coupon/background1.jpg" mode="scaleToFill"></image>
+            </view>
+            <view class="bg select" wx:else>
+                <image src="../images/coupon/background2.jpg" mode="scaleToFill"></image>
+            </view>
+            <view class="warp">
+                <view class="detail-title">使用规则：</view>
+                <view class="detail-con">{{item.instructions}}</view>
+            </view>
+        </view>
+
+        <view class="before">
+            <view class="bg" wx:if="{{!!item.usable}}">
+                <image src="../images/coupon/background1.jpg" mode="scaleToFill"></image>
+            </view>
+            <view class="bg select" wx:else>
+                <image src="../images/coupon/background2.jpg" mode="scaleToFill"></image>
+            </view>
+            <image src="../images/coupon/seal-expired.png" mode="widthFix" class="expired" wx:if="{{tab == 'OVERDATE'}}"></image>
+            <image src="../images/coupon/seal-share.png" mode="widthFix" class="expired" wx:if="{{tab == 'SHARE'}}"></image>
+            <image class="checked" wx:if="{{tab == 'USABLE' && !!changeShow && !item.checked}}" src="../images/coupon/unchecked.png" mode="scaleToFill"></image>
+            <image class="checked" wx:if="{{tab == 'USABLE' && !!changeShow && !!item.checked}}" src="../images/coupon/checked.png" mode="scaleToFill"></image>
+            <view class="warp" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}">
+                <view class="price">
+                    <text class="icon">¥</text>
+                    <text class="num">{{item.faceValue}}</text>
+                </view>
+                <view class="desc">{{item.conditionDesc}}</view>
                 <view class="name">{{item.couponName}}</view>
                 <view class="data">使用期限：{{item.bt[0]+'.'+item.bt[1]+'.'+item.bt[2]}} - {{item.et[0]+'.'+item.et[1]+'.'+item.et[2]}}</view>
             </view>

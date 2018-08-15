@@ -2,22 +2,7 @@
 .content-wrap {
   padding-bottom: 224rpx;
 }
-.list-warp {
-  position: relative;
-  transition: .7s;
-  transform-style: preserve-3d;
-}
-.list-warp .detail {
-  position: absolute;
-  right: 32rpx;
-  bottom: 0;
-  z-index: 3;
-  background: #eabd71;
-  border-radius: 0 0 16rpx 0;
-  height: 74rpx;
-  padding: 40rpx 0 0 70rpx;
-  width: 34rpx;
-}
+
 .unuse {
   position: fixed;
   bottom: 100rpx;
@@ -36,8 +21,25 @@
 
 
 
-.list-warp.select {
-  transform: rotateY(180deg);
+/* 空提示 */
+.my-meeting-list-none{
+  background-color: #fff;
+}
+.content-none{
+  text-align: center;
+  background-color: #fff;
+  padding-top:200rpx;
+}
+.none-img{
+  width:348rpx;
+  height: 318rpx;
+  display: block;
+  margin:auto;
+  margin-bottom: 30rpx;
+}
+.warn{
+  font-size: 30rpx;
+  color:#666;
 }
 
 

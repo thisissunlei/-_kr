@@ -6,15 +6,6 @@ Page({
   },
   onLoad: function (options) {
       this.from=options.from;
-      // let list = [{"usable":true,"amount":50,"couponName":"第4批","quata":6,"ruleType":"FULL_REDUCTION","effectiveAt":1534242977000,"conditionDesc":"满60.0使用","couponId":17,"expireAt":1534991489000,"usageType":"ANY"},{"usable":false,"amount":10,"couponName":"第3批","quata":2,"ruleType":"FULL_REDUCTION","effectiveAt":1533350133000,"conditionDesc":"满20.0使用","couponId":18,"expireAt":1535077888000,"usageType":"ANY"}]
-      // list.forEach((val, i) => {
-      //     val.bt = this.changeTime(val.effectiveAt)
-      //     val.et = this.changeTime(val.expireAt)
-      //     val.class = 'list-warp'
-      // })
-      // this.setData({
-      //     list: list
-      // })
       if ( options.from === 'seat' ) {
           this.getSeatList()
       } else {
@@ -54,6 +45,7 @@ Page({
                         val.bt = this.changeTime(val.effectiveAt)
                         val.et = this.changeTime(val.expireAt)
                         val.class = 'list-warp'
+                        val.checked = false
                     })
                     this.setData({
                         list: list
@@ -147,7 +139,16 @@ Page({
   },
   selectTab:function(e){
     let obj = e.target.dataset.content || e.currentTarget.dataset.content;
+    let index = e.target.dataset.index || e.currentTarget.dataset.index;
     if ( !obj.usable ) return
+      let list = this.data.list
+      list.forEach((val, i) => {
+        val.checked = false
+      })
+      list[index].checked = true
+      this.setData({
+          list: list
+      })
     obj.sale = true;
     obj.reduce = obj.amount;
     obj.id = obj.couponId;

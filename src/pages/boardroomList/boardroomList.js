@@ -806,7 +806,8 @@ Page({
         communityId: options.communityId
       });
     }
-
+    //清除优惠券多余缓存
+    wx.setStorageSync("seat_order_sale", {sale:false})
     this.getData();
     this.getData1();
     //日历相关
