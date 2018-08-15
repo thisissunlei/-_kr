@@ -32,6 +32,10 @@ page {
   color: #eabd71;
   letter-spacing: 0;
   margin-right: 8rpx;
+  max-width: 60%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .coupon-top text:nth-of-type(2) {
   font-family: PingFang-SC-Regular;
@@ -141,6 +145,7 @@ button:after {
   font-size: 36rpx;
   color: #624d17;
   position: fixed;
+  z-index: 999;
   bottom: 100rpx;
   left: 50%;
   margin-left: -200rpx;

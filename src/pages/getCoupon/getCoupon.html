@@ -10,7 +10,7 @@
     <view class="coupon-content">
         <view class="coupon-list" wx:for="{{couponList}}" wx:key>
             <view class="mb" wx:if="{{item.couponStatus != 'NOTGET'}}"></view>
-            <image class="coupon-background" src="{{donatorAvatar}}"></image>
+            <image class="coupon-background" src="../images/coupon/background1.jpg"></image>
             <view class="coupon-content-top {{item.couponStatus != 'NOTGET'? 'color':''}}">
                 <text>¥</text>
                 <text>{{item.faceValue}}</text>
@@ -20,9 +20,9 @@
                 <text class="{{item.couponStatus != 'NOTGET'? 'color':''}}">使用期限：{{item.couponValidTime}}</text>
             </view>
             <button class="getcoupon" wx:if="{{item.couponStatus=='NOTGET'}}">立即领取</button>
-            <image class="coupon-status" wx:elif="{{item.couponStatus=='GET'}}" src="../images/orderimg/order-a.png"></image>
-            <image class="coupon-status" wx:elif="{{item.couponStatus=='INVALID'}}" src="../images/orderimg/order-b.png"></image>
-            <image class="coupon-status" wx:else src="../images/orderimg/order-b.png"></image>
+            <image class="coupon-status" wx:elif="{{item.couponStatus=='GET'}}" src="../images/coupon/seal-get.png"></image>
+            <image class="coupon-status" wx:elif="{{item.couponStatus=='INVALID'}}" src="../images/coupon//seal-invalid.png"></image>
+            <image class="coupon-status" wx:else src="../images/coupon/seal-expired.png"></image>
         </view>
     </view>
     <button class="jumpIndex">
