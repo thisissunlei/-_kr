@@ -43,7 +43,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krcoupon/share/list",
       data: {
-        shareNo: "011808150002" //that.data.shareNo
+        shareNo: that.data.shareNo
       },
       success: res => {
         console.log(res);
@@ -55,6 +55,15 @@ Page({
             couponList: couponList.data.data.couponList,
             donatorAvatar: couponList.data.data.donatorAvatar,
             donatorThirdNick: couponList.data.data.donatorThirdNick
+          });
+
+          couponList.data.data.couponList.map(item => {
+            console.log(item);
+            if (item.couponStatus == "GET") {
+              that.setData({
+                buttonShow: false
+              });
+            }
           });
         } else {
           wx.showToast({
@@ -79,16 +88,10 @@ Page({
       method: "POST",
       data: {
         couponId: couponId,
-        shareNo: "011808150002" //that.data.shareNo
+        shareNo: that.data.shareNo
       },
       success: res => {
         console.log(res);
-        // var str = "couponList[" + 0 + "].couponStatus";
-        // that.setData({
-        //   buttonShow: false,
-        //   [str]: "GET"
-        // });
-        // console.log(that.data.couponList[0].couponStatus);
         if (res.data.code == 1) {
           wx.showToast({
             title: "成功领取礼品券",
