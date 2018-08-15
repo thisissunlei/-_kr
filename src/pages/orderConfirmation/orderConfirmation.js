@@ -569,28 +569,33 @@ Page({
         }
       }
     })
-   
+    
     //礼品券数据
-    wx.getStorage({
-      key: 'meeting_order_sale',
-      success: function (res) {
-        let saleStatus="";
-        if(res.data.sale){
-          saleStatus = 'chosen';
-        }else{
-          saleStatus = 'none';
-        }
-        let data=_this.data;
-       
-        _this.setData({
-          saleStatus:saleStatus,
-          saleContent:res.data,
-          reducePrice:res.data.reduce,
+    if(this.data.meeting_time){
+        wx.getStorage({
+          key: 'meeting_order_sale',
+          success: function (res) {
+            let saleStatus="";
+            if(res.data.sale){
+              saleStatus = 'chosen';
+            }else{
+              _this.getIsfirst(_this.data.meeting_time);
+            }
+            let data=_this.data;
+            if(res.data.reduce){
+              _this.getPrice();
+            }
+            _this.setData({
+              saleStatus:saleStatus,
+              saleContent:res.data,
+              reducePrice:res.data.reduce || 0,
+            })
+           
+            
+          }
         })
-        _this.getPrice();
-        
-      }
-    })
+    }
+   
   },
   bool:true,
   //前一天  后一天
@@ -862,10 +867,11 @@ Page({
     if(data.first){
       saleStatus = 'new';
     }else{
-      if(!data.couponCount){
-        saleStatus = 'nothing'
-      }else{
+      if(data.couponCount>0){
         saleStatus = 'none'
+      }else{
+        saleStatus = 'nothing'
+        
       }
     }
     this.setData({
