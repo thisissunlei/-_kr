@@ -543,7 +543,7 @@ Page({
     }else {
       if(data.saleStatus=='chosen'){
         if(priceCount-data.reducePrice>0){
-          priceCount=priceCount-data.reducePrice
+          priceCount=(priceCount*100-data.reducePrice*100)/100
         }else{
           priceCount=0;
         }
