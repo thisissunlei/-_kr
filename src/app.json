@@ -3,7 +3,6 @@
     "pages/index/index",
 
     "pages/getCoupon/getCoupon",
-
     "pages/activityDetails/activity",
     "pages/activityQuickMark/activityQuickMark",
     "pages/invitationLetter/invitationLetter",

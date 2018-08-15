@@ -26,7 +26,14 @@ Page({
       {
         couponId: 71219,
         couponName: "尊享礼品券",
-        couponStatus: "123",
+        couponStatus: "INVALID",
+        couponValidTime: "2018.08.10-2018.09.10",
+        faceValue: "1000"
+      },
+      {
+        couponId: 71220,
+        couponName: "尊享礼品券",
+        couponStatus: "EXPIRED",
         couponValidTime: "2018.08.10-2018.09.10",
         faceValue: "1000"
       }
