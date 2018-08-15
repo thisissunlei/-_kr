@@ -415,7 +415,6 @@ Page({
   },
   jumpSetRemind:function() {
     let data=this.data;
-    console.log('alertTime----',data.alertTime)
     wx.navigateTo({
       url: '../warn/warn?type=storage&alertTime='+data.alertTime
     })
@@ -543,7 +542,7 @@ Page({
     }else {
       if(data.saleStatus=='chosen'){
         if(priceCount-data.reducePrice>0){
-          priceCount=priceCount-data.reducePrice
+          priceCount=(priceCount*100-data.reducePrice*100)/100
         }else{
           priceCount=0;
         }
@@ -588,14 +587,15 @@ Page({
               _this.getIsfirst(_this.data.meeting_time);
             }
             let data=_this.data;
-            if(res.data.reduce){
-              _this.getPrice();
-            }
+           
             _this.setData({
               saleStatus:saleStatus,
               saleContent:res.data,
               reducePrice:res.data.reduce || 0,
             })
+            if(res.data.reduce){
+              _this.getPrice();
+            }
            
             
           }
