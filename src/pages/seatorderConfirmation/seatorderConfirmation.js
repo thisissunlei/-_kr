@@ -630,7 +630,7 @@ Page({
       success: function (res) {
         if(res.data.sale){
           saleStatus = 'chosen';
-          salePrice = parseInt(salePrice-res.data.reduce)
+          salePrice = (salePrice-res.data.reduce).toFixed(2)
           if(salePrice<=0){
             salePrice = 0
           }
