@@ -43,7 +43,11 @@
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{item.promotionCost}}</view>
-                    <view class="u-meet-old-num" wx:if="{{item.promotionCost!=item.unitCost}}">¥ {{item.unitCost}}</view>
+                    <view class="u-meet-old-num" wx:if="{{item.promotionCost!=item.unitCost}}">
+                        <view class="u-sale-unit">
+                        ¥
+                        </view>{{item.unitCost}}
+                    </view>
                     <view class="u-meet-old-unit"> / 个·天  </view>
                 </view>
                 <view >x <span class="spannum">{{quantity}}</span>  个</view>
@@ -55,7 +59,13 @@
             <view class="u-left">礼品券 </view>
             <view class="u-right">
                 <view class="u-right-top" >
-                    <view class="u-right-top-left">-¥{{detailInfo.couponPrice}}</view>
+                    <view class="u-right-top-left">
+                      <view class="u-sale-unit">
+                        -¥
+                      </view>
+                      <view style="display:inline-block">{{detailInfo.couponPrice}}</view>
+                      
+                    </view>
                 </view>
             </view>
           </view>
@@ -73,7 +83,11 @@
 
             <view class="u-right" wx:else>
                 <view class="u-right-top" >
-                    <view class="u-right-top-left">¥{{detailInfo.paidAmount}}</view>
+                    <view class="u-right-top-left">
+                      <view class="u-sale-unit">
+                        ¥
+                      </view>{{detailInfo.paidAmount}}
+                    </view>
                 </view>
             </view>
           </view>
