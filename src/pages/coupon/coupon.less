@@ -11,7 +11,10 @@
   right: 0;
   bottom: 0;
   left: 0;
-  backface-visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(180deg);
+  transition: .5s;
 }
 .my-coupon-list .before {
   position: absolute;
@@ -19,7 +22,9 @@
   right: 0;
   bottom: 0;
   left: 0;
-  backface-visibility: hidden;
+  opacity: 1;
+  pointer-events: auto;
+  transition: .5s;
 }
 .my-coupon-list .bg {
   position: absolute;
@@ -68,7 +73,17 @@
   font-size: 24rpx;
   line-height: 28rpx;
 }
-
+.detail-title {
+  font-size: 30rpx;
+  font-weight: lighter;
+  line-height: 40rpx;
+  padding-bottom: 24rpx;
+}
+.detail-con {
+  font-size: 28rpx;
+  font-weight: lighter;
+  line-height: 40rpx;
+}
 
 
 .my-coupon-list .bg.select {
@@ -79,7 +94,14 @@
 }
 
 
-
+.list-warp.select .my-coupon-list .after {
+  opacity: 1;
+  pointer-events: auto;
+}
+.list-warp.select .my-coupon-list .before {
+  opacity: 0;
+  pointer-events: none;
+}
 
 
 

@@ -6,6 +6,15 @@ Page({
   },
   onLoad: function (options) {
       this.from=options.from;
+      // let list = [{"usable":true,"amount":50,"couponName":"第4批","quata":6,"ruleType":"FULL_REDUCTION","effectiveAt":1534242977000,"conditionDesc":"满60.0使用","couponId":17,"expireAt":1534991489000,"usageType":"ANY"},{"usable":false,"amount":10,"couponName":"第3批","quata":2,"ruleType":"FULL_REDUCTION","effectiveAt":1533350133000,"conditionDesc":"满20.0使用","couponId":18,"expireAt":1535077888000,"usageType":"ANY"}]
+      // list.forEach((val, i) => {
+      //     val.bt = this.changeTime(val.effectiveAt)
+      //     val.et = this.changeTime(val.expireAt)
+      //     val.class = 'list-warp'
+      // })
+      // this.setData({
+      //     list: list
+      // })
       if ( options.from === 'seat' ) {
           this.getSeatList()
       } else {
@@ -17,23 +26,7 @@ Page({
             key: 'meeting_sale',
             success: (res) => {
                 if (res.data) {
-                    app.getRequest({
-                        url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
-                        method:"get",
-                        data: res.data,
-                        success:(listRes)=>{
-                            let list = listRes.data.data.coupons
-                            list.forEach((val, i) => {
-                                val.bt = this.changeTime(val.effectiveAt)
-                                val.et = this.changeTime(val.expireAt)
-                                val.class = 'list-warp'
-                            })
-                            this.setData({
-                                list: list
-                            })
-                        },
-                        fail:(listRes)=>{}
-                    })
+                    this.getList(res.data, 'api/gateway/krcoupon/meeting/is-first-order')
                 }
             }
         })
@@ -43,27 +36,32 @@ Page({
             key: 'seat-sale',
             success: (res) => {
                 if (res.data) {
-                    app.getRequest({
-                        url:app.globalData.KrUrl+'api/gateway/krcoupon/seat/is-first-order',
-                        method:"get",
-                        data: res.data,
-                        success:(listRes)=>{
-                            let list = listRes.data.data.coupons
-                            list.forEach((val, i) => {
-                                val.bt = this.changeTime(val.effectiveAt)
-                                val.et = this.changeTime(val.expireAt)
-                                val.class = 'list-warp'
-                            })
-                            this.setData({
-                                list: list
-                            })
-                        },
-                        fail:(listRes)=>{}
-                    })
+                    this.getList(res.data, 'api/gateway/krcoupon/seat/is-first-order')
                 }
             }
         })
 
+    },
+    getList(data, url) {
+        app.getRequest({
+            url:app.globalData.KrUrl+url,
+            method:"get",
+            data: data,
+            success:(res)=>{
+                if ( res.data.code > 0 ) {
+                    let list = res.data.data.coupons
+                    list.forEach((val, i) => {
+                        val.bt = this.changeTime(val.effectiveAt)
+                        val.et = this.changeTime(val.expireAt)
+                        val.class = 'list-warp'
+                    })
+                    this.setData({
+                        list: list
+                    })
+                }
+            },
+            fail:(res)=>{}
+        })
     },
     changeTime(date){
         let  myDate =new Date(date) || new Date();
@@ -103,6 +101,14 @@ Page({
         let index = e.target.dataset.index || e.currentTarget.dataset.index
         let list = this.data.list
         list[index].class = 'list-warp select'
+        this.setData({
+            list: list
+        })
+    },
+    cardToFront(e) {
+        let index = e.target.dataset.index || e.currentTarget.dataset.index
+        let list = this.data.list
+        list[index].class = 'list-warp'
         this.setData({
             list: list
         })

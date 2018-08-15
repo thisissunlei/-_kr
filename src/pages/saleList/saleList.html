@@ -8,8 +8,8 @@
     </view>
 
     <view wx:for="{{list}}" wx:key="{{item.id}}" class="{{item.class}}">
-        <template is="coupon" data="{{item: item, state: 'changes'}}"></template>
-        <view class="detail" bindtap="cardToBack" data-index="{{index}}"></view>
+        <template is="coupon" data="{{item: item, index: index, state: 'changes'}}"></template>
+        <view class="detail" bindtap="cardToBack" data-index="{{index}}" wx:if="{{item.class.length <= 9}}"></view>
     </view>
 
 
