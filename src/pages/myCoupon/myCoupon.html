@@ -30,7 +30,8 @@
     <view class="usable-btn" bindtap="changeCard" wx:if="{{!changeShow}}">转赠礼品券</view>
     <view class="usable-btn-warp" wx:else>
         <view class="left" bindtap="changeCardCancel">取消</view>
-        <button open-type="share" hover-class="none" class="right">确认转赠</button>
+        <view class="right" wx:if="{{couponIds.length == 0}}">确认转赠</view>
+        <button open-type="share" wx:else hover-class="none" class="right">确认转赠</button>
     </view>
 </view>
 

@@ -8,7 +8,8 @@ Page({
         page: 1,
         number: 0,
         loading: true,
-        changeShow: false
+        changeShow: false,
+        couponIds: []
     },
     totalPages: 0,
     page: 1,
@@ -102,7 +103,6 @@ Page({
         })
     },
     setList(data) {
-        console.log(data)
         this.totalPages = data.totalPages
         let list = data.items
         if ( !!list && list.length > 0 ) {
@@ -232,6 +232,7 @@ Page({
             fail:(res)=>{}
         })
         this.setData({
+            couponIds: this.couponIds,
             list: list
         })
     },
@@ -242,7 +243,31 @@ Page({
             return {
                 title: '赠送给你'+this.couponAmount+'元礼品券，快来领取呀~',
                 path: 'pages/getCoupon/getCoupon?shareNo='+this.shareNo,
-                imageUrl:'../images/indexImg/statusbg.png'
+                imageUrl:'../images/indexImg/statusbg.png',
+                success:(res) => {
+                    wx.showLoading({
+                        title: "加载中",
+                        mask: true
+                    });
+                    this.page = 1
+                    this.setData({
+                        list: [],
+                        loading: true,
+                        changeShow: false
+                    })
+                },
+                fail:(res) => {
+                    wx.showLoading({
+                        title: "加载中",
+                        mask: true
+                    });
+                    this.page = 1
+                    this.setData({
+                        list: [],
+                        loading: true,
+                        changeShow: false
+                    })
+                }
             }
         } else {
             return app.globalData.share_data
