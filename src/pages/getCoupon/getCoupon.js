@@ -4,47 +4,11 @@ Page({
   data: {
     hasUserInfo: false,
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
-    donatorAvatar:
-      "https://wx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEI7cUnQcZ7OauSOxnNVANUuFx0sxG0RWZa7yGMBSuKicGD9OFMYsPp7viaDKWS2BylsgQ2icOGcJOA3w/132",
-    donatorThirdNick: "隔壁的刘设计、",
+    donatorAvatar: "",
+    donatorThirdNick: "",
     buttonShow: true, //底部button显示
-    couponList: [
-      {
-        couponId: 71217,
-        couponName: "尊享礼品券",
-        couponStatus: "NOTGET",
-        couponValidTime: "2018.08.10-2018.09.10",
-        faceValue: "50"
-      },
-      {
-        couponId: 71218,
-        couponName: "尊享礼品券",
-        couponStatus: "GET",
-        couponValidTime: "2018.08.10-2018.09.10",
-        faceValue: "100"
-      },
-      {
-        couponId: 71219,
-        couponName: "尊享礼品券",
-        couponStatus: "INVALID",
-        couponValidTime: "2018.08.10-2018.09.10",
-        faceValue: "1000"
-      },
-      {
-        couponId: 71220,
-        couponName: "尊享礼品券",
-        couponStatus: "EXPIRED",
-        couponValidTime: "2018.08.10-2018.09.10",
-        faceValue: "1000"
-      }
-    ],
+    couponList: [],
     shareNo: ""
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: "../logs/logs"
-    });
   },
   onLoad: function(options) {
     let that = this;
@@ -61,10 +25,11 @@ Page({
     wx.getSetting({
       success: res => {
         if (res.authSetting["scope.userInfo"]) {
-          wx.hideLoading();
           that.setData({
             hasUserInfo: true
           });
+          // wx.hideLoading();
+
           that.login();
         } else {
           that.login();
@@ -78,10 +43,26 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krcoupon/share/list",
       data: {
-        shareNo: 1 //that.data.shareNo
+        shareNo: "011808150002" //that.data.shareNo
       },
       success: res => {
         console.log(res);
+        wx.hideLoading();
+
+        if (res.data.code == 1) {
+          let couponList = Object.assign({}, res);
+          that.setData({
+            couponList: couponList.data.data.couponList,
+            donatorAvatar: couponList.data.data.donatorAvatar,
+            donatorThirdNick: couponList.data.data.donatorThirdNick
+          });
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+        }
       },
       fail: err => {
         console.log(err);
@@ -89,7 +70,53 @@ Page({
     });
   },
   //领取礼品券接口
-
+  getCoupon: function(e) {
+    console.log(e.currentTarget.dataset.id);
+    let that = this;
+    let couponId = e.currentTarget.dataset.id;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krcoupon/share/receive",
+      method: "POST",
+      data: {
+        couponId: couponId,
+        shareNo: "011808150002" //that.data.shareNo
+      },
+      success: res => {
+        console.log(res);
+        // var str = "couponList[" + 0 + "].couponStatus";
+        // that.setData({
+        //   buttonShow: false,
+        //   [str]: "GET"
+        // });
+        // console.log(that.data.couponList[0].couponStatus);
+        if (res.data.code == 1) {
+          wx.showToast({
+            title: "成功领取礼品券",
+            icon: "success",
+            duration: 2000
+          });
+          that.setData({
+            buttonShow: false
+          });
+          that.getCouponList();
+        } else if (res.data.code < 0) {
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+        }
+      },
+      fail: err => {
+        console.log(err);
+      }
+    });
+  },
+  jumpIndex: function() {
+    wx.redirectTo({
+      url: "../index/index"
+    });
+  },
   //登录
   login: function() {
     let that = this;
@@ -103,7 +130,7 @@ Page({
               code: res.code
             },
             success: res => {
-              wx.hideLoading();
+              // wx.hideLoading();
               //   console.log(res);
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
@@ -150,7 +177,6 @@ Page({
           },
           success: res => {
             // console.log(res);
-            // that.getDetail();
           }
         });
       }

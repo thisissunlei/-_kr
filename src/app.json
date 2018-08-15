@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-
     "pages/getCoupon/getCoupon",
     "pages/activityDetails/activity",
     "pages/activityQuickMark/activityQuickMark",
@@ -37,6 +36,7 @@
     "pages/component/component",
     "pages/locationMap/locationMap",
     "pages/myActivity/myActivity",
+    "pages/coupon/coupon",
     "pages/myCoupon/myCoupon",
     "pages/saleList/saleList"
   ],
