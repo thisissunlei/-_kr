@@ -734,6 +734,7 @@ Page({
             }, 2000)
             break;
           case -2:
+            // 用户未绑定手机号
             wx.setStorage({
               key: "create_order",
               data: {
@@ -744,27 +745,8 @@ Page({
               url: '../bindPhone/bindPhone?from=seat'
             })
             break;
-          case -3:
-            this.setData({
-              checkMessage: true,
-              errorMessage: res.data.message,
-              selectedTime: [],
-              meeting_time: {
-                time: '',
-                beginTime: '',
-                endTime: '',
-                hours: 0,
-              }
-            })
-            setTimeout(function () {
-              _this.setData({
-                checkMessage: false,
-                errorMessage: ''
-              })
-            }, 2000)
-            break;
-          case -4://优惠券失效
-            console.log('礼品券不可用')
+          case -4:
+            //优惠券失效
             //1.消除提示窗，显示优惠不可用的错误提示
             setTimeout(function(){
               that.setData({
@@ -789,8 +771,20 @@ Page({
             },2000)
 
             break;
-          default:
-            // wx.reportAnalytics('confirmorder')
+          case 2:
+            // 使用优惠券后，价格为0
+              wx.showLoading({
+                title: '加载中',
+                mask: true
+              })
+              setTimeout(function () {
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                })
+                wx.hideLoading();
+              }, 500)
+            break;
+          case 1:
             // 订单创建成功，清除优惠选择数据
             wx.setStorageSync("seat_order_sale", {sale:false})
 
@@ -832,6 +826,26 @@ Page({
               },
 
             })
+            break;
+          default:
+            // wx.reportAnalytics('confirmorder')
+            this.setData({
+              checkMessage: true,
+              errorMessage: res.data.message,
+              selectedTime: [],
+              meeting_time: {
+                time: '',
+                beginTime: '',
+                endTime: '',
+                hours: 0,
+              }
+            })
+            setTimeout(function () {
+              _this.setData({
+                checkMessage: false,
+                errorMessage: ''
+              })
+            }, 2000)
             break;
         }
 
