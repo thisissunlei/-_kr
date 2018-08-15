@@ -50,21 +50,6 @@ Page({
   choose_date: '',
   orderId: '',
 
-  getFirst(){
-   
-    app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
-      method: "GET",
-      success: (res) => {
-        // console.log(res.data.data.first,222)
-      this.setData({
-        isFirst:res.data.data.first
-      })
-
-      },
-   
-    })
-  },
   //立即支付
   payOrder: function () {
 
@@ -356,7 +341,6 @@ Page({
   bool: true,
   onLoad: function (options) {
 
-    this.getFirst()
     // console.log(options)
     if (options.con) {
       this.setData({
@@ -508,7 +492,6 @@ Page({
         })
         // console.log(this.orderId,this.data.alertTime,777777)
         let data = res.data.data;
-        // let isFirst = data.first
 
         let titleObj = {
           'OBLIGATION': '待支付订单',
@@ -518,7 +501,6 @@ Page({
         }
         this.setData({
           titleObj: titleObj,
-          // isFirst: isFirst
         })
         let payTitleObj = {
           'OBLIGATION': '应付款',

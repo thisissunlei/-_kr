@@ -12,10 +12,8 @@ Page({
     price_y:0,
     price_all:0,
     salePrice:0,
-    new_arrup:[],
     orderId:"",
     seatId:"",
-    timeweekArr:{},
     carendarArr:[],
     daynum:"",
     sankeNum:1,
@@ -55,11 +53,8 @@ Page({
     errorMessage: '',
     checkMessage: false,
     dialogDate: false, //判断门板是否显示
-    nowDateIndex: wx.getStorageSync('nowDateIndex'),
-    topDate: wx.getStorageSync('topDate'),
- 
-    
-    ifFirst: false,
+    nowDateIndex: wx.getStorageSync('nowDateIndex'),//貌似无用
+    topDate: wx.getStorageSync('topDate'),//貌似无用
 
     // 日历
     
@@ -311,10 +306,6 @@ Page({
   // 获取优惠信息和新人判断
   getSaleContent(number){
     let that = this;
-  
-    console.log('getSaleContent==========',that.seatGoodIds)
-
-   
     app.getRequest({
       url: app.globalData.KrUrl + 'api/gateway/krcoupon/seat/is-first-order',
       data:{
@@ -691,6 +682,7 @@ Page({
       title: '加载中',
       mask: true
     })
+
 
     var _this = this;
     app.getRequest({

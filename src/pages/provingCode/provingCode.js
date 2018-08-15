@@ -33,7 +33,6 @@ Page({
   },
   onLoad: function (options) {
     let that = this;
-    console.log('======>',options.from)
     if(options.from){
       this.setData({
         from:options.from
@@ -92,6 +91,7 @@ Page({
   },
   formSubmit(e){
     let that = this;
+  
       app.getRequest({
         url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
         methods:"GET",
