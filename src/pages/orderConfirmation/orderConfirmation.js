@@ -588,14 +588,15 @@ Page({
               _this.getIsfirst(_this.data.meeting_time);
             }
             let data=_this.data;
-            if(res.data.reduce){
-              _this.getPrice();
-            }
+           
             _this.setData({
               saleStatus:saleStatus,
               saleContent:res.data,
               reducePrice:res.data.reduce || 0,
             })
+            if(res.data.reduce){
+              _this.getPrice();
+            }
            
             
           }
