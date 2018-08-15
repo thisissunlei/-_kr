@@ -38,7 +38,6 @@
     "pages/component/component",
     "pages/locationMap/locationMap",
     "pages/myActivity/myActivity",
-    "pages/coupon/coupon",
     "pages/myCoupon/myCoupon",
     "pages/saleList/saleList"
   ],
