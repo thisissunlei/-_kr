@@ -341,7 +341,10 @@ Page({
       key:"meeting_time",
       data:{}
     })
-    
+    wx.setStorage({
+      key:"meeting_order_sale",
+      data:{}
+    })
     
   },
   closeDialog:function(){
@@ -531,6 +534,7 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
+ 
     if((data.isFirst && data.saleStatus=='new') || (data.isFirst && data.saleStatus=='none')){
         this.setData({
           totalCount:totalCount,
@@ -571,7 +575,8 @@ Page({
     })
     
     //礼品券数据
-    if(this.data.meeting_time){
+   
+    if(Object.keys(this.data.meeting_time).length != 0){
         wx.getStorage({
           key: 'meeting_order_sale',
           success: function (res) {
@@ -579,6 +584,7 @@ Page({
             if(res.data.sale){
               saleStatus = 'chosen';
             }else{
+              
               _this.getIsfirst(_this.data.meeting_time);
             }
             let data=_this.data;
