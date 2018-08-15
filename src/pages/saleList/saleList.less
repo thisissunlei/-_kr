@@ -1,0 +1,48 @@
+@import "../coupon/coupon.less";
+.content-wrap {
+  padding-bottom: 224rpx;
+}
+.list-warp {
+  position: relative;
+  transition: 1s;
+  transform-style: preserve-3d;
+}
+.list-warp .detail {
+  position: absolute;
+  right: 32rpx;
+  bottom: 0;
+  z-index: 3;
+  background: #eabd71;
+  border-radius: 0 0 16rpx 0;
+  height: 74rpx;
+  padding: 40rpx 0 0 70rpx;
+  width: 34rpx;
+}
+.unuse {
+  position: fixed;
+  bottom: 100rpx;
+  left: -200rpx;
+  margin-left: 50%;
+  z-index: 10;
+  background: #ECCA6F;
+  border-radius: 200rpx;
+  color: #624D17;
+  font-size: 36rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  width: 400rpx;
+}
+
+
+
+.list-warp.select {
+  transform: rotateY(180deg);
+}
+
+
+
+
+
+
+
