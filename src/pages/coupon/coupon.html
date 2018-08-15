@@ -1,7 +1,12 @@
 <template name="coupon">
     <view class="{{!!item.usable ? 'my-coupon-list' : 'my-coupon-list select'}}">
-        <view class="after">
-            <view class="bg select">aaaaaaa</view>
+        <view class="after" bindtap="cardToFront" data-index="{{index}}">
+            <view class="bg" wx:if="{{!!item.usable}}"></view>
+            <view class="bg select" wx:else></view>
+            <view class="warp">
+                <view class="detail-title">使用规则：</view>
+                <view class="detail-con">{{item.conditionDesc}}使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则</view>
+            </view>
         </view>
 
         <view class="before">
@@ -12,7 +17,7 @@
                     <text class="icon">¥</text>
                     <text class="num">{{item.amount}}</text>
                 </view>
-                <view class="desc" wx:if="{{item.ruleType == 'FULL_REDUCTION'}}">{{item.conditionDesc}}</view>
+                <view class="desc" wx:if="{{item.ruleType == 'FULL_REDUCTION'}}">满{{item.quata}}使用</view>
                 <view class="desc" wx:else>直减券</view>
                 <view class="name">{{item.couponName}}</view>
                 <view class="data">使用期限：{{item.bt[0]+'.'+item.bt[1]+'.'+item.bt[2]}} - {{item.et[0]+'.'+item.et[1]+'.'+item.et[2]}}</view>
