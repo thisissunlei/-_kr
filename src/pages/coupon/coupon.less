@@ -1,71 +1,107 @@
-.my-coupon {
-  padding: 0 32rpx;
+.my-coupon-list {
+  position: relative;
+  color: #eabd71;
+  height: 342rpx;
+  margin: 0 32rpx 28rpx 32rpx;
+  overflow: hidden;
 }
-.my-coupon-list .line {
-  box-sizing: border-box;
-  display: block;
-  height: 12rpx;
-  margin: 0 0 28rpx 0;
-  padding: 0 8rpx 8rpx;
-  width: 100%;
+.my-coupon-list .after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(180deg);
+  transition: .5s;
 }
-.list-warp {
-  background: #FFEB00;
-  border: 4rpx solid #333333;
+.my-coupon-list .before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: .5s;
+}
+.my-coupon-list .bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #000000;
   border-radius: 16rpx;
 }
-.list-warp.select {
-  background: #F3F3F3;
-  border: 4rpx solid #DFDFDF;
+.my-coupon-list .warp {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 32rpx;
 }
-.my-coupon-list .top {
-  display: flex;
-  border-bottom: 4rpx solid #333333;
-  padding: 30rpx 0;
+.my-coupon-list .price {
+  height: 100rpx;
+  line-height: 100rpx;
+  overflow: hidden;
+  text-align: right;
 }
-.my-coupon-list .top .left {
-  border-right: 1px dashed #624D17;
-  height: 140rpx;
-  width: 240rpx;
+.my-coupon-list .price .icon {
+  font-size: 40rpx;
 }
-.my-coupon-list .top .right {
-  height: 140rpx;
-  padding: 0 30rpx;
-  width: 110;
+.my-coupon-list .price .num {
+  font-size: 80rpx;
 }
-.my-coupon-list .top .con {
-  flex: 1;
+.my-coupon-list .desc {
+  font-size: 24rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  padding-bottom: 54rpx;
+  text-align: right;
+}
+.my-coupon-list .name {
+  font-size: 32rpx;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 40rpx;
+  padding-bottom: 20rpx;
+}
+.my-coupon-list .data {
+  font-size: 24rpx;
+  line-height: 28rpx;
+}
+.detail-title {
+  font-size: 30rpx;
+  font-weight: lighter;
+  line-height: 40rpx;
+  padding-bottom: 24rpx;
+}
+.detail-con {
+  font-size: 28rpx;
+  font-weight: lighter;
+  line-height: 40rpx;
 }
 
 
+.my-coupon-list .bg.select {
+  background: #ADADAD;
+}
+.my-coupon-list.select {
+  color: #fff;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.list-warp.select .my-coupon-list .after {
+  opacity: 1;
+  pointer-events: auto;
+}
+.list-warp.select .my-coupon-list .before {
+  opacity: 0;
+  pointer-events: none;
+}
 
 
 

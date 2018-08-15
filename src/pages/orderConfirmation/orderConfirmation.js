@@ -341,7 +341,10 @@ Page({
       key:"meeting_time",
       data:{}
     })
-    
+    wx.setStorage({
+      key:"meeting_order_sale",
+      data:{}
+    })
     
   },
   closeDialog:function(){
@@ -531,6 +534,7 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
+ 
     if((data.isFirst && data.saleStatus=='new') || (data.isFirst && data.saleStatus=='none')){
         this.setData({
           totalCount:totalCount,
@@ -569,28 +573,35 @@ Page({
         }
       }
     })
-   
+    
     //礼品券数据
-    wx.getStorage({
-      key: 'meeting_order_sale',
-      success: function (res) {
-        let saleStatus="";
-        if(res.data.sale){
-          saleStatus = 'chosen';
-        }else{
-          saleStatus = 'none';
-        }
-        let data=_this.data;
-       
-        _this.setData({
-          saleStatus:saleStatus,
-          saleContent:res.data,
-          reducePrice:res.data.reduce,
+   
+    if(Object.keys(this.data.meeting_time).length != 0){
+        wx.getStorage({
+          key: 'meeting_order_sale',
+          success: function (res) {
+            let saleStatus="";
+            if(res.data.sale){
+              saleStatus = 'chosen';
+            }else{
+              
+              _this.getIsfirst(_this.data.meeting_time);
+            }
+            let data=_this.data;
+            if(res.data.reduce){
+              _this.getPrice();
+            }
+            _this.setData({
+              saleStatus:saleStatus,
+              saleContent:res.data,
+              reducePrice:res.data.reduce || 0,
+            })
+           
+            
+          }
         })
-        _this.getPrice();
-        
-      }
-    })
+    }
+   
   },
   bool:true,
   //前一天  后一天
@@ -862,10 +873,11 @@ Page({
     if(data.first){
       saleStatus = 'new';
     }else{
-      if(!data.couponCount){
-        saleStatus = 'nothing'
-      }else{
+      if(data.couponCount>0){
         saleStatus = 'none'
+      }else{
+        saleStatus = 'nothing'
+        
       }
     }
     this.setData({
@@ -1037,10 +1049,7 @@ Page({
           data:orderData,
           success:(res)=>{
             let code=res.data.code;
-            setTimeout(function(){
-              wx.hideLoading();
-            },1500)
-           
+            wx.hideLoading();
             switch (code){
               case -1:
                   this.setData({
@@ -1135,10 +1144,15 @@ Page({
             title: '加载中',
             mask:true
           })
+          wx.setStorage({
+            key:"meeting_order_sale",
+            data:{}
+          })
           setTimeout(function(){
             _this.getInviteeId(data.orderId);
             wx.hideLoading();
           },1500)
+         
          
       },
       'fail':function(response){
