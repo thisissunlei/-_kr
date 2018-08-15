@@ -1035,13 +1035,12 @@ Page({
             'content-type':"appication/json"
           },
           data:orderData,
-          
           success:(res)=>{
             let code=res.data.code;
             setTimeout(function(){
               wx.hideLoading();
             },1500)
-            code=-4;
+           
             switch (code){
               case -1:
                   this.setData({
@@ -1104,7 +1103,6 @@ Page({
               break;
               default:
                 wx.reportAnalytics('confirmorder')
-
                 _this.weChatPay(res.data.data);
                 _this.closeDialog();
                   wx.setStorage({

@@ -7,20 +7,28 @@ Page({
     donatorAvatar:
       "https://wx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEI7cUnQcZ7OauSOxnNVANUuFx0sxG0RWZa7yGMBSuKicGD9OFMYsPp7viaDKWS2BylsgQ2icOGcJOA3w/132",
     donatorThirdNick: "隔壁的刘设计、",
+    buttonShow: true, //底部button显示
     couponList: [
       {
         couponId: 71217,
-        couponName: "测试内容r836",
-        couponStatus: "测试内容y6i8",
-        couponValidTime: "测试内容7235",
-        faceValue: "测试内容6436"
+        couponName: "尊享礼品券",
+        couponStatus: "NOTGET",
+        couponValidTime: "2018.08.10-2018.09.10",
+        faceValue: "50"
       },
       {
         couponId: 71218,
-        couponName: "测试内容r836",
-        couponStatus: "测试内容y6i8",
-        couponValidTime: "测试内容7235",
-        faceValue: "测试内容6436"
+        couponName: "尊享礼品券",
+        couponStatus: "GET",
+        couponValidTime: "2018.08.10-2018.09.10",
+        faceValue: "100"
+      },
+      {
+        couponId: 71219,
+        couponName: "尊享礼品券",
+        couponStatus: "123",
+        couponValidTime: "2018.08.10-2018.09.10",
+        faceValue: "1000"
       }
     ],
     shareNo: ""
@@ -32,7 +40,7 @@ Page({
     });
   },
   onLoad: function(options) {
-    var that = this;
+    let that = this;
     console.log(options);
     if (options.shareNo) {
       that.setData({
@@ -50,7 +58,7 @@ Page({
           that.setData({
             hasUserInfo: true
           });
-          that.getCouponList();
+          that.login();
         } else {
           that.login();
         }
@@ -59,7 +67,7 @@ Page({
   },
   //礼品券详情接口
   getCouponList: function() {
-    var that = this;
+    let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krcoupon/share/list",
       data: {
@@ -77,6 +85,7 @@ Page({
 
   //登录
   login: function() {
+    let that = this;
     wx.login({
       success: function(res) {
         if (res.code) {
@@ -116,7 +125,7 @@ Page({
   },
   //获取用户信息
   getInfo: function() {
-    var that = this;
+    let that = this;
     wx.getUserInfo({
       success: function(res) {
         // console.log(res);
