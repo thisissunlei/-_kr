@@ -415,7 +415,6 @@ Page({
   },
   jumpSetRemind:function() {
     let data=this.data;
-    console.log('alertTime----',data.alertTime)
     wx.navigateTo({
       url: '../warn/warn?type=storage&alertTime='+data.alertTime
     })
