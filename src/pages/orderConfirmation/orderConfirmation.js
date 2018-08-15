@@ -1037,10 +1037,7 @@ Page({
           data:orderData,
           success:(res)=>{
             let code=res.data.code;
-            setTimeout(function(){
-              wx.hideLoading();
-            },1500)
-           
+            wx.hideLoading();
             switch (code){
               case -1:
                   this.setData({
@@ -1135,10 +1132,15 @@ Page({
             title: '加载中',
             mask:true
           })
+          wx.setStorage({
+            key:"meeting_order_sale",
+            data:{}
+          })
           setTimeout(function(){
             _this.getInviteeId(data.orderId);
             wx.hideLoading();
           },1500)
+         
          
       },
       'fail':function(response){
