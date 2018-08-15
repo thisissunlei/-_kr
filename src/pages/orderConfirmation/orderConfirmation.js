@@ -839,13 +839,6 @@ Page({
   getIsfirst:function(meetingTime){
     let data=this.data;
     let meetingRoomId=data.detailInfo.meetingRoomId;
-
-      // data={
-      //   first:true,
-      //   couponCount:2
-      // }
-      // this.checkStatus(data);
-     
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
         methods:"GET",
@@ -1042,13 +1035,12 @@ Page({
             'content-type':"appication/json"
           },
           data:orderData,
-          
           success:(res)=>{
             let code=res.data.code;
             setTimeout(function(){
               wx.hideLoading();
             },1500)
-            code=-4;
+           
             switch (code){
               case -1:
                   this.setData({
@@ -1111,7 +1103,6 @@ Page({
               break;
               default:
                 wx.reportAnalytics('confirmorder')
-
                 _this.weChatPay(res.data.data);
                 _this.closeDialog();
                   wx.setStorage({
@@ -1245,9 +1236,22 @@ Page({
       })
   },
   jumpSelectSale(){
-    wx.navigateTo({
-      url: '../saleList/saleList?from=meeting'
+   let meetingTime=this.data.meeting_time;
+   let meetingRoomId=this.data.detailInfo.meetingRoomId;
+    wx.setStorage({
+      key:"meeting_sale",
+      data:{
+        meetingRoomId:meetingRoomId,
+        beginTime:meetingTime.beginTime,
+        endTime:meetingTime.endTime,
+      },
+      success:function(){
+        wx.navigateTo({
+          url: '../saleList/saleList?from=meeting'
+        })
+      }
     })
+   
   },
   
 })
