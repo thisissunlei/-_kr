@@ -1,3 +1,27 @@
+.list-warp {
+  position: relative;
+  transition: .7s;
+  transform-style: preserve-3d;
+}
+.list-warp .detail {
+  position: absolute;
+  right: 32rpx;
+  bottom: 0;
+  z-index: 5;
+  border-radius: 0 0 16rpx 0;
+  height: 34rpx;
+  padding: 40rpx 32rpx 38rpx 50rpx;
+  width: 34rpx;
+}
+.list-warp .detail image {
+  display: block;
+  height: 34rpx;
+  width: 34rpx;
+}
+.list-warp.select {
+  transform: rotateY(180deg);
+}
+
 .my-coupon-list {
   position: relative;
   color: #eabd71;
@@ -34,6 +58,12 @@
   left: 0;
   background: #000000;
   border-radius: 16rpx;
+  overflow: hidden;
+}
+.my-coupon-list .bg image {
+  display: block;
+  height: 342rpx;
+  width: 100%;
 }
 .my-coupon-list .warp {
   position: absolute;
@@ -103,7 +133,21 @@
   pointer-events: none;
 }
 
-
+.expired {
+  position: absolute;
+  bottom: 0;
+  right: 20rpx;
+  z-index: 4;
+  width: 220rpx;
+}
+.checked {
+  position: absolute;
+  top: 110rpx;
+  left: -60rpx;
+  margin-left: 50%;
+  height: 120rpx;
+  width: 120rpx;
+}
 
 
 
