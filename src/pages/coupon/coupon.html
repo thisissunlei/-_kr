@@ -1,21 +1,23 @@
 <template name="coupon">
-    <view wx:for="{{list}}" wx:key="{{index}}" class="my-coupon-list">
-        <view class="{{!item.state ? 'list-warp select' : 'list-warp'}}">
-            <view class="top">
-                <view class="left">
-                    <view>
-                        <text>¥</text>
-                        <text>{{item.price}}</text>
-                    </view>
-                    <view>满300使用</view>
-                </view>
-                <view class="con">ddd</view>
-                <view class="right">
-                    <view>去使用</view>
-                </view>
-            </view>
-            <view>{{state}}</view>
+    <view class="{{!!item.usable ? 'my-coupon-list' : 'my-coupon-list select'}}">
+        <view class="after">
+            <view class="bg select">aaaaaaa</view>
         </view>
-        <image class="line" mode="scaleToFill" src="../images/share_pic.jpg"></image>
+
+        <view class="before">
+            <view class="bg" wx:if="{{!!item.usable}}"></view>
+            <view class="bg select" wx:else></view>
+            <view class="warp" bindtap="selectTab" data-content="{{item}}">
+                <view class="price">
+                    <text class="icon">¥</text>
+                    <text class="num">{{item.amount}}</text>
+                </view>
+                <view class="desc" wx:if="{{item.ruleType == 'FULL_REDUCTION'}}">{{item.conditionDesc}}</view>
+                <view class="desc" wx:else>直减券</view>
+                <view class="name">{{item.couponName}}</view>
+                <view class="data">使用期限：{{item.bt[0]+'.'+item.bt[1]+'.'+item.bt[2]}} - {{item.et[0]+'.'+item.et[1]+'.'+item.et[2]}}</view>
+            </view>
+        </view>
+
     </view>
 </template>

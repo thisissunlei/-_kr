@@ -1,6 +1,36 @@
 @import "../coupon/coupon.less";
-
-/* 空提示 */
+/* tab */
+.couponTab {
+  position: relative;
+  border-bottom: 1px #f3f3f3 solid;
+  margin-bottom: 30rpx;
+}
+.couponTab .tab {
+  color: #333333;
+  display: inline-block;
+  font-size: 30rpx;
+  padding-bottom: 12rpx;
+  text-align: center;
+  width: 25%;
+}
+.couponTab .line {
+  position: absolute;
+  bottom: 0;
+  height: 4rpx;
+  transition:all .3s;
+  width: 25%;
+}
+.couponTab .line text {
+  position: absolute;
+  bottom: 0;
+  left: -20rpx;
+  margin-left: 50%;
+  background: #333333;
+  border-radius: 8rpx;
+  height: 4rpx;
+  width: 40rpx;
+}
+  /* 空提示 */
 .my-meeting-list-none{
   background-color: #fff;
 }

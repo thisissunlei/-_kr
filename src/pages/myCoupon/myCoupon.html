@@ -1,13 +1,21 @@
 
 <import src="../coupon/coupon.wxml" />
 
-<view class="my-coupon" wx:if="{{list.length > 0}}">
+<view class="couponTab">
+    <view class="tab" bindtap="couponTab" data-number="0" data-type="USABLE">未使用<text></text></view>
+    <view class="tab" bindtap="couponTab" data-number="25%" data-type="USED">已使用<text></text></view>
+    <view class="tab" bindtap="couponTab" data-number="50%" data-type="OVERDATE">已过期<text></text></view>
+    <view class="tab" bindtap="couponTab" data-number="75%" data-type="SHARE">已转赠<text></text></view>
+    <view class="line"style="left:{{number}}"><text></text></view>
+</view>
+
+<view class="my-coupon" wx:if="{{list.length > 0 && !loading}}">
     <template is="coupon" data="{{list: list, state: 'myList'}}"></template>
 
     <template is="coupon" data="{{list: list2, state: 'changes'}}"></template>
 </view>
 
-<view class="my-meeting-list-none" wx:if="{{!list || list.length == 0}}">
+<view class="my-meeting-list-none" wx:if="{{(!list || list.length == 0) && !loading}}">
     <view class="content-none">
         <image class="none-img" src="../images/public/none.png" background-size="cover"></image>
         <text class="warn">还没有优惠券呢~</text>
