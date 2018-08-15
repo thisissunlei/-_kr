@@ -52,7 +52,7 @@
                 礼品券
             </view>
             <view class="u-meeting-price" >
-                <view class="u-price-num">-￥{{detailInfo.couponPrice}}</view>
+                <view class="u-price-num">-<view class="u-price-unit">￥</view>{{detailInfo.couponPrice}}</view>
             </view>
         </view>
   </view>
@@ -61,14 +61,14 @@
            {{payTitle}} 
         </view>
         <view class="u-meeting-price" wx:if="{{!detailInfo.first}}">
-            <!-- <view class="u-price-unit">￥</view> -->
-            <view class="u-price-num">￥{{detailInfo.paidAmount}}</view>
+            <view class="u-price-unit">￥</view>
+            <view class="u-price-num">{{detailInfo.paidAmount}}</view>
         </view>
         <view class="u-meeting-first-price" wx:if="{{detailInfo.first}}">
            <view class="u-meeting-first-price-detail">
                 <view class="u-meeting-new-price">
-                    <!-- <view class="u-price-new-unit">￥</view> -->
-                    <view class="u-price-new-num">￥{{detailInfo.paidAmount}}</view>
+                    <view class="u-price-new-unit">￥</view>
+                    <view class="u-price-new-num">{{detailInfo.paidAmount}}</view>
                 </view>
                 <view class="u-meeting-old-price">￥{{detailInfo.totalamount}} </view>
            </view>
