@@ -1,5 +1,5 @@
 <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
-<view class="coupon">
+<view class="coupon" wx:if="{{showPage}}">
     <view class="coupon-top">
         <view class="coupon-avatar">
             <image src="{{donatorAvatar}}"></image>
@@ -9,8 +9,9 @@
     </view>
     <view class="coupon-content">
         <view class="coupon-list" wx:for="{{couponList}}" wx:key>
-            <view class="mb" wx:if="{{item.couponStatus != 'NOTGET'}}"></view>
-            <image class="coupon-background" src="../images/coupon/background1.jpg"></image>
+            <!-- <view class="mb" wx:if="{{item.couponStatus != 'NOTGET'}}"></view> -->
+            <image class="coupon-background" wx:if="{{item.couponStatus == 'NOTGET'}}" src="../images/coupon/background1.jpg"></image>
+            <image class="coupon-background" wx:else src="../images/coupon/background2.jpg"></image>
             <view class="coupon-content-top {{item.couponStatus != 'NOTGET'? 'color':''}}">
                 <text>¥</text>
                 <text>{{item.faceValue}}</text>

@@ -127,7 +127,7 @@ Page({
 
   renderQR() {
     var that = this;
-    console.log("that.data.seatStatus", that.data.seatStatus);
+    // console.log("that.data.seatStatus", that.data.seatStatus);
 
     if (
       that.data.seatStatus === "EXPIRED" ||

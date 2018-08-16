@@ -9,6 +9,7 @@ Page({
         number: 0,
         loading: true,
         changeShow: false,
+        shardModal: false,
         couponIds: []
     },
     totalPages: 0,
@@ -16,7 +17,7 @@ Page({
     couponIds: [],
     shareNo: 0,
     couponAmount: 0,
-    onShow: function () {
+    onLoad() {
         wx.showLoading({
             title: "加载中",
             mask: true
@@ -33,12 +34,16 @@ Page({
             mask: true
         });
         this.page = 1
+        this.shareNo = ''
+        this.couponIds = []
+        this.couponAmount = ''
         this.setData({
             list: [],
             couponTabType: e.currentTarget.dataset.type,
             number: e.currentTarget.dataset.number,
             loading: true,
-            changeShow: false
+            changeShow: false,
+            shardModal: false
         },() => {
             if ( e.currentTarget.dataset.type === 'SHARE' ) {
                 this.getShareList()
@@ -199,8 +204,18 @@ Page({
         })
     },
     changeCardCancel() {
+        let list = this.data.list
+        list.forEach((val, i) => {
+            val.checked = false
+        })
+        this.shareNo = ''
+        this.couponIds = []
+        this.couponAmount = ''
         this.setData({
-            changeShow: false
+            changeShow: false,
+            shardModal: false,
+            couponIds: [],
+            list: list
         })
     },
     selectTab(e) {
@@ -219,6 +234,16 @@ Page({
             this.couponIds.push(obj.id)
             list[index].checked = true
         }
+        this.setData({
+            couponIds: this.couponIds,
+            list: list
+        })
+    },
+    getShareForwarding() {
+        if ( this.couponIds.length == 0 ) return
+        wx.showLoading({
+            mask: true
+        });
         app.getRequest({
             url:app.globalData.KrUrl+'api/gateway/krcoupon/share/forwarding',
             method: "post",
@@ -228,45 +253,33 @@ Page({
             success:(res)=>{
                 this.shareNo = res.data.data.shareNo
                 this.couponAmount = res.data.data.couponAmount
+                this.setData({
+                    shardModal: true
+                })
+                wx.hideLoading()
             },
-            fail:(res)=>{}
-        })
-        this.setData({
-            couponIds: this.couponIds,
-            list: list
+            fail:(res)=>{
+                wx.hideLoading()
+            }
         })
     },
-
+    closeShardModal() {
+        this.setData({
+            shardModal: false
+        })
+    },
     onShareAppMessage(res) {
         if (res.from === 'button') {
             // 赠送给你300元礼品券，快来领取呀~
             return {
                 title: '赠送给你'+this.couponAmount+'元礼品券，快来领取呀~',
                 path: 'pages/getCoupon/getCoupon?shareNo='+this.shareNo,
-                imageUrl:'../images/indexImg/statusbg.png',
+                imageUrl:'../images/coupon/share-bg.jpg',
                 success:(res) => {
-                    wx.showLoading({
-                        title: "加载中",
-                        mask: true
-                    });
-                    this.page = 1
-                    this.setData({
-                        list: [],
-                        loading: true,
-                        changeShow: false
-                    })
+                    this.changeCardCancel()
                 },
                 fail:(res) => {
-                    wx.showLoading({
-                        title: "加载中",
-                        mask: true
-                    });
-                    this.page = 1
-                    this.setData({
-                        list: [],
-                        loading: true,
-                        changeShow: false
-                    })
+                    this.changeCardCancel()
                 }
             }
         } else {

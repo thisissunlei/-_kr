@@ -357,7 +357,7 @@ Page({
         });
      
   },
-  diantrue(){
+  confirmBooking(){
     var that = this;
     let selecedList = this.data.selecedList
     if(!selecedList.length){

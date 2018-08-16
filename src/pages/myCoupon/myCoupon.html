@@ -17,24 +17,35 @@
             <image src="../images/coupon/help-icon.png" mode="scaleToFill" wx:if="{{!!item.usable}}"></image>
             <image src="../images/coupon/help-fail.png" mode="scaleToFill" wx:else></image>
         </view>
-
-        <view wx:if="{{couponTabType == 'SHARE' && (!!item.wechatAvatar || !!item.wechatNick)}}" class="receive">
-            <image mode="aspectFill" src="{{item.wechatAvatar}}" wx:if="{{!!item.wechatAvatar}}" class="tx"></image>
-            <text wx:if="{{!!item.wechatNick}}">{{item.wechatNick}} 已领取</text>
-            <image class="icon" src="../images/coupon/jt.jpg"></image>
-        </view>
     </view>
 </view>
-<view wx:if="{{couponTabType == 'USABLE'}}" style="height: 224rpx;"></view>
+<view wx:if="{{list.length > 0 && !loading && couponTabType == 'USABLE'}}" style="height: 224rpx;"></view>
 <view wx:if="{{list.length > 0 && !loading && couponTabType == 'USABLE'}}" class="usable">
     <view class="usable-btn" bindtap="changeCard" wx:if="{{!changeShow}}">转赠礼品券</view>
     <view class="usable-btn-warp" wx:else>
         <view class="left" bindtap="changeCardCancel">取消</view>
-        <view class="right" wx:if="{{couponIds.length == 0}}">确认转赠</view>
-        <button open-type="share" wx:else hover-class="none" class="right">确认转赠</button>
+        <view class="right" bindtap="getShareForwarding" wx:if="{{couponIds.length > 0}}"
+              style="background: #ECCA6F;color: #624D17">选好了</view>
+        <view class="right" wx:else style="background: #DFDFDF;color: #ffffff">选好了</view>
     </view>
 </view>
 
+
+<view wx:if="{{!!shardModal}}" class="shareM" style="position: fixed;top: 0;left: 0;">
+    <!--<button open-type="share" hover-class="none" class="right">确认转赠</button>-->
+    <view class="shareM-warp">
+        <view class="shareM-warp-tb">
+            <view class="shareM-con">
+                <view class="text">是否确认转赠礼品券？</view>
+                <view class="btn">
+                    <view class="left" bindtap="closeShardModal">取消</view>
+                    <button open-type="share" hover-class="none" class="right">确认</button>
+                    <!--<view class="right">确认</view>-->
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
 <view class="my-meeting-list-none" wx:if="{{(!list || list.length == 0) && !loading}}">
     <view class="content-none">
         <image class="none-img" src="../images/coupon/none.png" background-size="cover"></image>

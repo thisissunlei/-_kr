@@ -14,7 +14,7 @@
     
 </view>
 
-<view class="my-meeting-list-none" wx:else>
+<view class="my-meeting-list-none" wx:if="{{(!list || list.length == 0) && !loading}}">
     <view class="content-none">
         <image class="none-img" src="../images/coupon/none.png" background-size="cover"></image>
         <text class="warn">还没有券哦~</text>
