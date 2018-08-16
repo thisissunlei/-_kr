@@ -81,7 +81,7 @@ Page({
       }
     });
   },
-  //领取礼品券接口"081808160157"
+  //领取礼品券接口
   getCoupon: function(e) {
     console.log(e.currentTarget.dataset.id);
     let that = this;
