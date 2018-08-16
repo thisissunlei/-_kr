@@ -25,7 +25,7 @@
         </view>
     </view>
 </view>
-<view wx:if="{{couponTabType == 'USABLE'}}" style="height: 224rpx;"></view>
+<view wx:if="{{list.length > 0 && !loading && couponTabType == 'USABLE'}}" style="height: 224rpx;"></view>
 <view wx:if="{{list.length > 0 && !loading && couponTabType == 'USABLE'}}" class="usable">
     <view class="usable-btn" bindtap="changeCard" wx:if="{{!changeShow}}">转赠礼品券</view>
     <view class="usable-btn-warp" wx:else>

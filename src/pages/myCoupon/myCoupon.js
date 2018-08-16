@@ -16,7 +16,7 @@ Page({
     couponIds: [],
     shareNo: 0,
     couponAmount: 0,
-    onShow: function () {
+    onLoad() {
         wx.showLoading({
             title: "加载中",
             mask: true
@@ -205,6 +205,9 @@ Page({
     },
     selectTab(e) {
         if ( !this.data.changeShow ) return
+        wx.showLoading({
+            mask: true
+        });
         let obj = e.target.dataset.content || e.currentTarget.dataset.content
         let index = e.target.dataset.index || e.currentTarget.dataset.index
         let list = this.data.list
@@ -228,8 +231,11 @@ Page({
             success:(res)=>{
                 this.shareNo = res.data.data.shareNo
                 this.couponAmount = res.data.data.couponAmount
+                wx.hideLoading()
             },
-            fail:(res)=>{}
+            fail:(res)=>{
+                wx.hideLoading()
+            }
         })
         this.setData({
             couponIds: this.couponIds,

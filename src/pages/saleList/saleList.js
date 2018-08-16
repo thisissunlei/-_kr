@@ -3,9 +3,14 @@ const app = getApp();
 Page({
   data: {
     list:[],
+      loading: true
   },
   onLoad: function (options) {
       this.from=options.from;
+      wx.showLoading({
+          title: "加载中",
+          mask: true
+      })
       if ( options.from === 'seat' ) {
           this.getSeatList()
       } else {
@@ -48,11 +53,15 @@ Page({
                         val.checked = false
                     })
                     this.setData({
-                        list: list
+                        list: list,
+                        loading: false
                     })
                 }
+                wx.hideLoading()
             },
-            fail:(res)=>{}
+            fail:(res)=>{
+                wx.hideLoading()
+            }
         })
     },
     changeTime(date){
