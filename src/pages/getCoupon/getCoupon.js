@@ -2,6 +2,7 @@ const app = getApp();
 
 Page({
   data: {
+    showPage: false, //显示整个页面
     hasUserInfo: false,
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
     donatorAvatar: "",
@@ -52,6 +53,7 @@ Page({
         if (res.data.code == 1) {
           let couponList = Object.assign({}, res);
           that.setData({
+            showPage: true,
             couponList: couponList.data.data.couponList,
             donatorAvatar: couponList.data.data.donatorAvatar,
             donatorThirdNick: couponList.data.data.donatorThirdNick
