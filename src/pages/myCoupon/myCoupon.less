@@ -87,7 +87,7 @@
 /* 领取人 */
 .receive {
   position: absolute;
-  left: 32rpx;
+  left: 0;
   bottom: -84rpx;
   height: 48rpx;
   border: 1px solid #DFDFDF;
@@ -142,3 +142,72 @@
   font-size: 30rpx;
   color:#666;
 }
+
+/* 确认分享 */
+.shareM {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+  background: rgba(0,0,0,0.70);
+}
+.shareM-warp {
+  display: inline-table;
+  height: 100%;
+  width: 100%;
+}
+.shareM-warp-tb {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+.shareM-con {
+  background: #ffffff;
+  border-radius: 16rpx;
+  margin: 0 96rpx;
+}
+.shareM-con .text {
+  border-bottom: 1px #e5e5e5 solid;
+  color: #888888;
+  font-size: 30rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  padding: 68rpx 0;
+  text-align: center;
+}
+.shareM-con .btn {
+  overflow: hidden;
+}
+.shareM-con .btn .left,
+.shareM-con .btn .right {
+  box-sizing: border-box;
+  font-size: 34rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  width: 50%;
+}
+.shareM-con .btn .left {
+  border-right: 1px #e5e5e5 solid;
+  color: #000000;
+  float: left;
+}
+.shareM-con .btn .right {
+  background-color: transparent;
+  border: none;
+  color: #f5a623;
+  float: right;
+}
+.shareM-con .btn .right:after,
+.shareM-con .btn .right:before {
+  display: none;
+}
+
+
+
+
+
+
+

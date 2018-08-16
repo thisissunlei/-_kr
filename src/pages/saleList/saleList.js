@@ -5,6 +5,8 @@ Page({
     list:[],
       loading: true
   },
+    checked: {},
+    back: true,
   onLoad: function (options) {
       this.from=options.from;
       wx.showLoading({
@@ -12,9 +14,34 @@ Page({
           mask: true
       })
       if ( options.from === 'seat' ) {
-          this.getSeatList()
+          wx.getStorage({
+              key: 'seat_order_sale',
+              success: (res) => {
+                  this.checked = res.data
+                  this.getSeatList()
+              },
+              fail: (res) => {
+                  this.checked = {
+                      sale: false
+                  }
+                  this.getSeatList()
+              }
+          })
+
       } else {
-          this.getMeetList()
+          wx.getStorage({
+              key: 'meeting_order_sale',
+              success: (res) => {
+                  this.checked = res.data
+                  this.getMeetList()
+              },
+              fail: (res) => {
+                  this.checked = {
+                      sale: false
+                  }
+                  this.getMeetList()
+              }
+          })
       }
   },
     getMeetList() {
@@ -50,7 +77,16 @@ Page({
                         val.bt = this.changeTime(val.effectiveAt)
                         val.et = this.changeTime(val.expireAt)
                         val.class = 'list-warp'
-                        val.checked = false
+
+                        if ( !!this.checked.sale ) {
+                            if ( val.couponId === this.checked.id ) {
+                                val.checked = true
+                            } else {
+                                val.checked = false
+                            }
+                        } else {
+                            val.checked = false
+                        }
                     })
                     this.setData({
                         list: list,
@@ -117,6 +153,11 @@ Page({
 
 
   notUse:function(){
+        if (!this.back) return
+      wx.showLoading({
+          mask: true
+      })
+      this.back = false
     if(this.from=="seat"){
         wx.setStorage({
           key:"seat_order_sale",
@@ -150,6 +191,11 @@ Page({
     let obj = e.target.dataset.content || e.currentTarget.dataset.content;
     let index = e.target.dataset.index || e.currentTarget.dataset.index;
     if ( !obj.usable ) return
+      if (!this.back) return
+      wx.showLoading({
+          mask: true
+      })
+      this.back = false
       let list = this.data.list
       list.forEach((val, i) => {
         val.checked = false

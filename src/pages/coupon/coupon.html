@@ -9,7 +9,12 @@
             </view>
             <view class="warp">
                 <view class="detail-title">使用规则：</view>
-                <view class="detail-con">{{item.conditionDesc}}</view>
+                <view class="detail-con">
+                    <text wx:if="{{item.usageType == 'ANY'}}">全场通用；</text>
+                    <text wx:if="{{item.usageType == 'MEETING'}}">仅限预订会议室；</text>
+                    <text wx:if="{{item.usageType == 'SEAT'}}">仅限预订散座；</text>
+                    {{item.instructions}}
+                </view>
             </view>
         </view>
 
@@ -49,7 +54,17 @@
             </view>
             <view class="warp">
                 <view class="detail-title">使用规则：</view>
-                <view class="detail-con">{{item.instructions}}</view>
+                <view class="detail-con">
+                    <text wx:if="{{item.usageType == 'ANY'}}">全场通用；</text>
+                    <text wx:if="{{item.usageType == 'MEETING'}}">仅限预订会议室；</text>
+                    <text wx:if="{{item.usageType == 'SEAT'}}">仅限预订散座；</text>
+                    {{item.instructions}}
+                </view>
+            </view>
+            <view wx:if="{{tab == 'SHARE' && (!!item.wechatAvatar || !!item.wechatNick)}}" class="receive">
+                <image mode="aspectFill" src="{{item.wechatAvatar}}" wx:if="{{!!item.wechatAvatar}}" class="tx"></image>
+                <text wx:if="{{!!item.wechatNick}}">{{item.wechatNick}} 已领取</text>
+                <image class="icon" src="../images/coupon/jt.jpg"></image>
             </view>
         </view>
 
@@ -73,7 +88,11 @@
                 <view class="name">{{item.couponName}}</view>
                 <view class="data">使用期限：{{item.bt[0]+'.'+item.bt[1]+'.'+item.bt[2]}} - {{item.et[0]+'.'+item.et[1]+'.'+item.et[2]}}</view>
             </view>
+            <view wx:if="{{tab == 'SHARE' && (!!item.wechatAvatar || !!item.wechatNick)}}" class="receive">
+                <image mode="aspectFill" src="{{item.wechatAvatar}}" wx:if="{{!!item.wechatAvatar}}" class="tx"></image>
+                <text wx:if="{{!!item.wechatNick}}">{{item.wechatNick}} 已领取</text>
+                <image class="icon" src="../images/coupon/jt.jpg"></image>
+            </view>
         </view>
-
     </view>
 </template>
