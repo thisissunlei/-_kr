@@ -91,7 +91,7 @@
 		 </view> -->
 
 		<!-- 无数据 -->
-		<view class="content-none">
+		<view class="content-none" wx:if="{{meetingCount==0}}">
 			<image class="none-img" src="../images/public/none.png" background-size="cover"></image>
 			<text class="warn">还没有订单呢~</text>
 		</view>
@@ -148,7 +148,7 @@
 			</view>
 		</scroll-view>
 	</view>
-	<view class="my-order-none a" wx:if="{{show_xx == false && orderList <= 0}}">
+	<view class="my-order-none a" wx:if="{{show_xx == false && orderList1 <= 0}}">
 		<!--  <view class="order-type">
              <view class="tab" bindtap="changeType" data-type="ALL">全部</view>
              <view class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</view>
@@ -159,7 +159,7 @@
          </view> -->
 
 		<!-- 无数据 -->
-		<view class="content-none" wx:if="{{totalCount==0}}">
+		<view class="content-none" wx:if="{{seatCount==0}}">
 			<image class="none-img" src="../images/public/none.png" background-size="cover"></image>
 			<text class="warn">还没有订单呢~</text>
 		</view>

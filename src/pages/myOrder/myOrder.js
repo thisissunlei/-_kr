@@ -28,7 +28,8 @@ Page({
     toView: 'red',
     scrollTop: 0,
     page:1,
-    totalCount:''
+    meetingCount:'',
+    seatCount:'',
   },
   orderOldList1:[],
   //请求条数
@@ -163,7 +164,7 @@ Page({
               orderList:allList,
               page:page || 1,
               totalPages:res.data.data.totalPages,
-              totalCount:res.data.data.totalCount
+              meetingCount:res.data.data.totalCount
             })
             // console.log(this.data.orderList)
           }else{
@@ -216,7 +217,8 @@ Page({
               orderOldList1:allList1,
               orderList1:allList1,
               page:page || 1,
-              totalPages:res.data.data.totalPages
+              totalPages:res.data.data.totalPages,
+              seatCount:res.data.data.totalCount
             })
           }else{
             that.setData({
