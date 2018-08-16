@@ -538,9 +538,9 @@ Page({
       carendar.map(item=>{
         number = item.number;
         price_all = Number(price_all) + Number(item.seat.promotionCost*item.number);
-        price_all =  price_all.toFixed(2);
+        price_all =  parseInt(price_all);
         price_y  = Number(price_y) + Number(item.seat.unitCost*item.number);
-        price_y  = price_y.toFixed(2)
+        price_y  = parseInt(price_y);
          item.month=getzf(item.month) 
          item.value=getzf(item.value)
          item.seat.weeks =this.getWeek(item.seat.useTime)
@@ -630,7 +630,7 @@ Page({
       success: function (res) {
         if(res.data.sale){
           saleStatus = 'chosen';
-          salePrice = (salePrice-res.data.reduce).toFixed(2)
+          salePrice = parseInt(salePrice-res.data.reduce)
           if(salePrice<=0){
             salePrice = 0
           }
