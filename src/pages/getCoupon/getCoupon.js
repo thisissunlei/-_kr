@@ -3,6 +3,7 @@ const app = getApp();
 Page({
   data: {
     showPage: false, //显示整个页面
+    showHint: true, //显示领取成功提示语
     hasUserInfo: false,
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
     donatorAvatar: "",
@@ -96,19 +97,20 @@ Page({
         console.log(res);
         if (res.data.code == 1) {
           wx.showToast({
-            title: "成功领取礼品券",
-            icon: "success",
-            duration: 2000
+            title: "领取成功",
+            image: "../images/public/success.png",
+            duration: 2500
           });
           that.setData({
-            buttonShow: false
+            buttonShow: false,
+            showHint: true
           });
           that.getCouponList();
         } else if (res.data.code < 0) {
           wx.showToast({
             title: res.data.message,
             icon: "none",
-            duration: 2000
+            duration: 2500
           });
         }
       },
