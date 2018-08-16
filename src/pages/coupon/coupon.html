@@ -32,8 +32,7 @@
                     <text class="icon">¥</text>
                     <text class="num">{{item.amount}}</text>
                 </view>
-                <view class="desc" wx:if="{{item.ruleType == 'FULL_REDUCTION'}}">满{{item.quata}}使用</view>
-                <view class="desc" wx:else>直减券</view>
+                <view class="desc">{{item.conditionDesc}}</view>
                 <view class="name">{{item.couponName}}</view>
                 <view class="data">使用期限：{{item.bt[0]+'.'+item.bt[1]+'.'+item.bt[2]}} - {{item.et[0]+'.'+item.et[1]+'.'+item.et[2]}}</view>
             </view>
