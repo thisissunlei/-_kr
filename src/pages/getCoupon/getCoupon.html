@@ -7,9 +7,7 @@
         <text class="coupon-name">{{donatorThirdNick}}</text>
         <text>赠送给你：</text>
     </view>
-    <view class="coupon-hint" wx:if="{{showHint}}">
-        领取成功的礼品券已放入小主的自由座账户
-    </view>
+    <view class="coupon-hint" wx:if="{{showHint}}">领取成功的礼品券已放入小主的自由座账户中</view>
     <view class="coupon-content">
         <view class="coupon-list" wx:for="{{couponList}}" wx:key>
             <!-- <view class="mb" wx:if="{{item.couponStatus != 'NOTGET'}}"></view> -->

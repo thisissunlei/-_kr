@@ -3,7 +3,7 @@ const app = getApp();
 Page({
   data: {
     showPage: false, //显示整个页面
-    showHint: true, //显示领取成功提示语
+    showHint: false, //显示领取成功提示语
     hasUserInfo: false,
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
     donatorAvatar: "",
@@ -81,7 +81,7 @@ Page({
       }
     });
   },
-  //领取礼品券接口
+  //领取礼品券接口"081808160157"
   getCoupon: function(e) {
     console.log(e.currentTarget.dataset.id);
     let that = this;
@@ -99,7 +99,7 @@ Page({
           wx.showToast({
             title: "领取成功",
             image: "../images/public/success.png",
-            duration: 2500
+            duration: 3000
           });
           that.setData({
             buttonShow: false,
@@ -110,7 +110,7 @@ Page({
           wx.showToast({
             title: res.data.message,
             icon: "none",
-            duration: 2500
+            duration: 3000
           });
         }
       },
