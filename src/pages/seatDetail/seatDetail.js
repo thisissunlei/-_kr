@@ -4,7 +4,6 @@ var QR = require("../../utils/qrcode.js");
 const app = getApp();
 Page({
   data: {
-    // width: 0,
     seatId: 0, //我的散座传过来的id
     seatStatus: "",
     canInvite: "",
@@ -49,7 +48,6 @@ Page({
   onShareAppMessage: function(res) {
     if (res.from === "button") {
       // console.log("来自页面赠送按钮");
-      // console.log(res);
       return {
         title: "来来来，发现一个办公的好地儿~",
         path:
@@ -72,7 +70,6 @@ Page({
   //我不去了
   cancelSeat: function() {
     var that = this;
-    let invitee = wx.getStorageSync("user_info");
     wx.showModal({
       title: "提示",
       content: "您确认取消吗？",
@@ -107,20 +104,13 @@ Page({
     }
     this.getSeatInfo();
   },
-  onReady: function() {
+  createQrCode: function(url, canvasId, cavW, cavH) {
+    //调用插件中的draw方法，绘制二维码图片
+  },
+  readyQR: function() {
     var that = this;
-    // console.log(that.data.seatStatus);
-    //设置canvsa大小
-    // wx.getSystemInfo({
-    //   success: function(res) {
-    // console.log(res);
-    //     that.data.width = res.windowWidth;
-    //   }
-    // });
-
     if (that.data.seatStatus == "EXPIRED" || that.data.seatStatus == "USED") {
       QR.qrApi.draw(
-        //kr_meeting
         "https://web.krspace.cn/kr_seat/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
@@ -141,12 +131,6 @@ Page({
       );
     }
   },
-  createQrCode: function(url, canvasId, cavW, cavH) {
-    //调用插件中的draw方法，绘制二维码图片
-  },
-  onShow: function() {
-    this.getSeatInfo();
-  },
   //我的散座详情接口
   getSeatInfo: function() {
     var that = this;
@@ -157,7 +141,7 @@ Page({
       },
       success: function(res) {
         wx.hideLoading();
-
+        that.readyQR();
         // console.log(res);
         var seatInfo = Object.assign({}, res);
         // console.log(seatInfo);
