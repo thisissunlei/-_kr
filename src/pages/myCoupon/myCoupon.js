@@ -8,14 +8,15 @@ Page({
         page: 1,
         number: 0,
         loading: true,
-        changeShow: false
+        changeShow: false,
+        couponIds: []
     },
     totalPages: 0,
     page: 1,
     couponIds: [],
     shareNo: 0,
     couponAmount: 0,
-    onShow: function () {
+    onLoad() {
         wx.showLoading({
             title: "加载中",
             mask: true
@@ -102,7 +103,6 @@ Page({
         })
     },
     setList(data) {
-        console.log(data)
         this.totalPages = data.totalPages
         let list = data.items
         if ( !!list && list.length > 0 ) {
@@ -205,6 +205,9 @@ Page({
     },
     selectTab(e) {
         if ( !this.data.changeShow ) return
+        wx.showLoading({
+            mask: true
+        });
         let obj = e.target.dataset.content || e.currentTarget.dataset.content
         let index = e.target.dataset.index || e.currentTarget.dataset.index
         let list = this.data.list
@@ -228,10 +231,14 @@ Page({
             success:(res)=>{
                 this.shareNo = res.data.data.shareNo
                 this.couponAmount = res.data.data.couponAmount
+                wx.hideLoading()
             },
-            fail:(res)=>{}
+            fail:(res)=>{
+                wx.hideLoading()
+            }
         })
         this.setData({
+            couponIds: this.couponIds,
             list: list
         })
     },
@@ -242,7 +249,31 @@ Page({
             return {
                 title: '赠送给你'+this.couponAmount+'元礼品券，快来领取呀~',
                 path: 'pages/getCoupon/getCoupon?shareNo='+this.shareNo,
-                imageUrl:'../images/indexImg/statusbg.png'
+                imageUrl:'../images/indexImg/statusbg.png',
+                success:(res) => {
+                    wx.showLoading({
+                        title: "加载中",
+                        mask: true
+                    });
+                    this.page = 1
+                    this.setData({
+                        list: [],
+                        loading: true,
+                        changeShow: false
+                    })
+                },
+                fail:(res) => {
+                    wx.showLoading({
+                        title: "加载中",
+                        mask: true
+                    });
+                    this.page = 1
+                    this.setData({
+                        list: [],
+                        loading: true,
+                        changeShow: false
+                    })
+                }
             }
         } else {
             return app.globalData.share_data
