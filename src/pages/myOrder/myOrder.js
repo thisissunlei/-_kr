@@ -27,7 +27,8 @@ Page({
     push:[],
     toView: 'red',
     scrollTop: 0,
-    page:1
+    page:1,
+    totalCount:''
   },
   orderOldList1:[],
   //请求条数
@@ -161,7 +162,8 @@ Page({
               orderOldList:allList,
               orderList:allList,
               page:page || 1,
-              totalPages:res.data.data.totalPages
+              totalPages:res.data.data.totalPages,
+              totalCount:res.data.data.totalCount
             })
             // console.log(this.data.orderList)
           }else{
