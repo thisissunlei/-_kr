@@ -1,4 +1,4 @@
-import CAlculagraph from "../../utils/time.js";
+import {CAlculagraph} from "../../utils/time.js";
 const app = getApp()
 
 
@@ -49,7 +49,7 @@ Page({
   },
   choose_date: '',
   orderId: '',
-
+  time_cal:"",
   //立即支付
   payOrder: function () {
 
@@ -241,8 +241,9 @@ Page({
 
 
   onUnload: function () {
-    // console.log(this.url_con,6666)
+     console.log(this.data.con,6666)
     if (this.data.con == 1) {
+      this.time_cal.closeCal();
       wx.reLaunch({
         url: '../index/index'
       })
@@ -576,11 +577,13 @@ Page({
 
 
   startcountDate: function (date) {
-    const time = CAlculagraph.CAlculagraph();
+    console.log(CAlculagraph,11111)
+    //this.time_cal = CAlculagraph.CAlculagraph();
     const that = this;
-    time.timerMint({
+    this.time_cal = new CAlculagraph({
       deadline: date / 1000, //最终结束的时间戳,
       callback: function () {
+        console.log(222233)
         that.date()
       }, //时间结束
       that: this
@@ -588,6 +591,7 @@ Page({
   },
   //判断时间
   date: function () {
+    console.log(7777)
     let timestamp = new Date().getTime();
     if (timestamp > this.data.detailInfo.expiredTime) {
       wx.setNavigationBarTitle({
