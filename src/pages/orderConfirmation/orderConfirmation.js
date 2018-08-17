@@ -522,7 +522,11 @@ Page({
       this.getPrice();
       this.getIsfirst(this.data.meeting_time);
       this.closeDialogTime();
-     
+      wx.setStorage({
+        key:"meeting_order_sale",
+        data:{}
+      })
+
     }
     
   },
