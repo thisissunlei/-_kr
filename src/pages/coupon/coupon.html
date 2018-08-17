@@ -20,10 +20,10 @@
 
         <view class="before">
             <view class="bg" wx:if="{{!!item.usable}}">
-                <image src="../images/coupon/background1.jpg" mode="scaleToFill"></image>
+                <image src="../images/coupon/background3.jpg" mode="scaleToFill"></image>
             </view>
             <view class="bg select" wx:else>
-                <image src="../images/coupon/background2.jpg" mode="scaleToFill"></image>
+                <image src="../images/coupon/background4.jpg" mode="scaleToFill"></image>
             </view>
             <image class="checked" wx:if="{{!!item.usable && !item.checked}}" src="../images/coupon/unchecked.png" mode="scaleToFill"></image>
             <image class="checked" wx:if="{{!!item.usable && !!item.checked}}" src="../images/coupon/checked.png" mode="scaleToFill"></image>
@@ -69,10 +69,10 @@
 
         <view class="before">
             <view class="bg" wx:if="{{!!item.usable}}">
-                <image src="../images/coupon/background1.jpg" mode="scaleToFill"></image>
+                <image src="../images/coupon/background3.jpg" mode="scaleToFill"></image>
             </view>
             <view class="bg select" wx:else>
-                <image src="../images/coupon/background2.jpg" mode="scaleToFill"></image>
+                <image src="../images/coupon/background4.jpg" mode="scaleToFill"></image>
             </view>
             <image src="../images/coupon/seal-expired.png" mode="widthFix" class="expired" wx:if="{{tab == 'OVERDATE'}}"></image>
             <image src="../images/coupon/seal-share.png" mode="widthFix" class="expired" wx:if="{{tab == 'SHARE'}}"></image>
