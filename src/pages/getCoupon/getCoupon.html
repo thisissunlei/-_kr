@@ -24,6 +24,7 @@
             <button class="getcoupon" wx:if="{{item.couponStatus=='NOTGET'}}" bindtap="getCoupon" data-id="{{item.couponId}}">立即领取</button>
             <image class="coupon-status" wx:elif="{{item.couponStatus=='EXPIRED'}}" src="../images/coupon/seal-expired.png"></image>
             <image class="coupon-status" wx:elif="{{item.couponStatus=='INVALID'}}" src="../images/coupon/seal-invalid.png"></image>
+            <image class="coupon-status" wx:elif="{{item.couponStatus=='BEGET'}}" src="../images/coupon/seal-beget.png"></image>
             <image class="coupon-status" wx:else src="../images/coupon/seal-get.png"></image>
         </view>
     </view>
