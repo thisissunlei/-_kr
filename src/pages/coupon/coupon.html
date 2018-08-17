@@ -88,9 +88,9 @@
                 <view class="data">使用期限：{{item.bt[0]+'.'+item.bt[1]+'.'+item.bt[2]}} - {{item.et[0]+'.'+item.et[1]+'.'+item.et[2]}}</view>
             </view>
             <view wx:if="{{tab == 'SHARE' && (!!item.wechatAvatar || !!item.wechatNick)}}" class="receive">
+                <view class="jiao"></view>
                 <image mode="aspectFill" src="{{item.wechatAvatar}}" wx:if="{{!!item.wechatAvatar}}" class="tx"></image>
                 <text wx:if="{{!!item.wechatNick}}">{{item.wechatNick}} 已领取</text>
-                <image class="icon" src="../images/coupon/jt.jpg"></image>
             </view>
         </view>
     </view>

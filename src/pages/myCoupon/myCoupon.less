@@ -41,12 +41,16 @@
 /* usable btn */
 .usable {
   position: fixed;
-  bottom: 100rpx;
+  bottom: 0;
   left: 0;
   right: 0;
   z-index: 10;
   height: 100rpx;
-  padding: 0 42rpx;
+  padding: 0 42rpx 100rpx;
+  transform: perspective(1000);
+  -moz-transform: perspective(1000);
+  -o-transform: perspective(1000);
+  -webkit-transform: perspective(1000);
 }
 .usable-btn {
   background: #ECCA6F;
@@ -114,12 +118,16 @@
   line-height: 48rpx;
   vertical-align: top;
 }
-.receive .icon {
+.receive .jiao {
   position: absolute;
-  top: -7rpx;
-  left: 32rpx;
-  height: 8rpx;
-  width: 20rpx;
+  top: -5rpx;
+  left: 37rpx;
+  background: #ffffff;
+  border-top: 1px #dfdfdf solid;
+  border-left: 1px #dfdfdf solid;
+  height: 10rpx;
+  transform: rotate(45deg);
+  width: 10rpx;
 }
 
   /* 空提示 */
