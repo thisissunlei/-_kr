@@ -63,7 +63,7 @@ export class CAlculagraph{
           this.c_time=setTimeout(()=>{this.secondRun()},1000);
         }else{
           this.nowtime=agmt_time.deadline-Math.round(new Date().getTime()/1000);
-          timerInt();
+          this.timerInt();
         }
       }else{
         this.bools[0]=true;
