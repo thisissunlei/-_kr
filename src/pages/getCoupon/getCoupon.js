@@ -99,19 +99,26 @@ Page({
           wx.showToast({
             title: "领取成功",
             image: "../images/public/success.png",
-            duration: 3000
+            duration: 2000
           });
           that.setData({
             buttonShow: false,
             showHint: true
           });
-          that.getCouponList();
+          setTimeout(function() {
+            that.getCouponList();
+          }, 2000);
         } else if (res.data.code < 0) {
           wx.showToast({
             title: res.data.message,
             icon: "none",
-            duration: 3000
+            duration: 2000
           });
+          setTimeout(function() {
+            that.getCouponList();
+          }, 2000);
+        } else {
+          console.log(res.data.code);
         }
       },
       fail: err => {
