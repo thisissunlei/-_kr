@@ -74,7 +74,7 @@
             <view class="bg select" wx:else>
                 <image src="../images/coupon/background4.jpg" mode="scaleToFill"></image>
             </view>
-            <image src="../images/coupon/seal-expired.png" mode="widthFix" class="expired" wx:if="{{tab == 'OVERDATE'}}"></image>
+            <image src="../images/orderimg/order-b.png" mode="widthFix" class="expired" wx:if="{{tab == 'OVERDATE'}}"></image>
             <image src="../images/coupon/seal-share.png" mode="widthFix" class="expired" wx:if="{{tab == 'SHARE'}}"></image>
             <image class="checked" wx:if="{{tab == 'USABLE' && !!changeShow && !item.checked}}" src="../images/coupon/unchecked.png" mode="scaleToFill"></image>
             <image class="checked" wx:if="{{tab == 'USABLE' && !!changeShow && !!item.checked}}" src="../images/coupon/checked.png" mode="scaleToFill"></image>
