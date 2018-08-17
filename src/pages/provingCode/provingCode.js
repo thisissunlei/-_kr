@@ -234,7 +234,7 @@ Page({
               })
               setTimeout(function () {
                 wx.navigateTo({
-                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                  url: '../orderDetail/orderDetail?id=' + res.data.data.orderId + '&con=' + 1
                 })
                 wx.hideLoading();
               }, 500)
@@ -492,6 +492,10 @@ Page({
 
                   
                 })
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                })
+
               },2000)
             }else{
               that.weChatPay(rsData)
