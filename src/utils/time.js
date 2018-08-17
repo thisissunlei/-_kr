@@ -96,7 +96,7 @@ export class CAlculagraph{
   }
 
   doThing(){
-    if(this.bools[0]&&this.bools[1]){
+    if(this.bools[0]&&this.bools[1]&&this.cal_bool){
       if(this.agmt_time.callback!=''&&this.agmt_time.callback!=undefined){
         this.agmt_time.callback();
       }
