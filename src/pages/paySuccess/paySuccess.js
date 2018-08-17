@@ -75,7 +75,7 @@ Page({
         inviteers:meetingObj.inviteers
       })
     },this)
-    QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",150,150);
+    QR.qrApi.draw('https://web.krspace.cn/kr_meeting/index.html?inviteeId='+_this.inviteeId,"mycanvas",160,160);
   },
   createQrCode:function(url,canvasId,cavW,cavH){
     //调用插件中的draw方法，绘制二维码图片
