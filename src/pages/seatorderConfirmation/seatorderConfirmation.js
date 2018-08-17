@@ -744,7 +744,7 @@ Page({
               that.setData({
                 dialogShow:false,
                 showError:false,
-                errorMessage:'礼品券不可用',
+                errorMessage:res.data.message,
                 saleStatus:'none',
               })
             },1500);
@@ -756,7 +756,6 @@ Page({
               },function(){
                 // 2.清除已选优惠，重新初始化优惠内容
                 let number = that.data.sankeNum;
-                console.log('重新获取优惠内容',number)
 
                 that.getSaleContent(number);
               })
