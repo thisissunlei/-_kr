@@ -57,7 +57,6 @@ Page({
   onLoad(options) {
     let that = this;
     let id = 0
-    // console.log(options, 99999);
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "activityId");
       id = channelname_v || 8
@@ -195,8 +194,6 @@ Page({
         activityId: this.data.activityId
       },
       success: res => {
-        console.log(res.data.data);
-        console.log(app.globalData.Cookie);
         if (res.data.code == -1) {
           this.setTip("apiTip", res.data.message, "../images/public/error.png");
         } else {
@@ -489,7 +486,6 @@ Page({
       d: M + "月" + d + "日" + " (" + week + ")",
       t: h + ":" + m
     };
-    console.log(day);
     this.setData({
       [state]: day
     });
