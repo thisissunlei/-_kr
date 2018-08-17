@@ -290,7 +290,9 @@ Page({
                 })
 
                 setTimeout(function(){
-                  that.getInviteeId(id)
+                    wx.navigateTo({
+                        url: '../orderseatDetail/orderseatDetail?id=' + id + '&con=' + 1
+                    })
                 },2000)
                 
               },
