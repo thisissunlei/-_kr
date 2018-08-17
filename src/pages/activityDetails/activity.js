@@ -56,25 +56,31 @@ Page({
   },
   onLoad(options) {
     let that = this;
+    let id = 0
     // console.log(options, 99999);
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "activityId");
+      id = channelname_v || 8
       that.setData({
         activityId: channelname_v || 8,
         ["signUpData.activityId"]: channelname_v || 8
       });
     } else if (options.activityId) {
+        id = options.activityId || 8
       that.setData({
         activityId: options.activityId || 8,
         ["signUpData.activityId"]: options.activityId || 8
       });
     } else {
+        id = 8
       that.setData({
         activityId: 8,
         ["signUpData.activityId"]: 8
       });
     }
-
+      wx.reportAnalytics("activity_channel", {
+          activity_channel: id
+      })
     wx.showLoading({
       title: "加载中",
       mask: true
