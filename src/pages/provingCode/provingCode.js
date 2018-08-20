@@ -499,6 +499,19 @@ Page({
                 })
 
               },2000)
+            }else if(code === 2){
+            // 使用优惠券后，价格为0
+              wx.showLoading({
+                title: '加载中',
+                mask: true
+              })
+              setTimeout(function () {
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1                  
+                })
+                wx.hideLoading();
+              }, 500)
+              
             }else{
               that.weChatPay(rsData)
               that.clearStorage()
