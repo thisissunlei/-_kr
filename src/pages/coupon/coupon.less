@@ -1,7 +1,5 @@
 .list-warp {
   position: relative;
-  transition: .7s;
-  transform-style: preserve-3d;
 }
 .list-warp .detail {
   position: absolute;
@@ -15,12 +13,7 @@
   transition: .5s;
   width: 34rpx;
 }
-.list-warp .detail image {
-  display: none;
-  height: 34rpx;
-  width: 34rpx;
-}
-.list-warp.select {
+.list-warp.select .my-coupon-list {
   transform: rotateY(180deg);
 }
 .list-warp.select .detail {
@@ -33,6 +26,8 @@
   color: #eabd71;
   height: 342rpx;
   margin: 0 32rpx 28rpx 32rpx;
+  transition: .7s;
+  transform-style: preserve-3d;
 }
 .my-coupon-list .after {
   position: absolute;

@@ -185,7 +185,11 @@ Page({
     cardToBack(e) {
         let index = e.target.dataset.index || e.currentTarget.dataset.index
         let list = this.data.list
-        list[index].class = 'list-warp select'
+        if ( list[index].class.indexOf('select') > -1 ) {
+            list[index].class = 'list-warp'
+        } else {
+            list[index].class = 'list-warp select'
+        }
         this.setData({
             list: list
         })
@@ -193,7 +197,11 @@ Page({
     cardToFront(e) {
         let index = e.target.dataset.index || e.currentTarget.dataset.index
         let list = this.data.list
-        list[index].class = 'list-warp'
+        if ( list[index].class.indexOf('select') > -1 ) {
+            list[index].class = 'list-warp'
+        } else {
+            list[index].class = 'list-warp select'
+        }
         this.setData({
             list: list
         })
