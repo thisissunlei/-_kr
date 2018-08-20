@@ -14,8 +14,8 @@
           style="margin-bottom: {{couponTabType == 'SHARE' && !!item.wechatAvatar && !!item.wechatNick?'112':'28'}}rpx;">
         <template is="myCoupon" data="{{item: item, index: index, state: 'changes', tab: couponTabType, changeShow: changeShow}}"></template>
         <view class="detail" bindtap="cardToBack" data-index="{{index}}">
-            <image src="../images/coupon/help-icon.png" mode="scaleToFill" wx:if="{{!!item.usable}}"></image>
-            <image src="../images/coupon/help-fail.png" mode="scaleToFill" wx:else></image>
+            <!--<image src="../images/coupon/help-icon.png" mode="scaleToFill" wx:if="{{!!item.usable}}"></image>-->
+            <!--<image src="../images/coupon/help-fail.png" mode="scaleToFill" wx:else></image>-->
         </view>
     </view>
 </view>
