@@ -15,7 +15,7 @@ const formatNumber = n => {
 }
 
 const phone = n =>{
-  let phoneTest = /^1[3|4|5|6|7|8][0-9]{9}$/;
+  let phoneTest = /^1[0-9]{10}$/;
   let value = phoneTest.test(n);
   return value;
 }
