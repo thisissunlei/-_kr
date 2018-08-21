@@ -49,7 +49,7 @@ Page({
     detailInfo:{},
     orderDate:{},
     meeting_time:{},
-    isFirst:true,
+    isFirst:false,
     errorMessage:'',
     checkMessage:false,
     dialogDate:false,
@@ -65,7 +65,10 @@ Page({
     date_data2:[],
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
-    ifFirst:false,
+    couponCount:0,
+    saleStatus:'none',
+    saleContent:{},
+    reducePrice:0,
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -75,6 +78,7 @@ Page({
   selectedTime:[],
   isSubTime:false,
   ifFixed:false,
+  
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -180,10 +184,6 @@ Page({
        
       })
       
-
-      
-
-     
       
 
 
@@ -341,7 +341,10 @@ Page({
       key:"meeting_time",
       data:{}
     })
-    
+    wx.setStorage({
+      key:"meeting_order_sale",
+      data:{}
+    })
     
   },
   closeDialog:function(){
@@ -412,7 +415,6 @@ Page({
   },
   jumpSetRemind:function() {
     let data=this.data;
-    console.log('alertTime----',data.alertTime)
     wx.navigateTo({
       url: '../warn/warn?type=storage&alertTime='+data.alertTime
     })
@@ -518,8 +520,13 @@ Page({
     if(this.data.selectedTime.length>0){
       wx.setStorageSync('meeting_time',this.data.meeting_time);
       this.getPrice();
+      this.getIsfirst(this.data.meeting_time);
       this.closeDialogTime();
-     
+      wx.setStorage({
+        key:"meeting_order_sale",
+        data:{}
+      })
+
     }
     
   },
@@ -530,32 +537,24 @@ Page({
     let unitCost=data.detailInfo.unitCost;
     let totalCount=unitCost*hours*2;
     let priceCount=price*hours*2;
-   
-    if(data.ifFirst){
-      if(hours>2){
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:false
-        })
-      }else if(hours>0 && hours<=2){
+ 
+    if((data.isFirst && data.saleStatus=='new') || (data.isFirst && data.saleStatus=='none')){
         this.setData({
           totalCount:totalCount,
           priceCount:1,
-          isFirst:true
         })
-      }else{
-        this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:true
-        })
-      }
     }else {
+      if(data.saleStatus=='chosen'){
+        if(priceCount-data.reducePrice>0){
+          priceCount=(priceCount*100-data.reducePrice*100)/100
+        }else{
+          priceCount=0;
+        }
+       
+      }
         this.setData({
-          totalCount:totalCount,
-          priceCount:priceCount,
-          isFirst:false
+          totalCount:totalCount || 0,
+          priceCount:priceCount || 0,
         })
     }
    
@@ -577,6 +576,36 @@ Page({
         }
       }
     })
+    
+    //礼品券数据
+   
+    if(Object.keys(this.data.meeting_time).length != 0){
+        wx.getStorage({
+          key: 'meeting_order_sale',
+          success: function (res) {
+            let saleStatus="";
+            if(res.data.sale){
+              saleStatus = 'chosen';
+            }else{
+              
+              _this.getIsfirst(_this.data.meeting_time);
+            }
+            let data=_this.data;
+           
+            _this.setData({
+              saleStatus:saleStatus,
+              saleContent:res.data,
+              reducePrice:res.data.reduce || 0,
+            })
+            if(res.data.reduce){
+              _this.getPrice();
+            }
+           
+            
+          }
+        })
+    }
+   
   },
   bool:true,
   //前一天  后一天
@@ -651,8 +680,7 @@ Page({
     }
   },
   onLoad: function (options) {
-    // var rangeTime = wx.getStorageSync('rangeTime');
-    this.getIsfirst();
+   
     this.getPhone();
     var _this=this;
     if(options.from=='list'){
@@ -823,21 +851,48 @@ Page({
       url: '../guide/guide'
     })
   },
-  getIsfirst:function(){
+  getIsfirst:function(meetingTime){
+    let data=this.data;
+    let meetingRoomId=data.detailInfo.meetingRoomId;
       app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/isFirstOrder',
+        url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
         methods:"GET",
         header:{
           'content-type':"appication/json"
         },
+        data:{
+          meetingRoomId:meetingRoomId,
+          beginTime:meetingTime.beginTime,
+          endTime:meetingTime.endTime,
+        },
         success:(res)=>{
-          this.setData({
-            ifFirst:res.data.data.first,
-            isFirst:res.data.data.first
-          })
+          let data=res.data.data; 
+          this.checkStatus(data);
         }
     })
   },
+  //校验优惠券状态
+  checkStatus(data){
+    let saleStatus = '';
+    if(data.first){
+      saleStatus = 'new';
+    }else{
+      if(data.couponCount>0){
+        saleStatus = 'none'
+      }else{
+        saleStatus = 'nothing'
+        
+      }
+    }
+    this.setData({
+      saleStatus:saleStatus,
+      saleContent:{sale:false},
+      isFirst:data.first,
+      couponCount:data.couponCount,
+    })
+    this.getPrice();
+  },
+
   closeDialogTime:function(){
     var that = this;
     if(!that.data.dialogTimeShow){
@@ -976,7 +1031,11 @@ Page({
       linkPhone:data.order_pay.linkPhone || data.linkPhone,
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName,
-      referrerPhone:data.order_pay.recommendedPhone || ''
+      referrerPhone:data.order_pay.recommendedPhone || '',
+      
+    }
+    if(data.saleContent.couponId){
+      orderData.couponId=data.saleContent.couponId;
     }
     wx.showLoading({
       title: '加载中',
@@ -992,12 +1051,9 @@ Page({
             'content-type':"appication/json"
           },
           data:orderData,
-          
           success:(res)=>{
             let code=res.data.code;
-            setTimeout(function(){
-              wx.hideLoading();
-            },1500)
+            wx.hideLoading();
             switch (code){
               case -1:
                   this.setData({
@@ -1041,9 +1097,25 @@ Page({
                     })
                   },2000)
               break;
+              case -4:
+                this.setData({
+                  dialogShow:false,
+                  checkMessage:true,
+                  errorMessage:res.data.message,
+                  saleStatus:'none',
+                })
+                setTimeout(function(){
+                  _this.setData({
+                    checkMessage:false,
+                    errorMessage:'',
+                    saleContent:{sale:false}
+                  })
+                  _this.getPrice();
+                },2000)
+              
+              break;
               default:
                 wx.reportAnalytics('confirmorder')
-
                 _this.weChatPay(res.data.data);
                 _this.closeDialog();
                   wx.setStorage({
@@ -1076,10 +1148,15 @@ Page({
             title: '加载中',
             mask:true
           })
+          wx.setStorage({
+            key:"meeting_order_sale",
+            data:{}
+          })
           setTimeout(function(){
             _this.getInviteeId(data.orderId);
             wx.hideLoading();
           },1500)
+         
          
       },
       'fail':function(response){
@@ -1175,6 +1252,24 @@ Page({
           
         }
       })
+  },
+  jumpSelectSale(){
+   let meetingTime=this.data.meeting_time;
+   let meetingRoomId=this.data.detailInfo.meetingRoomId;
+    wx.setStorage({
+      key:"meeting_sale",
+      data:{
+        meetingRoomId:meetingRoomId,
+        beginTime:meetingTime.beginTime,
+        endTime:meetingTime.endTime,
+      },
+      success:function(){
+        wx.navigateTo({
+          url: '../saleList/saleList?from=meeting'
+        })
+      }
+    })
+   
   },
   
 })

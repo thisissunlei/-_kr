@@ -1,6 +1,6 @@
 //index.js
 //获取应用实例
-import CAlculagraph from "../../utils/time.js" ;
+import {CAlculagraph} from "../../utils/time.js" ;
 
 const app = getApp()
 
@@ -32,6 +32,7 @@ Page({
     ifFixed:false,
    
   },
+  time_cal:"",
   scrollTopEvent(e){
     let top=e.detail.scrollTop;
     console.log('top------',top)
@@ -217,6 +218,8 @@ Page({
   },
   onUnload:function(){
     if(this.data.con==1){
+      console.log(2222)
+      this.time_cal.closeCal();
       wx.reLaunch({
         url: '../index/index'
       })
@@ -295,11 +298,12 @@ Page({
       })
   },
   startcountDate:function(date){
-    const time = CAlculagraph.CAlculagraph();
+    //const time = CAlculagraph.CAlculagraph();
     const that = this;
-    time.timerMint({
+    this.time_cal = new CAlculagraph({
       deadline:date/1000,//最终结束的时间戳,
       callback:function (){
+        console.log(3333)
        that.date()
       },//时间结束
       that:this
@@ -307,6 +311,7 @@ Page({
   },
   //判断时间
   date:function(){
+    console.log(7777)
     let timestamp=new Date().getTime();
     if(timestamp>this.data.detailInfo.expiredTime){
       console.log(this.data.titleObj)

@@ -1,0 +1,221 @@
+@import "../coupon/coupon.less";
+/* tab */
+.couponTab {
+  position: relative;
+  border-bottom: 1px #f3f3f3 solid;
+  margin-bottom: 30rpx;
+}
+.couponTab .tab {
+  color: #333333;
+  display: inline-block;
+  font-size: 30rpx;
+  padding-bottom: 12rpx;
+  text-align: center;
+  width: 25%;
+}
+.couponTab .line {
+  position: absolute;
+  bottom: 0;
+  height: 4rpx;
+  transition:all .3s;
+  width: 25%;
+}
+.couponTab .line text {
+  position: absolute;
+  bottom: 0;
+  left: -20rpx;
+  margin-left: 50%;
+  background: #333333;
+  border-radius: 8rpx;
+  height: 4rpx;
+  width: 40rpx;
+}
+
+
+
+
+
+
+
+
+/* usable btn */
+.usable {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 100rpx;
+  padding: 38rpx 42rpx 100rpx;
+  transform: perspective(1000);
+  -moz-transform: perspective(1000);
+  -o-transform: perspective(1000);
+  -webkit-transform: perspective(1000);
+}
+.usable-btn {
+  background: #ECCA6F;
+  border-radius: 200rpx;
+  color: #624D17;
+  font-size: 36rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin: 0 auto;
+  text-align: center;
+  width: 400rpx;
+}
+.usable-btn-warp {
+  overflow: hidden;
+}
+.usable-btn-warp view,
+.usable-btn-warp button {
+  background: #ECCA6F;
+  border-radius: 200rpx;
+  box-sizing: border-box;
+  font-size: 36rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  width: 320rpx;
+}
+.usable-btn-warp view.left {
+  background: #FFFFFF;
+  border: 1px solid #624D17;
+  border-radius: 200rpx;
+  float: left;
+}
+.usable-btn-warp button.right,
+.usable-btn-warp view.right {
+  float: right;
+}
+
+/* 领取人 */
+.receive {
+  position: absolute;
+  left: 32rpx;
+  bottom: -86rpx;
+  height: 48rpx;
+  border: 1px solid #DFDFDF;
+  border-radius: 16rpx;
+  display: inline-block;
+  padding: 12rpx 20rpx;
+}
+.receive .tx {
+  border: 1px solid #CBCBCB;
+  border-radius: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 48rpx;
+  margin-right: 12rpx;
+  vertical-align: top;
+  width: 48rpx;
+}
+.receive text {
+  display: inline-block;
+  font-size: 28rpx;
+  color: #333333;
+  letter-spacing: 0;
+  height: 48rpx;
+  line-height: 48rpx;
+  vertical-align: top;
+}
+.receive .jiao {
+  position: absolute;
+  top: -5rpx;
+  left: 37rpx;
+  background: #ffffff;
+  border-top: 1px #dfdfdf solid;
+  border-left: 1px #dfdfdf solid;
+  height: 10rpx;
+  transform: rotate(45deg);
+  width: 10rpx;
+}
+
+  /* 空提示 */
+.my-meeting-list-none{
+  background-color: #fff;
+}
+.content-none{
+  text-align: center;
+  background-color: #fff;
+  padding-top:200rpx;
+}
+.none-img{
+  width:348rpx;
+  height: 318rpx;
+  display: block;
+  margin:auto;
+  margin-bottom: 30rpx;
+}
+.warn{
+  font-size: 30rpx;
+  color:#666;
+}
+
+/* 确认分享 */
+.shareM {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+  background: rgba(0,0,0,0.70);
+}
+.shareM-warp {
+  display: inline-table;
+  height: 100%;
+  width: 100%;
+}
+.shareM-warp-tb {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+.shareM-con {
+  background: #ffffff;
+  border-radius: 16rpx;
+  margin: 0 96rpx;
+}
+.shareM-con .text {
+  border-bottom: 1px #e5e5e5 solid;
+  color: #888888;
+  font-size: 30rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  padding: 68rpx 0;
+  text-align: center;
+}
+.shareM-con .btn {
+  overflow: hidden;
+}
+.shareM-con .btn .left,
+.shareM-con .btn .right {
+  box-sizing: border-box;
+  font-size: 34rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  width: 50%;
+}
+.shareM-con .btn .left {
+  border-right: 1px #e5e5e5 solid;
+  color: #000000;
+  float: left;
+}
+.shareM-con .btn .right {
+  background-color: transparent;
+  border: none;
+  color: #f5a623;
+  float: right;
+}
+.shareM-con .btn .right:after,
+.shareM-con .btn .right:before {
+  display: none;
+}
+
+
+
+
+
+
+

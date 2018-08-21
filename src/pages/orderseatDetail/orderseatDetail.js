@@ -1,4 +1,4 @@
-import CAlculagraph from "../../utils/time.js";
+import {CAlculagraph} from "../../utils/time.js";
 const app = getApp()
 
 
@@ -49,22 +49,7 @@ Page({
   },
   choose_date: '',
   orderId: '',
-
-  getFirst(){
-   
-    app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
-      method: "GET",
-      success: (res) => {
-        // console.log(res.data.data.first,222)
-      this.setData({
-        isFirst:res.data.data.first
-      })
-
-      },
-   
-    })
-  },
+  time_cal:"",
   //立即支付
   payOrder: function () {
 
@@ -256,8 +241,9 @@ Page({
 
 
   onUnload: function () {
-    // console.log(this.url_con,6666)
+     console.log(this.data.con,6666)
     if (this.data.con == 1) {
+      this.time_cal.closeCal();
       wx.reLaunch({
         url: '../index/index'
       })
@@ -356,7 +342,6 @@ Page({
   bool: true,
   onLoad: function (options) {
 
-    this.getFirst()
     // console.log(options)
     if (options.con) {
       this.setData({
@@ -508,7 +493,6 @@ Page({
         })
         // console.log(this.orderId,this.data.alertTime,777777)
         let data = res.data.data;
-        // let isFirst = data.first
 
         let titleObj = {
           'OBLIGATION': '待支付订单',
@@ -518,9 +502,7 @@ Page({
         }
         this.setData({
           titleObj: titleObj,
-          // isFirst: isFirst
         })
-        // console.log(isFirst)
         let payTitleObj = {
           'OBLIGATION': '应付款',
           'TOBEUSED': '实付款',
@@ -595,11 +577,13 @@ Page({
 
 
   startcountDate: function (date) {
-    const time = CAlculagraph.CAlculagraph();
+    console.log(CAlculagraph,11111)
+    //this.time_cal = CAlculagraph.CAlculagraph();
     const that = this;
-    time.timerMint({
+    this.time_cal = new CAlculagraph({
       deadline: date / 1000, //最终结束的时间戳,
       callback: function () {
+        console.log(222233)
         that.date()
       }, //时间结束
       that: this
@@ -607,6 +591,7 @@ Page({
   },
   //判断时间
   date: function () {
+    console.log(7777)
     let timestamp = new Date().getTime();
     if (timestamp > this.data.detailInfo.expiredTime) {
       wx.setNavigationBarTitle({

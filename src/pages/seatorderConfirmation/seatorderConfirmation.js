@@ -11,10 +11,9 @@ Page({
     endTime:"",
     price_y:0,
     price_all:0,
-    new_arrup:[],
+    salePrice:0,
     orderId:"",
     seatId:"",
-    timeweekArr:{},
     carendarArr:[],
     daynum:"",
     sankeNum:1,
@@ -51,15 +50,11 @@ Page({
     detailInfo: {}, //初始化遍历对象
     orderDate: {},
     meeting_time: {},
-    // isFirst: true,
     errorMessage: '',
     checkMessage: false,
     dialogDate: false, //判断门板是否显示
-    nowDateIndex: wx.getStorageSync('nowDateIndex'),
-    topDate: wx.getStorageSync('topDate'),
- 
-    
-    ifFirst: false,
+    nowDateIndex: wx.getStorageSync('nowDateIndex'),//貌似无用
+    topDate: wx.getStorageSync('topDate'),//貌似无用
 
     // 日历
     
@@ -72,6 +67,9 @@ Page({
     final_num : 1,
     show_a:false,
     selecedList:[],
+    //当前礼品券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
+    saleStatus:'nothing',
+    saleContent:{},//优惠详情
   },
 
   nowDate: '',
@@ -81,6 +79,7 @@ Page({
   isSubTime: false,
   ifFixed: false,
   combination_new:[],
+  isFirst:false,
 
   // 日历
   all_day_num:0,
@@ -304,28 +303,53 @@ Page({
       }
     })
   },
-  // 用户状态
-  getFirst(){
-   
+  // 获取优惠信息和新人判断
+  getSaleContent(number){
+    let that = this;
     app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/isFirstOrder',
+      url: app.globalData.KrUrl + 'api/gateway/krcoupon/seat/is-first-order',
+      data:{
+        quantity:number,
+        seatGoodIds:that.seatGoodIds
+      },
       method: "GET",
       success: (res) => {
-        // console.log(res.data.data.first,222)
-      this.setData({
-        isFirst:res.data.data.first
-      })
+        let code = res.data.code;
+        let data = res.data.data;
+        if(code>0){
+          that.checkStatus(data)
+        }
 
       },
    
     })
   },
+  checkStatus(data){
+    let saleStatus = ''
+    // new：新人；chosen：已选，nothing:暂无可用；none:未选择）
+    if(data.first){
+      //符合新人下单
+      saleStatus = 'new';
+    }else{
+      if(!data.couponCount){
+        //无可用优惠
+        saleStatus = 'nothing'
+      }else{
+        saleStatus = 'none'
+      }
+    }
+    this.saleLength=data.couponCount
+    this.isFirst = data.first;
+    this.setData({
+      saleStatus:saleStatus,
+      saleContent:{sale:false},
+      saleLength:data.couponCount
+    })
+  },
 
   dateBtn : function (e){
       let evlue = this.james.dateBtn(e);
-      console.log('dateBtn',this.james.getValue())
       let selecedList = this.james.getValue()
-      //console.log(this.date_data1)
         this.setData({
           date_data1:this.date_data1,
           date_data2:this.date_data2, 
@@ -333,17 +357,12 @@ Page({
         });
      
   },
-  diantrue(){
+  confirmBooking(){
     var that = this;
     let selecedList = this.data.selecedList
-    console.log('=======',selecedList)
-
     if(!selecedList.length){
       selecedList = this.james.getValue()
     }
-    
-     
-    console.log('=======',selecedList)
     selecedList = selecedList.map((item,index)=>{
       if(item.alldata){
         item.alldata.number = that.data.final_num
@@ -371,11 +390,7 @@ Page({
     let that = this;
 
     const today_date = new Date(init_date);
-    //const today = today_date.getDate();
-
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
-
-
     let init_month = today_month.getTime()
     app.getRequest({
       url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
@@ -388,7 +403,6 @@ Page({
         const first_month = new Date(first.getFullYear(),first.getMonth(),1).getTime();
         let last_data = init_month == first_month?'date_data1':'date_data2'
         that.james = new dateDataPrice({
-          //btn_bool:true,
           data: res.data.data,
           init_data: {
             last_btn_num: init_date, //日期
@@ -437,9 +451,6 @@ Page({
 
   // 页面加载
   onLoad: function (options) {
-    
-
-    this.show_true = options.show_true;
     this.nowDate = wx.getStorageSync('nowDate');
     this.setData({
       orderId:options.goodsId,
@@ -447,10 +458,7 @@ Page({
       
     })
     // 日历
-    console.log('this.nowDate',this.nowDate)
-
      const today_date = new Date();
-    
      const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
      const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
     this.dealDate(this.nowDate);
@@ -469,16 +477,9 @@ Page({
         choose:''
       }
     });
-
-
-
-
-    
-    this.getFirst()
-    this.getMeetId()
-
-    
-    this.getPhone();
+    // this.getFirst();//判断新人
+    this.getMeetId();//获取详情id
+    this.getPhone();//获取联系方式
 
     var _this = this;
 
@@ -486,7 +487,6 @@ Page({
       wx.getStorage({
         key: 'detail-c',
         success: function (res) {
-         
           if (res.data) {
             _this.setData({
               detailInfo: res.data //当前散座的一系列数据
@@ -532,33 +532,23 @@ Page({
     let price_all = 0;
     let price_y = 0;
     let number = 1;
+    wx.setStorageSync("seat_order_sale", {sale:false})
+
     if(carendar){
       carendar.map(item=>{
         number = item.number;
         price_all = Number(price_all) + Number(item.seat.promotionCost*item.number);
-        // console.log(typeof price_all)
-        price_all =  price_all.toFixed(2);
+        price_all =  parseInt(price_all);
         price_y  = Number(price_y) + Number(item.seat.unitCost*item.number);
-        price_y  = price_y.toFixed(2)
+        price_y  = parseInt(price_y);
          item.month=getzf(item.month) 
          item.value=getzf(item.value)
          item.seat.weeks =this.getWeek(item.seat.useTime)
          item.seat.dates = item.seat.useTimeDescr.slice(0,5);
-        if(item.value=="今天"){
-          item.month=getzf(parseInt(new Date().getMonth()+1))
-          item.value=getzf(parseInt(new Date().getDate()))
-          // item.zhou="今     天"
-        }
-        if(item.value=="明天"){
-          item.month=getzf(parseInt(new Date().getMonth()+1))
-          item.value=getzf(parseInt(new Date().getDate())+1)
-          // item.zhou="明     天"
-        }
-        console.log(item)
         return item
       }) 
+      this.getSaleContent(number);
       
-      // console.log(price_all,price_y,9999999)
       this.setData({
         sankeNum: number ,
         daynum: carendar.length,
@@ -567,6 +557,23 @@ Page({
         price_y:price_y
       })
     }
+  },
+  jumpSetSale(){
+    let data = {
+      seatGoodIds:this.seatGoodIds,
+      quantity:this.data.sankeNum
+    }
+    wx.setStorage({
+      key: 'seat-sale',
+      data: data,
+      success: function(res){
+        wx.navigateTo({
+          url: '../saleList/saleList?from=seat'
+        })
+      }
+    })
+    
+
   },
   getWeek(init){
     var mydate=new Date(init); 
@@ -595,9 +602,10 @@ Page({
     
   },
   onShow: function () {
+    let saleStatus = this.data.saleStatus;
     var _this = this;
     this.getMeetId()
-
+    let salePrice = this.data.price_all;
     wx.getStorage({
       key: 'order_pay',
       success: function (res) {
@@ -612,167 +620,230 @@ Page({
         }
       }
     })
+    if(!this.saleLength){
+      saleStatus = 'nothing';
+    }else{
+      saleStatus = 'none';
+    }
+    wx.getStorage({
+      key: 'seat_order_sale',
+      success: function (res) {
+        if(res.data.sale){
+          saleStatus = 'chosen';
+          salePrice = parseInt(salePrice-res.data.reduce)
+          if(salePrice<=0){
+            salePrice = 0
+          }
+        }else{
+          if(_this.isFirst){
+            saleStatus = 'new';
+          }else{
+            saleStatus = saleStatus
+          }
+        }
+        _this.setData({
+          saleStatus:saleStatus,
+          saleContent:res.data,
+          salePrice:salePrice
+        })
+      }
+    })
   },
   onUnload: function () {
-      
       this.setData({
         carendarArr:{}
       })
   },
  // 去支付
- createOrder: function () {
-  this.setData({
-    dialogShow: !this.data.dialogShow,
-  })
+  createOrder: function () {
+    this.setData({
+      dialogShow: !this.data.dialogShow,
+    })
 
-  let data = this.data;
-  let that = this;
-  let orderData = {
+    let data = this.data;
+    let that = this;
+    let orderData = {
 
-    alertTime: data.alertTime,
-    linkPhone: data.order_pay.linkPhone || data.linkPhone,
-    arrivingTime: data.time,
-    quantity: data.sankeNum,
-    seatGoodIds: that.seatGoodIds,
+      alertTime: data.alertTime,
+      linkPhone: data.order_pay.linkPhone || data.linkPhone,
+      arrivingTime: data.time,
+      quantity: data.sankeNum,
+      seatGoodIds: that.seatGoodIds,
 
-  }
-
-
-    wx.setStorageSync("myorder", orderData)
-
-  wx.showLoading({
-    title: '加载中',
-    mask: true
-  })
-
-  var _this = this;
-  app.getRequest({
-    // 散座下单
-    url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
-    methods: "GET",
-    header: {
-      'content-type': "appication/json"
-    },
-    data: orderData,
-
-    success: (res) => {
-
-      if (!wx.getStorageSync("order-info")) {
-        let orderArr = []
-        orderArr.push(res.data.data)
-        wx.setStorageSync("order-info", orderArr)
-      } else {
-        let orderseat = wx.getStorageSync("order-info")
-        orderseat.push(res.data.data)
-        wx.setStorageSync("order-info", orderseat)
-      }
+    }
+    if(data.saleContent.couponId){
+      orderData.couponId = data.saleContent.couponId;
+    }
 
 
+      wx.setStorageSync("myorder", orderData)
+
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
 
 
+    var _this = this;
+    app.getRequest({
+      // 散座下单
+      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+      methods: "GET",
+      header: {
+        'content-type': "appication/json"
+      },
+      data: orderData,
 
-      wx.setStorageSync("order", res.data.data)
-      let code = res.data.code;
-      setTimeout(function () {
-        wx.hideLoading();
-      }, 1500)
-      switch (code) {
-        case -1:
-          this.setData({
-            checkMessage: true,
-            errorMessage: res.data.message
-          })
-          setTimeout(function () {
-            _this.setData({
-              checkMessage: false,
-              errorMessage: ''
+      success: (res) => {
+        // 不确定这里存的数据有什么用（马）
+        if (!wx.getStorageSync("order-info")) {
+          let orderArr = []
+          orderArr.push(res.data.data)
+          wx.setStorageSync("order-info", orderArr)
+        } else {
+          let orderseat = wx.getStorageSync("order-info")
+          orderseat.push(res.data.data)
+          wx.setStorageSync("order-info", orderseat)
+        }
+
+
+        wx.setStorageSync("order", res.data.data)
+        let code = res.data.code;
+        setTimeout(function () {
+          wx.hideLoading();
+        }, 1500)
+        switch (code) {
+          case -1:
+            this.setData({
+              checkMessage: true,
+              errorMessage: res.data.message
             })
-          }, 2000)
-          break;
-        case -2:
-          wx.setStorage({
-            key: "create_order",
-            data: {
-              create_order: orderData
-            },
-          })
-          wx.navigateTo({
-            url: '../bindPhone/bindPhone?from=seat'
-          })
-          break;
-        case -3:
-          this.setData({
-            checkMessage: true,
-            errorMessage: res.data.message,
-            selectedTime: [],
-            meeting_time: {
-              time: '',
-              beginTime: '',
-              endTime: '',
-              hours: 0,
-            }
-          })
-          setTimeout(function () {
-            _this.setData({
-              checkMessage: false,
-              errorMessage: ''
+            setTimeout(function () {
+              _this.setData({
+                checkMessage: false,
+                errorMessage: ''
+              })
+            }, 2000)
+            break;
+          case -2:
+            // 用户未绑定手机号
+            wx.setStorage({
+              key: "create_order",
+              data: {
+                create_order: orderData
+              },
             })
-          }, 2000)
-          break;
-        default:
-          // wx.reportAnalytics('confirmorder')
+            wx.navigateTo({
+              url: '../bindPhone/bindPhone?from=seat'
+            })
+            break;
+          case -4:
+            //优惠券失效
+            //1.消除提示窗，显示优惠不可用的错误提示
+            setTimeout(function(){
+              that.setData({
+                dialogShow:false,
+                showError:false,
+                errorMessage:res.data.message,
+                saleStatus:'none',
+              })
+            },1500);
+            setTimeout(function(){
+              that.setData({
+                showError:true,
+                errorMessage:'',
+                saleContent:{sale:false}
+              },function(){
+                // 2.清除已选优惠，重新初始化优惠内容
+                let number = that.data.sankeNum;
 
-          wx.requestPayment({
-            'nonceStr': res.data.data.noncestr,
-            'orderId': res.data.data.orderId,
-            'package': res.data.data.packages,
-            'paySign': res.data.data.paySign,
-            'signType': res.data.data.signType,
-            'timeStamp': res.data.data.timestamp,
+                that.getSaleContent(number);
+              })
+            },2000)
 
-
-            'success': function (response) {
+            break;
+          case 2:
+            // 使用优惠券后，价格为0
               wx.showLoading({
                 title: '加载中',
                 mask: true
               })
               setTimeout(function () {
-                // _this.getInviteeId(res.data.data.orderId);
                 wx.navigateTo({
                   url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
                 })
                 wx.hideLoading();
-              }, 1500)
+              }, 500)
+            break;
+          case 1:
+            // 订单创建成功，清除优惠选择数据
+            wx.setStorageSync("seat_order_sale", {sale:false})
 
-            },
-            'fail': function (response) {
+            wx.requestPayment({
+              'nonceStr': res.data.data.noncestr,
+              'orderId': res.data.data.orderId,
+              'package': res.data.data.packages,
+              'paySign': res.data.data.paySign,
+              'signType': res.data.data.signType,
+              'timeStamp': res.data.data.timestamp,
 
-              wx.showLoading({
-                title: '加载中',
-                mask: true
+
+              'success': function (response) {
+                wx.showLoading({
+                  title: '加载中',
+                  mask: true
+                })
+                setTimeout(function () {
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                  })
+                  wx.hideLoading();
+                }, 1500)
+
+              },
+              'fail': function (response) {
+
+                wx.showLoading({
+                  title: '加载中',
+                  mask: true
+                })
+                setTimeout(function () {
+                  wx.hideLoading();
+                  wx.navigateTo({
+                    url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                  })
+                }, 1500)
+
+              },
+
+            })
+            break;
+          default:
+            // wx.reportAnalytics('confirmorder')
+            this.setData({
+              checkMessage: true,
+              errorMessage: res.data.message,
+              selectedTime: [],
+              meeting_time: {
+                time: '',
+                beginTime: '',
+                endTime: '',
+                hours: 0,
+              }
+            })
+            setTimeout(function () {
+              _this.setData({
+                checkMessage: false,
+                errorMessage: ''
               })
-              setTimeout(function () {
-                wx.hideLoading();
-                wx.navigateTo({
-                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
-                })
-              }, 1500)
+            }, 2000)
+            break;
+        }
 
-            },
+      },
 
-          })
-          break;
-      }
-
-    },
-
-  })
-  // 日历
-
-  
-
-
-},
+    })
+  },
   
 
 })

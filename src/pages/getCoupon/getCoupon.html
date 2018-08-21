@@ -1,0 +1,35 @@
+<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
+<view class="coupon" wx:if="{{showPage}}">
+    <view class="coupon-top">
+        <view class="coupon-avatar">
+            <image src="{{donatorAvatar}}"></image>
+        </view>
+        <text class="coupon-name">{{donatorThirdNick}}</text>
+        <text>赠送给你：</text>
+    </view>
+    <view class="coupon-hint" wx:if="{{showHint}}">领取成功的礼品券已放入小主自由座账户中</view>
+    <view class="coupon-content">
+        <view class="coupon-list" wx:for="{{couponList}}" wx:key>
+            <!-- <view class="mb" wx:if="{{item.couponStatus != 'NOTGET'}}"></view> -->
+            <image class="coupon-background" wx:if="{{item.couponStatus == 'NOTGET'}}" src="../images/coupon/background1.jpg"></image>
+            <image class="coupon-background" wx:else src="../images/coupon/background2.jpg"></image>
+            <view class="coupon-content-top {{item.couponStatus != 'NOTGET'? 'color':''}}">
+                <text>¥</text>
+                <text>{{item.faceValue}}</text>
+            </view>
+            <view class="coupon-content-center {{item.couponStatus != 'NOTGET'? 'color':''}}">{{item.couponName}}</view>
+            <view class="coupon-content-bottom">
+                <text class="{{item.couponStatus != 'NOTGET'? 'color':''}}">使用期限：{{item.couponValidTime}}</text>
+            </view>
+            <button class="getcoupon" wx:if="{{item.couponStatus=='NOTGET'}}" bindtap="getCoupon" data-id="{{item.couponId}}">立即领取</button>
+            <image class="coupon-status" wx:elif="{{item.couponStatus=='EXPIRED'}}" src="../images/coupon/seal-expired.png"></image>
+            <image class="coupon-status" wx:elif="{{item.couponStatus=='INVALID'}}" src="../images/coupon/seal-invalid.png"></image>
+            <image class="coupon-status" wx:elif="{{item.couponStatus=='BEGET'}}" src="../images/coupon/seal-beget.png"></image>
+            <image class="coupon-status" wx:else src="../images/coupon/seal-get.png"></image>
+        </view>
+    </view>
+    <button class="jump-index" bindtap="jumpIndex">
+        <text wx:if="{{buttonShow}}">了解自由座</text>
+        <text wx:else>立即使用</text>
+    </button>
+</view>

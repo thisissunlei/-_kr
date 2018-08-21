@@ -16,6 +16,7 @@ Page({
     number:0,
     tipShow:true,
     activityCount:0,
+    couponCount: 0
   },
   mysan(){
     wx.navigateTo({
@@ -38,6 +39,11 @@ Page({
       url: '../myOrder/myOrder?orderShowStatus='+status+'&con='+1
      })
   },
+    jumpMyCoupon() {
+        wx.navigateTo({
+            url: '../myCoupon/myCoupon'
+        })
+    },
   closeTip:function(){
     this.setData({
       tipShow:!this.data.tipShow
@@ -48,6 +54,7 @@ Page({
     this.getPhone();
     this.getCounts()
     this.getActivityCount();
+    this.getCouponCount()
     
   },
   getPhone:function(){
@@ -115,5 +122,19 @@ Page({
         }
     })
   },
+    getCouponCount() {
+        app.getRequest({
+            url:app.globalData.KrUrl+'api/gateway/krcoupon/user/count',
+            methods:"GET",
+            header:{
+                'content-type':"appication/json"
+            },
+            success:(res)=>{
+                this.setData({
+                    couponCount: res.data.data
+                })
+            }
+        })
+    }
  
 })

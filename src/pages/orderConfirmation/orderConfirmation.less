@@ -12,7 +12,6 @@ page{
 }
 .m-order-header{
     background:#fff;
-    margin-bottom:20rpx;
 }
 .u-order-detail{
     position: relative;
@@ -56,6 +55,7 @@ page{
     font-weight: 600;
     display: block;
     margin-bottom:4rpx;
+    margin-top: -10rpx;
 }
 .u-meet-address{
     width:380rpx;
@@ -71,7 +71,8 @@ page{
 }
 .u-meet-price{
     color: #151515; 
-    display: inline; 
+    display: inline;
+    font-weight: 600; 
 }
 .u-cancal-price{
     text-decoration:line-through;
@@ -79,7 +80,7 @@ page{
 .u-meet-num{
     font-size: 34rpx;
     color:#333333;
-    font-weight: 600;
+   
 
 }
 .u-meet-uint-info{
@@ -179,7 +180,7 @@ page{
    float: right;
 }
 .u-protocol{
-    height:200rpx;
+    height:194rpx;
     box-sizing: border-box;
     padding-top:24rpx;
 
@@ -191,6 +192,7 @@ page{
   left:0;
   bottom:0;
   width:100%;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.10);
 }
 .u-footer-left{
     width:430rpx;
@@ -217,31 +219,39 @@ page{
     margin-bottom:12rpx;
     padding-left:36rpx;
     box-sizing: border-box;
+    
 }
 .u-footer-tip{
     font-size: 24rpx;
     color: #FF6868; 
-    text-indent:-117rpx; 
+    text-indent:22rpx; 
 }
 .u-price-label{
     font-size: 28rpx;
     color:#666666;
     float:left;
-    margin-top:34rpx;
+    margin-top:16rpx;
+   
 }
 .u-price-unit{
     font-size: 28rpx;
     color:#FF6868;
     float:left;
-    margin-top:30rpx;
+    margin-top:20rpx;
     padding-right:6rpx;
+    font-weight: 600；
     
+}
+.u-sale-price-unit{
+    font-size: 28rpx;
+    color:#FF6868;
+    display: inline-block;
+
 }
 .u-price-num{
     font-size: 48rpx;
     color:#FF6868;
     float:left;
-    margin-top:16rpx;
     height:42rpx;
     font-weight: 600;
    
@@ -664,6 +674,7 @@ page{
     float:left;
     line-height: 112rpx;
     padding-right:6rpx;
+    font-weight: 600;
     
 }
 .u-no-first-price-num{
@@ -1007,4 +1018,75 @@ page{
     }
 
 
-  
+  .u-sale-info{
+      width:100%;
+      height:120rpx;
+      background: #fff;
+      position: relative;
+      margin-bottom:20rpx;
+      border-top:1px solid #F6F6F6;
+      padding:0 36rpx;
+      box-sizing: border-box;
+  }
+  .u-sale-title{
+    line-height:124rpx;
+    font-size: 32rpx;
+    color: #333333;
+    float:left;
+  }
+  .u-sale-info .u-meeting-btn-arrow{
+    right:36rpx
+  }
+  .u-sale-text{
+    text-align: right;
+    float: right;
+    padding-right:30rpx;
+  }
+  .u-no-sale-text{
+    width: 400rpx;
+    height:124rpx;
+    line-height:124rpx;
+    font-size: 32rpx;
+    color: #999999;
+ }
+ .u-no-use-sale{
+    height:40rpx;
+    line-height:40rpx;
+    min-width:116rpx;
+    font-size: 24rpx;
+    color: #FFFFFF;
+    background: #FF6868;
+    border-radius: 200rpx;
+    text-align: center;
+    padding:0;
+    margin-right:30rpx;
+    margin-top:42rpx;
+ }
+ .u-use-sale{
+    font-size: 38rpx;
+    color: #F5615B;
+    height:124rpx;
+    line-height:124rpx;
+ }
+ .u-use-sale-num{
+    height:38rpx;
+    line-height:38rpx;
+    min-width:116rpx;
+    font-size: 24rpx;
+    border: 1px solid #FF6868;
+    border-radius: 200rpx;
+    color: #F5615B;
+    background: #FFFFFF;
+    text-align: center;
+    padding:0;
+    float:left;
+    margin-left:12rpx;
+    margin-top:42rpx;
+ }
+ .u-first-sale-text{
+    width: 400rpx;
+    height:124rpx;
+    line-height:124rpx;
+    font-size: 32rpx;
+    color: #F5615B;
+ }

@@ -33,7 +33,6 @@ Page({
   },
   onLoad: function (options) {
     let that = this;
-    console.log('======>',options.from)
     if(options.from){
       this.setData({
         from:options.from
@@ -92,6 +91,7 @@ Page({
   },
   formSubmit(e){
     let that = this;
+  
       app.getRequest({
         url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
         methods:"GET",
@@ -226,6 +226,19 @@ Page({
                   
                 })
               },2000)
+            }else if(code === 2){
+            // 使用优惠券后，价格为0
+              wx.showLoading({
+                title: '加载中',
+                mask: true
+              })
+              setTimeout(function () {
+                wx.navigateTo({
+                  url: '../orderDetail/orderDetail?id=' + res.data.data.orderId + '&con=' + 1
+                })
+                wx.hideLoading();
+              }, 500)
+              
             }else{
               that.weChatPay(rsData)
               that.clearStorage()
@@ -277,7 +290,9 @@ Page({
                 })
 
                 setTimeout(function(){
-                  that.getInviteeId(id)
+                    wx.navigateTo({
+                        url: '../orderseatDetail/orderseatDetail?id=' + id + '&con=' + 1
+                    })
                 },2000)
                 
               },
@@ -479,7 +494,24 @@ Page({
 
                   
                 })
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                })
+
               },2000)
+            }else if(code === 2){
+            // 使用优惠券后，价格为0
+              wx.showLoading({
+                title: '加载中',
+                mask: true
+              })
+              setTimeout(function () {
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1                  
+                })
+                wx.hideLoading();
+              }, 500)
+              
             }else{
               that.weChatPay(rsData)
               that.clearStorage()
@@ -487,7 +519,9 @@ Page({
 
     },
     fail:(res)=>{
-      console.log('=======',res)
+      wx.navigateBack({
+        delta: 2
+      })
     }
 
   })

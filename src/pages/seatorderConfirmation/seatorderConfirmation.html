@@ -8,7 +8,7 @@
             </view>
 
             <view class="u-order-right">
-                <text class="u-meet-title">散座</text>
+                <text class="u-meet-title" style="margin-top:-5rpx">散座</text>
                 <text class="u-meet-address">{{meetingDetail.buildFloorDescr}} 氪空间</text>
                 <view class="u-meet-price-info">
 
@@ -40,7 +40,6 @@
             <view class="u-line"></view>
         </view>
         <!--隐藏 日期盒子 -->
-        <!-- <scroll-view scroll-y="true" style="height:200rpx"class="u-time-box" wx:if="{{sankeNum && daynum}}"> -->
         <view class="u-time-box" wx:if="{{sankeNum && daynum}}">
             <view class="box2">
             </view>
@@ -49,7 +48,7 @@
                     <view>{{item.seat.dates}}</view>
                     <view>({{item.seat.weeks}})</view>
                 </view>
-                <view class="u-meet-detail-price-info">
+                <view class="u-meet-detail-price-info" >
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{item.seat.promotionCost}}</view>
                     <view class="u-meet-old-num" wx:if="{{item.seat.unitCost!=item.seat.promotionCost}}">¥ {{item.seat.unitCost}}</view>
@@ -59,12 +58,39 @@
                     <span class="spannum">{{sankeNum}}</span> 个</view>
             </view>
         </view>
-    <!-- </scroll-view> -->
+        <!--礼品券选项 -->
+        <view class="u-meeting-sale" bindtap="jumpSetSale" wx:if="{{(daynum>0)&&(sankeNum>0)}}"> 
+            <view class="u-meeting-title sale-title">
+                礼品券
+            </view>
+            <view class="u-meet-text meet-theme red" wx:if="{{saleStatus==='new'}}">与新人专享优惠不可同享</view>
+             <view class="u-meet-text meet-theme" style="color:#999" wx:if="{{saleStatus==='nothing'}}">暂无可用</view>
+            <view class="u-meet-text meet-theme" wx:if="{{saleStatus==='chosen'}}" >
+                <view class="u-meet-choose sale-content">已选1张</view>
+                <view class="u-meet-money sale-content">
+                    <view class="u-sale-unit" style="vertical-align:top">
+                        -
+                    </view>
+                    <view class="u-sale-unit">
+                        ¥
+                    </view>
+                    <view style="display:inline-block">{{saleContent.amount}}</view>
+                </view>
+
+            </view>
+            <view class="u-meet-text meet-theme" wx:if="{{saleStatus==='none'}}" >
+                <view class=" sale-content sale-type-none">{{saleLength}}张可用</view>
+
+            </view>
+            <view class="u-btn-arrow u-meeting-btn-arrow" style="top:47rpx">
+                <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+            </view>
+
+        </view>
     </view>
 
 
     <view class="u-meeting-info">
-        <!-- 预计到场时间 -->
         <view class="u-meeting-theme" bindtap="jumpSetTheme">
             <view class="u-meeting-title">
                 预计到场时间
@@ -75,7 +101,6 @@
             </view>
             <picker mode="time" value="{{time}}" start="{{startTime}}" end="{{endTime}}" bindchange="bindTimeChange">
                 <view class="picker">
-                    <!-- {{time}} -->
                 </view>
             </picker>
         </view>
@@ -123,7 +148,7 @@
 
     
     <view class="u-footer">
-        <view class="u-footer-left" wx:if="{{isFirst&&(daynum==1)&&(sankeNum==1)}}">
+        <view class="u-footer-left" wx:if="{{saleStatus === 'new'}}">
             <view class="u-first-pay-price">
                 <view class="u-price-label">
                     应付：
@@ -136,7 +161,7 @@
                 </view>
             </view>
             <view class="u-footer-tips">
-                （新人专享）1天超值体验
+                (新人专享）1天超值体验
             </view>
         </view>
 
@@ -150,15 +175,18 @@
                 <view class="u-no-first-price-unit">
                     ¥
                 </view>
-                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
+                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&!saleContent.sale}}">
                     {{price_all}}
                 </view>
-                <view class="u-no-first-price-num" wx:else>
+                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&saleContent.sale}}">
+                    {{salePrice}}
+                </view>
+                <view class="u-no-first-price-num" wx:if="{{sankenum==0 || daynum==0}}">
                     0
                 </view>
-                <view class="u-old-no-first-price" wx:if="{{sankenum!=0&&daynum!=0&&price_all!=price_y}}">
+                <!-- <view class="u-old-no-first-price" wx:if="{{sankenum!=0&&daynum!=0&&price_all!=price_y}}">
                     ￥{{price_y}}
-                </view>
+                </view> -->
             </view>
         </view>
 
@@ -280,6 +308,6 @@
 
 <view class="wrapper" bindtap='heider' wx:if='{{show_a == false}}' data-wrapper='wrapper'>
     <template is="seat" data="{{date_data1,date_next,date_now,reduce_btn,add_btn,final_num,date_data2}}"/>
-    <view class="now-dibu" bindtap='diantrue'>确认预订</view>
+    <view class="now-dibu" bindtap='confirmBooking'>确认预订</view>
 
 </view>

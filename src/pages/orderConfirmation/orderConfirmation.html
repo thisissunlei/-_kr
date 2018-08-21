@@ -46,6 +46,19 @@
             <view class="u-line"></view>
         </view>
     </view>
+    <view class="u-sale-info" bindtap="jumpSelectSale" wx:if="{{meeting_time.hours>0}}">
+            <view class="u-sale-title">
+                礼品券
+            </view>
+             <view class="u-sale-text u-no-use-sale"  wx:if="{{saleStatus==='none' && !isFirst}}">{{couponCount}}张可用</view>
+            <view class="u-sale-text u-no-sale-text" wx:if="{{saleStatus=='nothing'}}">暂无可用</view>
+            <view class="u-use-sale-num" wx:if="{{saleStatus==='chosen'}}">已选1张</view>
+            <view class="u-sale-text u-use-sale" wx:if="{{saleStatus==='chosen'}}">-<view class="u-sale-price-unit">￥</view>{{reducePrice}}</view>
+            <view class="u-sale-text u-first-sale-text" wx:if="{{saleStatus=='new' || (saleStatus =='none' && isFirst)}}">与新人专享优惠不可同享</view>
+            <view class="u-btn-arrow u-meeting-btn-arrow">
+                    <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+            </view>
+    </view>
     <view class="u-meeting-info">
         <view class="u-meeting-theme" bindtap="jumpSetTheme">
             <view class="u-meeting-title">
@@ -95,7 +108,7 @@
         </view>
     </view>
     <view class="u-footer">
-        <view class="u-footer-left" wx:if="{{isFirst}}">
+        <view class="u-footer-left" wx:if="{{(saleStatus=='new' && isFirst) || (saleStatus =='none' && isFirst)}}">
             <view class="u-first-pay-price">
                 <view class="u-price-label">
                     应付：
@@ -106,15 +119,12 @@
                 <view class="u-price-num">
                     {{priceCount}}
                 </view>
-                <view class="u-old-price" wx:if="{{totalCount>0}}">
-                    ￥{{totalCount}}
-                </view>
             </view>
             <view class="u-footer-tip" wx:if="{{priceCount>0}}">
               （新人专享）2小时超值体验
             </view>
         </view>
-        <view class="u-footer-left" wx:if="{{!isFirst}}">
+        <view class="u-footer-left" wx:else>
             <view class="u-pay-price">
                 <view class="u-no-first-price-label">
                     应付：
@@ -124,9 +134,6 @@
                 </view>
                 <view class="u-no-first-price-num">
                     {{priceCount}}
-                </view>
-                <view class="u-old-no-first-price" wx:if="{{detailInfo.promotionCost!=detailInfo.unitCost && totalCount>0}}">
-                    ￥{{totalCount}}
                 </view>
             </view>
         </view>

@@ -1,0 +1,55 @@
+
+<import src="../coupon/coupon.wxml" />
+
+<view class="couponTab">
+    <view class="tab" bindtap="couponTab" data-number="0" data-type="USABLE">未使用<text></text></view>
+    <view class="tab" bindtap="couponTab" data-number="25%" data-type="USED">已使用<text></text></view>
+    <view class="tab" bindtap="couponTab" data-number="50%" data-type="OVERDATE">已过期<text></text></view>
+    <view class="tab" bindtap="couponTab" data-number="75%" data-type="SHARE">已转赠<text></text></view>
+    <view class="line"style="left:{{number}}"><text></text></view>
+</view>
+
+<view class="my-coupon" wx:if="{{list.length > 0 && !loading}}">
+    <view wx:for="{{list}}" wx:key="{{item.id}}" class="{{item.class}}"
+          style="margin-bottom: {{couponTabType == 'SHARE' && !!item.wechatAvatar && !!item.wechatNick?'112':'28'}}rpx;">
+        <template is="myCoupon" data="{{item: item, index: index, state: 'changes', tab: couponTabType, changeShow: changeShow}}"></template>
+        <view wx:if="{{couponTabType == 'SHARE' && (!!item.wechatAvatar || !!item.wechatNick)}}" class="receive">
+            <view class="jiao"></view>
+            <image mode="aspectFill" src="{{item.wechatAvatar}}" wx:if="{{!!item.wechatAvatar}}" class="tx"></image>
+            <text wx:if="{{!!item.wechatNick}}">{{item.wechatNick}} 已领取</text>
+        </view>
+        <view class="detail" bindtap="cardToBack" data-index="{{index}}"></view>
+    </view>
+</view>
+<view wx:if="{{list.length > 0 && !loading && couponTabType == 'USABLE'}}" style="height: 224rpx;"></view>
+<view wx:if="{{list.length > 0 && !loading && couponTabType == 'USABLE'}}" class="usable">
+    <view class="usable-btn" bindtap="changeCard" wx:if="{{!changeShow}}">转赠礼品券</view>
+    <view class="usable-btn-warp" wx:else>
+        <view class="left" bindtap="changeCardCancel">取消</view>
+        <view class="right" bindtap="getShareForwarding" wx:if="{{couponIds.length > 0}}"
+              style="background: #ECCA6F;color: #624D17">选好了</view>
+        <view class="right" wx:else style="background: #DFDFDF;color: #ffffff">选好了</view>
+    </view>
+</view>
+
+
+<view wx:if="{{!!shardModal}}" class="shareM" style="position: fixed;top: 0;left: 0;">
+    <view class="shareM-warp">
+        <view class="shareM-warp-tb">
+            <view class="shareM-con">
+                <view class="text">是否确认转赠礼品券？</view>
+                <view class="btn">
+                    <view class="left" bindtap="closeShardModal">取消</view>
+                    <button open-type="share" hover-class="none" class="right">确认</button>
+                    <!--<view class="right">确认</view>-->
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="my-meeting-list-none" wx:if="{{(!list || list.length == 0) && !loading}}">
+    <view class="content-none">
+        <image class="none-img" src="../images/coupon/none.png" background-size="cover"></image>
+        <text class="warn">还没有券哦~</text>
+    </view>
+</view>

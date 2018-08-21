@@ -12,7 +12,7 @@
             </view>
 
             <view class="u-order-right">
-                <text class="u-meet-title">散座</text>
+                <text class="u-meet-title" style="margin-top:-5rpx">散座</text>
                 <text class="u-meet-address">{{detailInfo.buildAndFloorDescr}}  氪空间</text>
                 <view class="u-meet-price-info">{{detailInfo.adress}}</view>
                 <view class="u-btn-arrow u-head-arrow">
@@ -43,22 +43,43 @@
                 <view class="u-meet-detail-price-info">
                     <view class="u-meet-unit">¥</view>
                     <view class="u-meet-detail-num"> {{item.promotionCost}}</view>
-                    <view class="u-meet-old-num" wx:if="{{item.promotionCost!=item.unitCost}}">¥ {{item.unitCost}}</view>
+                    <view class="u-meet-old-num" wx:if="{{item.promotionCost!=item.unitCost}}">
+                        <view class="u-sale-unit">
+                        ¥
+                        </view>{{item.unitCost}}
+                    </view>
                     <view class="u-meet-old-unit"> / 个·天  </view>
                 </view>
                 <view >x <span class="spannum">{{quantity}}</span>  个</view>
               </view>
         <!-- </scroll-view>    -->
           </view>
+          <!-- 礼品券 -->
+          <view class="u-meeting" style="border-bottom:1rpx solid #F6F6F6" wx:if="{{detailInfo.couponPrice}}">
+            <view class="u-left">礼品券 </view>
+            <view class="u-right">
+                <view class="u-right-top" >
+                    <view class="u-right-top-left">
+                      <view class="u-sale-unit">
+                        -¥
+                      </view>
+                      <view style="display:inline-block">{{detailInfo.couponPrice}}</view>
+                      
+                    </view>
+                </view>
+            </view>
+          </view>
           <!--应付款-->
           <view class="u-meeting">
             <view class="u-left">{{payTitle}} </view>
-          
-
-            <view class="u-right" wx:if="{{isFirst&&(daynum==1)&&(sankeNum==1)}}">
+            <view class="u-right" wx:if="{{detailInfo.first}}">
                 <view class="u-right-top" >
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥  1 </view>
-                    <!-- <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view> -->
+                    <view class="u-right-top-left">
+                     <view class="u-sale-unit">
+                        ¥
+                      </view>
+                      <view style="display:inline-block">1</view>
+                    </view>
                 </view>
                 <view class="u-bottom">
                         （新人专享）1天超值体验
@@ -67,13 +88,13 @@
 
             <view class="u-right" wx:else>
                 <view class="u-right-top" >
-                    <view class="u-right-top-left" style="font-size: 38rpx">¥ {{detailInfo.paidAmount}}</view>
-                    <!-- <view class="u-right-top-right">¥ {{detailInfo.totalAmount}} </view> -->
+                    <view class="u-right-top-left">
+                      <view class="u-sale-unit">
+                        ¥
+                      </view>{{detailInfo.paidAmount}}
+                    </view>
                 </view>
             </view>
-
-
-
           </view>
           
 
@@ -182,11 +203,11 @@
                   </view>
                   <view class="u-address">
                     <image class="u-address-icon"  src="../images/public/icon_dizhi.png" style="vertical-align: top"></image>
-                    <view class="u-address-txt" style="width:90%;vertical-align: center;line-height: 40rpx">{{meetingDetail.adress}}</view>
+                    <view class="u-address-txt" style="width:90%;vertical-align: center;">{{meetingDetail.adress}}</view>
                 </view>
                 <view class="u-address">
                     <image class="u-address-icon"  src="../images/public/icon_shijian.png" style="vertical-align: top"></image>
-                    <view class="u-address-txt" style="width:90%;vertical-align: center;line-height: 40rpx">{{meetingDetail.openTime}}</view>
+                    <view class="u-address-txt" style="width:90%;vertical-align: center;">{{meetingDetail.openTime}}</view>
                 </view>
               </view>
 
@@ -234,5 +255,5 @@
    
 
 
- <viwe class="div" wx:if="{{flag & detailInfo.orderShowStatus === 'CLOSED' }}"></viwe>
+ <view class="div" wx:if="{{flag & detailInfo.orderShowStatus === 'CLOSED' }}"></view>
 </view> 

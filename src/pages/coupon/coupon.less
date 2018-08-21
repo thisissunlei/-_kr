@@ -1,0 +1,151 @@
+.list-warp {
+  position: relative;
+}
+.list-warp .detail {
+  position: absolute;
+  right: 32rpx;
+  bottom: 0;
+  z-index: 5;
+  border-radius: 0 0 16rpx 0;
+  height: 34rpx;
+  opacity: 1;
+  padding: 0 32rpx 38rpx 50rpx;
+  transition: .5s;
+  width: 34rpx;
+}
+.list-warp.select .my-coupon-list {
+  transform: rotateY(180deg);
+}
+.list-warp.select .detail {
+  opacity: 0;
+  transition: .5s;
+}
+
+.my-coupon-list {
+  position: relative;
+  color: #eabd71;
+  height: 342rpx;
+  margin: 0 32rpx 28rpx 32rpx;
+  transition: .7s;
+  transform-style: preserve-3d;
+}
+.my-coupon-list .after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(180deg);
+  transition: .5s;
+}
+.my-coupon-list .before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: .5s;
+}
+.my-coupon-list .bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #000000;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+.my-coupon-list .bg image {
+  display: block;
+  height: 342rpx;
+  width: 100%;
+}
+.my-coupon-list .warp {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 32rpx;
+}
+.my-coupon-list .price {
+  height: 100rpx;
+  line-height: 100rpx;
+  overflow: hidden;
+  text-align: right;
+}
+.my-coupon-list .price .icon {
+  font-size: 40rpx;
+}
+.my-coupon-list .price .num {
+  font-size: 80rpx;
+}
+.my-coupon-list .desc {
+  font-size: 24rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  padding-bottom: 54rpx;
+  text-align: right;
+}
+.my-coupon-list .name {
+  font-size: 32rpx;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 40rpx;
+  padding-bottom: 20rpx;
+}
+.my-coupon-list .data {
+  font-size: 24rpx;
+  line-height: 28rpx;
+}
+.detail-title {
+  font-size: 30rpx;
+  line-height: 40rpx;
+  padding-bottom: 24rpx;
+}
+.detail-con {
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+
+.my-coupon-list .bg.select {
+  background: #ADADAD;
+}
+.my-coupon-list.select {
+  color: #fff;
+}
+
+
+.list-warp.select .my-coupon-list .after {
+  opacity: 1;
+  pointer-events: auto;
+}
+.list-warp.select .my-coupon-list .before {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.expired {
+  position: absolute;
+  bottom: 0;
+  right: 20rpx;
+  z-index: 4;
+  width: 220rpx;
+}
+.checked {
+  position: absolute;
+  top: 96rpx;
+  left: -50rpx;
+  margin-left: 50%;
+  height: 100rpx;
+  width: 100rpx;
+}
+
+
+

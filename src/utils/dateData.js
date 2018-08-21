@@ -229,6 +229,10 @@ export class dateDataPrice extends dateData{
                   store_data[i].seat = month_arr[data_num];
                   const arr_num = month_arr[data_num]['remainQuantity'];
                   if(arr_num<1){
+                    if(this.last_btn_date == data_day){
+                
+                      this.init_bool = false;
+                    }
                     store_data[i].type = 'before';
                     store_data[i].price_vlue = '已售罄'
                   }else{

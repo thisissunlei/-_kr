@@ -1,120 +1,119 @@
-
-var CAlculagraph = function() {
-
-  return new CAlculagraph.fn.init();
-}
-
-
-CAlculagraph.fn = CAlculagraph.prototype = {
-
-  timerMint : timerMint,
-  init : function (){
-    return CAlculagraph.fn;
+export class CAlculagraph{
+  constructor(parameter){
+    this.agmt_time = parameter;
+    this.nowtime=Math.round(this.agmt_time.deadline - new Date().getTime()/1000);
+    this.clearT();
+    this.timerInt();
   }
-
-}
-    
-/*
-  {
-    deadline:101245152,//最终结束的时间戳,
-    callback:function (){},//时间结束后的方法,
-    minute:secdom,//秒的dom节点,
-    second:mintdom,//分钟的dom节点,
-  }
-*/
-function timerMint(agmt_time){  
-  var t,day,hour,minute,second,bools,dates=new Date(),nowtime=Math.round(agmt_time.deadline-dates.getTime()/1000);
-  init();
-  function init(){
-    if(nowtime<1){
-      nowtime=0;
+  c_minute = '';
+  c_second = '';
+  nowtime = '';
+  c_time = '';
+  cal_bool = true;
+  bools=[false,false]; 
+  timerInt(){
+    let agmt_time = this.agmt_time;
+    if(this.nowtime<1){
+      this.nowtime=0;
     }
-    day=Math.floor(nowtime/86400);
-    hour=Math.floor((nowtime%86400)/3600);
-    minute=Math.floor(((nowtime%86400)%3600)/60);
-    second=Math.floor(((nowtime%86400)%3600)%60);
-    bools=[false,false,false,false]; 
-    if(second<10){
+    // day=Math.floor(this.nowtime/86400);
+    // hour=Math.floor((this.nowtime%86400)/3600);
+    this.c_minute=Math.floor(((this.nowtime%86400)%3600)/60);
+    this.c_second=Math.floor(((this.nowtime%86400)%3600)%60);
+    
+    if(this.c_second<10){
       
       agmt_time.that.setData({
-        second : '0'+second
+        second : '0'+this.c_second
       });
     }else{
       agmt_time.that.setData({
-       second:second
+       second:this.c_second
       });
     }
-    if(minute<10){
+    if(this.c_minute<10){
       agmt_time.that.setData({
-        minute : '0'+minute
+        minute : '0'+this.c_minute
       });
     }else{
       agmt_time.that.setData({
-        minute:minute
+        minute:this.c_minute
       });
     }
-    
-    t=setTimeout(secondRun,1000);
+    this.c_time=setTimeout(()=>{this.secondRun()},1000);
   }
-  function secondRun(){
-      if(second>0){
-        if(nowtime-(agmt_time.deadline-Math.round(new Date().getTime()/1000))<3){
-          second--;
-          nowtime--;
-          if(second<10){
+  secondRun(){
+    if(this.cal_bool){
+
+      let agmt_time = this.agmt_time;
+      if(this.c_second>0){
+        
+        if(this.nowtime-(agmt_time.deadline-Math.round(new Date().getTime()/1000))<3){
+          this.c_second--;
+          this.nowtime--;
+          if(this.c_second<10){
             agmt_time.that.setData({
-              second : '0'+second
+              second : '0'+this.c_second
             });
           }else{
             agmt_time.that.setData({
-              second:second
+              second:this.c_second
             });
           }
-          t=setTimeout(secondRun,1000);
+          this.c_time=setTimeout(()=>{this.secondRun()},1000);
         }else{
-          nowtime=agmt_time.deadline-Math.round(new Date().getTime()/1000);
-          init();
+          this.nowtime=agmt_time.deadline-Math.round(new Date().getTime()/1000);
+          this.timerInt();
         }
       }else{
-        bools[0]=true;
-        minuteRun();
+        this.bools[0]=true;
+        this.minuteRun();
       }
+    }
   }
-  function minuteRun(){
-    if(minute>0){
-        minute--;
-        if(minute<10){
+  minuteRun(){
+    let agmt_time = this.agmt_time;
+    if(this.c_minute>0){
+        this.c_minute--;
+        if(this.c_minute<10){
           
 
           agmt_time.that.setData({
-            minute : '0'+minute
+            minute : '0'+this.c_minute
           });
         }else{
           agmt_time.that.setData({
-            minute:minute
+            minute : this.c_minute
           });
         }
-        bools[0]=false;
-        second=60;
-        secondRun();
+        this.bools[0]=false;
+        this.c_second=60;
+        this.secondRun();
       }else{
-      bools[1]=true;
-      doThing();
+      this.bools[1]=true;
+      this.doThing();
     }
   }
 
-  function doThing(){
-    if(bools[0]&&bools[1]){
-      if(agmt_time.callback!=''&&agmt_time.callback!=undefined){
-        agmt_time.callback();
+  doThing(){
+    if(this.bools[0]&&this.bools[1]&&this.cal_bool){
+      if(this.agmt_time.callback!=''&&this.agmt_time.callback!=undefined){
+        this.agmt_time.callback();
       }
     }
   }
+  closeCal(){
+    this.cal_bool = false;
+  }
+  startCal(){
+    this.cal_bool = true;
+    this.c_time=setTimeout(()=>{this.secondRun()},1000);
+  }
+  clearT(){
+    clearTimeout(this.c_time)
+  }
 }
 
-module.exports = {
-  CAlculagraph: CAlculagraph
-}
 
 
 
