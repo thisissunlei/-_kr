@@ -372,7 +372,7 @@ Page({
     }
 
     let phoneTest = util.phone(this.data.signUpData.phone);
-    let roleTest=this.data.bind;
+    let roleTest=this.data.userType || '';
     if (!this.data.signUpData.name.trim()) {
       this.setTip("tip", "请输入姓名");
       return;
@@ -382,7 +382,7 @@ Page({
     } else if (!phoneTest) {
       this.setTip("tip", "手机号格式错误");
       return;
-    } else if (roleTest!=0) {
+    } else if (roleTest ==2) {
       if (!this.data.signUpData.role.trim()) {
         this.setTip("tip", "请选择用户身份");
         return;
