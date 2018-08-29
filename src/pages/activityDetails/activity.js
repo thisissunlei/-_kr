@@ -382,7 +382,7 @@ Page({
     } else if (!phoneTest) {
       this.setTip("tip", "手机号格式错误");
       return;
-    } else if (!roleTest) {
+    } else if (roleTest!=0) {
       if (!this.data.signUpData.role.trim()) {
         this.setTip("tip", "请选择用户身份");
         return;
