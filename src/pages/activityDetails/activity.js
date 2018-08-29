@@ -20,9 +20,8 @@ Page({
       companyName: "", // 公司
       name: "", // 姓名
       phone: "", // 手机号
-      role:'',
+      role:"",
     },
-
     canJoin: true, // 是否可以报名
     full: false, // 人数已满
     expire: false, // 是否过期
@@ -271,7 +270,8 @@ Page({
               activityId: this.data.activityId, // 活动
               companyName: res.data.data.companyName, // 公司
               name: res.data.data.name, // 姓名
-              phone: res.data.data.phone // 手机号
+              phone: res.data.data.phone, // 手机号
+              role:'',
             }
           });
         }
@@ -373,6 +373,7 @@ Page({
 
     let phoneTest = util.phone(this.data.signUpData.phone);
     let roleTest=this.data.userType || '';
+   
     if (!this.data.signUpData.name.trim()) {
       this.setTip("tip", "请输入姓名");
       return;
@@ -559,6 +560,7 @@ Page({
       ["signUpData.role"]: value,
       roleName:roleName
     });
+  
   },
   clearRole(){
     this.setData({
