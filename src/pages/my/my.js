@@ -54,9 +54,10 @@ Page({
     this.getPhone();
     this.getCounts()
     this.getActivityCount();
-    this.getCouponCount()
-    
   },
+    onShow() {
+        this.getCouponCount()
+    },
   getPhone:function(){
 
     app.getRequest({
