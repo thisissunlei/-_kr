@@ -383,11 +383,9 @@ Page({
     } else if (!phoneTest) {
       this.setTip("tip", "手机号格式错误");
       return;
-    } else if (roleTest ==2) {
-      if (!this.data.signUpData.role.trim()) {
-        this.setTip("tip", "请选择用户身份");
-        return;
-      }
+    } else if (roleTest ==2 && (!this.data.signUpData.role.trim())) {
+      this.setTip("tip", "请选择用户身份");
+      return;
     }else if (!this.data.signUpData.companyName.trim()) {
       this.setTip("tip", "请输入公司名称");
       return;
