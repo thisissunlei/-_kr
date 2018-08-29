@@ -27,6 +27,7 @@
             </view>
             <image class="checked" wx:if="{{!!item.usable && !item.checked}}" src="../images/coupon/unchecked.png" mode="scaleToFill"></image>
             <image class="checked" wx:if="{{!!item.usable && !!item.checked}}" src="../images/coupon/checked.png" mode="scaleToFill"></image>
+            <image src="../images/coupon/zzz.png" mode="widthFix" class="zzz" wx:if="{{!!item.usable && item.status == 'FORWARD'}}"></image>
             <view class="warp" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}">
                 <view class="price">
                     <text class="icon">¥</text>
@@ -73,6 +74,8 @@
             <image src="../images/coupon/seal-share.png" mode="widthFix" class="expired" wx:if="{{tab == 'SHARE'}}"></image>
             <image class="checked" wx:if="{{tab == 'USABLE' && !!changeShow && !item.checked}}" src="../images/coupon/unchecked.png" mode="scaleToFill"></image>
             <image class="checked" wx:if="{{tab == 'USABLE' && !!changeShow && !!item.checked}}" src="../images/coupon/checked.png" mode="scaleToFill"></image>
+            <image src="../images/coupon/zzz.png" mode="widthFix" class="zzz" wx:if="{{tab == 'USABLE' && item.status == 'FORWARD'}}"></image>
+
             <view class="warp" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}">
                 <view class="price">
                     <text class="icon">¥</text>
