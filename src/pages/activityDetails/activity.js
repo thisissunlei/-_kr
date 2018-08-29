@@ -29,7 +29,7 @@ Page({
     exist: false, // 是否已经报名
     btn_bool: true, // 授权
     textShow: false,
-    bind:false,
+    userType:false,
     roleList:[
       {
         value:'IUSER',
@@ -266,7 +266,7 @@ Page({
             full: full, // 人数已满
             expire: expire, // 是否过期
             exist: exist, // 是否已经报名
-            bind: res.data.data.bind,
+            userType: res.data.data.userType,
             signUpData: {
               activityId: this.data.activityId, // 活动
               companyName: res.data.data.companyName, // 公司

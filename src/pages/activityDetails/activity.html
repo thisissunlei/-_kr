@@ -120,7 +120,7 @@
                    placeholder-style="color:#cccccc;font-weight: lighter;"/>
             <view class="clear" wx:if="{{!!signUpData.phone}}" bindtap="clearPhoneInput"><icon type="clear" size="12" color="#cccccc"/></view>
         </viwe>
-        <viwe class="sign-up-clear"  wx:if="{{!bind}}">
+        <viwe class="sign-up-clear"  wx:if="{{!userType}}">
             <picker mode="selector" range="{{roleList}}" range-key="label" value="{{SelectIndex}}"  bindchange="bindKeyRole"
                    placeholder-style="color:#cccccc;font-weight: lighter;">
                    <view class="picker">
