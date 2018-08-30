@@ -70,6 +70,7 @@ Page({
     //当前礼品券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
     saleStatus:'nothing',
     saleContent:{},//优惠详情
+    imgUrl:app.globalData.KrImgUrl 
   },
 
   nowDate: '',
@@ -327,17 +328,17 @@ Page({
   checkStatus(data){
     let saleStatus = ''
     // new：新人；chosen：已选，nothing:暂无可用；none:未选择）
-    if(data.first){
+    // if(data.first){
       //符合新人下单
-      saleStatus = 'new';
-    }else{
+      // saleStatus = 'new';
+    // }else{
       if(!data.couponCount){
         //无可用优惠
         saleStatus = 'nothing'
       }else{
         saleStatus = 'none'
       }
-    }
+    // }
     this.saleLength=data.couponCount
     this.isFirst = data.first;
     this.setData({
