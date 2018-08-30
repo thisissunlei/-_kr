@@ -6,16 +6,27 @@
     <view class="m-sale-content">
         <view class="u-sale-list">
             <image class="u-sale-bg" src="{{imgUrl}}/insideSale/Mask.jpg"></image>
-            <view class="u-sale-info">
+            <view class="u-sale-info {{status!='expired'?'u-border':'u-expired-border'}} ">
 
             </view>
             <view class="u-sale-status">
-                
+                <view class="u-sale-get-btn u-get-sale">
+                   <view class="u-sale-txt">立即</view>
+                   <view class="u-sale-txt">领取</view>
+                </view>
+
             </view>
         </view>
         <view class="u-sale-list">
-                <image class="u-sale-bg" src="{{imgUrl}}/insideSale/expired.jpg"></image>
-                
+            <image class="u-sale-bg" src="{{imgUrl}}/insideSale/expired.jpg"></image>
+            <view class="u-sale-info u-expired-border">
+
+            </view>
+            <view class="u-sale-status">
+                 <view class="u-sale-get-btn u-no-get-sale">
+                        已领取
+                </view>
+            </view>
         </view>
     </view>
        
