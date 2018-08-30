@@ -17,6 +17,32 @@ Page({
     errorMessage:''
   },
   submit_buttom:true,
+  getPhoneNumber: function(e) { 
+    console.log(e) 
+    console.log(e.detail.errMsg) 
+    console.log(e.detail.iv) 
+    console.log(e.detail.encryptedData) 
+    let from = this.data.from;
+    let that = this;
+    if(e.detail.errMsg === 'getPhoneNumber:ok'){
+      // 给后台发送
+      console.log('提交生成订单及其余下内容')
+      //处理判断散座还是订单
+      switch (from){
+        case 'seat':
+          that.getSeatData()
+          break;
+        case 'activity':
+          wx.navigateBack({
+              delta: 1
+          })
+          break;
+        default:
+          that.getOrderData();
+          break;
+      }
+    }
+  } ,
   onShareAppMessage: function() {
     return app.globalData.share_data;
   },
@@ -130,4 +156,239 @@ Page({
         }
       })
   },
+  getSeatData(){
+    let that = this;
+    let seat = {}
+    wx.getStorage({
+      key: 'myorder',
+      success: function(res) {
+        if(res.data){
+          that.createSeat(res.data)
+        }
+      }
+    })
+  },
+  getOrderData(){
+    let that = this;
+    let create_order = {}
+    wx.getStorage({
+      key: 'create_order',
+      success: function(res) {
+        if(res.data){
+          that.createOrder(res.data)
+        }
+      }
+    })
+  },
+  createSeat(data){
+    let that = this;
+    app.getRequest({
+      // 散座下单
+      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+      methods: "GET",
+      header: {
+        'content-type': "appication/json"
+      },
+      data: data,
+      success:(res)=>{
+        let code=res.data.code;
+        let rsData = res.data.data;
+        if(code==-1){
+          that.setData({
+            phoneError:false,
+            success:false,
+            errorMessage:res.data.message
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',      
+            })
+            wx.navigateTo({
+              url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+            })
+          },2000)
+        }else if(code === 2){
+          // 使用优惠券后，价格为0
+          wx.showLoading({
+            title: '加载中',
+            mask: true
+          })
+          setTimeout(function () {
+            wx.navigateTo({
+              url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1                  
+            })
+            wx.hideLoading();
+          }, 500) 
+        }else{
+          that.weChatPaySeat(rsData)
+        }
+      },
+      fail:(res)=>{
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+
+    })
+  },
+  createOrder:function(create_order){
+    let that = this;
+    let data = this.data;
+    let orderData = create_order;
+    app.getRequest({
+      url: app.globalData.KrUrl + 'api/gateway/krmting/order/create',
+      methods: "GET",
+      header: {
+        'content-type': "appication/json"
+      },
+      data: orderData.create_order,
+      success: (res) => {
+        let code = res.data.code;
+        let rsData = res.data.data;
+        if (code == -1) {
+          that.setData({
+            phoneError: false,
+            success: false,
+            errorMessage: res.data.message
+          })
+          setTimeout(function() {
+            that.setData({
+              phoneError: true,
+              errorMessage: '',
+            })
+          }, 2000)
+        } else if (code === 2) {
+          // 使用优惠券后，价格为0
+          wx.showLoading({
+            title: '加载中',
+            mask: true
+          })
+          setTimeout(function() {
+            wx.navigateTo({
+              url: '../orderDetail/orderDetail?id=' + res.data.data.orderId + '&con=' + 1
+            })
+            wx.hideLoading();
+          }, 500)
+        } else {
+          that.weChatPayMeeting(rsData)
+        }
+      },
+    })
+  },
+  weChatPayMeeting:function(){
+    let id = data.orderId;
+    let that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + 'api/gateway/krmting/order/pay',
+      methods: "GET",
+      data: {
+        orderId: id
+      },
+      success: (res) => {
+        console.log('res', res)
+        if (res.data.code > 0) {
+          wx.requestPayment({
+            'timeStamp': res.data.data.timestamp,
+            'nonceStr': res.data.data.noncestr,
+            'package': res.data.data.packages,
+            'signType': res.data.data.signType,
+            'paySign': res.data.data.paySign,
+            'success': function(res) {
+              wx.showLoading({
+                title: '加载中',
+                mask: true
+              })
+              setTimeout(function() {
+                that.getInviteeId(id)
+              }, 2000)
+            },
+            'fail': function(res) {
+              wx.navigateTo({
+                url: '../orderDetail/orderDetail?id=' + data.orderId + '&con=1'
+              })
+            }
+          })
+        } else {
+          wx.navigateTo({
+            url: '../orderseatDetail/orderseatDetail?id=' + data.orderId + '&con=1'
+          })
+        }
+
+      },
+      fail: (res) => {
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    })
+  },
+  weChatPaySeat:function(data){
+    let id = data.orderId;
+    let that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + 'api/gateway/krseat/order/pay',
+      methods: "GET",
+      data: {
+        orderId: id
+      },
+      success: (res) => {
+        console.log('res', res)
+        if (res.data.code > 0) {
+          console.log(res.data, 11111111)
+          if (!wx.getStorageSync("order-info")) {
+            let orderArr = []
+            console.log(typeof res.data.data, res.data.data, orderArr, res.data, 333333)
+            orderArr.push(res.data.data)
+            wx.setStorageSync("order-info", orderArr)
+            wx.setStorageSync("order", res.data.data)
+          } else {
+            let orderseat = wx.getStorageSync("order-info")
+            console.log(typeof res.data.data, res.data.data, orderseat, res.data, 44444)
+            orderseat.push(res.data.data)
+            wx.setStorageSync("order-info", orderseat)
+            wx.setStorageSync("order", res.data.data)
+          }
+          wx.requestPayment({
+            'timeStamp': res.data.data.timestamp,
+            'nonceStr': res.data.data.noncestr,
+            'package': res.data.data.packages,
+            'signType': res.data.data.signType,
+            'paySign': res.data.data.paySign,
+            'success': function(res) {
+              wx.showLoading({
+                title: '加载中',
+                mask: true
+              })
+
+              setTimeout(function() {
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id=' + id + '&con=' + 1
+                })
+              }, 2000)
+
+            },
+            'fail': function(res) {
+              wx.navigateTo({
+                url: '../orderseatDetail/orderseatDetail?id=' + data.orderId + '&con=1'
+              })
+            }
+          })
+        } else {
+          wx.navigateTo({
+            url: '../orderseatDetail/orderseatDetail?id=' + data.orderId + '&con=1'
+          })
+        }
+
+      },
+      fail: (res) => {
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    })
+   
+  },
+
+
 })

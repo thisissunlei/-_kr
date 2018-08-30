@@ -3,6 +3,11 @@
 const app = getApp();
 
 Page({
+  moveToBind:function(){
+    wx.navigateTo({
+      url: "../bindPhone/bindPhone"
+    });
+  },
   onShareAppMessage: function(res) {
     // wx.reportAnalytics("sharekrmeeting");
     // console.log(res);
