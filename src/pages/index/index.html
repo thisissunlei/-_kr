@@ -32,7 +32,8 @@
         <block wx:for="{{myMeeting}}" wx:key>
           <swiper-item class="my-metting" data-id="{{item.targetId}}" bindtap="{{item.targetType=='SEAT'?'moveToSeatDetail':(item.targetType=='MEETING'?'moveToMeetingDetail':'moveToActivity')}}">
             <view class="metting-content">
-              <view class="metting-mark {{item.targetType === 'SEAT'?'seat':(item.targetType === 'MEETING'?'metting':'activity')}}">{{item.targetType === 'SEAT'?'散座':(item.targetType === 'MEETING'?'会议':'活动')}}</view>
+              <view class="metting-mark {{item.targetType === 'SEAT'?'seat':(item.targetType === 'MEETING'?'metting':'activity')}}">{{item.targetType
+                === 'SEAT'?'散座':(item.targetType === 'MEETING'?'会议':'活动')}}</view>
               <view class="metting-title">
                 <view class="activity-time" wx:if="{{item.targetType=='ACTIVITY'}}">
                   <view wx:if="{{item.single}}">
@@ -148,7 +149,7 @@
               <!-- <image src="../images/indexImg/icon_loation.png" class="map-icon"></image> -->
               <text class="lct_txt">{{item.buildAddress}}</text>
             </view>
-            <text class='lct_distance'>{{item.distance}}</text>
+            <text class='lct_distance' wx:if="{{distanceShow}}">{{item.distance}}</text>
           </view>
           <view class='room_num'>
             <text class="num_num" wx:if="{{item.seatCount > 0}}">{{item.seatCount}}</text>
