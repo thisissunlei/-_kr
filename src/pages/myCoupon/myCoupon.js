@@ -211,7 +211,7 @@ Page({
             changeShow: true
         })
     },
-    changeCardCancel() {
+    changeCardCancel(next) {
         let list = this.data.list
         list.forEach((val, i) => {
             val.checked = false
@@ -225,6 +225,24 @@ Page({
             couponIds: [],
             list: list
         })
+        if ( next == 'ok' ) {
+            wx.showLoading({
+                title: "加载中",
+                mask: true
+            });
+            this.page = 1
+            this.shareNo = ''
+            this.couponIds = []
+            this.couponAmount = ''
+            this.setData({
+                list: [],
+                loading: true,
+                changeShow: false,
+                shardModal: false
+            },() => {
+                this.getList()
+            })
+        }
     },
     selectTab(e) {
         if ( !this.data.changeShow ) return
@@ -284,10 +302,10 @@ Page({
                 path: 'pages/getCoupon/getCoupon?shareNo='+this.shareNo,
                 imageUrl:'../images/coupon/share-bg.jpg',
                 success:(res) => {
-                    this.changeCardCancel()
+                    this.changeCardCancel('ok')
                 },
                 fail:(res) => {
-                    this.changeCardCancel()
+                    this.changeCardCancel('no')
                 }
             }
         } else {

@@ -120,6 +120,15 @@
                    placeholder-style="color:#cccccc;font-weight: lighter;"/>
             <view class="clear" wx:if="{{!!signUpData.phone}}" bindtap="clearPhoneInput"><icon type="clear" size="12" color="#cccccc"/></view>
         </viwe>
+        <viwe class="sign-up-clear"  wx:if="{{userType && (userType==2)}}">
+            <picker mode="selector" range="{{roleList}}" range-key="label" value="{{SelectIndex}}"  bindchange="bindKeyRole"
+                   placeholder-style="color:#cccccc;font-weight: lighter;">
+                   <view class="picker">
+                    {{roleName?roleName:'请选择身份'}}
+                  </view>
+            </picker>
+            <view class="clear" wx:if="{{!!signUpData.role}}" bindtap="clearRole"><icon type="clear" size="12" color="#cccccc"/></view>
+        </viwe>
         <viwe class="sign-up-clear" style="height: 160rpx;">
             <view style="color:{{!!signUpData.companyName?'#333333':'#cccccc'}}"
                   class="textarea" wx-if="{{!!apiTipShow}}">{{signUpData.companyName || '请输入公司名称'}}</view>
