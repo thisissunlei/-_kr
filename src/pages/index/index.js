@@ -20,6 +20,7 @@ Page({
     duration: 1000,
     btn_bool: true,
     duration: 1000,
+    distanceShow: false, //距离显示
     buildingList: [], //周边大厦
     myMeeting: [], //会议、散座、活动轮播
     noOpenBuilding: [] //未开放大厦
@@ -243,10 +244,22 @@ Page({
       success: res => {
         if (res.data.code == 1) {
           var mansion = Object.assign({}, res);
-          console.log(mansion, "列表");
+          // console.log(mansion, "列表");
           var buildingList = mansion.data.data.buildingList;
-
           var myMeeting = mansion.data.data.myTodo.slice(0, 5);
+          //未授权地理信息不显示距离
+          let resture = buildingList.some(value => {
+            return value.distance == 0;
+          });
+          if (resture) {
+            that.setData({
+              distanceShow: false
+            });
+          } else {
+            that.setData({
+              distanceShow: true
+            });
+          }
           //活动时间分割
           myMeeting.map(value => {
             if (value.targetType == "ACTIVITY") {
