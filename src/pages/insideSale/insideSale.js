@@ -7,7 +7,7 @@ Page({
     imgUrl:app.globalData.KrImgUrl 
   },
   onLoad: function () {
-    console.log('app.globalData.KrImgUrl ',app.globalData.KrImgUrl)
+   
   },
  
  
