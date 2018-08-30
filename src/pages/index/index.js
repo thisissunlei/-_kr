@@ -22,17 +22,17 @@ Page({
     duration: 1000,
     buildingList: [], //周边大厦
     myMeeting: [], //会议、散座、活动轮播
-    noOpenBuilding: [] //未开放大厦
-    //preIndex: 0,
-    //activityList: [], //活动轮播
-    // activity: {
-    //   //活动轮播参数
-    //   current: 0,
-    //   duration: 500,
-    //   previousMargin: "26rpx",
-    //   nextMargin: "26rpx",
-    //   circular: false
-    // }
+    noOpenBuilding: [], //未开放大厦
+    preIndex: 0,
+    activityList: [], //活动轮播
+    activity: {
+      //活动轮播参数
+      current: 0,
+      duration: 500,
+      previousMargin: "26rpx",
+      nextMargin: "26rpx",
+      circular: false
+    }
   },
   rq_data: {
     latitude: "",
@@ -43,20 +43,20 @@ Page({
   func_bool_l2: false,
   func_bool_s: false,
   //活动轮播变化
-  // acitvityChange: function(e) {
-  //   if (e.detail.source == "touch") {
-  //     this.setData({
-  //       preIndex: e.detail.current
-  //     });
-  //   }
-  // },
+  acitvityChange: function(e) {
+    if (e.detail.source == "touch") {
+      this.setData({
+        preIndex: e.detail.current
+      });
+    }
+  },
   //活动详情页
-  // goActivityDetail: function(e) {
-  //   let activityId = e.currentTarget.dataset.id;
-  //   wx.navigateTo({
-  //     url: "../activityDetails/activity?activityId=" + activityId
-  //   });
-  // },
+  goActivityDetail: function(e) {
+    let activityId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "../activityDetails/activity?activityId=" + activityId
+    });
+  },
   //打开地图
   openmap: function() {
     var that = this;
@@ -216,21 +216,21 @@ Page({
   },
   onShow: function() {
     this.getAllInfo();
-    // this.getActivity();
+     //this.getActivity();
   },
-  //首页活动接口
-  // getActivity: function() {
-  //   var that = this;
-  //   app.getRequest({
-  //     url: app.globalData.KrUrl + "api/gateway/kmactivity/home/list",
-  //     success: res => {
-  //       var activityList = Object.assign({}, res);
-  //       that.setData({
-  //         activityList: activityList.data.data
-  //       });
-  //     }
-  //   });
-  // },
+ // 首页活动接口
+  getActivity: function() {
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmactivity/home/list",
+      success: res => {
+        var activityList = Object.assign({}, res);
+        that.setData({
+          activityList: activityList.data.data
+        });
+      }
+    });
+  },
   //首页接口
   getAllInfo: function() {
     var that = this;
