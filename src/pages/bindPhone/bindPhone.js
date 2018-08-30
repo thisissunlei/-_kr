@@ -276,7 +276,7 @@ Page({
       },
     })
   },
-  weChatPayMeeting:function(){
+  weChatPayMeeting:function(data){
     let id = data.orderId;
     let that = this;
     app.getRequest({
