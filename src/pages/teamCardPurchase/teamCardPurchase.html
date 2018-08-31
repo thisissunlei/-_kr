@@ -1,0 +1,29 @@
+<view class="teamCard">
+    <view class="teamCard-topBg"></view>
+    <view class="teamCard-details">
+        <view class="td-percentage">
+            <view class="td-pBg"></view>
+            <view class="td-pNum">-100%</view>
+        </view>
+        <view class="td-text">售价：¥</view>
+        <view class="td-price">12,000</view>
+        <view class="td-surplus">剩余3000张</view>
+    </view>
+    <swiper bindanimationfinish="swiperChange" class="teamCard-swiper">
+        <block>
+            <swiper-item>
+                <view class="teamCard-swiper-card">
+                    <view class="tsc-bg"></view>
+                    <view class="tsc-con">0</view>
+                </view>
+            </swiper-item>
+        </block>
+        <block>
+            <swiper-item>1</swiper-item>
+        </block>
+        <block>
+            <swiper-item>2</swiper-item>
+        </block>
+    </swiper>
+    <view>{{swiperIndex}}/7</view>
+</view>

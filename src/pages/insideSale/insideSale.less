@@ -51,10 +51,77 @@ page{
 .u-sale-info{
    width:470rpx;
    height:100%;
-   border-right: 1px solid #EABD71;
-
+   position: absolute;
+   left:0;
+   top:0;
+}
+.u-border{
+    border-right: 1px dashed #EABD71;
+}
+.u-expired-border{
+    border-right: 1px dashed #FFFFFF;;
 }
 .u-sale-status{
-    width:180rpx;
+   width:180rpx;
    height:100%;
+   position: absolute;
+   right:0;
+   top:0;
+}
+.u-sale-get-btn{
+    width:100rpx;
+    height:100rpx;
+    border-radius: 100% 100%;
+    margin:60rpx auto;
+    font-size: 28rpx;
+    text-align: center;
+}
+.u-get-sale{
+    background: #EABD71;
+    color: #624D17;
+    padding-top:20rpx;
+    box-sizing: border-box;
+   
+}
+.u-get-sale .u-sale-txt{
+    line-height: 32rpx;
+}
+.u-no-get-sale{
+    background: #6D5C40;
+    color: #A88D42;
+    line-height: 100rpx;
+}
+.u-footer{
+    width:100%;
+    height:110rpx;
+    position: fixed;
+    bottom:0;
+    display: flex;
+    text-align: center;
+    box-shadow: 0 0 4px 0 rgba(78,65,20,0.10);
+}
+.u-only-btn{
+    width:100%;
+    height:100%;
+    line-height:110rpx;
+    background: #FFEB00;
+    font-size: 36rpx;
+    color: #624D17;
+}
+.u-footer view{
+    flex:1;
+    font-size: 34rpx;
+    text-align: center;
+    color: #624D17;
+    line-height:110rpx;
+}
+.u-seat{
+    border-right:1px solid #F3F3F3;
+    background: #FFFFFF;
+}
+.u-view-sale{
+    background: #FFFFFF;
+}
+.u-use-sale{
+    background: #FFEB00;
 }

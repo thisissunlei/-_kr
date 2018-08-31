@@ -4,7 +4,8 @@ const app = getApp();
 
 Page({
   data: {
-    imgUrl:app.globalData.KrImgUrl 
+    imgUrl:app.globalData.KrImgUrl,
+    status:'aa',
   },
   onLoad: function () {
    
