@@ -4,7 +4,7 @@
         <text class="u-header-txt">活动规则</text>
     </view>
     <view class="m-sale-content">
-        <view class="u-nothing">
+        <view class="u-nothing"  wx:if="{{!saleList}}">
                 <image class="u-nothing-img" src="{{imgUrl}}/insideSale/nothing.png"></image>
                 <view class="u-nothing-text">很抱歉，活动已结束</view>
         </view>
@@ -24,15 +24,19 @@
 
             </view>
         </view>
-        <!-- <view class="u-sale-list">
+        <view class="u-sale-list">
             <image class="u-sale-bg" src="{{imgUrl}}/insideSale/expired.jpg"></image>
             <view class="u-sale-info u-expired-border">
 
             </view>
             <view class="u-sale-status">
-                 
+                <image class="u-sale-bg" src="{{imgUrl}}/insideSale/Mask.jpg"></image>
+                 <view class="u-expired-"></view>
             </view>
-        </view> -->
+        </view>
+    </view>
+    <view class="u-get-sale-info">
+
     </view>
      <!-- <view class="u-footer">
         <view class="u-only-btn">了解自由座</view>
