@@ -1,0 +1,22 @@
+<view class="team-card">
+    <view class="team-card-list" wx:for="{{teamCardList}}" wx::key>
+        <view class="team-card-top">
+            <text>{{item.name}}</text>
+            <text>{{item.number}}</text>
+        </view>
+        <view class="team-card-yue">余额</view>
+        <view class="team-card-value">
+            <text>{{item.coust}}</text>元
+        </view>
+        <view class="team-card-bottom">
+            <text>{{item.time}}</text>
+            <view class="team-card-jump" bindtap="jumpCardDetail">
+                <text>查看详情</text>
+                <text></text>
+            </view>
+        </view>
+        <view class="mb" wx:if="{{item.stause != 'unused'}}"></view>
+        <image class="overdue" wx:if="{{item.stause == 'used'}}" src="../images/orderimg/order-a.png"></image>
+        <image class="overdue" wx:if="{{item.stause == 'ex'}}" src="../images/orderimg/order-b.png"></image>
+    </view>
+</view>
