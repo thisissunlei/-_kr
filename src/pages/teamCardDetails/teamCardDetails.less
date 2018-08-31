@@ -1,0 +1,113 @@
+page {
+  background: #f6f6f6;
+  min-height: 100%;
+}
+.teamCard-details .td-card {
+  background: #ffffff;
+  height: 380rpx;
+}
+.td-card-box {
+  position: relative;
+  height: 380rpx;
+  margin: 0 12rpx;
+  transition: .7s;
+  transform-style: preserve-3d;
+}
+.td-card-box.select {
+  transform: rotateY(180deg);
+}
+.tdc-before, .tdc-after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 380rpx;
+  pointer-events: auto;
+  transition: .5s;
+  width: 100%;
+}
+.tdc-before {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+.tdc-after {
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(180deg);
+  z-index: 0;
+}
+.td-card-box.select .tdc-before {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.td-card-box.select .tdc-after {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+.tdc-before .bg, .tdc-after .bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+}
+.tdc-before .bg image, .tdc-after .bg image {
+  display: block;
+  width: 100%;
+}
+.tdc-before .bg-icon {
+  position: absolute;
+  right: 20rpx;
+  bottom: 28rpx;
+  z-index: 2;
+  background: #000000;
+  height: 60rpx;
+  width: 74rpx;
+}
+.tdc-before .con, .tdc-after .con {
+  position: relative;
+  z-index: 1;
+  margin: 10rpx 0 0;
+  padding: 30rpx 60rpx 28rpx;
+}
+.tdc-after .con {
+  box-sizing: border-box;
+  height: 330rpx;
+  overflow-y: scroll;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
