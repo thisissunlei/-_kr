@@ -1,6 +1,8 @@
 page{
     height:100%;
     font-family: 'PingFangSC';
+    overflow-y: auto;
+    padding-bottom:110rpx;
 }
 .g-inside-sale{
     width:100%;
@@ -54,12 +56,18 @@ page{
    position: absolute;
    left:0;
    top:0;
+   padding-left:32rpx;
+   box-sizing: border-box;
 }
-.u-border{
+.u-sale-no-expired{
     border-right: 1px dashed #EABD71;
+    color: #EABD71;
+
 }
-.u-expired-border{
-    border-right: 1px dashed #FFFFFF;;
+.u-sale-expired{
+    border-right: 1px dashed #FFFFFF;
+    color: #FFFFFF;
+
 }
 .u-sale-status{
    width:180rpx;
@@ -139,4 +147,36 @@ page{
     font-size: 32rpx;
     color: #505D6E;
     text-align: center;
+}
+.u-expired-img{
+    width:170rpx;
+    height:160rpx;
+    display: block;
+    margin-top:30rpx;
+    margin-left:-10rpx;
+}
+.u-sale-amount{
+    font-size: 24rpx;
+    margin-top:18rpx;
+}
+.u-sale-num{
+    font-size: 72rpx;
+    font-weight: 600;
+}
+.u-sale-name{
+    opacity: 0.7;
+    font-size: 26rpx;
+    height:40rpx;
+    line-height:40rpx;
+}
+.u-sale-rule{
+    display: inline-block;
+    font-size: 24rpx;
+    padding-left:32rpx;
+    height:40rpx;
+    line-height:40rpx;
+}
+.u-sale-time{
+    opacity: 0.7;
+    font-size: 24rpx;
 }
