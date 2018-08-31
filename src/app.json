@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/getCoupon/getCoupon",
     "pages/activityDetails/activity",
@@ -39,8 +40,9 @@
     "pages/coupon/coupon",
     "pages/myCoupon/myCoupon",
     "pages/saleList/saleList",
-    "pages/insideSale/insideSale",
-    "pages/teamCardPurchase/teamCardPurchase"
+    "pages/teamCardList/teamCardList",
+    "pages/insideSale/insideSale"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
