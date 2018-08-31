@@ -3,7 +3,8 @@ const app = getApp();
 Page({
   data: {
     list:[],
-    loading: false
+    loading: false,
+    imgUrl:app.globalData.KrImgUrl 
   },
     checked: {},
     back: true,
