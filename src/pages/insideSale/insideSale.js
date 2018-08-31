@@ -7,10 +7,18 @@ Page({
     imgUrl:app.globalData.KrImgUrl,
     status:'aa',
     saleList:true,
+    ruleModal:false,
   },
   onLoad: function () {
    
   },
- 
+  myCatchTouch: function () {
+    return;
+  },
+  modalHide(){
+    this.setData({
+      ruleModal:!this.data.ruleModal
+    })
+  }
  
 })
