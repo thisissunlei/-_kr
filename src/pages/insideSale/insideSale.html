@@ -4,10 +4,19 @@
         <text class="u-header-txt">活动规则</text>
     </view>
     <view class="m-sale-content">
-        <view class="u-sale-list">
+        <view class="u-nothing"  wx:if="{{!saleList}}">
+                <image class="u-nothing-img" src="{{imgUrl}}/insideSale/nothing.png"></image>
+                <view class="u-nothing-text">很抱歉，活动已结束</view>
+        </view>
+        <view class="u-sale-list" wx:if="{{saleList}}">
             <image class="u-sale-bg" src="{{imgUrl}}/insideSale/Mask.jpg"></image>
-            <view class="u-sale-info {{status!='expired'?'u-border':'u-expired-border'}} ">
-
+            <view class="u-sale-info {{status!='expired'?'u-sale-no-expired':'u-sale-expired'}} ">
+                <view class="u-sale-amount">
+                    ￥<text class="u-sale-num">100</text>
+                    <text class="u-sale-rule">满500使用</text>
+                </view>
+                <view class="u-sale-name">内部专享礼券</view>
+                <view class="u-sale-time">使用期限：2018.08.10-2018.09.10</view>
             </view>
             <view class="u-sale-status">
                 <!-- <view class="u-sale-get-btn u-get-sale">
@@ -17,25 +26,139 @@
                 <view class="u-sale-get-btn u-no-get-sale">
                         已领取
                 </view>
-
+                <!-- <image class="u-expired-img" src="{{imgUrl}}/insideSale/loot.png"></image> -->
             </view>
         </view>
-        <view class="u-sale-list">
-            <image class="u-sale-bg" src="{{imgUrl}}/insideSale/expired.jpg"></image>
-            <view class="u-sale-info u-expired-border">
-
+        <view class="u-sale-list" wx:if="{{saleList}}">
+            <image class="u-sale-bg" src="{{imgUrl}}/insideSale/Mask.jpg"></image>
+            <view class="u-sale-info {{status!='expired'?'u-sale-no-expired':'u-sale-expired'}} ">
+                <view class="u-sale-amount">
+                    ￥<text class="u-sale-num">500</text>
+                    <text class="u-sale-rule">满1000使用</text>
+                </view>
+                <view class="u-sale-name">内部专享礼券</view>
+                <view class="u-sale-time">使用期限：2018.08.10-2018.09.10</view>
             </view>
             <view class="u-sale-status">
-                 
+                <view class="u-sale-get-btn u-get-sale">
+                   <view class="u-sale-txt">立即</view>
+                   <view class="u-sale-txt">领取</view>
+                </view>
+                <!-- <view class="u-sale-get-btn u-no-get-sale">
+                        已领取
+                </view> -->
+                <!-- <image class="u-expired-img" src="{{imgUrl}}/insideSale/loot.png"></image> -->
             </view>
+        </view>
+        <!-- 抢光 -->
+        <view class="u-sale-list">
+            <image class="u-sale-bg" src="{{imgUrl}}/insideSale/expired.jpg"></image>
+            <view class="u-sale-info u-sale-expired">
+                <view class="u-sale-amount">
+                    ￥<text class="u-sale-num">200</text>
+                    <text class="u-sale-rule">满500使用</text>
+                </view>
+                <view class="u-sale-name">内部专享礼券1</view>
+                <view class="u-sale-time">使用期限：2018.08.10-2018.09.10</view>
+            </view>
+            <view class="u-sale-status">
+                <image class="u-expired-img" src="{{imgUrl}}/insideSale/loot.png"></image>
+            </view>
+        </view>
+
+
+
+    </view>
+    <view class="u-get-sale-info">
+        <view class="u-get-info-content">
+            <view class="u-get-title">领取记录</view>
+            <image class="u-sale-info-bg" src="{{imgUrl}}/insideSale/infobg.png"></image>
+            
+            <view class="u-sale-info-list">
+                <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
+                <view class="u-person-info">
+                    <view class="u-person-name">易烊千玺易烊千玺</view>
+                    <view class="u-get-time">2018.08.22 18:00:00</view>
+                </view>
+                <view class="u-person-sale-info">
+                    领取了<text  class="u-red-salse">50元礼券</text>
+                </view>
+            </view>
+            <view class="u-sale-info-list">
+                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
+                    <view class="u-person-info">
+                        <view class="u-person-name">易烊千玺易烊千玺</view>
+                        <view class="u-get-time">2018.08.22 18:00:00</view>
+                    </view>
+                    <view class="u-person-sale-info">
+                        领取了<text  class="u-red-salse">1000元礼券</text>
+                    </view>
+            </view>
+            <view class="u-sale-info-list">
+                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
+                    <view class="u-person-info">
+                        <view class="u-person-name">易烊千玺易烊千玺</view>
+                        <view class="u-get-time">2018.08.22 18:00:00</view>
+                    </view>
+                    <view class="u-person-sale-info">
+                        领取了<text  class="u-red-salse">20元礼券</text>
+                    </view>
+            </view>
+            <view class="u-sale-info-list">
+                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
+                    <view class="u-person-info">
+                        <view class="u-person-name">易烊千玺易烊千玺</view>
+                        <view class="u-get-time">2018.08.22 18:00:00</view>
+                    </view>
+                    <view class="u-person-sale-info">
+                        领取了<text  class="u-red-salse">100元礼券</text>
+                    </view>
+            </view>
+            <view class="u-sale-info-list">
+                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
+                    <view class="u-person-info">
+                        <view class="u-person-name">易烊千玺易烊千玺</view>
+                        <view class="u-get-time">2018.08.22 18:00:00</view>
+                    </view>
+                    <view class="u-person-sale-info">
+                        领取了<text  class="u-red-salse">30元礼券</text>
+                    </view>
+            </view>
+            <view class="u-sale-info-list">
+                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
+                    <view class="u-person-info">
+                        <view class="u-person-name">易烊千玺易烊千玺</view>
+                        <view class="u-get-time">2018.08.22 18:00:00</view>
+                    </view>
+                    <view class="u-person-sale-info">
+                        领取了<text  class="u-red-salse">30元礼券</text>
+                    </view>
+            </view>
+            <view class="u-sale-info-list">
+                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
+                    <view class="u-person-info">
+                        <view class="u-person-name">易烊千玺易烊千玺</view>
+                        <view class="u-get-time">2018.08.22 18:00:00</view>
+                    </view>
+                    <view class="u-person-sale-info">
+                        领取了<text  class="u-red-salse">30元礼券</text>
+                    </view>
+            </view>
+            <view class="u-list-more">点击加载更多</view>
+
         </view>
     </view>
      <!-- <view class="u-footer">
         <view class="u-only-btn">了解自由座</view>
      </view>  -->
-     <view class="u-footer">
+    <view class="u-footer">
         <view class="u-seat">了解自由座</view>
         <view class="u-view-sale">查看礼券</view>
         <view class="u-use-sale">使用礼券</view>
     </view> 
+
+    <!-- 活动规则 -->
+
+
+
 </view>

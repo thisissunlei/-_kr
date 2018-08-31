@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/myTeamCard/myTeamCard",
     "pages/getCoupon/getCoupon",
@@ -40,6 +41,7 @@
     "pages/coupon/coupon",
     "pages/myCoupon/myCoupon",
     "pages/saleList/saleList",
+    "pages/teamCardList/teamCardList",
     "pages/insideSale/insideSale",
     "pages/teamCardPurchase/teamCardPurchase"
   ],

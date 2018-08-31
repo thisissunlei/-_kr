@@ -192,8 +192,7 @@ Page({
               code: res.code
             },
             success: logRes => {
-              app.globalData.Cookie =
-                logRes.header["Set-Cookie"] || logRes.header["set-cookie"];
+              app.globalData.Cookie = logRes.header["Set-Cookie"] || logRes.header["set-cookie"];
               app.globalData.openid = logRes.data.data["openid"];
               this.getDetail();
             },

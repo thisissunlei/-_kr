@@ -87,6 +87,35 @@
             </view>
 
         </view>
+        <view class="u-team-card" bindtap="jumpSetCard" wx:if="{{(daynum>0)&&(sankeNum>0)}}"> 
+            <view class="u-meeting-title sale-title">
+                团队卡
+            </view>
+             <view class="u-meet-text meet-theme" style="color:#999" wx:if="{{saleStatus==='nothing'}}">暂无可用</view>
+            <view class="u-meet-text meet-theme" wx:if="{{saleStatus==='chosen'}}" >
+                <view class="u-meet-card sale-content">
+                    <view class="team-name-box">火箭少女啦啦啦啦啦啦</view>
+                    <image class="team-name-right" style="width:24rpx;" src="{{imgUrl}}teamName.png"></image></view>
+                <view class="u-meet-money sale-content">
+                    <view class="u-sale-unit" style="vertical-align:top">
+                        -
+                    </view>
+                    <view class="u-sale-unit">
+                        ¥
+                    </view>
+                    <view style="display:inline-block">{{saleContent.amount}}</view>
+                </view>
+
+            </view>
+            <view class="u-meet-text meet-theme" wx:if="{{saleStatus==='none'}}" >
+                <view class=" sale-content sale-type-none">{{saleLength}}张可用</view>
+
+            </view>
+            <view class="u-btn-arrow u-meeting-btn-arrow" style="top:47rpx">
+                <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+            </view>
+
+        </view>
     </view>
 
 

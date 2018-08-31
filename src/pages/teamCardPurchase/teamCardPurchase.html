@@ -1,8 +1,14 @@
+<button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;'></button>
+
 <view class="teamCard">
-    <view class="teamCard-topBg"></view>
+    <view class="teamCard-topBg">
+        <image src="{{KrImgUrl}}teamCardPurchase/bg.png"></image>
+    </view>
     <view class="teamCard-details">
         <view class="td-percentage">
-            <view class="td-pBg"></view>
+            <view class="td-pBg">
+                <image src="{{KrImgUrl}}teamCardPurchase/tip.png"></image>
+            </view>
             <view class="td-pNum">-100%</view>
         </view>
         <view class="td-text">售价：¥</view>
@@ -10,20 +16,105 @@
         <view class="td-surplus">剩余3000张</view>
     </view>
     <swiper bindanimationfinish="swiperChange" class="teamCard-swiper">
-        <block>
+        <block wx:for="1111" wx:key="{{index}}">
             <swiper-item>
                 <view class="teamCard-swiper-card">
-                    <view class="tsc-bg"></view>
-                    <view class="tsc-con">0</view>
+                    <view class="tsc-bg">
+                        <image mode="widthFix" src="{{KrImgUrl}}teamCardPurchase/card0.png"></image>
+                    </view>
+                    <view class="tsc-con">
+                        <view class="tsc-tit">卡名</view>
+                        <view class="tsc-price">
+                            <text style="color: #000000;font-size: 24rpx;">面额: </text>
+                            <text style="font-size: 36rpx;">20,000</text>
+                            <text style="font-size: 18rpx;">元</text>
+                        </view>
+                        <view class="tsc-bottom">
+                            <view class="tsc-bottom-left">
+                                <text style="font-size: 24rpx;">用卡: </text>
+                                <text style="font-size: 36rpx;">10</text>
+                                <text style="font-size: 18rpx;">人</text>
+                            </view>
+                            <view class="tsc-bottom-right">
+                                <text style="font-size: 24rpx;">有效期: </text>
+                                <text style="color: #000000;font-size: 36rpx;">30</text>
+                                <text style="font-size: 18rpx;">天</text>
+                            </view>
+                        </view>
+                    </view>
                 </view>
             </swiper-item>
         </block>
-        <block>
-            <swiper-item>1</swiper-item>
-        </block>
-        <block>
-            <swiper-item>2</swiper-item>
-        </block>
     </swiper>
-    <view>{{swiperIndex}}/7</view>
+    <view class="teamCard-swiper-page"><text>{{swiperIndex}}</text>/7</view>
+    <view class="note-tit">购买须知</view>
+    <view class="note-con">1.团队卡为电子卡，购买成功后可到“我的团队卡”中查看；</view>
+    <view class="note-con">2.可同时购买多张团队卡；</view>
+    <view class="note-con">3.购买团队卡仅支持微信支付；</view>
+    <view class="note-con">4.每张卡均可在使用人数范围内同时授权多人使用；</view>
+    <view class="note-con">5.团队成员可使用团队卡余额预订自由座内商品，结算时选择团队卡即可，如卡内余额不足，剩余金额可使用微信支付；</view>
+    <view class="note-con">6.团队成员可在团队卡“消费记录”中实时查看使用记录；</view>
+    <view class="note-con">7.购买后请在有效期内用完，团队卡不可充值，不退不换；</view>
+    <view class="note-con">8.有效期：每张团队卡购买后自动激活，并在团队卡规定有效期到期后失效。例：您在2018年9月10日购买了一张有效期30天的团队卡，该卡会在2018年10月11日失效；</view>
+    <view class="note-con">9.如需开发票或定制团队卡，可在线联系客服，时间为工作日10:00——19:00。</view>
+
+    <view class="u-protocol">
+        <view class="u-protocol-content">
+            <view class="u-protocol-image" bindtap="changeCheckbox">
+                <image class="u-protocol-checkbox" wx:if="{{!check}}"  src="../images/orderconfirmationImg/icon_uncheck.png"></image>
+                <image class="u-protocol-checkbox" wx:if="{{check}}"  src="../images/orderconfirmationImg/icon_check.png"></image>
+            </view>
+            <view class="u-protocol-text" bindtap="changeCheckbox">我已阅读并同意</view>
+            <view class="u-meet-protocol" bindtap="goToGuide">《氪空间自由座服务须知》</view>
+        </view>
+    </view>
+
+    <view class="teamCard-bottom">
+        <view class="teamCard-bottom-left">
+            <view class="tbl-txt">应付：</view>
+            <view class="tbl-price">
+                <text>¥</text>
+                <text>20,000</text>
+            </view>
+            <view class="tbl-Oprice">
+                <text>¥</text>
+                <text>20,000</text>
+            </view>
+        </view>
+        <view wx:if="{{!!check && !!cardNum}}" class="teamCard-bottom-right" bindtap="buy">立即购买</view>
+        <view wx:if="{{!check && !!cardNum}}" class="teamCard-bottom-right select">立即购买</view>
+        <view wx:if="{{!cardNum}}" class="teamCard-bottom-right select">已售罄</view>
+
+        <view class="teamCard-mark" wx:if="{{passWord || payOk}}"></view>
+        <view class="teamCard-popBox" wx:if="{{passWord}}">
+            <view class="popBox-tit">
+                <text>请输入购买口令</text>
+                <image src="{{KrImgUrl}}teamCardPurchase/icon_wp.png"></image>
+            </view>
+            <view class="input">
+                <input/>
+            </view>
+            <view class="input-tip">请联系客服获取口令</view>
+            <view class="popBox-bottom">
+                <view bindtap="cancel">取消</view>
+                <view bindtap="sure">确定</view>
+            </view>
+        </view>
+        <view class="teamCard-popBox" wx:if="{{payOk}}">
+            <image class="pay-ok-img" src="{{KrImgUrl}}teamCardPurchase/icon_correct.png"></image>
+            <view class="pay-ok-txt">购买成功</view>
+            <view class="popBox-bottom">
+                <view bindtap="cancel">继续购买</view>
+                <view bindtap="check">查看团队卡</view>
+            </view>
+        </view>
+        <view class="teamCard-mark select"></view>
+        <view class="buy-fail">
+            <image class="pay-ok-img" src="../images/public/error.png"></image>
+            <view>购买失败</view>
+        </view>
+        <view class="buy-fail passWord-error">
+            <view>购买口令不对哦~</view>
+        </view>
+    </view>
 </view>

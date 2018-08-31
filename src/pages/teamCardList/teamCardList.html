@@ -1,0 +1,19 @@
+<import src="../../utils/template/template.wxml" />
+
+<view class="content-wrap" wx:if="{{!!list && list.length > 0}}">
+    <view wx:for="{{list}}" wx:key="{{item.id}}" class="{{item.class}}">
+        <template is="teamCard" data="{{item: item,imgUrl:imgUrl, index: index, state: 'changes'}}"></template>
+    </view>
+
+    <view class="unuse-bg"></view>
+    <view class="unuse-card" bindtap="notUse">不使用团队卡~</view>
+    
+</view>
+
+<view class="my-meeting-list-none" wx:if="{{(!list || list.length == 0) && !loading}}">
+    <view class="content-none">
+        <image class="none-img" src="../images/coupon/none.png" background-size="cover"></image>
+        <text class="warn">还没有团队卡哦~~</text>
+        <text class="buy-card" bindtap="jumpBuyCard">购买团队卡</text>
+    </view>
+</view>
