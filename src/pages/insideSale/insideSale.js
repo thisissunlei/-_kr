@@ -4,10 +4,12 @@ const app = getApp();
 
 Page({
   data: {
-    imgUrl:app.globalData.KrImgUrl 
+    imgUrl:app.globalData.KrImgUrl,
+    status:'aa',
+    saleList:true,
   },
   onLoad: function () {
-    console.log('app.globalData.KrImgUrl ',app.globalData.KrImgUrl)
+   
   },
  
  
