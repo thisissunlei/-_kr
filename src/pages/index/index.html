@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;'></button>
 <view class="container container-wrapper">
-  <text  bindtap="moveToBind">shoujihao1</text>
+  <text bindtap="moveToBind">shoujihao1</text>
   <!-- 头部信息 -->
   <view class="idx_header">
     <view class="title-msg">
@@ -32,7 +32,8 @@
         <block wx:for="{{myMeeting}}" wx:key>
           <swiper-item class="my-metting" data-id="{{item.targetId}}" bindtap="{{item.targetType=='SEAT'?'moveToSeatDetail':(item.targetType=='MEETING'?'moveToMeetingDetail':'moveToActivity')}}">
             <view class="metting-content">
-              <view class="metting-mark {{item.targetType === 'SEAT'?'seat':(item.targetType === 'MEETING'?'metting':'activity')}}">{{item.targetType === 'SEAT'?'散座':(item.targetType === 'MEETING'?'会议':'活动')}}</view>
+              <view class="metting-mark {{item.targetType === 'SEAT'?'seat':(item.targetType === 'MEETING'?'metting':'activity')}}">{{item.targetType
+                === 'SEAT'?'散座':(item.targetType === 'MEETING'?'会议':'活动')}}</view>
               <view class="metting-title">
                 <view class="activity-time" wx:if="{{item.targetType=='ACTIVITY'}}">
                   <view wx:if="{{item.single}}">
