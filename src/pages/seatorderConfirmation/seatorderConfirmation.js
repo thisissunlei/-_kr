@@ -573,8 +573,21 @@ Page({
         })
       }
     })
-    
-
+  },
+  jumpSetCard(){
+    let data = {
+      seatGoodIds:this.seatGoodIds,
+      quantity:this.data.sankeNum
+    }
+    wx.setStorage({
+      key: 'seat-card',
+      data: data,
+      success: function(res){
+        wx.navigateTo({
+          url: '../teamCardList/teamCardList?from=seat'
+        })
+      }
+    })
   },
   getWeek(init){
     var mydate=new Date(init); 
