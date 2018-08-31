@@ -18,31 +18,60 @@ Page({
   },
   submit_buttom:true,
   getPhoneNumber: function(e) { 
-    console.log(e) 
-    console.log(e.detail.errMsg) 
-    console.log(e.detail.iv) 
-    console.log(e.detail.encryptedData) 
     let from = this.data.from;
     let that = this;
+    let data = {
+      encryptedData:e.detail.encryptedData
+    }
     if(e.detail.errMsg === 'getPhoneNumber:ok'){
       // 给后台发送
       console.log('提交生成订单及其余下内容')
-      //处理判断散座还是订单
-      switch (from){
-        case 'seat':
-          that.getSeatData()
-          break;
-        case 'activity':
-          wx.navigateBack({
-              delta: 1
-          })
-          break;
-        default:
-          that.getOrderData();
-          break;
-      }
+      that.bindWechatPhone(data)
+      
     }
   } ,
+  bindWechatPhone(data){
+    let that = this.
+     app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/wx/auth/bind-phone',
+        methods:"GET",
+        data:data,
+        success:(res)=>{
+          //处理判断散座还是订单
+          switch (from){
+            case 'seat':
+              that.getSeatData()
+              break;
+            case 'activity':
+              wx.navigateBack({
+                  delta: 1
+              })
+              break;
+            default:
+              that.getOrderData();
+              break;
+          }
+        },
+        fail:(res)=>{
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            },function(){
+              wx.navigateBack({
+                  delta: 1
+              })
+            })
+          },2000)
+          
+        }
+      })
+  },
   onShareAppMessage: function() {
     return app.globalData.share_data;
   },
