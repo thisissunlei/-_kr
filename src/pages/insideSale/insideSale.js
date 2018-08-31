@@ -6,6 +6,7 @@ Page({
   data: {
     imgUrl:app.globalData.KrImgUrl,
     status:'aa',
+    saleList:false,
   },
   onLoad: function () {
    
