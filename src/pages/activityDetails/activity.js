@@ -125,11 +125,7 @@ Page({
     });
   },
   onShow() {
-    if (!!app.globalData.Cookie) {
-      this.getDetail();
-    } else {
       this.loginAgain();
-    }
   },
   //获取地理位置
   getLocation: function() {
@@ -196,8 +192,7 @@ Page({
               code: res.code
             },
             success: logRes => {
-              app.globalData.Cookie =
-                logRes.header["Set-Cookie"] || logRes.header["set-cookie"];
+              app.globalData.Cookie = logRes.header["Set-Cookie"] || logRes.header["set-cookie"];
               app.globalData.openid = logRes.data.data["openid"];
               this.getDetail();
             },
