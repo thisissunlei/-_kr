@@ -2,6 +2,7 @@
   "pages": [
     
     "pages/index/index",
+    "pages/myTeamCard/myTeamCard",
     "pages/getCoupon/getCoupon",
     "pages/activityDetails/activity",
     "pages/activityQuickMark/activityQuickMark",
@@ -41,8 +42,9 @@
     "pages/myCoupon/myCoupon",
     "pages/saleList/saleList",
     "pages/teamCardList/teamCardList",
-    "pages/insideSale/insideSale"
-
+    "pages/insideSale/insideSale",
+    "pages/teamCardPurchase/teamCardPurchase",
+    "pages/teamCardDetails/teamCardDetails"
   ],
   "window": {
     "backgroundTextStyle": "light",

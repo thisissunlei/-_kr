@@ -8,8 +8,12 @@
   right: 0;
   left: 0;
   z-index: 0;
-  background: #000000;
   height: 360rpx;
+}
+.teamCard-topBg image {
+  display: block;
+  height: 360rpx;
+  width: 100%;
 }
 .teamCard-details {
   position: relative;
@@ -34,7 +38,11 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: #ff0000;
+}
+.teamCard-details > view.td-percentage .td-pBg image {
+  display: block;
+  height: 56rpx;
+  width: 100%;
 }
 .teamCard-details > view.td-percentage .td-pNum {
   position: relative;
@@ -62,12 +70,12 @@
 .teamCard-swiper {
   position: relative;
   z-index: 1;
-  color: #ffffff;
-  height: 340rpx;
+  color: #333333;
+  height: 360rpx;
 }
 .teamCard-swiper-card {
   position: relative;
-  height: 340rpx;
+  height: 360rpx;
   margin: 0 32rpx;
 }
 .teamCard-swiper-card .tsc-bg {
@@ -77,49 +85,267 @@
   bottom: 0;
   left: 0;
   z-index: 0;
-  background: #ecca6f;
   border-radius: 16rpx;
   overflow: hidden;
 }
+.teamCard-swiper-card .tsc-bg image {
+  display: block;
+  width: 100%;
+}
 .teamCard-swiper-card .tsc-con {
   position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  height: 340rpx;
+  padding: 40rpx;
 }
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
-.teamCard-swiper-card {}
+.teamCard-swiper-card .tsc-con .tsc-tit {
+  font-size: 48rpx;
+}
+.teamCard-swiper-card .tsc-con .tsc-bottom {
+  position: absolute;
+  right: 40rpx;
+  bottom: 40rpx;
+  left: 40rpx;
+  overflow: hidden;
+}
+.teamCard-swiper-card .tsc-con .tsc-bottom-left {
+  float: left;
+}
+.teamCard-swiper-card .tsc-con .tsc-bottom-right {
+  float: right;
+}
+.teamCard-swiper-page {
+  color: #3f3f3f;
+  font-size: 24rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  padding: 0 0 60rpx;
+  text-align: center;
+}
+.teamCard-swiper-page text {
+  color: #333;
+  font-size: 36rpx;
+}
+.note-tit {
+  color: #333333;
+  font-size: 36rpx;
+  padding: 0 0 28rpx 0;
+  text-align: center;
+}
+.note-con {
+  color: #666666;
+  font-size: 28rpx;
+  line-height: 56rpx;
+  padding: 0 54rpx 0;
+}
 
+.u-protocol{
+  box-sizing: border-box;
+  padding: 60rpx 0 172rpx;
 
+}
+.u-protocol-content{
+  height:30rpx;
+  line-height:30rpx;
+  width:100%;
+  box-sizing: border-box;
+  padding:0 90rpx;
 
+}
+.u-protocol-image{
+  float:left;
+  width:30rpx;
+  height: 30rpx;
+}
+.u-protocol-checkbox{
+  width:100%;
+  height:100%;
+}
+.u-protocol-text{
+  float:left;
+  font-size:26rpx;
+  color:#666666;
+  text-indent:10rpx;
+}
+.u-meet-protocol{
+  float:left;
+  font-size:26rpx;
+  color:#4A90E2;
+}
 
+.teamCard-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.10);
+  display: flex;
+  height: 112rpx;
+  background: #ffffff;
+}
+.teamCard-bottom-left {
+  flex: 1;
+  text-align: center;
+}
+.teamCard-bottom-left > view {
+  display: inline-block;
+}
+.teamCard-bottom-left > view.tbl-txt {
+  color: #666666;
+  font-size: 32rpx;
+  line-height: 112rpx;
+}
+.teamCard-bottom-left > view.tbl-price {
+  color: #f5615b;
+}
+.teamCard-bottom-left > view.tbl-price text:first-child {
+   font-size: 30rpx;
+}
+.teamCard-bottom-left > view.tbl-price text:last-child {
+  font-size: 44rpx;
+}
+.teamCard-bottom-left > view.tbl-Oprice {
+  color: #999;
+  padding-left: 20rpx;
+  text-decoration: line-through;
+}
+.teamCard-bottom-left > view.tbl-Oprice text:first-child {
+  font-size: 20rpx;
+}
+.teamCard-bottom-left > view.tbl-Oprice text:last-child {
+  font-size: 24rpx;
+}
 
+.teamCard-bottom-right {
+  background-image: linear-gradient(-217deg, #FFEB00 0%, #FFDF00 100%);
+  color: #624d17;
+  font-size: 36rpx;
+  height: 112rpx;
+  line-height: 112rpx;
+  text-align: center;
+  width: 320rpx;
+}
+.teamCard-bottom-right.select {
+  background-image: linear-gradient(45deg, #999999 0%, #9F9F9F 100%);
+  color: #ffffff;
+}
 
-
-
-
-
-
-
-
-
-
-
+.teamCard-mark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(0,0,0,0.70);
+}
+.teamCard-mark.select {
+  background-color: transparent;
+}
+.teamCard-popBox {
+  position: fixed;
+  top: 300rpx;
+  left: 94rpx;
+  right: 94rpx;
+  z-index: 11;
+  background: #ffffff;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  padding: 60rpx 0 0 0;
+}
+.popBox-bottom {
+  border-top: 1px #E5E5E5 solid;
+  overflow: hidden;
+}
+.popBox-bottom > view {
+  box-sizing: border-box;
+  font-size: 34rpx;
+  float: left;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  width: 50%;
+}
+.popBox-bottom > view:first-child {
+  border-right: 1px #E5E5E5 solid;
+}
+.popBox-bottom > view:last-child {
+  color: #f5a623;
+}
+.teamCard-popBox .input {
+  background: #f6f6f6;
+  border-radius: 16rpx;
+  margin: 0 30rpx 32rpx;
+  padding: 20rpx 20rpx;
+}
+.teamCard-popBox .input input {
+  color: #666666;
+  display: block;
+  font-size: 32rpx;
+  height: 34rpx;
+  line-hieght: 34rpx;
+}
+.teamCard-popBox .input-tip {
+  color: #999999;
+  font-size: 28rpx;
+  padding: 0 0 52rpx;
+  text-align: center;
+}
+.teamCard-popBox .popBox-tit {
+  padding-bottom: 56rpx;
+  text-align: center;
+}
+.teamCard-popBox .popBox-tit text {
+  color: #000000;
+  font-size: 40rpx;
+  padding-right: 12rpx;
+  vertical-align: middle;
+}
+.teamCard-popBox .popBox-tit image {
+  height: 40rpx;
+  vertical-align: middle;
+  width: 40rpx;
+}
+.pay-ok-img {
+  display: block;
+  height: 100rpx;
+  margin: 40rpx auto;
+  width: 100rpx;
+}
+.pay-ok-txt {
+  color: #666666;
+  font-size: 40rpx;
+  padding-bottom: 60rpx;
+  text-align: center;
+}
+.buy-fail {
+  position: fixed;
+  top: 600rpx;
+  left: -140rpx;
+  z-index: 11;
+  margin-left: 50%;
+  background: rgba(0,0,0,0.80);
+  border-radius: 16rpx;
+  height: 240rpx;
+  width: 280rpx;
+}
+.buy-fail image {
+  margin: 36rpx auto;
+}
+.buy-fail view {
+  color: #ededed;
+  font-size: 30rpx;
+  text-align: center;
+}
+.passWord-error {
+  height: 92rpx;
+  left: -232rpx;
+  line-height: 92rpx;
+  text-align: center;
+  width: 464rpx;
+}
 
 
 
