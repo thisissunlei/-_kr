@@ -125,11 +125,7 @@ Page({
     });
   },
   onShow() {
-    if (!!app.globalData.Cookie) {
-      this.getDetail();
-    } else {
       this.loginAgain();
-    }
   },
   //获取地理位置
   getLocation: function() {
