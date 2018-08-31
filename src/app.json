@@ -41,8 +41,8 @@
     "pages/myCoupon/myCoupon",
     "pages/saleList/saleList",
     "pages/teamCardList/teamCardList",
-    "pages/insideSale/insideSale"
-
+    "pages/insideSale/insideSale",
+    "pages/teamCardPurchase/teamCardPurchase"
   ],
   "window": {
     "backgroundTextStyle": "light",
