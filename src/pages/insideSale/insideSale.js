@@ -13,6 +13,7 @@ Page({
     page:1,
     isExpired:false,
     totalPages:1,
+    btn_bool: true,
   },
   onLoad: function (options) {
     this.setData({
@@ -101,6 +102,17 @@ Page({
       saleList:saleList,
       recordList:recordList,
       totalPages:2,
+    });
+
+     //查看是否授权
+     wx.getSetting({
+      success(res) {
+        if (!res.authSetting["scope.userInfo"]) {
+           console.log("用户没有授权：用户信息！");
+        } else {
+          _this.setData({ btn_bool: false });
+        }
+      }
     });
 
      //this.getSaleList();
@@ -236,6 +248,16 @@ Page({
 
       }
     });
+  },
+  //授权
+  onGotUserInfo: function(e) {
+    if (e.detail.userInfo) {
+      this.getSaleList();
+      this.getRecordList(1);
+      this.setData({
+        btn_bool: false
+      });
+    }
   }
  
 })
