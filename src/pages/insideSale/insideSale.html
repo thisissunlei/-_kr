@@ -15,7 +15,7 @@
                         <view class="u-sale-info {{item.allowance!=3?'u-sale-no-expired':'u-sale-expired'}} ">
                             <view class="u-sale-amount">
                                 ￥<text class="u-sale-num">{{item.amount}}</text>
-                                <text class="u-sale-rule" wx:if="{{item.ruleType=='FULL_REDUCTION'}}">满{{item.frAmount}}使用</text>
+                                <text class="u-sale-rule" wx:if="{{item.ruleType=='FULL_REDUCTION'}}">满{{item.quota}}使用</text>
                             </view>
                             <view class="u-sale-name">{{item.couponName}}</view>
                             <view class="u-sale-time">使用期限：{{item.startTime}}-{{item.endTime}}</view>
@@ -39,77 +39,17 @@
             <view class="u-get-title">领取记录</view>
             <image class="u-sale-info-bg" src="{{imgUrl}}/insideSale/infobg.png"></image>
             
-            <view class="u-sale-info-list">
-                <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
+            <view class="u-sale-info-list" wx:for="{{recordList}}" wx:key>
+                <image class="u-person-img" src="{{item.donatorAvatar}}"></image>
                 <view class="u-person-info">
-                    <view class="u-person-name">易烊千玺易烊千玺</view>
-                    <view class="u-get-time">2018.08.22 18:00:00</view>
+                    <view class="u-person-name">{{item.donatorThirdNick}}</view>
+                    <view class="u-get-time">{{item.time}}</view>
                 </view>
                 <view class="u-person-sale-info">
-                    领取了<text  class="u-red-salse">50元礼券</text>
+                    领取了<text  class="u-red-salse">{{item.faceValue}}元礼券</text>
                 </view>
             </view>
-            <view class="u-sale-info-list">
-                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
-                    <view class="u-person-info">
-                        <view class="u-person-name">易烊千玺易烊千玺</view>
-                        <view class="u-get-time">2018.08.22 18:00:00</view>
-                    </view>
-                    <view class="u-person-sale-info">
-                        领取了<text  class="u-red-salse">1000元礼券</text>
-                    </view>
-            </view>
-            <view class="u-sale-info-list">
-                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
-                    <view class="u-person-info">
-                        <view class="u-person-name">易烊千玺易烊千玺</view>
-                        <view class="u-get-time">2018.08.22 18:00:00</view>
-                    </view>
-                    <view class="u-person-sale-info">
-                        领取了<text  class="u-red-salse">20元礼券</text>
-                    </view>
-            </view>
-            <view class="u-sale-info-list">
-                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
-                    <view class="u-person-info">
-                        <view class="u-person-name">易烊千玺易烊千玺</view>
-                        <view class="u-get-time">2018.08.22 18:00:00</view>
-                    </view>
-                    <view class="u-person-sale-info">
-                        领取了<text  class="u-red-salse">100元礼券</text>
-                    </view>
-            </view>
-            <view class="u-sale-info-list">
-                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
-                    <view class="u-person-info">
-                        <view class="u-person-name">易烊千玺易烊千玺</view>
-                        <view class="u-get-time">2018.08.22 18:00:00</view>
-                    </view>
-                    <view class="u-person-sale-info">
-                        领取了<text  class="u-red-salse">30元礼券</text>
-                    </view>
-            </view>
-            <view class="u-sale-info-list">
-                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
-                    <view class="u-person-info">
-                        <view class="u-person-name">易烊千玺易烊千玺</view>
-                        <view class="u-get-time">2018.08.22 18:00:00</view>
-                    </view>
-                    <view class="u-person-sale-info">
-                        领取了<text  class="u-red-salse">30元礼券</text>
-                    </view>
-            </view>
-            <view class="u-sale-info-list">
-                    <image class="u-person-img" src="{{imgUrl}}/insideSale/banner.jpg"></image>
-                    <view class="u-person-info">
-                        <view class="u-person-name">易烊千玺易烊千玺</view>
-                        <view class="u-get-time">2018.08.22 18:00:00</view>
-                    </view>
-                    <view class="u-person-sale-info">
-                        领取了<text  class="u-red-salse">30元礼券</text>
-                    </view>
-            </view>
-            <view class="u-list-more">点击加载更多</view>
+            <view class="u-list-more" wx:if="{{recordList.length>5}}">点击加载更多</view>
 
         </view>
     </view>
