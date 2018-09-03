@@ -449,28 +449,27 @@ Page({
   },
   reduceNum:function(){
     const reduce_btn_f = this.james.reduceNum();
-     let selecedList = this.james.getValue()
+    let selecedList = this.james.getValue()
     this.setData({
-          date_data1:this.date_data1,
-          date_data2:this.date_data2,
-          selecedList: selecedList ,
-          add_btn :  reduce_btn_f.final_bool,
-          reduce_btn :  reduce_btn_f.final_r_bool,
-          final_num : reduce_btn_f.final_num
-        });
+        date_data1:this.date_data1,
+        date_data2:this.date_data2,
+        selecedList: selecedList ,
+        add_btn :  reduce_btn_f.final_bool,
+        reduce_btn :  reduce_btn_f.final_r_bool,
+        final_num : reduce_btn_f.final_num
+    });
   },
   addNum:function(){
     const add_btn_f = this.james.addNum();
-     let selecedList = this.james.getValue()
+    let selecedList = this.james.getValue()
     this.setData({
-          date_data1:this.date_data1,
-          date_data2:this.date_data2, 
-          add_btn :  add_btn_f.final_bool,
-          reduce_btn :  add_btn_f.final_r_bool,
-          final_num : add_btn_f.final_num,
-          selecedList: selecedList 
-        });
-    console.log(this.james.getValue())
+        date_data1:this.date_data1,
+        date_data2:this.date_data2, 
+        add_btn :  add_btn_f.final_bool,
+        reduce_btn :  add_btn_f.final_r_bool,
+        final_num : add_btn_f.final_num,
+        selecedList: selecedList 
+    });
   },
 
 
@@ -486,7 +485,7 @@ Page({
      const today_date = new Date();
      const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
      const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    this.dealDate(this.nowDate);
+     this.dealDate(this.nowDate);
      this.setData({
       
       date_now:{
@@ -502,12 +501,9 @@ Page({
         choose:''
       }
     });
-    // this.getFirst();//判断新人
     this.getMeetId();//获取详情id
     this.getPhone();//获取联系方式
-
     var _this = this;
-
     if (options.from != 'list'){
       wx.getStorage({
         key: 'detail-c',
@@ -558,6 +554,7 @@ Page({
     let price_all = 0;
     let price_y = 0;
     let number = 1;
+    let that = this;
     // wx.setStorageSync("seat_order_sale", {sale:false})
     // wx.setStorageSync("seat_order_card", {card:false})
     wx.setStorageSync("seat_sale_info", {card:false,sale:false})
@@ -585,6 +582,8 @@ Page({
         carendarArr: carendar,//订单明细
         // price_all:price_all,
         // price_y:price_y
+      },function(){
+        that.getSeatcalculate()
       })
     }
   },
@@ -698,12 +697,13 @@ Page({
       }
     })
   },
+  // 获取应付金额
   getSeatcalculate(){
     let data = this.data;
     let that= this;
     let formData = {
       cardId:data.cardContent.cardId || '',
-      couponId:data.saleContent.id || '',
+      couponId:data.saleContent.couponId || '',
       quantity:data.sankeNum,
       seatGoodIds:this.seatGoodIds
     }

@@ -1043,19 +1043,6 @@ Page({
       mask:true
     })
 
-    //测试绑定
-    // wx.setStorage({
-    //               key:"create_order",
-    //               data: {
-    //                 create_order:orderData
-    //               },
-    //             })
-    // wx.navigateTo({
-    //                 url: '../bindPhone/bindPhone?fun=getOrderData'
-    //               })
-    // return;
-    
-   
     var _this=this;
         app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
