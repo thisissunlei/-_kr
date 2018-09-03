@@ -4,70 +4,35 @@
         <text class="u-header-txt" bindtap="modalHide" >活动规则</text>
     </view>
     <view class="m-sale-content">
-        <view class="u-nothing"  wx:if="{{!saleList}}">
+        <view class="u-nothing"  wx:if="{{isExpired}}">
                 <image class="u-nothing-img" src="{{imgUrl}}/insideSale/nothing.png"></image>
                 <view class="u-nothing-text">很抱歉，活动已结束</view>
         </view>
-        <view class="u-sale-list" wx:if="{{saleList}}">
-            <image class="u-sale-bg" src="{{imgUrl}}/insideSale/Mask.jpg"></image>
-            <view class="u-sale-info {{status!='expired'?'u-sale-no-expired':'u-sale-expired'}} ">
-                <view class="u-sale-amount">
-                    ￥<text class="u-sale-num">100</text>
-                    <text class="u-sale-rule">满500使用</text>
-                </view>
-                <view class="u-sale-name">内部专享礼券</view>
-                <view class="u-sale-time">使用期限：2018.08.10-2018.09.10</view>
-            </view>
-            <view class="u-sale-status">
-                <!-- <view class="u-sale-get-btn u-get-sale">
-                   <view class="u-sale-txt">立即</view>
-                   <view class="u-sale-txt">领取</view>
-                </view> -->
-                <view class="u-sale-get-btn u-no-get-sale">
-                        已领取
-                </view>
-                <!-- <image class="u-expired-img" src="{{imgUrl}}/insideSale/loot.png"></image> -->
-            </view>
+        <view class="u-sale-content" wx:if="{{!isExpired}}">
+                <view class="u-sale-list" wx:for="{{saleList}}" wx:key>
+                        <image class="u-sale-bg"  wx:if="{{item.allowance!=3}}" src="{{imgUrl}}/insideSale/Mask.jpg"></image>
+                        <image class="u-sale-bg"  wx:if="{{item.allowance==3}}" src="{{imgUrl}}/insideSale/expired.jpg"></image>
+                        <view class="u-sale-info {{item.allowance!=3?'u-sale-no-expired':'u-sale-expired'}} ">
+                            <view class="u-sale-amount">
+                                ￥<text class="u-sale-num">{{item.amount}}</text>
+                                <text class="u-sale-rule" wx:if="{{item.ruleType=='FULL_REDUCTION'}}">满{{item.frAmount}}使用</text>
+                            </view>
+                            <view class="u-sale-name">{{item.couponName}}</view>
+                            <view class="u-sale-time">使用期限：{{item.startTime}}-{{item.endTime}}</view>
+                        </view>
+                        <view class="u-sale-status">
+                            <view class="u-sale-get-btn u-get-sale" wx:if="{{item.allowance==1}}">
+                               <view class="u-sale-txt">立即</view>
+                               <view class="u-sale-txt">领取</view>
+                            </view>
+                            <view class="u-sale-get-btn u-no-get-sale"  wx:if="{{item.allowance==2}}">
+                                    已领取
+                            </view>
+                            <image class="u-expired-img"   wx:if="{{item.allowance==3}}" src="{{imgUrl}}/insideSale/loot.png"></image>
+                        </view>
+                 </view>
+            
         </view>
-        <view class="u-sale-list" wx:if="{{saleList}}">
-            <image class="u-sale-bg" src="{{imgUrl}}/insideSale/Mask.jpg"></image>
-            <view class="u-sale-info {{status!='expired'?'u-sale-no-expired':'u-sale-expired'}} ">
-                <view class="u-sale-amount">
-                    ￥<text class="u-sale-num">500</text>
-                    <text class="u-sale-rule">满1000使用</text>
-                </view>
-                <view class="u-sale-name">内部专享礼券</view>
-                <view class="u-sale-time">使用期限：2018.08.10-2018.09.10</view>
-            </view>
-            <view class="u-sale-status">
-                <view class="u-sale-get-btn u-get-sale">
-                   <view class="u-sale-txt">立即</view>
-                   <view class="u-sale-txt">领取</view>
-                </view>
-                <!-- <view class="u-sale-get-btn u-no-get-sale">
-                        已领取
-                </view> -->
-                <!-- <image class="u-expired-img" src="{{imgUrl}}/insideSale/loot.png"></image> -->
-            </view>
-        </view>
-        <!-- 抢光 -->
-        <view class="u-sale-list">
-            <image class="u-sale-bg" src="{{imgUrl}}/insideSale/expired.jpg"></image>
-            <view class="u-sale-info u-sale-expired">
-                <view class="u-sale-amount">
-                    ￥<text class="u-sale-num">200</text>
-                    <text class="u-sale-rule">满500使用</text>
-                </view>
-                <view class="u-sale-name">内部专享礼券1</view>
-                <view class="u-sale-time">使用期限：2018.08.10-2018.09.10</view>
-            </view>
-            <view class="u-sale-status">
-                <image class="u-expired-img" src="{{imgUrl}}/insideSale/loot.png"></image>
-            </view>
-        </view>
-
-
-
     </view>
     <view class="u-get-sale-info">
         <view class="u-get-info-content">
