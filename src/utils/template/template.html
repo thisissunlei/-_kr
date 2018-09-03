@@ -89,19 +89,20 @@
 <!-- 选择团队卡的模板 -->
 <template name="teamCard">
   <view class="my-card-list">
+    <view class="checked-logo" wx:if="{{item.checked}}"></view>
     <image class="team-card-bg" src="{{imgUrl}}teamCardBg/bg.jpg"></image>
     <view class="card-content" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}">
       <view class="card-first-content">
-        <view class="card-name">速战速决闪卡</view>
-        <view class="card-num">NO.123456</view>
+        <view class="card-name">{{item.name}}</view>
+        <view class="card-num">{{item.cardNo}}</view>
       </view>
       <view class="card-second-content">
         <view class="card-text">余额</view>
-        <view class="card-over">5,000</view>
+        <view class="card-over">{{item.remainAmountDecimal}}</view>
         <view class="card-unit">元</view>
       </view>
       <view class="card-third-content">
-        <view class="card-range">使用期限：2018.09.10-2019.09.09</view>
+        <view class="card-range">使用期限：{{item.effectAt}}-{{item.expireAt}}</view>
       </view>
       </view>
   </view>

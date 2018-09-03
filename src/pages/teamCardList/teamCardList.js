@@ -6,6 +6,40 @@ Page({
     loading: false,
     imgUrl:app.globalData.KrImgUrl 
   },
+    cardList:[
+      {
+        cardNo:'NO.123456',
+        effectAt:'2018.09.10',
+        expireAt:'2019.09.09',
+        remainAmountDecimal:'5,000',
+        name:'速战速决闪卡1',
+        cardId:1
+      },
+      {
+        cardNo:'NO.123456',
+        effectAt:'2018.09.10',
+        expireAt:'2019.09.09',
+        remainAmountDecimal:'5,000',
+        name:'速战速决闪卡2',
+        cardId:2
+      },
+      {
+        cardNo:'NO.123456',
+        effectAt:'2018.09.10',
+        expireAt:'2019.09.09',
+        remainAmountDecimal:'5,000',
+        name:'速战速决闪卡3',
+        cardId:3
+      },
+      {
+        cardNo:'NO.123456',
+        effectAt:'2018.09.10',
+        expireAt:'2019.09.09',
+        remainAmountDecimal:'5,000',
+        name:'速战速决闪卡4',
+        cardId:4
+      },
+    ],
     checked: {},
     back: true,
   onLoad: function (options) {
@@ -14,9 +48,46 @@ Page({
           title: "加载中",
           mask: true
       })
+      this.checked = {
+          card:true,
+          cardNo:'NO.123456',
+          effectAt:'2018.09.10',
+          expireAt:'2019.09.09',
+          remainAmountDecimal:'5,000',
+          name:'速战速决闪卡1',
+          cardId:1
+      }
+
+      // 假数据
+      let list = this.cardList.map((val, i) => {
+                        val.bt = this.changeTime(val.effectiveAt)
+                        val.et = this.changeTime(val.expireAt)
+                        val.class = 'list-warp'
+
+                        if ( !!this.checked.card ) {
+                            if ( val.cardId === this.checked.cardId ) {
+                                val.checked = true
+                            } else {
+                                val.checked = false
+                            }
+                        } else {
+                            val.checked = false
+                        }
+                        return val
+                    })
+      wx.hideLoading()
+                    this.setData({
+                        list: list,
+                        loading: false
+                    })
+      return
+      // 假数据结束
+
+
+
       if ( options.from === 'seat' ) {
           wx.getStorage({
-              key: 'seat_order_sale',
+              key: 'seat_order_card',
               success: (res) => {
                   this.checked = res.data
                   this.getSeatList()
@@ -63,7 +134,7 @@ Page({
             key: 'seat-sale',
             success: (res) => {
                 if (res.data) {
-                    this.getList(res.data, 'api/gateway/krcoupon/seat/is-first-order')
+                    this.getList(res.data, 'api/gateway/kmorder/seat/coupon-teamcard-list')
                 }
             }
         })
@@ -78,7 +149,7 @@ Page({
                 if ( res.data.code > 0 ) {
                     let list = res.data.data.coupons
                     list.forEach((val, i) => {
-                        val.bt = this.changeTime(val.effectiveAt)
+                        val.bt = this.changeTime(val.effectAt)
                         val.et = this.changeTime(val.expireAt)
                         val.class = 'list-warp'
 
@@ -138,30 +209,6 @@ Page({
         myArray[5] = seconds;
         return myArray;
     },
-    cardToBack(e) {
-        let index = e.target.dataset.index || e.currentTarget.dataset.index
-        let list = this.data.list
-        if ( list[index].class.indexOf('select') > -1 ) {
-            list[index].class = 'list-warp'
-        } else {
-            list[index].class = 'list-warp select'
-        }
-        this.setData({
-            list: list
-        })
-    },
-    cardToFront(e) {
-        let index = e.target.dataset.index || e.currentTarget.dataset.index
-        let list = this.data.list
-        if ( list[index].class.indexOf('select') > -1 ) {
-            list[index].class = 'list-warp'
-        } else {
-            list[index].class = 'list-warp select'
-        }
-        this.setData({
-            list: list
-        })
-    },
 
 
   notUse:function(){
@@ -172,7 +219,7 @@ Page({
       this.back = false
     if(this.from=="seat"){
         wx.setStorage({
-          key:"seat_order_sale",
+          key:"seat_order_card",
           data:{sale:false},
           success:function(){
             setTimeout(function(){
@@ -202,7 +249,6 @@ Page({
   selectTab:function(e){
     let obj = e.target.dataset.content || e.currentTarget.dataset.content;
     let index = e.target.dataset.index || e.currentTarget.dataset.index;
-    if ( !obj.usable ) return
       if (!this.back) return
       wx.showLoading({
           mask: true
@@ -216,12 +262,10 @@ Page({
       this.setData({
           list: list
       })
-    obj.sale = true;
-    obj.reduce = obj.amount;
-    obj.id = obj.couponId;
+    obj.card = true;
     if(this.from=="seat"){
         wx.setStorage({
-            key: "seat_order_sale",
+            key: "seat_order_card",
             data: obj,
             success:function(){
               setTimeout(function(){
