@@ -10,7 +10,50 @@ Page({
     ruleModal:false,
   },
   onLoad: function () {
-   
+    // this.getSaleList();
+    // this.getRecordList();
+  },
+  getSaleList(){
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/list",
+        methods: "GET",
+        header: {
+          "content-type": "appication/json"
+        },
+        data: {
+          
+        },
+        success: res => {
+          // console.log(res)
+          let userInfo = Object.assign({}, res.data.data);
+          // console.log(userInfo)
+          userInfo.phone = userInfo.phone;
+          this.setData({
+           
+          });
+        }
+      });
+  },
+  getRecordList(){
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/record",
+      methods: "GET",
+      header: {
+        "content-type": "appication/json"
+      },
+      data: {
+        
+      },
+      success: res => {
+        // console.log(res)
+        let userInfo = Object.assign({}, res.data.data);
+        // console.log(userInfo)
+       
+        this.setData({
+          
+        });
+      }
+    });
   },
   myCatchTouch: function () {
     return;
