@@ -1,5 +1,5 @@
-<view class="team-card">
-    <view class="team-card-list" wx:for="{{teamCardList}}" wx::key>
+<view class="team-card" wx:if="{{teamCardList.length > 0}}">
+    <view class="team-card-list" wx:for="{{teamCardList}}" wx:key>
         <view class="team-card-top">
             <text>{{item.name}}</text>
             <text>{{item.number}}</text>
@@ -19,4 +19,11 @@
         <image class="overdue" wx:if="{{item.stause == 'used'}}" src="../images/orderimg/order-a.png"></image>
         <image class="overdue" wx:if="{{item.stause == 'ex'}}" src="../images/orderimg/order-b.png"></image>
     </view>
+</view>
+<view class="team-card-none" wx:else>
+    <view class="content-none">
+        <image class="img-none" src="../images/coupon/none.png"></image>
+        <text class="warn">还没有团队卡哦~</text>
+    </view>
+    <button class="go-buy" bindtap="goBuyTeamCard">购买团队卡</button>
 </view>
