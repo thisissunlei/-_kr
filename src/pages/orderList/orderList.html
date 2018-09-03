@@ -1,0 +1,167 @@
+<view class="order-warp">
+	<view class="chomg">
+		<view class="chomg_a">
+			<view class="{{show_xx == false ? 'chomg_v' :'chomg_v1'}}" bindtap='sanzuo'>
+				<text>散座</text>
+			</view>
+			<view class="{{show_xx == true ? 'chomg_v' :'chomg_v1'}}" bindtap='huiyi'>
+				<text>会议室</text>
+			</view>
+		</view>
+	</view>
+	<view class="order-type">
+		<view class="tab" bindtap="changeType" data-type="ALL">全部</view>
+		<view class="tab" bindtap="changeType" data-type="OBLIGATION">待支付</view>
+		<view class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</view>
+		<view class="tab" bindtap="changeType" data-type="USED">已完成</view>
+		<view class="tab" bindtap="changeType" data-type="CLOSED">已取消</view>
+		<view class="active-type" style="left:{{number}}">
+			<text class="line"></text>
+		</view>
+	</view>
+	<view class="oder-botton"></view>
+	<view class="my-order" wx:if="{{show_xx == true}}">
+		<!-- 有数据 -->
+		<scroll-view scroll-y class="order-warp-scroll" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+
+			<view id="green" class="scroll-view-item bc_green"></view>
+			<view class="content-list">
+				<view class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList}}" wx:key="{{orderId}}">
+					<view class="oder-top">
+						<view>订单号:{{item.orderNo}}</view>
+						<text class="status unpay" wx:if="{{item.orderShowStatus == 'OBLIGATION'}}">待支付</text>
+						<text class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已完成</text>
+						<text class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</text>
+						<text class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已取消</text>
+					</view>
+
+					<view wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box">
+
+						<navigator class="content-box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
+
+							<view class="left">
+								<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
+							</view>
+							<view class="right">
+								<text class="content u-weight">{{item.capacity}}人 {{item.meetingRoomName}} </text>
+								<text class="content">{{item.meetingTIme}}</text>
+								<text class="content">{{item.buildName}}</text>
+								<text class="content oder-marny">￥ <text style="font-size:34rpx;">{{item.cost}}</text></text>
+							</view>
+						</navigator>
+						<view class="button-box">
+							<view class="time-section" wx:if="{{item.minute>-1}}">
+								<image class="time-img" src="../images/public/clock_icon.png"></image>
+								<text class="time-name">剩余时间 </text>
+								<view class="time-down">0{{item.minute}}:</view>
+								<view class="time-down" wx:if="{{item.second*1 >= 10}}">{{item.second}}</view>
+								<view class="time-down" wx:else>0{{item.second}}</view>
+							</view>
+							<view class="button" bindtap="orderPay" data-order="{{item.orderId}}">立即支付</view>
+						</view>
+					</view>
+					<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderDetail/orderDetail?id={{item.orderId}}">
+						<view class="left">
+							<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
+						</view>
+						<view class="right">
+							<text class="content">{{item.capacity}}人 {{item.meetingRoomName}}</text>
+							<text class="content">{{item.meetingTIme}}</text>
+							<text class="content">{{item.buildName}}</text>
+							<text class="content">￥<text style="font-size:34rpx;">{{item.cost}}</text>
+							</text>
+						</view>
+					</navigator>
+				</view>
+			</view>
+		</scroll-view>
+		<!-- <view class="last-view">
+          <view class="error-message" wx:if="{{!error}}">{{errorMessage}}</view>
+        </view> -->
+	</view>
+	<!-- <view class="my-order-none a" wx:if="{{show_xx == true && orderList <= 0}}"> -->
+	<!--  <view class="order-type">
+			 <view class="tab" bindtap="changeType" data-type="ALL">全部</view>
+			 <view class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</view>
+			 <view class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</view>
+			 <view class="tab" bindtap="changeType" data-type="USED">已使用</view>
+			 <view class="tab" bindtap="changeType" data-type="CLOSED">已取消</view>
+			 <view class="active-type" style="left:{{number}}"> <text class="line"></text></viewview>
+		 </view> -->
+
+	<!-- 无数据 -->
+	<view class="content-none" wx:if="{{show_xx == true && orderList <= 0 && meetingCount==0}}">
+		<image class="none-img" src="../images/public/none.png" background-size="cover"></image>
+		<text class="warn">还没有订单呢~</text>
+	</view>
+	<!-- </view> -->
+	<view class="my-order" wx:if='{{show_xx == false}}'>
+		<scroll-view scroll-y style="height: 1000rpx;" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+			<view id="green" class="scroll-view-item bc_green"></view>
+			<view class="content-list">
+				<view class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList1}}" wx:key="{{orderId}}">
+					<view class="oder-top">
+						<view>订单号:{{item.orderNo}}</view>
+						<text class="status unpay" wx:if="{{item.orderShowStatus  == 'OBLIGATION'}}">待支付</text>
+						<text class="status used" wx:if="{{item.orderShowStatus == 'USED'}}">已完成</text>
+						<text class="status unused" wx:if="{{item.orderShowStatus == 'TOBEUSED'}}">待使用</text>
+						<text class="status closed" wx:if="{{item.orderShowStatus == 'CLOSED'}}">已取消</text>
+					</view>
+					<view wx:if="{{item.orderShowStatus == 'OBLIGATION'}}" class="unpay-box box">
+
+						<navigator class="content-box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
+							<view class="left">
+								<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
+							</view>
+							<view class="right">
+								<text class="content u-weight">{{item.quantity}}人 {{item.meetingRoomName}} </text>
+								<text class="content">{{item.useTime}}</text>
+								<text class="content">{{item.buildAndFloorDescr}}</text>
+								<text class="content oder-marny">￥ <text style="font-size:34rpx;">{{item.cost}}</text></text>
+							</view>
+						</navigator>
+						<view class="button-box">
+							<view class="time-section" wx:if="{{item.minute>-1}}">
+								<image class="time-img" src="../images/public/clock_icon.png"></image>
+								<text class="time-name">剩余时间 </text>
+								<view class="time-down">0{{item.minute}}:</view>
+								<view class="time-down" wx:if="{{item.second*1 >= 10}}">{{item.second}}</view>
+								<view class="time-down" wx:else>{{item.second}}</view>
+							</view>
+							<view class="button" bindtap="orderPay1" data-order="{{item.orderId}}">立即支付</view>
+						</view>
+					</view>
+
+					<navigator wx:if="{{item.orderShowStatus != 'OBLIGATION'}}" class="box" url="/pages/orderseatDetail/orderseatDetail?id={{item.orderId}}">
+						<view class="left">
+							<image class="order-img" src="{{item.imgUrl}}" mode="aspectFill"></image>
+						</view>
+						<view class="right">
+							<text class="content">{{item.quantity}}人</text>
+							<text class="content">{{item.useTime}}</text>
+							<text class="content">{{item.buildAndFloorDescr}}</text>
+							<text class="content oder-marny">￥ <text style="font-size:34rpx;">{{item.cost}}</text></text>
+						</view>
+					</navigator>
+				</view>
+			</view>
+		</scroll-view>
+	</view>
+	<!-- <view class="my-order-none a" wx:if="{{show_xx == false && orderList1 <= 0}}"> -->
+	<!--  <view class="order-type">
+             <view class="tab" bindtap="changeType" data-type="ALL">全部</view>
+             <view class="tab" bindtap="changeType" data-type="OBLIGATION" >待支付</view>
+             <view class="tab" bindtap="changeType" data-type="TOBEUSED">待使用</view>
+             <view class="tab" bindtap="changeType" data-type="USED">已使用</view>
+             <view class="tab" bindtap="changeType" data-type="CLOSED">已取消</view>
+             <view class="active-type" style="left:{{number}}"> <text class="line"></text></viewview>
+         </view> -->
+
+	<!-- 无数据 -->
+	<view class="content-none" wx:if="{{ show_xx == false && orderList1 <= 0 && seatCount==0}}">
+		<image class="none-img" src="../images/public/none.png" background-size="cover"></image>
+		<text class="warn">还没有订单呢~</text>
+	</view>
+
+	<!-- </view> -->
+</view>
