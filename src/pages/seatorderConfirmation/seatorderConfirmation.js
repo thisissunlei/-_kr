@@ -70,7 +70,10 @@ Page({
     //当前礼品券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
     saleStatus:'nothing',
     saleContent:{},//优惠详情
-    imgUrl:app.globalData.KrImgUrl 
+    imgUrl:app.globalData.KrImgUrl ,
+    // 当前团队卡的状态:chosen：已选一张，nothing:暂无可用；none:未选择
+    cardStatus:'nothing',
+    cardLength:0
   },
 
   nowDate: '',
@@ -117,7 +120,7 @@ Page({
     })
   },
   // 数量日历显示与隐藏
-   closeDialogDate:function(){
+  closeDialogDate:function(){
      this.setData({
        show_a:false
      })
@@ -181,7 +184,7 @@ Page({
     }
 
   },
-  // 选中按钮
+  // 须知条款的选中按钮
   changeCheckbox: function () {
     this.setData({
       check: !this.data.check
@@ -304,11 +307,11 @@ Page({
       }
     })
   },
-  // 获取优惠信息和新人判断
+  // 获取优惠信息和新人判断和团队卡数据
   getSaleContent(number){
     let that = this;
     app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krcoupon/seat/is-first-order',
+      url: app.globalData.KrUrl + 'api/gateway/kmorder/seat/coupon-teamcard-list',
       data:{
         quantity:number,
         seatGoodIds:that.seatGoodIds
@@ -322,29 +325,42 @@ Page({
         }
 
       },
+      fail:(res)=>{
+
+      }
    
     })
   },
   checkStatus(data){
     let saleStatus = ''
-    // new：新人；chosen：已选，nothing:暂无可用；none:未选择）
-    // if(data.first){
-      //符合新人下单
-      // saleStatus = 'new';
-    // }else{
-      if(!data.couponCount){
+    let cardStatus = 'nothing'
+    let saleData = data.myCoupons;
+    let cardData = data.myCards;
+    // 判断礼品券new：新人；chosen：已选，nothing:暂无可用；none:未选择）
+    if(data.first){
+      // 符合新人下单
+      saleStatus = 'new';
+    }else{
+      if(!saleData.couponCount){
         //无可用优惠
         saleStatus = 'nothing'
       }else{
         saleStatus = 'none'
       }
-    // }
+    }
+    // 判断团队卡
+    if(cardData.cardUsableCount){
+      cardStatus = 'none'
+    }
     this.saleLength=data.couponCount
     this.isFirst = data.first;
     this.setData({
       saleStatus:saleStatus,
       saleContent:{sale:false},
-      saleLength:data.couponCount
+      saleLength:data.couponCount,
+      cardStatus:cardStatus,
+      cardLength:cardData.cardUsableCount,
+      cardContent:{sale:false},
     })
   },
 
@@ -358,6 +374,7 @@ Page({
         });
      
   },
+  // 日历里的确认按钮
   confirmBooking(){
     var that = this;
     let selecedList = this.data.selecedList
@@ -400,7 +417,14 @@ Page({
        seatId:this.data.seatId
       },
       success:res=>{
-        let first = new Date(res.data.data.curMonth[0].useTime);
+        let curMonth = res.data.data.curMonth;
+        let curTime ;
+        if(curMonth.length){
+          curTime = res.data.data.curMonth[0].useTime
+        }else{
+          curTime = new Date().getTime();
+        }
+        let first = new Date(curTime);
         const first_month = new Date(first.getFullYear(),first.getMonth(),1).getTime();
         let last_data = init_month == first_month?'date_data1':'date_data2'
         that.james = new dateDataPrice({
@@ -528,13 +552,17 @@ Page({
       }
     })
   },
+  //日历里点击确认，获取工位数量和使用时间
   onClickDate: function (){
     let carendar = JSON.parse(JSON.stringify(this.combination_new));
     let price_all = 0;
     let price_y = 0;
     let number = 1;
-    wx.setStorageSync("seat_order_sale", {sale:false})
+    // wx.setStorageSync("seat_order_sale", {sale:false})
+    // wx.setStorageSync("seat_order_card", {card:false})
+    wx.setStorageSync("seat_sale_info", {card:false,sale:false})
 
+    // carendar日历数据，
     if(carendar){
       carendar.map(item=>{
         number = item.number;
@@ -548,14 +576,15 @@ Page({
          item.seat.dates = item.seat.useTimeDescr.slice(0,5);
         return item
       }) 
+       // 获取优惠信息和新人判断和团队卡数据
       this.getSaleContent(number);
       
       this.setData({
-        sankeNum: number ,
-        daynum: carendar.length,
-        carendarArr: carendar,
-        price_all:price_all,
-        price_y:price_y
+        sankeNum: number ,//散座数量
+        daynum: carendar.length,//使用天数
+        carendarArr: carendar,//订单明细
+        // price_all:price_all,
+        // price_y:price_y
       })
     }
   },
@@ -580,7 +609,7 @@ Page({
       quantity:this.data.sankeNum
     }
     wx.setStorage({
-      key: 'seat-card',
+      key: 'seat-sale',
       data: data,
       success: function(res){
         wx.navigateTo({
@@ -617,6 +646,7 @@ Page({
   },
   onShow: function () {
     let saleStatus = this.data.saleStatus;
+    let cardStatus = this.data.cardStatus;
     var _this = this;
     this.getMeetId()
     let salePrice = this.data.price_all;
@@ -640,14 +670,10 @@ Page({
       saleStatus = 'none';
     }
     wx.getStorage({
-      key: 'seat_order_sale',
+      key: 'seat_sale_info',
       success: function (res) {
         if(res.data.sale){
           saleStatus = 'chosen';
-          salePrice = parseInt(salePrice-res.data.reduce)
-          if(salePrice<=0){
-            salePrice = 0
-          }
         }else{
           if(_this.isFirst){
             saleStatus = 'new';
@@ -655,11 +681,45 @@ Page({
             saleStatus = saleStatus
           }
         }
+        if(res.data.card){
+          cardStatus = 'chosen';
+        }
+
         _this.setData({
           saleStatus:saleStatus,
-          saleContent:res.data,
-          salePrice:salePrice
+          saleContent:res.data.sale,
+          cardStatus:cardStatus,
+          cardContent:res.data.card
+          // salePrice:salePrice
+        },function(){
+          _this.getSeatcalculate()
+          console.log('后台获取订单金额========')
         })
+      }
+    })
+  },
+  getSeatcalculate(){
+    let data = this.data;
+    let that= this;
+    let formData = {
+      cardId:data.cardContent.cardId || '',
+      couponId:data.saleContent.id || '',
+      quantity:data.sankeNum,
+      seatGoodIds:this.seatGoodIds
+    }
+    console.log('getSeatcalculate-->',formData)
+    app.getRequest({
+      url:app.globalData.KrUrl+"api/gateway/krseat/seat/order/calculate",
+      methods:"GET",
+      data:formData,
+      success:res=>{
+        console.log('========')
+        that.setData({
+          price_all:1200
+        })
+      },
+      fail:res=>{
+        console.log('处理逻辑')
       }
     })
   },
@@ -683,14 +743,25 @@ Page({
       arrivingTime: data.time,
       quantity: data.sankeNum,
       seatGoodIds: that.seatGoodIds,
-
+      validAmount: data.price_all
     }
     if(data.saleContent.couponId){
       orderData.couponId = data.saleContent.couponId;
     }
+    if(data.cardContent.cardId){
+      orderData.cardId = data.cardContent.cardId;
+    }
 
 
       wx.setStorageSync("myorder", orderData)
+
+
+      //调整绑定手机号
+       wx.navigateTo({
+              url: '../bindPhone/bindPhone?fun=getSeatData'
+            })
+       return;
+      // 调整结束
 
     wx.showLoading({
       title: '加载中',
@@ -748,7 +819,7 @@ Page({
               },
             })
             wx.navigateTo({
-              url: '../bindPhone/bindPhone?from=seat'
+              url: '../bindPhone/bindPhone?fun=getSeatData'
             })
             break;
           case -4:
@@ -791,7 +862,7 @@ Page({
             break;
           case 1:
             // 订单创建成功，清除优惠选择数据
-            wx.setStorageSync("seat_order_sale", {sale:false})
+            wx.setStorageSync("seat_sale_info", {sale:false})
 
             wx.requestPayment({
               'nonceStr': res.data.data.noncestr,
