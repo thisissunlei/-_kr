@@ -819,7 +819,7 @@ Page({
               },
             })
             wx.navigateTo({
-              url: '../bindPhone/bindPhone?from=seat'
+              url: '../bindPhone/bindPhone?fun=getSeatData'
             })
             break;
           case -4:

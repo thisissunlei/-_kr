@@ -1041,6 +1041,18 @@ Page({
       title: '加载中',
       mask:true
     })
+
+    //测试绑定
+    // wx.setStorage({
+    //               key:"create_order",
+    //               data: {
+    //                 create_order:orderData
+    //               },
+    //             })
+    // wx.navigateTo({
+    //                 url: '../bindPhone/bindPhone?fun=getOrderData'
+    //               })
+    // return;
     
    
     var _this=this;
@@ -1075,7 +1087,7 @@ Page({
                   },
                 })
                   wx.navigateTo({
-                    url: '../bindPhone/bindPhone'
+                    url: '../bindPhone/bindPhone?fun=getOrderData'
                   })
               break;
               case -3:
