@@ -45,7 +45,11 @@ Page({
   //购买团队卡
   goBuyTeamCard: function() {},
   //详情页跳转
-  jumpCardDetail: function() {},
+  jumpCardDetail: function() {
+      wx.navigateTo({
+          url: "../teamCardDetails/teamCardDetails"
+      });
+  },
   //我的团队卡接口
   getTeamCard: function() {
     let that = this;
