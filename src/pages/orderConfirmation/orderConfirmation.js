@@ -69,6 +69,7 @@ Page({
     saleStatus:'none',
     saleContent:{},
     reducePrice:0,
+    imgUrl:app.globalData.KrImgUrl,
   },
   all_day_num:0,
   last_btn_num:'false',
