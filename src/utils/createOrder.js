@@ -3,7 +3,6 @@ const app = getApp()
 //新建散座订单--开始
 var getSeatData = function(that,num) {
 	let seat = {}
-	console.log('getSeatData=>')
 	wx.getStorage({
 		key: 'myorder',
 		success: function(res) {
