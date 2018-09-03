@@ -33,7 +33,7 @@ Page({
         "effectAt":1533830400000,
         "expireAt":1536508800000,
         "ruleType":'FULL_REDUCTION',
-        'frAmount':2000
+        'quota':2000
       },
       {
         "allowance":3,
@@ -42,10 +42,11 @@ Page({
         "effectAt":1533052800000,
         "expireAt":1538236800000,
         "ruleType":'FULL_REDUCTION',
-        'frAmount':1000
+        'quota':1000
 
       },
     ]
+    let recordList=[];
     var _this=this;
     saleList.map((item)=>{
       item.startTime=_this.changeTime(item.effectAt,'.')
@@ -54,6 +55,7 @@ Page({
     })
     this.setData({
       saleList:saleList,
+      recordList:recordList
     });
      //this.getSaleList();
      //this.getRecordList();
@@ -124,7 +126,7 @@ Page({
       url: "../myCoupon/myCoupon"
     });
   },
-  changeTime(data,str){
+  changeTime(data,str,ifHour){
     let date=new Date(data);
     const year = date.getFullYear()
     const month = date.getMonth() + 1
@@ -132,7 +134,13 @@ Page({
     const hour = date.getHours()
     const minute = date.getMinutes()
     const second = date.getSeconds();
-    return [year, month, day].map(this.formatNumber).join(str);
+    
+    if(!ifHour){
+      return [year, month, day].map(this.formatNumber).join(str);
+    }else{
+      return [year, month, day].map(this.formatNumber).join(str) + ' ' + [hour, minute, second].map(this.formatNumber).join(':')
+    }
+    
   },
   formatNumber (n) {
     n = n.toString()
