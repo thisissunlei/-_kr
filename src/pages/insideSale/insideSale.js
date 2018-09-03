@@ -203,6 +203,39 @@ Page({
     this.setData({
       page:page
     })
+  },
+  getSale(e){
+    var _this=this;
+    let couponBaseId= e.currentTarget.dataset.id;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/record",
+      methods: "POST",
+      header: {
+        "content-type": "appication/json"
+      },
+      data: {
+        couponBaseId:couponBaseId,
+      },
+      success: res => {
+        if (res.data.code == -1) {
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+
+        }else{
+          wx.showToast({
+            title: "领取成功",
+            image: "../images/public/success.png",
+            duration: 2000
+          });
+          _this.getSaleList();
+          _this.getRecordList(1);
+        }
+
+      }
+    });
   }
  
 })

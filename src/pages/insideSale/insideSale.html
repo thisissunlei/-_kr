@@ -21,7 +21,7 @@
                             <view class="u-sale-time">使用期限：{{item.startTime}}-{{item.endTime}}</view>
                         </view>
                         <view class="u-sale-status">
-                            <view class="u-sale-get-btn u-get-sale" wx:if="{{item.allowance==1}}">
+                            <view class="u-sale-get-btn u-get-sale" wx:if="{{item.allowance==1}}" data-id="{{item.couponBaseId}}" bindtap="getSale" >
                                <view class="u-sale-txt">立即</view>
                                <view class="u-sale-txt">领取</view>
                             </view>
