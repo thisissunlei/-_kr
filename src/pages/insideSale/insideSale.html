@@ -21,9 +21,10 @@
                             <view class="u-sale-time">使用期限：{{item.startTime}}-{{item.endTime}}</view>
                         </view>
                         <view class="u-sale-status">
-                            <view class="u-sale-get-btn u-get-sale" wx:if="{{item.allowance==1}}">
-                               <view class="u-sale-txt">立即</view>
-                               <view class="u-sale-txt">领取</view>
+                            <view class="u-sale-get-btn u-get-sale" wx:if="{{item.allowance==1}}"  >
+                               <view class="u-sale-txt" data-id="{{item.couponBaseId}}" bindtap="getSale">立即</view>
+                               <view class="u-sale-txt" data-id="{{item.couponBaseId}}" bindtap="getSale">领取</view>
+                               <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" class="u-get-user" ></button>
                             </view>
                             <view class="u-sale-get-btn u-no-get-sale"  wx:if="{{item.allowance==2}}">
                                     已领取
@@ -34,7 +35,7 @@
             
         </view>
     </view>
-    <view class="u-get-sale-info">
+    <view class="u-get-sale-info" wx:if="{{recordList.length>0}}">
         <view class="u-get-info-content">
             <view class="u-get-title">领取记录</view>
             <image class="u-sale-info-bg" src="{{imgUrl}}/insideSale/infobg.png"></image>
@@ -49,7 +50,7 @@
                     领取了<text  class="u-red-salse">{{item.faceValue}}元礼券</text>
                 </view>
             </view>
-            <view class="u-list-more" wx:if="{{recordList.length>5}}">点击加载更多</view>
+            <view class="u-list-more" wx:if="{{totalPages!=page}}" bindtap="getMore" >点击加载更多</view>
 
         </view>
     </view>

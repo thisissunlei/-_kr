@@ -10,7 +10,10 @@ Page({
     ruleModal:false,
     activityId:'',
     recordList:[],
+    page:1,
     isExpired:false,
+    totalPages:1,
+    btn_bool: true,
   },
   onLoad: function (options) {
     this.setData({
@@ -46,19 +49,74 @@ Page({
 
       },
     ]
-    let recordList=[];
+    let recordList=[
+      {
+        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/banner1.jpg',
+        "donatorThirdNick":'易烊千玺',
+        "faceValue":50,
+        "ctime":1533830400000,
+      },
+      {
+        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/nothing.png',
+        "donatorThirdNick":'王俊凯' ,
+        "faceValue":100,
+        "ctime":1538236800000,
+      },
+      {
+        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/banner1.jpg',
+        "donatorThirdNick":'银临',
+        "faceValue":50,
+        "ctime":1533052800000,
+      },
+      {
+        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/nothing.png',
+        "donatorThirdNick":'此处最多8个字超',
+        "faceValue":200,
+        "ctime":1533830400000,
+      },
+      {
+        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/banner1.jpg',
+        "donatorThirdNick":'易烊千玺',
+        "faceValue":200,
+        "ctime":1536508800000,
+      },
+      {
+        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/banner1.jpg',
+        "donatorThirdNick":'易烊千玺',
+        "faceValue":200,
+        "ctime":1536508800000,
+      },
+    ];
     var _this=this;
     saleList.map((item)=>{
       item.startTime=_this.changeTime(item.effectAt,'.')
       item.endTime=_this.changeTime(item.expireAt,'.')
       return item;
     })
+    recordList.map((item)=>{
+      item.time=_this.changeTime(item.ctime,'.',true)
+      return item;
+    })
+   
     this.setData({
       saleList:saleList,
-      recordList:recordList
+      recordList:recordList,
+      totalPages:2,
     });
+
+     //查看是否授权
+     wx.getSetting({
+      success(res) {
+        if (!res.authSetting["scope.userInfo"]) {
+           console.log("用户没有授权：用户信息！");
+        } else {
+          _this.setData({ btn_bool: false });
+        }
+      }
+    });
+
      //this.getSaleList();
-     //this.getRecordList();
+     //this.getRecordList(this.data.page);
   },
 
   getSaleList(){
@@ -88,7 +146,7 @@ Page({
         }
       });
   },
-  getRecordList(){
+  getRecordList(page){
     let activityId=this.data.activityId;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/record",
@@ -97,13 +155,18 @@ Page({
         "content-type": "appication/json"
       },
       data: {
-        activityId:activityId
+        activityId:activityId,
+        page:page
       },
       success: res => {
         console.log('res--->>>>RecordList',res)
-       
+        res.data.recordList.map((item)=>{
+          item.time=_this.changeTime(item.ctime,'.',true)
+          return item;
+        })
         this.setData({
-          recordList: res.data.crefList,
+          recordList: res.data.recordList,
+          totalPages:res.data.totalPages
         });
       }
     });
@@ -145,11 +208,56 @@ Page({
   formatNumber (n) {
     n = n.toString()
     return n[1] ? n : '0' + n
+  },
+  getMore(){
+    let page =this.data.page++;
+    this.getRecordList(page);
+    this.setData({
+      page:page
+    })
+  },
+  getSale(e){
+    var _this=this;
+    let couponBaseId= e.currentTarget.dataset.id;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/record",
+      methods: "POST",
+      header: {
+        "content-type": "appication/json"
+      },
+      data: {
+        couponBaseId:couponBaseId,
+      },
+      success: res => {
+        if (res.data.code == -1) {
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+
+        }else{
+          wx.showToast({
+            title: "领取成功",
+            image: "../images/public/success.png",
+            duration: 2000
+          });
+          _this.getSaleList();
+          _this.getRecordList(1);
+        }
+
+      }
+    });
+  },
+  //授权
+  onGotUserInfo: function(e) {
+    if (e.detail.userInfo) {
+      this.getSaleList();
+      this.getRecordList(1);
+      this.setData({
+        btn_bool: false
+      });
+    }
   }
- 
-  
-  
-   
-  
  
 })
