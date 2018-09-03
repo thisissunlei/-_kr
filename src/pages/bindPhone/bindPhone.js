@@ -1,6 +1,7 @@
 
 import * as CAlculagraph from '../../utils/time.js';
 const util = require('../../utils/util.js')
+import * as createOrder from '../../utils/createOrder.js';
 
 //index.js
 //获取应用实例
@@ -14,19 +15,22 @@ Page({
     phoneTest:true,
     phoneRepeat:true,
     phoneError:true,
-    errorMessage:''
+    errorMessage:'',
+    fun:''
   },
   submit_buttom:true,
   getPhoneNumber: function(e) { 
     let from = this.data.from;
     let that = this;
+    let fun = this.data.fun;
     let data = {
       encryptedData:e.detail.encryptedData
     }
     if(e.detail.errMsg === 'getPhoneNumber:ok'){
       // 给后台发送
-      console.log('提交生成订单及其余下内容')
-      that.bindWechatPhone(data)
+      console.log('提交生成订单及其余下内容',createOrder)
+      // console.log('====fun',createOrder[fun](this))
+      // that.bindWechatPhone(data)
       
     }
   } ,
@@ -80,7 +84,8 @@ Page({
       from:options.from,
       inputValue: options.value || '',
       inputValues: options.value || '',
-      phoneRange:options.city || '86'
+      phoneRange:options.city || '86',
+      fun : options.fun
     })
   },
   opencity(){

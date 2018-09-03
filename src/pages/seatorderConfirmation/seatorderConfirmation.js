@@ -755,6 +755,14 @@ Page({
 
       wx.setStorageSync("myorder", orderData)
 
+
+      //调整绑定手机号
+       wx.navigateTo({
+              url: '../bindPhone/bindPhone?fun=getSeatData'
+            })
+       return;
+      // 调整结束
+
     wx.showLoading({
       title: '加载中',
       mask: true
