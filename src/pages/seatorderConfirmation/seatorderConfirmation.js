@@ -743,7 +743,7 @@ Page({
       arrivingTime: data.time,
       quantity: data.sankeNum,
       seatGoodIds: that.seatGoodIds,
-
+      validAmount: data.price_all
     }
     if(data.saleContent.couponId){
       orderData.couponId = data.saleContent.couponId;
