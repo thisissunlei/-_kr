@@ -23,7 +23,7 @@
 	<view class="oder-botton"></view>
 	<view class="my-order" wx:if="{{show_xx == true}}">
 		<!-- 有数据 -->
-		<scroll-view scroll-y class="order-warp-scroll" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+		<view>
 
 			<view id="green" class="scroll-view-item bc_green"></view>
 			<view class="content-list">
@@ -75,7 +75,7 @@
 					</navigator>
 				</view>
 			</view>
-		</scroll-view>
+		</view>
 		<!-- <view class="last-view">
           <view class="error-message" wx:if="{{!error}}">{{errorMessage}}</view>
         </view> -->
@@ -97,7 +97,7 @@
 	</view>
 	<!-- </view> -->
 	<view class="my-order" wx:if='{{show_xx == false}}'>
-		<scroll-view scroll-y style="height: 1000rpx;" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+		<view>
 			<view id="green" class="scroll-view-item bc_green"></view>
 			<view class="content-list">
 				<view class="{{item.orderShowStatus!='OBLIGATION'?'order-detail':'order-unpay-detail'}}" wx:for="{{orderList1}}" wx:key="{{orderId}}">
@@ -146,7 +146,7 @@
 					</navigator>
 				</view>
 			</view>
-		</scroll-view>
+		</view>
 	</view>
 	<!-- <view class="my-order-none a" wx:if="{{show_xx == false && orderList1 <= 0}}"> -->
 	<!--  <view class="order-type">

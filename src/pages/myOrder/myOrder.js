@@ -50,6 +50,20 @@ Page({
     
     
   },
+  // 触底加载分页
+  onReachBottom:function(){
+    let type=this.data.type;
+    let page = ++this.data.page;//1,2,3,...
+    let totalPages = this.data.totalPages;
+    // console.log(totalPages)
+    // console.log(this.data.orderOldList.length,10*page)
+    if(page>totalPages){
+      return
+    }else{
+      this.getData(type,page)
+      this.getData1(type,page)
+    }
+  },
   /*onShareAppMessage: function() {
     return app.globalData.share_data;
   },*/
