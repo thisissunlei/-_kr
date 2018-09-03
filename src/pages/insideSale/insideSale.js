@@ -62,6 +62,16 @@ Page({
     this.setData({
       ruleModal:!this.data.ruleModal
     })
+  },
+  goToIndex(){
+    wx.navigateTo({
+      url: "../index/index"
+    });
+  },
+  goToSale(){
+    wx.navigateTo({
+      url: "../myCoupon/myCoupon"
+    });
   }
  
 })
