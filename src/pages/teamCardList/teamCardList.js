@@ -264,9 +264,14 @@ Page({
       })
     obj.card = true;
     if(this.from=="seat"){
-        wx.setStorage({
-            key: "seat_order_card",
-            data: obj,
+      wx.getStorage({
+        key: 'seat_sale_info',
+        success: function (res) {
+          let data = res.data;
+          data.card = obj;
+          wx.setStorage({
+            key: "seat_sale_info",
+            data: data,
             success:function(){
               setTimeout(function(){
                 wx.navigateBack({
@@ -276,6 +281,8 @@ Page({
               
             }
           })
+        }
+      })
     }else if(this.from=="meeting"){
       wx.setStorage({
         key:"meeting_order_sale",

@@ -120,7 +120,7 @@ Page({
     })
   },
   // 数量日历显示与隐藏
-   closeDialogDate:function(){
+  closeDialogDate:function(){
      this.setData({
        show_a:false
      })
@@ -374,6 +374,7 @@ Page({
         });
      
   },
+  // 日历里的确认按钮
   confirmBooking(){
     var that = this;
     let selecedList = this.data.selecedList
@@ -557,8 +558,10 @@ Page({
     let price_all = 0;
     let price_y = 0;
     let number = 1;
-    wx.setStorageSync("seat_order_sale", {sale:false})
-    wx.setStorageSync("seat_order_card", {card:false})
+    // wx.setStorageSync("seat_order_sale", {sale:false})
+    // wx.setStorageSync("seat_order_card", {card:false})
+    wx.setStorageSync("seat_sale_info", {card:false,sale:false})
+
     // carendar日历数据，
     if(carendar){
       carendar.map(item=>{
@@ -643,6 +646,7 @@ Page({
   },
   onShow: function () {
     let saleStatus = this.data.saleStatus;
+    let cardStatus = this.data.cardStatus;
     var _this = this;
     this.getMeetId()
     let salePrice = this.data.price_all;
@@ -666,14 +670,10 @@ Page({
       saleStatus = 'none';
     }
     wx.getStorage({
-      key: 'seat_order_sale',
+      key: 'seat_sale_info',
       success: function (res) {
         if(res.data.sale){
           saleStatus = 'chosen';
-          salePrice = parseInt(salePrice-res.data.reduce)
-          if(salePrice<=0){
-            salePrice = 0
-          }
         }else{
           if(_this.isFirst){
             saleStatus = 'new';
@@ -681,10 +681,18 @@ Page({
             saleStatus = saleStatus
           }
         }
+        if(res.data.card){
+          cardStatus = 'chosen';
+        }
+
         _this.setData({
           saleStatus:saleStatus,
-          saleContent:res.data,
-          salePrice:salePrice
+          saleContent:res.data.sale,
+          cardStatus:cardStatus,
+          cardContent:res.data.card
+          // salePrice:salePrice
+        },function(){
+          console.log('后台获取订单金额========',_this.cardContent)
         })
       }
     })
@@ -817,7 +825,7 @@ Page({
             break;
           case 1:
             // 订单创建成功，清除优惠选择数据
-            wx.setStorageSync("seat_order_sale", {sale:false})
+            wx.setStorageSync("seat_sale_info", {sale:false})
 
             wx.requestPayment({
               'nonceStr': res.data.data.noncestr,
