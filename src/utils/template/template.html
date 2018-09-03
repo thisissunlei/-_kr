@@ -89,7 +89,7 @@
 <!-- 选择团队卡的模板 -->
 <template name="teamCard">
   <view class="my-card-list">
-    <view class="checked-logo" wx:if="{{item.checked}}"></view>
+    <image class="checked-logo" wx:if="{{item.checked}}" src="{{imgUrl}}teamCardBg/checked.png" mode="scaleToFill"></image>
     <image class="team-card-bg" src="{{imgUrl}}teamCardBg/bg.jpg"></image>
     <view class="card-content" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}">
       <view class="card-first-content">

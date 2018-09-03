@@ -583,8 +583,8 @@ Page({
         sankeNum: number ,//散座数量
         daynum: carendar.length,//使用天数
         carendarArr: carendar,//订单明细
-        price_all:price_all,
-        price_y:price_y
+        // price_all:price_all,
+        // price_y:price_y
       })
     }
   },
@@ -692,8 +692,34 @@ Page({
           cardContent:res.data.card
           // salePrice:salePrice
         },function(){
-          console.log('后台获取订单金额========',_this.cardContent)
+          _this.getSeatcalculate()
+          console.log('后台获取订单金额========')
         })
+      }
+    })
+  },
+  getSeatcalculate(){
+    let data = this.data;
+    let that= this;
+    let formData = {
+      cardId:data.cardContent.cardId || '',
+      couponId:data.saleContent.id || '',
+      quantity:data.sankeNum,
+      seatGoodIds:this.seatGoodIds
+    }
+    console.log('getSeatcalculate-->',formData)
+    app.getRequest({
+      url:app.globalData.KrUrl+"api/gateway/krseat/seat/order/calculate",
+      methods:"GET",
+      data:formData,
+      success:res=>{
+        console.log('========')
+        that.setData({
+          price_all:1200
+        })
+      },
+      fail:res=>{
+        console.log('处理逻辑')
       }
     })
   },
@@ -721,6 +747,9 @@ Page({
     }
     if(data.saleContent.couponId){
       orderData.couponId = data.saleContent.couponId;
+    }
+    if(data.cardContent.cardId){
+      orderData.cardId = data.cardContent.cardId;
     }
 
 
