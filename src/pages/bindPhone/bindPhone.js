@@ -37,48 +37,6 @@ Page({
     console.log(fun,'====fun')
     createOrder[fun](this,1)
   },
-  bindWechatPhone(data){
-    let that = this.
-     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/wx/auth/bind-phone',
-        methods:"GET",
-        data:data,
-        success:(res)=>{
-          //处理判断散座还是订单
-          switch (from){
-            case 'seat':
-              that.getSeatData()
-              break;
-            case 'activity':
-              wx.navigateBack({
-                  delta: 1
-              })
-              break;
-            default:
-              that.getOrderData();
-              break;
-          }
-        },
-        fail:(res)=>{
-          that.setData({
-            phoneError:false,
-            errorMessage:res.message,
-          })
-          setTimeout(function(){
-            that.setData({
-              phoneError:true,
-              errorMessage:'',
-              
-            },function(){
-              wx.navigateBack({
-                  delta: 1
-              })
-            })
-          },2000)
-          
-        }
-      })
-  },
   onShareAppMessage: function() {
     return app.globalData.share_data;
   },
@@ -93,7 +51,7 @@ Page({
   },
   opencity(){
     wx.navigateTo({
-      url: '../regionList/regionList?value=中国'
+      url: '../regionList/regionList?value=中国&fun='+this.data.fun
     });
   },
   bindKeyInput:function(e){
