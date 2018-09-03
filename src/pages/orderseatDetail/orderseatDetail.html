@@ -69,6 +69,42 @@
                 </view>
             </view>
           </view>
+          <!-- 团队卡 -->
+          <view class="u-meeting" style="border-bottom:1rpx solid #F6F6F6" wx:if="{{detailInfo.cardName}}">
+            <view class="u-left">团队卡 </view>
+            <!-- <view class="u-meet-text meet-theme">
+                <view class="u-meet-card sale-content">
+                    <view class="team-name-box">{{detailInfo.cardName}}</view>
+                    <image class="team-name-right" style="width:24rpx;" src="{{imgUrl}}teamName.png"></image>
+                </view>
+                <view class="u-meet-money sale-content">
+                    <view class="u-sale-unit" style="vertical-align:top">
+                        -
+                    </view>
+                    <view class="u-sale-unit">
+                        ¥
+                    </view>
+                    <view style="display:inline-block">{{detailInfo.cardDeductAmount}}</view>
+                </view>
+
+            </view>
+ -->
+            <view class="u-right">
+                <view class="u-meet-card sale-content">
+                    <view class="team-name-box">{{detailInfo.cardName}}</view>
+                    <image class="team-name-right" style="width:24rpx;" src="{{imgUrl}}teamName.png"></image>
+                </view>
+                <view class="u-right-top" >
+                    <view class="u-right-top-left">
+                      <view class="u-sale-unit">
+                        -¥
+                      </view>
+                      <view style="display:inline-block">{{detailInfo.cardDeductAmount}}</view>
+                      
+                    </view>
+                </view>
+            </view>
+          </view>
           <!--应付款-->
           <view class="u-meeting">
             <view class="u-left">{{payTitle}} </view>

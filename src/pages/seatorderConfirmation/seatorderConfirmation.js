@@ -713,10 +713,30 @@ Page({
       methods:"GET",
       data:formData,
       success:res=>{
-        console.log('========')
-        that.setData({
-          price_all:1200
-        })
+        // let data = res.data.data;
+        let data = {
+          cardName:'获取应付金额',
+          cardDeductAmount:123,
+          cardId:2,
+          couponId:1,
+          couponAmount:12,
+          totalAmount:12
+        };
+        if(res.data.code == 1){
+          that.setData({
+            cardContent:{
+              name:data.cardName,
+              remainAmountDecimal:data.cardDeductAmount,
+              cardId:data.cardId
+            },
+            saleContent:{
+              couponId:data.couponId,
+              amount:data.couponAmount
+            },
+            price_all:data.totalAmount
+
+          })
+        }
       },
       fail:res=>{
         console.log('处理逻辑')
@@ -751,12 +771,13 @@ Page({
     if(data.cardContent.cardId){
       orderData.cardId = data.cardContent.cardId;
     }
-
-
-      wx.setStorageSync("myorder", orderData)
-
-
       //调整绑定手机号
+      wx.setStorage({
+              key: "create_seat",
+              data: {
+                create_seat: orderData
+              },
+            })
        wx.navigateTo({
               url: '../bindPhone/bindPhone?fun=getSeatData'
             })
@@ -813,9 +834,9 @@ Page({
           case -2:
             // 用户未绑定手机号
             wx.setStorage({
-              key: "create_order",
+              key: "create_seat",
               data: {
-                create_order: orderData
+                create_seat: orderData
               },
             })
             wx.navigateTo({

@@ -8,11 +8,11 @@ Page({
   },
     cardList:[
       {
-        cardNo:'NO.123456',
+        cardNo:'NO.123456789',
         effectAt:'2018.09.10',
         expireAt:'2019.09.09',
         remainAmountDecimal:'5,000',
-        name:'速战速决闪卡1',
+        name:'速战速决闪卡速决闪卡',
         cardId:1
       },
       {
@@ -218,18 +218,25 @@ Page({
       })
       this.back = false
     if(this.from=="seat"){
-        wx.setStorage({
-          key:"seat_order_card",
-          data:{sale:false},
-          success:function(){
-            setTimeout(function(){
-              wx.navigateBack({
-                delta: 1
-              })
-            },500)
-            
-          }
-        })
+      wx.getStorage({
+        key: 'seat_sale_info',
+        success: function (res) {
+          let data = res.data;
+          data.card = obj;
+          wx.setStorage({
+            key: "seat_sale_info",
+            data: data,
+            success:function(){
+              setTimeout(function(){
+                wx.navigateBack({
+                  delta: 1
+                })
+              },500)
+              
+            }
+          })
+        }
+      })
     }else if(this.from=="meeting"){
         wx.setStorage({
           key:"meeting_order_sale",
