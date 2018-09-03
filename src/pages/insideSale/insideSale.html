@@ -34,7 +34,7 @@
             
         </view>
     </view>
-    <view class="u-get-sale-info">
+    <view class="u-get-sale-info" wx:if="{{recordList.length>0}}">
         <view class="u-get-info-content">
             <view class="u-get-title">领取记录</view>
             <image class="u-sale-info-bg" src="{{imgUrl}}/insideSale/infobg.png"></image>
@@ -49,7 +49,7 @@
                     领取了<text  class="u-red-salse">{{item.faceValue}}元礼券</text>
                 </view>
             </view>
-            <view class="u-list-more" wx:if="{{recordList.length>5}}">点击加载更多</view>
+            <view class="u-list-more" wx:if="{{totalPages!=page}}" bindtap="getMore" >点击加载更多</view>
 
         </view>
     </view>
