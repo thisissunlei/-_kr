@@ -1,9 +1,8 @@
-.record-list-box {
+.record {
   position: relative;
-  display: flex;
-  padding: 0 0 100rpx 0;
+  padding-top: 40rpx;
 }
-.record-list-box .line {
+.record .line {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -11,6 +10,12 @@
   z-index: 0;
   border-right: 1px #dfdfdf dashed;
 }
+.record-list-box {
+  position: relative;
+  display: flex;
+  padding: 0 0 100rpx 0;
+}
+
 .record-list-box .state {
   position: absolute;
   top: 50%;
@@ -128,5 +133,24 @@
   color: #10990f;
 }
 
-
+/* 空提示 */
+.my-meeting-list-none {
+  background-color: #fff;
+}
+.content-none {
+  text-align: center;
+  background-color: #fff;
+  padding-top: 200rpx;
+}
+.none-img {
+  width: 348rpx;
+  height: 318rpx;
+  display: block;
+  margin: auto;
+  margin-bottom: 30rpx;
+}
+.warn {
+  font-size: 30rpx;
+  color: #666;
+}
 
