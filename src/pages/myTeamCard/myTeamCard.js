@@ -2,61 +2,69 @@ const app = getApp();
 Page({
   data: {
     teamCardList: [
-      {
-        name: "速战速决闪卡",
-        type: "1",
-        number: "NO.123456",
-        coust: 5000,
-        time: "使用期限：2018.09.10-2019.09.09",
-        stause: "unused",
-        id: 1
-      },
-      {
-        name: "多块好省闪卡",
-        type: "2",
-        number: "NO.123456",
-        coust: 50000,
-        time: "使用期限：2018.09.10-2019.09.09",
-        stause: "unused",
-        id: 2
-      },
-      {
-        name: "速战速决闪卡",
-        type: "1",
-        number: "NO.123456",
-        coust: 0,
-        time: "使用期限：2018.09.10-2019.09.09",
-        stause: "used",
-        id: 3
-      },
-      {
-        name: "速决闪卡",
-        type: "2",
-        number: "NO.123456",
-        coust: 99,
-        time: "使用期限：2018.09.10-2019.09.09",
-        stause: "ex",
-        id: 4
-      }
+      // {
+      //   cardName: "速战速决闪卡",
+      //   cardNo: "NO.123456",
+      //   remainAmount: 5000,
+      //   effectAt: "2018.09.10",
+      //   expireAt: "2019.09.09",
+      //   id: 1,
+      //   cardStatus: "HAS_USER"
+      // },
+      // {
+      //   cardName: "速战速决闪卡",
+      //   cardNo: "NO.123456",
+      //   remainAmount: 50000,
+      //   effectAt: "2018.09.10",
+      //   expireAt: "2019.09.09",
+      //   id: 2,
+      //   cardStatus: "HAS_USER"
+      // },
+      // {
+      //   cardName: "速战速决闪卡",
+      //   cardNo: "NO.123456",
+      //   remainAmount: 0,
+      //   effectAt: "2018.09.10",
+      //   expireAt: "2019.09.09",
+      //   id: 3,
+      //   cardStatus: "HAS_FINISH"
+      // },
+      // {
+      //   cardName: "速战速决闪卡",
+      //   cardNo: "NO.123456",
+      //   remainAmount: 99,
+      //   effectAt: "2018.09.10",
+      //   expireAt: "2019.09.09",
+      //   id: 4,
+      //   cardStatus: "HSA_EXPRIED"
+      // }
     ]
   },
-  onLoad: function() {},
+  onLoad: function() {
+    this.getTeamCard();
+  },
   onReady: function() {},
   //购买团队卡
   goBuyTeamCard: function() {},
   //详情页跳转
-  jumpCardDetail: function() {
-      wx.navigateTo({
-          url: "../teamCardDetails/teamCardDetails"
-      });
+  jumpCardDetail: function(e) {
+    console.log(e);
+    wx.navigateTo({
+      url:
+        "../teamCardDetails/teamCardDetails?cardId=" +
+        e.currentTarget.dataset.id
+    });
   },
   //我的团队卡接口
   getTeamCard: function() {
     let that = this;
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmactivity/my/list",
+      url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/list",
       success: res => {
         console.log(res);
+        that.setData({
+          teamCardList: res.data.data
+        });
       },
       fail: err => {
         console.log(err);

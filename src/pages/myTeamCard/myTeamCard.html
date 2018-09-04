@@ -1,23 +1,23 @@
 <view class="team-card" wx:if="{{teamCardList.length > 0}}">
     <view class="team-card-list" wx:for="{{teamCardList}}" wx:key>
         <view class="team-card-top">
-            <text>{{item.name}}</text>
-            <text>{{item.number}}</text>
+            <text>{{item.cardName}}</text>
+            <text>{{item.cardNo}}</text>
         </view>
         <view class="team-card-yue">余额</view>
         <view class="team-card-value">
-            <text>{{item.coust}}</text>元
+            <text>{{item.remainAmount}}</text>元
         </view>
         <view class="team-card-bottom">
-            <text>{{item.time}}</text>
-            <view class="team-card-jump" bindtap="jumpCardDetail">
+            <text>{{item.effectAt}}-{{item.expireAt}}</text>
+            <view class="team-card-jump" bindtap="jumpCardDetail" data-id="{{item.id}}">
                 <text>查看详情</text>
                 <text></text>
             </view>
         </view>
-        <view class="mb" wx:if="{{item.stause != 'unused'}}"></view>
-        <image class="overdue" wx:if="{{item.stause == 'used'}}" src="../images/orderimg/order-a.png"></image>
-        <image class="overdue" wx:if="{{item.stause == 'ex'}}" src="../images/orderimg/order-b.png"></image>
+        <view class="mb" wx:if="{{item.cardStatus != 'HAS_USER'}}"></view>
+        <image class="overdue" wx:if="{{item.cardStatus == 'HAS_FINISH'}}" src="../images/orderimg/order-a.png"></image>
+        <image class="overdue" wx:if="{{item.cardStatus == 'HSA_EXPRIED'}}" src="../images/orderimg/order-b.png"></image>
     </view>
 </view>
 <view class="team-card-none" wx:else>

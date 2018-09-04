@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/teamCardManage/teamCardManage",
     "pages/myTeamCard/myTeamCard",
     "pages/getCoupon/getCoupon",
     "pages/activityDetails/activity",
