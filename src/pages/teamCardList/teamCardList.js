@@ -267,10 +267,6 @@ Page({
       list: list
     })
     obj.card = true;
-    if(this.from.couponId){
-      obj.couponId=this.from.couponId 
-    }
-   
     if (this.from == "seat") {
       wx.getStorage({
         key: 'seat_sale_info',
@@ -292,18 +288,27 @@ Page({
         }
       })
     } else if (this.from == "meeting") {
-      wx.setStorage({
-        key: "meeting_order_sale",
-        data: obj,
-        success: function() {
-          setTimeout(function() {
-            wx.navigateBack({
-              delta: 1
-            })
-          }, 500)
+      wx.getStorage({
+        key: 'meeting_order_sale',
+        success: function(res) {
+          let data = res.data;
+          data.card = obj;
+          console.log('data',data)
+          wx.setStorage({
+            key: "meeting_order_sale",
+            data: data,
+            success: function() {
+              setTimeout(function() {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }, 500)
 
+            }
+          })
         }
       })
+     
     }
   }
 });

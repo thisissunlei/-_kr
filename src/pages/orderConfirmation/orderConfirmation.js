@@ -547,11 +547,13 @@ Page({
       endTime:data.meeting_time.endTime,
       meetingRoomId:data.detailInfo.meetingRoomId,
     }
-    if(data.couponId){
-      orderData.couponId=data.couponId;
+    console.log('data.saleContent',data.saleContent)
+    console.log('data.cardContent',data.cardContent)
+    if(data.saleContent.couponId){
+      orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardId){
-      orderData.cardId=data.cardId;
+    if(data.cardContent.cardId){
+      orderData.cardId=data.cardContent.cardId;
     }
       app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/calculate',
@@ -641,12 +643,13 @@ Page({
             if(res.data.card){
               cardStatus = 'chosen';
             }
+            
             _this.setData({
               saleStatus:saleStatus,
-              saleContent:res.data,
+              saleContent:res.data.sale,
               couponId:res.data.id ,
               cardStatus:cardStatus,
-              cardContent:res.data.card,
+              cardContent:res.data.card || {},
             },function(){
               _this.getPrice();
             })
@@ -1112,6 +1115,10 @@ Page({
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
+    if(data.cardContent.cardId){
+      orderData.cardId=data.cardContent.cardId;
+    }
+    
     wx.showLoading({
       title: '加载中',
       mask:true
