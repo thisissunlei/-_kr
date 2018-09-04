@@ -332,6 +332,7 @@ Page({
     })
   },
   checkStatus(data,number){
+    console.log('checkStatus----校验状态--1')
     let saleStatus = ''
     let cardStatus = 'nothing'
     let saleData = data.myCoupons;
@@ -373,12 +374,6 @@ Page({
     }, function() {
       that.getSeatcalculate()
     })
-    // this.setData({
-    //   saleStatus:saleStatus,
-    //   saleLength:saleData.couponCount,
-    //   cardStatus:cardStatus,
-    //   cardLength:cardData.cardUsableCount,
-    // })
   },
 
   dateBtn : function (e){
@@ -569,22 +564,16 @@ Page({
   //日历里点击确认，获取工位数量和使用时间
   onClickDate: function (){
     let carendar = JSON.parse(JSON.stringify(this.combination_new));
-    let price_all = 0;
-    let price_y = 0;
     let number = 1;
     let that = this;
     // 处理日期盒子的数据显示
     if(carendar){
       this.combination_new = carendar.map(item=>{
         number = item.number;
-        price_all = Number(price_all) + Number(item.seat.promotionCost*item.number);
-        price_all =  parseInt(price_all);
-        price_y  = Number(price_y) + Number(item.seat.unitCost*item.number);
-        price_y  = parseInt(price_y);
-         item.month=getzf(item.month) 
-         item.value=getzf(item.value)
-         item.seat.weeks =this.getWeek(item.seat.useTime)
-         item.seat.dates = item.seat.useTimeDescr.slice(0,5);
+        item.month=getzf(item.month) 
+        item.value=getzf(item.value)
+        item.seat.weeks =this.getWeek(item.seat.useTime)
+        item.seat.dates = item.seat.useTimeDescr.slice(0,5);
         return item
       }) 
 
@@ -669,11 +658,8 @@ Page({
         }
       }
     })
-    if(!this.saleLength){
-      saleStatus = 'nothing';
-    }else{
-      saleStatus = 'none';
-    }
+
+    console.log('onShow',saleStatus)
     wx.getStorage({
       key: 'seat_sale_info',
       success: function (res) {
@@ -731,6 +717,7 @@ Page({
         let saleStatus = that.data.saleStatus;
         let saleContent = {}
         if(res.data.code == 1){
+
           if(resData.cardId){
             cardContent = {
               name:resData.cardName,
@@ -766,7 +753,7 @@ Page({
         }
       },
       fail:res=>{
-        console.log('处理逻辑')
+        that.setErrorMessage(res.data.message)
       }
     })
   },
@@ -783,6 +770,8 @@ Page({
         let code = res.data.code;
         let cardData = res.data.data.myCards;
         let cardStatus = 'nothing';//暂无
+        console.log('充值团队卡选项--1',that.data.saleStatus)
+
         if(code>0){
           // 判断团队卡
           if(cardData.cardUsableCount>0){
@@ -791,7 +780,9 @@ Page({
           that.setData({
             cardStatus:cardStatus,
             cardLength:cardData.cardUsableCount,
-            cardContent:{sale:false},
+            cardContent:{card:false},
+          },function(){
+            console.log('充值团队卡选项--2',that.data.saleStatus)
           })
         }
 
@@ -804,6 +795,7 @@ Page({
   },
   clearSale(number){
     let that = this;
+    console.log('执行重置礼品券')
     app.getRequest({
       url: app.globalData.KrUrl + 'api/gateway/kmorder/seat/coupon-teamcard-list',
       data:{
@@ -876,18 +868,18 @@ Page({
     if(data.cardContent.cardId){
       orderData.cardId = data.cardContent.cardId;
     }
-      //调整绑定手机号
-      wx.setStorage({
-              key: "create_seat",
-              data: {
-                create_seat: orderData
-              },
-            })
-       wx.navigateTo({
-              url: '../bindPhone/bindPhone?fun=getSeatData'
-            })
-       return;
-      // 调整结束
+      // //调整绑定手机号
+      // wx.setStorage({
+      //         key: "create_seat",
+      //         data: {
+      //           create_seat: orderData
+      //         },
+      //       })
+      //  wx.navigateTo({
+      //         url: '../bindPhone/bindPhone?fun=getSeatData'
+      //       })
+      //  return;
+      // // 调整结束
 
     wx.showLoading({
       title: '加载中',
