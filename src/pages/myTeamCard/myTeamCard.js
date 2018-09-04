@@ -1,6 +1,7 @@
 const app = getApp();
 Page({
   data: {
+    showNone: false,
     teamCardList: [
       // {
       //   cardName: "速战速决闪卡",
@@ -11,41 +12,22 @@ Page({
       //   id: 1,
       //   cardStatus: "HAS_USER"
       // },
-      // {
-      //   cardName: "速战速决闪卡",
-      //   cardNo: "NO.123456",
-      //   remainAmount: 50000,
-      //   effectAt: "2018.09.10",
-      //   expireAt: "2019.09.09",
-      //   id: 2,
-      //   cardStatus: "HAS_USER"
-      // },
-      // {
-      //   cardName: "速战速决闪卡",
-      //   cardNo: "NO.123456",
-      //   remainAmount: 0,
-      //   effectAt: "2018.09.10",
-      //   expireAt: "2019.09.09",
-      //   id: 3,
-      //   cardStatus: "HAS_FINISH"
-      // },
-      // {
-      //   cardName: "速战速决闪卡",
-      //   cardNo: "NO.123456",
-      //   remainAmount: 99,
-      //   effectAt: "2018.09.10",
-      //   expireAt: "2019.09.09",
-      //   id: 4,
-      //   cardStatus: "HSA_EXPRIED"
-      // }
     ]
   },
   onLoad: function() {
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
     this.getTeamCard();
   },
   onReady: function() {},
   //购买团队卡
-  goBuyTeamCard: function() {},
+  goBuyTeamCard: function() {
+    wx.navigateTo({
+      url: "../teamCardPurchase/teamCardPurchase"
+    });
+  },
   //详情页跳转
   jumpCardDetail: function(e) {
     console.log(e);
@@ -61,12 +43,26 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/list",
       success: res => {
-        console.log(res);
-        that.setData({
-          teamCardList: res.data.data
-        });
+        if (res.data.code == 1) {
+          wx.hideLoading();
+          let teamcard = Object.assign({}, res);
+          let teamCardList = teamcard.data.data;
+          teamCardList.map(item => {
+            // console.log(value, key, 11111);
+            item.remainAmount = that.toThousands(item.remainAmount);
+            item.effectAt = that.toDate(item.effectAt);
+            item.expireAt = that.toDate(item.expireAt);
+            return item;
+          });
+          that.setData({
+            teamCardList: teamCardList,
+            showNone: true
+          });
+          console.log(that.data.teamCardList);
+        }
       },
       fail: err => {
+        wx.hideLoading();
         console.log(err);
       }
     });
@@ -83,5 +79,16 @@ Page({
       result = num + result;
     }
     return result;
+  },
+  //时间戳格式化
+  toDate: function(number) {
+    var date = new Date(number);
+    var Y = date.getFullYear() + ".";
+    var M =
+      (date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1) + ".";
+    var D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    return Y + M + D;
   }
 });
