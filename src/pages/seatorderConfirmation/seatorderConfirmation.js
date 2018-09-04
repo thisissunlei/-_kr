@@ -70,7 +70,10 @@ Page({
     //当前礼品券状态（new：新人；chosen：已选一张，nothing:暂无可用；none:未选择）
     saleStatus:'nothing',
     saleContent:{},//优惠详情
-    imgUrl:app.globalData.KrImgUrl 
+    imgUrl:app.globalData.KrImgUrl ,
+    // 当前团队卡的状态:chosen：已选一张，nothing:暂无可用；none:未选择
+    cardStatus:'nothing',
+    cardLength:0
   },
 
   nowDate: '',
@@ -117,7 +120,7 @@ Page({
     })
   },
   // 数量日历显示与隐藏
-   closeDialogDate:function(){
+  closeDialogDate:function(){
      this.setData({
        show_a:false
      })
@@ -181,7 +184,7 @@ Page({
     }
 
   },
-  // 选中按钮
+  // 须知条款的选中按钮
   changeCheckbox: function () {
     this.setData({
       check: !this.data.check
@@ -304,11 +307,11 @@ Page({
       }
     })
   },
-  // 获取优惠信息和新人判断
+  // 获取优惠信息和新人判断和团队卡数据
   getSaleContent(number){
     let that = this;
     app.getRequest({
-      url: app.globalData.KrUrl + 'api/gateway/krcoupon/seat/is-first-order',
+      url: app.globalData.KrUrl + 'api/gateway/kmorder/seat/coupon-teamcard-list',
       data:{
         quantity:number,
         seatGoodIds:that.seatGoodIds
@@ -322,29 +325,42 @@ Page({
         }
 
       },
+      fail:(res)=>{
+
+      }
    
     })
   },
   checkStatus(data){
     let saleStatus = ''
-    // new：新人；chosen：已选，nothing:暂无可用；none:未选择）
-    // if(data.first){
-      //符合新人下单
-      // saleStatus = 'new';
-    // }else{
-      if(!data.couponCount){
+    let cardStatus = 'nothing'
+    let saleData = data.myCoupons;
+    let cardData = data.myCards;
+    // 判断礼品券new：新人；chosen：已选，nothing:暂无可用；none:未选择）
+    if(saleData.first){
+      // 符合新人下单
+      saleStatus = 'new';
+    }else{
+      if(!saleData.couponCount){
         //无可用优惠
         saleStatus = 'nothing'
       }else{
         saleStatus = 'none'
       }
-    // }
+    }
+    // 判断团队卡
+    if(cardData.cardUsableCount){
+      cardStatus = 'none'
+    }
     this.saleLength=data.couponCount
-    this.isFirst = data.first;
+    this.isFirst = saleData.first;
     this.setData({
       saleStatus:saleStatus,
       saleContent:{sale:false},
-      saleLength:data.couponCount
+      saleLength:saleData.couponCount,
+      cardStatus:cardStatus,
+      cardLength:cardData.cardUsableCount,
+      cardContent:{sale:false},
     })
   },
 
@@ -358,6 +374,7 @@ Page({
         });
      
   },
+  // 日历里的确认按钮
   confirmBooking(){
     var that = this;
     let selecedList = this.data.selecedList
@@ -400,7 +417,14 @@ Page({
        seatId:this.data.seatId
       },
       success:res=>{
-        let first = new Date(res.data.data.curMonth[0].useTime);
+        let curMonth = res.data.data.curMonth;
+        let curTime ;
+        if(curMonth.length){
+          curTime = res.data.data.curMonth[0].useTime
+        }else{
+          curTime = new Date().getTime();
+        }
+        let first = new Date(curTime);
         const first_month = new Date(first.getFullYear(),first.getMonth(),1).getTime();
         let last_data = init_month == first_month?'date_data1':'date_data2'
         that.james = new dateDataPrice({
@@ -425,28 +449,27 @@ Page({
   },
   reduceNum:function(){
     const reduce_btn_f = this.james.reduceNum();
-     let selecedList = this.james.getValue()
+    let selecedList = this.james.getValue()
     this.setData({
-          date_data1:this.date_data1,
-          date_data2:this.date_data2,
-          selecedList: selecedList ,
-          add_btn :  reduce_btn_f.final_bool,
-          reduce_btn :  reduce_btn_f.final_r_bool,
-          final_num : reduce_btn_f.final_num
-        });
+        date_data1:this.date_data1,
+        date_data2:this.date_data2,
+        selecedList: selecedList ,
+        add_btn :  reduce_btn_f.final_bool,
+        reduce_btn :  reduce_btn_f.final_r_bool,
+        final_num : reduce_btn_f.final_num
+    });
   },
   addNum:function(){
     const add_btn_f = this.james.addNum();
-     let selecedList = this.james.getValue()
+    let selecedList = this.james.getValue()
     this.setData({
-          date_data1:this.date_data1,
-          date_data2:this.date_data2, 
-          add_btn :  add_btn_f.final_bool,
-          reduce_btn :  add_btn_f.final_r_bool,
-          final_num : add_btn_f.final_num,
-          selecedList: selecedList 
-        });
-    console.log(this.james.getValue())
+        date_data1:this.date_data1,
+        date_data2:this.date_data2, 
+        add_btn :  add_btn_f.final_bool,
+        reduce_btn :  add_btn_f.final_r_bool,
+        final_num : add_btn_f.final_num,
+        selecedList: selecedList 
+    });
   },
 
 
@@ -462,7 +485,7 @@ Page({
      const today_date = new Date();
      const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
      const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    this.dealDate(this.nowDate);
+     this.dealDate(this.nowDate);
      this.setData({
       
       date_now:{
@@ -478,12 +501,9 @@ Page({
         choose:''
       }
     });
-    // this.getFirst();//判断新人
     this.getMeetId();//获取详情id
     this.getPhone();//获取联系方式
-
     var _this = this;
-
     if (options.from != 'list'){
       wx.getStorage({
         key: 'detail-c',
@@ -528,13 +548,18 @@ Page({
       }
     })
   },
+  //日历里点击确认，获取工位数量和使用时间
   onClickDate: function (){
     let carendar = JSON.parse(JSON.stringify(this.combination_new));
     let price_all = 0;
     let price_y = 0;
     let number = 1;
-    wx.setStorageSync("seat_order_sale", {sale:false})
+    let that = this;
+    // wx.setStorageSync("seat_order_sale", {sale:false})
+    // wx.setStorageSync("seat_order_card", {card:false})
+    wx.setStorageSync("seat_sale_info", {card:false,sale:false})
 
+    // carendar日历数据，
     if(carendar){
       carendar.map(item=>{
         number = item.number;
@@ -548,14 +573,17 @@ Page({
          item.seat.dates = item.seat.useTimeDescr.slice(0,5);
         return item
       }) 
+       // 获取优惠信息和新人判断和团队卡数据
       this.getSaleContent(number);
       
       this.setData({
-        sankeNum: number ,
-        daynum: carendar.length,
-        carendarArr: carendar,
-        price_all:price_all,
-        price_y:price_y
+        sankeNum: number ,//散座数量
+        daynum: carendar.length,//使用天数
+        carendarArr: carendar,//订单明细
+        // price_all:price_all,
+        // price_y:price_y
+      },function(){
+        that.getSeatcalculate()
       })
     }
   },
@@ -580,7 +608,7 @@ Page({
       quantity:this.data.sankeNum
     }
     wx.setStorage({
-      key: 'seat-card',
+      key: 'seat-sale',
       data: data,
       success: function(res){
         wx.navigateTo({
@@ -617,6 +645,7 @@ Page({
   },
   onShow: function () {
     let saleStatus = this.data.saleStatus;
+    let cardStatus = this.data.cardStatus;
     var _this = this;
     this.getMeetId()
     let salePrice = this.data.price_all;
@@ -640,14 +669,10 @@ Page({
       saleStatus = 'none';
     }
     wx.getStorage({
-      key: 'seat_order_sale',
+      key: 'seat_sale_info',
       success: function (res) {
         if(res.data.sale){
           saleStatus = 'chosen';
-          salePrice = parseInt(salePrice-res.data.reduce)
-          if(salePrice<=0){
-            salePrice = 0
-          }
         }else{
           if(_this.isFirst){
             saleStatus = 'new';
@@ -655,11 +680,66 @@ Page({
             saleStatus = saleStatus
           }
         }
+        if(res.data.card){
+          cardStatus = 'chosen';
+        }
+
         _this.setData({
           saleStatus:saleStatus,
-          saleContent:res.data,
-          salePrice:salePrice
+          saleContent:res.data.sale,
+          cardStatus:cardStatus,
+          cardContent:res.data.card
+          // salePrice:salePrice
+        },function(){
+          _this.getSeatcalculate()
+          console.log('后台获取订单金额========')
         })
+      }
+    })
+  },
+  // 获取应付金额
+  getSeatcalculate(){
+    let data = this.data;
+    let that= this;
+    let formData = {
+      cardId:data.cardContent.cardId || '',
+      couponId:data.saleContent.couponId || '',
+      quantity:data.sankeNum,
+      seatGoodIds:this.seatGoodIds
+    }
+    console.log('getSeatcalculate-->',formData)
+    app.getRequest({
+      url:app.globalData.KrUrl+"api/gateway/kmorder/seat/calculate",
+      methods:"GET",
+      data:formData,
+      success:res=>{
+        // let data = res.data.data;
+        let data = {
+          cardName:'获取应付金额',
+          cardDeductAmount:123,
+          cardId:2,
+          couponId:1,
+          couponAmount:12,
+          totalAmount:12
+        };
+        if(res.data.code == 1){
+          that.setData({
+            cardContent:{
+              name:data.cardName,
+              remainAmountDecimal:data.cardDeductAmount,
+              cardId:data.cardId
+            },
+            saleContent:{
+              couponId:data.couponId,
+              amount:data.couponAmount
+            },
+            price_all:data.totalAmount
+
+          })
+        }
+      },
+      fail:res=>{
+        console.log('处理逻辑')
       }
     })
   },
@@ -683,14 +763,26 @@ Page({
       arrivingTime: data.time,
       quantity: data.sankeNum,
       seatGoodIds: that.seatGoodIds,
-
+      validAmount: data.price_all
     }
     if(data.saleContent.couponId){
       orderData.couponId = data.saleContent.couponId;
     }
-
-
-      wx.setStorageSync("myorder", orderData)
+    if(data.cardContent.cardId){
+      orderData.cardId = data.cardContent.cardId;
+    }
+      //调整绑定手机号
+      wx.setStorage({
+              key: "create_seat",
+              data: {
+                create_seat: orderData
+              },
+            })
+       wx.navigateTo({
+              url: '../bindPhone/bindPhone?fun=getSeatData'
+            })
+       return;
+      // 调整结束
 
     wx.showLoading({
       title: '加载中',
@@ -742,13 +834,13 @@ Page({
           case -2:
             // 用户未绑定手机号
             wx.setStorage({
-              key: "create_order",
+              key: "create_seat",
               data: {
-                create_order: orderData
+                create_seat: orderData
               },
             })
             wx.navigateTo({
-              url: '../bindPhone/bindPhone?from=seat'
+              url: '../bindPhone/bindPhone?fun=getSeatData'
             })
             break;
           case -4:
@@ -791,7 +883,7 @@ Page({
             break;
           case 1:
             // 订单创建成功，清除优惠选择数据
-            wx.setStorageSync("seat_order_sale", {sale:false})
+            wx.setStorageSync("seat_sale_info", {sale:false})
 
             wx.requestPayment({
               'nonceStr': res.data.data.noncestr,

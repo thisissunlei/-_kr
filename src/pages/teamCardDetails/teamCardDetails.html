@@ -6,7 +6,12 @@
                     <image mode="widthFix" src="{{KrImgUrl}}teamCardPurchase/card0.png"></image>
                 </view>
                 <view class="bg-icon" bindtap="turnCardToAfter"></view>
-                <view class="con">0</view>
+                <view class="con">
+                    <view class="card-tit">{{name}}<text class="no">NO.123456</text></view>
+                    <view class="card-ye">余额</view>
+                    <view class="card-price">20,000<text>元</text></view>
+                    <view class="card-time">使用期限：2018.09.10-2019.09.09</view>
+                </view>
             </view>
 
             <view class="tdc-after" bindtap="turnCardToBefore">
@@ -19,4 +24,53 @@
             </view>
         </view>
     </view>
+
+    <view class="person-tit">用卡人(6/10)</view>
+    <view class="next-box" bindtap="toPersonList">
+        <view class="person-list">
+            <view>
+                <image mode="aspectFill" src="{{KrImgUrl}}teamCardPurchase/card0.png"></image>
+            </view>
+            <view>
+                <image mode="aspectFill" src="{{KrImgUrl}}teamCardPurchase/card0.png"></image>
+            </view>
+        </view>
+        <view class="next"><view></view></view>
+    </view>
+
+    <view class="next-box record-box" bindtap="toRecordList">
+        <view class="record"><view>消费记录(15)</view></view>
+        <view class="record-time">
+            <view>最新消费</view>
+            <view>2018-10-10 10:10:10</view>
+        </view>
+        <view class="next"><view></view></view>
+    </view>
+
+    <view class="next-box name-box" bindtap="changeName">
+        <view class="record"><view>团队卡名称</view></view>
+        <view class="name">{{name}}</view>
+        <view class="next"><view></view></view>
+    </view>
+
+    <view class="next-box switch-box">
+        <view class="record"><view>余额变动提醒</view></view>
+        <switch checked="{{checked}}" bindchange="switchChange" class="wx-switch-input"/>
+    </view>
+
+    <view class="mark" wx:if="{{nameShow}}"></view>
+    <view class="teamCard-popBox" wx:if="{{nameShow}}">
+        <view class="popBox-tit">
+            <text>团队卡名称</text>
+        </view>
+        <view class="input">
+            <input value="{{changeNametext}}" bindinput="bindKeyInput" maxlength="10"/>
+        </view>
+        <view class="input-tip">长度不超过10个汉字，可支持英文、数字、汉字</view>
+        <view class="popBox-bottom">
+            <view bindtap="cancel">取消</view>
+            <view bindtap="sure">确定</view>
+        </view>
+    </view>
+    <view class="buy-fail passWord-error" wx:if="{{!!tip}}">{{tip}}</view>
 </view>

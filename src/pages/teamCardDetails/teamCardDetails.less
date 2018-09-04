@@ -79,26 +79,230 @@ page {
   height: 330rpx;
   overflow-y: scroll;
 }
+.person-tit {
+  background: #ffffff;
+  color: #333333;
+  font-size: 32rpx;
+  padding: 20rpx 32rpx 40rpx;
+}
+.tdc-before .card-tit {
+  color: #333333;
+  font-size: 40rpx;
+  overflow: hidden;
+  padding-bottom: 16rpx;
+}
+.tdc-before .card-tit .no {
+  color: #333333;
+  float: right;
+  font-size: 28rpx;
+  line-height: 66rpx;
+}
+.tdc-before .card-ye {
+  color: #333333;
+  font-size: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+}
+.tdc-before .card-price {
+  font-size: 72rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+}
+.tdc-before .card-price text {
+  font-size: 36rpx;
+}
+.tdc-before .card-time {
+  font-size: 24rpx;
+  padding-top: 54rpx;
+}
 
+.next-box {
+  position: relative;
+  background: #ffffff;
+  box-sizing: border-box;
+  display: inline-table;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  padding: 0 32rpx 40rpx;
+  width: 100%;
+}
+.record-box {
+  padding: 14rpx 32rpx 10rpx;
+}
+.switch-box {
+  padding: 30rpx 32rpx;
+}
+.name-box {
+  padding: 34rpx 32rpx;
+}
+.next-box .next {
+  display: table-cell;
+  vertical-align: middle;
+  width: 34rpx;
+}
+.next-box .next view {
+  border-top: 1px #999 solid;
+  border-right: 1px #999 solid;
+  height: 22rpx;
+  transform: rotate(-315deg);
+  width: 22rpx;
+}
+.next-box .record {
+  color: #333333;
+  display: table-cell;
+  font-size: 32rpx;
+  vertical-align: middle;
+}
+.next-box .record-time {
+  display: table-cell;
+  vertical-align: middle;
+}
+.next-box .record-time view {
+  color: #666666;
+  font-size: 28rpx;
+  line-height: 42rpx;
+  padding: 0 10rpx 0 0;
+  text-align: right;
+}
+.wx-switch-input {
+  float: right;
+}
+.person-list view {
+  box-sizing: border-box;
+  border: 1px #f6f6f6 solid;
+  border-radius: 100%;
+  display: inline-block;
+  height: 80rpx;
+  overflow: hidden;
+  vertical-align: top;
+  width: 80rpx;
+}
+.person-list view:nth-child(2) {
+  -webkit-transform: translate(-18rpx, 0);
+  -moz-transform: translate(-18rpx, 0);
+  transform: translate(-18rpx, 0);
+}
+.person-list view:nth-child(3) {
+  -webkit-transform: translate(-36rpx, 0);
+  -moz-transform: translate(-36rpx, 0);
+  transform: translate(-36rpx, 0);
+}
+.person-list view:nth-child(4) {
+  -webkit-transform: translate(-54rpx, 0);
+  -moz-transform: translate(-54rpx, 0);
+  transform: translate(-54rpx, 0);
+}
+.person-list view:nth-child(5) {
+  -webkit-transform: translate(-72rpx, 0);
+  -moz-transform: translate(-72rpx, 0);
+  transform: translate(-72rpx, 0);
+}
+.person-list view:nth-child(6) {
+  -webkit-transform: translate(-90rpx, 0);
+  -moz-transform: translate(-90rpx, 0);
+  transform: translate(-90rpx, 0);
+}
+.person-list view image {
+  height: 80rpx;
+  width: 80rpx;
+}
+.next-box .name {
+  color: #666666;
+  font-size: 32rpx;
+  text-align: right;
+  padding-right: 10rpx;
+}
 
+.mark {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.70);
+  z-index: 10;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.teamCard-popBox {
+  position: fixed;
+  top: 300rpx;
+  left: 94rpx;
+  right: 94rpx;
+  z-index: 11;
+  background: #ffffff;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  padding: 60rpx 0 0 0;
+}
+.teamCard-popBox .input {
+  background: #f6f6f6;
+  border-radius: 16rpx;
+  margin: 0 30rpx 32rpx;
+  padding: 20rpx 20rpx;
+}
+.teamCard-popBox .input input {
+  color: #666666;
+  display: block;
+  font-size: 32rpx;
+  height: 34rpx;
+  line-hieght: 34rpx;
+}
+.teamCard-popBox .input-tip {
+  color: #999999;
+  font-size: 28rpx;
+  padding: 0 32rpx 52rpx;
+}
+.teamCard-popBox .popBox-tit {
+  padding-bottom: 56rpx;
+  text-align: center;
+}
+.teamCard-popBox .popBox-tit text {
+  color: #000000;
+  font-size: 40rpx;
+  padding-right: 12rpx;
+  vertical-align: middle;
+}
+.teamCard-popBox .popBox-tit image {
+  height: 40rpx;
+  vertical-align: middle;
+  width: 40rpx;
+}
+.popBox-bottom {
+  border-top: 1px #E5E5E5 solid;
+  overflow: hidden;
+}
+.popBox-bottom > view {
+  box-sizing: border-box;
+  font-size: 34rpx;
+  float: left;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  width: 50%;
+}
+.popBox-bottom > view:first-child {
+  border-right: 1px #E5E5E5 solid;
+}
+.popBox-bottom > view:last-child {
+  color: #f5a623;
+}
+.buy-fail {
+  position: fixed;
+  top: 550rpx;
+  left: -232rpx;
+  z-index: 11;
+  margin-left: 50%;
+  background: rgba(0,0,0,0.80);
+  border-radius: 16rpx;
+  color: #ededed;
+  font-size: 30rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+  text-align: center;
+  width: 464rpx;
+}
 
 
 

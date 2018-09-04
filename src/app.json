@@ -44,7 +44,9 @@
     "pages/teamCardList/teamCardList",
     "pages/insideSale/insideSale",
     "pages/teamCardPurchase/teamCardPurchase",
-    "pages/teamCardDetails/teamCardDetails"
+    "pages/orderList/orderList",
+    "pages/teamCardDetails/teamCardDetails",
+    "pages/teamCardRecord/teamCardRecord"
   ],
   "window": {
     "backgroundTextStyle": "light",

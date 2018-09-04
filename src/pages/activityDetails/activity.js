@@ -332,7 +332,7 @@ Page({
       }, 100);
     } else {
       wx.navigateTo({
-        url: "../bindPhone/bindPhone?from=activity"
+        url: "../bindPhone/bindPhone?fun=navBack"
       });
     }
   },

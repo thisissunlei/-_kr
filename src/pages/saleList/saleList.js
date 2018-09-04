@@ -15,9 +15,9 @@ Page({
       })
       if ( options.from === 'seat' ) {
           wx.getStorage({
-              key: 'seat_order_sale',
+              key: 'seat_sale_info',
               success: (res) => {
-                  this.checked = res.data
+                  this.checked = res.data.sale
                   this.getSeatList()
               },
               fail: (res) => {
@@ -49,7 +49,7 @@ Page({
             key: 'meeting_sale',
             success: (res) => {
                 if (res.data) {
-                    this.getList(res.data, 'api/gateway/krcoupon/meeting/is-first-order')
+                    this.getList(res.data, 'api/gateway/kmorder/meeting/coupon-teamcard-list')
                 }
             }
         })
@@ -59,7 +59,7 @@ Page({
             key: 'seat-sale',
             success: (res) => {
                 if (res.data) {
-                    this.getList(res.data, 'api/gateway/krcoupon/seat/is-first-order')
+                    this.getList(res.data, 'api/gateway/kmorder/seat/coupon-teamcard-list')
                 }
             }
         })
@@ -72,7 +72,7 @@ Page({
             data: data,
             success:(res)=>{
                 if ( res.data.code > 0 ) {
-                    let list = res.data.data.coupons
+                    let list = res.data.data.myCoupons.coupons
                     list.forEach((val, i) => {
                         val.bt = this.changeTime(val.effectiveAt)
                         val.et = this.changeTime(val.expireAt)
@@ -167,18 +167,25 @@ Page({
       })
       this.back = false
     if(this.from=="seat"){
-        wx.setStorage({
-          key:"seat_order_sale",
-          data:{sale:false},
-          success:function(){
-            setTimeout(function(){
-              wx.navigateBack({
-                delta: 1
-              })
-            },500)
-            
-          }
-        })
+      wx.getStorage({
+        key: 'seat_sale_info',
+        success: function (res) {
+          let data = res.data;
+          data.sale = false;
+          wx.setStorage({
+            key: "seat_sale_info",
+            data: data,
+            success:function(){
+              setTimeout(function(){
+                wx.navigateBack({
+                  delta: 1
+                })
+              },500)
+              
+            }
+          })
+        }
+      })
     }else if(this.from=="meeting"){
         wx.setStorage({
           key:"meeting_order_sale",
@@ -216,9 +223,14 @@ Page({
     obj.reduce = obj.amount;
     obj.id = obj.couponId;
     if(this.from=="seat"){
-        wx.setStorage({
-            key: "seat_order_sale",
-            data: obj,
+      wx.getStorage({
+        key: 'seat_sale_info',
+        success: function (res) {
+          let data = res.data;
+          data.sale = obj;
+          wx.setStorage({
+            key: "seat_sale_info",
+            data: data,
             success:function(){
               setTimeout(function(){
                 wx.navigateBack({
@@ -228,6 +240,9 @@ Page({
               
             }
           })
+        }
+      })
+        
     }else if(this.from=="meeting"){
       wx.setStorage({
         key:"meeting_order_sale",

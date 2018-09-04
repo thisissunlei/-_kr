@@ -5,47 +5,47 @@ const app = getApp()
 Page({
 
     payTitle: '',
-
     data: {
-    flag: true,
-    endTime: "",
-    startTime: "",
-    timeday: [],
-    linkPhone: "",
-    con: '',
-    sankeNum: "",
-    payTitle: '',
-    quantity: "",
-    meetDetailShow: false,
-    autoplay: false,
-    duration: 1000,
-    currentNum: 1,
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
-    meetingRoomId: '',
-    titleObj: {},
-    ifFixed: false,
-    daynum: "",
-    carendarArr: [],
-    time: '11:00',
-    timeFlag: false,
-    errorMessage: '',
-    meetingDetail: {},
-    themeName: '',
-    remind: '提前1天',
-    check: true,
-    dialogShow: false,
-    alertTime: 'ONEDAY',
-    order_pay: {},
-    priceCount: '0',
-    totalCount: '0',
-    detailInfo: {},
-    orderDate: {},
-    meeting_time: {},
-    ifFirst: false,
+      imgUrl:app.globalData.KrImgUrl ,
+      flag: true,
+      endTime: "",
+      startTime: "",
+      timeday: [],
+      linkPhone: "",
+      con: '',
+      sankeNum: "",
+      payTitle: '',
+      quantity: "",
+      meetDetailShow: false,
+      autoplay: false,
+      duration: 1000,
+      currentNum: 1,
+      imgUrls: [
+        'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+        'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+      ],
+      meetingRoomId: '',
+      titleObj: {},
+      ifFixed: false,
+      daynum: "",
+      carendarArr: [],
+      time: '11:00',
+      timeFlag: false,
+      errorMessage: '',
+      meetingDetail: {},
+      themeName: '',
+      remind: '提前1天',
+      check: true,
+      dialogShow: false,
+      alertTime: 'ONEDAY',
+      order_pay: {},
+      priceCount: '0',
+      totalCount: '0',
+      detailInfo: {},
+      orderDate: {},
+      meeting_time: {},
+      ifFirst: false,
   },
   choose_date: '',
   orderId: '',
@@ -210,15 +210,6 @@ Page({
     wx.navigateTo({
       url: '../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone + '&orderId=' + this.orderId
     })
-    // console.log('../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId)
-
-
-
-
-
-
-
-
   },
   // 邀请
   onShareAppMessage: function (res) {
@@ -549,6 +540,8 @@ Page({
         let hour = (data.endTime - data.beginTime) / 3600000;
         let Ctime = changeTime(data.ctime);
         detailInfo.ctime = Ctime[0] + "-" + Ctime[1] + "-" + Ctime[2] + " " + Ctime[3] + ":" + Ctime[4] + ":" + Ctime[5]
+        // detailInfo.cardName = '你好团队卡你好团队卡'
+        // detailInfo.cardDeductAmount = 123
         this.setData({
           payTitle: payTitleObj[data.orderShowStatus],
           detailInfo: detailInfo,

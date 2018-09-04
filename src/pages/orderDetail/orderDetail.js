@@ -30,6 +30,7 @@ Page({
     meetingRoomId:'',
     titleObj:{},
     ifFixed:false,
+    imgUrl:app.globalData.KrImgUrl,
    
   },
   time_cal:"",
