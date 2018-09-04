@@ -543,10 +543,14 @@ Page({
       beginTime:data.meeting_time.beginTime,
       endTime:data.meeting_time.endTime,
       meetingRoomId:data.detailInfo.meetingRoomId,
-     
     }
-    //couponId:data.couponId || null,
-    //cardId:data.cardId || null,
+    console.log('data.couponId',data.saleContent.couponId,'data.cardId',data.saleContent.cardId)
+    if(data.couponId){
+      orderData.couponId=data.saleContent.couponId;
+    }
+    if(data.cardId){
+      orderData.cardId=data.cardId;
+    }
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/calculate',
         methods:"GET",
@@ -624,12 +628,15 @@ Page({
               _this.getIsfirst(_this.data.meeting_time);
             }
             let data=_this.data;
-           
+           console.log('res.data',res.data)
             _this.setData({
               saleStatus:saleStatus,
               saleContent:res.data,
               reducePrice:res.data.reduce || 0,
+              couponId:res.data.id ,
+              cardId:res.data.cardId
             })
+            
             if(res.data.reduce){
               _this.getPrice();
             }
@@ -1313,6 +1320,23 @@ Page({
       }
     })
    
+  },
+  jumpSetCard(){
+    let meetingTime=this.data.meeting_time;
+    let meetingRoomId=this.data.detailInfo.meetingRoomId;
+    wx.setStorage({
+      key: 'meeting_sale',
+      data:{
+        meetingRoomId:meetingRoomId,
+        beginTime:meetingTime.beginTime,
+        endTime:meetingTime.endTime,
+      },
+      success: function(res){
+        wx.navigateTo({
+          url: '../teamCardList/teamCardList?from=meeting'
+        })
+      }
+    })
   },
   
   
