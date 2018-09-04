@@ -3,21 +3,26 @@
         <view class="manage-list-left">
             <view class="manage-list-msg">
                 <view class="manage-list-src">
-                    <image src="{{item.img}}"></image>
+                    <image src="{{item.avatarUrl}}"></image>
                 </view>
                 <view class="manage-list-tel">
-                    <text>{{item.name}}</text>
-                    <text wx:if="{{item.tel}}">{{item.tel}}</text>
+                    <text>{{item.nickName}}</text>
+                    <text wx:if="{{item.phone}}">{{item.phone}}</text>
                 </view>
             </view>
-            <text class="manage-list-time">{{item.time}} 成为用卡人</text>
+            <text class="manage-list-time">{{item.ctime}} 成为用卡人</text>
         </view>
         <view class="manage-list-right">
-            <view wx:if="{{flag}}" bindtap="checkedPeople" data-check="{{item.checked}}" class="manage-list-uncheck {{item.checked ? 'check':''}}"></view>
+            <view wx:if="{{flag}}" bindtap="checkedPeople" data-index="{{index}}" data-info="{{item}}" class="manage-list-uncheck {{item.checked ? 'check':''}}"></view>
         </view>
     </view>
 </view>
-<view class="manage-fixed">
+
+<view class="manage-fixed" wx:if="{{showDel}}">
+    <button class="manage-del-people" bindtap="cancel">取消</button>
+    <button class="manage-add-people">确认删除</button>
+</view>
+<view class="manage-fixed" wx:else>
     <button class="manage-del-people" bindtap="delPeople">删除用卡人</button>
-    <button class="manage-add-people">添加用卡人</button>
+    <button class="manage-add-people" open-type="share">添加用卡人</button>
 </view>
