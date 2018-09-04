@@ -97,7 +97,7 @@ Page({
 
     } else {
       wx.getStorage({
-        key: 'meeting_order_sale',
+        key: 'meeting_order_card',
         success: (res) => {
           this.checked = res.data
           this.getMeetList()
@@ -234,7 +234,7 @@ Page({
       })
     } else if (this.from == "meeting") {
       wx.setStorage({
-        key: "meeting_order_sale",
+        key: "meeting_order_card",
         data: {
           sale: false
         },
@@ -267,6 +267,10 @@ Page({
       list: list
     })
     obj.card = true;
+    if(this.from.couponId){
+      obj.couponId=this.from.couponId 
+    }
+   
     if (this.from == "seat") {
       wx.getStorage({
         key: 'seat_sale_info',

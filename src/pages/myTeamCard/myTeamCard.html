@@ -9,7 +9,7 @@
             <text>{{item.remainAmount}}</text>元
         </view>
         <view class="team-card-bottom">
-            <text>{{item.effectAt}}-{{item.expireAt}}</text>
+            <text>使用期限：{{item.effectAt}}-{{item.expireAt}}</text>
             <view class="team-card-jump" bindtap="jumpCardDetail" data-id="{{item.id}}">
                 <text>查看详情</text>
                 <text></text>
@@ -20,7 +20,7 @@
         <image class="overdue" wx:if="{{item.cardStatus == 'HSA_EXPRIED'}}" src="../images/orderimg/order-b.png"></image>
     </view>
 </view>
-<view class="team-card-none" wx:else>
+<view class="team-card-none" wx:if="{{showNone && teamCardList.length == 0}}">
     <view class="content-none">
         <image class="img-none" src="../images/coupon/none.png"></image>
         <text class="warn">还没有团队卡哦~</text>
