@@ -1,0 +1,23 @@
+<view class="manage-wrap">
+    <view class="manage-list" wx:for="{{manageList}}" wx:key>
+        <view class="manage-list-left">
+            <view class="manage-list-msg">
+                <view class="manage-list-src">
+                    <image src="{{item.img}}"></image>
+                </view>
+                <view class="manage-list-tel">
+                    <text>{{item.name}}</text>
+                    <text wx:if="{{item.tel}}">{{item.tel}}</text>
+                </view>
+            </view>
+            <text class="manage-list-time">{{item.time}} 成为用卡人</text>
+        </view>
+        <view class="manage-list-right">
+            <view wx:if="{{flag}}" bindtap="checkedPeople" data-check="{{item.checked}}" class="manage-list-uncheck {{item.checked ? 'check':''}}"></view>
+        </view>
+    </view>
+</view>
+<view class="manage-fixed">
+    <button class="manage-del-people" bindtap="delPeople">删除用卡人</button>
+    <button class="manage-add-people">添加用卡人</button>
+</view>
