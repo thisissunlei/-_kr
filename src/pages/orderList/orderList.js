@@ -11,7 +11,7 @@ Page({
     },
     type:'ALL',
     number:0,
-    orderType:'meeting',
+    orderType:'seat',
     orderList:[],
     loading:true
   },
