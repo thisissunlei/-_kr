@@ -70,6 +70,10 @@ Page({
     saleContent:{},
     reducePrice:0,
     imgUrl:app.globalData.KrImgUrl,
+    priceInfo:{},
+    cardCount:0,
+
+    
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -531,35 +535,64 @@ Page({
     }
     
   },
+  //新金额计算
   getPrice:function(){
     let data=this.data;
-    let hours=data.meeting_time.hours;
-    let price=data.detailInfo.promotionCost;
-    let unitCost=data.detailInfo.unitCost;
-    let totalCount=unitCost*hours*2;
-    let priceCount=price*hours*2;
- 
-    if((data.isFirst && data.saleStatus=='new') || (data.isFirst && data.saleStatus=='none')){
-        this.setData({
-          totalCount:totalCount,
-          priceCount:1,
-        })
-    }else {
-      if(data.saleStatus=='chosen'){
-        if(priceCount-data.reducePrice>0){
-          priceCount=(priceCount*100-data.reducePrice*100)/100
-        }else{
-          priceCount=0;
-        }
-       
-      }
-        this.setData({
-          totalCount:totalCount || 0,
-          priceCount:priceCount || 0,
-        })
+    //需要添加推荐人电话字段
+    let orderData = {
+      beginTime:data.meeting_time.beginTime,
+      endTime:data.meeting_time.endTime,
+      meetingRoomId:data.detailInfo.meetingRoomId,
+     
     }
-   
+    //couponId:data.couponId || null,
+    //cardId:data.cardId || null,
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/calculate',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        data:orderData,
+        success:(res)=>{
+           
+          this.setData({
+            priceInfo:res.data.data
+          })
+            
+        }
+      })
   },
+  //旧金额计算
+  // getPrice:function(){
+  //   let data=this.data;
+  //   let hours=data.meeting_time.hours;
+  //   let price=data.detailInfo.promotionCost;
+  //   let unitCost=data.detailInfo.unitCost;
+  //   let totalCount=unitCost*hours*2;
+  //   let priceCount=price*hours*2;
+ 
+  //   if((data.isFirst && data.saleStatus=='new') || (data.isFirst && data.saleStatus=='none')){
+  //       this.setData({
+  //         totalCount:totalCount,
+  //         priceCount:1,
+  //       })
+  //   }else {
+  //     if(data.saleStatus=='chosen'){
+  //       if(priceCount-data.reducePrice>0){
+  //         priceCount=(priceCount*100-data.reducePrice*100)/100
+  //       }else{
+  //         priceCount=0;
+  //       }
+       
+  //     }
+  //       this.setData({
+  //         totalCount:totalCount || 0,
+  //         priceCount:priceCount || 0,
+  //       })
+  //   }
+   
+  // },
   onShow:function(){
     var _this=this;
     wx.getStorage({
@@ -588,7 +621,6 @@ Page({
             if(res.data.sale){
               saleStatus = 'chosen';
             }else{
-              
               _this.getIsfirst(_this.data.meeting_time);
             }
             let data=_this.data;
@@ -856,7 +888,7 @@ Page({
     let data=this.data;
     let meetingRoomId=data.detailInfo.meetingRoomId;
       app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krcoupon/meeting/is-first-order',
+        url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/coupon-teamcard-list',
         methods:"GET",
         header:{
           'content-type':"appication/json"
@@ -875,21 +907,32 @@ Page({
   //校验优惠券状态
   checkStatus(data){
     let saleStatus = '';
-    if(data.first){
+    let cardStatus = 'nothing';
+    let saleData = data.myCoupons;
+    let cardData = data.myCards;
+     // 判断礼品券new：新人；chosen：已选，nothing:暂无可用；none:未选择）
+    if(saleData.first){
       saleStatus = 'new';
     }else{
-      if(data.couponCount>0){
+      if(saleData.couponCount>0){
         saleStatus = 'none'
       }else{
-        saleStatus = 'nothing'
-        
+        saleStatus = 'nothing';
       }
     }
+     // 判断团队卡
+    if(cardData.cardUsableCount){
+      cardStatus = 'none'
+    }
+
     this.setData({
       saleStatus:saleStatus,
       saleContent:{sale:false},
-      isFirst:data.first,
-      couponCount:data.couponCount,
+      isFirst:saleData.first,
+      couponCount:saleData.couponCount,
+      cardStatus:cardStatus,
+      cardCount:cardData.cardUsableCount,
+      cardContent:{sale:false},
     })
     this.getPrice();
   },
@@ -1271,6 +1314,7 @@ Page({
     })
    
   },
+  
   
 })
 

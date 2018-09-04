@@ -337,7 +337,7 @@ Page({
     let saleData = data.myCoupons;
     let cardData = data.myCards;
     // 判断礼品券new：新人；chosen：已选，nothing:暂无可用；none:未选择）
-    if(data.first){
+    if(saleData.first){
       // 符合新人下单
       saleStatus = 'new';
     }else{
@@ -353,7 +353,7 @@ Page({
       cardStatus = 'none'
     }
     this.saleLength=data.couponCount
-    this.isFirst = data.first;
+    this.isFirst = saleData.first;
     this.setData({
       saleStatus:saleStatus,
       saleContent:{sale:false},
