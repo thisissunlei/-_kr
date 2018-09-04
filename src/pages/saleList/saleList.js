@@ -222,6 +222,9 @@ Page({
     obj.sale = true;
     obj.reduce = obj.amount;
     obj.id = obj.couponId;
+    if(this.from.cardId){
+        obj.cardId=this.from.cardId 
+      }
     if(this.from=="seat"){
       wx.getStorage({
         key: 'seat_sale_info',

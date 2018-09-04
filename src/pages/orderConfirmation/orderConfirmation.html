@@ -59,7 +59,7 @@
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
             </view>
     </view>
-    <view class="u-sale-info u-team-info" bindtap="jumpSelectSale" wx:if="{{meeting_time.hours>0}}">
+    <view class="u-sale-info u-team-info" bindtap="jumpSetCard" wx:if="{{meeting_time.hours>0}}">
             <view class="u-sale-title">
                 团队卡
             </view>
@@ -69,7 +69,6 @@
             </view>
              <view class="u-sale-text u-no-use-sale"  wx:if="{{cardStatus==='none'}}">{{cardCount}}张可用</view>
             <view class="u-sale-text u-no-sale-text" wx:if="{{cardStatus=='nothing'}}">暂无可用</view>
-            <view class="u-use-sale-num" wx:if="{{cardStatus==='chosen'}}">已选1张</view>
             <view class="u-sale-text u-use-sale" wx:if="{{cardStatus==='chosen'}}">-<view class="u-sale-price-unit">￥</view>{{priceInfo.cardDeductAmount}}</view>
             <view class="u-btn-arrow u-meeting-btn-arrow">
                     <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
@@ -133,7 +132,7 @@
                     ¥   
                 </view>
                 <view class="u-price-num">
-                    {{priceInfo.totalAmount}}
+                    {{priceInfo.totalAmount || 0}}
                 </view>
             </view>
             <view class="u-footer-tip" wx:if="{{priceInfo.totalAmount>0}}">
@@ -149,7 +148,7 @@
                     ¥   
                 </view>
                 <view class="u-no-first-price-num">
-                    {{priceInfo.totalAmount}}
+                    {{priceInfo.totalAmount || 0}}
                 </view>
             </view>
         </view>
