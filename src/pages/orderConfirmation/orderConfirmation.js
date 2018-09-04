@@ -67,13 +67,15 @@ Page({
     date_next:{month:'',year:'',value:''},
     couponCount:0,
     saleStatus:'none',
-    saleContent:{},
     reducePrice:0,
     imgUrl:app.globalData.KrImgUrl,
     priceInfo:{},
     cardCount:0,
+    saleContent:{},
+    cardContent:{},
+    cardId:'',
+    couponId:'',
 
-    
   },
   all_day_num:0,
   last_btn_num:'false',
@@ -350,6 +352,7 @@ Page({
       key:"meeting_order_sale",
       data:{}
     })
+   
     
   },
   closeDialog:function(){
@@ -531,6 +534,7 @@ Page({
         key:"meeting_order_sale",
         data:{}
       })
+     
 
     }
     
@@ -538,33 +542,41 @@ Page({
   //新金额计算
   getPrice:function(){
     let data=this.data;
-    //需要添加推荐人电话字段
     let orderData = {
       beginTime:data.meeting_time.beginTime,
       endTime:data.meeting_time.endTime,
       meetingRoomId:data.detailInfo.meetingRoomId,
     }
-    console.log('data.couponId',data.saleContent.couponId,'data.cardId',data.saleContent.cardId)
     if(data.couponId){
-      orderData.couponId=data.saleContent.couponId;
+      orderData.couponId=data.couponId;
     }
     if(data.cardId){
       orderData.cardId=data.cardId;
     }
       app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/calculate',
-        methods:"GET",
-        header:{
-          'content-type':"appication/json"
-        },
-        data:orderData,
-        success:(res)=>{
-           
-          this.setData({
-            priceInfo:res.data.data
-          })
-            
-        }
+          url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/calculate',
+          methods:"GET",
+          header:{
+            'content-type':"appication/json"
+          },
+          data:orderData,
+          success:(res)=>{
+              let data = res.data.data;
+              if(res.data.code == 1){
+                    this.setData({
+                      cardContent:{
+                        name:data.cardName,
+                        remainAmountDecimal:data.cardDeductAmount,
+                        cardId:data.cardId
+                      },
+                      saleContent:{
+                        couponId:data.couponId,
+                        amount:data.couponAmount
+                      },
+                      priceInfo:res.data.data
+                    })
+                } 
+            }
       })
   },
   //旧金额计算
@@ -599,6 +611,8 @@ Page({
   // },
   onShow:function(){
     var _this=this;
+    let saleStatus = this.data.saleStatus;
+    let cardStatus = this.data.cardStatus;
     wx.getStorage({
       key:'order_pay',
       success:function(res){
@@ -621,29 +635,28 @@ Page({
         wx.getStorage({
           key: 'meeting_order_sale',
           success: function (res) {
-            let saleStatus="";
             if(res.data.sale){
               saleStatus = 'chosen';
-            }else{
-              _this.getIsfirst(_this.data.meeting_time);
             }
-            let data=_this.data;
-           console.log('res.data',res.data)
+            if(res.data.card){
+              cardStatus = 'chosen';
+            }
             _this.setData({
               saleStatus:saleStatus,
               saleContent:res.data,
-              reducePrice:res.data.reduce || 0,
               couponId:res.data.id ,
-              cardId:res.data.cardId
-            })
-            
-            if(res.data.reduce){
+              cardStatus:cardStatus,
+              cardContent:res.data.card,
+            },function(){
               _this.getPrice();
-            }
+            })
            
+            
             
           }
         })
+       
+        
     }
    
   },
@@ -893,20 +906,28 @@ Page({
   },
   getIsfirst:function(meetingTime){
     let data=this.data;
-    let meetingRoomId=data.detailInfo.meetingRoomId;
+    let orderData = {
+      beginTime:data.meeting_time.beginTime,
+      endTime:data.meeting_time.endTime,
+      meetingRoomId:data.detailInfo.meetingRoomId,
+    }
+    
+    if(data.saleContent.couponId){
+      orderData.couponId=data.saleContent.couponId;
+    }
+    if(data.cardContent.cardId){
+      orderData.cardId=data.cardContent.cardId;
+    }
+  
       app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/coupon-teamcard-list',
         methods:"GET",
         header:{
           'content-type':"appication/json"
         },
-        data:{
-          meetingRoomId:meetingRoomId,
-          beginTime:meetingTime.beginTime,
-          endTime:meetingTime.endTime,
-        },
+        data:orderData,
         success:(res)=>{
-          let data=res.data.data; 
+          let data=res.data.data;
           this.checkStatus(data);
         }
     })
@@ -915,8 +936,8 @@ Page({
   checkStatus(data){
     let saleStatus = '';
     let cardStatus = 'nothing';
-    let saleData = data.myCoupons;
     let cardData = data.myCards;
+    let saleData = data.myCoupons;
      // 判断礼品券new：新人；chosen：已选，nothing:暂无可用；none:未选择）
     if(saleData.first){
       saleStatus = 'new';
@@ -927,23 +948,26 @@ Page({
         saleStatus = 'nothing';
       }
     }
-     // 判断团队卡
-    if(cardData.cardUsableCount){
+    // 判断团队卡
+    if(cardData.cardUsableCount>0){
       cardStatus = 'none'
+    } else{
+      cardStatus = 'nothing';
     }
-
+    
     this.setData({
       saleStatus:saleStatus,
-      saleContent:{sale:false},
       isFirst:saleData.first,
       couponCount:saleData.couponCount,
+      saleContent:{sale:false},
       cardStatus:cardStatus,
       cardCount:cardData.cardUsableCount,
       cardContent:{sale:false},
+      
     })
     this.getPrice();
   },
-
+  
   closeDialogTime:function(){
     var that = this;
     if(!that.data.dialogTimeShow){
@@ -1202,6 +1226,7 @@ Page({
             key:"meeting_order_sale",
             data:{}
           })
+         
           setTimeout(function(){
             _this.getInviteeId(data.orderId);
             wx.hideLoading();
