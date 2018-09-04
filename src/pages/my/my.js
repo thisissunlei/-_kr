@@ -41,6 +41,7 @@ Page({
   jumpOderList: function(e) {
     let status = e.currentTarget.dataset.status;
     wx.navigateTo({
+      // url: "../myOrder/myOrder?orderShowStatus=" + status + "&con=" + 1
       url: "../orderList/orderList?orderShowStatus=" + status + "&con=" + 1
     });
   },

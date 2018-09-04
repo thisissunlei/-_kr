@@ -12,10 +12,26 @@ Page({
     type:'ALL',
     number:0,
     orderType:'meeting',
-    orderList:[]
+    orderList:[],
+    loading:true
   },
   page:1,
   totalPages:0,
+  //倒计时
+  dealTime(e){
+    // console.log(e)
+    var dates=new Date();
+    var nowtime=Math.round(e-dates.getTime());
+    var minute=Math.floor(nowtime/(60*1000))
+    var leave3=nowtime%(60*1000)      //计算分钟数后剩余的毫秒数  
+    var second=Math.round(leave3/1000)
+    
+    return {
+      minute:minute,
+      second:second
+    }
+
+  },
   //点击传参
   changeType:function(e){
     let that = this;
@@ -27,6 +43,7 @@ Page({
       number:20*number + '%',
       type:type,
       orderList:[],
+      loading:true,
     },function(){
       that.page = 1
       if(listType === 'meeting'){
@@ -44,6 +61,7 @@ Page({
     this.setData({
       orderType:type,
       orderList:[],
+      loading:true,
     },function(){
       that.page = 1
       if(type === 'meeting'){
@@ -62,7 +80,18 @@ Page({
       number:20*number + '%',
       type:options.orderShowStatus
     })
-    this.getOrderList(type,1)
+    wx.showLoading({
+          title: "加载中",
+          mask: true
+      })
+    console.log('onLoad=====',listType)
+    let listType = this.data.orderType;
+      if(listType === 'meeting'){
+        this.getOrderList(type,1)
+      }else{
+        this.getSeatList(type,1)
+      }
+
   },
 
   onReachBottom: function(e) {
@@ -97,6 +126,7 @@ Page({
         },
         success:(res)=>{
           let oldList = []
+           wx.hideLoading();
           if(res.data.code>0){
             var list = []
             list = res.data.data.items.map((item,index)=>{
@@ -111,6 +141,7 @@ Page({
             console.log('getList',orderOldList,list,allList)
             that.setData({
               orderList:allList,
+              loading:false
             })
             that.page = page || 1;
             that.totalPages = res.data.data.totalPages
@@ -140,6 +171,7 @@ Page({
         data:{
           orderShowStatus:type,
           page:page || 1,
+          pageSize:10
         },
         success:(res)=>{
           wx.hideLoading();
@@ -158,6 +190,8 @@ Page({
             this.orderOldList = allList
             that.setData({
               orderList:allList,
+              loading:false
+
             })
             console.log('orderList',allList)
             that.page = page || 1;
