@@ -49,7 +49,7 @@ Page({
             key: 'meeting_sale',
             success: (res) => {
                 if (res.data) {
-                    this.getList(res.data, 'api/gateway/krcoupon/meeting/is-first-order')
+                    this.getList(res.data, 'api/gateway/kmorder/meeting/coupon-teamcard-list')
                 }
             }
         })
@@ -59,7 +59,7 @@ Page({
             key: 'seat-sale',
             success: (res) => {
                 if (res.data) {
-                    this.getList(res.data, 'api/gateway/kmorder/seat/coupon-teamcard-list')
+                    this.getList(res.data, 'api/gateway/kmorder/meeting/coupon-teamcard-list')
                 }
             }
         })
@@ -72,7 +72,7 @@ Page({
             data: data,
             success:(res)=>{
                 if ( res.data.code > 0 ) {
-                    let list = res.data.data.coupons
+                    let list = res.data.data.myCoupons.coupons
                     list.forEach((val, i) => {
                         val.bt = this.changeTime(val.effectiveAt)
                         val.et = this.changeTime(val.expireAt)

@@ -25,7 +25,11 @@ Page({
             checked: e.detail.value
         })
     },
-    toRecordList() {},
+    toRecordList() {
+        wx.navigateTo({
+            url: "../teamCardRecord/teamCardRecord"
+        });
+    },
     toPersonList() {},
     changeName() {
         this.setData({

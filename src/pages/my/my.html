@@ -46,36 +46,35 @@
         </view>
        
     </view> -->
-    <dialog class="u-my-meeting" bindtap="jumpMyCoupon" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'>
-        <text slot='one' class="u-my-meeting-title"> 我的礼品券 </text>
-        <text slot='two' class="u-meet-count" wx:if="{{couponCount>0}}">{{couponCount}}</text>
-    </dialog>
-    <view class="u-my-box-a"></view>
-    <dialog class="u-my-meeting" bindtap="jumpMyTeamCard" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'>
-        <text slot='one' class="u-my-meeting-title"> 我的团队卡 </text>
-        <!-- <text slot='two' class="u-meet-count" wx:if="{{count>0}}">{{count}}</text> -->
-    </dialog>
-    <view class="u-my-box-a"></view>
-    <dialog class="u-my-meeting" bindtap="jumpMyMeet" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'>
-        <text slot='one' class="u-my-meeting-title"> 我的会议 </text>
-        <text slot='two' class="u-meet-count" wx:if="{{count>0}}">{{count}}</text>
-    </dialog>
-    <view class="u-my-box-a"></view>
-    <dialog class="u-contact-service" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png' bindtap='mysan'>
-        <text slot='one' class="u-my-meeting-title">我的散座</text>
-        <text slot='two' class="u-meet-count" wx:if="{{number>0}}"> {{number}} </text>
-    </dialog>
-    <view class="u-my-box-a"></view>
-    <dialog class="u-my-meeting" bindtap="jumpMyActivity" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'>
-        <text slot='one' class="u-my-meeting-title"> 我的活动 </text>
-        <text slot='two' class="u-meet-count" wx:if="{{activityCount>0}}">{{activityCount}}</text>
-    </dialog>
+    <view class="link-box">
+        <dialog class="u-my-meeting" bindtap="jumpMyCoupon" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'>
+            <text slot='one' class="u-my-meeting-title"> 我的礼品券 </text>
+            <text slot='two' class="u-meet-count" wx:if="{{couponCount>0}}">{{couponCount}}</text>
+        </dialog>
+        <view class="u-my-box-a"></view>
+        <dialog class="u-my-meeting" bindtap="jumpMyTeamCard" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'>
+            <text slot='one' class="u-my-meeting-title"> 我的团队卡 </text>
+            <!-- <text slot='two' class="u-meet-count" wx:if="{{count>0}}">{{count}}</text> -->
+        </dialog>
+    </view>
+    <view class="link-box">
+        <dialog class="u-my-meeting" bindtap="jumpMyMeet" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'>
+            <text slot='one' class="u-my-meeting-title"> 我的会议 </text>
+            <text slot='two' class="u-meet-count" wx:if="{{count>0}}">{{count}}</text>
+        </dialog>
+        <view class="u-my-box-a"></view>
+        <dialog class="u-contact-service" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png' bindtap='mysan'>
+            <text slot='one' class="u-my-meeting-title">我的散座</text>
+            <text slot='two' class="u-meet-count" wx:if="{{number>0}}"> {{number}} </text>
+        </dialog>
+        <view class="u-my-box-a"></view>
+        <dialog class="u-my-meeting" bindtap="jumpMyActivity" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'>
+            <text slot='one' class="u-my-meeting-title"> 我的活动 </text>
+            <text slot='two' class="u-meet-count" wx:if="{{activityCount>0}}">{{activityCount}}</text>
+        </dialog>
+    </view>
 
-
-
-    <view class="u-my-box"></view>
     <view class="u-btn">
-
         <button class="u-my-contact-btn kefu" open-type="contact">联系客服</button>
         <image class="u-img" src="../images/public/icon_arrow-right.png"></image>
     </view>
