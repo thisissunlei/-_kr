@@ -59,7 +59,7 @@ Page({
             key: 'seat-sale',
             success: (res) => {
                 if (res.data) {
-                    this.getList(res.data, 'api/gateway/krcoupon/seat/is-first-order')
+                    this.getList(res.data, 'api/gateway/kmorder/seat/coupon-teamcard-list')
                 }
             }
         })

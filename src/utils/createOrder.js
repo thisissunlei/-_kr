@@ -4,7 +4,7 @@ const app = getApp()
 var getSeatData = function(that,num) {
 	let seat = {}
 	wx.getStorage({
-		key: 'myorder',
+		key: 'create_seat',
 		success: function(res) {
 			if (res.data) {
 				createSeat(res.data,that,num)
@@ -21,45 +21,74 @@ var createSeat = function(data,that,num) {
 		header: {
 			'content-type': "appication/json"
 		},
-		data: data,
+		data: data.create_seat,
 		success: (res) => {
 			let code = res.data.code;
 			let rsData = res.data.data;
-			if (code == -1) {
-				_this.setData({
-					phoneError: false,
-					success: false,
-					errorMessage: res.data.message
-				})
-				setTimeout(function() {
-					_this.setData({
-						phoneError: true,
-						errorMessage: '',
-					})
-					wx.navigateTo({
-						url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
-					})
-				}, 2000)
-			} else if (code === 2) {
-				// 使用优惠券后，价格为0
-				wx.showLoading({
-					title: '加载中',
-					mask: true
-				})
-				setTimeout(function() {
-					wx.navigateTo({
-						url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
-					})
-					wx.hideLoading();
-				}, 500)
-			} else {
-				console.log('订单生成成功===========')
-				weChatPaySeat(rsData,_this,num)
-				wx.setStorage({
-			      key:"myorder",
-			      data:{}
-			    })
-			}
+			switch (code){
+        case -1:
+          //生成订单失败
+          _this.setData({
+            phoneError: false,
+            errorMessage: res.data.message
+          })
+          setTimeout(function () {
+            _this.setData({
+              phoneError: true,
+              errorMessage: ''
+            })
+          }, 2000)
+          break;
+        case -4:
+        //优惠券失效
+          _this.setData({
+            phoneError: false,
+            errorMessage: res.data.message
+          },function(){
+            console.log('优惠券失效======>',res.data.message)
+          })
+          setTimeout(function () {
+            _this.setData({
+              phoneError: true,
+              errorMessage: ''
+            })
+          }, 2000)
+          break;
+        case 2:
+          // 使用优惠券后，价格为0
+          wx.showLoading({
+            title: '加载中',
+            mask: true
+          })
+          setTimeout(function() {
+            wx.navigateTo({
+              url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+            })
+            wx.hideLoading();
+          }, 500)
+          break;
+        case 1:
+          //订单创建成功
+          weChatPaySeat(rsData,_this,num)
+          wx.setStorage({
+              key:"create_seat",
+              data:{}
+          })
+          break;
+        default:
+          _this.setData({
+            phoneError: false,
+            errorMessage: res.data.message
+          })
+          setTimeout(function () {
+            _this.setData({
+              phoneError: true,
+              errorMessage: ''
+            })
+          }, 2000)
+          break;
+
+      }
 		},
 		fail: (res) => {
 			wx.navigateBack({
