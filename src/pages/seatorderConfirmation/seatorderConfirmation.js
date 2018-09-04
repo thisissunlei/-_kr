@@ -357,7 +357,7 @@ Page({
     this.setData({
       saleStatus:saleStatus,
       saleContent:{sale:false},
-      saleLength:data.couponCount,
+      saleLength:saleData.couponCount,
       cardStatus:cardStatus,
       cardLength:cardData.cardUsableCount,
       cardContent:{sale:false},
@@ -709,7 +709,7 @@ Page({
     }
     console.log('getSeatcalculate-->',formData)
     app.getRequest({
-      url:app.globalData.KrUrl+"api/gateway/krseat/seat/order/calculate",
+      url:app.globalData.KrUrl+"api/gateway/kmorder/seat/calculate",
       methods:"GET",
       data:formData,
       success:res=>{
