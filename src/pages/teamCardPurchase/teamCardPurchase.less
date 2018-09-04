@@ -117,15 +117,23 @@
 }
 .teamCard-swiper-page {
   color: #3f3f3f;
-  font-size: 24rpx;
-  height: 50rpx;
-  line-height: 50rpx;
+  height: 12rpx;
   padding: 0 0 60rpx;
   text-align: center;
 }
 .teamCard-swiper-page text {
-  color: #333;
-  font-size: 36rpx;
+  background: #ebebeb;
+  border-radius: 6rpx;
+  display: inline-block;
+  height: 12rpx;
+  margin: 0 4rpx;
+  transition: all 0.3s;
+  vertical-align: top;
+  width: 12rpx;
+}
+.teamCard-swiper-page text.select {
+  background: #dfdfdf;
+  width: 26rpx;
 }
 .note-tit {
   color: #333333;
@@ -187,7 +195,7 @@
 }
 .teamCard-bottom-left {
   flex: 1;
-  text-align: center;
+  padding-left: 36rpx;
 }
 .teamCard-bottom-left > view {
   display: inline-block;

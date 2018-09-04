@@ -30,7 +30,11 @@ Page({
             url: "../teamCardRecord/teamCardRecord"
         });
     },
-    toPersonList() {},
+    toPersonList() {
+        wx.navigateTo({
+            url: "../teamCardManage/teamCardManage"
+        });
+    },
     changeName() {
         this.setData({
             nameShow: true,

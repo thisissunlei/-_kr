@@ -12,32 +12,32 @@
             <view class="td-pNum">-100%</view>
         </view>
         <view class="td-text">售价：¥</view>
-        <view class="td-price">12,000</view>
+        <view class="td-price">{{list[swiperIndex].salePriceDecimal}}</view>
         <view class="td-surplus">剩余3000张</view>
     </view>
-    <swiper bindanimationfinish="swiperChange" class="teamCard-swiper">
-        <block wx:for="1111" wx:key="{{index}}">
+    <swiper bindchange="swiperChange" class="teamCard-swiper">
+        <block wx:for="{{list}}" wx:key="{{index}}">
             <swiper-item>
                 <view class="teamCard-swiper-card">
                     <view class="tsc-bg">
                         <image mode="widthFix" src="{{KrImgUrl}}teamCardPurchase/card0.png"></image>
                     </view>
                     <view class="tsc-con">
-                        <view class="tsc-tit">卡名</view>
+                        <view class="tsc-tit">{{item.cardName}}</view>
                         <view class="tsc-price">
                             <text style="color: #000000;font-size: 24rpx;">面额: </text>
-                            <text style="font-size: 36rpx;">20,000</text>
+                            <text style="font-size: 36rpx;">{{item.faceValueDecimal}}</text>
                             <text style="font-size: 18rpx;">元</text>
                         </view>
                         <view class="tsc-bottom">
                             <view class="tsc-bottom-left">
                                 <text style="font-size: 24rpx;">用卡: </text>
-                                <text style="font-size: 36rpx;">10</text>
+                                <text style="font-size: 36rpx;">{{item.limitCount}}</text>
                                 <text style="font-size: 18rpx;">人</text>
                             </view>
                             <view class="tsc-bottom-right">
                                 <text style="font-size: 24rpx;">有效期: </text>
-                                <text style="color: #000000;font-size: 36rpx;">30</text>
+                                <text style="color: #000000;font-size: 36rpx;">{{item.activeDuration}}</text>
                                 <text style="font-size: 18rpx;">天</text>
                             </view>
                         </view>
@@ -46,7 +46,10 @@
             </swiper-item>
         </block>
     </swiper>
-    <view class="teamCard-swiper-page"><text>{{swiperIndex}}</text>/7</view>
+    <!--swiperIndex-->
+    <view class="teamCard-swiper-page">
+        <text wx:for="{{list}}" wx:key="{{index}}" class="{{swiperIndex == index?'select':''}}"></text>
+    </view>
     <view class="note-tit">购买须知</view>
     <view class="note-con">1.团队卡为电子卡，购买成功后可到“我的团队卡”中查看；</view>
     <view class="note-con">2.可同时购买多张团队卡；</view>
@@ -74,11 +77,11 @@
             <view class="tbl-txt">应付：</view>
             <view class="tbl-price">
                 <text>¥</text>
-                <text>20,000</text>
+                <text>{{list[swiperIndex].salePriceDecimal}}</text>
             </view>
             <view class="tbl-Oprice">
                 <text>¥</text>
-                <text>20,000</text>
+                <text>{{list[swiperIndex].faceValueDecimal}}</text>
             </view>
         </view>
         <view wx:if="{{!!check && !!cardNum}}" class="teamCard-bottom-right" bindtap="buy">立即购买</view>
@@ -108,13 +111,13 @@
                 <view bindtap="check">查看团队卡</view>
             </view>
         </view>
-        <view class="teamCard-mark select"></view>
-        <view class="buy-fail">
-            <image class="pay-ok-img" src="../images/public/error.png"></image>
-            <view>购买失败</view>
-        </view>
-        <view class="buy-fail passWord-error">
-            <view>购买口令不对哦~</view>
-        </view>
+        <!--<view class="teamCard-mark select"></view>-->
+        <!--<view class="buy-fail">-->
+            <!--<image class="pay-ok-img" src="../images/public/error.png"></image>-->
+            <!--<view>购买失败</view>-->
+        <!--</view>-->
+        <!--<view class="buy-fail passWord-error">-->
+            <!--<view>购买口令不对哦~</view>-->
+        <!--</view>-->
     </view>
 </view>
