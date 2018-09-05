@@ -2,6 +2,7 @@ const app = getApp();
 Page({
   data: {
     KrImgUrl: app.globalData.KrImgUrl,
+    leader: null, //是否为管理员
     flag: false,
     showDel: false,
     manageList: [
@@ -46,12 +47,36 @@ Page({
       return app.globalData.share_data;
     }
   },
-  onLoad: function(options) {},
+  onLoad: function(options) {
+    this.getHolderList();
+  },
   //点击删除用卡人
   delPeople: function() {
     this.setData({
       flag: true,
       showDel: true
+    });
+  },
+  //用卡人管理接口
+  getHolderList: function() {
+    let that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/holderlist",
+      data: {
+        cardId: 1
+      },
+      success: res => {
+        console.log(res.data.data);
+        let manageList = res.data.data.items;
+        manageList.map(item => {
+          item.ctime = that.toDate(item.ctime);
+          return item;
+        });
+        that.setData({
+          manageList: manageList,
+          leader: res.data.data.leader
+        });
+      }
     });
   },
   //点击取消
@@ -74,5 +99,26 @@ Page({
       manageList: arr
     });
     // console.log(that.data.manageList);
+  },
+  //时间戳格式化
+  toDate: function(number) {
+    var date = new Date(number);
+    var Y = date.getFullYear() + "-";
+    var M =
+      date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1) + "-"
+        : date.getMonth() + 1 + "-";
+    var D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    var H =
+      date.getHours() < 10
+        ? "0" + date.getHours() + ":"
+        : date.getHours() + ":";
+    var m =
+      date.getMinutes() < 10
+        ? "0" + date.getMinutes() + ":"
+        : date.getMinutes() + ":";
+    var S =
+      date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+    return Y + M + D + " " + H + m + S;
   }
 });
