@@ -247,18 +247,25 @@ Page({
       })
         
     }else if(this.from=="meeting"){
-      wx.setStorage({
-        key:"meeting_order_sale",
-        data:obj,
-        success:function(){
-          setTimeout(function(){
-            wx.navigateBack({
-              delta: 1
-            })
-          },500)
-          
-        }
-      })
+        wx.getStorage({
+            key: 'meeting_order_sale',
+            success: function (res) {
+              let data = res.data;
+              data.sale = obj;
+              wx.setStorage({
+                key: "meeting_order_sale",
+                data: data,
+                success:function(){
+                  setTimeout(function(){
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  },500)
+                  
+                }
+              })
+            }
+          })
   }
   }
 });
