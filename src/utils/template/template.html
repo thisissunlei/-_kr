@@ -91,9 +91,9 @@
   <view class="my-card-list">
     <image class="checked-logo" wx:if="{{item.checked}}" src="{{imgUrl}}teamCardBg/checked.png" mode="scaleToFill"></image>
     <!-- <image class="team-card-bg" src="{{imgUrl}}teamCardPurchase/card0.png"></image> -->
-    <view class="card-content" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}">
+    <view class="card-content" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}" >
       <view class="card-first-content">
-        <view class="card-name">{{item.name}}</view>
+        <view class="card-name">{{item.cardName}}</view>
         <view class="card-num">{{item.cardNo}}</view>
       </view>
       <view class="card-second-content">
@@ -104,6 +104,6 @@
       <view class="card-third-content">
         <view class="card-range">使用期限：{{item.effectAt}}-{{item.expireAt}}</view>
       </view>
-      </view>
+    </view>
   </view>
 </template>

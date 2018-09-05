@@ -16,7 +16,7 @@ var createSeat = function(data,that,num) {
 	let _this = that;
 	app.getRequest({
 		// 散座	
-		url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+		url: app.globalData.KrUrl + 'api/gateway/kmorder/seat/create',
 		methods: "GET",
 		header: {
 			'content-type': "appication/json"
@@ -24,7 +24,7 @@ var createSeat = function(data,that,num) {
 		data: data.create_seat,
 		success: (res) => {
 			let code = res.data.code;
-			let rsData = res.data.data;
+			let rsData = res.data.data.wxPaySignInfo;
 			switch (code){
         case -1:
           //生成订单失败
@@ -62,7 +62,7 @@ var createSeat = function(data,that,num) {
           })
           setTimeout(function() {
             wx.navigateTo({
-              url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+              url: '../orderseatDetail/orderseatDetail?id=' + rsData.orderId + '&con=' + 1
             })
             wx.hideLoading();
           }, 500)
@@ -272,6 +272,7 @@ var weChatPay = function(data,_this,num){
         }
     })
 }
+
 var getInviteeId = function(orderId){
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
@@ -296,8 +297,21 @@ var navBack = function(num){
       delta: num
     })
 }
+// 团队卡 -- 下单
+var getGoodsData = function (_this,num) {
+    wx.getStorage({
+        key: 'goods_order',
+        success: function(res) {
+            if(res.data){
+                goodsOrder(res.data,_this,num)
+            }
+        }
+    })
+}
+var goodsOrder = function (goods_order,_this,num) {}
 module.exports = {
     getSeatData:getSeatData,
     navBack:navBack,
-    getOrderData:getOrderData
+    getOrderData:getOrderData,
+    getGoodsData: getGoodsData
 }

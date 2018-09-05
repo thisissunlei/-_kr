@@ -11,11 +11,27 @@ Page({
     },
     type:'ALL',
     number:0,
-    orderType:'meeting',
-    orderList:[]
+    orderType:'seat',
+    orderList:[],
+    loading:true
   },
   page:1,
   totalPages:0,
+  //倒计时
+  dealTime(e){
+    // console.log(e)
+    var dates=new Date();
+    var nowtime=Math.round(e-dates.getTime());
+    var minute=Math.floor(nowtime/(60*1000))
+    var leave3=nowtime%(60*1000)      //计算分钟数后剩余的毫秒数  
+    var second=Math.round(leave3/1000)
+    
+    return {
+      minute:minute,
+      second:second
+    }
+
+  },
   //点击传参
   changeType:function(e){
     let that = this;
@@ -27,6 +43,7 @@ Page({
       number:20*number + '%',
       type:type,
       orderList:[],
+      loading:true,
     },function(){
       that.page = 1
       if(listType === 'meeting'){
@@ -44,6 +61,7 @@ Page({
     this.setData({
       orderType:type,
       orderList:[],
+      loading:true,
     },function(){
       that.page = 1
       if(type === 'meeting'){
@@ -62,7 +80,18 @@ Page({
       number:20*number + '%',
       type:options.orderShowStatus
     })
-    this.getOrderList(type,1)
+    wx.showLoading({
+          title: "加载中",
+          mask: true
+      })
+    console.log('onLoad=====',listType)
+    let listType = this.data.orderType;
+      if(listType === 'meeting'){
+        this.getOrderList(type,1)
+      }else{
+        this.getSeatList(type,1)
+      }
+
   },
 
   onReachBottom: function(e) {
@@ -97,6 +126,7 @@ Page({
         },
         success:(res)=>{
           let oldList = []
+           wx.hideLoading();
           if(res.data.code>0){
             var list = []
             list = res.data.data.items.map((item,index)=>{
@@ -111,6 +141,7 @@ Page({
             console.log('getList',orderOldList,list,allList)
             that.setData({
               orderList:allList,
+              loading:false
             })
             that.page = page || 1;
             that.totalPages = res.data.data.totalPages
@@ -140,6 +171,7 @@ Page({
         data:{
           orderShowStatus:type,
           page:page || 1,
+          pageSize:10
         },
         success:(res)=>{
           wx.hideLoading();
@@ -158,6 +190,8 @@ Page({
             this.orderOldList = allList
             that.setData({
               orderList:allList,
+              loading:false
+
             })
             console.log('orderList',allList)
             that.page = page || 1;
@@ -226,34 +260,52 @@ Page({
     this.setData({
       orderId:e.currentTarget.dataset.order
     })
-    let data_a = wx.getStorageSync('order-info')
     let orderId= e.currentTarget.dataset.order
-    // console.log(orderId)
-    // console.log(data_a,orderId)
-    let data = null
-    data_a.map((item,index)=>{
-      if(item.orderId == orderId){
-        data = item
-      }
-    })
-    // console.log(data)
-    wx.requestPayment({
-      'timeStamp': data.timestamp,
-      'nonceStr': data.noncestr,
-      'package': data.packages,
-      'signType':data.signType,
-      'paySign': data.paySign,
-      'success':function(res){
-        wx.navigateTo({
-          url: '../orderseatDetail/orderseatDetail?id='+orderId 
-        })
-      },
-      'fail':function(res){
-        wx.navigateTo({
-          url: '../orderseatDetail/orderseatDetail?id='+orderId 
-        })
-      }
-    })
+
+
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/order/pay',
+        methods:"GET",
+        data:{
+          orderId:orderId
+        },
+        success:(res)=>{
+          // console.log('res',res)
+          if(res.data.code>0){
+             // wx.reportAnalytics('confirmorder')
+            wx.requestPayment({
+              'timeStamp': res.data.data.timestamp,
+              'nonceStr': res.data.data.noncestr,
+              'package': res.data.data.packages,
+              'signType':res.data.data.signType,
+              'paySign': res.data.data.paySign,
+              success:function(res){
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id='+orderId 
+                })
+              },
+              fail:function(res){
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id='+orderId 
+                })
+              }
+            })
+          }else{
+            wx.navigateTo({
+              url: '../orderseatDetail/orderseatDetail?id='+orderId 
+            })
+
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          }
+          
+        },
+        fail:(res)=>{
+          //  console.log('========',res)
+        }
+      })
 
    },
    getInviteeId(orderId){
