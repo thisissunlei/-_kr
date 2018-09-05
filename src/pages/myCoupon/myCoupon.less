@@ -1,9 +1,17 @@
 @import "../coupon/coupon.less";
 /* tab */
 .couponTab {
-  position: relative;
   border-bottom: 1px #f3f3f3 solid;
   margin-bottom: 30rpx;
+  display:flex;
+  position: fixed;
+  background-color: #fff;
+  z-index: 1000;
+  width:100%;
+  top: 0;
+}
+.my-coupon{
+  margin-top:100rpx;
 }
 .couponTab .tab {
   color: #333333;
@@ -12,7 +20,7 @@
   padding-bottom: 14rpx;
   padding-top: 15rpx;
   text-align: center;
-  width: 25%;
+  flex:1;
 }
 .couponTab .line {
   position: absolute;
