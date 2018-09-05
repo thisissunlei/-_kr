@@ -546,12 +546,12 @@ Page({
       endTime:data.meeting_time.endTime,
       meetingRoomId:data.detailInfo.meetingRoomId,
     }
-   
+    console.log(data.cardContent,data.cardContent)
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardContent.id){
-      orderData.cardId=data.cardContent.id;
+    if(data.cardContent.cardId){
+      orderData.cardId=data.cardContent.cardId;
     }
       app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/calculate',
@@ -567,7 +567,7 @@ Page({
                       cardContent:{
                         name:data.cardName,
                         remainAmountDecimal:data.cardDeductAmount,
-                        id:data.id
+                        cardId:data.cardId
                       },
                       saleContent:{
                         couponId:data.couponId,
@@ -916,8 +916,8 @@ Page({
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardContent.id){
-      orderData.id=data.cardContent.id;
+    if(data.cardContent.cardId){
+      orderData.cardId=data.cardContent.cardId;
     }
   
       app.getRequest({
@@ -1110,12 +1110,15 @@ Page({
       referrerPhone:data.order_pay.recommendedPhone || '',
       validAmount:data.priceInfo.totalAmount
     }
+   
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardContent.id){
-      orderData.cardId=data.cardContent.id;
+   
+    if(data.cardContent.cardId){
+      orderData.cardId=data.cardContent.cardId;
     }
+    
     
     wx.showLoading({
       title: '加载中',
@@ -1201,7 +1204,7 @@ Page({
                   })
                   setTimeout(function () {
                     wx.navigateTo({
-                      url: '../orderDetail/orderDetail?id=' + res.data.data.wxPaySignInfo.orderId + '&con=' + 1
+                      url: '../orderDetail/orderDetail?id=' + res.data.data.orderId + '&con=' + 1
                     })
                     wx.hideLoading();
                   }, 500)

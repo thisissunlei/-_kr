@@ -228,8 +228,8 @@ Page({
         key: 'meeting_order_sale',
         success: function(res) {
           let data = res.data;
+          obj.cardId=obj.id
           data.card = obj;
-          console.log('data',data)
           wx.setStorage({
             key: "meeting_order_sale",
             data: data,

@@ -206,7 +206,7 @@ var createOrder = function(create_order,_this,num){
               })
               setTimeout(function () {
                 wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id=' + res.data.data.wxPaySignInfo.orderId + '&con=' + 1
+                  url: '../orderDetail/orderDetail?id=' + res.data.data.orderId + '&con=' + 1
                 })
                 wx.hideLoading();
               }, 500)
