@@ -302,10 +302,10 @@ Page({
     var _this = this;
     this.getDetailInfo(this.orderId)
 
-this.getMeetId()
+    this.getMeetId()
     if (this.data.isRouteMy == "2") {
       wx.switchTab({
-        url: "../myorder/myorder",
+        url: "../myOrder/myOrder",
         success: function (e) {
           var page = getCurrentPages().pop();
           if (page == undefined || page == null)

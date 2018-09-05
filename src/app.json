@@ -11,7 +11,6 @@
     "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
     "pages/my/my",
-    "pages/myOrder/myOrder",
     "pages/map/map",
     "pages/seatDetail/seatDetail",
     "pages/meetingStatus/meetingStatus",
@@ -44,7 +43,7 @@
     "pages/teamCardList/teamCardList",
     "pages/insideSale/insideSale",
     "pages/teamCardPurchase/teamCardPurchase",
-    "pages/orderList/orderList",
+    "pages/myOrder/myOrder",
     "pages/teamCardDetails/teamCardDetails",
     "pages/teamCardRecord/teamCardRecord"
   ],
