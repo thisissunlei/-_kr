@@ -19,7 +19,7 @@ Page({
     this.setData({
       activityId:options.id
     })
-   
+   var _this=this;
      //查看是否授权
      wx.getSetting({
       success(res) {
