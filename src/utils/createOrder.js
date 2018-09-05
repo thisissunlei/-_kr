@@ -272,6 +272,7 @@ var weChatPay = function(data,_this,num){
         }
     })
 }
+
 var getInviteeId = function(orderId){
     app.getRequest({
       url:app.globalData.KrUrl+'api/gateway/krmting/order/invitee',
@@ -296,8 +297,21 @@ var navBack = function(num){
       delta: num
     })
 }
+// 团队卡 -- 下单
+var getGoodsData = function (_this,num) {
+    wx.getStorage({
+        key: 'goods_order',
+        success: function(res) {
+            if(res.data){
+                goodsOrder(res.data,_this,num)
+            }
+        }
+    })
+}
+var goodsOrder = function (goods_order,_this,num) {}
 module.exports = {
     getSeatData:getSeatData,
     navBack:navBack,
-    getOrderData:getOrderData
+    getOrderData:getOrderData,
+    getGoodsData: getGoodsData
 }
