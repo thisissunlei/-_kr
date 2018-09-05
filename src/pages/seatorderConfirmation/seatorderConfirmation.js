@@ -388,14 +388,11 @@ Page({
   },
   // 日历里的确认按钮
   confirmBooking(){
-    console.log('日历里的确认按钮--1',this.data.selecedList)
-    console.log('日历里的确认按钮--2',this.james.getValue())
     var that = this;
     let selecedList = this.data.selecedList
     if(!selecedList.length){
       selecedList = this.james.getValue()
     }
-    console.log('日历里的确认按钮--3',selecedList)
     selecedList = selecedList.map((item,index)=>{
       if(item.alldata){
         item.alldata.number = that.data.final_num
@@ -407,8 +404,6 @@ Page({
       
     })
     this.combination_new= selecedList;
-    console.log('日历里的确认按钮--4',selecedList)
-
     let seatGoodIds=[]
     seatGoodIds = this.combination_new.map(item=>{
       return item.seat.goodsId
@@ -689,7 +684,6 @@ Page({
           // salePrice:salePrice
         },function(){
           _this.getSeatcalculate()
-          console.log('后台获取订单金额========')
         })
       }
     })
@@ -895,7 +889,7 @@ Page({
     var _this = this;
     app.getRequest({
       // 散座下单
-      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+      url: app.globalData.KrUrl + 'api/gateway/kmorder/seat/create',
       methods: "GET",
       header: {
         'content-type': "appication/json"

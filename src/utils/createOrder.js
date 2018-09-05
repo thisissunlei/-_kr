@@ -16,7 +16,7 @@ var createSeat = function(data,that,num) {
 	let _this = that;
 	app.getRequest({
 		// 散座	
-		url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/create',
+		url: app.globalData.KrUrl + 'api/gateway/kmorder/seat/create',
 		methods: "GET",
 		header: {
 			'content-type': "appication/json"

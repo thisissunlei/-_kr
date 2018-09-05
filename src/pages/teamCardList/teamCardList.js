@@ -112,7 +112,9 @@ Page({
     }
   },
   jumpBuyCard() {
-
+    wx.navigateTo({
+      url: '../teamCardPurchase/teamCardPurchase'
+    })
   },
   getMeetList() {
     wx.getStorage({
