@@ -332,7 +332,7 @@ Page({
     })
   },
   checkStatus(data,number){
-    console.log('checkStatus----校验状态--1')
+    console.log('checkStatus----校验状态--1',number)
     let saleStatus = ''
     let cardStatus = 'nothing'
     let saleData = data.myCoupons;
@@ -359,7 +359,7 @@ Page({
     let that = this;
     this.setData({
       sankeNum: number, //散座数量
-      daynum: this.data.selecedList.length, //使用天数
+      daynum: this.combination_new.length, //使用天数
       carendarArr: this.combination_new, //订单明细
       cardContent: {
         sale: false
@@ -388,11 +388,14 @@ Page({
   },
   // 日历里的确认按钮
   confirmBooking(){
+    console.log('日历里的确认按钮--1',this.data.selecedList)
+    console.log('日历里的确认按钮--2',this.james.getValue())
     var that = this;
     let selecedList = this.data.selecedList
     if(!selecedList.length){
       selecedList = this.james.getValue()
     }
+    console.log('日历里的确认按钮--3',selecedList)
     selecedList = selecedList.map((item,index)=>{
       if(item.alldata){
         item.alldata.number = that.data.final_num
@@ -404,6 +407,8 @@ Page({
       
     })
     this.combination_new= selecedList;
+    console.log('日历里的确认按钮--4',selecedList)
+
     let seatGoodIds=[]
     seatGoodIds = this.combination_new.map(item=>{
       return item.seat.goodsId

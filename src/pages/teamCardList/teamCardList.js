@@ -43,48 +43,48 @@ Page({
       title: "加载中",
       mask: true
     })
-    this.checked = {
-      card: true,
-      cardNo: 'NO.123456',
-      effectAt: '2018.09.10',
-      expireAt: '2019.09.09',
-      remainAmountDecimal: '5,000',
-      name: '速战速决闪卡1',
-      cardId: 1
-    }
+    // this.checked = {
+    //   card: true,
+    //   cardNo: 'NO.123456',
+    //   effectAt: '2018.09.10',
+    //   expireAt: '2019.09.09',
+    //   remainAmountDecimal: '5,000',
+    //   name: '速战速决闪卡1',
+    //   cardId: 1
+    // }
 
     // 假数据
-    let list = this.cardList.map((val, i) => {
-      val.bt = this.changeTime(val.effectiveAt)
-      val.et = this.changeTime(val.expireAt)
-      val.class = 'list-warp'
+    // let list = this.cardList.map((val, i) => {
+    //   val.bt = this.changeTime(val.effectiveAt)
+    //   val.et = this.changeTime(val.expireAt)
+    //   val.class = 'list-warp'
 
-      if (!!this.checked.card) {
-        if (val.cardId === this.checked.cardId) {
-          val.checked = true
-        } else {
-          val.checked = false
-        }
-      } else {
-        val.checked = false
-      }
-      return val
-    })
-    wx.hideLoading()
-    this.setData({
-      list: list,
-      loading: false
-    })
-    return
+    //   if (!!this.checked.card) {
+    //     if (val.cardId === this.checked.cardId) {
+    //       val.checked = true
+    //     } else {
+    //       val.checked = false
+    //     }
+    //   } else {
+    //     val.checked = false
+    //   }
+    //   return val
+    // })
+    // wx.hideLoading()
+    // this.setData({
+    //   list: list,
+    //   loading: false
+    // })
+    // return
     // 假数据结束
 
 
 
     if (options.from === 'seat') {
       wx.getStorage({
-        key: 'seat_order_card',
+        key: 'seat_sale_info',
         success: (res) => {
-          this.checked = res.data
+          this.checked = res.data.card
           this.getSeatList()
         },
         fail: (res) => {
@@ -142,14 +142,14 @@ Page({
       data: data,
       success: (res) => {
         if (res.data.code > 0) {
-          let list = res.data.data.coupons
+          let list = res.data.data.myCards.cards;
           list.forEach((val, i) => {
             val.bt = this.changeTime(val.effectAt)
             val.et = this.changeTime(val.expireAt)
             val.class = 'list-warp'
 
             if (!!this.checked.sale) {
-              if (val.couponId === this.checked.id) {
+              if (val.cardId === this.checked.cardId) {
                 val.checked = true
               } else {
                 val.checked = false
