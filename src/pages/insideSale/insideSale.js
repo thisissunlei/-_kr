@@ -20,90 +20,6 @@ Page({
       activityId:options.id
     })
    
-    let saleList=[
-      {
-        "allowance":2,
-        "amount":100,
-        "couponName":'内部专享礼券1',
-        "effectAt":1533830400000,
-        "expireAt":1536508800000,
-        "ruleType":'NO_THRESHOLD'
-      },
-      {
-        "allowance":1,
-        "amount":1000,
-        "couponName":'内部专享礼券2',
-        "effectAt":1533830400000,
-        "expireAt":1536508800000,
-        "ruleType":'FULL_REDUCTION',
-        'quota':2000
-      },
-      {
-        "allowance":3,
-        "amount":500,
-        "couponName":'内部专享礼券3',
-        "effectAt":1533052800000,
-        "expireAt":1538236800000,
-        "ruleType":'FULL_REDUCTION',
-        'quota':1000
-
-      },
-    ]
-    let recordList=[
-      {
-        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/banner1.jpg',
-        "donatorThirdNick":'易烊千玺',
-        "faceValue":50,
-        "ctime":1533830400000,
-      },
-      {
-        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/nothing.png',
-        "donatorThirdNick":'王俊凯' ,
-        "faceValue":100,
-        "ctime":1538236800000,
-      },
-      {
-        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/banner1.jpg',
-        "donatorThirdNick":'银临',
-        "faceValue":50,
-        "ctime":1533052800000,
-      },
-      {
-        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/nothing.png',
-        "donatorThirdNick":'此处最多8个字超',
-        "faceValue":200,
-        "ctime":1533830400000,
-      },
-      {
-        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/banner1.jpg',
-        "donatorThirdNick":'易烊千玺',
-        "faceValue":200,
-        "ctime":1536508800000,
-      },
-      {
-        "donatorAvatar":app.globalData.KrImgUrl+'/insideSale/banner1.jpg',
-        "donatorThirdNick":'易烊千玺',
-        "faceValue":200,
-        "ctime":1536508800000,
-      },
-    ];
-    var _this=this;
-    saleList.map((item)=>{
-      item.startTime=_this.changeTime(item.effectAt,'.')
-      item.endTime=_this.changeTime(item.expireAt,'.')
-      return item;
-    })
-    recordList.map((item)=>{
-      item.time=_this.changeTime(item.ctime,'.',true)
-      return item;
-    })
-   
-    this.setData({
-      saleList:saleList,
-      recordList:recordList,
-      totalPages:2,
-    });
-
      //查看是否授权
      wx.getSetting({
       success(res) {
@@ -115,8 +31,8 @@ Page({
       }
     });
 
-     //this.getSaleList();
-     //this.getRecordList(this.data.page);
+     this.getSaleList();
+     this.getRecordList(this.data.page);
   },
 
   getSaleList(){
@@ -133,14 +49,16 @@ Page({
         },
         success: res => {
           let isExpired=res.code==2?true:false;
-          res.data.crefList.map((item)=>{
+          let data=res.data.data;
+         
+          data.map((item)=>{
             item.startTime=_this.changeTime(item.effectAt,'.')
             item.endTime=_this.changeTime(item.expireAt,'.')
             return item;
           })
            console.log('res----->>>>saleList',res)
           this.setData({
-              saleList:res.data.crefList,
+              saleList:data,
               isExpired:isExpired
           });
         }
@@ -160,13 +78,14 @@ Page({
       },
       success: res => {
         console.log('res--->>>>RecordList',res)
-        res.data.recordList.map((item)=>{
+        let data=res.data.data;
+        data.items.map((item)=>{
           item.time=_this.changeTime(item.ctime,'.',true)
           return item;
         })
         this.setData({
-          recordList: res.data.recordList,
-          totalPages:res.data.totalPages
+          recordList:data.items,
+          totalPages:data.totalPages
         });
       }
     });
