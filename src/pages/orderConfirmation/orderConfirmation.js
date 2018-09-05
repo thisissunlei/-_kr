@@ -1126,7 +1126,7 @@ Page({
 
     var _this=this;
         app.getRequest({
-          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/create',
           methods:"GET",
           header:{
             'content-type':"appication/json"

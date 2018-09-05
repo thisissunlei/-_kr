@@ -15,6 +15,16 @@ Page({
     totalPages:1,
     btn_bool: true,
   },
+  onShareAppMessage: function(res) {
+    // wx.reportAnalytics("sharekrmeeting");
+    // console.log(res);
+    return {
+      title: "嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～",
+      desc: "氪空间自由座",
+      path:"pages/insideSale/insideSale?id="+this.data.activityId,
+      imageUrl: app.globalData.KrImgUrl+"/insideSale/share.jpg"
+    };
+  },
   onLoad: function (options) {
     this.setData({
       activityId:options.id
