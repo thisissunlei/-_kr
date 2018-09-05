@@ -55,7 +55,7 @@ Page({
       key: 'meeting_sale',
       success: (res) => {
         if (res.data) {
-          this.getList(res.data, 'api/gateway/krcoupon/meeting/is-first-order')
+          this.getList(res.data, 'api/gateway/kmorder/meeting/coupon-teamcard-list')
         }
       }
     })
