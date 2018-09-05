@@ -7,10 +7,10 @@
                 </view>
                 <view class="bg-icon" bindtap="turnCardToAfter"></view>
                 <view class="con">
-                    <view class="card-tit">{{name}}<text class="no">NO.123456</text></view>
+                    <view class="card-tit">{{name}}<text class="no">NO.{{info.cardNo}}</text></view>
                     <view class="card-ye">余额</view>
-                    <view class="card-price">20,000<text>元</text></view>
-                    <view class="card-time">使用期限：2018.09.10-2019.09.09</view>
+                    <view class="card-price">{{info.remainAmount}}<text>元</text></view>
+                    <view class="card-time">使用期限：{{info.effectAt}} - {{info.expireAt}}</view>
                 </view>
             </view>
 
@@ -19,41 +19,46 @@
                     <image mode="widthFix" src="{{KrImgUrl}}teamCardPurchase/card0.png"></image>
                 </view>
                 <view class="con">
-                    使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则使用规则
+                    <view class="tdc-after-tit">使用规则：</view>
+                    <view class="tdc-after-info">{{info.cardIntro}}</view>
+                    <view class="tdc-after-tit select">购买记录：</view>
+                    <view class="tdc-after-price">
+                        <text>实付金额：{{info.cost}}元</text>
+                        <text>面额：{{info.faceValue}}</text>
+                    </view>
+                    <view class="tdc-after-no">订单号：{{info.orderNo}}</view>
+                    <view class="tdc-after-time">{{info.orderTime}}</view>
                 </view>
             </view>
         </view>
     </view>
 
-    <view class="person-tit">用卡人(6/10)</view>
+    <view class="person-tit">用卡人({{info.holderCount}}/{{info.limitCount}})</view>
     <view class="next-box" bindtap="toPersonList">
         <view class="person-list">
-            <view>
-                <image mode="aspectFill" src="{{KrImgUrl}}teamCardPurchase/card0.png"></image>
-            </view>
-            <view>
-                <image mode="aspectFill" src="{{KrImgUrl}}teamCardPurchase/card0.png"></image>
+            <view wx:for="{{info.holderAvater}}" wx:key="{{index}}" wx:if="index >= 5">
+                <image mode="aspectFill" src="{{item}}"></image>
             </view>
         </view>
         <view class="next"><view></view></view>
     </view>
 
     <view class="next-box record-box" bindtap="toRecordList">
-        <view class="record"><view>消费记录(15)</view></view>
-        <view class="record-time">
+        <view class="record"><view>消费记录({{info.usetotal}})</view></view>
+        <view class="record-time" wx:if="{{!!info.usetotal && !!info.lastUseTime}}">
             <view>最新消费</view>
-            <view>2018-10-10 10:10:10</view>
+            <view>{{info.lastUseTime}}</view>
         </view>
         <view class="next"><view></view></view>
     </view>
 
-    <view class="next-box name-box" bindtap="changeName">
+    <view class="next-box name-box" bindtap="changeName" wx:if="{{!!info.leader}}">
         <view class="record"><view>团队卡名称</view></view>
         <view class="name">{{name}}</view>
         <view class="next"><view></view></view>
     </view>
 
-    <view class="next-box switch-box">
+    <view class="next-box switch-box" wx:if="{{!!info.leader}}">
         <view class="record"><view>余额变动提醒</view></view>
         <switch checked="{{checked}}" bindchange="switchChange" class="wx-switch-input"/>
     </view>
