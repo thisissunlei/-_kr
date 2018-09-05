@@ -755,6 +755,10 @@ Page({
             }
           })
         }
+        if(res.data.code <0){
+          that.setErrorMessage(res.data.message)
+
+        }
       },
       fail:res=>{
         that.setErrorMessage(res.data.message)
@@ -902,19 +906,6 @@ Page({
       data: orderData,
 
       success: (res) => {
-        // 不确定这里存的数据有什么用（马）
-        if (!wx.getStorageSync("order-info")) {
-          let orderArr = []
-          orderArr.push(res.data.data)
-          wx.setStorageSync("order-info", orderArr)
-        } else {
-          let orderseat = wx.getStorageSync("order-info")
-          orderseat.push(res.data.data)
-          wx.setStorageSync("order-info", orderseat)
-        }
-
-
-        wx.setStorageSync("order", res.data.data)
         let code = res.data.code;
         setTimeout(function () {
           wx.hideLoading();
