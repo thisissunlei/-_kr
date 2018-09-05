@@ -6,35 +6,6 @@ Page({
     loading: false,
     imgUrl: app.globalData.KrImgUrl
   },
-  cardList: [{
-    cardNo: 'NO.123456789',
-    effectAt: '2018.09.10',
-    expireAt: '2019.09.09',
-    remainAmountDecimal: '5,000',
-    name: '速战速决闪卡速决闪卡',
-    cardId: 1
-  }, {
-    cardNo: 'NO.123456',
-    effectAt: '2018.09.10',
-    expireAt: '2019.09.09',
-    remainAmountDecimal: '5,000',
-    name: '速战速决闪卡2',
-    cardId: 2
-  }, {
-    cardNo: 'NO.123456',
-    effectAt: '2018.09.10',
-    expireAt: '2019.09.09',
-    remainAmountDecimal: '5,000',
-    name: '速战速决闪卡3',
-    cardId: 3
-  }, {
-    cardNo: 'NO.123456',
-    effectAt: '2018.09.10',
-    expireAt: '2019.09.09',
-    remainAmountDecimal: '5,000',
-    name: '速战速决闪卡4',
-    cardId: 4
-  }, ],
   checked: {},
   back: true,
   onLoad: function(options) {
@@ -43,43 +14,6 @@ Page({
       title: "加载中",
       mask: true
     })
-    // this.checked = {
-    //   card: true,
-    //   cardNo: 'NO.123456',
-    //   effectAt: '2018.09.10',
-    //   expireAt: '2019.09.09',
-    //   remainAmountDecimal: '5,000',
-    //   name: '速战速决闪卡1',
-    //   cardId: 1
-    // }
-
-    // 假数据
-    // let list = this.cardList.map((val, i) => {
-    //   val.bt = this.changeTime(val.effectiveAt)
-    //   val.et = this.changeTime(val.expireAt)
-    //   val.class = 'list-warp'
-
-    //   if (!!this.checked.card) {
-    //     if (val.cardId === this.checked.cardId) {
-    //       val.checked = true
-    //     } else {
-    //       val.checked = false
-    //     }
-    //   } else {
-    //     val.checked = false
-    //   }
-    //   return val
-    // })
-    // wx.hideLoading()
-    // this.setData({
-    //   list: list,
-    //   loading: false
-    // })
-    // return
-    // 假数据结束
-
-
-
     if (options.from === 'seat') {
       wx.getStorage({
         key: 'seat_sale_info',
@@ -150,8 +84,8 @@ Page({
             val.et = this.changeTime(val.expireAt)
             val.class = 'list-warp'
 
-            if (!!this.checked.sale) {
-              if (val.cardId === this.checked.cardId) {
+            if (!!this.checked.id) {
+              if (val.id === this.checked.id) {
                 val.checked = true
               } else {
                 val.checked = false
@@ -219,7 +153,7 @@ Page({
         key: 'seat_sale_info',
         success: function(res) {
           let data = res.data;
-          data.card = obj;
+          data.card = false;
           wx.setStorage({
             key: "seat_sale_info",
             data: data,

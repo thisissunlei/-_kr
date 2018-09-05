@@ -24,7 +24,7 @@ var createSeat = function(data,that,num) {
 		data: data.create_seat,
 		success: (res) => {
 			let code = res.data.code;
-			let rsData = res.data.data;
+			let rsData = res.data.data.wxPaySignInfo;
 			switch (code){
         case -1:
           //生成订单失败
@@ -62,7 +62,7 @@ var createSeat = function(data,that,num) {
           })
           setTimeout(function() {
             wx.navigateTo({
-              url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+              url: '../orderseatDetail/orderseatDetail?id=' + rsData.orderId + '&con=' + 1
             })
             wx.hideLoading();
           }, 500)

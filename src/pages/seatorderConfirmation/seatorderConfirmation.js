@@ -641,6 +641,8 @@ Page({
   onShow: function () {
     let saleStatus = this.data.saleStatus;
     let cardStatus = this.data.cardStatus;
+    let cardLength = this.data.cardLength;
+    let saleLength = this.data.saleLength;
     var _this = this;
     this.getMeetId()
     let salePrice = this.data.price_all;
@@ -669,12 +671,15 @@ Page({
           if(_this.isFirst){
             saleStatus = 'new';
           }else{
-            saleStatus = saleStatus
+            saleStatus = saleLength>0?'none':'nothing'
           }
         }
         if(res.data.card){
           cardStatus = 'chosen';
+        }else{
+          cardStatus = cardLength>0?'none':'nothing'
         }
+
 
         _this.setData({
           saleStatus:saleStatus,
@@ -696,8 +701,8 @@ Page({
       quantity:data.sankeNum,
       seatGoodIds:this.seatGoodIds
     }
-    if(data.cardContent.cardId){
-      formData.cardId = data.cardContent.cardId
+    if(data.cardContent.id){
+      formData.cardId = data.cardContent.id
     }
     if(data.saleContent.couponId){
       formData.couponId = data.saleContent.couponId
@@ -719,9 +724,9 @@ Page({
 
           if(resData.cardId){
             cardContent = {
-              name:resData.cardName,
+              cardName:resData.cardName,
               remainAmountDecimal:resData.cardDeductAmount,
-              cardId:resData.cardId
+              id:resData.cardId
             }
 
           }
@@ -864,8 +869,8 @@ Page({
     if(data.saleContent.couponId){
       orderData.couponId = data.saleContent.couponId;
     }
-    if(data.cardContent.cardId){
-      orderData.cardId = data.cardContent.cardId;
+    if(data.cardContent.id){
+      orderData.cardId = data.cardContent.id;
     }
       // //调整绑定手机号
       // wx.setStorage({
@@ -972,7 +977,7 @@ Page({
               })
               setTimeout(function () {
                 wx.navigateTo({
-                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.wxPaySignInfo.orderId + '&con=' + 1
                 })
                 wx.hideLoading();
               }, 500)
@@ -980,14 +985,14 @@ Page({
           case 1:
             // 订单创建成功，清除优惠选择数据
             wx.setStorageSync("seat_sale_info", {sale:false})
-
+            let data = res.data.data.wxPaySignInfo
             wx.requestPayment({
-              'nonceStr': res.data.data.noncestr,
-              'orderId': res.data.data.orderId,
-              'package': res.data.data.packages,
-              'paySign': res.data.data.paySign,
-              'signType': res.data.data.signType,
-              'timeStamp': res.data.data.timestamp,
+              'nonceStr': data.noncestr,
+              'orderId': data.orderId,
+              'package': data.packages,
+              'paySign': data.paySign,
+              'signType': data.signType,
+              'timeStamp': data.timestamp,
 
 
               'success': function (response) {
@@ -997,7 +1002,7 @@ Page({
                 })
                 setTimeout(function () {
                   wx.navigateTo({
-                    url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                    url: '../orderseatDetail/orderseatDetail?id=' + data.orderId + '&con=' + 1
                   })
                   wx.hideLoading();
                 }, 1500)
@@ -1012,7 +1017,7 @@ Page({
                 setTimeout(function () {
                   wx.hideLoading();
                   wx.navigateTo({
-                    url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
+                    url: '../orderseatDetail/orderseatDetail?id=' + data.orderId + '&con=' + 1
                   })
                 }, 1500)
 
