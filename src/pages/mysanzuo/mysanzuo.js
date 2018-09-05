@@ -29,7 +29,7 @@ Page({
         success:(res)=>{
           wx.hideLoading();
           
-          if(res.data.code>0 &&){
+          if(res.data.code>0){
             for(let i of res.data.data){
               if(i.seatStatus == 'TOUSE'){
                 i.kg = true
