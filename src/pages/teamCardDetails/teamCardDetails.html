@@ -36,7 +36,7 @@
     <view class="person-tit">用卡人({{info.holderCount}}/{{info.limitCount}})</view>
     <view class="next-box" bindtap="toPersonList">
         <view class="person-list">
-            <view wx:for="{{info.holderAvater}}" wx:key="{{index}}" wx:if="index >= 5">
+            <view wx:for="{{info.holderAvater}}" wx:key="{{index}}" wx:if="{{index <= 5}}">
                 <image mode="aspectFill" src="{{item}}"></image>
             </view>
         </view>
