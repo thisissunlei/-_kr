@@ -260,34 +260,52 @@ Page({
     this.setData({
       orderId:e.currentTarget.dataset.order
     })
-    let data_a = wx.getStorageSync('order-info')
     let orderId= e.currentTarget.dataset.order
-    // console.log(orderId)
-    // console.log(data_a,orderId)
-    let data = null
-    data_a.map((item,index)=>{
-      if(item.orderId == orderId){
-        data = item
-      }
-    })
-    // console.log(data)
-    wx.requestPayment({
-      'timeStamp': data.timestamp,
-      'nonceStr': data.noncestr,
-      'package': data.packages,
-      'signType':data.signType,
-      'paySign': data.paySign,
-      'success':function(res){
-        wx.navigateTo({
-          url: '../orderseatDetail/orderseatDetail?id='+orderId 
-        })
-      },
-      'fail':function(res){
-        wx.navigateTo({
-          url: '../orderseatDetail/orderseatDetail?id='+orderId 
-        })
-      }
-    })
+
+
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/order/pay',
+        methods:"GET",
+        data:{
+          orderId:orderId
+        },
+        success:(res)=>{
+          // console.log('res',res)
+          if(res.data.code>0){
+             // wx.reportAnalytics('confirmorder')
+            wx.requestPayment({
+              'timeStamp': res.data.data.timestamp,
+              'nonceStr': res.data.data.noncestr,
+              'package': res.data.data.packages,
+              'signType':res.data.data.signType,
+              'paySign': res.data.data.paySign,
+              success:function(res){
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id='+orderId 
+                })
+              },
+              fail:function(res){
+                wx.navigateTo({
+                  url: '../orderseatDetail/orderseatDetail?id='+orderId 
+                })
+              }
+            })
+          }else{
+            wx.navigateTo({
+              url: '../orderseatDetail/orderseatDetail?id='+orderId 
+            })
+
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          }
+          
+        },
+        fail:(res)=>{
+          //  console.log('========',res)
+        }
+      })
 
    },
    getInviteeId(orderId){
