@@ -177,7 +177,7 @@ var createOrder = function(create_order,_this,num){
     let orderData = create_order;
     console.log('createOrder')
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+        url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/create',
         methods:"GET",
         header:{
             'content-type':"appication/json"
@@ -185,7 +185,7 @@ var createOrder = function(create_order,_this,num){
         data:orderData.create_order,
         success:(res)=>{
             let code=res.data.code;
-            let rsData = res.data.data;
+            let rsData = res.data.data.wxPaySignInfo;
             if(code==-1){
               	that.setData({
 	                phoneError:false,
@@ -206,7 +206,7 @@ var createOrder = function(create_order,_this,num){
               })
               setTimeout(function () {
                 wx.navigateTo({
-                  url: '../orderDetail/orderDetail?id=' + res.data.data.orderId + '&con=' + 1
+                  url: '../orderDetail/orderDetail?id=' + res.data.data.wxPaySignInfo.orderId + '&con=' + 1
                 })
                 wx.hideLoading();
               }, 500)

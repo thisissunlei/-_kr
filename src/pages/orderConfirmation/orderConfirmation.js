@@ -73,7 +73,6 @@ Page({
     cardCount:0,
     saleContent:{},
     cardContent:{},
-    cardId:'',
     couponId:'',
 
   },
@@ -547,13 +546,12 @@ Page({
       endTime:data.meeting_time.endTime,
       meetingRoomId:data.detailInfo.meetingRoomId,
     }
-    console.log('data.saleContent',data.saleContent)
-    console.log('data.cardContent',data.cardContent)
+   
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardContent.cardId){
-      orderData.cardId=data.cardContent.cardId;
+    if(data.cardContent.id){
+      orderData.cardId=data.cardContent.id;
     }
       app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/calculate',
@@ -569,7 +567,7 @@ Page({
                       cardContent:{
                         name:data.cardName,
                         remainAmountDecimal:data.cardDeductAmount,
-                        cardId:data.cardId
+                        id:data.id
                       },
                       saleContent:{
                         couponId:data.couponId,
@@ -918,8 +916,8 @@ Page({
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardContent.cardId){
-      orderData.cardId=data.cardContent.cardId;
+    if(data.cardContent.id){
+      orderData.id=data.cardContent.id;
     }
   
       app.getRequest({
@@ -1110,13 +1108,13 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName,
       referrerPhone:data.order_pay.recommendedPhone || '',
-      
+      validAmount:data.priceInfo.totalAmount
     }
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardContent.cardId){
-      orderData.cardId=data.cardContent.cardId;
+    if(data.cardContent.id){
+      orderData.cardId=data.cardContent.id;
     }
     
     wx.showLoading({
@@ -1189,15 +1187,29 @@ Page({
                   _this.setData({
                     checkMessage:false,
                     errorMessage:'',
-                    saleContent:{sale:false}
+                    saleContent:{sale:false},
+                    cardContent:{card:false}
                   })
                   _this.getPrice();
                 },2000)
               
               break;
+              case 2:
+                  wx.showLoading({
+                    title: '加载中',
+                    mask: true
+                  })
+                  setTimeout(function () {
+                    wx.navigateTo({
+                      url: '../orderDetail/orderDetail?id=' + res.data.data.wxPaySignInfo.orderId + '&con=' + 1
+                    })
+                    wx.hideLoading();
+                  }, 500)
+              
+              break;
               default:
                 wx.reportAnalytics('confirmorder')
-                _this.weChatPay(res.data.data);
+                _this.weChatPay(res.data.data.wxPaySignInfo);
                 _this.closeDialog();
                   wx.setStorage({
                     key:"order_pay",
