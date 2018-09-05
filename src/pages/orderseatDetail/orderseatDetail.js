@@ -305,7 +305,7 @@ Page({
     this.getMeetId()
     if (this.data.isRouteMy == "2") {
       wx.switchTab({
-        url: "../orderList/orderList",
+        url: "../myOrder/myOrder",
         success: function (e) {
           var page = getCurrentPages().pop();
           if (page == undefined || page == null)

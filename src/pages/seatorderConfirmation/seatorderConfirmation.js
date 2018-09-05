@@ -758,8 +758,6 @@ Page({
         if(res.data.code <0){
           that.setErrorMessage(res.data.message)
           that.getSaleContent(that.data.sankeNum);
-
-
         }
       },
       fail:res=>{
