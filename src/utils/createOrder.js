@@ -308,7 +308,55 @@ var getGoodsData = function (_this,num) {
         }
     })
 }
-var goodsOrder = function (goods_order,_this,num) {}
+var goodsOrder = function (goods_order,_this,num) {
+    app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmteamcard/create-order",
+        methods: "GET",
+        header:{
+            'content-type':"appication/json"
+        },
+        data: goods_order.goods_order,
+        success: res => {
+            if ( res.data.code === -1 ) {} else if ( res.data.data === -2 ) {
+                // 未绑定手机号
+                wx.navigateTo({
+                    url: '../bindPhone/bindPhone?fun=getGoodsData'
+                })
+            } else {
+                wx.requestPayment({
+                    nonceStr: res.data.data.wxPaySignInfo.noncestr,
+                    orderId: res.data.data.wxPaySignInfo.orderId,
+                    package: res.data.data.wxPaySignInfo.packages,
+                    paySign: res.data.data.wxPaySignInfo.paySign,
+                    signType: res.data.data.wxPaySignInfo.signType,
+                    timeStamp: res.data.data.wxPaySignInfo.timestamp,
+                    success: (response) => {
+                        wx.setStorage({
+                            key: "goods_order_ok",
+                            data: 'ok',
+                        })
+                        navBack(num)
+                    },
+                    fail: (response) => {
+                        wx.setStorage({
+                            key: "goods_order_ok",
+                            data: 'no',
+                        })
+                        navBack(num)
+                    },
+                })
+            }
+
+        },
+        fail: res => {
+            wx.setStorage({
+                key: "goods_order_ok",
+                data: 'no',
+            })
+            navBack(num)
+        }
+    });
+}
 module.exports = {
     getSeatData:getSeatData,
     navBack:navBack,
