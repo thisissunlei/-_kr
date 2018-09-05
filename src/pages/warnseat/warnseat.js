@@ -63,10 +63,6 @@ Page({
   },
 
   checkWarn:function(e){
-
-  
-
-
     wx.reportAnalytics('editenotice')
     let that = this;
     let type = this.data.type;
@@ -97,25 +93,8 @@ Page({
       
       this.submitWarn(target.code,order_pay)
     }    
-
-
-
-
-
-    
-
-
   },
   submitWarn:function(targetcode,order_pay){
-      
-
-
-
-
-
-
-
-
     let that = this;
     app.getRequest({
         // 修改订单
@@ -145,46 +124,5 @@ Page({
             
         }
       })
-    //接口待定
-    // app.getRequest({
-    //     url:app.globalData.KrUrl+'api/gateway/krmting/order/updateExtInfo',
-    //     method:"POST",
-    //     data:{
-    //       "orderId":that.data.orderId,
-    //       "alertTime":that.data.activeTab
-    //     },
-    //     success:(res)=>{
-    //       if(res.data.code>0){
-    //         wx.navigateBack({
-    //           delta: 1
-    //         })
-    //       }else{
-    //         that.setData({
-    //           submitError:false,
-    //           errorMessage:res.data.message
-    //         })
-    //         setTimeout(function(){
-    //           that.setData({
-    //             submitError:true,
-    //             errorMessage:''
-    //           })
-    //         },2000)
-    //       }
-          
-    //     },
-    //     fail:(res)=>{
-    //       that.setData({
-    //           submitError:false,
-    //           errorMessage:res.data.message
-    //         })
-    //         setTimeout(function(){
-    //           that.setData({
-    //             submitError:true,
-    //             errorMessage:''
-    //           })
-    //         },2000)
-          
-    //     }
-    //   })
   },
 })
