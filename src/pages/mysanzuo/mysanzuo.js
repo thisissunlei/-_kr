@@ -24,13 +24,11 @@ Page({
       mask: true
     });
     app.getRequest({///krseat//myseat/list
-        url:app.globalData.KrUrl+'api/gateway/krseat//myseat/list',
+        url:app.globalData.KrUrl+'api/gateway/krseat/myseat/list',
         methods:"GET",
         success:(res)=>{
           wx.hideLoading();
           
-         
-          // console.log(res)
           if(res.data.code>0){
             for(let i of res.data.data){
               if(i.seatStatus == 'TOUSE'){

@@ -55,7 +55,7 @@ Page({
       key: 'meeting_sale',
       success: (res) => {
         if (res.data) {
-          this.getList(res.data, 'api/gateway/krcoupon/meeting/is-first-order')
+          this.getList(res.data, 'api/gateway/kmorder/meeting/coupon-teamcard-list')
         }
       }
     })
@@ -228,8 +228,8 @@ Page({
         key: 'meeting_order_sale',
         success: function(res) {
           let data = res.data;
+          obj.cardId=obj.id
           data.card = obj;
-          console.log('data',data)
           wx.setStorage({
             key: "meeting_order_sale",
             data: data,

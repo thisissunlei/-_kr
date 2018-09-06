@@ -53,52 +53,56 @@ Page({
   //立即支付
   payOrder: function () {
 
-
-
-    let orderId = this.orderId;
-    app.getRequest({
-      // 修改订单
-      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/edit',
-      method: "get",
-      data: {
-        orderId: orderId,
-        //alertTime:this.data.alertTime,
-        arrivingTime: this.data.time,
-        //linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
-
-      },
-      success: (res) => {
-
-        // console.log(res)
-
-      },
-      fail: (error) => {
-
-      }
-    })
-
-    let data = wx.getStorageSync("order")
-    wx.requestPayment({
-      'timeStamp': data.timestamp,
-      'nonceStr': data.noncestr,
-      'orderId': orderId,
-      'package': data.packages,
-      'signType': data.signType,
-      'paySign': data.paySign,
-      'success': function (res) {
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        })
-        setTimeout(
-          function () {
+     let orderId = this.orderId;
+     app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/order/pay',
+        methods:"GET",
+        data:{
+          orderId:orderId
+        },
+        success:(res)=>{
+          // console.log('res',res)
+          if(res.data.code>0){
+             // wx.reportAnalytics('confirmorder')
+            wx.requestPayment({
+              'timeStamp': res.data.data.timestamp,
+              'nonceStr': res.data.data.noncestr,
+              'package': res.data.data.packages,
+              'signType':res.data.data.signType,
+              'paySign': res.data.data.paySign,
+              success:function(res){
+               wx.showLoading({
+                  title: '加载中',
+                  mask: true
+                })
+                setTimeout(
+                  function () {
+                    wx.hideLoading()
+                  }, 1500)
+              },
+              fail:function(res){
+                wx.hideLoading()
+              }
+            })
+          }else{
             wx.hideLoading()
-          }, 1500)
-      },
-      'fail': function (res) {
-        wx.hideLoading()
-      }
-    })
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          }
+          
+        },
+        fail:(res)=>{
+           wx.hideLoading()
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          //  console.log('========',res)
+        }
+      })
+   
   },
 
   // 立即支付成功后
@@ -295,32 +299,13 @@ Page({
 
   onShow: function () {
     let str = wx.getStorageSync("order_pay")
-    // console.log(str)
     var _this = this;
-
-    // if (Object.keys(str).length != 0) {
-    //       _this.setData({
-    //         themeName: str.themeName || _this.data.themeName,
-    //         
-    //         linkPhone: str.linkPhone || _this.data.linkPhone,
-    //         order_pay: str,
-    //         alertTime: str.alertTime
-    //         })
-    // }
-
-
-
-
     this.getDetailInfo(this.orderId)
 
     this.getMeetId()
-
-
-    // console.log(this.orderId,this.data.alertTime,666666)
-
     if (this.data.isRouteMy == "2") {
       wx.switchTab({
-        url: "../myorder/myorder",
+        url: "../myOrder/myOrder",
         success: function (e) {
           var page = getCurrentPages().pop();
           if (page == undefined || page == null)
@@ -350,7 +335,7 @@ Page({
     })
   
     let carendar = wx.getStorageSync("data-index")
-    // console.log(carendar,77777)
+    console.log(carendar,77777)
     if (carendar) {
       carendar.map(item => {
 

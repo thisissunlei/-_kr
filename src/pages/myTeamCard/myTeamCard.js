@@ -31,11 +31,8 @@ Page({
   },
   //详情页跳转
   jumpCardDetail: function(e) {
-    console.log(e);
     wx.navigateTo({
-      url:
-        "../teamCardDetails/teamCardDetails?cardId=" +
-        e.currentTarget.dataset.id
+      url:"../teamCardDetails/teamCardDetails?cardId=" + e.currentTarget.dataset.id
     });
   },
   //我的团队卡接口

@@ -73,7 +73,6 @@ Page({
     cardCount:0,
     saleContent:{},
     cardContent:{},
-    cardId:'',
     couponId:'',
 
   },
@@ -547,8 +546,7 @@ Page({
       endTime:data.meeting_time.endTime,
       meetingRoomId:data.detailInfo.meetingRoomId,
     }
-    console.log('data.saleContent',data.saleContent)
-    console.log('data.cardContent',data.cardContent)
+    console.log(data.cardContent,data.cardContent)
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
@@ -1110,14 +1108,17 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName,
       referrerPhone:data.order_pay.recommendedPhone || '',
-      
+      validAmount:data.priceInfo.totalAmount
     }
+   
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
+   
     if(data.cardContent.cardId){
       orderData.cardId=data.cardContent.cardId;
     }
+    
     
     wx.showLoading({
       title: '加载中',
@@ -1126,7 +1127,7 @@ Page({
 
     var _this=this;
         app.getRequest({
-          url:app.globalData.KrUrl+'api/gateway/krmting/order/create',
+          url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/create',
           methods:"GET",
           header:{
             'content-type':"appication/json"
@@ -1189,15 +1190,29 @@ Page({
                   _this.setData({
                     checkMessage:false,
                     errorMessage:'',
-                    saleContent:{sale:false}
+                    saleContent:{sale:false},
+                    cardContent:{card:false}
                   })
                   _this.getPrice();
                 },2000)
               
               break;
+              case 2:
+                  wx.showLoading({
+                    title: '加载中',
+                    mask: true
+                  })
+                  setTimeout(function () {
+                    wx.navigateTo({
+                      url: '../orderDetail/orderDetail?id=' + res.data.data.orderId + '&con=' + 1
+                    })
+                    wx.hideLoading();
+                  }, 500)
+              
+              break;
               default:
                 wx.reportAnalytics('confirmorder')
-                _this.weChatPay(res.data.data);
+                _this.weChatPay(res.data.data.wxPaySignInfo);
                 _this.closeDialog();
                   wx.setStorage({
                     key:"order_pay",
