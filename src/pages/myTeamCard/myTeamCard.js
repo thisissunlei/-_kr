@@ -1,6 +1,7 @@
 const app = getApp();
 Page({
   data: {
+    KrImgUrl: app.globalData.KrImgUrl,
     showNone: false,
     teamCardList: [
       // {
@@ -43,8 +44,9 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/list",
       success: res => {
+        wx.hideLoading();
+
         if (res.data.code == 1) {
-          wx.hideLoading();
           let teamcard = Object.assign({}, res);
           let teamCardList = teamcard.data.data;
           teamCardList.map(item => {

@@ -63,7 +63,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/holderlist",
       data: {
-        cardId: 1
+        cardId: 15
       },
       success: res => {
         console.log(res.data.data);

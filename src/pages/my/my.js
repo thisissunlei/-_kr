@@ -18,9 +18,22 @@ Page({
     activityCount: 0,
     couponCount: 0
   },
+  //团队卡跳转
   jumpMyTeamCard: function() {
-    wx.navigateTo({
-      url: "../myTeamCard/myTeamCard"
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/list",
+      success: res => {
+        if (res.data.data.length == 1) {
+          let cardId = res.data.data[0].id;
+          wx.navigateTo({
+            url: "../teamCardDetails/teamCardDetails?cardId=" + cardId
+          });
+        } else {
+          wx.navigateTo({
+            url: "../myTeamCard/myTeamCard"
+          });
+        }
+      }
     });
   },
   mysan() {
