@@ -37,12 +37,13 @@ Page({
            console.log("用户没有授权：用户信息！");
         } else {
           _this.setData({ btn_bool: false });
+          _this.getRecordList(this.data.page);
         }
       }
     });
 
      this.getSaleList();
-     this.getRecordList(this.data.page);
+   
   },
 
   getSaleList(){

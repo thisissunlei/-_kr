@@ -546,7 +546,7 @@ Page({
       endTime:data.meeting_time.endTime,
       meetingRoomId:data.detailInfo.meetingRoomId,
     }
-    console.log(data.cardContent,data.cardContent)
+    
     if(data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
