@@ -32,7 +32,9 @@ Page({
   //详情页跳转
   jumpCardDetail: function(e) {
     wx.navigateTo({
-      url:"../teamCardDetails/teamCardDetails?cardId=" + e.currentTarget.dataset.id
+      url:
+        "../teamCardDetails/teamCardDetails?cardId=" +
+        e.currentTarget.dataset.id
     });
   },
   //我的团队卡接口
@@ -82,12 +84,12 @@ Page({
   //时间戳格式化
   toDate: function(number) {
     var date = new Date(number);
-    var Y = date.getFullYear() + ".";
+    var Y = date.getFullYear();
     var M =
-      (date.getMonth() + 1 < 10
+      date.getMonth() + 1 < 10
         ? "0" + (date.getMonth() + 1)
-        : date.getMonth() + 1) + ".";
+        : date.getMonth() + 1;
     var D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    return Y + M + D;
+    return Y + "." + M + "." + D;
   }
 });
