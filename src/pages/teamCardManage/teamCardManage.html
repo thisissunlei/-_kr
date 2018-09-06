@@ -1,28 +1,32 @@
-<view class="manage-wrap">
-    <view class="manage-list" wx:for="{{manageList}}" wx:key>
-        <view class="manage-list-left">
-            <view class="manage-list-msg">
-                <view class="manage-list-src">
-                    <image src="{{item.avatarUrl}}"></image>
+<scroll-view style="height:100%" scroll-y upper-threshold="50" lower-threshold="50" bindscrolltolower="toLower">
+    <view class="manage-wrap">
+        <view class="manage-list" wx:for="{{manageList}}" wx:key>
+            <view class="manage-list-left">
+                <view class="manage-list-msg">
+                    <view class="manage-list-src">
+                        <image class="avatar" src="{{item.avatarUrl}}"></image>
+                        <image class="admin" wx:if="{{item.leader}}" src="../images/orderimg/admin.png"></image>
+                    </view>
+                    <view class="manage-list-tel">
+                        <text>{{item.nickName}}</text>
+                        <text wx:if="{{item.phone}}">{{item.phone}}</text>
+                    </view>
                 </view>
-                <view class="manage-list-tel">
-                    <text>{{item.nickName}}</text>
-                    <text wx:if="{{item.phone}}">{{item.phone}}</text>
-                </view>
+                <text class="manage-list-time">{{item.ctime}} 成为用卡人</text>
             </view>
-            <text class="manage-list-time">{{item.ctime}} 成为用卡人</text>
-        </view>
-        <view class="manage-list-right">
-            <view wx:if="{{flag}}" bindtap="checkedPeople" data-index="{{index}}" data-info="{{item}}" class="manage-list-uncheck {{item.checked ? 'check':''}}"></view>
+            <view class="manage-list-right">
+                <view wx:if="{{flag && !item.leader}}" bindtap="checkedPeople" data-index="{{index}}" data-info="{{item}}" class="manage-list-uncheck {{item.checked ? 'check':''}}"></view>
+            </view>
         </view>
     </view>
-</view>
+</scroll-view>
+
 
 <view class="manage-fixed" wx:if="{{showDel}}">
     <button class="manage-del-people" bindtap="cancel">取消</button>
-    <button class="manage-add-people">确认删除</button>
+    <button class="manage-add-people" bindtap="confirmDel">确认删除</button>
 </view>
-<view class="manage-fixed" wx:else>
+<view class="manage-fixed" wx:if="{{!showDel && leader}}">
     <button class="manage-del-people" bindtap="delPeople">删除用卡人</button>
     <button class="manage-add-people" open-type="share">添加用卡人</button>
 </view>

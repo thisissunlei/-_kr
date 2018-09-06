@@ -2,7 +2,7 @@
     <view class="team-card-list" wx:for="{{teamCardList}}" wx:key>
         <view class="team-card-top">
             <text>{{item.cardName}}</text>
-            <text>{{item.cardNo}}</text>
+            <text>NO.{{item.cardNo}}</text>
         </view>
         <view class="team-card-yue">余额</view>
         <view class="team-card-value">
@@ -15,9 +15,9 @@
                 <text></text>
             </view>
         </view>
-        <image class="team-card-image" src="../images/coupon/background2.jpg"></image>
+        <!-- <image class="team-card-image" src="../images/coupon/background2.jpg"></image> -->
         <view class="mb" wx:if="{{item.cardStatus != 'HAS_USER'}}"></view>
-        <image class="overdue" wx:if="{{item.cardStatus == 'HAS_FINISH'}}" src="{{KrImgUrl}}teamCardManage/used.png"></image>
+        <image class="overdue" wx:if="{{item.cardStatus == 'HAS_FINISH'}}" src="../images/orderimg/used.png"></image>
         <image class="overdue" wx:if="{{item.cardStatus == 'HSA_EXPRIED'}}" src="../images/orderimg/order-b.png"></image>
     </view>
 </view>
