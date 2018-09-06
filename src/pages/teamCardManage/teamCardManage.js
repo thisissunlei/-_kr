@@ -30,6 +30,7 @@ Page({
       }
     ]
   },
+  cardId: null,
   //分享
   onShareAppMessage: function(res) {
     if (res.from === "button") {
@@ -48,6 +49,7 @@ Page({
     }
   },
   onLoad: function(options) {
+    this.cardId = options.cardId;
     this.getHolderList();
   },
   //点击删除用卡人
@@ -63,7 +65,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/holderlist",
       data: {
-        cardId: 26
+        cardId: that.cardId
       },
       success: res => {
         console.log(res.data.data);
