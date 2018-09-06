@@ -113,6 +113,7 @@ Page({
   },
   getRecordList(page){
     let activityId=this.data.activityId;
+    var _this=this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/record",
       methods: "GET",
@@ -130,6 +131,7 @@ Page({
               item.time=_this.changeTime(item.ctime,'.',true)
               return item;
             })
+          
             this.setData({
               recordList:data.items,
               totalPages:data.totalPages
