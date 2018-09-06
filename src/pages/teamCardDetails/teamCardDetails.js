@@ -79,8 +79,8 @@ Page({
   },
   toRecordList() {
     wx.navigateTo({
-      url: "../teamCardRecord/teamCardRecord"
-    });
+      url: "../teamCardRecord/teamCardRecord?cardId=" + this.cardId
+    })
   },
   toPersonList() {
     wx.navigateTo({

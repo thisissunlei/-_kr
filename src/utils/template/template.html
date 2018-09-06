@@ -94,7 +94,7 @@
     <view class="card-content" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}" >
       <view class="card-first-content">
         <view class="card-name">{{item.cardName}}</view>
-        <view class="card-num">{{item.cardNo}}</view>
+        <view class="card-num">NO.{{item.cardNo}}</view>
       </view>
       <view class="card-second-content">
         <view class="card-text">余额</view>
@@ -102,7 +102,7 @@
         <view class="card-unit">元</view>
       </view>
       <view class="card-third-content">
-        <view class="card-range">使用期限：{{item.effectAt}}-{{item.expireAt}}</view>
+         <view class="card-range">使用期限：{{item.bt[0]+'.'+item.bt[1]+'.'+item.bt[2]}} - {{item.et[0]+'.'+item.et[1]+'.'+item.et[2]}}</view>
       </view>
     </view>
   </view>
