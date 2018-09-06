@@ -175,8 +175,7 @@ Page({
               wx.hideLoading();
               that.func_bool_l = true;
               that.func_bool_l2 = true;
-              app.globalData.Cookie =
-                res.header["Set-Cookie"] || res.header["set-cookie"];
+              app.globalData.Cookie =res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
               // console.log(app.globalData.Cookie);
               // console.log(app.globalData.openid);
