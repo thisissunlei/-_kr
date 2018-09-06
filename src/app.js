@@ -53,6 +53,7 @@ App({
     if (data.url.indexOf("api/gateway/krmting/user/save") > 0) {
       data.data["openid"] = this.globalData.openid;
     }
+    console.log('this.globalData.Cookie',this.globalData.Cookie)
     wx.request({
       url: data.url,
       method: data.method || "get",

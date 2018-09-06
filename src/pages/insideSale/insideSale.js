@@ -26,18 +26,21 @@ Page({
     };
   },
   onLoad: function (options) {
+    var _this=this;
     this.setData({
       activityId:options.id
     })
-   var _this=this;
+    this.goLogin();
+  
      //查看是否授权
      wx.getSetting({
       success(res) {
+        console.log('scope.userInfo',res.authSetting["scope.userInfo"])
         if (!res.authSetting["scope.userInfo"]) {
            console.log("用户没有授权：用户信息！");
         } else {
           _this.setData({ btn_bool: false });
-          _this.getRecordList(this.data.page);
+          _this.getRecordList(_this.data.page);
         }
       }
     });
@@ -45,7 +48,32 @@ Page({
      this.getSaleList();
    
   },
-
+  goLogin(){
+     //页面加载
+     let that=this;
+     wx.login({
+      success: function(res) {
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: app.globalData.KrUrl + "api/gateway/krmting/common/login",
+            data: {
+              code: res.code
+            },
+            success: function(res) {
+              wx.hideLoading();
+              app.globalData.Cookie =
+                res.header["Set-Cookie"] || res.header["set-cookie"];
+              app.globalData.openid = res.data.data["openid"];
+             
+            }
+          });
+        } else {
+          // console.log("登录失败！" + res.errMsg);
+        }
+      }
+    });
+  },
   getSaleList(){
     let activityId=this.data.activityId;
     var _this=this;
@@ -67,7 +95,6 @@ Page({
             item.endTime=_this.changeTime(item.expireAt,'.')
             return item;
           })
-           console.log('res----->>>>saleList',res)
           this.setData({
               saleList:data,
               isExpired:isExpired
@@ -88,7 +115,6 @@ Page({
         page:page
       },
       success: res => {
-        console.log('res--->>>>RecordList',res)
         let data=res.data.data;
         data.items.map((item)=>{
           item.time=_this.changeTime(item.ctime,'.',true)
@@ -150,8 +176,8 @@ Page({
     var _this=this;
     let couponBaseId= e.currentTarget.dataset.id;
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/record",
-      methods: "POST",
+      url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/receive",
+      method: "POST",
       header: {
         "content-type": "appication/json"
       },
