@@ -63,7 +63,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/holderlist",
       data: {
-        cardId: 1
+        cardId: 26
       },
       success: res => {
         console.log(res.data.data);
@@ -103,22 +103,17 @@ Page({
   //时间戳格式化
   toDate: function(number) {
     var date = new Date(number);
-    var Y = date.getFullYear() + "-";
+    var Y = date.getFullYear();
     var M =
       date.getMonth() + 1 < 10
-        ? "0" + (date.getMonth() + 1) + "-"
-        : date.getMonth() + 1 + "-";
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1;
     var D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    var H =
-      date.getHours() < 10
-        ? "0" + date.getHours() + ":"
-        : date.getHours() + ":";
+    var H = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
     var m =
-      date.getMinutes() < 10
-        ? "0" + date.getMinutes() + ":"
-        : date.getMinutes() + ":";
+      date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
     var S =
       date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-    return Y + M + D + " " + H + m + S;
+    return Y + "-" + M + "-" + D + " " + H + ":" + m + ":" + S;
   }
 });

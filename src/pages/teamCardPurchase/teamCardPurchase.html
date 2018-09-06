@@ -9,11 +9,11 @@
             <view class="td-pBg">
                 <image src="{{KrImgUrl}}teamCardPurchase/tip.png"></image>
             </view>
-            <view class="td-pNum">-100%</view>
+            <view class="td-pNum">-{{list[swiperIndex].cutDownNum}}%</view>
         </view>
         <view class="td-text">售价：¥</view>
         <view class="td-price">{{list[swiperIndex].salePriceDecimal}}</view>
-        <view class="td-surplus">剩余3000张</view>
+        <view class="td-surplus">剩余{{list[swiperIndex].remainCardCount}}张</view>
     </view>
     <swiper bindchange="swiperChange" class="teamCard-swiper">
         <block wx:for="{{list}}" wx:key="{{index}}">
@@ -95,7 +95,7 @@
                 <image src="{{KrImgUrl}}teamCardPurchase/icon_wp.png"></image>
             </view>
             <view class="input">
-                <input/>
+                <input value="{{phase}}" bindinput="bindKeyInput"/>
             </view>
             <view class="input-tip">请联系客服获取口令</view>
             <view class="popBox-bottom">
@@ -111,13 +111,13 @@
                 <view bindtap="check">查看团队卡</view>
             </view>
         </view>
-        <!--<view class="teamCard-mark select"></view>-->
-        <!--<view class="buy-fail">-->
-            <!--<image class="pay-ok-img" src="../images/public/error.png"></image>-->
-            <!--<view>购买失败</view>-->
-        <!--</view>-->
-        <!--<view class="buy-fail passWord-error">-->
-            <!--<view>购买口令不对哦~</view>-->
-        <!--</view>-->
+        <view class="teamCard-mark select" wx:if="{{!!payFail || !!tip}}"></view>
+        <view class="buy-fail" wx:if="{{!!payFail}}">
+            <image class="pay-ok-img" src="../images/public/error.png"></image>
+            <view>购买失败</view>
+        </view>
+        <view class="buy-fail passWord-error" wx:if="{{!!tip}}">
+            <view>{{tip}}</view>
+        </view>
     </view>
 </view>

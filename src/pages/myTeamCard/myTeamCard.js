@@ -1,6 +1,7 @@
 const app = getApp();
 Page({
   data: {
+    KrImgUrl: app.globalData.KrImgUrl,
     showNone: false,
     teamCardList: [
       // {
@@ -30,7 +31,6 @@ Page({
   },
   //详情页跳转
   jumpCardDetail: function(e) {
-    console.log(e);
     wx.navigateTo({
       url:
         "../teamCardDetails/teamCardDetails?cardId=" +
@@ -43,8 +43,9 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/list",
       success: res => {
+        wx.hideLoading();
+
         if (res.data.code == 1) {
-          wx.hideLoading();
           let teamcard = Object.assign({}, res);
           let teamCardList = teamcard.data.data;
           teamCardList.map(item => {
@@ -83,12 +84,12 @@ Page({
   //时间戳格式化
   toDate: function(number) {
     var date = new Date(number);
-    var Y = date.getFullYear() + ".";
+    var Y = date.getFullYear();
     var M =
-      (date.getMonth() + 1 < 10
+      date.getMonth() + 1 < 10
         ? "0" + (date.getMonth() + 1)
-        : date.getMonth() + 1) + ".";
+        : date.getMonth() + 1;
     var D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    return Y + M + D;
+    return Y + "." + M + "." + D;
   }
 });

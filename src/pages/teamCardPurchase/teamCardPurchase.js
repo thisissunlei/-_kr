@@ -9,7 +9,9 @@ Page({
         payOk: false,
         KrImgUrl: app.globalData.KrImgUrl,
         list: [],
-        phase: ''
+        phase: '',
+        payFail: false,
+        tip: ''
     },
     onLoad(options) {
         wx.getSetting({
@@ -22,6 +24,31 @@ Page({
             }
         });
         this.getGoodsList()
+    },
+    onShow() {
+        wx.getStorage({
+            key: 'goods_order_ok',
+            success: (res) => {
+                if(res.data === 'ok'){
+                    this.setData({
+                        payOk: true
+                    })
+                } else if ( res.data === 'no' ) {
+                    this.setData({
+                        payFail: true
+                    })
+                    setTimeout(() => {
+                        this.setData({
+                            payFail: false
+                        })
+                    }, 2000)
+                } else {
+                    this.setData({
+                        payOk: false
+                    })
+                }
+            }
+        })
     },
     // 用户权限
     onGotUserInfo(e) {
@@ -65,7 +92,16 @@ Page({
             methods: "GET",
             data: data,
             success: res => {
-                if ( res.data.code === -1 ) {} else if ( res.data.data === -2 ) {
+                if ( res.data.code === -1 ) {
+                    this.setData({
+                        tip: res.data.message
+                    })
+                    setTimeout(() => {
+                        this.setData({
+                            tip: ''
+                        })
+                    }, 2000)
+                } else if ( res.data.data === -2 ) {
                     // 未绑定手机号
                     wx.setStorage({
                         key: "goods_order",
@@ -90,25 +126,65 @@ Page({
                             })
                         },
                         fail: (response) => {
-                            console.log(response)
+                            this.setData({
+                                payFail: true
+                            })
+                            setTimeout(() => {
+                                this.setData({
+                                    payFail: false
+                                })
+                            }, 2000)
                         },
                     })
                 }
 
             },
-            fail: res => {}
+            fail: res => {
+                this.setData({
+                    payFail: true
+                })
+                setTimeout(() => {
+                    this.setData({
+                        payFail: false
+                    })
+                }, 2000)
+            }
         });
     },
     cancel() {
+        wx.setStorage({
+            key: "goods_order_ok",
+            data: 'close',
+        })
         this.setData({
             passWord: false,
-            payOk: false
+            payOk: false,
+            phase: ''
         })
     },
     sure() {
-        this.goodsCreateOrder()
+        if ( !!this.data.phase.trim() ) {
+            this.setData({
+                passWord: false,
+                payOk: false
+            })
+            this.goodsCreateOrder()
+        } else {
+            this.setData({
+                tip: '请填写口令～'
+            })
+            setTimeout(() => {
+                this.setData({
+                    tip: ''
+                })
+            }, 2000)
+        }
     },
     check() {
+        wx.setStorage({
+            key: "goods_order_ok",
+            data: 'close',
+        })
         this.setData({
             passWord: false,
             payOk: false
@@ -117,16 +193,29 @@ Page({
             url: '../myTeamCard/myTeamCard'
         })
     },
+    bindKeyInput(e) {
+        this.setData({
+            phase: e.detail.value
+        })
+    },
     getGoodsList() {
         app.getRequest({
             url: app.globalData.KrUrl + "api/gateway/kmteamcard/goods-list",
             methods: "GET",
             success: res => {
+                if ( !!res.data.data && res.data.data.length > 0 ) {
+                    res.data.data.forEach((val, i) => {
+                        val.salePriceDecimal = val.salePriceDecimal.toString().replace(/(\d{1,3})(?=(\d{3})+$)/g,'$1,')
+                        val.faceValueDecimal = val.faceValueDecimal.toString().replace(/(\d{1,3})(?=(\d{3})+$)/g,'$1,')
+                    })
+                } else {
+                    res.data.data = []
+                }
                 this.setData({
                     list: res.data.data
                 })
             },
             fail: res => {}
-        });
+        })
     }
 })

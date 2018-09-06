@@ -3,7 +3,7 @@
 const app = getApp();
 
 Page({
-  moveToBind:function(){
+  moveToBind: function() {
     wx.navigateTo({
       url: "../bindPhone/bindPhone"
     });
@@ -222,9 +222,9 @@ Page({
   },
   onShow: function() {
     this.getAllInfo();
-     //this.getActivity();
+    //this.getActivity();
   },
- // 首页活动接口
+  // 首页活动接口
   getActivity: function() {
     var that = this;
     app.getRequest({
@@ -376,6 +376,11 @@ Page({
     wx.reportAnalytics("viewguide");
     wx.navigateTo({
       url: "../point/point"
+    });
+  },
+  jumpToTeamCard: function() {
+    wx.navigateTo({
+      url: "../teamCardPurchase/teamCardPurchase"
     });
   },
   //点击会议card

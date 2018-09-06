@@ -1,8 +1,8 @@
-
 <!--index.wxml-->
 <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;'></button>
 <view class="container container-wrapper">
-  <navigator url="../teamCardPurchase/teamCardPurchase">跳转到新页面</navigator>
+  <!--<navigator url="../teamCardPurchase/teamCardPurchase">购买团队卡</navigator>-->
+  <!--<navigator url="../teamCardDetails/teamCardDetails?cardId=14">团队卡详情</navigator>-->
   <!-- <text  bindtap="moveToBind">shoujihao1</text> -->
   <!-- 头部信息 -->
   <view class="idx_header">
@@ -22,7 +22,7 @@
         <text class="my-name">我的</text>
       </view>
     </view>
-
+    <image class="idx_banner" src="../images/indexImg/banner1.png"></image>
   </view>
   <!-- 轮播图 -->
   <view class="metting-wrap">
@@ -85,16 +85,11 @@
     </view>
     <!-- 新人引导 -->
     <view class="adver">
-      <view class="adver1" bindtap="point">
-        <image src="../images/indexImg/banner1.png"></image>
+      <view class="adver2-1" bindtap="point">
+        <image src="../images/indexImg/banner2.png"></image>
       </view>
-      <view class="adver2">
-        <view class="adver2-1">
-          <image src="../images/indexImg/banner2.png"></image>
-        </view>
-        <view class="adver2-2">
-          <image src="../images/indexImg/banner3.png"></image>
-        </view>
+      <view class="adver2-2" bindtap="jumpToTeamCard">
+        <image src="../images/indexImg/banner3.png"></image>
       </view>
     </view>
   </view>
