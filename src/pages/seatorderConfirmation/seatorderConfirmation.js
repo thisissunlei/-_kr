@@ -790,7 +790,7 @@ Page({
             cardLength:cardData.cardUsableCount,
             cardContent:{card:false},
           },function(){
-            console.log('充值团队卡选项--2',that.data.saleStatus)
+            console.log('充值团队卡选项--2',that.data.cardContent)
           })
         }
 
@@ -968,7 +968,7 @@ Page({
               })
               setTimeout(function () {
                 wx.navigateTo({
-                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.wxPaySignInfo.orderId + '&con=' + 1
+                  url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
                 })
                 wx.hideLoading();
               }, 500)
@@ -1042,6 +1042,23 @@ Page({
 
     })
   },
+  setSaleStorage(name){
+
+
+    wx.getStorage({
+      key: 'seat_sale_info',
+      success: function (res) {
+        let data = res.data;
+        if(name=='sale'){
+          data.sale = false
+        }else{
+          data.card = false
+        }
+        wx.setStorage("seat_sale_info",data)
+      }
+    })
+
+  }
   
 
 })
