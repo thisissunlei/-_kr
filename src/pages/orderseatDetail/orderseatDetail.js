@@ -65,11 +65,12 @@ Page({
           if(res.data.code>0){
              // wx.reportAnalytics('confirmorder')
             wx.requestPayment({
-              'timeStamp': res.data.data.timestamp,
-              'nonceStr': res.data.data.noncestr,
+               'nonceStr': res.data.data.noncestr,
+              'orderId': res.data.data.orderId,
               'package': res.data.data.packages,
-              'signType':res.data.data.signType,
               'paySign': res.data.data.paySign,
+              'signType': res.data.data.signType,
+              'timeStamp': res.data.data.timestamp,
               success:function(res){
                wx.showLoading({
                   title: '加载中',

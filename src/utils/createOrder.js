@@ -62,7 +62,7 @@ var createSeat = function(data,that,num) {
           })
           setTimeout(function() {
             wx.navigateTo({
-              url: '../orderseatDetail/orderseatDetail?id=' + rsData.orderId + '&con=' + 1
+              url: '../orderseatDetail/orderseatDetail?id=' + res.data.data.orderId + '&con=' + 1
             })
             wx.hideLoading();
           }, 500)
