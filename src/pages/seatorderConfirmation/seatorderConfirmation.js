@@ -975,7 +975,7 @@ Page({
             break;
           case 1:
             // 订单创建成功，清除优惠选择数据
-            wx.setStorageSync("seat_sale_info", {sale:false})
+            wx.setStorageSync("seat_sale_info", {sale:false,card:false})
             let data = res.data.data.wxPaySignInfo
             wx.requestPayment({
               'nonceStr': data.noncestr,
@@ -1005,12 +1005,13 @@ Page({
                   title: '加载中',
                   mask: true
                 })
-                setTimeout(function () {
-                  wx.hideLoading();
-                  wx.navigateTo({
+                wx.navigateTo({
                     url: '../orderseatDetail/orderseatDetail?id=' + data.orderId + '&con=' + 1
                   })
-                }, 1500)
+                // setTimeout(function () {
+                //   wx.hideLoading();
+                  
+                // }, 1500)
 
               },
 
