@@ -1,3 +1,10 @@
+page {
+  width: 100%;
+  height: 100%;
+}
+.manage-wrap {
+  padding-bottom: 160rpx;
+}
 .manage-list {
   width: 100%;
   height: 226rpx;
@@ -21,12 +28,21 @@
   border-radius: 50%;
   border: 1px solid #f6f6f6;
   margin-right: 20rpx;
+  position: relative;
 }
-.manage-list-src image {
+.manage-list-src .avatar {
   display: block;
   width: 100%;
   height: 100%;
   border-radius: 50%;
+}
+.manage-list-src .admin {
+  display: block;
+  width: 74rpx;
+  height: 28rpx;
+  position: absolute;
+  bottom: 0;
+  left: 7rpx;
 }
 .manage-list-tel {
   flex-grow: 1;
