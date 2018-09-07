@@ -105,6 +105,7 @@ Page({
       success: res => {
         console.log(res);
         that.shareKey = res.data.data.shareKey;
+        that.checkShare();
       }
     });
   },
@@ -118,10 +119,11 @@ Page({
         shareKey: that.shareKey
       },
       success: res => {
-        console.log(res);
-        that.setData({
-          disabled: res.data.data
-        });
+        if (!res.data.data) {
+          that.setData({
+            disabled: true
+          });
+        }
       }
     });
   },
@@ -168,7 +170,7 @@ Page({
               app.globalData.openid = res.data.data["openid"];
               that.getTeamCard();
               that.shareInfo();
-              that.checkShare();
+              console.log(that.data);
             },
             fail: err => {
               console.log(err);

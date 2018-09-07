@@ -23,6 +23,9 @@ Page({
     this.getTeamCard();
   },
   onReady: function() {},
+  onShow: function() {
+    this.getTeamCard();
+  },
   //购买团队卡
   goBuyTeamCard: function() {
     wx.navigateTo({
