@@ -25,7 +25,6 @@ Page({
         'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
         'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
       ],
-      meetingRoomId: '',
       titleObj: {},
       ifFixed: false,
       daynum: "",
@@ -165,12 +164,9 @@ Page({
   // 散座详情 弹窗
   openMeetDetail: function () {
     let that = this;
-    // wx.reportAnalytics('goodsdetails')
+    that.getMeetDetail()
     this.setData({
-      meetingRoomId: this.data.meetingRoomId,
       meetDetailShow: !this.data.meetDetailShow
-    }, function () {
-      that.getMeetDetail()
     })
   },
   // 散座详情 轮播图
@@ -184,7 +180,6 @@ Page({
   // 散座与详情 关闭
   closeMeetDetail: function () {
     this.setData({
-      meetingRoomId: '',
       meetDetailShow: !this.data.meetDetailShow
     })
   },
@@ -269,22 +264,6 @@ Page({
     }
 
   },
-  // 获取id
-  getMeetId() {
-    let that = this;
-    wx.getStorage({
-      key: 'detail-c',
-      success: function (res) {
-        if (res.data) {
-          that.setData({
-            meetingRoomId: res.data.goodsId
-          }, function () {
-            that.getMeetDetail();
-          })
-        }
-      }
-    })
-  },
   getBoardroomTime: function () {},
   stopPropagation: function () {
     return;
@@ -303,7 +282,6 @@ Page({
     var _this = this;
     this.getDetailInfo(this.orderId)
 
-    this.getMeetId()
     if (this.data.isRouteMy == "2") {
       wx.switchTab({
         url: "../myOrder/myOrder",
@@ -318,65 +296,19 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-
-    // console.log(options)
     if (options.con) {
       this.setData({
         con: options.con
       })
     }
     this.orderId = options.id;
-  
-
     var pages = getCurrentPages()
-    // console.log(pages)
     var prevPage = pages[pages.length - 2]
     prevPage.setData({
       isRouteMy: "2"
     })
-  
-    let carendar = wx.getStorageSync("data-index")
-    console.log(carendar,77777)
-    if (carendar) {
-      carendar.map(item => {
-
-      })
-      this.setData({
-        carendarArr: carendar,
-      })
-    }
-
-
     this.getPhone();
     var _this = this;
-    // console.log(options,88800)
-    if (options.from == 'list') {
-      wx.getStorage({
-        key: 'meet_detail',
-        success: function (res) {
-          if (res.data) {
-
-            _this.setData({
-              detailInfo: res.data
-            })
-          }
-        }
-      })
-    } else {
-      wx.getStorage({
-        key: 'detail-c',
-        success: function (res) {
-          // console.log(res)
-          if (res.data) {
-            _this.setData({
-              detailInfo: res.data
-            })
-          }
-        }
-      })
-    }
-
-
     wx.getStorage({
       key: 'orderDate',
       success: function (res) {
@@ -396,13 +328,6 @@ Page({
         }
       }
     })
-
-
-
-
-
-
-
   },
   getThemeName: function (res) {
     let timeArr = res.time.split('-');
@@ -526,8 +451,7 @@ Page({
         let hour = (data.endTime - data.beginTime) / 3600000;
         let Ctime = changeTime(data.ctime);
         detailInfo.ctime = Ctime[0] + "-" + Ctime[1] + "-" + Ctime[2] + " " + Ctime[3] + ":" + Ctime[4] + ":" + Ctime[5]
-        // detailInfo.cardName = '你好团队卡你好团队卡'
-        // detailInfo.cardDeductAmount = 123
+        detailInfo.seatGoodsId = data.details[0].goodsId;
         this.setData({
           payTitle: payTitleObj[data.orderShowStatus],
           detailInfo: detailInfo,
@@ -546,12 +470,6 @@ Page({
 
       }
     })
-
-
-
-
-
-
   },
 
 
@@ -586,13 +504,13 @@ Page({
   // 获取详情
   getMeetDetail() {
 
-    let meetingRoomId = this.data.meetingRoomId;
+    let detailInfo = this.data.detailInfo;
     let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/goods/detail',
       method: "GET",
       data: {
-        "seatGoodsId": meetingRoomId
+        "seatGoodsId": detailInfo.seatGoodsId
       },
       success: (res) => {
         this.setData({
