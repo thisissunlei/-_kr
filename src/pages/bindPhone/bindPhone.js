@@ -28,14 +28,34 @@ Page({
     }
     
     if(e.detail.errMsg === 'getPhoneNumber:ok'){
-      createOrder[fun](this,1)
+      this.bindwxPhone(data)
     }
   } ,
-  create(){
+  bindwxPhone(data){
     let fun = this.data.fun;
-    console.log('提交生成订单及其余下内容',createOrder)
-    console.log(fun,'====fun')
-    createOrder[fun](this,1)
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/wx/auth/bind-phone',
+        methods:"GET",
+        data:data,
+        success:(res)=>{
+          createOrder[fun](this,1)
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
   },
   onShareAppMessage: function() {
     return app.globalData.share_data;
