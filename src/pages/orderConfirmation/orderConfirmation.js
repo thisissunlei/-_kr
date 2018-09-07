@@ -93,7 +93,6 @@ Page({
     })
   },
   dateBtn :function(e){
-    console.log(e);
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       
       const new_data = this.data[e.target.dataset.data];
@@ -830,6 +829,7 @@ Page({
                 saleStatus = couponCount>0?'none':'nothing'
               }
             }
+           
             if(res.data.card){
               cardStatus = 'chosen';
             }else{
@@ -888,7 +888,6 @@ Page({
         that.getNowRangeTime();
         that.getPrice();
         that.getThemeName(orderDate)
-        console.log(orderDate.time)
       })
     }
   },

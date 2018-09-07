@@ -169,18 +169,24 @@ Page({
         }
       })
     } else if (this.from == "meeting") {
-      wx.setStorage({
-        key: "meeting_order_card",
-        data: {
-          sale: false
-        },
-        success: function() {
-          setTimeout(function() {
-            wx.navigateBack({
-              delta: 1
-            })
-          }, 500)
 
+      wx.getStorage({
+        key: 'meeting_order_sale',
+        success: function(res) {
+          let data = res.data;
+          data.card = false;
+          wx.setStorage({
+            key: "meeting_order_sale",
+            data: data,
+            success: function() {
+              setTimeout(function() {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }, 500)
+
+            }
+          })
         }
       })
     }
