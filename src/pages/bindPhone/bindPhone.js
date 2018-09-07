@@ -40,7 +40,7 @@ Page({
         methods:"GET",
         data:data,
         success:(res)=>{
-          let code = res.dataa.code;
+          let code = res.data.code;
           if(code>0){
             createOrder[fun](this,1)
 
