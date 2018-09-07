@@ -51,6 +51,7 @@ Page({
   time_cal:"",
   //立即支付
   payOrder: function () {
+      let that = this;
 
      let orderId = this.orderId;
      app.getRequest({
@@ -77,6 +78,7 @@ Page({
                 })
                 setTimeout(
                   function () {
+                    that.getDetailInfo(that.orderId)
                     wx.hideLoading()
                   }, 1500)
               },
