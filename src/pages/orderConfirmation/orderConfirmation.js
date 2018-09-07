@@ -66,14 +66,15 @@ Page({
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
     couponCount:0,
-    saleStatus:'none',
+    saleStatus:'nothing',
+    cardStatus:'nothing',
     reducePrice:0,
     imgUrl:app.globalData.KrImgUrl,
     priceInfo:{},
     cardCount:0,
     saleContent:{},
     cardContent:{},
-    couponId:'',
+    couponCount:0,
 
   },
   all_day_num:0,
@@ -548,10 +549,10 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
     }
     
-    if(data.saleContent.couponId){
+    if(data.saleContent && data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardContent.cardId){
+    if(data.cardContent && data.cardContent.cardId){
       orderData.cardId=data.cardContent.cardId;
     }
 
@@ -648,10 +649,10 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
     }
     
-    if(data.saleContent.couponId){
+    if(data.saleContent && data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardContent.cardId){
+    if(data.cardContent && data.cardContent.cardId){
       orderData.cardId=data.cardContent.cardId;
     }
   
@@ -795,6 +796,8 @@ Page({
     var _this=this;
     let saleStatus = this.data.saleStatus;
     let cardStatus = this.data.cardStatus;
+    let cardCount = this.data.cardCount;
+    let couponCount = this.data.couponCount;
     wx.getStorage({
       key:'order_pay',
       success:function(res){
@@ -812,22 +815,30 @@ Page({
     })
     
     //礼品券数据
-   
+    
     if(Object.keys(this.data.meeting_time).length != 0){
         wx.getStorage({
           key: 'meeting_order_sale',
           success: function (res) {
+
             if(res.data.sale){
               saleStatus = 'chosen';
+            }else{
+              if(_this.isFirst){
+                saleStatus = 'new';
+              }else{
+                saleStatus = couponCount>0?'none':'nothing'
+              }
             }
             if(res.data.card){
               cardStatus = 'chosen';
+            }else{
+              cardStatus = cardCount>0?'none':'nothing'
             }
             
             _this.setData({
               saleStatus:saleStatus,
               saleContent:res.data.sale,
-              couponId:res.data.id ,
               cardStatus:cardStatus,
               cardContent:res.data.card || {},
             },function(){
