@@ -101,7 +101,7 @@ Page({
                             tip: ''
                         })
                     }, 2000)
-                } else if ( res.data.data === -2 ) {
+                } else if ( res.data.code === -2 ) {
                     // 未绑定手机号
                     wx.setStorage({
                         key: "goods_order",

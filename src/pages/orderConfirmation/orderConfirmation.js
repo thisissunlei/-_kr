@@ -66,14 +66,15 @@ Page({
     date_now:{month:'',year:'',value:''},
     date_next:{month:'',year:'',value:''},
     couponCount:0,
-    saleStatus:'none',
+    saleStatus:'nothing',
+    cardStatus:'nothing',
     reducePrice:0,
     imgUrl:app.globalData.KrImgUrl,
     priceInfo:{},
     cardCount:0,
     saleContent:{},
     cardContent:{},
-    couponId:'',
+    couponCount:0,
 
   },
   all_day_num:0,
@@ -92,7 +93,6 @@ Page({
     })
   },
   dateBtn :function(e){
-    console.log(e);
     if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
       
       const new_data = this.data[e.target.dataset.data];
@@ -540,6 +540,7 @@ Page({
   },
   //新金额计算
   getPrice:function(){
+    var _this=this;
     let data=this.data;
     let orderData = {
       beginTime:data.meeting_time.beginTime,
@@ -547,12 +548,14 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
     }
     
-    if(data.saleContent.couponId){
+    if(data.saleContent && data.saleContent.couponId){
       orderData.couponId=data.saleContent.couponId;
     }
-    if(data.cardContent.cardId){
+    if(data.cardContent && data.cardContent.cardId){
       orderData.cardId=data.cardContent.cardId;
     }
+
+   
       app.getRequest({
           url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/calculate',
           methods:"GET",
@@ -561,23 +564,202 @@ Page({
           },
           data:orderData,
           success:(res)=>{
-              let data = res.data.data;
-              if(res.data.code == 1){
-                    this.setData({
-                      cardContent:{
-                        name:data.cardName,
-                        remainAmountDecimal:data.cardDeductAmount,
-                        cardId:data.cardId
-                      },
-                      saleContent:{
-                        couponId:data.couponId,
-                        amount:data.couponAmount
-                      },
-                      priceInfo:res.data.data
+              let resData = res.data.data;
+              let cardContent = {};
+              let cardStatus = _this.data.cardStatus;
+              let saleStatus = _this.data.saleStatus;
+              let saleContent = {}
+              let code=res.data.code;
+              
+              switch(code){
+                case 1:
+                if(resData.cardId){
+                  cardContent = {
+                      name:resData.cardName,
+                      remainAmountDecimal:resData.cardDeductAmount,
+                      cardId:resData.cardId
+                  }
+      
+                }
+                if(resData.couponId){
+                  saleContent = {
+                    couponId:resData.couponId,
+                    amount:resData.couponAmount
+                  }
+                }
+      
+                this.setData({
+                  cardContent:cardContent,
+                  saleContent:saleContent,
+                  priceInfo:res.data.data
+                })
+                wx.setStorage({
+                  key:"price_info",
+                  data:res.data.data
+                })
+                
+                break;
+                case -4:
+                  if(saleStatus === 'chosen'){
+                    _this.clearStatus(data,'sale');
+                    _this.setErrorMessage('优惠券不可用，请重新选择');
+                      wx.getStorage({
+                        key: 'price_info',
+                        success: function(res) {
+                          _this.setData({
+                            cardContent:{
+                              name:res.data.data.cardName,
+                              remainAmountDecimal:res.data.data.cardDeductAmount,
+                              cardId:res.data.data.cardId
+                            },
+                            priceInfo:res.data.data,
+                          })
+                        }
+                      })
+                  }
+                break;
+                case -5:
+                  if(cardStatus === 'chosen'){
+                    _this.clearStatus(data,'card');
+                    _this.setErrorMessage('团队卡不可用，请重新选择');
+                    wx.getStorage({
+                      key: 'price_info',
+                      success: function(res) {
+                        _this.setData({
+                          saleContent:{
+                            couponId:res.data.data.couponId,
+                            amount:res.data.data.couponAmount
+                          },
+                          priceInfo:res.data.data
+                        })
+                      }
                     })
-                } 
-            }
+                  }
+                break;
+              }
+          } 
       })
+  },
+  getIsfirst:function(){
+    let data=this.data;
+    let orderData = {
+      beginTime:data.meeting_time.beginTime,
+      endTime:data.meeting_time.endTime,
+      meetingRoomId:data.detailInfo.meetingRoomId,
+    }
+    
+    if(data.saleContent && data.saleContent.couponId){
+      orderData.couponId=data.saleContent.couponId;
+    }
+    if(data.cardContent && data.cardContent.cardId){
+      orderData.cardId=data.cardContent.cardId;
+    }
+  
+      app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/coupon-teamcard-list',
+        methods:"GET",
+        header:{
+          'content-type':"appication/json"
+        },
+        data:orderData,
+        success:(res)=>{
+          let data=res.data.data;
+          this.checkStatus(data);
+        }
+    })
+  },
+  //校验优惠券状态
+  checkStatus(data){
+    let saleStatus = '';
+    let cardStatus = 'nothing';
+    let cardData = data.myCards;
+    let saleData = data.myCoupons;
+     // 判断礼品券new：新人；chosen：已选，nothing:暂无可用；none:未选择）
+    if(saleData.first){
+      saleStatus = 'new';
+    }else{
+      if(saleData.couponCount>0){
+        saleStatus = 'none'
+      }else{
+        saleStatus = 'nothing';
+      }
+    }
+    // 判断团队卡
+    if(cardData.cardUsableCount>0){
+      cardStatus = 'none'
+    } else{
+      cardStatus = 'nothing';
+    }
+    
+    this.setData({
+      saleStatus:saleStatus,
+      isFirst:saleData.first,
+      couponCount:saleData.couponCount,
+      saleContent:{sale:false},
+      cardStatus:cardStatus,
+      cardCount:cardData.cardUsableCount,
+      cardContent:{sale:false},
+      
+    })
+    this.getPrice();
+  },
+  clearStatus(data,form){
+    var _this=this;
+    let orderData = {
+      beginTime:data.meeting_time.beginTime,
+      endTime:data.meeting_time.endTime,
+      meetingRoomId:data.detailInfo.meetingRoomId,
+    }
+    app.getRequest({
+      url: app.globalData.KrUrl + 'api/gateway/kmorder/meeting/coupon-teamcard-list',
+      data:orderData,
+      method: "GET",
+      success: (res) => {
+        if(form=='sale'){
+          _this.clearSale(res);
+        }else if(form=='card'){
+          _this.clearCard(res)
+        } 
+      },
+      fail:(res)=>{
+
+      }
+   
+    })
+  },
+  clearCard(res){
+    let code = res.data.code;
+    let cardData = res.data.data.myCards;
+    let cardStatus = 'nothing';//暂无
+    if(code>0){
+      // 判断团队卡
+      if(cardData.cardUsableCount>0){
+        cardStatus = 'none'//未选
+      }
+      this.setData({
+        cardStatus:cardStatus,
+        cardCount:cardData.cardUsableCount,
+        cardContent:{card:false},
+      },function(){
+        console.log('充值团队卡选项--2',this.data.cardContent)
+      })
+    }
+  },
+  clearSale(res){
+    let code = res.data.code;
+        let saleData = res.data.data.myCoupons;
+        let saleStatus = 'nothing';//暂无
+        if(code>0){
+          // 判断优惠券
+          if(saleData.couponCount>0){
+            saleStatus = 'none'//未选
+          }
+          this.setData({
+            saleStatus:saleStatus,
+            couponCount:saleData.couponCount,
+            saleContent:{sale:false},
+          })
+        }
   },
   //旧金额计算
   // getPrice:function(){
@@ -613,6 +795,8 @@ Page({
     var _this=this;
     let saleStatus = this.data.saleStatus;
     let cardStatus = this.data.cardStatus;
+    let cardCount = this.data.cardCount;
+    let couponCount = this.data.couponCount;
     wx.getStorage({
       key:'order_pay',
       success:function(res){
@@ -630,22 +814,31 @@ Page({
     })
     
     //礼品券数据
-   
+    
     if(Object.keys(this.data.meeting_time).length != 0){
         wx.getStorage({
           key: 'meeting_order_sale',
           success: function (res) {
+
             if(res.data.sale){
               saleStatus = 'chosen';
+            }else{
+              if(_this.isFirst){
+                saleStatus = 'new';
+              }else{
+                saleStatus = couponCount>0?'none':'nothing'
+              }
             }
+           
             if(res.data.card){
               cardStatus = 'chosen';
+            }else{
+              cardStatus = cardCount>0?'none':'nothing'
             }
             
             _this.setData({
               saleStatus:saleStatus,
               saleContent:res.data.sale,
-              couponId:res.data.id ,
               cardStatus:cardStatus,
               cardContent:res.data.card || {},
             },function(){
@@ -695,7 +888,6 @@ Page({
         that.getNowRangeTime();
         that.getPrice();
         that.getThemeName(orderDate)
-        console.log(orderDate.time)
       })
     }
   },
@@ -905,69 +1097,7 @@ Page({
       url: '../guide/guide'
     })
   },
-  getIsfirst:function(meetingTime){
-    let data=this.data;
-    let orderData = {
-      beginTime:data.meeting_time.beginTime,
-      endTime:data.meeting_time.endTime,
-      meetingRoomId:data.detailInfo.meetingRoomId,
-    }
-    
-    if(data.saleContent.couponId){
-      orderData.couponId=data.saleContent.couponId;
-    }
-    if(data.cardContent.cardId){
-      orderData.cardId=data.cardContent.cardId;
-    }
   
-      app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/kmorder/meeting/coupon-teamcard-list',
-        methods:"GET",
-        header:{
-          'content-type':"appication/json"
-        },
-        data:orderData,
-        success:(res)=>{
-          let data=res.data.data;
-          this.checkStatus(data);
-        }
-    })
-  },
-  //校验优惠券状态
-  checkStatus(data){
-    let saleStatus = '';
-    let cardStatus = 'nothing';
-    let cardData = data.myCards;
-    let saleData = data.myCoupons;
-     // 判断礼品券new：新人；chosen：已选，nothing:暂无可用；none:未选择）
-    if(saleData.first){
-      saleStatus = 'new';
-    }else{
-      if(saleData.couponCount>0){
-        saleStatus = 'none'
-      }else{
-        saleStatus = 'nothing';
-      }
-    }
-    // 判断团队卡
-    if(cardData.cardUsableCount>0){
-      cardStatus = 'none'
-    } else{
-      cardStatus = 'nothing';
-    }
-    
-    this.setData({
-      saleStatus:saleStatus,
-      isFirst:saleData.first,
-      couponCount:saleData.couponCount,
-      saleContent:{sale:false},
-      cardStatus:cardStatus,
-      cardCount:cardData.cardUsableCount,
-      cardContent:{sale:false},
-      
-    })
-    this.getPrice();
-  },
   
   closeDialogTime:function(){
     var that = this;
@@ -1385,6 +1515,21 @@ Page({
       }
     })
   },
+  setErrorMessage(msg){
+    let that = this;
+    this.setData({
+      showError:false,
+      errorMessage:msg
+    },function(){
+      setTimeout(function(){
+        that.setData({
+          showError:true,
+          errorMessage:''
+        })
+      },2000)
+    })
+  },
+  
   
   
 })

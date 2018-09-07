@@ -204,14 +204,7 @@ Page({
         couponBaseId:couponBaseId,
       },
       success: res => {
-        if (res.data.code == -1) {
-          wx.showToast({
-            title: res.data.message,
-            icon: "none",
-            duration: 2000
-          });
-
-        }else{
+        if (res.data.code == 1) {
           wx.showToast({
             title: "领取成功",
             image: "../images/public/success.png",
@@ -219,6 +212,14 @@ Page({
           });
           _this.getSaleList();
           _this.getRecordList(1);
+
+        }else{
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+         
         }
 
       }
