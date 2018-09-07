@@ -50,7 +50,7 @@
                     领取了<text  class="u-red-salse">{{item.faceValue}}元礼券</text>
                 </view>
             </view>
-            <view class="u-list-more" wx:if="{{totalPages!=page}}" bindtap="getMore" >点击加载更多</view>
+            <view class="u-list-more" wx:if="{{totalCount>5 && totalCount>pageSize}}" bindtap="getMore" >点击加载更多</view>
 
         </view>
     </view>

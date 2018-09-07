@@ -710,6 +710,15 @@ Page({
     if(!this.seatGoodIds){
       return;
     }
+    let totalAmount = this.data.totalAmount;
+    wx.getStorage({
+      key: 'seat_amount',
+      success: function (res) {
+        if (res.data.totalAmount) {
+          totalAmount = res.data.totalAmount
+        }
+      }
+    })
     app.getRequest({
       url:app.globalData.KrUrl+"api/gateway/kmorder/seat/calculate",
       methods:"GET",
@@ -736,26 +745,40 @@ Page({
               amount:resData.couponAmount
             }
           }
-
+          that.isFirst = resData.first || that.isFirst
+          console.log('==========>>>>',store)
+          let store = {
+            totalAmount:resData.totalAmount
+          }
+          wx.setStorage({
+              key: "seat_amount",
+              data:store,
+            })
           that.setData({
             cardContent:cardContent,
             saleContent:saleContent,
             price_all:resData.totalAmount
 
-          },function(){
-            if(cardStatus === 'chosen' && !resData.cardId){
-              that.clearCard(data.sankeNum)
-              console.log('团队卡不可用，请重新选择')
-              that.setErrorMessage('团队卡不可用，请重新选择')
-            }
-            if(saleStatus === 'chosen' && !resData.couponId){
-              that.clearSale(data.sankeNum)
-              console.log('优惠券不可用，请重新选择')
-              that.setErrorMessage('优惠券不可用，请重新选择')
-            }
           })
-        }
-        if(res.data.code <0){
+        }else if(res.data.code == -5){
+          that.setData({
+            price_all:totalAmount
+          },function(){
+            console.log('code == -5',totalAmount)
+          })
+          that.clearCard(data.sankeNum)
+          that.setErrorMessage(res.data.message)
+
+        }else if(res.data.code == -4){
+          that.setData({
+            price_all:totalAmount
+          })
+          that.clearSale(data.sankeNum)
+          that.setErrorMessage(res.data.message)
+        }else{
+          that.setData({
+            price_all:totalAmount
+          })
           that.setErrorMessage(res.data.message)
           that.getSaleContent(that.data.sankeNum);
         }
@@ -790,7 +813,8 @@ Page({
             cardLength:cardData.cardUsableCount,
             cardContent:{card:false},
           },function(){
-            console.log('充值团队卡选项--2',that.data.cardContent)
+            that.setSaleStorage('card')
+            console.log('充值团队卡选项--2',that.data.price_all)
           })
         }
 
@@ -824,6 +848,8 @@ Page({
             saleStatus:saleStatus,
             saleLength:saleData.couponCount,
             saleContent:{sale:false},
+          },function(){
+            that.setSaleStorage('sale')
           })
         }
 
@@ -877,6 +903,8 @@ Page({
     if(data.cardContent.id){
       orderData.cardId = data.cardContent.id;
     }
+    console.log('createOrder',orderData)
+    return;
       // //调整绑定手机号
       // wx.setStorage({
       //         key: "create_seat",
@@ -1045,8 +1073,6 @@ Page({
     })
   },
   setSaleStorage(name){
-
-
     wx.getStorage({
       key: 'seat_sale_info',
       success: function (res) {
@@ -1056,7 +1082,10 @@ Page({
         }else{
           data.card = false
         }
-        wx.setStorage("seat_sale_info",data)
+        wx.setStorage({
+          key: "seat_sale_info",
+          data:data,
+        })
       }
     })
 
