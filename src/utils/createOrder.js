@@ -109,19 +109,6 @@ var weChatPaySeat = function(data,_this,num){
       },
       success: (res) => {
         if (res.data.code > 0) {
-          if (!wx.getStorageSync("order-info")) {
-            let orderArr = []
-            console.log(typeof res.data.data, res.data.data, orderArr, res.data, 333333)
-            orderArr.push(res.data.data)
-            wx.setStorageSync("order-info", orderArr)
-            wx.setStorageSync("order", res.data.data)
-          } else {
-            let orderseat = wx.getStorageSync("order-info")
-            console.log(typeof res.data.data, res.data.data, orderseat, res.data, 44444)
-            orderseat.push(res.data.data)
-            wx.setStorageSync("order-info", orderseat)
-            wx.setStorageSync("order", res.data.data)
-          }
           wx.requestPayment({
             'timeStamp': res.data.data.timestamp,
             'nonceStr': res.data.data.noncestr,
@@ -135,7 +122,7 @@ var weChatPaySeat = function(data,_this,num){
               })
               setTimeout(function() {
                 wx.navigateTo({
-                  url: '../orderseatDetail/orderseatDetail?id=' + id + '&con=' + 1
+                  url: '../orderseatDetail/orderseatDetail?id=' + id + '&con=1'
                 })
               }, 2000)
             },

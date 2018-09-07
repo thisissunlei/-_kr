@@ -868,7 +868,8 @@ Page({
       arrivingTime: data.time,
       quantity: data.sankeNum,
       seatGoodIds: that.seatGoodIds,
-      validAmount: data.price_all
+      validAmount: data.price_all,
+      first:that.isFirst
     }
     if(data.saleContent.couponId){
       orderData.couponId = data.saleContent.couponId;
@@ -877,16 +878,16 @@ Page({
       orderData.cardId = data.cardContent.id;
     }
       // //调整绑定手机号
-      // wx.setStorage({
-      //         key: "create_seat",
-      //         data: {
-      //           create_seat: orderData
-      //         },
-      //       })
-      //  wx.navigateTo({
-      //         url: '../bindPhone/bindPhone?fun=getSeatData'
-      //       })
-      //  return;
+      wx.setStorage({
+              key: "create_seat",
+              data: {
+                create_seat: orderData
+              },
+            })
+       wx.navigateTo({
+              url: '../bindPhone/bindPhone?fun=getSeatData'
+            })
+       return;
       // // 调整结束
 
     wx.showLoading({
