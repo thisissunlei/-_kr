@@ -63,8 +63,7 @@ Page({
   },
   switchChange(e) {
     app.getRequest({
-      url:
-        app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/changeremind",
+      url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/changeremind",
       method: "POST",
       data: {
         cardId: this.cardId

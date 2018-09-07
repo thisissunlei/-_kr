@@ -304,7 +304,7 @@ var goodsOrder = function (goods_order,_this,num) {
         },
         data: goods_order.goods_order,
         success: res => {
-            if ( res.data.code === -1 ) {} else if ( res.data.data === -2 ) {
+            if ( res.data.code === -1 ) {} else if ( res.data.code === -2 ) {
                 // 未绑定手机号
                 wx.navigateTo({
                     url: '../bindPhone/bindPhone?fun=getGoodsData'
