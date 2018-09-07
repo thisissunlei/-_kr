@@ -232,12 +232,13 @@ Page({
 
 
   onUnload: function () {
-     console.log(this.data.con,6666)
     if (this.data.con == 1) {
-      this.time_cal.closeCal();
       wx.reLaunch({
         url: '../index/index'
       })
+    }
+    if(this.data.detailInfo.orderShowStatus == 'OBLIGATION'){
+      this.time_cal.closeCal();
     }
 
     let _this = this;

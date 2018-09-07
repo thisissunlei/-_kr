@@ -96,8 +96,8 @@ Page({
   formSubmit(e){
     let that = this;
     let fun = this.data.fun;
-    createOrder[fun](that,2)
-    return;
+    // createOrder[fun](that,2)
+    // return;
       app.getRequest({
         url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
         methods:"GET",
