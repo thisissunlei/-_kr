@@ -1,0 +1,35 @@
+<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
+<view class="get-team-card" wx:if="{{showPage}}">
+    <view class="coupon-top">
+        <view class="coupon-avatar">
+            <image src="{{info.avatarUrl}}"></image>
+        </view>
+        <text class="coupon-name">{{info.ownerName}}</text>
+        <text>邀请你成为用卡人：</text>
+    </view>
+    <view class="coupon-hint" wx:if="{{showHint}}">
+        <text>接受邀请后，你可以使用团队余额预订自由座内任意的会议室和散座哦，超方便的~</text>
+        <text class="hint-triangle"></text>
+    </view>
+    <view class="team-card-list">
+        <view class="team-card-top">
+            <text>{{info.cardName}}</text>
+            <text>NO.{{info.cardNo}}</text>
+        </view>
+        <view class="team-card-yue">余额</view>
+        <view class="team-card-value">
+            <text>{{info.faceValue}}</text>元
+        </view>
+        <view class="team-card-bottom">
+            <text>使用期限：{{info.effectAt}}-{{info.expireAt}}</text>
+            <text>可用于氪空间自由座预订会议室和散座</text>
+        </view>
+        <!-- <image class="team-card-image" src="../images/coupon/background2.jpg"></image> -->
+    </view>
+    <view class="team-card-btn">
+        <button class="accept {{disabled ? 'overdue' : ''}}" disabled="{{disabled}}" bindtap="accept" wx:if="{{showButton}}">接受邀请</button>
+        <button class="accept" bindtap="jumpToTeamCardList" wx:else>查看团队卡</button>
+    </view>
+    <view class="jump-to-home" bindtap="jumpToHome">-了解氪空间自由座-</view>
+
+</view>
