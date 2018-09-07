@@ -219,7 +219,6 @@ Page({
   },
   onUnload:function(){
     if(this.data.con==1){
-      console.log(2222,this.time_cal)
       if(this.time_cal!=''){
         this.time_cal.closeCal();
       }
