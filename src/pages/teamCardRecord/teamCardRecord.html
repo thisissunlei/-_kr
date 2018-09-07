@@ -1,42 +1,28 @@
-<view class="record">
+<view class="record" wx:if="{{!loading && list.length > 0}}">
     <view class="line"></view>
-    <view class="record-list-box">
-        <view class="state">预定</view>
+    <view class="{{item.useStatus == 'PAY'? 'record-list-box': 'record-list-box select'}}" wx:for="{{list}}" wx:key="{{index}}">
+        <view class="state" wx:if="{{item.useStatus == 'PAY'}}">预定</view>
+        <view class="state" wx:else>取消预定</view>
         <view class="record-list-left">
-            <view class="day">08-17</view>
-            <view class="time">12:12:12</view>
-            <view class="price"><text>¥</text>11111</view>
+            <view class="day">{{item.day}}</view>
+            <view class="time">{{item.time}}</view>
+            <view class="price"><text>¥</text>{{item.amount}}</view>
         </view>
         <view class="record-list-right">
             <view class="record-list-info">
-                <image src="../images/share_pic.jpg"></image>
-                <view>我叫易烊千玺啊 (<text>18911661234</text>)</view>
+                <image src="{{item.avatarUrl}}"></image>
+                <view>{{item.nickName}} (<text>{{item.phone}}</text>)</view>
             </view>
-            <view class="record-list-con">08月16日 10:00-11:00 海航实业大厦6A会议室<text></text></view>
-            <view class="record-list-no">订单号：DD1293994948473838384</view>
-        </view>
-    </view>
-    <view class="record-list-box select">
-        <view class="state">取消预定</view>
-        <view class="record-list-left">
-            <view class="day">08-17</view>
-            <view class="time">12:12:12</view>
-            <view class="price"><text>¥</text>11111</view>
-        </view>
-        <view class="record-list-right">
-            <view class="record-list-info">
-                <image src="../images/share_pic.jpg"></image>
-                <view>我叫易烊千玺啊 (<text>18911661234</text>)</view>
-            </view>
-            <view class="record-list-con">08月16日 10:00-11:00 海航实业大厦6A会议室海航实业大厦6A会议室海航实业大厦6A会议室<text></text></view>
-            <view class="record-list-no">订单号：DD1293994948473838384</view>
+            <view class="record-list-con">{{item.descr}}<text></text></view>
+            <view class="record-list-no">订单号：{{item.orderNo}}</view>
         </view>
     </view>
 </view>
 
-<view class="my-meeting-list-none">
+<view class="my-meeting-list-none" wx:if="{{!loading && list.length == 0}}">
     <view class="content-none">
         <image class="none-img" src="../images/coupon/none.png" background-size="cover"></image>
         <text class="warn">还没有券哦~</text>
+        <view style="height: 1000rpx;"></view>
     </view>
 </view>

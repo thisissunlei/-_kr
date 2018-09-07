@@ -20,6 +20,51 @@ Page({
       {
         avatarUrl:
           "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
+        nickName: "胡一天",
+        phone: "18100000001",
+        ctime: "2018-08-16 14:23:56",
+        checked: false,
+        cardId: 1, //卡id
+        id: 110, //持卡人id
+        leader: false //管理员
+      },
+      {
+        avatarUrl:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
+        nickName: "胡一天",
+        phone: "18100000001",
+        ctime: "2018-08-16 14:23:56",
+        checked: false,
+        cardId: 1, //卡id
+        id: 110, //持卡人id
+        leader: false //管理员
+      },
+      {
+        avatarUrl:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
+        nickName: "胡一天",
+        phone: "18100000001",
+        ctime: "2018-08-16 14:23:56",
+        checked: false,
+        cardId: 1, //卡id
+        id: 110, //持卡人id
+        leader: false //管理员
+      },
+
+      {
+        avatarUrl:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
+        nickName: "胡一天",
+        phone: "18100000001",
+        ctime: "2018-08-16 14:23:56",
+        checked: false,
+        cardId: 1, //卡id
+        id: 110, //持卡人id
+        leader: false //管理员
+      },
+      {
+        avatarUrl:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
         nickName: "蔡徐坤",
         phone: "18100000001",
         ctime: "2018-08-16 14:23:56",
@@ -31,6 +76,9 @@ Page({
     ]
   },
   cardId: null,
+  page: 1,
+  pageSize: 10,
+  holderIds: [],
   //分享
   onShareAppMessage: function(res) {
     if (res.from === "button") {
@@ -52,6 +100,9 @@ Page({
     this.cardId = options.cardId;
     this.getHolderList();
   },
+  toLower: function(e) {
+    console.log(1);
+  },
   //点击删除用卡人
   delPeople: function() {
     this.setData({
@@ -59,13 +110,50 @@ Page({
       showDel: true
     });
   },
+  //确认删除用卡人
+  confirmDel: function() {
+    let that = this;
+    let holder = [];
+    let infoList = that.data.manageList;
+    infoList.map(item => {
+      if (item.checked) {
+        holder.push(item.id);
+      }
+      return item;
+    });
+    // console.log(holder);
+    that.holderIds = holder;
+    if (that.holderIds.length == 0) {
+      return;
+    } else {
+      app.getRequest({
+        url:
+          app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/deleteholder",
+        method: "post",
+        data: {
+          cardId: that.cardId,
+          holderIds: that.holderIds.join(",")
+        },
+        success: res => {
+          console.log(res);
+          that.getHolderList();
+          that.setData({
+            flag: false,
+            showDel: false
+          });
+        }
+      });
+    }
+  },
   //用卡人管理接口
   getHolderList: function() {
     let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/holderlist",
       data: {
-        cardId: that.cardId
+        cardId: that.cardId,
+        page: that.page,
+        pageSize: that.pageSize
       },
       success: res => {
         console.log(res.data.data);
@@ -83,24 +171,27 @@ Page({
   },
   //点击取消
   cancel: function() {
+    let newManage = this.data.manageList;
+    newManage.map(item => {
+      item.checked = false;
+      return item;
+    });
     this.setData({
+      manageList: newManage,
       flag: false,
       showDel: false
     });
   },
   //选择删除的用卡人
   checkedPeople: function(e) {
-    // console.log(e.currentTarget.dataset.index);
-    // console.log(e.currentTarget.dataset.info);
-    var that = this;
-    var arr = that.data.manageList;
-    arr[e.currentTarget.dataset.index].checked = !arr[
+    let that = this;
+    let newManage = that.data.manageList;
+    newManage[e.currentTarget.dataset.index].checked = !newManage[
       e.currentTarget.dataset.index
     ].checked;
     that.setData({
-      manageList: arr
+      manageList: newManage
     });
-    // console.log(that.data.manageList);
   },
   //时间戳格式化
   toDate: function(number) {

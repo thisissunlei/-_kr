@@ -40,12 +40,12 @@ Page({
            console.log("用户没有授权：用户信息！");
         } else {
           _this.setData({ btn_bool: false });
-          _this.getRecordList(_this.data.page);
+          
         }
       }
     });
 
-     this.getSaleList();
+    
    
   },
   goLogin(){
@@ -65,7 +65,8 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-             
+              that.getSaleList();
+              that.getRecordList(that.data.page);
             }
           });
         } else {
@@ -87,23 +88,32 @@ Page({
           activityId:activityId
         },
         success: res => {
-          let isExpired=res.code==2?true:false;
-          let data=res.data.data;
+          if(res.data.code>0){
+            let isExpired=res.data.code==2?true:false;
+            let data=res.data.data;
+            data.map((item)=>{
+              item.startTime=_this.changeTime(item.effectAt,'.')
+              item.endTime=_this.changeTime(item.expireAt,'.')
+              return item;
+            })
+            this.setData({
+                saleList:data,
+                isExpired:isExpired
+            });
+          }else{
+            wx.showToast({
+              title: res.data.message,
+              icon: "none",
+              duration: 2000
+            });
+          }
          
-          data.map((item)=>{
-            item.startTime=_this.changeTime(item.effectAt,'.')
-            item.endTime=_this.changeTime(item.expireAt,'.')
-            return item;
-          })
-          this.setData({
-              saleList:data,
-              isExpired:isExpired
-          });
         }
       });
   },
   getRecordList(page){
     let activityId=this.data.activityId;
+    var _this=this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/record",
       methods: "GET",
@@ -115,15 +125,24 @@ Page({
         page:page
       },
       success: res => {
-        let data=res.data.data;
-        data.items.map((item)=>{
-          item.time=_this.changeTime(item.ctime,'.',true)
-          return item;
-        })
-        this.setData({
-          recordList:data.items,
-          totalPages:data.totalPages
-        });
+          if(res.data.code>0){
+            let data=res.data.data;
+            data.items.map((item)=>{
+              item.time=_this.changeTime(item.ctime,'.',true)
+              return item;
+            })
+          
+            this.setData({
+              recordList:data.items,
+              totalPages:data.totalPages
+            });
+          }else{
+            wx.showToast({
+              title: res.data.message,
+              icon: "none",
+              duration: 2000
+            });
+          }
       }
     });
   },
@@ -185,14 +204,7 @@ Page({
         couponBaseId:couponBaseId,
       },
       success: res => {
-        if (res.data.code == -1) {
-          wx.showToast({
-            title: res.data.message,
-            icon: "none",
-            duration: 2000
-          });
-
-        }else{
+        if (res.data.code == 1) {
           wx.showToast({
             title: "领取成功",
             image: "../images/public/success.png",
@@ -200,6 +212,14 @@ Page({
           });
           _this.getSaleList();
           _this.getRecordList(1);
+
+        }else{
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+         
         }
 
       }
