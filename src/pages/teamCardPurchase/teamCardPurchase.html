@@ -25,7 +25,7 @@
                     <view class="tsc-con">
                         <view class="tsc-tit">{{item.cardName}}</view>
                         <view class="tsc-price">
-                            <text style="color: #000000;font-size: 24rpx;">面额: </text>
+                            <text style="font-size: 24rpx;">面额: </text>
                             <text style="font-size: 36rpx;">{{item.faceValueDecimal}}</text>
                             <text style="font-size: 18rpx;">元</text>
                         </view>
@@ -37,7 +37,7 @@
                             </view>
                             <view class="tsc-bottom-right">
                                 <text style="font-size: 24rpx;">有效期: </text>
-                                <text style="color: #000000;font-size: 36rpx;">{{item.activeDuration}}</text>
+                                <text style="font-size: 36rpx;">{{item.activeDuration}}</text>
                                 <text style="font-size: 18rpx;">天</text>
                             </view>
                         </view>
@@ -46,7 +46,6 @@
             </swiper-item>
         </block>
     </swiper>
-    <!--swiperIndex-->
     <view class="teamCard-swiper-page">
         <text wx:for="{{list}}" wx:key="{{index}}" class="{{swiperIndex == index?'select':''}}"></text>
     </view>
