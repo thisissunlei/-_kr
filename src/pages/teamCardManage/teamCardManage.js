@@ -86,10 +86,8 @@ Page({
       console.log(res);
       return {
         title: "嗨～，这张卡给你用，想花就花超便捷！",
-        path:
-          "pages/activityDetails/activity?activityId=" +
-          this.data.manageList[0].cardId,
-        imageUrl: this.data.info.sharePic
+        path: "pages/getTeamCard/getTeamCard?cardId=" + this.cardId,
+        imageUrl: "../images/orderimg/share.png"
       };
     } else {
       console.log("来自右上角转发菜单");
