@@ -3,77 +3,9 @@ Page({
   data: {
     KrImgUrl: app.globalData.KrImgUrl,
     leader: null, //是否为管理员
-    flag: false,
-    showDel: false,
-    manageList: [
-      {
-        avatarUrl:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
-        nickName: "胡一天",
-        phone: "18100000001",
-        ctime: "2018-08-16 14:23:56",
-        checked: false,
-        cardId: 1, //卡id
-        id: 110, //持卡人id
-        leader: false //管理员
-      },
-      {
-        avatarUrl:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
-        nickName: "胡一天",
-        phone: "18100000001",
-        ctime: "2018-08-16 14:23:56",
-        checked: false,
-        cardId: 1, //卡id
-        id: 110, //持卡人id
-        leader: false //管理员
-      },
-      {
-        avatarUrl:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
-        nickName: "胡一天",
-        phone: "18100000001",
-        ctime: "2018-08-16 14:23:56",
-        checked: false,
-        cardId: 1, //卡id
-        id: 110, //持卡人id
-        leader: false //管理员
-      },
-      {
-        avatarUrl:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
-        nickName: "胡一天",
-        phone: "18100000001",
-        ctime: "2018-08-16 14:23:56",
-        checked: false,
-        cardId: 1, //卡id
-        id: 110, //持卡人id
-        leader: false //管理员
-      },
-
-      {
-        avatarUrl:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
-        nickName: "胡一天",
-        phone: "18100000001",
-        ctime: "2018-08-16 14:23:56",
-        checked: false,
-        cardId: 1, //卡id
-        id: 110, //持卡人id
-        leader: false //管理员
-      },
-      {
-        avatarUrl:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0BhK0wamhrkjnWT3PATqwokw/132",
-        nickName: "蔡徐坤",
-        phone: "18100000001",
-        ctime: "2018-08-16 14:23:56",
-        checked: false,
-        cardId: 1, //卡id
-        id: 110, //持卡人id
-        leader: true //管理员
-      }
-    ]
+    flag: false, //选择删除的成员开关
+    showDel: false, //底部按钮切换
+    manageList: []
   },
   cardId: null,
   page: 1,
@@ -86,10 +18,8 @@ Page({
       console.log(res);
       return {
         title: "嗨～，这张卡给你用，想花就花超便捷！",
-        path:
-          "pages/activityDetails/activity?activityId=" +
-          this.data.manageList[0].cardId,
-        imageUrl: this.data.info.sharePic
+        path: "pages/getTeamCard/getTeamCard?cardId=" + this.cardId,
+        imageUrl: "../images/orderimg/share.png"
       };
     } else {
       console.log("来自右上角转发菜单");

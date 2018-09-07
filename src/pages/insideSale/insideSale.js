@@ -62,11 +62,11 @@ Page({
             },
             success: function(res) {
               wx.hideLoading();
-              app.globalData.Cookie =
-                res.header["Set-Cookie"] || res.header["set-cookie"];
+              app.globalData.Cookie = res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
               that.getSaleList();
               that.getRecordList(that.data.page);
+              console.log('res---',res)
             }
           });
         } else {
@@ -194,6 +194,7 @@ Page({
   getSale(e){
     var _this=this;
     let couponBaseId= e.currentTarget.dataset.id;
+    console.log('点击领取')
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/receive",
       method: "POST",
@@ -204,6 +205,7 @@ Page({
         couponBaseId:couponBaseId,
       },
       success: res => {
+        console.log('res---',res)
         if (res.data.code == 1) {
           wx.showToast({
             title: "领取成功",

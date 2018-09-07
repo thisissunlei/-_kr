@@ -10,12 +10,13 @@
         </view>
         <view class="team-card-bottom">
             <text>使用期限：{{item.effectAt}}-{{item.expireAt}}</text>
-            <view class="team-card-jump" bindtap="jumpCardDetail" data-id="{{item.id}}">
+            <view class="team-card-jump">
                 <text>查看详情</text>
                 <text></text>
             </view>
         </view>
         <!-- <image class="team-card-image" src="../images/coupon/background2.jpg"></image> -->
+        <view class="jump-card-detail" bindtap="jumpCardDetail" data-id="{{item.id}}"></view>
         <view class="mb" wx:if="{{item.cardStatus != 'HAS_USER'}}"></view>
         <image class="overdue" wx:if="{{item.cardStatus == 'HAS_FINISH'}}" src="../images/orderimg/used.png"></image>
         <image class="overdue" wx:if="{{item.cardStatus == 'HSA_EXPRIED'}}" src="../images/orderimg/order-b.png"></image>
