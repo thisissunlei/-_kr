@@ -24,7 +24,8 @@ Page({
     let that = this;
     let fun = this.data.fun;
     let data = {
-      encryptedData:e.detail.encryptedData
+      encryptedData:e.detail.encryptedData,
+      iv:e.detail.iv
     }
     
     if(e.detail.errMsg === 'getPhoneNumber:ok'){
@@ -33,12 +34,29 @@ Page({
   } ,
   bindwxPhone(data){
     let fun = this.data.fun;
+    let that = this;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/wx/auth/bind-phone',
         methods:"GET",
         data:data,
         success:(res)=>{
-          createOrder[fun](this,1)
+          let code = res.dataa.code;
+          if(code>0){
+            createOrder[fun](this,1)
+
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
         },
         fail:(res)=>{
 
