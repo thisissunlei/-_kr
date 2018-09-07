@@ -3,8 +3,8 @@ Page({
   data: {
     KrImgUrl: app.globalData.KrImgUrl,
     leader: null, //是否为管理员
-    flag: false,
-    showDel: false,
+    flag: false, //选择删除的成员开关
+    showDel: false, //底部按钮切换
     manageList: []
   },
   cardId: null,
