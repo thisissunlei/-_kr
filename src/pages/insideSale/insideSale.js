@@ -10,9 +10,9 @@ Page({
     ruleModal:false,
     activityId:'',
     recordList:[],
-    page:1,
+    pageSize:5,
     isExpired:false,
-    totalPages:1,
+    totalCount:0,
     btn_bool: true,
   },
   onShareAppMessage: function(res) {
@@ -65,7 +65,7 @@ Page({
               app.globalData.Cookie = res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
               that.getSaleList();
-              that.getRecordList(that.data.page);
+              that.getRecordList(that.data.pageSize);
               console.log('res---',res)
             }
           });
@@ -111,7 +111,8 @@ Page({
         }
       });
   },
-  getRecordList(page){
+    
+  getRecordList(pageSize){
     let activityId=this.data.activityId;
     var _this=this;
     app.getRequest({
@@ -122,7 +123,7 @@ Page({
       },
       data: {
         activityId:activityId,
-        page:page
+        pageSize:pageSize
       },
       success: res => {
           if(res.data.code>0){
@@ -134,7 +135,7 @@ Page({
           
             this.setData({
               recordList:data.items,
-              totalPages:data.totalPages
+              totalCount:data.totalCount
             });
           }else{
             wx.showToast({
@@ -185,14 +186,18 @@ Page({
     return n[1] ? n : '0' + n
   },
   getMore(){
-    let page =this.data.page++;
-    this.getRecordList(page);
+   
+    let pageSize=this.data.pageSize;
+    pageSize+=5
+   
+    this.getRecordList(pageSize);
     this.setData({
-      page:page
+      pageSize:pageSize
     })
   },
   getSale(e){
     var _this=this;
+    var pageSize=this.data.pageSize
     let couponBaseId= e.currentTarget.dataset.id;
     console.log('点击领取')
     app.getRequest({
@@ -213,7 +218,7 @@ Page({
             duration: 2000
           });
           _this.getSaleList();
-          _this.getRecordList(1);
+          _this.getRecordList(pageSize);
 
         }else{
           wx.showToast({
@@ -229,9 +234,10 @@ Page({
   },
   //授权
   onGotUserInfo: function(e) {
+    let pageSize=this.data.pageSize;
     if (e.detail.userInfo) {
       this.getSaleList();
-      this.getRecordList(1);
+      this.getRecordList(pageSize);
       this.setData({
         btn_bool: false
       });
