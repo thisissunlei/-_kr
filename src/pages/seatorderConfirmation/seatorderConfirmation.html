@@ -205,12 +205,12 @@
                 <view class="u-no-first-price-unit">
                     ¥
                 </view>
-                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&!saleContent.sale}}">
+                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
                     {{price_all}}
                 </view>
-                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&saleContent.sale}}">
+                <!-- <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&saleContent.sale}}">
                     {{salePrice}}
-                </view>
+                </view> -->
                 <view class="u-no-first-price-num" wx:if="{{sankenum==0 || daynum==0}}">
                     0
                 </view>
