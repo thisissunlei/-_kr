@@ -91,11 +91,15 @@ Page({
           if(res.data.code>0){
             let isExpired=res.data.code==2?true:false;
             let data=res.data.data;
-            data.map((item)=>{
-              item.startTime=_this.changeTime(item.effectAt,'.')
-              item.endTime=_this.changeTime(item.expireAt,'.')
-              return item;
-            })
+            if(Object.keys(data).length>0){
+               data.map((item)=>{
+                item.startTime=_this.changeTime(item.effectAt,'.')
+                item.endTime=_this.changeTime(item.expireAt,'.')
+                return item;
+              })
+            }
+           
+           
             this.setData({
                 saleList:data,
                 isExpired:isExpired
