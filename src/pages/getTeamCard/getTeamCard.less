@@ -30,7 +30,7 @@ page {
   font-family: PingFang-SC-Semibold;
   font-size: 34rpx;
   font-weight: bold;
-  color: #333333;
+  color: #ffffff;
   letter-spacing: 0;
   margin-right: 16rpx;
   max-width: 40%;
@@ -73,7 +73,7 @@ page {
   padding: 0 40rpx;
   border-radius: 16rpx;
   position: relative;
-  background-image: linear-gradient(-133deg, #dbc08a 0%, #ece5cc 61%);
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
 }
 .team-card-top {
   width: 100%;
@@ -84,7 +84,7 @@ page {
 .team-card-top > text:nth-of-type(1) {
   height: 100%;
   font-size: 40rpx;
-  color: #333333;
+  color: #ffffff;
   font-weight: bold;
   display: flex;
   justify-content: flex-start;
@@ -93,7 +93,7 @@ page {
 .team-card-top > text:nth-of-type(2) {
   height: 100%;
   font-size: 28rpx;
-  color: #333333;
+  color: #ffffff;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -102,7 +102,7 @@ page {
   width: 100%;
   height: 28rpx;
   font-size: 28rpx;
-  color: #333333;
+  color: #ffffff;
   text-align: center;
   line-height: 28rpx;
   margin-top: 16rpx;
@@ -114,7 +114,7 @@ page {
   justify-content: center;
   margin-top: 20rpx;
   font-size: 36rpx;
-  color: #333333;
+  color: #ffffff;
 }
 .team-card-value > text {
   height: 100%;
@@ -128,7 +128,7 @@ page {
   width: 100%;
   height: 24rpx;
   font-size: 24rpx;
-  color: #333333;
+  color: #ffffff;
   display: flex;
   flex-wrap: wrap;
   margin-top: 20rpx;
@@ -138,6 +138,16 @@ page {
 }
 .team-card-bottom text:nth-child(1) {
   margin-bottom: 8rpx;
+}
+.team-card-image {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -3;
+  border-radius: 16rpx;
 }
 .team-card-btn {
   margin: 100rpx 0 60rpx;

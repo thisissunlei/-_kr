@@ -1,6 +1,7 @@
 const app = getApp();
 Page({
   data: {
+    KrImgUrl: app.globalData.KrImgUrl,
     showPage: false, //显示整个页面
     showButton: true, //底部button切换
     disabled: false, //分享是否过期
