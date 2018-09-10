@@ -13,7 +13,9 @@ Page({
   },
   cardId: null,
   onLoad(options) {
-    this.cardId = options.cardId;
+      this.cardId = options.cardId;
+  },
+  onShow(options) {
     this.getTeamCardDetail();
   },
   getTeamCardDetail() {
