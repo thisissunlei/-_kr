@@ -13,10 +13,8 @@ Page({
   shareKey: "",
   onLoad: function(options) {
     let that = this;
-    console.log(options);
-    if (options.cardId) {
-      that.cardId = options.cardId;
-    }
+    that.cardId = options.cardId;
+    that.shareKey = options.shareKey;
     wx.showLoading({
       title: "加载中",
       mask: true
@@ -94,21 +92,6 @@ Page({
       }
     });
   },
-  //团队卡数据接口
-  shareInfo: function() {
-    var that = this;
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/sharecard",
-      data: {
-        cardId: that.cardId
-      },
-      success: res => {
-        console.log(res);
-        that.shareKey = res.data.data.shareKey;
-        that.checkShare();
-      }
-    });
-  },
   //分享是否过期接口
   checkShare: function() {
     let that = this;
@@ -119,6 +102,7 @@ Page({
         shareKey: that.shareKey
       },
       success: res => {
+        console.log(res);
         if (!res.data.data) {
           that.setData({
             disabled: true
@@ -169,8 +153,7 @@ Page({
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
               that.getTeamCard();
-              that.shareInfo();
-              console.log(that.data);
+              that.checkShare();
             },
             fail: err => {
               console.log(err);

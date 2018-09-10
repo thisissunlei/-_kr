@@ -8,30 +8,47 @@ Page({
     manageList: []
   },
   cardId: null,
+  shareKey: "",
   page: 1,
   pageSize: 10,
   holderIds: [],
   //分享
   onShareAppMessage: function(res) {
+    var that = this;
     if (res.from === "button") {
-      console.log("来自页面赠送按钮");
-      console.log(res);
       return {
         title: "嗨～，这张卡给你用，想花就花超便捷！",
-        path: "pages/getTeamCard/getTeamCard?cardId=" + this.cardId,
+        path:
+          "pages/getTeamCard/getTeamCard?cardId=" +
+          that.cardId +
+          "&shareKey=" +
+          that.shareKey,
         imageUrl: "../images/orderimg/share.png"
       };
     } else {
-      console.log("来自右上角转发菜单");
       return app.globalData.share_data;
     }
   },
   onLoad: function(options) {
     this.cardId = options.cardId;
     this.getHolderList();
+    this.shareInfo();
   },
   toLower: function(e) {
     console.log(1);
+  },
+  //团队卡数据接口
+  shareInfo: function() {
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/sharecard",
+      data: {
+        cardId: that.cardId
+      },
+      success: res => {
+        that.shareKey = res.data.data.shareKey;
+      }
+    });
   },
   //点击删除用卡人
   delPeople: function() {
