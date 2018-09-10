@@ -332,7 +332,6 @@ Page({
     })
   },
   checkStatus(data,number){
-    console.log('checkStatus----校验状态--1',number)
     let saleStatus = ''
     let cardStatus = 'nothing'
     let saleData = data.myCoupons;
@@ -660,8 +659,6 @@ Page({
         }
       }
     })
-
-    console.log('onShow',saleStatus)
     wx.getStorage({
       key: 'seat_sale_info',
       success: function (res) {
@@ -746,7 +743,6 @@ Page({
             }
           }
           that.isFirst = resData.first || that.isFirst
-          console.log('==========>>>>',store)
           let store = {
             totalAmount:resData.totalAmount
           }
@@ -763,8 +759,6 @@ Page({
         }else if(res.data.code == -5){
           that.setData({
             price_all:totalAmount
-          },function(){
-            console.log('code == -5',totalAmount)
           })
           that.clearCard(data.sankeNum)
           that.setErrorMessage(res.data.message)
@@ -801,7 +795,6 @@ Page({
         let code = res.data.code;
         let cardData = res.data.data.myCards;
         let cardStatus = 'nothing';//暂无
-        console.log('充值团队卡选项--1',that.data.saleStatus)
 
         if(code>0){
           // 判断团队卡
@@ -814,7 +807,6 @@ Page({
             cardContent:{card:false},
           },function(){
             that.setSaleStorage('card')
-            console.log('充值团队卡选项--2',that.data.price_all)
           })
         }
 
@@ -827,7 +819,6 @@ Page({
   },
   clearSale(number){
     let that = this;
-    console.log('执行重置礼品券')
     app.getRequest({
       url: app.globalData.KrUrl + 'api/gateway/kmorder/seat/coupon-teamcard-list',
       data:{
@@ -903,20 +894,6 @@ Page({
     if(data.cardContent.id){
       orderData.cardId = data.cardContent.id;
     }
-    console.log('createOrder',orderData)
-    return;
-      // //调整绑定手机号
-      // wx.setStorage({
-      //         key: "create_seat",
-      //         data: {
-      //           create_seat: orderData
-      //         },
-      //       })
-      //  wx.navigateTo({
-      //         url: '../bindPhone/bindPhone?fun=getSeatData'
-      //       })
-      //  return;
-      // // 调整结束
 
     wx.showLoading({
       title: '加载中',
