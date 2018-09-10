@@ -14,6 +14,7 @@ Page({
   shareKey: "",
   onLoad: function(options) {
     let that = this;
+    console.log(options);
     that.cardId = options.cardId;
     that.shareKey = options.shareKey;
     wx.showLoading({
