@@ -67,14 +67,18 @@ Page({
       tipShow: !this.data.tipShow
     });
   },
-  onLoad: function() {
-    this.getCount();
-    this.getPhone();
-    this.getCounts();
-    this.getActivityCount();
-  },
+  // onLoad: function() {
+  //   this.getCount();
+  //   this.getPhone();
+  //   this.getCounts();
+  //   this.getActivityCount();
+  // },
   onShow() {
-    this.getCouponCount();
+      this.getCount();
+      this.getPhone();
+      this.getCounts();
+      this.getActivityCount();
+      this.getCouponCount();
   },
   getPhone: function() {
     app.getRequest({

@@ -44,7 +44,7 @@ Page({
   //跳转团队卡页面
   jumpToTeamCardList: function() {
     wx.navigateTo({
-      url: "../myTeamCard/myTeamCard"
+      url: "../teamCardDetails/teamCardDetails?cardId=" + this.cardId
     });
   },
   //接受邀请接口
