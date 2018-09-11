@@ -15,7 +15,7 @@
                 <text class="manage-list-time">{{item.ctime}} 成为用卡人</text>
             </view>
             <view class="manage-list-right">
-                <view wx:if="{{flag && !item.leader}}" bindtap="checkedPeople" data-index="{{index}}" data-info="{{item}}" class="manage-list-uncheck {{item.checked ? 'check':''}}"></view>
+                <view wx:if="{{checkeMember && !item.leader}}" bindtap="checkedPeople" data-index="{{index}}" data-info="{{item}}" class="manage-list-uncheck {{item.checked ? 'check':''}}"></view>
             </view>
         </view>
     </view>

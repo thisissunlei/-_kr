@@ -3,7 +3,7 @@ Page({
   data: {
     KrImgUrl: app.globalData.KrImgUrl,
     leader: null, //是否为管理员
-    flag: false, //选择删除的成员开关
+    checkeMember: false, //选择删除的成员开关
     showDel: false, //底部按钮切换
     manageList: []
   },
@@ -37,10 +37,11 @@ Page({
   },
   toLower: function(e) {
     var that = this;
-    console.log(e.detail.direction);
+    // console.log(e.detail.direction);
     if (e.detail.direction == "bottom") {
       if (that.page == that.totalPages) {
-        console.log(1);
+        // console.log(1);
+        return;
       } else {
         that.page = that.page + 1;
         app.getRequest({
@@ -81,7 +82,7 @@ Page({
   //点击删除用卡人
   delPeople: function() {
     this.setData({
-      flag: true,
+      checkeMember: true,
       showDel: true
     });
   },
@@ -113,7 +114,7 @@ Page({
           console.log(res);
           that.getHolderList();
           that.setData({
-            flag: false,
+            checkeMember: false,
             showDel: false
           });
         }
@@ -155,7 +156,7 @@ Page({
     });
     this.setData({
       manageList: newManage,
-      flag: false,
+      checkeMember: false,
       showDel: false
     });
   },

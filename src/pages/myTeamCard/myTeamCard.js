@@ -12,7 +12,6 @@ Page({
     });
     this.getTeamCard();
   },
-  onReady: function() {},
   onShow: function() {
     this.getTeamCard();
   },
@@ -37,13 +36,11 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/list",
       success: res => {
         wx.hideLoading();
-        console.log(res);
-
+        // console.log(res);
         if (res.data.code == 1) {
           let teamcard = Object.assign({}, res);
           let teamCardList = teamcard.data.data;
           teamCardList.map(item => {
-            // console.log(value, key, 11111);
             item.remainAmount = that.toThousands(item.remainAmount);
             item.effectAt = that.toDate(item.effectAt);
             item.expireAt = that.toDate(item.expireAt);
@@ -53,7 +50,6 @@ Page({
             teamCardList: teamCardList,
             showNone: true
           });
-          console.log(that.data.teamCardList);
         }
       },
       fail: err => {
