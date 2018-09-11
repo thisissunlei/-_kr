@@ -162,6 +162,19 @@ Page({
             phase: ''
         })
     },
+    continue() {
+        wx.setStorage({
+            key: "goods_order_ok",
+            data: 'close',
+        })
+        this.setData({
+            passWord: false,
+            payOk: false,
+            phase: ''
+        }, () => {
+            this.getGoodsList()
+        })
+    },
     sure() {
         if ( !!this.data.phase.trim() ) {
             this.setData({
