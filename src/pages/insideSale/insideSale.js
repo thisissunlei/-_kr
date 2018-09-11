@@ -151,9 +151,7 @@ Page({
       }
     });
   },
-  myCatchTouch: function () {
-    return;
-  },
+  
   modalHide(){
     this.setData({
       ruleModal:!this.data.ruleModal
