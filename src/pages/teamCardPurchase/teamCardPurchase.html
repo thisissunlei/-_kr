@@ -92,9 +92,9 @@
                 <text>{{list[swiperIndex].faceValueDecimal}}</text>
             </view>
         </view>
-        <view wx:if="{{!!check && !!cardNum}}" class="teamCard-bottom-right" bindtap="buy">立即购买</view>
-        <view wx:if="{{!check && !!cardNum}}" class="teamCard-bottom-right select">立即购买</view>
-        <view wx:if="{{!cardNum}}" class="teamCard-bottom-right select">已售罄</view>
+        <view wx:if="{{!!check && !!list[swiperIndex].remainCardCount}}" class="teamCard-bottom-right" bindtap="buy">立即购买</view>
+        <view wx:if="{{!check && !!list[swiperIndex].remainCardCount}}" class="teamCard-bottom-right select">立即购买</view>
+        <view wx:if="{{!list[swiperIndex].remainCardCount}}" class="teamCard-bottom-right select">已售罄</view>
     </view>
 
     <view class="teamCard-mark" wx:if="{{passWord || payOk}}"></view>
