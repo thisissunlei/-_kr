@@ -18,9 +18,9 @@
 .teamCard-details {
   position: relative;
   z-index: 1;
-  height: 56rpx;
+  height: 96rpx;
   line-height: 56rpx;
-  padding: 60rpx 0 40rpx;
+  padding: 60rpx 0 0;
   text-align: center;
 }
 .teamCard-details > view {
@@ -71,15 +71,15 @@
   position: relative;
   z-index: 1;
   color: #333333;
-  height: 340rpx;
+  height: 326rpx;
   margin-bottom: 28rpx;
 }
 .teamCard-swiper-card {
   position: relative;
   border-radius: 16rpx;
   color: #ffffff;
-  height: 340rpx;
-  margin: 0 32rpx;
+  height: 326rpx;
+  margin: 0 54rpx;
 }
 .teamCard-swiper-card .tsc-bg {
   position: absolute;
@@ -100,11 +100,27 @@
   position: relative;
   z-index: 1;
   box-sizing: border-box;
-  height: 340rpx;
+  height: 326rpx;
   padding: 40rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
+}
+.teamCard-swiper-card .tsc-con .custom {
+  position: absolute;
+  top: 140rpx;
+  left: -101rpx;
+  margin: 0 0 0 50%;
+  height: 42rpx;
+  width: 202rpx;
 }
 .teamCard-swiper-card .tsc-con .tsc-tit {
   font-size: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  padding-bottom: 24rpx;
+}
+.teamCard-swiper-card .tsc-con .tsc-price {
+  height: 36rpx;
+  line-height: 36rpx;
 }
 .teamCard-swiper-card .tsc-con .tsc-bottom {
   position: absolute;
@@ -200,6 +216,7 @@
 .teamCard-bottom-left {
   flex: 1;
   padding-left: 36rpx;
+  white-space: nowrap;
 }
 .teamCard-bottom-left > view {
   display: inline-block;
@@ -358,8 +375,11 @@
   text-align: center;
   width: 464rpx;
 }
-
-
+.teamCard-pao image {
+  display: block;
+  margin: 0 auto;
+  width: 310rpx;
+}
 
 
 

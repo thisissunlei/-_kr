@@ -1238,7 +1238,7 @@ Page({
       meetingRoomId:data.detailInfo.meetingRoomId,
       themeName:data.order_pay.themeName || data.themeName,
       referrerPhone:data.order_pay.recommendedPhone || '',
-      validAmount:data.priceInfo.totalAmount
+      validAmount:data.priceInfo.totalAmount 
     }
    
     if(data.saleContent.couponId){
@@ -1267,17 +1267,19 @@ Page({
             let code=res.data.code;
             wx.hideLoading();
             switch (code){
-              case -1:
-                  this.setData({
-                    checkMessage:true,
-                    errorMessage:res.data.message
+              case 1:
+                wx.reportAnalytics('confirmorder')
+                _this.weChatPay(res.data.data.wxPaySignInfo);
+                _this.closeDialog();
+                  wx.setStorage({
+                    key:"order_pay",
+                    data:{},
+                    success:function(){
+                        _this.setData({
+                          order_pay:{}
+                        })
+                    }
                   })
-                  setTimeout(function(){
-                    _this.setData({
-                      checkMessage:false,
-                      errorMessage:''
-                    })
-                  },2000)
               break;
               case -2:
                 wx.setStorage({
@@ -1300,7 +1302,10 @@ Page({
                       beginTime:'',
                       endTime:'',
                       hours:0,
-                    }
+                    },
+                    ["priceInfo.totalAmount"]:0,
+                    saleContent:{sale:false},
+                    cardContent:{card:false}
                   })
                   setTimeout(function(){
                     _this.setData({
@@ -1320,12 +1325,30 @@ Page({
                   _this.setData({
                     checkMessage:false,
                     errorMessage:'',
-                    saleContent:{sale:false},
-                    cardContent:{card:false}
+                    saleContent:{sale:false}
+                  },function(){
+                    _this.getIsfirst(_this.data.meeting_time);
                   })
-                  _this.getPrice();
+                 
                 },2000)
-              
+              break;
+              case -5:
+                this.setData({
+                  dialogShow:false,
+                  checkMessage:true,
+                  errorMessage:res.data.message,
+                  saleStatus:'none',
+                })
+                setTimeout(function(){
+                  _this.setData({
+                    checkMessage:false,
+                    errorMessage:'',
+                    cardContent:{card:false}
+                  },function(){
+                    _this.getIsfirst(_this.data.meeting_time);
+                  })
+                 
+                },2000)
               break;
               case 2:
                   wx.showLoading({
@@ -1341,18 +1364,16 @@ Page({
               
               break;
               default:
-                wx.reportAnalytics('confirmorder')
-                _this.weChatPay(res.data.data.wxPaySignInfo);
-                _this.closeDialog();
-                  wx.setStorage({
-                    key:"order_pay",
-                    data:{},
-                    success:function(){
-                        _this.setData({
-                          order_pay:{}
-                        })
-                    }
-                  })
+              this.setData({
+                checkMessage:true,
+                errorMessage:res.data.message
+              })
+              setTimeout(function(){
+                _this.setData({
+                  checkMessage:false,
+                  errorMessage:''
+                })
+              },2000)
               break;
             } 
 

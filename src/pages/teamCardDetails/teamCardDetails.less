@@ -4,12 +4,12 @@ page {
 }
 .teamCard-details .td-card {
   background: #ffffff;
-  height: 380rpx;
+  height: 326rpx;
 }
 .td-card-box {
   position: relative;
-  height: 380rpx;
-  margin: 0 12rpx;
+  height: 326rpx;
+  margin: 0 54rpx;
   transition: .7s;
   transform-style: preserve-3d;
 }
@@ -20,9 +20,13 @@ page {
   position: absolute;
   top: 0;
   left: 0;
-  height: 380rpx;
+  border-radius: 16rpx;
+  color: #ffffff;
+  height: 326rpx;
+  overflow: hidden;
   pointer-events: auto;
   transition: .5s;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
   width: 100%;
 }
 .tdc-before {
@@ -61,22 +65,24 @@ page {
 }
 .tdc-before .bg-icon {
   position: absolute;
-  right: 20rpx;
-  bottom: 28rpx;
+  right: 0;
+  bottom: 0;
   z-index: 2;
-  background: #000000;
   height: 60rpx;
-  width: 74rpx;
+  width: 60rpx;
+}
+.tdc-before .bg-icon image {
+  display: block;
+  height: 40rpx;
+  width: 40rpx;
 }
 .tdc-before .con, .tdc-after .con {
   position: relative;
   z-index: 1;
-  margin: 10rpx 0 0;
-  padding: 30rpx 60rpx 28rpx;
+  padding: 30rpx 28rpx 26rpx;
 }
 .tdc-after .con {
   box-sizing: border-box;
-  color: #151515;
   font-size: 28rpx;
   height: 330rpx;
   line-height: 56rpx;
@@ -86,22 +92,19 @@ page {
   background: #ffffff;
   color: #333333;
   font-size: 32rpx;
-  padding: 20rpx 32rpx 40rpx;
+  padding: 40rpx 32rpx;
 }
 .tdc-before .card-tit {
-  color: #333333;
   font-size: 40rpx;
   overflow: hidden;
   padding-bottom: 16rpx;
 }
 .tdc-before .card-tit .no {
-  color: #333333;
   float: right;
   font-size: 28rpx;
   line-height: 64rpx;
 }
 .tdc-before .card-ye {
-  color: #333333;
   font-size: 28rpx;
   height: 28rpx;
   line-height: 28rpx;
@@ -118,7 +121,7 @@ page {
 }
 .tdc-before .card-time {
   font-size: 24rpx;
-  padding-top: 54rpx;
+  padding-top: 50rpx;
 }
 
 .next-box {
@@ -312,14 +315,13 @@ page {
 }
 
 .tdc-after-tit {
-  color: #333333;
   font-size: 32rpx;
   font-weight: bold;
   height: 56rpx;
   line-height: 56rpx;
 }
 .tdc-after-tit.select {
-  border-top: 1px #4a4a4a dashed;
+  border-top: 1px #fff dashed;
   margin-top: 10rpx;
   padding-top: 10rpx;
 }
