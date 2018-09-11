@@ -179,7 +179,7 @@ Page({
               app.globalData.openid = res.data.data["openid"];
               // console.log(app.globalData.Cookie);
               // console.log(app.globalData.openid);
-              // that.getActivity();
+               that.getActivity();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
