@@ -3,17 +3,7 @@ Page({
   data: {
     KrImgUrl: app.globalData.KrImgUrl,
     showNone: false,
-    teamCardList: [
-      // {
-      //   cardName: "速战速决闪卡",
-      //   cardNo: "NO.123456",
-      //   remainAmount: 5000,
-      //   effectAt: "2018.09.10",
-      //   expireAt: "2019.09.09",
-      //   id: 1,
-      //   cardStatus: "HAS_USER"
-      // },
-    ]
+    teamCardList: []
   },
   onLoad: function() {
     wx.showLoading({
@@ -22,7 +12,6 @@ Page({
     });
     this.getTeamCard();
   },
-  onReady: function() {},
   onShow: function() {
     this.getTeamCard();
   },
@@ -47,12 +36,11 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/list",
       success: res => {
         wx.hideLoading();
-
+        // console.log(res);
         if (res.data.code == 1) {
           let teamcard = Object.assign({}, res);
           let teamCardList = teamcard.data.data;
           teamCardList.map(item => {
-            // console.log(value, key, 11111);
             item.remainAmount = that.toThousands(item.remainAmount);
             item.effectAt = that.toDate(item.effectAt);
             item.expireAt = that.toDate(item.expireAt);
@@ -62,7 +50,6 @@ Page({
             teamCardList: teamCardList,
             showNone: true
           });
-          console.log(that.data.teamCardList);
         }
       },
       fail: err => {

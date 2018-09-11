@@ -1,5 +1,7 @@
 <view class="team-card" wx:if="{{teamCardList.length > 0}}">
     <view class="team-card-list" wx:for="{{teamCardList}}" wx:key>
+        <image class="team-card-image" src="{{item.goodsUrl}}"></image>
+
         <view class="team-card-top">
             <text>{{item.cardName}}</text>
             <text>NO.{{item.cardNo}}</text>
@@ -15,11 +17,10 @@
                 <text></text>
             </view>
         </view>
-        <!-- <image class="team-card-image" src="../images/coupon/background2.jpg"></image> -->
         <view class="jump-card-detail" bindtap="jumpCardDetail" data-id="{{item.id}}"></view>
         <view class="mb" wx:if="{{item.cardStatus != 'HAS_USER'}}"></view>
-        <image class="overdue" wx:if="{{item.cardStatus == 'HAS_FINISH'}}" src="../images/orderimg/used.png"></image>
-        <image class="overdue" wx:if="{{item.cardStatus == 'HSA_EXPRIED'}}" src="../images/orderimg/order-b.png"></image>
+        <image class="overdue" wx:if="{{item.cardStatus == 'HAS_FINISH'}}" src="{{KrImgUrl}}teamCardManage/used.png"></image>
+        <image class="overdue" wx:if="{{item.cardStatus == 'HSA_EXPRIED'}}" src="{{KrImgUrl}}teamCardManage/expire.png"></image>
     </view>
 </view>
 <view class="team-card-none" wx:if="{{showNone && teamCardList.length == 0}}">

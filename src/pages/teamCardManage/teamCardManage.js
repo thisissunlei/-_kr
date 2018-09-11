@@ -3,40 +3,86 @@ Page({
   data: {
     KrImgUrl: app.globalData.KrImgUrl,
     leader: null, //是否为管理员
-    flag: false, //选择删除的成员开关
+    checkeMember: false, //选择删除的成员开关
     showDel: false, //底部按钮切换
     manageList: []
   },
   cardId: null,
+  shareKey: "",
   page: 1,
   pageSize: 10,
+  totalPages: 1,
   holderIds: [],
   //分享
   onShareAppMessage: function(res) {
+    var that = this;
     if (res.from === "button") {
-      console.log("来自页面赠送按钮");
-      console.log(res);
       return {
         title: "嗨～，这张卡给你用，想花就花超便捷！",
-        path: "pages/getTeamCard/getTeamCard?cardId=" + this.cardId,
+        path:
+          "pages/getTeamCard/getTeamCard?cardId=" +
+          that.cardId +
+          "&shareKey=" +
+          that.shareKey,
         imageUrl: "../images/orderimg/share.png"
       };
     } else {
-      console.log("来自右上角转发菜单");
       return app.globalData.share_data;
     }
   },
   onLoad: function(options) {
     this.cardId = options.cardId;
     this.getHolderList();
+    this.shareInfo();
   },
   toLower: function(e) {
-    console.log(1);
+    var that = this;
+    // console.log(e.detail.direction);
+    if (e.detail.direction == "bottom") {
+      if (that.page == that.totalPages) {
+        // console.log(1);
+        return;
+      } else {
+        that.page = that.page + 1;
+        app.getRequest({
+          url:
+            app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/holderlist",
+          data: {
+            cardId: that.cardId,
+            page: that.page,
+            pageSize: that.pageSize
+          },
+          success: res => {
+            let manageList = res.data.data.items;
+            manageList.map(item => {
+              item.ctime = that.toDate(item.ctime);
+              return item;
+            });
+            that.setData({
+              manageList: [].concat(that.data.manageList, manageList)
+            });
+          }
+        });
+      }
+    }
+  },
+  //团队卡数据接口
+  shareInfo: function() {
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/sharecard",
+      data: {
+        cardId: that.cardId
+      },
+      success: res => {
+        that.shareKey = res.data.data.shareKey;
+      }
+    });
   },
   //点击删除用卡人
   delPeople: function() {
     this.setData({
-      flag: true,
+      checkeMember: true,
       showDel: true
     });
   },
@@ -68,7 +114,7 @@ Page({
           console.log(res);
           that.getHolderList();
           that.setData({
-            flag: false,
+            checkeMember: false,
             showDel: false
           });
         }
@@ -86,7 +132,9 @@ Page({
         pageSize: that.pageSize
       },
       success: res => {
-        console.log(res.data.data);
+        console.log(res);
+        that.totalPages = res.data.data.totalPages;
+
         let manageList = res.data.data.items;
         manageList.map(item => {
           item.ctime = that.toDate(item.ctime);
@@ -108,7 +156,7 @@ Page({
     });
     this.setData({
       manageList: newManage,
-      flag: false,
+      checkeMember: false,
       showDel: false
     });
   },
