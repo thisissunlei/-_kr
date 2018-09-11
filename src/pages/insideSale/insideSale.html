@@ -1,4 +1,4 @@
-<view class="g-inside-sale">
+<view class="{{ruleModal?'g-inside-sale not-scroll':'g-inside-sale'}}"  >
     <view class="u-header">
         <image class="u-header-bg" src="{{imgUrl}}/insideSale/banner1.jpg"></image>
         <text class="u-header-txt" bindtap="modalHide" >活动规则</text>
@@ -64,11 +64,11 @@
     </view> 
 
     <!-- 活动规则 -->
-    <view class="m-activity-rule" wx:if="{{ruleModal}}" catchtouchmove="myCatchTouch">
-        <view class="u-activity-rule">
+    <view class="m-activity-rule" wx:if="{{ruleModal}}" >
+        <view class="u-activity-rule" >
             <image class="u-activity-rule-close" mode="widthFix" bindtap="modalHide"
                 src="https://web.krspace.cn/kr-meeting/images/activity/close.png"></image>
-            <view class="u-rule-content">
+            <view class="u-rule-content" >
                 <view class="u-rule-title">· 活动规则 ·</view>
                 <view class="u-rule-txt">1. 此活动仅限氪空间内部员工参与，请勿外传；</view>
                 <view class="u-rule-txt">2. 活动时间：截止至2018年9月30日24:00:00 ;</view>
