@@ -6,7 +6,7 @@
     </view>
     <view wx:if="{{list.length > 0}}">
         <view class="teamCard-details" wx:if="{{list[swiperIndex].cardType == 'NORMAL'}}">
-            <view class="td-percentage">
+            <view class="td-percentage" wx:if="{{list[swiperIndex].cutDownNum > 0}}">
                 <view class="td-pBg">
                     <image src="{{KrImgUrl}}teamCardPurchase/tip.png"></image>
                 </view>
@@ -87,7 +87,7 @@
                 <text>¥</text>
                 <text>{{list[swiperIndex].salePriceDecimal}}</text>
             </view>
-            <view class="tbl-Oprice" wx:if="{{list[swiperIndex].faceValueDecimal}}">
+            <view class="tbl-Oprice" wx:if="{{list[swiperIndex].faceValueDecimal && list[swiperIndex].cutDownNum > 0}}">
                 <text>¥</text>
                 <text>{{list[swiperIndex].faceValueDecimal}}</text>
             </view>
