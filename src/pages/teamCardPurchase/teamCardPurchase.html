@@ -2,9 +2,9 @@
 
 <view class="teamCard">
     <view class="teamCard-topBg">
-        <image src="{{KrImgUrl}}teamCardPurchase/bg.png"></image>
+        <image src="{{KrImgUrl}}teamCardPurchase/bg0.png"></image>
     </view>
-    <view class="teamCard-details">
+    <view class="teamCard-details" wx:if="{{list[swiperIndex].cardType == 'NORMAL'}}">
         <view class="td-percentage">
             <view class="td-pBg">
                 <image src="{{KrImgUrl}}teamCardPurchase/tip.png"></image>
@@ -15,14 +15,17 @@
         <view class="td-price">{{list[swiperIndex].salePriceDecimal}}</view>
         <view class="td-surplus">剩余{{list[swiperIndex].remainCardCount}}张</view>
     </view>
-    <swiper bindchange="swiperChange" class="teamCard-swiper">
+    <view wx:else class="teamCard-details teamCard-pao">
+        <image mode="widthFix" src="{{KrImgUrl}}teamCardPurchase/pao.png"></image>
+    </view>
+    <swiper bindchange="swiperChange" current="{{swiperIndex}}" class="teamCard-swiper">
         <block wx:for="{{list}}" wx:key="{{index}}">
             <swiper-item>
                 <view class="teamCard-swiper-card">
                     <view class="tsc-bg">
-                        <image mode="widthFix" src="{{KrImgUrl}}teamCardPurchase/card0.png"></image>
+                        <image mode="widthFix" wx:if="{{!!item.goodsUrl}}" src="{{item.goodsUrl}}"></image>
                     </view>
-                    <view class="tsc-con">
+                    <view class="tsc-con" wx:if="{{item.cardType == 'NORMAL'}}">
                         <view class="tsc-tit">{{item.cardName}}</view>
                         <view class="tsc-price">
                             <text style="font-size: 24rpx;">面额: </text>
@@ -41,6 +44,9 @@
                                 <text style="font-size: 18rpx;">天</text>
                             </view>
                         </view>
+                    </view>
+                    <view class="tsc-con" wx:else>
+                        <image class="custom" src="{{KrImgUrl}}teamCardPurchase/custom.png"></image>
                     </view>
                 </view>
             </swiper-item>
@@ -106,7 +112,7 @@
             <image class="pay-ok-img" src="{{KrImgUrl}}teamCardPurchase/icon_correct.png"></image>
             <view class="pay-ok-txt">购买成功</view>
             <view class="popBox-bottom">
-                <view bindtap="cancel">继续购买</view>
+                <view bindtap="continue">继续购买</view>
                 <view bindtap="check">查看团队卡</view>
             </view>
         </view>
