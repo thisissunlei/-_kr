@@ -4,21 +4,24 @@
     <view class="teamCard-topBg">
         <image src="{{KrImgUrl}}teamCardPurchase/bg0.png"></image>
     </view>
-    <view class="teamCard-details" wx:if="{{list[swiperIndex].cardType == 'NORMAL'}}">
-        <view class="td-percentage">
-            <view class="td-pBg">
-                <image src="{{KrImgUrl}}teamCardPurchase/tip.png"></image>
+    <view wx:if="{{list.length > 0}}">
+        <view class="teamCard-details" wx:if="{{list[swiperIndex].cardType == 'NORMAL'}}">
+            <view class="td-percentage">
+                <view class="td-pBg">
+                    <image src="{{KrImgUrl}}teamCardPurchase/tip.png"></image>
+                </view>
+                <view class="td-pNum">-{{list[swiperIndex].cutDownNum}}%</view>
             </view>
-            <view class="td-pNum">-{{list[swiperIndex].cutDownNum}}%</view>
+            <view class="td-text">售价：¥</view>
+            <view class="td-price">{{list[swiperIndex].salePriceDecimal}}</view>
+            <view class="td-surplus">剩余{{list[swiperIndex].remainCardCount}}张</view>
         </view>
-        <view class="td-text">售价：¥</view>
-        <view class="td-price">{{list[swiperIndex].salePriceDecimal}}</view>
-        <view class="td-surplus">剩余{{list[swiperIndex].remainCardCount}}张</view>
+        <view wx:else class="teamCard-details teamCard-pao">
+            <image mode="widthFix" src="{{KrImgUrl}}teamCardPurchase/pao.png"></image>
+        </view>
     </view>
-    <view wx:else class="teamCard-details teamCard-pao">
-        <image mode="widthFix" src="{{KrImgUrl}}teamCardPurchase/pao.png"></image>
-    </view>
-    <swiper bindchange="swiperChange" current="{{swiperIndex}}" class="teamCard-swiper">
+
+    <swiper wx:if="{{list.length > 0}}" bindchange="swiperChange" current="{{swiperIndex}}" class="teamCard-swiper">
         <block wx:for="{{list}}" wx:key="{{index}}">
             <swiper-item>
                 <view class="teamCard-swiper-card">
@@ -52,19 +55,19 @@
             </swiper-item>
         </block>
     </swiper>
-    <view class="teamCard-swiper-page">
+    <view class="teamCard-swiper-page" wx:if="{{list.length > 0}}">
         <text wx:for="{{list}}" wx:key="{{index}}" class="{{swiperIndex == index?'select':''}}"></text>
     </view>
-    <view class="note-tit">购买须知</view>
-    <view class="note-con">1.团队卡为电子卡，购买成功后可到“我的团队卡”中查看；</view>
-    <view class="note-con">2.可同时购买多张团队卡；</view>
-    <view class="note-con">3.购买团队卡仅支持微信支付；</view>
-    <view class="note-con">4.每张卡均可在使用人数范围内同时授权多人使用；</view>
-    <view class="note-con">5.团队成员可使用团队卡余额预订自由座内商品，结算时选择团队卡即可，如卡内余额不足，剩余金额可使用微信支付；</view>
-    <view class="note-con">6.团队成员可在团队卡“消费记录”中实时查看使用记录；</view>
-    <view class="note-con">7.购买后请在有效期内用完，团队卡不可充值，不退不换；</view>
-    <view class="note-con">8.有效期：每张团队卡购买后自动激活，并在团队卡规定有效期到期后失效。例：您在2018年9月10日购买了一张有效期30天的团队卡，该卡会在2018年10月11日失效；</view>
-    <view class="note-con">9.如需开发票或定制团队卡，可在线联系客服，时间为工作日10:00——19:00。</view>
+    <view class="{{list.length > 0? 'note-tit': 'note-tit select'}}">购买须知</view>
+    <view class="note-con">1.团队套餐为电子商品，购买成功后可到“我的团队套餐”中查看；</view>
+    <view class="note-con">2.购买团队套餐仅支持微信支付；</view>
+    <view class="note-con">3.每种套餐购买后可在使用人数范围内同时授权多人使用；</view>
+    <view class="note-con">4.团队成员可使用套餐余额预订自由座内其它商品，结算时选择一个套餐即可，如套餐内余额不足，剩余金额可使用微信支付；</view>
+    <view class="note-con">5.团队成员可在团队套餐“消费记录”中实时查看使用记录；</view>
+    <view class="note-con">6.购买后请在有效期内用完，套餐不支持充值，不能退换，不可延期；</view>
+    <view class="note-con">7.有效期：每种套餐购买后自动激活，并在套餐规定有效期到期后失效。例：您在2018年9月10日购买了一种有效期30天的团队套餐，该套餐会在2018年10月11日失效；</view>
+    <view class="note-con">8.如需开发票或定制团队套餐，可在线联系客服，时间为工作日10:00——19:00；</view>
+    <view class="note-con">9.可同时持有多份团队套餐。</view>
 
     <view class="u-protocol">
         <view class="u-protocol-content">
@@ -77,14 +80,14 @@
         </view>
     </view>
 
-    <view class="teamCard-bottom">
+    <view class="teamCard-bottom" wx:if="{{list.length > 0}}">
         <view class="teamCard-bottom-left">
-            <view class="tbl-txt">应付：</view>
-            <view class="tbl-price">
+            <view class="tbl-txt" wx:if="{{!!list[swiperIndex].salePriceDecimal || !!list[swiperIndex].faceValueDecimal}}">应付：</view>
+            <view class="tbl-price" wx:if="{{!!list[swiperIndex].salePriceDecimal}}">
                 <text>¥</text>
                 <text>{{list[swiperIndex].salePriceDecimal}}</text>
             </view>
-            <view class="tbl-Oprice">
+            <view class="tbl-Oprice" wx:if="{{list[swiperIndex].faceValueDecimal}}">
                 <text>¥</text>
                 <text>{{list[swiperIndex].faceValueDecimal}}</text>
             </view>
@@ -92,37 +95,37 @@
         <view wx:if="{{!!check && !!cardNum}}" class="teamCard-bottom-right" bindtap="buy">立即购买</view>
         <view wx:if="{{!check && !!cardNum}}" class="teamCard-bottom-right select">立即购买</view>
         <view wx:if="{{!cardNum}}" class="teamCard-bottom-right select">已售罄</view>
+    </view>
 
-        <view class="teamCard-mark" wx:if="{{passWord || payOk}}"></view>
-        <view class="teamCard-popBox" wx:if="{{passWord}}">
-            <view class="popBox-tit">
-                <text>请输入购买口令</text>
-                <image src="{{KrImgUrl}}teamCardPurchase/icon_wp.png"></image>
-            </view>
-            <view class="input">
-                <input value="{{phase}}" bindinput="bindKeyInput"/>
-            </view>
-            <view class="input-tip">请联系客服获取口令</view>
-            <view class="popBox-bottom">
-                <view bindtap="cancel">取消</view>
-                <view bindtap="sure">确定</view>
-            </view>
+    <view class="teamCard-mark" wx:if="{{passWord || payOk}}"></view>
+    <view class="teamCard-popBox" wx:if="{{passWord}}">
+        <view class="popBox-tit">
+            <text>请输入购买口令</text>
+            <image src="{{KrImgUrl}}teamCardPurchase/icon_wp.png"></image>
         </view>
-        <view class="teamCard-popBox" wx:if="{{payOk}}">
-            <image class="pay-ok-img" src="{{KrImgUrl}}teamCardPurchase/icon_correct.png"></image>
-            <view class="pay-ok-txt">购买成功</view>
-            <view class="popBox-bottom">
-                <view bindtap="continue">继续购买</view>
-                <view bindtap="check">查看团队卡</view>
-            </view>
+        <view class="input">
+            <input value="{{phase}}" bindinput="bindKeyInput"/>
         </view>
-        <view class="teamCard-mark select" wx:if="{{!!payFail || !!tip}}"></view>
-        <view class="buy-fail" wx:if="{{!!payFail}}">
-            <image class="pay-ok-img" src="../images/public/error.png"></image>
-            <view>购买失败</view>
+        <view class="input-tip">请联系客服获取口令</view>
+        <view class="popBox-bottom">
+            <view bindtap="cancel">取消</view>
+            <view bindtap="sure">确定</view>
         </view>
-        <view class="buy-fail passWord-error" wx:if="{{!!tip}}">
-            <view>{{tip}}</view>
+    </view>
+    <view class="teamCard-popBox" wx:if="{{payOk}}">
+        <image class="pay-ok-img" src="{{KrImgUrl}}teamCardPurchase/icon_correct.png"></image>
+        <view class="pay-ok-txt">购买成功</view>
+        <view class="popBox-bottom">
+            <view bindtap="continue">继续购买</view>
+            <view bindtap="check">查看团队卡</view>
         </view>
+    </view>
+    <view class="teamCard-mark select" wx:if="{{!!payFail || !!tip}}"></view>
+    <view class="buy-fail" wx:if="{{!!payFail}}">
+        <image class="pay-ok-img" src="../images/public/error.png"></image>
+        <view>购买失败</view>
+    </view>
+    <view class="buy-fail passWord-error" wx:if="{{!!tip}}">
+        <view>{{tip}}</view>
     </view>
 </view>
