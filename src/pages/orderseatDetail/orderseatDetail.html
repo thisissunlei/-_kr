@@ -72,23 +72,7 @@
           <!-- 团队卡 -->
           <view class="u-meeting" style="border-bottom:1rpx solid #F6F6F6" wx:if="{{detailInfo.cardName}}">
             <view class="u-left">团队卡 </view>
-            <!-- <view class="u-meet-text meet-theme">
-                <view class="u-meet-card sale-content">
-                    <view class="team-name-box">{{detailInfo.cardName}}</view>
-                    <image class="team-name-right" style="width:24rpx;" src="{{imgUrl}}teamName.png"></image>
-                </view>
-                <view class="u-meet-money sale-content">
-                    <view class="u-sale-unit" style="vertical-align:top">
-                        -
-                    </view>
-                    <view class="u-sale-unit">
-                        ¥
-                    </view>
-                    <view style="display:inline-block">{{detailInfo.cardDeductAmount}}</view>
-                </view>
-
-            </view>
- -->
+        
             <view class="u-right">
                 <view class="u-meet-card sale-content">
                     <view class="team-name-box">{{detailInfo.cardName}}</view>
@@ -114,7 +98,7 @@
                      <view class="u-sale-unit">
                         ¥
                       </view>
-                      <view style="display:inline-block">1</view>
+                      <view style="display:inline-block">{{detailInfo.paidAmount}}</view>
                     </view>
                 </view>
                 <view class="u-bottom">
@@ -180,18 +164,7 @@
     <view class="scoll-x"></view>
 
     <!-- 隐藏的 预计到场时间 -->
-    <view class="section" wx:if="{{timeFlag}}">
-        <!-- <view class="section_top" bindtap="jumpSetTime"></view>
-        <view class="section_bottom">
-            <view class="section_title">预计到场时间</view>
-        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
-          <view class="picker">
-            {{time}}
-          </view>
-        </picker>
-        </view> -->
-        
-    </view>
+    <view class="section" wx:if="{{timeFlag}}"></view>
 
   <!-- 散座详情 -->
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}" catchtouchmove="preventTouchMove">
