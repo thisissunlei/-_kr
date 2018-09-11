@@ -90,7 +90,7 @@
 <template name="teamCard">
   <view class="my-card-list">
     <image class="checked-logo" wx:if="{{item.checked}}" src="{{imgUrl}}teamCardBg/checked.png" mode="scaleToFill"></image>
-    <!-- <image class="team-card-bg" src="{{imgUrl}}teamCardPurchase/card0.png"></image> -->
+    <image class="team-card-bg" src="{{item.goodsUrl}}"></image>
     <view class="card-content" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}" >
       <view class="card-first-content">
         <view class="card-name">{{item.cardName}}</view>
