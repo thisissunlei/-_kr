@@ -6,14 +6,14 @@
     </view>
 
     <view class="unuse-bg"></view>
-    <view class="unuse-card" bindtap="notUse">不使用团队卡~</view>
+    <view class="unuse-card" bindtap="notUse">不使用团队卡</view>
     
 </view>
 
 <view class="my-meeting-list-none" wx:if="{{(!list || list.length == 0) && !loading}}">
     <view class="content-none">
         <image class="none-img" src="../images/coupon/none.png" background-size="cover"></image>
-        <text class="warn">还没有团队卡哦~~</text>
+        <text class="warn">还没有团队卡哦~</text>
         <text class="buy-card" bindtap="jumpBuyCard">购买团队卡</text>
     </view>
 </view>
