@@ -87,7 +87,10 @@ page {
 }
 .top-date .left .date-item-actived .day,
 .top-date .left .date-item-actived .week {
-  color: #f5a623 !important;
+  color: #333 !important;
+}
+.top-date .left .date-item-actived .week {
+  font-weight: 700;
 }
 .top-date .left .date-item .week {
   font-size: 24rpx;
@@ -97,7 +100,7 @@ page {
 }
 .top-date .left .date-item .day {
   font-size: 30rpx;
-  color: #666;
+  color: #333;
   width: 88rpx;
   text-align: center;
   font-weight: 600;
@@ -112,7 +115,8 @@ page {
 .top-date .left .date-item-actived .bottom-border {
 }
 .bottom-border-activied {
-  background-image: -webkit-linear-gradient(0deg, #f79c1c, #ffd24c) !important;
+
+  background-image: -webkit-linear-gradient(-217deg, #FFDF00 0%, #FFEB00 100%) !important;
 }
 .list-outer {
   background: #f3f3f3;
@@ -554,13 +558,27 @@ page {
   color: #222;
 }
 .now {
-  font-family: PingFangSC-Medium;
-  color: #f5a623;
+  position: relative;
+}
+.now:after{
+    content:'';
+    position: absolute;
+    width:10rpx;
+    height:10rpx;
+    background-image: linear-gradient(-217deg, #FFDF00 0%, #FFEB00 100%);
+    display: inline-block;
+    bottom:4rpx;
+    left: 30rpx;
+    border-radius: 10rpx;
 }
 .active {
   border-radius: 50%;
   background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
   color: #624d17;
+  
+}
+.active:after{
+    display: none;
 }
 .date .day {
   height: 70rpx;

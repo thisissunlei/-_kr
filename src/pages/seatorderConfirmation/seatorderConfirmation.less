@@ -1099,7 +1099,29 @@ page {
 .now {
   font-family: PingFangSC-Medium;
   font-size: 26rpx;
-  color: #f5a623;
+}
+.now {
+  position: relative;
+}
+.now:after{
+    content:'';
+    position: absolute;
+    width:10rpx;
+    height:10rpx;
+    background-image: linear-gradient(-217deg, #FFDF00 0%, #FFEB00 100%);
+    display: inline-block;
+    bottom:0rpx;
+    left: 35rpx;
+    border-radius: 10rpx;
+}
+.active {
+  border-radius: 50%;
+  background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
+  color: #624d17;
+  
+}
+.active:after{
+    display: none;
 }
 .active {
   background-image: linear-gradient(57deg, #f79c1c 0%, #fad961 100%);
@@ -1130,7 +1152,7 @@ page {
   width: 100%;
   height: 32rpx;
   text-align: center;
-  bottom: 17rpx;
+  bottom: 20rpx;
 }
 .wrapper {
   width: 100%;
@@ -1222,11 +1244,6 @@ page {
   color: #222222;
 }
 
-.now {
-  font-family: PingFangSC-Medium;
-  font-size: 26rpx;
-  color: #f5a623;
-}
 .active {
   background-image: linear-gradient(57deg, #ffdf00 0%, #ffeb00 100%);
   border-radius: 50%;
