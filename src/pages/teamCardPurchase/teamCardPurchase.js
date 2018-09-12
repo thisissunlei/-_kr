@@ -4,7 +4,6 @@ Page({
         swiperIndex: 0,
         check: true,
         btn_bool: true,
-        cardNum: 10,
         passWord: false,
         payOk: false,
         KrImgUrl: app.globalData.KrImgUrl,
@@ -13,6 +12,7 @@ Page({
         payFail: false,
         tip: ''
     },
+    orderId: null,
     onLoad(options) {
         wx.getSetting({
             success: (res) => {
@@ -29,11 +29,12 @@ Page({
         wx.getStorage({
             key: 'goods_order_ok',
             success: (res) => {
-                if(res.data === 'ok'){
+                if(res.data.state === 'ok'){
+                    this.orderId = res.data.orderId
                     this.setData({
                         payOk: true
                     })
-                } else if ( res.data === 'no' ) {
+                } else if ( res.data.state === 'no' ) {
                     this.setData({
                         payFail: true
                     })
@@ -121,6 +122,7 @@ Page({
                         signType: res.data.data.wxPaySignInfo.signType,
                         timeStamp: res.data.data.wxPaySignInfo.timestamp,
                         success: (response) => {
+                            this.orderId = res.data.data.orderId
                             this.setData({
                                 payOk: true
                             })
@@ -154,7 +156,9 @@ Page({
     cancel() {
         wx.setStorage({
             key: "goods_order_ok",
-            data: 'close',
+            data: {
+                state: 'close'
+            },
         })
         this.setData({
             passWord: false,
@@ -165,7 +169,9 @@ Page({
     continue() {
         wx.setStorage({
             key: "goods_order_ok",
-            data: 'close',
+            data: {
+                state: 'close'
+            },
         })
         this.setData({
             passWord: false,
@@ -194,16 +200,36 @@ Page({
         }
     },
     check() {
-        wx.setStorage({
-            key: "goods_order_ok",
-            data: 'close',
-        })
-        this.setData({
-            passWord: false,
-            payOk: false
-        })
-        wx.navigateTo({
-            url: '../myTeamCard/myTeamCard'
+        wx.showLoading({
+            mask: true
+        });
+        app.getRequest({
+            url: app.globalData.KrUrl + "api/gateway/kmteamcard/order/card-id",
+            methods: "GET",
+            data: {
+                orderId: this.orderId
+            },
+            success: res => {
+                if ( res.data.code === 1 ) {
+                    wx.hideLoading();
+                    wx.setStorage({
+                        key: "goods_order_ok",
+                        data: {
+                            state: 'close'
+                        },
+                    })
+                    this.setData({
+                        passWord: false,
+                        payOk: false
+                    })
+                    wx.navigateTo({
+                        url: '../teamCardDetails/teamCardDetails?cardId='+res.data.data
+                    })
+                } else {
+                    this.check()
+                }
+            },
+            fail: res => {}
         })
     },
     bindKeyInput(e) {
@@ -220,6 +246,16 @@ Page({
                     res.data.data.forEach((val, i) => {
                         val.salePriceDecimal = val.salePriceDecimal.toString().replace(/(\d{1,3})(?=(\d{3})+$)/g,'$1,')
                         val.faceValueDecimal = val.faceValueDecimal.toString().replace(/(\d{1,3})(?=(\d{3})+$)/g,'$1,')
+                        // val.cardNum
+                        if ( !val.remainCardCount ) {
+                            if ( val.quantityType == 'LIMIT' ) {
+                                val.cardNum = false
+                            } else {
+                                val.cardNum = true
+                            }
+                        } else {
+                            val.cardNum = true
+                        }
                     })
                 } else {
                     res.data.data = []

@@ -320,14 +320,20 @@ var goodsOrder = function (goods_order,_this,num) {
                     success: (response) => {
                         wx.setStorage({
                             key: "goods_order_ok",
-                            data: 'ok',
+                            data: {
+                                state: 'ok',
+                                orderId: res.data.data.orderId
+                            },
                         })
                         navBack(num)
                     },
                     fail: (response) => {
                         wx.setStorage({
                             key: "goods_order_ok",
-                            data: 'no',
+                            data: {
+                                state: 'no',
+                                orderId: res.data.data.orderId
+                            },
                         })
                         navBack(num)
                     },
@@ -338,7 +344,9 @@ var goodsOrder = function (goods_order,_this,num) {
         fail: res => {
             wx.setStorage({
                 key: "goods_order_ok",
-                data: 'no',
+                data: {
+                    state: 'no'
+                },
             })
             navBack(num)
         }
