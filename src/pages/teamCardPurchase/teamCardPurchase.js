@@ -51,6 +51,15 @@ Page({
             }
         })
     },
+    onUnload() {
+        wx.setStorage({
+            key: "goods_order_ok",
+            data: {
+                state: 'close',
+
+            },
+        })
+    },
     // 用户权限
     onGotUserInfo(e) {
         if (e.detail.userInfo) {
@@ -123,6 +132,13 @@ Page({
                         timeStamp: res.data.data.wxPaySignInfo.timestamp,
                         success: (response) => {
                             this.orderId = res.data.data.orderId
+                            wx.setStorage({
+                                key: "goods_order_ok",
+                                data: {
+                                    state: 'ok',
+                                    orderId: this.orderId
+                                },
+                            })
                             this.setData({
                                 payOk: true
                             })
