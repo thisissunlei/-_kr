@@ -5,7 +5,8 @@ Page({
     leader: null, //是否为管理员
     checkeMember: false, //选择删除的成员开关
     showDel: false, //底部按钮切换
-    manageList: []
+    manageList: [],
+    showConfirm: true
   },
   cardId: null,
   shareKey: "",
@@ -34,6 +35,18 @@ Page({
     this.cardId = options.cardId;
     this.getHolderList();
     this.shareInfo();
+  },
+  onShow: function() {
+    // let that = this;
+    // if (that.data.manageList.length > 1) {
+    //   that.setData({
+    //     showConfirm: false
+    //   });
+    // } else {
+    //   that.setData({
+    //     showConfirm: true
+    //   });
+    // }
   },
   toLower: function(e) {
     var that = this;
@@ -144,6 +157,15 @@ Page({
           manageList: manageList,
           leader: res.data.data.leader
         });
+        if (manageList.length > 1) {
+          that.setData({
+            showConfirm: false
+          });
+        } else {
+          that.setData({
+            showConfirm: true
+          });
+        }
       }
     });
   },
@@ -170,6 +192,18 @@ Page({
     that.setData({
       manageList: newManage
     });
+    // let result = newManage.some(item => {
+    //   return item.checked;
+    // });
+    // if (result) {
+    //   that.setData({
+    //     showConfirm: false
+    //   });
+    // } else {
+    //   that.setData({
+    //     showConfirm: true
+    //   });
+    // }
   },
   //时间戳格式化
   toDate: function(number) {
