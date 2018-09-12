@@ -2,7 +2,11 @@
     <view class="u-userinfo">
         <image class="u-userinfo-avatar" src="{{userInfo.wechatAvatar}}" background-size="cover"></image>
         <view class="u-userinfo-nickname">{{userInfo.wechatNick}}</view>
-        <view class="u-userinfo-phone">{{userInfo.phone}}</view>
+        <view class="u-userinfo-phone" wx:if="{{!!userInfo.phone.length}}">{{userInfo.phone}}</view>
+        <view class="bind-box" wx:if="{{!userInfo.phone.length}}">
+            <div class="phone-button" >点击登录</div>
+            <button open-type="getPhoneNumber" class="get-phone-num" bindgetphonenumber="getPhoneNumber" >点击登录</button> 
+        </view>
     </view>
     <view class="u-my-order">
         <view class="u-my-order-head">

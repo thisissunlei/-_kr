@@ -36,6 +36,47 @@ Page({
       }
     });
   },
+  getPhoneNumber: function(e) { 
+    let from = this.data.from;
+    let that = this;
+    let fun = this.data.fun;
+    let data = {
+      encryptedData:e.detail.encryptedData,
+      iv:e.detail.iv
+    }
+    
+    if(e.detail.errMsg === 'getPhoneNumber:ok'){
+      this.bindwxPhone(data)
+    }
+  } ,
+  bindwxPhone(data){
+    let that = this;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/wx/auth/bind-phone',
+        methods:"GET",
+        data:data,
+        success:(res)=>{
+          let code = res.data.code;
+          if(code>0){
+            that.getPhone();
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+        },
+        fail:(res)=>{
+        }
+      })
+  },
   mysan() {
     wx.navigateTo({
       url: "../mysanzuo/mysanzuo"
