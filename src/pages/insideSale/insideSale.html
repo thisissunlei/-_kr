@@ -54,10 +54,10 @@
 
         </view>
     </view>
-     <!-- <view class="u-footer">
+     <view class="u-footer" wx:if="{{btn_bool}}">
         <view class="u-only-btn" bindtap="goToIndex">了解自由座</view>
-     </view>  -->
-    <view class="u-footer">
+     </view> 
+    <view class="u-footer" wx:if="{{!btn_bool}}">
         <view class="u-seat" bindtap="goToIndex">了解自由座</view>
         <view class="u-view-sale" bindtap="goToSale">查看礼券</view>
         <view class="u-use-sale" bindtap="goToIndex">使用礼券</view>
@@ -76,10 +76,12 @@
                 <view class="u-rule-txt">4. 每种礼券每人限领取1次；</view>
                 <view class="u-rule-txt">5. 活动最终解释权归氪空间自由座所有。</view>
                 <view class="u-rule-title">· 礼券使用须知 ·</view>
-                <view class="u-rule-txt">1.礼券适用于氪空间自由座小程序内的所有商品；</view>
-                <view class="u-rule-txt">2.礼券需在有效期内使用，过期无效；</view>
-                <view class="u-rule-txt">3.每个订单限使用1张礼券不找零；</view>
-                <view class="u-rule-txt">4.礼券需在有效期内使用，过期无效。</view>
+                <view class="u-rule-txt">1. 此券适用于预订氪空间自由座的散座和会议室；</view>
+                <view class="u-rule-txt">2. 此券单次可用1张不找零；</view>
+                <view class="u-rule-txt">3. 请在有效期内使用，过期无效；</view>
+                <view class="u-rule-txt">4. 不与新人1元体验活动同享；</view>
+                <view class="u-rule-txt">5. 此券可转赠他人；</view>
+                <view class="u-rule-txt">6. 最终解释权归氪空间。</view>
             </view>
         </view>
     </view>
