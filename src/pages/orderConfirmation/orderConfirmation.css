@@ -67,7 +67,7 @@ page {
   margin-top: 40rpx;
 }
 .u-meet-price {
-  color: #151515;
+  color: red;
   display: inline;
 }
 .u-cancal-price {
@@ -80,7 +80,7 @@ page {
 }
 .u-meet-uint-info {
   display: inline;
-  color: #999999;
+  color: red;
   font-weight: 400;
 }
 .u-order-time {
