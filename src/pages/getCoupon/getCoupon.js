@@ -150,6 +150,7 @@ Page({
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
               that.getCouponList();
+              this.getInfo();
             },
             fail: err => {
               console.log(err);
