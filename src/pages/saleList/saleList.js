@@ -32,7 +32,7 @@ Page({
           wx.getStorage({
               key: 'meeting_order_sale',
               success: (res) => {
-                  this.checked = res.data
+                  this.checked = res.data.sale || false
                   this.getMeetList()
               },
               fail: (res) => {

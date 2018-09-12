@@ -602,17 +602,17 @@ Page({
                 case -4:
                   if(saleStatus === 'chosen'){
                     _this.clearStatus(data,'sale');
-                    _this.setErrorMessage('优惠券不可用，请重新选择');
+                    _this.setErrorMessage(res.data.message);
                       wx.getStorage({
                         key: 'price_info',
                         success: function(res) {
                           _this.setData({
                             cardContent:{
-                              name:res.data.data.cardName,
-                              remainAmountDecimal:res.data.data.cardDeductAmount,
-                              cardId:res.data.data.cardId
+                              name:res.data.cardName,
+                              remainAmountDecimal:res.data.cardDeductAmount,
+                              cardId:res.data.cardId
                             },
-                            priceInfo:res.data.data,
+                            priceInfo:res.data,
                           })
                         }
                       })
@@ -621,16 +621,16 @@ Page({
                 case -5:
                   if(cardStatus === 'chosen'){
                     _this.clearStatus(data,'card');
-                    _this.setErrorMessage('团队卡不可用，请重新选择');
+                    _this.setErrorMessage(res.data.message);
                     wx.getStorage({
                       key: 'price_info',
                       success: function(res) {
                         _this.setData({
                           saleContent:{
-                            couponId:res.data.data.couponId,
-                            amount:res.data.data.couponAmount
+                            couponId:res.data.couponId,
+                            amount:res.data.couponAmount
                           },
-                          priceInfo:res.data.data
+                          priceInfo:res.data
                         })
                       }
                     })
@@ -740,8 +740,6 @@ Page({
         cardStatus:cardStatus,
         cardCount:cardData.cardUsableCount,
         cardContent:{card:false},
-      },function(){
-        console.log('充值团队卡选项--2',this.data.cardContent)
       })
     }
   },

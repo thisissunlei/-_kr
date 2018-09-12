@@ -10,11 +10,11 @@
                 <view class="td-pBg">
                     <image src="{{KrImgUrl}}teamCardPurchase/tip.png"></image>
                 </view>
-                <view class="td-pNum">-{{list[swiperIndex].cutDownNum}}%</view>
+                <view class="td-pNum">-<text style="font-size: 24rpx;font-weight: bold;">{{list[swiperIndex].cutDownNum}}</text>%</view>
             </view>
             <view class="td-text">售价：¥</view>
             <view class="td-price">{{list[swiperIndex].salePriceDecimal}}</view>
-            <view class="td-surplus">剩余{{list[swiperIndex].remainCardCount}}张</view>
+            <view class="td-surplus" wx:if="{{list[swiperIndex].quantityType == 'LIMIT'}}">剩余{{list[swiperIndex].remainCardCount}}张</view>
         </view>
         <view wx:else class="teamCard-details teamCard-pao">
             <image mode="widthFix" src="{{KrImgUrl}}teamCardPurchase/pao.png"></image>
@@ -26,7 +26,7 @@
             <swiper-item>
                 <view class="teamCard-swiper-card">
                     <view class="tsc-bg">
-                        <image mode="widthFix" wx:if="{{!!item.goodsUrl}}" src="{{item.goodsUrl}}"></image>
+                        <image wx:if="{{!!item.goodsUrl}}" src="{{item.goodsUrl}}"></image>
                     </view>
                     <view class="tsc-con" wx:if="{{item.cardType == 'NORMAL'}}">
                         <view class="tsc-tit">{{item.cardName}}</view>
@@ -92,9 +92,12 @@
                 <text>{{list[swiperIndex].faceValueDecimal}}</text>
             </view>
         </view>
-        <view wx:if="{{!!check && !!list[swiperIndex].remainCardCount}}" class="teamCard-bottom-right" bindtap="buy">立即购买</view>
-        <view wx:if="{{!check && !!list[swiperIndex].remainCardCount}}" class="teamCard-bottom-right select">立即购买</view>
-        <view wx:if="{{!list[swiperIndex].remainCardCount}}" class="teamCard-bottom-right select">已售罄</view>
+
+
+
+        <view wx:if="{{!!check && !!list[swiperIndex].cardNum}}" class="teamCard-bottom-right" bindtap="buy">立即购买</view>
+        <view wx:if="{{!check && !!list[swiperIndex].cardNum}}" class="teamCard-bottom-right select">立即购买</view>
+        <view wx:if="{{!list[swiperIndex].cardNum}}" class="teamCard-bottom-right select">已售罄</view>
     </view>
 
     <view class="teamCard-mark" wx:if="{{passWord || payOk}}"></view>
