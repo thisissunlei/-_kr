@@ -24,7 +24,10 @@
 
 <view class="manage-fixed" wx:if="{{showDel}}">
     <button class="manage-del-people" bindtap="cancel">取消</button>
-    <button class="manage-add-people" bindtap="confirmDel">确认删除</button>
+    <button class="manage-add-people" bindtap="confirmDel">
+        <text>确认删除</text>
+        <text wx:if="{{checkedPeo.length > 0}}">({{checkedPeo.length}})</text>
+    </button>
 </view>
 <view class="manage-fixed" wx:if="{{!showDel && leader}}">
     <button class="manage-del-people {{showConfirm ? 'btn-disable' : ''}}" bindtap="delPeople" disabled="{{showConfirm}}">删除用卡人</button>

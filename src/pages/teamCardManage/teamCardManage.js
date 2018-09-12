@@ -6,7 +6,8 @@ Page({
     checkeMember: false, //选择删除的成员开关
     showDel: false, //底部按钮切换
     manageList: [],
-    showConfirm: true
+    showConfirm: true,
+    checkedPeo: []
   },
   cardId: null,
   shareKey: "",
@@ -124,6 +125,11 @@ Page({
           holderIds: that.holderIds.join(",")
         },
         success: res => {
+          wx.showToast({
+            title: "删除成功",
+            image: "../images/public/success.png",
+            duration: 1500
+          });
           console.log(res);
           that.getHolderList();
           that.setData({
@@ -185,6 +191,7 @@ Page({
   //选择删除的用卡人
   checkedPeople: function(e) {
     let that = this;
+    let checkedPeo = [];
     let newManage = that.data.manageList;
     newManage[e.currentTarget.dataset.index].checked = !newManage[
       e.currentTarget.dataset.index
@@ -192,6 +199,15 @@ Page({
     that.setData({
       manageList: newManage
     });
+    newManage.map(item => {
+      if (item.checked) {
+        checkedPeo.push(item);
+      }
+    });
+    that.setData({
+      checkedPeo: checkedPeo
+    });
+    // console.log(that.data.checkedPeo);
     // let result = newManage.some(item => {
     //   return item.checked;
     // });
