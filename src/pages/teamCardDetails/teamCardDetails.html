@@ -3,7 +3,7 @@
         <view class="{{card? 'td-card-box': 'td-card-box select'}}">
             <view class="tdc-before">
                 <view class="bg">
-                    <image mode="widthFix" wx:if="{{!!info.goodsUrl}}" src="{{info.goodsUrl}}"></image>
+                    <image wx:if="{{!!info.goodsUrl}}" src="{{info.goodsUrl}}"></image>
                 </view>
                 <view class="bg-icon" bindtap="turnCardToAfter">
                     <image src="{{KrImgUrl}}teamCardPurchase/turn.png"></image>
@@ -18,7 +18,7 @@
 
             <view class="tdc-after" bindtap="turnCardToBefore">
                 <view class="bg">
-                    <image mode="widthFix" wx:if="{{!!info.goodsUrl}}" src="{{info.goodsUrl}}"></image>
+                    <image wx:if="{{!!info.goodsUrl}}" src="{{info.goodsUrl}}"></image>
                 </view>
                 <view class="con">
                     <view class="tdc-after-tit">使用规则：</view>

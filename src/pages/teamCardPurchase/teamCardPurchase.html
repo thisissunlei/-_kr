@@ -26,7 +26,7 @@
             <swiper-item>
                 <view class="teamCard-swiper-card">
                     <view class="tsc-bg">
-                        <image mode="widthFix" wx:if="{{!!item.goodsUrl}}" src="{{item.goodsUrl}}"></image>
+                        <image wx:if="{{!!item.goodsUrl}}" src="{{item.goodsUrl}}"></image>
                     </view>
                     <view class="tsc-con" wx:if="{{item.cardType == 'NORMAL'}}">
                         <view class="tsc-tit">{{item.cardName}}</view>
