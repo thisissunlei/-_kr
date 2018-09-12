@@ -184,6 +184,7 @@ Page({
     });
     this.setData({
       manageList: newManage,
+      checkedPeo: [],
       checkeMember: false,
       showDel: false
     });
@@ -207,19 +208,6 @@ Page({
     that.setData({
       checkedPeo: checkedPeo
     });
-    // console.log(that.data.checkedPeo);
-    // let result = newManage.some(item => {
-    //   return item.checked;
-    // });
-    // if (result) {
-    //   that.setData({
-    //     showConfirm: false
-    //   });
-    // } else {
-    //   that.setData({
-    //     showConfirm: true
-    //   });
-    // }
   },
   //时间戳格式化
   toDate: function(number) {
