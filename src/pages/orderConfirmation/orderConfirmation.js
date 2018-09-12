@@ -621,16 +621,16 @@ Page({
                 case -5:
                   if(cardStatus === 'chosen'){
                     _this.clearStatus(data,'card');
-                    _this.setErrorMessage('团队卡不可用，请重新选择');
+                    _this.setErrorMessage(res.data.message);
                     wx.getStorage({
                       key: 'price_info',
                       success: function(res) {
                         _this.setData({
                           saleContent:{
-                            couponId:res.data.data.couponId,
-                            amount:res.data.data.couponAmount
+                            couponId:res.data.couponId,
+                            amount:res.data.couponAmount
                           },
-                          priceInfo:res.data.data
+                          priceInfo:res.data
                         })
                       }
                     })
@@ -740,8 +740,6 @@ Page({
         cardStatus:cardStatus,
         cardCount:cardData.cardUsableCount,
         cardContent:{card:false},
-      },function(){
-        console.log('充值团队卡选项--2',this.data.cardContent)
       })
     }
   },
