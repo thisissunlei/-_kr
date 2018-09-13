@@ -156,6 +156,7 @@ Page({
               app.globalData.openid = res.data.data["openid"];
               that.getTeamCard();
               that.checkShare();
+              that.getInfo();
             },
             fail: err => {
               console.log(err);

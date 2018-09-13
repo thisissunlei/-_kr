@@ -75,12 +75,12 @@ page {
 }
 .u-meet-num {
   font-size: 34rpx;
-  color: #333333;
+  color: red;
   font-weight: 600;
 }
 .u-meet-uint-info {
   display: inline;
-  color: red;
+  color: #999;
   font-weight: 400;
 }
 .u-order-time {
