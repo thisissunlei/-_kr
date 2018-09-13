@@ -112,7 +112,7 @@ Page({
         success:(res)=>{
 
 
-          if(res.data.code!=-1){
+          if(res.data.code>0){
             that.user_info={
               phone : that.data.phone
             }
