@@ -91,9 +91,6 @@ var createSeat = function(data,that,num) {
       }
 		},
 		fail: (res) => {
-			wx.navigateBack({
-				delta: num
-			})
 		}
 
 	})
@@ -139,9 +136,9 @@ var weChatPaySeat = function(data,_this,num){
         }
       },
       fail: (res) => {
-        wx.navigateBack({
-          delta: num
-        })
+        // wx.navigateBack({
+        //   delta: num
+        // })
       }
     })
 }
@@ -325,7 +322,7 @@ var goodsOrder = function (goods_order,_this,num) {
                                 orderId: res.data.data.orderId
                             },
                         })
-                        navBack(num)
+                        backCard()
                     },
                     fail: (response) => {
                         wx.setStorage({
@@ -335,7 +332,7 @@ var goodsOrder = function (goods_order,_this,num) {
                                 orderId: res.data.data.orderId
                             },
                         })
-                        navBack(num)
+                        backCard()
                     },
                 })
             }
@@ -348,9 +345,15 @@ var goodsOrder = function (goods_order,_this,num) {
                     state: 'no'
                 },
             })
-            navBack(num)
+            backCard()
         }
     });
+}
+//返回团队卡页面
+var backCard = function(){
+  wx.navigateTo({
+    url: '../teamCardPurchase/teamCardPurchase'
+  })
 }
 module.exports = {
     getSeatData:getSeatData,
