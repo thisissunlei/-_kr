@@ -2,7 +2,8 @@ const app = getApp()
 Page({
     data: {
         list: [],
-        loading: true
+        loading: true,
+        dianShow: false
     },
     usedlistData: {
         cardId: null,
@@ -25,6 +26,11 @@ Page({
             data: this.usedlistData,
             success: res => {
                 this.totalPages = res.data.data.totalPages
+                if ( this.totalPages <= this.usedlistData.page ) {
+                    this.setData({
+                        dianShow: true
+                    })
+                }
                 if ( !!res.data.data.items && res.data.data.items.length > 0 ) {
                     res.data.data.items.forEach((val, i) => {
                         val.day = this.setTime(val.ctime, 'day')
@@ -71,7 +77,7 @@ Page({
     },
     // 上拉加载
     onReachBottom() {
-        if ( !this.totalPages || this.totalPages >= this.usedlistData.page ) return
+        if ( !this.totalPages || this.totalPages <= this.usedlistData.page ) return
         this.usedlistData.page = this.usedlistData.page+1
         this.getUsedlist()
     },
