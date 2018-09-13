@@ -6,7 +6,7 @@
             {{item.cardName}}<text>NO.{{item.cardNo}}</text>
         </view>
         <view class="team-card-yue">余额</view>
-        <view class="team-card-value">{{item.remainAmount}}<text>元</text></view>
+        <view class="team-card-value">{{item.remainAmount}}<text>元</text> </view>
         <view class="team-card-bottom">
             <text>使用期限：{{item.effectAt}}-{{item.expireAt}}</text>
             <view class="team-card-jump">
@@ -16,7 +16,7 @@
         </view>
         <view class="jump-card-detail" bindtap="jumpCardDetail" data-id="{{item.id}}"></view>
         <view class="mb" wx:if="{{item.cardStatus != 'HAS_USER'}}"></view>
-        <image class="overdue" wx:if="{{item.cardStatus == 'HAS_FINISH'}}" src="{{KrImgUrl}}teamCardManage/used.png"></image>
+        <image class="overdue" wx:if="{{item.cardStatus == 'HAS_FINISH'}}" src="../images/orderimg/used.png"></image>
         <image class="overdue" wx:if="{{item.cardStatus == 'HSA_EXPRIED'}}" src="{{KrImgUrl}}teamCardManage/expire.png"></image>
     </view>
 </view>
