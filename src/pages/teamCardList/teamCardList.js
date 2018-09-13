@@ -78,7 +78,7 @@ Page({
       data: data,
       success: (res) => {
         if (res.data.code > 0) {
-          let list = res.data.data.myCards.cards;
+          let list = res.data.data.myCards.cards || [];
           list.forEach((val, i) => {
             val.bt = this.changeTime(val.effectAt)
             val.et = this.changeTime(val.expireAt)
