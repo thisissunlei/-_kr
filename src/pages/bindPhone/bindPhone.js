@@ -47,7 +47,7 @@ Page({
           }else{
             that.setData({
               phoneError:false,
-              errorMessage:res.message,
+              errorMessage:res.data.message,
             })
             setTimeout(function(){
               that.setData({
