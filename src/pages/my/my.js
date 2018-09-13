@@ -53,24 +53,16 @@ Page({
     let that = this;
     app.getRequest({
         url:app.globalData.KrUrl+'api/gateway/krmting/wx/auth/bind-phone',
-        methods:"GET",
+        methods:"GET",s
         data:data,
         success:(res)=>{
           let code = res.data.code;
           if(code>0){
             that.getPhone();
-          }else{
-            that.setData({
-              phoneError:false,
-              errorMessage:res.message,
-            })
-            setTimeout(function(){
-              that.setData({
-                phoneError:true,
-                errorMessage:'',
-                
-              })
-            },2000)
+            // that.getCount();
+            // that.getCounts();
+            // that.getActivityCount();
+            // that.getCouponCount();
           }
         },
         fail:(res)=>{
