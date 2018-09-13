@@ -1,5 +1,4 @@
 <view class="record" wx:if="{{!loading && list.length > 0}}">
-    <view class="line"></view>
     <view class="{{item.useStatus == 'PAY'? 'record-list-box': 'record-list-box select'}}" wx:for="{{list}}" wx:key="{{index}}">
         <view class="state" wx:if="{{item.useStatus == 'PAY'}}">预定</view>
         <view class="state" wx:else>取消预定</view>
@@ -17,6 +16,8 @@
             <view class="record-list-no">订单号：{{item.orderNo}}</view>
         </view>
     </view>
+    <view class="line"></view>
+    <view class="dian" wx:if="{{dianShow}}"></view>
 </view>
 
 <view class="my-meeting-list-none" wx:if="{{!loading && list.length == 0}}">
