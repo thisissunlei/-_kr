@@ -7,7 +7,7 @@
         <text class="coupon-name">{{info.ownerName}}</text>
         <text>邀请你成为用卡人：</text>
     </view>
-    <view class="coupon-hint" wx:if="{{showHint}}">
+    <view class="coupon-hint" wx:if="{{showHint && !info.acceptStatus}}">
         <text>接受邀请后，你可以使用团队余额预订自由座内任意的会议室和散座哦，超方便的~</text>
         <text class="hint-triangle"></text>
     </view>
@@ -28,7 +28,7 @@
         <!-- <image class="team-card-image" src="../images/coupon/background2.jpg"></image> -->
     </view>
     <view class="team-card-btn">
-        <button class="accept {{disabled ? 'overdue' : ''}}" disabled="{{disabled}}" bindtap="accept" wx:if="{{showButton}}">接受邀请</button>
+        <button class="accept {{disabled ? 'overdue' : ''}}" disabled="{{disabled}}" bindtap="accept" wx:if="{{showButton && !info.acceptStatus}}">接受邀请</button>
         <button class="accept" bindtap="jumpToTeamCardList" wx:else>查看团队卡</button>
     </view>
     <view class="jump-to-home" bindtap="jumpToHome">-了解氪空间自由座-</view>
