@@ -35,8 +35,6 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/list",
       success: res => {
-        wx.hideLoading();
-        // console.log(res);
         if (res.data.code == 1) {
           let teamcard = Object.assign({}, res);
           let teamCardList = teamcard.data.data;
@@ -49,13 +47,20 @@ Page({
           that.setData({
             teamCardList: teamCardList,
             showNone: true
+          },function(){
+            wx.hideLoading();
           });
+        }else{
+          wx.hideLoading();
         }
+
+         
       },
       fail: err => {
         wx.hideLoading();
         console.log(err);
       }
+        }
     });
   },
   //金额格式化
