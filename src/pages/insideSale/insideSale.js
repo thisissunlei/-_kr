@@ -28,7 +28,7 @@ Page({
   onLoad: function (options) {
     var _this=this;
     if (options.q) {
-      const channelname_v = that.getURLParam(options.q, "id");
+      const channelname_v = this.getURLParam(options.q, "id");
       this.setData({
         activityId:channelname_v
       })
