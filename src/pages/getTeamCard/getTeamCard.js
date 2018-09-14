@@ -38,13 +38,14 @@ Page({
   //跳转新人引导页面
   jumpToHome: function() {
     wx.navigateTo({
-      url: "../point/point"
+      url: "../point/point?fromTeam=true"
     });
   },
   //跳转团队卡页面
   jumpToTeamCardList: function() {
     wx.navigateTo({
-      url: "../teamCardDetails/teamCardDetails?cardId=" + this.cardId
+      url:
+        "../teamCardDetails/teamCardDetails?fromTeam=true&cardId=" + this.cardId
     });
   },
   //接受邀请接口

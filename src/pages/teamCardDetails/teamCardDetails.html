@@ -42,27 +42,39 @@
                 <image mode="aspectFill" src="{{item}}"></image>
             </view>
         </view>
-        <view class="next"><view></view></view>
+        <view class="next">
+            <view></view>
+        </view>
     </view>
 
     <view class="next-box record-box" bindtap="toRecordList">
-        <view class="record"><view>消费记录({{info.usetotal}})</view></view>
+        <view class="record">
+            <view>消费记录({{info.usetotal}})</view>
+        </view>
         <view class="record-time" wx:if="{{!!info.usetotal && !!info.lastUseTime}}">
             <view>最新消费</view>
             <view>{{info.lastUseTime}}</view>
         </view>
-        <view class="next"><view></view></view>
+        <view class="next">
+            <view></view>
+        </view>
     </view>
 
     <view class="next-box name-box" bindtap="changeName" wx:if="{{!!info.leader}}">
-        <view class="record"><view>团队卡名称</view></view>
+        <view class="record">
+            <view>团队卡名称</view>
+        </view>
         <view class="name">{{name}}</view>
-        <view class="next"><view></view></view>
+        <view class="next">
+            <view></view>
+        </view>
     </view>
 
     <view class="next-box switch-box" wx:if="{{!!info.leader}}">
-        <view class="record"><view>余额变动提醒</view></view>
-        <switch checked="{{checked}}" bindchange="switchChange" class="wx-switch-input"/>
+        <view class="record">
+            <view>余额变动提醒</view>
+        </view>
+        <switch checked="{{checked}}" bindchange="switchChange" class="wx-switch-input" />
     </view>
 
     <view class="mark" wx:if="{{nameShow}}"></view>
@@ -71,7 +83,7 @@
             <text>团队卡名称</text>
         </view>
         <view class="input">
-            <input value="{{changeNametext}}" bindinput="bindKeyInput" maxlength="10"/>
+            <input value="{{changeNametext}}" bindinput="bindKeyInput" maxlength="10" />
         </view>
         <view class="input-tip">长度不超过10个汉字，可支持英文、数字、汉字</view>
         <view class="popBox-bottom">
@@ -81,3 +93,4 @@
     </view>
     <view class="buy-fail passWord-error" wx:if="{{!!tip}}">{{tip}}</view>
 </view>
+<view class="jumpIndex" bindtap="jumpIndex" wx:if="{{showButton}}">去首页使用</view>

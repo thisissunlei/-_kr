@@ -11,13 +11,14 @@ page {
   position: relative;
   height: 326rpx;
   margin: 0 54rpx;
-  transition: .7s;
+  transition: 0.7s;
   transform-style: preserve-3d;
 }
 .td-card-box.select {
   transform: rotateY(180deg);
 }
-.tdc-before, .tdc-after {
+.tdc-before,
+.tdc-after {
   position: absolute;
   top: 0;
   left: 0;
@@ -26,8 +27,8 @@ page {
   height: 326rpx;
   overflow: hidden;
   pointer-events: auto;
-  transition: .5s;
-  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
+  transition: 0.5s;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
   width: 100%;
 }
 .tdc-before {
@@ -51,7 +52,8 @@ page {
   pointer-events: auto;
   z-index: 1;
 }
-.tdc-before .bg, .tdc-after .bg {
+.tdc-before .bg,
+.tdc-after .bg {
   position: absolute;
   top: 0;
   right: 0;
@@ -60,7 +62,8 @@ page {
   z-index: 0;
   width: 100%;
 }
-.tdc-before .bg image, .tdc-after .bg image {
+.tdc-before .bg image,
+.tdc-after .bg image {
   display: block;
   height: 100%;
   width: 100%;
@@ -78,7 +81,8 @@ page {
   height: 44rpx;
   width: 44rpx;
 }
-.tdc-before .con, .tdc-after .con {
+.tdc-before .con,
+.tdc-after .con {
   position: relative;
   z-index: 1;
   box-sizing: border-box;
@@ -246,7 +250,7 @@ page {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0,0,0,0.70);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 10;
 }
 
@@ -295,7 +299,7 @@ page {
   width: 40rpx;
 }
 .popBox-bottom {
-  border-top: 1px #E5E5E5 solid;
+  border-top: 1px #e5e5e5 solid;
   overflow: hidden;
 }
 .popBox-bottom > view {
@@ -308,7 +312,7 @@ page {
   width: 50%;
 }
 .popBox-bottom > view:first-child {
-  border-right: 1px #E5E5E5 solid;
+  border-right: 1px #e5e5e5 solid;
 }
 .popBox-bottom > view:last-child {
   color: #f5a623;
@@ -319,7 +323,7 @@ page {
   left: -232rpx;
   z-index: 11;
   margin-left: 50%;
-  background: rgba(0,0,0,0.80);
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 16rpx;
   color: #ededed;
   font-size: 30rpx;
@@ -343,11 +347,17 @@ page {
 .tdc-after-price text:first-child {
   padding-right: 60rpx;
 }
-
-
-
-
-
-
-
-
+.jumpIndex {
+  width: 400rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
+  border-radius: 200rpx;
+  font-size: 36rpx;
+  color: #624d17;
+  text-align: center;
+  position: fixed;
+  bottom: 80rpx;
+  left: 50%;
+  margin-left: -200rpx;
+}

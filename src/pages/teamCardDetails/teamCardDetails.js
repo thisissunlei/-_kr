@@ -9,11 +9,24 @@ Page({
     nameShow: false,
     tip: "",
     info: {},
-    price: null
+    price: null,
+    showButton: false //底部固定按钮
   },
   cardId: null,
   onLoad(options) {
-      this.cardId = options.cardId;
+    console.log(options);
+    this.cardId = options.cardId;
+    if (options.fromTeam == "true") {
+      this.setData({
+        showButton: true
+      });
+    }
+  },
+  //跳转首页
+  jumpIndex: function() {
+    wx.navigateTo({
+      url: "../index/index"
+    });
   },
   onShow(options) {
     this.getTeamCardDetail();
@@ -35,16 +48,16 @@ Page({
         res.data.data.cost = res.data.data.cost
           .toString()
           .replace(/(\d{1,3})(?=(\d{3})+$)/g, "$1,");
-        res.data.data.effectAt = this.setTime(res.data.data.effectAt, "card")
-        res.data.data.expireAt = this.setTime(res.data.data.expireAt, "card")
-        res.data.data.cardIntroList = res.data.data.cardIntro.split('#')
+        res.data.data.effectAt = this.setTime(res.data.data.effectAt, "card");
+        res.data.data.expireAt = this.setTime(res.data.data.expireAt, "card");
+        res.data.data.cardIntroList = res.data.data.cardIntro.split("#");
         if (!!res.data.data.usetotal && !!res.data.data.lastUseTime) {
           res.data.data.lastUseTime = this.setTime(
             res.data.data.lastUseTime,
             "last"
           );
         }
-        res.data.data.orderTime = this.setTime(res.data.data.orderTime, "last")
+        res.data.data.orderTime = this.setTime(res.data.data.orderTime, "last");
         this.setData({
           checked: res.data.data.remind,
           name: res.data.data.cardName,
@@ -66,7 +79,8 @@ Page({
   },
   switchChange(e) {
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/changeremind",
+      url:
+        app.globalData.KrUrl + "api/gateway/kmteamcard/teamcard/changeremind",
       method: "POST",
       data: {
         cardId: this.cardId
@@ -82,7 +96,7 @@ Page({
   toRecordList() {
     wx.navigateTo({
       url: "../teamCardRecord/teamCardRecord?cardId=" + this.cardId
-    })
+    });
   },
   toPersonList() {
     wx.navigateTo({
