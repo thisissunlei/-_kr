@@ -92,6 +92,7 @@ Page({
               wx.hideLoading();
               app.globalData.Cookie = res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
+              that.getInfo();
               that.getSaleList();
               that.getRecordList(that.data.pageSize);
               console.log('res---',res)
@@ -100,6 +101,33 @@ Page({
         } else {
           // console.log("登录失败！" + res.errMsg);
         }
+      }
+    });
+  },
+   //获取用户信息
+   getInfo: function() {
+    var that = this;
+    wx.getUserInfo({
+      success: function(res) {
+        that.setData({
+          avatarUrl: res.userInfo.avatarUrl
+        });
+        //保存到storage里
+        wx.setStorage({
+          key: "user_info",
+          data: {
+            user_info: res.userInfo
+          }
+        });
+        app.getRequest({
+          url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
+
+          data: {
+            encryptedData: res.encryptedData,
+            iv: res.iv
+          },
+          success: res => {}
+        });
       }
     });
   },
