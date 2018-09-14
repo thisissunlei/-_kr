@@ -49,7 +49,8 @@ Page({
             showNone: true
           },function(){
             wx.hideLoading();
-          });
+          })
+
         }else{
           wx.hideLoading();
         }
@@ -60,7 +61,7 @@ Page({
         wx.hideLoading();
         console.log(err);
       }
-        }
+        
     });
   },
   //金额格式化
