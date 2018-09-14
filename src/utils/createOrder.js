@@ -200,7 +200,7 @@ var createOrder = function(create_order,_this,num){
             }
         },
         fail:(res)=>{
-          navBack(num)
+          // navBack(num)
         }
     })  
 }
@@ -252,7 +252,7 @@ var weChatPay = function(data,_this,num){
         	}
         },
         fail:(res)=>{
-          navBack(num)
+          // navBack(num)
         }
     })
 }
@@ -282,17 +282,17 @@ var navBack = function(num){
     })
 }
 // 团队卡 -- 下单
-var getGoodsData = function (_this,num) {
+var getGoodsData = function (_this) {
     wx.getStorage({
         key: 'goods_order',
         success: function(res) {
             if(res.data){
-                goodsOrder(res.data,_this,num)
+                goodsOrder(res.data,_this)
             }
         }
     })
 }
-var goodsOrder = function (goods_order,_this,num) {
+var goodsOrder = function (goods_order,_this) {
     app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmteamcard/create-order",
         methods: "GET",
