@@ -1,7 +1,7 @@
 <view class="record" wx:if="{{!loading && list.length > 0}}">
     <view class="{{item.useStatus == 'PAY'? 'record-list-box': 'record-list-box select'}}" wx:for="{{list}}" wx:key="{{index}}">
-        <view class="state" wx:if="{{item.useStatus == 'PAY'}}">预定</view>
-        <view class="state" wx:else>取消预定</view>
+        <view class="state" wx:if="{{item.useStatus == 'PAY'}}">预订</view>
+        <view class="state" wx:else>取消预订</view>
         <view class="record-list-left">
             <view class="day">{{item.day}}</view>
             <view class="time">{{item.time}}</view>
