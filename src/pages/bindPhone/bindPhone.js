@@ -135,6 +135,10 @@ Page({
     if(!this.submit_buttom ){
       return;
     }
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     
 
       this.submit_buttom = false
@@ -147,12 +151,13 @@ Page({
         success:(res)=>{
           that.submit_buttom = true
           if(res.data.code>0 ){
-              
+               wx.hideLoading();
               wx.navigateTo({
                 url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from+'&fun='+this.data.fun
               }); 
 
           }else{
+             wx.hideLoading();
             that.setData({
               phoneError:false,
               errorMessage:res.data.message,
@@ -169,7 +174,7 @@ Page({
           
         },
         fail:(res)=>{
-
+           wx.hideLoading();
           that.setData({
             phoneError:false,
             errorMessage:res.message,
