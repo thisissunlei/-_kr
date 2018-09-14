@@ -977,17 +977,32 @@ page{
     font-size: 26rpx;
     color: #222222;
   }
-  
   .now{
       font-family: PingFangSC-Medium;
     font-size: 26rpx;
-    color: #F5A623;
+    position: relative;
   }
-  .active{
-    background-image: linear-gradient(57deg, #F79C1C 0%, #FAD961 100%); 
-    border-radius: 50%;
-    color:#fff;
-  }
+  .now:after{
+    content:'';
+    position: absolute;
+    width:10rpx;
+    height:10rpx;
+    background-image: linear-gradient(-217deg, #FFDF00 0%, #FFEB00 100%);
+    display: inline-block;
+    bottom:4rpx;
+    left: 30rpx;
+    border-radius: 10rpx;
+    }
+    .active {
+      border-radius: 50%;
+      background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
+      color: #624d17;
+      
+    }
+    .active:after{
+        display: none;
+    }
+  
   .day{
     display: inline-block;
     width: 70rpx;
