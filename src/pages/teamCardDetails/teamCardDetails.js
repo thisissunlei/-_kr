@@ -24,7 +24,7 @@ Page({
   },
   //跳转首页
   jumpIndex: function() {
-    wx.navigateTo({
+    wx.reLaunch({
       url: "../index/index"
     });
   },

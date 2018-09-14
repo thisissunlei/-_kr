@@ -24,7 +24,7 @@ Page({
     }
   },
   jumpIndex: function() {
-    wx.navigateTo({
+    wx.reLaunch({
       url: "../index/index"
     });
   }
