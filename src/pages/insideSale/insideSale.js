@@ -27,9 +27,14 @@ Page({
   },
   onLoad: function (options) {
     var _this=this;
-    this.setData({
-      activityId:options.id
-    })
+    if (options.q) {
+      const channelname_v = that.getURLParam(options.q, "id");
+      this.setData({
+        activityId:channelname_v
+      })
+       console.log(channelname_v, 11111);
+    }
+   
     this.goLogin();
   
      //查看是否授权
