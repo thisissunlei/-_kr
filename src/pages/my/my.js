@@ -59,10 +59,10 @@ Page({
           let code = res.data.code;
           if(code>0){
             that.getPhone();
-            // that.getCount();
-            // that.getCounts();
-            // that.getActivityCount();
-            // that.getCouponCount();
+            that.getCount();
+            that.getCounts();
+            that.getActivityCount();
+            that.getCouponCount();
           }
         },
         fail:(res)=>{
