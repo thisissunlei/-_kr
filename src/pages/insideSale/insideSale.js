@@ -25,6 +25,29 @@ Page({
       imageUrl: app.globalData.KrImgUrl+"/insideSale/share.jpg"
     };
   },
+  getURLParam: function(deal_url, paramName) {
+    var paramValue = "";
+    var isFound = false;
+    deal_url = decodeURIComponent(deal_url)
+      .substring(1, deal_url.length)
+      .split("?")[1];
+    if (deal_url.indexOf("=") > 1) {
+      let arrSource = deal_url.split("&");
+      let i = 0;
+      while (i < arrSource.length && !isFound) {
+        if (arrSource[i].indexOf("=") > 0) {
+          if (
+            arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase()
+          ) {
+            paramValue = arrSource[i].split("=")[1];
+            isFound = true;
+          }
+        }
+        i++;
+      }
+    }
+    return paramValue;
+  },
   onLoad: function (options) {
     var _this=this;
     if (options.q) {
