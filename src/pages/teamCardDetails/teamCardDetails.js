@@ -35,15 +35,16 @@ Page({
         res.data.data.cost = res.data.data.cost
           .toString()
           .replace(/(\d{1,3})(?=(\d{3})+$)/g, "$1,");
-        res.data.data.effectAt = this.setTime(res.data.data.effectAt, "card");
-        res.data.data.expireAt = this.setTime(res.data.data.expireAt, "card");
+        res.data.data.effectAt = this.setTime(res.data.data.effectAt, "card")
+        res.data.data.expireAt = this.setTime(res.data.data.expireAt, "card")
+        res.data.data.cardIntroList = res.data.data.cardIntro.split('#')
         if (!!res.data.data.usetotal && !!res.data.data.lastUseTime) {
           res.data.data.lastUseTime = this.setTime(
             res.data.data.lastUseTime,
             "last"
           );
         }
-        res.data.data.orderTime = this.setTime(res.data.data.orderTime, "last");
+        res.data.data.orderTime = this.setTime(res.data.data.orderTime, "last")
         this.setData({
           checked: res.data.data.remind,
           name: res.data.data.cardName,
