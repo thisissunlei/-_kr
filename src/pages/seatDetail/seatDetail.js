@@ -141,7 +141,6 @@ Page({
       },
       success: function(res) {
         wx.hideLoading();
-        that.readyQR();
         // console.log(res);
         var seatInfo = Object.assign({}, res);
         // console.log(seatInfo);
@@ -153,6 +152,7 @@ Page({
           canInvite: seatInfo.data.data.canInvite,
           ticketId: seatInfo.data.data.ticketId
         });
+        that.readyQR();
       }
     });
   }

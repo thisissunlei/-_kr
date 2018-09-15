@@ -25,11 +25,39 @@ Page({
       imageUrl: app.globalData.KrImgUrl+"/insideSale/share.jpg"
     };
   },
+  getURLParam: function(deal_url, paramName) {
+    var paramValue = "";
+    var isFound = false;
+    deal_url = decodeURIComponent(deal_url)
+      .substring(1, deal_url.length)
+      .split("?")[1];
+    if (deal_url.indexOf("=") > 1) {
+      let arrSource = deal_url.split("&");
+      let i = 0;
+      while (i < arrSource.length && !isFound) {
+        if (arrSource[i].indexOf("=") > 0) {
+          if (
+            arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase()
+          ) {
+            paramValue = arrSource[i].split("=")[1];
+            isFound = true;
+          }
+        }
+        i++;
+      }
+    }
+    return paramValue;
+  },
   onLoad: function (options) {
     var _this=this;
-    this.setData({
-      activityId:options.id
-    })
+    if (options.q) {
+      const channelname_v = this.getURLParam(options.q, "id");
+      this.setData({
+        activityId:channelname_v
+      })
+       console.log(channelname_v, 11111);
+    }
+   
     this.goLogin();
   
      //查看是否授权
@@ -64,6 +92,7 @@ Page({
               wx.hideLoading();
               app.globalData.Cookie = res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
+              that.getInfo();
               that.getSaleList();
               that.getRecordList(that.data.pageSize);
               console.log('res---',res)
@@ -72,6 +101,33 @@ Page({
         } else {
           // console.log("登录失败！" + res.errMsg);
         }
+      }
+    });
+  },
+   //获取用户信息
+   getInfo: function() {
+    var that = this;
+    wx.getUserInfo({
+      success: function(res) {
+        that.setData({
+          avatarUrl: res.userInfo.avatarUrl
+        });
+        //保存到storage里
+        wx.setStorage({
+          key: "user_info",
+          data: {
+            user_info: res.userInfo
+          }
+        });
+        app.getRequest({
+          url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
+
+          data: {
+            encryptedData: res.encryptedData,
+            iv: res.iv
+          },
+          success: res => {}
+        });
       }
     });
   },
