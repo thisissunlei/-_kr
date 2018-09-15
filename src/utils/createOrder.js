@@ -276,7 +276,7 @@ var getInviteeId = function(orderId){
     
 }
 // 新建会议室订单--结束
-var navBack = function(num){
+var navBack = function(this,num){
   wx.navigateBack({
       delta: num
     })
