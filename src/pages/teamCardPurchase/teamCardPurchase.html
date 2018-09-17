@@ -21,7 +21,7 @@
         </view>
     </view>
 
-    <swiper wx:if="{{list.length > 0}}" bindchange="swiperChange" current="{{swiperIndex}}" class="teamCard-swiper">
+    <swiper wx:if="{{list.length > 0}}" bindchange="swiperChange" class="teamCard-swiper">
         <block wx:for="{{list}}" wx:key="{{index}}">
             <swiper-item>
                 <view class="teamCard-swiper-card">

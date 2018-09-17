@@ -277,6 +277,7 @@ Page({
                     res.data.data = []
                 }
                 this.setData({
+                    swiperIndex: 0,
                     list: res.data.data
                 })
             },
