@@ -12,14 +12,14 @@ Page({
     };
   },
   data: {
-    showButton: false
+    showButton: true
   },
   onLoad: function(options) {
     let that = this;
     // console.log(options);
-    if (options.fromTeam == "true") {
+    if (options.fromIndex == "true") {
       that.setData({
-        showButton: true
+        showButton: false
       });
     }
   },

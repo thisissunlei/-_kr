@@ -38,12 +38,14 @@ Page({
       previousMargin: "26rpx",
       nextMargin: "26rpx",
       circular: false
-    }
+    },
+    toView: ""
   },
   rq_data: {
     latitude: "",
     longitude: ""
   },
+  toView: "",
   func_bool_g: false,
   func_bool_l: false,
   func_bool_l2: false,
@@ -147,13 +149,16 @@ Page({
   },
   onLoad: function(options) {
     const that = this;
-    // console.log(options);
+    console.log(options);
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "id");
       wx.reportAnalytics("idx_channel", {
         channelname: channelname_v
       });
       // console.log(channelname_v, 11111);
+    }
+    if (options.fromPage == "inside") {
+      that.toView = "list";
     }
     wx.showLoading({
       title: "加载中",
@@ -175,9 +180,10 @@ Page({
               wx.hideLoading();
               that.func_bool_l = true;
               that.func_bool_l2 = true;
-              app.globalData.Cookie =res.header["Set-Cookie"] || res.header["set-cookie"];
+              app.globalData.Cookie =
+                res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-               // that.getActivity();
+              // that.getActivity();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
@@ -216,6 +222,14 @@ Page({
         }
       }
     });
+  },
+  onReady: function() {
+    var that = this;
+    setTimeout(() => {
+      that.setData({
+        toView: that.toView
+      });
+    }, 1500);
   },
   onShow: function() {
     this.getAllInfo();
@@ -373,7 +387,7 @@ Page({
   point: function() {
     wx.reportAnalytics("viewguide");
     wx.navigateTo({
-      url: "../point/point"
+      url: "../point/point?fromIndex=true"
     });
   },
   jumpToTeamCard: function() {
