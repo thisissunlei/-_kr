@@ -55,7 +55,12 @@ Page({
       this.setData({
         activityId:channelname_v
       })
-       console.log(channelname_v, 11111);
+      
+    }
+    if(options.id){
+      this.setData({
+        activityId:options.id
+      })
     }
    
     this.goLogin();
