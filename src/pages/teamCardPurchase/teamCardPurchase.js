@@ -67,9 +67,21 @@ Page({
         }
     },
     swiperChange(e) {
-        this.setData({
-            swiperIndex: e.detail.current
-        })
+        if ( e.detail.source == "touch" ) {
+
+            if ( e.detail.current == 0 && this.data.swiperIndex > 1 ) {//卡死时，重置current为正确索引
+                console.log(e.detail.current, '----', this.data.swiperIndex, '----0')
+                this.setData({
+                    swiperIndex: this.data.swiperIndex
+                })
+            }  else {
+                console.log(e.detail.current, '----', this.data.swiperIndex, '----1')
+                this.setData({
+                    swiperIndex: e.detail.current
+                })
+            }
+        }
+
     },
     changeCheckbox:function(){
         this.setData({
