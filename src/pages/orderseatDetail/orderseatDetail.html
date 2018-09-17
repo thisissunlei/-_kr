@@ -69,6 +69,26 @@
                 </view>
             </view>
           </view>
+          <!-- 团队卡 -->
+          <view class="u-meeting" style="border-bottom:1rpx solid #F6F6F6" wx:if="{{detailInfo.cardName}}">
+            <view class="u-left">团队卡 </view>
+        
+            <view class="u-right">
+                <view class="u-meet-card sale-content">
+                    <view class="team-name-box">{{detailInfo.cardName}}</view>
+                    <image class="team-name-right" style="width:24rpx;" src="{{imgUrl}}teamName.png"></image>
+                </view>
+                <view class="u-right-top" >
+                    <view class="u-right-top-left">
+                      <view class="u-sale-unit">
+                        -¥
+                      </view>
+                      <view style="display:inline-block">{{detailInfo.cardDeductAmount}}</view>
+                      
+                    </view>
+                </view>
+            </view>
+          </view>
           <!--应付款-->
           <view class="u-meeting">
             <view class="u-left">{{payTitle}} </view>
@@ -78,7 +98,7 @@
                      <view class="u-sale-unit">
                         ¥
                       </view>
-                      <view style="display:inline-block">1</view>
+                      <view style="display:inline-block">{{detailInfo.paidAmount}}</view>
                     </view>
                 </view>
                 <view class="u-bottom">
@@ -144,18 +164,7 @@
     <view class="scoll-x"></view>
 
     <!-- 隐藏的 预计到场时间 -->
-    <view class="section" wx:if="{{timeFlag}}">
-        <!-- <view class="section_top" bindtap="jumpSetTime"></view>
-        <view class="section_bottom">
-            <view class="section_title">预计到场时间</view>
-        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
-          <view class="picker">
-            {{time}}
-          </view>
-        </picker>
-        </view> -->
-        
-    </view>
+    <view class="section" wx:if="{{timeFlag}}"></view>
 
   <!-- 散座详情 -->
   <view class="u-meet-detail" wx:if="{{meetDetailShow}}" catchtouchmove="preventTouchMove">
@@ -202,12 +211,12 @@
                       <view class="u-address-txt">{{meetingDetail.buildFloorDescr}} 氪空间</view>
                   </view>
                   <view class="u-address">
-                    <image class="u-address-icon"  src="../images/public/icon_dizhi.png" style="vertical-align: top"></image>
-                    <view class="u-address-txt" style="width:90%;vertical-align: center;">{{meetingDetail.adress}}</view>
+                    <image class="u-address-icon"  src="../images/public/icon_dizhi.png" ></image>
+                    <view class="u-address-txt">{{meetingDetail.adress}}</view>
                 </view>
                 <view class="u-address">
-                    <image class="u-address-icon"  src="../images/public/icon_shijian.png" style="vertical-align: top"></image>
-                    <view class="u-address-txt" style="width:90%;vertical-align: center;">{{meetingDetail.openTime}}</view>
+                    <image class="u-address-icon"  src="../images/public/icon_shijian.png" ></image>
+                    <view class="u-address-txt">{{meetingDetail.openTime}}</view>
                 </view>
               </view>
 

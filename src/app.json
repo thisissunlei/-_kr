@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/getTeamCard/getTeamCard",
+    "pages/teamCardManage/teamCardManage",
+    "pages/myTeamCard/myTeamCard",
     "pages/getCoupon/getCoupon",
     "pages/activityDetails/activity",
     "pages/activityQuickMark/activityQuickMark",
@@ -9,7 +12,6 @@
     "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
     "pages/my/my",
-    "pages/myOrder/myOrder",
     "pages/map/map",
     "pages/seatDetail/seatDetail",
     "pages/meetingStatus/meetingStatus",
@@ -38,7 +40,13 @@
     "pages/myActivity/myActivity",
     "pages/coupon/coupon",
     "pages/myCoupon/myCoupon",
-    "pages/saleList/saleList"
+    "pages/saleList/saleList",
+    "pages/teamCardList/teamCardList",
+    "pages/insideSale/insideSale",
+    "pages/teamCardPurchase/teamCardPurchase",
+    "pages/myOrder/myOrder",
+    "pages/teamCardDetails/teamCardDetails",
+    "pages/teamCardRecord/teamCardRecord"
   ],
   "window": {
     "backgroundTextStyle": "light",

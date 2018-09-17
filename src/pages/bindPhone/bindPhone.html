@@ -13,8 +13,14 @@
 		</view>
 	</view>
 	<view class="btn-box">
+
 		<view class="disabled" wx:if="{{!inputValue.length}}">确 定</view>
 		<view class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">确 定</view>
+		<!-- <view class="button"  bindtap="create">生 成</view> -->
+	</view>
+	<view class="bind-box">
+		<div class="phone-button">微信授权手机号</div>
+		<button open-type="getPhoneNumber" class="get-phone-num" bindgetphonenumber="getPhoneNumber">微信授权手机号</button> 
 	</view>
 	<view class="last-view">
 		<view class="error-phone" wx:if="{{!phoneTest}}">手机号格式错误</view>

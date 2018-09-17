@@ -3,6 +3,11 @@
 const app = getApp();
 
 Page({
+  moveToBind: function() {
+    wx.navigateTo({
+      url: "../bindPhone/bindPhone"
+    });
+  },
   onShareAppMessage: function(res) {
     // wx.reportAnalytics("sharekrmeeting");
     // console.log(res);
@@ -154,9 +159,9 @@ Page({
       title: "加载中",
       mask: true
     });
-
+    //获取地理位置
     this.getLocation();
-    //页面加载
+    //登陆
     wx.login({
       success: function(res) {
         if (res.code) {
@@ -170,12 +175,9 @@ Page({
               wx.hideLoading();
               that.func_bool_l = true;
               that.func_bool_l2 = true;
-              app.globalData.Cookie =
-                res.header["Set-Cookie"] || res.header["set-cookie"];
+              app.globalData.Cookie =res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-              // console.log(app.globalData.Cookie);
-              // console.log(app.globalData.openid);
-              // that.getActivity();
+               // that.getActivity();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
@@ -217,9 +219,10 @@ Page({
   },
   onShow: function() {
     this.getAllInfo();
-     //this.getActivity();
+    //活动入口
+    // this.getActivity();
   },
- // 首页活动接口
+  // 首页活动接口
   getActivity: function() {
     var that = this;
     app.getRequest({
@@ -371,6 +374,11 @@ Page({
     wx.reportAnalytics("viewguide");
     wx.navigateTo({
       url: "../point/point"
+    });
+  },
+  jumpToTeamCard: function() {
+    wx.navigateTo({
+      url: "../teamCardPurchase/teamCardPurchase"
     });
   },
   //点击会议card

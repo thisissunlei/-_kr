@@ -5,100 +5,106 @@ const app = getApp()
 Page({
 
     payTitle: '',
-
     data: {
-    flag: true,
-    endTime: "",
-    startTime: "",
-    timeday: [],
-    linkPhone: "",
-    con: '',
-    sankeNum: "",
-    payTitle: '',
-    quantity: "",
-    meetDetailShow: false,
-    autoplay: false,
-    duration: 1000,
-    currentNum: 1,
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
-    meetingRoomId: '',
-    titleObj: {},
-    ifFixed: false,
-    daynum: "",
-    carendarArr: [],
-    time: '11:00',
-    timeFlag: false,
-    errorMessage: '',
-    meetingDetail: {},
-    themeName: '',
-    remind: '提前1天',
-    check: true,
-    dialogShow: false,
-    alertTime: 'ONEDAY',
-    order_pay: {},
-    priceCount: '0',
-    totalCount: '0',
-    detailInfo: {},
-    orderDate: {},
-    meeting_time: {},
-    ifFirst: false,
+      imgUrl:app.globalData.KrImgUrl ,
+      flag: true,
+      endTime: "",
+      startTime: "",
+      timeday: [],
+      linkPhone: "",
+      con: '',
+      sankeNum: "",
+      payTitle: '',
+      quantity: "",
+      meetDetailShow: false,
+      autoplay: false,
+      duration: 1000,
+      currentNum: 1,
+      imgUrls: [
+        'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+        'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+      ],
+      titleObj: {},
+      ifFixed: false,
+      daynum: "",
+      carendarArr: [],
+      time: '11:00',
+      timeFlag: false,
+      errorMessage: '',
+      meetingDetail: {},
+      themeName: '',
+      remind: '提前1天',
+      check: true,
+      dialogShow: false,
+      alertTime: 'ONEDAY',
+      order_pay: {},
+      priceCount: '0',
+      totalCount: '0',
+      detailInfo: {},
+      orderDate: {},
+      meeting_time: {},
+      ifFirst: false,
   },
   choose_date: '',
   orderId: '',
   time_cal:"",
   //立即支付
   payOrder: function () {
+      let that = this;
 
-
-
-    let orderId = this.orderId;
-    app.getRequest({
-      // 修改订单
-      url: app.globalData.KrUrl + 'api/gateway/krseat/seat/order/edit',
-      method: "get",
-      data: {
-        orderId: orderId,
-        //alertTime:this.data.alertTime,
-        arrivingTime: this.data.time,
-        //linkPhone:this.data.linkPhone || wx.getStorageSync("order_pay").linkPhone,
-
-      },
-      success: (res) => {
-
-        // console.log(res)
-
-      },
-      fail: (error) => {
-
-      }
-    })
-
-    let data = wx.getStorageSync("order")
-    wx.requestPayment({
-      'timeStamp': data.timestamp,
-      'nonceStr': data.noncestr,
-      'orderId': orderId,
-      'package': data.packages,
-      'signType': data.signType,
-      'paySign': data.paySign,
-      'success': function (res) {
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        })
-        setTimeout(
-          function () {
+     let orderId = this.orderId;
+     app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krseat/order/pay',
+        methods:"GET",
+        data:{
+          orderId:orderId
+        },
+        success:(res)=>{
+          // console.log('res',res)
+          if(res.data.code>0){
+             // wx.reportAnalytics('confirmorder')
+            wx.requestPayment({
+               'nonceStr': res.data.data.noncestr,
+              'orderId': res.data.data.orderId,
+              'package': res.data.data.packages,
+              'paySign': res.data.data.paySign,
+              'signType': res.data.data.signType,
+              'timeStamp': res.data.data.timestamp,
+              success:function(res){
+               wx.showLoading({
+                  title: '加载中',
+                  mask: true
+                })
+                setTimeout(
+                  function () {
+                    that.getDetailInfo(that.orderId)
+                    wx.hideLoading()
+                  }, 1500)
+              },
+              fail:function(res){
+                wx.hideLoading()
+              }
+            })
+          }else{
             wx.hideLoading()
-          }, 1500)
-      },
-      'fail': function (res) {
-        wx.hideLoading()
-      }
-    })
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          }
+          
+        },
+        fail:(res)=>{
+           wx.hideLoading()
+            that.setData({
+              error:false,
+              errorMessage:res.data.message
+            })
+          //  console.log('========',res)
+        }
+      })
+   
   },
 
   // 立即支付成功后
@@ -160,12 +166,9 @@ Page({
   // 散座详情 弹窗
   openMeetDetail: function () {
     let that = this;
-    // wx.reportAnalytics('goodsdetails')
+    that.getMeetDetail()
     this.setData({
-      meetingRoomId: this.data.meetingRoomId,
       meetDetailShow: !this.data.meetDetailShow
-    }, function () {
-      that.getMeetDetail()
     })
   },
   // 散座详情 轮播图
@@ -179,7 +182,6 @@ Page({
   // 散座与详情 关闭
   closeMeetDetail: function () {
     this.setData({
-      meetingRoomId: '',
       meetDetailShow: !this.data.meetDetailShow
     })
   },
@@ -210,15 +212,6 @@ Page({
     wx.navigateTo({
       url: '../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone + '&orderId=' + this.orderId
     })
-    // console.log('../phone/phone?type=seat_submit&linkPhone=' + data.linkPhone+'&orderId='+this.orderId)
-
-
-
-
-
-
-
-
   },
   // 邀请
   onShareAppMessage: function (res) {
@@ -241,12 +234,13 @@ Page({
 
 
   onUnload: function () {
-     console.log(this.data.con,6666)
     if (this.data.con == 1) {
-      this.time_cal.closeCal();
       wx.reLaunch({
         url: '../index/index'
       })
+    }
+    if(this.data.detailInfo.orderShowStatus == 'OBLIGATION'){
+      this.time_cal.closeCal();
     }
 
     let _this = this;
@@ -273,22 +267,6 @@ Page({
     }
 
   },
-  // 获取id
-  getMeetId() {
-    let that = this;
-    wx.getStorage({
-      key: 'detail-c',
-      success: function (res) {
-        if (res.data) {
-          that.setData({
-            meetingRoomId: res.data.goodsId
-          }, function () {
-            that.getMeetDetail();
-          })
-        }
-      }
-    })
-  },
   getBoardroomTime: function () {},
   stopPropagation: function () {
     return;
@@ -304,32 +282,12 @@ Page({
 
   onShow: function () {
     let str = wx.getStorageSync("order_pay")
-    // console.log(str)
     var _this = this;
-
-    // if (Object.keys(str).length != 0) {
-    //       _this.setData({
-    //         themeName: str.themeName || _this.data.themeName,
-    //         
-    //         linkPhone: str.linkPhone || _this.data.linkPhone,
-    //         order_pay: str,
-    //         alertTime: str.alertTime
-    //         })
-    // }
-
-
-
-
     this.getDetailInfo(this.orderId)
-
-    this.getMeetId()
-
-
-    // console.log(this.orderId,this.data.alertTime,666666)
 
     if (this.data.isRouteMy == "2") {
       wx.switchTab({
-        url: "../myorder/myorder",
+        url: "../myOrder/myOrder",
         success: function (e) {
           var page = getCurrentPages().pop();
           if (page == undefined || page == null)
@@ -341,65 +299,19 @@ Page({
   },
   bool: true,
   onLoad: function (options) {
-
-    // console.log(options)
     if (options.con) {
       this.setData({
         con: options.con
       })
     }
     this.orderId = options.id;
-  
-
     var pages = getCurrentPages()
-    // console.log(pages)
     var prevPage = pages[pages.length - 2]
     prevPage.setData({
       isRouteMy: "2"
     })
-  
-    let carendar = wx.getStorageSync("data-index")
-    // console.log(carendar,77777)
-    if (carendar) {
-      carendar.map(item => {
-
-      })
-      this.setData({
-        carendarArr: carendar,
-      })
-    }
-
-
     this.getPhone();
     var _this = this;
-    // console.log(options,88800)
-    if (options.from == 'list') {
-      wx.getStorage({
-        key: 'meet_detail',
-        success: function (res) {
-          if (res.data) {
-
-            _this.setData({
-              detailInfo: res.data
-            })
-          }
-        }
-      })
-    } else {
-      wx.getStorage({
-        key: 'detail-c',
-        success: function (res) {
-          // console.log(res)
-          if (res.data) {
-            _this.setData({
-              detailInfo: res.data
-            })
-          }
-        }
-      })
-    }
-
-
     wx.getStorage({
       key: 'orderDate',
       success: function (res) {
@@ -419,13 +331,6 @@ Page({
         }
       }
     })
-
-
-
-
-
-
-
   },
   getThemeName: function (res) {
     let timeArr = res.time.split('-');
@@ -549,6 +454,7 @@ Page({
         let hour = (data.endTime - data.beginTime) / 3600000;
         let Ctime = changeTime(data.ctime);
         detailInfo.ctime = Ctime[0] + "-" + Ctime[1] + "-" + Ctime[2] + " " + Ctime[3] + ":" + Ctime[4] + ":" + Ctime[5]
+        detailInfo.seatGoodsId = data.details[0].goodsId;
         this.setData({
           payTitle: payTitleObj[data.orderShowStatus],
           detailInfo: detailInfo,
@@ -567,12 +473,6 @@ Page({
 
       }
     })
-
-
-
-
-
-
   },
 
 
@@ -607,13 +507,13 @@ Page({
   // 获取详情
   getMeetDetail() {
 
-    let meetingRoomId = this.data.meetingRoomId;
+    let detailInfo = this.data.detailInfo;
     let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + 'api/gateway/krseat/seat/goods/detail',
       method: "GET",
       data: {
-        "seatGoodsId": meetingRoomId
+        "seatGoodsId": detailInfo.seatGoodsId
       },
       success: (res) => {
         this.setData({

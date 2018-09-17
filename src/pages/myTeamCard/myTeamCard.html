@@ -1,0 +1,29 @@
+<view class="team-card" wx:if="{{teamCardList.length > 0}}">
+    <view class="team-card-list" wx:for="{{teamCardList}}" wx:key>
+        <image class="team-card-image" src="{{item.goodsUrl}}"></image>
+
+        <view class="team-card-top">
+            {{item.cardName}}<text>NO.{{item.cardNo}}</text>
+        </view>
+        <view class="team-card-yue">余额</view>
+        <view class="team-card-value">{{item.remainAmount}}<text>元</text> </view>
+        <view class="team-card-bottom">
+            <text>使用期限：{{item.effectAt}}-{{item.expireAt}}</text>
+            <view class="team-card-jump">
+                <text>查看详情</text>
+                <text></text>
+            </view>
+        </view>
+        <view class="jump-card-detail" bindtap="jumpCardDetail" data-id="{{item.id}}"></view>
+        <view class="mb" wx:if="{{item.cardStatus != 'HAS_USER'}}"></view>
+        <image class="overdue" wx:if="{{item.cardStatus == 'HAS_FINISH'}}" src="../images/orderimg/used.png"></image>
+        <image class="overdue" wx:if="{{item.cardStatus == 'HSA_EXPRIED'}}" src="{{KrImgUrl}}teamCardManage/expire.png"></image>
+    </view>
+</view>
+<view class="team-card-none" wx:if="{{showNone && teamCardList.length == 0}}">
+    <view class="content-none">
+        <image class="img-none" src="../images/coupon/none.png"></image>
+        <text class="warn">还没有团队卡哦~</text>
+    </view>
+    <button class="go-buy" bindtap="goBuyTeamCard">购买团队卡</button>
+</view>

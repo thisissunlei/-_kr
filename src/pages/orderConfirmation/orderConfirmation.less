@@ -1,8 +1,10 @@
 page{
     width:100%;
-    height:100%;
+    min-height:100%;
     margin:0;
-    padding:0;
+    padding-bottom:112rpx;
+    overflow-y:auto;
+
 }
 
 .g-order-confirmation{
@@ -12,6 +14,8 @@ page{
 }
 .m-order-header{
     background:#fff;
+    margin-bottom:20rpx;
+   
 }
 .u-order-detail{
     position: relative;
@@ -70,7 +74,7 @@ page{
     margin-top:40rpx;
 }
 .u-meet-price{
-    color: #151515; 
+    color: red; 
     display: inline;
     font-weight: 600; 
 }
@@ -79,7 +83,7 @@ page{
 }
 .u-meet-num{
     font-size: 34rpx;
-    color:#333333;
+    color:red;
    
 
 }
@@ -96,6 +100,8 @@ page{
     height:192rpx;
     display: flex;
     position: relative;
+   
+
 }
 .u-user-date,.u-user-hour{
     width: 50%;
@@ -179,11 +185,12 @@ page{
    text-align: right;
    float: right;
 }
+.u-bottom{
+    margin-bottom:0;
+}
 .u-protocol{
-    height:194rpx;
-    box-sizing: border-box;
-    padding-top:24rpx;
-
+    padding:100rpx 0;
+    height:30rpx;
 }
 .u-footer{
   height:112rpx;
@@ -970,17 +977,32 @@ page{
     font-size: 26rpx;
     color: #222222;
   }
-  
   .now{
       font-family: PingFangSC-Medium;
     font-size: 26rpx;
-    color: #F5A623;
+    position: relative;
   }
-  .active{
-    background-image: linear-gradient(57deg, #F79C1C 0%, #FAD961 100%); 
-    border-radius: 50%;
-    color:#fff;
-  }
+  .now:after{
+    content:'';
+    position: absolute;
+    width:10rpx;
+    height:10rpx;
+    background-image: linear-gradient(-217deg, #FFDF00 0%, #FFEB00 100%);
+    display: inline-block;
+    bottom:4rpx;
+    left: 30rpx;
+    border-radius: 10rpx;
+    }
+    .active {
+      border-radius: 50%;
+      background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
+      color: #624d17;
+      
+    }
+    .active:after{
+        display: none;
+    }
+  
   .day{
     display: inline-block;
     width: 70rpx;
@@ -1023,10 +1045,13 @@ page{
       height:120rpx;
       background: #fff;
       position: relative;
-      margin-bottom:20rpx;
       border-top:1px solid #F6F6F6;
       padding:0 36rpx;
       box-sizing: border-box;
+      overflow: hidden;
+  }
+  .u-team-info{
+      margin-bottom:20rpx;
   }
   .u-sale-title{
     line-height:124rpx;
@@ -1090,3 +1115,29 @@ page{
     font-size: 32rpx;
     color: #F5615B;
  }
+
+ .u-team-name{
+    min-width: 40rpx;
+    height:40rpx;
+    line-height:40rpx;
+    background: #ECCB6F;
+    font-size: 24rpx;
+    color: #624D17;
+    display: inline-block;
+    position: absolute;
+    left:144rpx;
+    top:44rpx;
+    padding:2rpx 8rpx;
+    border-top-left-radius:8rpx;
+    border-bottom-left-radius:8rpx;
+    box-sizing: border-box;
+  }
+  .u-team-name-icon{
+    position: absolute;
+    width:24rpx;
+    height:40rpx;
+    right:-22rpx;
+    top:0;
+   
+    
+  }

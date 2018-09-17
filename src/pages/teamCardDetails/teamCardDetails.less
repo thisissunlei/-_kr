@@ -1,0 +1,363 @@
+page {
+  background: #f6f6f6;
+  min-height: 100%;
+}
+.teamCard-details .td-card {
+  background: #ffffff;
+  height: 326rpx;
+  padding-top: 28rpx;
+}
+.td-card-box {
+  position: relative;
+  height: 326rpx;
+  margin: 0 54rpx;
+  transition: 0.7s;
+  transform-style: preserve-3d;
+}
+.td-card-box.select {
+  transform: rotateY(180deg);
+}
+.tdc-before,
+.tdc-after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 16rpx;
+  color: #ffffff;
+  height: 326rpx;
+  overflow: hidden;
+  pointer-events: auto;
+  transition: 0.5s;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+.tdc-before {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+.tdc-after {
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(180deg);
+  z-index: 0;
+}
+.td-card-box.select .tdc-before {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.td-card-box.select .tdc-after {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+.tdc-before .bg,
+.tdc-after .bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+}
+.tdc-before .bg image,
+.tdc-after .bg image {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.tdc-before .bg-icon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 66rpx;
+  width: 72rpx;
+}
+.tdc-before .bg-icon image {
+  display: block;
+  height: 44rpx;
+  width: 44rpx;
+}
+.tdc-before .con,
+.tdc-after .con {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 36rpx 28rpx 26rpx;
+}
+.tdc-after .con {
+  font-size: 28rpx;
+  height: 330rpx;
+  line-height: 56rpx;
+  overflow-y: scroll;
+}
+.person-tit {
+  background: #ffffff;
+  color: #333333;
+  font-size: 32rpx;
+  font-weight: bold;
+  padding: 40rpx 32rpx;
+}
+.tdc-before .card-tit {
+  font-size: 40rpx;
+  font-weight: bold;
+  height: 40rpx;
+  line-height: 40rpx;
+  overflow: hidden;
+  padding-bottom: 28rpx;
+}
+.tdc-before .card-tit .no {
+  float: right;
+  font-size: 28rpx;
+  font-weight: normal;
+  line-height: 54rpx;
+}
+.tdc-before .card-ye {
+  font-size: 28rpx;
+  font-weight: bold;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+}
+.tdc-before .card-price {
+  font-size: 72rpx;
+  font-weight: bold;
+  height: 66rpx;
+  line-height: 66rpx;
+  padding: 10rpx 0 56rpx;
+  text-align: center;
+}
+.tdc-before .card-price text {
+  display: inline-block;
+  font-size: 36rpx;
+  font-weight: normal;
+  height: 36rpx;
+  line-height: 20rpx;
+  transform: translateY(2rpx);
+  vertical-align: bottom;
+}
+.tdc-before .card-time {
+  font-size: 24rpx;
+}
+
+.next-box {
+  position: relative;
+  background: #ffffff;
+  box-sizing: border-box;
+  display: inline-table;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  padding: 0 32rpx 40rpx;
+  width: 100%;
+}
+.record-box {
+  padding: 14rpx 32rpx 10rpx;
+}
+.switch-box {
+  padding: 30rpx 32rpx;
+}
+.name-box {
+  padding: 34rpx 32rpx;
+}
+.record-box .record view {
+  height: 84rpx;
+  line-height: 84rpx;
+}
+.next-box .next {
+  display: table-cell;
+  vertical-align: middle;
+  width: 34rpx;
+}
+.next-box .next view {
+  border-top: 1px #999 solid;
+  border-right: 1px #999 solid;
+  height: 16rpx;
+  transform: rotate(-315deg);
+  width: 16rpx;
+}
+.next-box .record {
+  color: #333333;
+  display: table-cell;
+  font-size: 32rpx;
+  vertical-align: middle;
+}
+.next-box .record-time {
+  display: table-cell;
+  vertical-align: middle;
+}
+.next-box .record-time view {
+  color: #666666;
+  font-size: 28rpx;
+  line-height: 42rpx;
+  padding: 0 10rpx 0 0;
+  text-align: right;
+}
+.wx-switch-input {
+  float: right;
+}
+.person-list view {
+  box-sizing: border-box;
+  border: 1px #f6f6f6 solid;
+  border-radius: 100%;
+  display: inline-block;
+  height: 80rpx;
+  overflow: hidden;
+  vertical-align: top;
+  width: 80rpx;
+}
+.person-list view:nth-child(2) {
+  -webkit-transform: translate(-18rpx, 0);
+  -moz-transform: translate(-18rpx, 0);
+  transform: translate(-18rpx, 0);
+}
+.person-list view:nth-child(3) {
+  -webkit-transform: translate(-36rpx, 0);
+  -moz-transform: translate(-36rpx, 0);
+  transform: translate(-36rpx, 0);
+}
+.person-list view:nth-child(4) {
+  -webkit-transform: translate(-54rpx, 0);
+  -moz-transform: translate(-54rpx, 0);
+  transform: translate(-54rpx, 0);
+}
+.person-list view:nth-child(5) {
+  -webkit-transform: translate(-72rpx, 0);
+  -moz-transform: translate(-72rpx, 0);
+  transform: translate(-72rpx, 0);
+}
+.person-list view:nth-child(6) {
+  -webkit-transform: translate(-90rpx, 0);
+  -moz-transform: translate(-90rpx, 0);
+  transform: translate(-90rpx, 0);
+}
+.person-list view image {
+  height: 80rpx;
+  width: 80rpx;
+}
+.next-box .name {
+  color: #666666;
+  font-size: 32rpx;
+  text-align: right;
+  padding-right: 10rpx;
+}
+
+.mark {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.teamCard-popBox {
+  position: fixed;
+  top: 300rpx;
+  left: 94rpx;
+  right: 94rpx;
+  z-index: 11;
+  background: #ffffff;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  padding: 40rpx 0 0 0;
+}
+.teamCard-popBox .input {
+  background: #f6f6f6;
+  border-radius: 16rpx;
+  margin: 0 30rpx 32rpx;
+  padding: 20rpx 20rpx;
+}
+.teamCard-popBox .input input {
+  color: #666666;
+  display: block;
+  font-size: 32rpx;
+  height: 34rpx;
+  line-hieght: 34rpx;
+}
+.teamCard-popBox .input-tip {
+  color: #999999;
+  font-size: 28rpx;
+  padding: 0 32rpx 52rpx;
+}
+.teamCard-popBox .popBox-tit {
+  padding-bottom: 40rpx;
+  text-align: center;
+}
+.teamCard-popBox .popBox-tit text {
+  color: #000000;
+  font-size: 40rpx;
+  padding-right: 12rpx;
+  vertical-align: middle;
+}
+.teamCard-popBox .popBox-tit image {
+  height: 40rpx;
+  vertical-align: middle;
+  width: 40rpx;
+}
+.popBox-bottom {
+  border-top: 1px #e5e5e5 solid;
+  overflow: hidden;
+}
+.popBox-bottom > view {
+  box-sizing: border-box;
+  font-size: 34rpx;
+  float: left;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  width: 50%;
+}
+.popBox-bottom > view:first-child {
+  border-right: 1px #e5e5e5 solid;
+}
+.popBox-bottom > view:last-child {
+  color: #f5a623;
+}
+.buy-fail {
+  position: fixed;
+  top: 550rpx;
+  left: -232rpx;
+  z-index: 11;
+  margin-left: 50%;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 16rpx;
+  color: #ededed;
+  font-size: 30rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+  text-align: center;
+  width: 464rpx;
+}
+
+.tdc-after-tit {
+  font-size: 32rpx;
+  font-weight: bold;
+  height: 56rpx;
+  line-height: 56rpx;
+}
+.tdc-after-tit.select {
+  border-top: 1px #fff dashed;
+  margin-top: 10rpx;
+  padding-top: 10rpx;
+}
+.tdc-after-price text:first-child {
+  padding-right: 60rpx;
+}
+.jumpIndex {
+  width: 400rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
+  border-radius: 200rpx;
+  font-size: 36rpx;
+  color: #624d17;
+  text-align: center;
+  position: fixed;
+  bottom: 80rpx;
+  left: 50%;
+  margin-left: -200rpx;
+}

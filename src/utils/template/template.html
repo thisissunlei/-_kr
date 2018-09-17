@@ -36,14 +36,14 @@
           	<view  bindtap="dateBtn">
 	          	<view wx:for="{{date_data1}}" wx:for-item="i"  wx:key='{{index}}' data-alldata='{{i}}' data-data='date_data1' class='{{i.type}} day {{i.seat?"seat-date":""}}'>
 	            	{{i.value}}
-	            	<view class="price" data-alldata='{{i}}' data-data='date_data1' wx:if="{{i.seat}}">{{i.price_vlue=='数量不足'?i.price_vlue:'¥ '+i.price_vlue}}</view>
+	            	<view class="price" data-alldata='{{i}}' data-data='date_data1' wx:if="{{i.seat}}">{{i.price_vlue=='数量不足'?i.price_vlue:'¥'+i.price_vlue}}</view>
           		</view> 
           	</view>
           	<view class="now-date">{{date_next.value}}</view>
           	<view  bindtap="dateBtn">
             	<view  wx:for="{{date_data2}}" wx:for-item="i" wx:key='{{index}}' data-alldata='{{i}}' data-data='date_data2' class='{{i.type}} day {{i.seat?"seat-date":""}}' wx:key='{{index}}'>
               		{{i.value}}
-              		<view wx:if="{{i.seat}}"  data-alldata='{{i}}' data-data='date_data2' class="price">{{i.price_vlue=='数量不足'? i.price_vlue:'¥ '+i.price_vlue}}
+              		<view wx:if="{{i.seat}}"  data-alldata='{{i}}' data-data='date_data2' class="price">{{i.price_vlue=='数量不足'? i.price_vlue:'¥'+i.price_vlue}}
                   </view>
             	</view>
 
@@ -85,4 +85,25 @@
           	</view>
 	    </view>
   	</view>
+</template>
+<!-- 选择团队卡的模板 -->
+<template name="teamCard">
+  <view class="my-card-list">
+    <image class="checked-logo" wx:if="{{item.checked}}" src="{{imgUrl}}teamCardBg/checked.png" mode="scaleToFill"></image>
+    <image class="team-card-bg" src="{{item.goodsUrl}}"></image>
+    <view class="card-content" bindtap="selectTab" data-content="{{item}}" data-index="{{index}}" >
+      <view class="card-first-content">
+        <view class="card-name">{{item.cardName}}</view>
+        <view class="card-num">NO.{{item.cardNo}}</view>
+      </view>
+      <view class="card-second-content">
+        <view class="card-text">余额</view>
+        <view class="card-over">{{item.remainAmountDecimal}}</view>
+        <view class="card-unit">元</view>
+      </view>
+      <view class="card-third-content">
+         <view class="card-range">使用期限：{{item.bt[0]+'.'+item.bt[1]+'.'+item.bt[2]}} - {{item.et[0]+'.'+item.et[1]+'.'+item.et[2]}}</view>
+      </view>
+    </view>
+  </view>
 </template>

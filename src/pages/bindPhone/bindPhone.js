@@ -1,6 +1,7 @@
 
 import * as CAlculagraph from '../../utils/time.js';
 const util = require('../../utils/util.js')
+import * as createOrder from '../../utils/createOrder.js';
 
 //index.js
 //获取应用实例
@@ -14,9 +15,66 @@ Page({
     phoneTest:true,
     phoneRepeat:true,
     phoneError:true,
-    errorMessage:''
+    errorMessage:'',
+    fun:''
   },
   submit_buttom:true,
+  getPhoneNumber: function(e) { 
+    let from = this.data.from;
+    let that = this;
+    let fun = this.data.fun;
+    let data = {
+      encryptedData:e.detail.encryptedData,
+      iv:e.detail.iv
+    }
+    
+    if(e.detail.errMsg === 'getPhoneNumber:ok'){
+      this.bindwxPhone(data)
+    }
+  } ,
+  bindwxPhone(data){
+    let fun = this.data.fun;
+    let that = this;
+    app.getRequest({
+        url:app.globalData.KrUrl+'api/gateway/krmting/wx/auth/bind-phone',
+        methods:"GET",
+        data:data,
+        success:(res)=>{
+          let code = res.data.code;
+          if(code>0){
+            createOrder[fun](this,1)
+
+          }else{
+            that.setData({
+              phoneError:false,
+              errorMessage:res.data.message,
+            })
+            setTimeout(function(){
+              that.setData({
+                phoneError:true,
+                errorMessage:'',
+                
+              })
+            },2000)
+          }
+        },
+        fail:(res)=>{
+
+          that.setData({
+            phoneError:false,
+            errorMessage:res.message,
+          })
+          setTimeout(function(){
+            that.setData({
+              phoneError:true,
+              errorMessage:'',
+              
+            })
+          },2000)
+          
+        }
+      })
+  },
   onShareAppMessage: function() {
     return app.globalData.share_data;
   },
@@ -25,12 +83,13 @@ Page({
       from:options.from,
       inputValue: options.value || '',
       inputValues: options.value || '',
-      phoneRange:options.city || '86'
+      phoneRange:options.city || '86',
+      fun : options.fun
     })
   },
   opencity(){
     wx.navigateTo({
-      url: '../regionList/regionList?value=中国'
+      url: '../regionList/regionList?value=中国&fun='+this.data.fun
     });
   },
   bindKeyInput:function(e){
@@ -52,10 +111,6 @@ Page({
       val = value
     }
     return val;
-  },
-  bindViewTap(){
-    console.log('bindViewTap')
-
   },
   clearValue(e){
     this.setData({
@@ -80,6 +135,10 @@ Page({
     if(!this.submit_buttom ){
       return;
     }
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     
 
       this.submit_buttom = false
@@ -92,12 +151,13 @@ Page({
         success:(res)=>{
           that.submit_buttom = true
           if(res.data.code>0 ){
-              
+               wx.hideLoading();
               wx.navigateTo({
-                url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from
+                url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from+'&fun='+this.data.fun
               }); 
 
           }else{
+             wx.hideLoading();
             that.setData({
               phoneError:false,
               errorMessage:res.data.message,
@@ -114,7 +174,7 @@ Page({
           
         },
         fail:(res)=>{
-
+           wx.hideLoading();
           that.setData({
             phoneError:false,
             errorMessage:res.message,
@@ -130,4 +190,6 @@ Page({
         }
       })
   },
+
+
 })

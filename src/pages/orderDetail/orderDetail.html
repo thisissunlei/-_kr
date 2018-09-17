@@ -46,13 +46,27 @@
           <view class="u-line"></view>
       </view>
   </view>
-  <view class="u-pay-info u-sale-info" wx:if="{{detailInfo.couponPrice>0}}">
+  <view class="u-pay-info {{detailInfo.cardDeductAmount>0?'u-sale-info':''}}" wx:if="{{detailInfo.couponPrice>0}}">
         <view class="u-sale-content">
             <view class="u-sale-title">
                 礼品券
             </view>
             <view class="u-meeting-price" >
                 <view class="u-price-num">-<view class="u-price-unit">￥</view>{{detailInfo.couponPrice}}</view>
+            </view>
+        </view>
+  </view>
+  <view class="u-pay-info"  wx:if="{{detailInfo.cardDeductAmount>0}}">
+        <view class="u-sale-content">
+            <view class="u-sale-title">
+                团队卡
+            </view>
+            <view class="u-team-name">
+                {{detailInfo.cardName}}
+                <image class="u-team-name-icon" src="{{imgUrl}}/teamName.png"></image>
+             </view>
+            <view class="u-meeting-price" >
+                <view class="u-price-num">-<view class="u-price-unit">￥</view>{{detailInfo.cardDeductAmount}}</view>
             </view>
         </view>
   </view>

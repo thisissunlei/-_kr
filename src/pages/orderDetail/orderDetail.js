@@ -30,6 +30,7 @@ Page({
     meetingRoomId:'',
     titleObj:{},
     ifFixed:false,
+    imgUrl:app.globalData.KrImgUrl,
    
   },
   time_cal:"",
@@ -218,8 +219,10 @@ Page({
   },
   onUnload:function(){
     if(this.data.con==1){
-      console.log(2222)
-      this.time_cal.closeCal();
+      if(this.time_cal!=''){
+        this.time_cal.closeCal();
+      }
+     
       wx.reLaunch({
         url: '../index/index'
       })

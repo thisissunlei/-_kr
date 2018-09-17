@@ -87,6 +87,36 @@
             </view>
 
         </view>
+        <!-- 团队卡选项 -->
+        <view class="u-team-card" bindtap="jumpSetCard" wx:if="{{(daynum>0)&&(sankeNum>0)}}"> 
+            <view class="u-meeting-title sale-title">
+                团队卡
+            </view>
+             <view class="u-meet-text meet-theme" style="color:#999" wx:if="{{cardStatus==='nothing'}}">暂无可用</view>
+            <view class="u-meet-text meet-theme" wx:if="{{cardStatus==='chosen'}}" >
+                <view class="u-meet-card sale-content">
+                    <view class="team-name-box">{{cardContent.cardName}}</view>
+                    <image class="team-name-right" style="width:24rpx;" src="{{imgUrl}}teamName.png"></image></view>
+                <view class="u-meet-money sale-content">
+                    <view class="u-sale-unit" style="vertical-align:top">
+                        -
+                    </view>
+                    <view class="u-sale-unit">
+                        ¥
+                    </view>
+                    <view style="display:inline-block">{{cardContent.remainAmountDecimal}}</view>
+                </view>
+
+            </view>
+            <view class="u-meet-text meet-theme" wx:if="{{cardStatus==='none'}}" >
+                <view class=" sale-content sale-type-none">{{cardLength}}张可用</view>
+
+            </view>
+            <view class="u-btn-arrow u-meeting-btn-arrow" style="top:47rpx">
+                <image class="u-btn-arrow-right" src="../images/public/icon_arrow-right.png"></image>
+            </view>
+
+        </view>
     </view>
 
 
@@ -157,7 +187,7 @@
                     ¥
                 </view>
                 <view class="u-price-num">
-                    1
+                    {{price_all}}
                 </view>
             </view>
             <view class="u-footer-tips">
@@ -175,12 +205,12 @@
                 <view class="u-no-first-price-unit">
                     ¥
                 </view>
-                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&!saleContent.sale}}">
+                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0}}">
                     {{price_all}}
                 </view>
-                <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&saleContent.sale}}">
+                <!-- <view class="u-no-first-price-num" wx:if="{{sankenum!=0&&daynum!=0&&saleContent.sale}}">
                     {{salePrice}}
-                </view>
+                </view> -->
                 <view class="u-no-first-price-num" wx:if="{{sankenum==0 || daynum==0}}">
                     0
                 </view>
@@ -259,7 +289,7 @@
                                     散座
                                 </view>
                                 <view class="u-meet-detail-price-info">
-                                    <view class="u-meet-unit">¥</view>
+                                    <view class="u-meet-unit" style="color:red">¥</view>
                                     <view class="u-meet-detail-num2"> {{meetingDetail.promotionCost}}</view>
                                     <view class="u-meet-old-num" wx:if="{{meetingDetail.promotionCost!=meetingDetail.unitCost}}">¥ {{meetingDetail.unitCost}}</view>
                                     <view class="u-meet-old-unit"> / 个·天 </view>
@@ -272,12 +302,12 @@
                                     <view class="u-address-txt">{{meetingDetail.buildFloorDescr}} 氪空间</view>
                                 </view>
                                 <view class="u-address">
-                                    <image class="u-address-icon" src="../images/public/icon_dizhi.png" style="vertical-align: center"></image>
-                                    <view class="u-address-txt" style="width:90%;vertical-align: top;line-height: 40rpx">{{meetingDetail.adress}}</view>
+                                    <image class="u-address-icon" src="../images/public/icon_dizhi.png"></image>
+                                    <view class="u-address-txt" >{{meetingDetail.adress}}</view>
                                 </view>
                                 <view class="u-address">
-                                    <image class="u-address-icon" src="../images/public/icon_shijian.png" style="vertical-align: center"></image>
-                                    <view class="u-address-txt" style="width:90%;vertical-align: top;line-height: 40rpx">{{meetingDetail.openTime}}</view>
+                                    <image class="u-address-icon" src="../images/public/icon_shijian.png"></image>
+                                    <view class="u-address-txt">{{meetingDetail.openTime}}</view>
                                 </view>
                             </view>
 
