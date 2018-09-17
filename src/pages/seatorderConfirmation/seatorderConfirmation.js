@@ -1,5 +1,5 @@
 const app = getApp()
-import {dateData,dateDataPrice} from '../../utils/dateData.js';
+import {dateData,dateDataPrice} from '../../utils/calendar.js';
 
 
 Page({
@@ -423,12 +423,15 @@ Page({
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
     let init_month = today_month.getTime()
     app.getRequest({
-      url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
+      url:app.globalData.KrUrl+"api/gateway/km/mobile/community/get-workday",
+      // url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
       methods:"GET",
       data:{
        seatId:this.data.seatId
       },
       success:res=>{
+
+        
         let curMonth = res.data.data.curMonth;
         let curTime ;
         if(curMonth.length){
@@ -439,6 +442,9 @@ Page({
         let first = new Date(curTime);
         const first_month = new Date(first.getFullYear(),first.getMonth(),1).getTime();
         let last_data = init_month == first_month?'date_data1':'date_data2'
+
+
+
         that.james = new dateDataPrice({
           data: res.data.data,
           init_data: {
@@ -446,6 +452,8 @@ Page({
             last_data: last_data,
           },
         });
+
+
         this.date_data1 = that.james.date_data1;
         this.date_data2 = that.james.date_data2;
 
