@@ -149,7 +149,7 @@ Page({
   },
   onLoad: function(options) {
     const that = this;
-    console.log(options);
+    // console.log(options);
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "id");
       wx.reportAnalytics("idx_channel", {
@@ -229,7 +229,7 @@ Page({
       that.setData({
         toView: that.toView
       });
-    }, 1500);
+    }, 500);
   },
   onShow: function() {
     this.getAllInfo();
