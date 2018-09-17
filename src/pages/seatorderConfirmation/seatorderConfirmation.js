@@ -376,8 +376,10 @@ Page({
   },
 
   dateBtn : function (e){
+
       let evlue = this.james.dateBtn(e);
       let selecedList = this.james.getValue()
+      console.log('dateBtn==========',selecedList)
         this.setData({
           date_data1:this.date_data1,
           date_data2:this.date_data2, 
@@ -389,8 +391,11 @@ Page({
   confirmBooking(){
     var that = this;
     let selecedList = this.data.selecedList
+    var a = this.james.getValue() 
+    console.log('日历里的确认按钮---1',a)
     if(!selecedList.length){
       selecedList = this.james.getValue()
+      console.log('日历里的确认按钮---2',this.james.getValue())
     }
     selecedList = selecedList.map((item,index)=>{
       if(item.alldata){
@@ -402,6 +407,7 @@ Page({
       }
       
     })
+
     this.combination_new= selecedList;
     let seatGoodIds=[]
     seatGoodIds = this.combination_new.map(item=>{
@@ -410,7 +416,7 @@ Page({
     // 日历所选择的内容
     this.seatGoodIds = seatGoodIds.join(",")
     this.onClickDate();
-    
+    console.log('日历里的确认按钮=========>',this.seatGoodIds)
     this.setData({
       show_a:true
     })
@@ -418,7 +424,7 @@ Page({
   dealDate:function(init_date){
     
     let that = this;
-
+    console.log('dealDate---',init_date)
     const today_date = new Date(init_date);
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
     let init_month = today_month.getTime()
@@ -439,6 +445,7 @@ Page({
         let first = new Date(curTime);
         const first_month = new Date(first.getFullYear(),first.getMonth(),1).getTime();
         let last_data = init_month == first_month?'date_data1':'date_data2'
+        console.log('=======',last_data)
         that.james = new dateDataPrice({
           data: res.data.data,
           init_data: {
