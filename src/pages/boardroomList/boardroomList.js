@@ -323,7 +323,7 @@ Page({
     });
     
   },
-  //切换日期后重载数据
+  //切换日期后重载数据(会议室的时间刻度的状态处理)
   reloadData: function() {
     var boardroomList = this.data.boardroomList;
 
