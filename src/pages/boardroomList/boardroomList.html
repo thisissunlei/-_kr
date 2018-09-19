@@ -1,4 +1,6 @@
 <!--index.wxml-->
+   <import src="../../utils/template/template.wxml" />
+
 <view class="container boardroom-list" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
   <view scroll-y class='list-outer meeting-hig'>
     <swiper class="swiper" indicator-dots="true" autoplay="true" interval="1500" duration="1000" class="swiper-img" circular='true' indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#FFDF00">  
@@ -22,6 +24,7 @@
           data-bool="{{item.bool}}"
           data-date="{{item.date}}"
           data-week="{{item.week}}"
+          data-type="{{item.type}}"
           >
             <view class="week">{{item.week}}</view>
             <view class="day">{{item.day}}</view>
@@ -248,8 +251,9 @@
   </view>
   <!-- 日历选择 -->
   <view class="u-dialog" catchtap="closeDialogDate" wx:if="{{dialogDate}}">
+    <template is="date" data="{{date_data1,date_next,date_now,date_data2}}"/> 
     <!-- <view class="wrapper"> -->
-    <view class="date">
+    <!-- <view class="date">
       <view class="select-data">请选择日期</view>
         <view class="week">
           <text class="week-day">日</text>
@@ -292,7 +296,6 @@
               {{i.value}}
           </view>
         </view>
-          <!-- </view> -->
-    </view>
+    </view> -->
   </view>
 </view>

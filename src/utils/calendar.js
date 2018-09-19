@@ -52,6 +52,7 @@ export class dateData{
         case i<week:
           data.push({
             value:'',
+            type:'before',
             num:i
           });
           break;

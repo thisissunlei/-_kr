@@ -418,13 +418,13 @@ Page({
   dealDate:function(init_date){
     
     let that = this;
+    console.log('dealDate',init_date)
 
     const today_date = new Date(init_date);
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
     let init_month = today_month.getTime()
     app.getRequest({
-      url:app.globalData.KrUrl+"api/gateway/km/mobile/community/get-workday",
-      // url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
+      url:app.globalData.KrUrl+"api/gateway/krseat/seat/goods/list",
       methods:"GET",
       data:{
        seatId:this.data.seatId

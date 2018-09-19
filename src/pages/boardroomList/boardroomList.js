@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp();
+import {dateData,dateDataPrice} from '../../utils/calendar.js';
 
 Page({
   onShareAppMessage: function() {
@@ -86,8 +87,15 @@ Page({
     }
   },
   index_x: "",
+  date_data1:[],
+  date_data2:[],
   button_boolean: true,
   button_boolean1: true,
+  james:'',
+   // 日历相关
+  all_day_num: 0,
+  last_btn_num: "false",
+  last_data: "date_data1",
   scrollTopEvent(e) {
     let top = e.detail.scrollTop;
 
@@ -107,7 +115,6 @@ Page({
     let rangeTime = e.currentTarget.dataset.rangetime;
     let detail = e.currentTarget.dataset.detail;
     let id = 111;
-    // console.log(e);
     wx.setStorageSync("rangeTime-c", rangeTime);
     wx.setStorageSync("detail-c", detail);
     wx.navigateTo({
@@ -117,7 +124,6 @@ Page({
   },
   //散座
   openMeetDetail1: function(e) {
-    // console.log(e);
     wx.showLoading({
       title: "加载中"
     });
@@ -139,7 +145,6 @@ Page({
   
   //会议
   openMeetDetail: function(e) {
-    // console.log(e)
     wx.showLoading({
       title: "加载中"
     });
@@ -178,46 +183,38 @@ Page({
       });
     }
   },
-  scrollTopDate: function(validIndex) {
+  scrollTopDate: function(date) {
     var topDate = this.data.topDate;
-    var indexParam = validIndex;
+    var indexParam = 0;
     var that = this;
-    
+    let acticedObj = {}//选中的日期对象
     var newData = topDate.map((item, index) => {
-      if (index == indexParam) {
+      if (item.date == date) {
         item.actived = true;
+        acticedObj = item;
+        indexParam = index;
       } else {
         item.actived = false;
       }
       return item;
     });
-    if (validIndex == 0 && topDate[0].week == "今天") {
-      this.setData({
-        isToday: true
-      });
-    } else {
-      this.setData({
-        isToday: false
-      });
-    }
     var orderDate = {
-      time: topDate[validIndex].date,
-      timeText: topDate[validIndex].week
+      time: acticedObj.date,
+      timeText: acticedObj.week
     };
     this.setData(
       {
         topDate: newData,
-        dateScrollLeft: validIndex * 53,
-        nowDate: topDate[validIndex].date,
-        nowDateIndex: validIndex
+        dateScrollLeft: indexParam * 53,
+        nowDate: acticedObj.date,
+        nowDateIndex: indexParam
       },
       function() {
         that.getData();
         that.getData1();
-        wx.setStorageSync("nowDate", topDate[validIndex].date);
+        wx.setStorageSync("nowDate", acticedObj.date);
         wx.setStorageSync("orderDate", orderDate);
-        wx.setStorageSync("nowDateIndex", validIndex);
-        // console.log(newData);
+        wx.setStorageSync("nowDateIndex", indexParam);
       }
     );
   },
@@ -239,7 +236,6 @@ Page({
       },
 
       success: res => {
-        console.log(res)
         if(res.data.data.items.length > 0){
           this.setData({
             show_huiyi : true
@@ -273,8 +269,6 @@ Page({
   //获取散座列表
   getData1: function() {
     let that = this;
-    // console.log(that.data.communityId,that.data.nowDate)
-    // console.log(that.data.communityId,that.data.nowDate)
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/seat/goods/cmt",
       methods: "GET",
@@ -293,7 +287,6 @@ Page({
         }
         if(showData){
           let arr_null = [];
-          // console.log(res)
           arr_null.push(res.data.data);
           that.setData(
             {
@@ -306,7 +299,6 @@ Page({
               wx.hideLoading();
             }
           );
-          // console.log(this.data.scoll_arr)
         }else{
           this.setData({
             sanzuo: false
@@ -315,7 +307,6 @@ Page({
         
       },
       fail:res=>{
-        console.log('============')
         this.setData({
           sanzuo: true
         });
@@ -423,6 +414,7 @@ Page({
       var day = today.getDate();
       var totalDay = this.getMonthDays(year, month);
       var todayWeek = today.getDay();
+      console.log('todayWeek',today)
       var dateItem = {
         week: "",
         day: "",
@@ -470,20 +462,23 @@ Page({
       function() {
         that.getData();
         that.getData1();
+        // that.dealDateList();
         wx.setStorageSync("nowDate", topDate[0].date);
         wx.setStorageSync("orderDate", orderDate);
         wx.setStorageSync("topDate", topDate);
         wx.setStorageSync("nowDateIndex", 0);
       }
     );
+
   },
   selectTopDate: function(e) {
-    // console.log(e)
     var topDate = this.data.topDate; //[]
     var indexParam = e.currentTarget.dataset.index;
-    this.changeTimeColor(indexParam);
+    // this.changeTimeColor(indexParam);
     var date = e.currentTarget.dataset.date;
     var week = e.currentTarget.dataset.week;
+    var type = e.currentTarget.dataset.type;
+    this.last_data = type
     var that = this;
     var newData = topDate.map((item, index) => {
       if (index == indexParam) {
@@ -515,73 +510,13 @@ Page({
       function() {
         that.getData();
         that.getData1();
+        that.dealDateList();
         wx.setStorageSync("nowDate", date);
         wx.setStorageSync("orderDate", orderDate);
         wx.setStorageSync("nowDateIndex", indexParam);
       }
     );
   },
-
-  changeTimeColor: function(param) {
-    var a = false;
-    var dateType = "";
-    var dateIndex = "";
-    this.data.date_data1.forEach((item, index) => {
-      if (item.validDateNum == param) {
-        dateIndex = index;
-        a = true;
-        dateType = "1";
-      }
-    });
-    // last_btn_num
-    if (!a) {
-      this.data.date_data2.forEach((item, index) => {
-        // console.log(item);
-        if (item.validDateNum == param) {
-          dateIndex = index;
-          a = true;
-          dateType = "2";
-        }
-      });
-    }
-    var newDate1 = this.data.date_data1;
-    var newDate2 = this.data.date_data2;
-    if (this.last_data == "date_data1") {
-      newDate1[this.last_btn_num]["type"] = newDate1[this.last_btn_num][
-        "type"
-      ].replace("active ", "");
-      this.setData({
-        date_data1: newDate1
-      });
-    } else if (this.last_data == "date_data2") {
-      newDate2[this.last_btn_num]["type"] = newDate2[this.last_btn_num][
-        "type"
-      ].replace("active ", "");
-      this.setData({
-        date_data2: newDate2
-      });
-    }
-    if (dateType == "2") {
-      this.last_btn_num = dateIndex;
-      this.last_data = "date_data2";
-      newDate2[parseInt(dateIndex)]["type"] =
-        "active " + newDate2[parseInt(dateIndex)]["type"];
-      this.setData({
-        date_data2: newDate2
-      });
-    } else {
-      this.last_btn_num = dateIndex;
-      this.last_data = "date_data1";
-      newDate1[parseInt(dateIndex)]["type"] =
-        "active " + newDate1[parseInt(dateIndex)]["type"];
-      this.setData({
-        date_data1: newDate1
-      });
-    }
-    // console.log(dateType[parseInt(dateIndex)]);
-    // dateType[parseInt(dateIndex)]['type'] = 'active ' + dateType[parseInt(dateIndex)]['type'];
-  },
-
   //加载下一页会议室列表数据
   loadNext: function() {
     var communityList = this.data.communityList;
@@ -602,7 +537,6 @@ Page({
         pageSize: that.data.pageSize
       },
       success: res => {
-        // console.log(res)
         that.setData(
           {
             boardroomList: [].concat(
@@ -623,7 +557,6 @@ Page({
   changeCommunity: function(e) {
     var communityList = this.data.communityList;
     var index = e.detail.value;
-    // console.log(communityList[index].name)
     wx.setNavigationBarTitle({
       title: communityList[index].name
     });
@@ -643,60 +576,24 @@ Page({
   toBottom: function(e) {
     this.loadNext();
   },
-
-  // 日历相关
-  all_day_num: 0,
-  last_btn_num: "false",
-  last_data: "date_data1",
   dateBtn: function(e) {
-    // console.log(e)
-    //亮的或者今天  明天
-    if (e.target.dataset.bool == "next" || e.target.dataset.bool == "now") {
-      // console.log(e);
-      const new_data = this.data[e.target.dataset.data];
-      var old_data = [];
-      if (this.last_data != "false") {
-        if (this.last_data == "date_data1") {
-          old_data = this.data["date_data1"];
-          old_data[this.last_btn_num]["type"] = old_data[this.last_btn_num][
-            "type"
-          ].replace("active ", "");
-          this.setData({
-            date_data1: old_data
-          });
-        } else if (this.last_data == "date_data2") {
-          old_data = this.data["date_data2"];
-          old_data[this.last_btn_num]["type"] = old_data[this.last_btn_num][
-            "type"
-          ].replace("active ", "");
-          this.setData({
-            date_data2: old_data
-          });
-        }
+      let evlue = this.james.dateBtn(e);
+      let selecedList = this.james.getValue()
+      let timeData = selecedList[0];
+      //处理日历选中日期年-月-日
+      let selecedTime = timeData.alldata.date_times;
+      let year = new Date(selecedTime).getFullYear();
+      let month = new Date(selecedTime).getMonth()+1;
+      let day = timeData.alldata.day_num
+      if(month<10){
+        month = '0'+month
       }
-      new_data[parseInt(e.target.dataset.num)]["type"] =
-        "active " + new_data[parseInt(e.target.dataset.num)]["type"];
-      if (e.target.dataset.data == "date_data2") {
-        this.setData({
-          date_data2: new_data
-        });
-      } else if (e.target.dataset.data == "date_data1") {
-        this.setData({
-          date_data1: new_data
-        });
+      if(day<10){
+        day = '0'+ day
       }
-      this.last_btn_num = e.target.dataset.num;
-      this.last_data = e.target.dataset.data;
-      var timeData = e.target.dataset;
-      var that = this;
-      this.scrollTopDate(timeData.validIndex);
-      // this.setData({
-      //   nowDate:`${timeData.year}-${timeData.month+1}-${timeData.day}`,
-      // },function(){
-      //   wx.setStorageSync('nowDate',that.data.nowDate);
-      that.closeDialogDate();
-      // })
-    }
+      let selecedDate = year+'-'+month+'-'+day;
+      // 结束
+      this.scrollTopDate(selecedDate);
   },
   closeDialogDate: function() {
     //未知，待定
@@ -706,97 +603,97 @@ Page({
       dialogDate: !that.data.dialogDate
     });
   },
-  dealDate: function(today_month, bool) {
-    const week = today_month.getDay();
-    const today = parseInt(new Date().getDate());
-    today_month.setMonth(today_month.getMonth() + 1);
-    today_month.setDate(0);
-    const day_num = today_month.getDate() + week;
-    const data = [];
-    for (var i = 0; i < day_num; i++) {
-      switch (true) {
-        case i < week:
-          data.push({
-            value: ""
-          });
-          break;
-        case i > today + week && bool:
-          if (i % 7 == 0 || i % 7 == 6) {
-            data.push({
-              value: i - week + 1,
-              day: i - week + 1,
-              type: "before"
-            });
-          } else {
-            data.push({
-              value: i - week + 1,
-              day: i - week + 1,
-              type: "next"
-            });
-          }
+  // dealDate: function(today_month, bool) {
+  //   const week = today_month.getDay();
+  //   const today = parseInt(new Date().getDate());
+  //   today_month.setMonth(today_month.getMonth() + 1);
+  //   today_month.setDate(0);
+  //   const day_num = today_month.getDate() + week;
+  //   const data = [];
+  //   for (var i = 0; i < day_num; i++) {
+  //     switch (true) {
+  //       case i < week:
+  //         data.push({
+  //           value: ""
+  //         });
+  //         break;
+  //       case i > today + week && bool:
+  //         if (i % 7 == 0 || i % 7 == 6) {
+  //           data.push({
+  //             value: i - week + 1,
+  //             day: i - week + 1,
+  //             type: "before"
+  //           });
+  //         } else {
+  //           data.push({
+  //             value: i - week + 1,
+  //             day: i - week + 1,
+  //             type: "next"
+  //           });
+  //         }
 
-          this.all_day_num++;
-          break;
-        case i == today + week - 1 && bool:
-          if (i % 7 == 0 || i % 7 == 6) {
-            data.push({
-              value: "今天",
-              day: i - week + 1,
-              type: "before"
-            });
-          } else {
-            data.push({
-              value: "今天",
-              day: i - week + 1,
-              type: "now"
-            });
-          }
-          this.all_day_num++;
-          break;
-        case i == today + week && bool:
-          if (i % 7 == 0 || i % 7 == 6) {
-            data.push({
-              value: "明天",
-              day: i - week + 1,
-              type: "before"
-            });
-          } else {
-            data.push({
-              value: "明天",
-              day: i - week + 1,
-              type: "now"
-            });
-          }
+  //         this.all_day_num++;
+  //         break;
+  //       case i == today + week - 1 && bool:
+  //         if (i % 7 == 0 || i % 7 == 6) {
+  //           data.push({
+  //             value: "今天",
+  //             day: i - week + 1,
+  //             type: "before"
+  //           });
+  //         } else {
+  //           data.push({
+  //             value: "今天",
+  //             day: i - week + 1,
+  //             type: "now"
+  //           });
+  //         }
+  //         this.all_day_num++;
+  //         break;
+  //       case i == today + week && bool:
+  //         if (i % 7 == 0 || i % 7 == 6) {
+  //           data.push({
+  //             value: "明天",
+  //             day: i - week + 1,
+  //             type: "before"
+  //           });
+  //         } else {
+  //           data.push({
+  //             value: "明天",
+  //             day: i - week + 1,
+  //             type: "now"
+  //           });
+  //         }
 
-          this.all_day_num++;
-          break;
-        case i < 30 - this.all_day_num + week && !bool:
-          if (i % 7 == 0 || i % 7 == 6) {
-            data.push({
-              value: i - week + 1,
-              day: i - week + 1,
-              type: "before"
-            });
-          } else {
-            data.push({
-              value: i - week + 1,
-              day: i - week + 1,
-              type: "next"
-            });
-          }
+  //         this.all_day_num++;
+  //         break;
+  //       case i < 30 - this.all_day_num + week && !bool:
+  //         if (i % 7 == 0 || i % 7 == 6) {
+  //           data.push({
+  //             value: i - week + 1,
+  //             day: i - week + 1,
+  //             type: "before"
+  //           });
+  //         } else {
+  //           data.push({
+  //             value: i - week + 1,
+  //             day: i - week + 1,
+  //             type: "next"
+  //           });
+  //         }
 
-          break;
-        default:
-          data.push({
-            value: i - week + 1,
-            day: i - week + 1,
-            type: "before"
-          });
-        //this.all_day_num++;
-      }
-    }
-    return data;
-  },
+  //         break;
+  //       default:
+  //         data.push({
+  //           value: i - week + 1,
+  //           day: i - week + 1,
+  //           type: "before"
+  //         });
+  //       //this.all_day_num++;
+  //     }
+  //   }
+  //   return data;
+  // },
 
   onLoad: function(options) {
     // console.log(options)
@@ -823,41 +720,15 @@ Page({
       today_date.getMonth() + 1,
       1
     );
-
-    var date1 = this.dealDate(today_month, true);
-    var date2 = this.dealDate(next_month, false);
-    // var date = date1.concat(date2);
-    // var allDate=[];
     var validDateNum = 0;
     var that = this;
 
-    date1 = date1.map((item, index) => {
-      if (item.value && item.type != "before") {
-        // 加颜色
-        if (validDateNum == 0) {
-          date1[index]["type"] = "active " + date1[index]["type"];
-
-          // console.log("item",item,index);
-          that.last_btn_num = index;
-        }
-        item.validDateNum = validDateNum++;
-      }
-      return item;
-    });
-    date2 = date2.map((item, index) => {
-      if (item.value && item.type != "before") {
-        item.validDateNum = validDateNum++;
-      }
-      return item;
-    });
     const year_value =
       today_date.getFullYear() == new Date().getFullYear()
         ? ""
         : today_date.getFullYear() + "年";
-    // console.log(date1,date2);
+    
     this.setData({
-      date_data1: date1,
-      date_data2: date2,
       date_now: {
         month: today_date.getMonth() + 1,
         year: today_date.getFullYear(),
@@ -876,7 +747,8 @@ Page({
 
   onReady: function() {
     var that = this;
-    this.getTopDate();
+    this.getTopDateList()
+    // this.getTopDate();
     // this.reloadData();
   },
   //会议室列表详情
@@ -896,7 +768,6 @@ Page({
           that.setData({
             meetingDetail: meetingDetail
           });
-          // console.log(this.data.meetingDetail);
         } else {
           that.setData({
             phoneError: false,
@@ -928,9 +799,7 @@ Page({
   //散座详情列表
   getMeetDetail1() {
     wx.reportAnalytics("goodsdetails");
-    // console.log(this.data.meetingRoomId1)
     let meetingRoomId = this.data.meetingRoomId1;
-    // console.log(meetingRoomId)
     let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/seat/goods/detail",
@@ -939,13 +808,11 @@ Page({
         seatGoodsId: meetingRoomId
       },
       success: res => {
-        // console.log(res)
         if (res.data.code > 0) {
           let meetingDetail = res.data.data;
           that.setData({
             meetingDetail: meetingDetail
           });
-          // console.log(this.data.meetingDetail);
         } else {
           that.setData({
             phoneError: false,
@@ -961,7 +828,6 @@ Page({
         wx.hideLoading();
       },
       fail: res => {
-        // console.log('获取失败')
         that.setData({
           phoneError: false,
           errorMessage: res.message
@@ -978,7 +844,6 @@ Page({
   //会议室立即约定
   nowReserve(e) {
     let that = this;
-    // console.log(e);
     let meetingRoomId = e.currentTarget.dataset.mid;
     let meetingDetail;
     if (this.button_boolean) {
@@ -990,7 +855,6 @@ Page({
             meetingDetail = Object.assign({}, that.data.meetDetail, res.data, {
               meetingRoomId: meetingRoomId
             });
-
             that.setDetail(meetingDetail);
           }
         }
@@ -1000,7 +864,6 @@ Page({
   //散座立即约定
   nowReserve1(e) {
     let that = this;
-    // console.log(e);
     let meetingRoomId1 = e.currentTarget.dataset.mid;
     let meetingDetail;
     if (this.button_boolean1) {
@@ -1051,5 +914,104 @@ Page({
         }, 500);
       }
     });
-  }
+  },
+  dealMonth(timestamp){
+    let today_month = new Date().getMonth() + 1;
+    let month = new Date(timestamp).getMonth() + 1;
+    if(today_month == month){
+      return 'date_data1'
+    }else{
+      return 'date_data2'
+    }
+  },
+  getTopDateList(){
+    let that = this;
+    //处理今天和明天的日期
+    var today = new Date();
+    let tomorrow = new Date().setDate(today.getDate() + 1);
+    tomorrow = new Date(tomorrow);
+    var month = today.getMonth() + 1;
+    var t_month = tomorrow.getMonth() + 1;
+    today = today.getFullYear()+'-'+month+'-'+today.getDate()+' 00:00:00';
+    today = new Date(today).getTime()
+    tomorrow = tomorrow.getFullYear()+'-'+t_month+'-'+tomorrow.getDate()+' 00:00:00';
+    tomorrow = new Date(tomorrow).getTime()
+    // 结束
+    app.getRequest({
+      url:app.globalData.KrUrl+"api/gateway/km/mobile/community/get-workday",
+      methods:"GET",
+      data:{
+       cmtId:this.data.communityId,
+       span:30,
+      },
+      success:res=>{
+        let list = res.data.data;
+        let dataList = list.map(item=>{
+          let obj = {};
+          let time  = new Date(item)
+          obj.date = item;
+          obj.bool = false;
+          obj.actived = false;
+          obj.times = new Date(item + ' 00:00:00').getTime();
+          let week = time.getDay()
+          obj.type = that.dealMonth(item)
+          if(today === obj.times){
+            obj.week = '今天';
+            obj.actived = true;
+          }else if(tomorrow === obj.times){
+            obj.week = '明天';
+          }else{
+            obj.week = that.getWeek(week);
+          }
+          obj.day = time.getDate();
+          return obj
+        })
+        var orderDate = {
+          time: dataList[0].date,
+          timeText: dataList[0].week
+        };
+        this.setData(
+          {
+            topDate: dataList,
+            nowDate: dataList[0].date,
+            allDays: dataList,
+            nowDateIndex: 0
+          },
+          function() {
+            that.getData();
+            that.getData1();
+            that.dealDateList();
+            wx.setStorageSync("nowDate", dataList[0].date);
+            wx.setStorageSync("orderDate", orderDate);
+            wx.setStorageSync("topDate", dataList);
+            wx.setStorageSync("nowDateIndex", 0);
+          }
+        );
+       
+      }
+    })
+  },
+  dealDateList:function(){
+    let init_date = this.data.nowDate;
+    let topDate = this.data.topDate;
+    let that = this;
+    const today_date = new Date(init_date);
+    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
+    let init_month = today_month.getTime()
+        that.james = new dateData({
+          btn_bool:true,
+          data: topDate,
+          init_data: {
+            last_btn_num: init_date, //日期
+            last_data: that.last_data,
+          },
+        });
+        this.setData({
+          date_data1: that.james.date_data1,
+          date_data2: that.james.date_data2,
+        });
+       
+    
+    
+  },
 });
