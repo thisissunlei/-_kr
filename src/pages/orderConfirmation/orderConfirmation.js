@@ -820,6 +820,8 @@ Page({
       nowDate:wx.getStorageSync('nowDate'),
       nowDateIndex:wx.getStorageSync('nowDateIndex'),
       topDate:wx.getStorageSync('topDate'),
+    },function(){
+      _this.initDate();
     })
     
   },
@@ -842,7 +844,6 @@ Page({
           });
          
           this.choose_date = res.time
-          this.initDate();
   },
 
   initDate:function(){
@@ -1384,9 +1385,9 @@ Page({
       }
     })
     let that = this;
-    const today_date = new Date(init_date);
-    const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
-    let init_month = today_month.getTime()
+    // const today_date = new Date(init_date);
+    // const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
+    // let init_month = today_month.getTime()
         that.james = new dateData({
           btn_bool:true,
           data: topDate,

@@ -414,7 +414,6 @@ Page({
       var day = today.getDate();
       var totalDay = this.getMonthDays(year, month);
       var todayWeek = today.getDay();
-      console.log('todayWeek',today)
       var dateItem = {
         week: "",
         day: "",
@@ -698,7 +697,6 @@ Page({
   // },
 
   onLoad: function(options) {
-    // console.log(options)
     wx.reportAnalytics("community");
     if (options.communityId) {
       this.setData({
@@ -930,14 +928,16 @@ Page({
     let that = this;
     //处理今天和明天的日期
     var today = new Date();
-    let tomorrow = new Date().setDate(today.getDate() + 1);
+    var tomorrow = new Date().setDate(today.getDate() + 1);
     tomorrow = new Date(tomorrow);
     var month = today.getMonth() + 1;
+    month = month>10?month:'0'+month;
     var t_month = tomorrow.getMonth() + 1;
-    today = today.getFullYear()+'-'+month+'-'+today.getDate()+' 00:00:00';
-    today = new Date(today).getTime()
-    tomorrow = tomorrow.getFullYear()+'-'+t_month+'-'+tomorrow.getDate()+' 00:00:00';
-    tomorrow = new Date(tomorrow).getTime()
+    t_month = t_month>10?t_month:'0'+t_month;
+    var day = today.getDate()>10?today.getDate():'0'+today.getDate();
+    var t_day = tomorrow.getDate()>10?tomorrow.getDate():'0'+tomorrow.getDate();
+    today = today.getFullYear()+'-'+month+'-'+day;
+    tomorrow = tomorrow.getFullYear()+'-'+t_month+'-'+t_day;
     // 结束
     app.getRequest({
       url:app.globalData.KrUrl+"api/gateway/km/mobile/community/get-workday",
@@ -954,13 +954,14 @@ Page({
           obj.date = item;
           obj.bool = false;
           obj.actived = false;
-          obj.times = new Date(item + ' 00:00:00').getTime();
+          obj.times = new Date(item).getTime();
           let week = time.getDay()
           obj.type = that.dealMonth(item)
-          if(today === obj.times){
+
+          if(today === item){
             obj.week = '今天';
             obj.actived = true;
-          }else if(tomorrow === obj.times){
+          }else if(tomorrow === item){
             obj.week = '明天';
           }else{
             obj.week = that.getWeek(week);
