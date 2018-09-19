@@ -514,6 +514,8 @@ Page({
         wx.setStorageSync("nowDate", date);
         wx.setStorageSync("orderDate", orderDate);
         wx.setStorageSync("nowDateIndex", indexParam);
+        wx.setStorageSync("topDate", newData);
+
       }
     );
   },
@@ -1009,9 +1011,6 @@ Page({
         this.setData({
           date_data1: that.james.date_data1,
           date_data2: that.james.date_data2,
-        });
-       
-    
-    
+        }); 
   },
 });

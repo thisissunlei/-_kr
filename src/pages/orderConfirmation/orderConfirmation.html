@@ -1,3 +1,5 @@
+   <import src="../../utils/template/template.wxml" />
+
 <view class="g-order-confirmation" style="{{meetDetailShow?'height:100%;overflow:hidden':''}}">
     <view class="m-order-header">
         <view class="u-order-detail" bindtap="openMeetDetail">
@@ -337,8 +339,10 @@
 
   <!-- 日历选择 -->
   <view class="u-dialog" catchtap="closeDialogDate" wx:if="{{dialogDate}}">
+    <template is="date" data="{{date_data1,date_next,date_now,date_data2}}"/> 
+
         <!-- <view class="wrapper"> -->
-            <view class="date">
+            <!-- <view class="date">
                   
                   <view class="select-data">请选择会议日期</view>
           
@@ -369,15 +373,6 @@
                   </view>
                   </view>
                    
-                  <!-- <view  bindtap="dateBtn" class="week">
-                    <text class="week-day">日</text>
-                    <text class="week-day">一</text>
-                    <text class="week-day">二</text>
-                    <text class="week-day">三</text>
-                    <text class="week-day">四</text>
-                    <text class="week-day">五</text>
-                    <text class="week-day">六</text>
-                  </view> -->
                   <view class="now-date">{{date_next.value}}</view>
                   <view  catchtap="dateBtn">
                     <view  wx:for="{{date_data2}}" 
@@ -396,8 +391,7 @@
                   </view>
               
               
-            <!-- </view> -->
-          </view>
+          </view> -->
     </view>
     <!-- 报错信息 -->
     <view class="last-view">
