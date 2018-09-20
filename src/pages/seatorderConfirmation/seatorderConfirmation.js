@@ -376,6 +376,7 @@ Page({
   },
 
   dateBtn : function (e){
+
       let evlue = this.james.dateBtn(e);
       let selecedList = this.james.getValue()
         this.setData({
@@ -402,6 +403,7 @@ Page({
       }
       
     })
+
     this.combination_new= selecedList;
     let seatGoodIds=[]
     seatGoodIds = this.combination_new.map(item=>{
@@ -410,7 +412,6 @@ Page({
     // 日历所选择的内容
     this.seatGoodIds = seatGoodIds.join(",")
     this.onClickDate();
-    
     this.setData({
       show_a:true
     })
@@ -418,8 +419,6 @@ Page({
   dealDate:function(init_date){
     
     let that = this;
-    console.log('dealDate',init_date)
-
     const today_date = new Date(init_date);
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
     let init_month = today_month.getTime()

@@ -33,18 +33,19 @@ export class dateData{
     let week = today_month.getDay();
     return {
       day_num : day_num, //具体日期号码
-      num : day_num+week-1, //在date_data1活date_data2数组中位置
+      num : day_num+week-1, //在date_data1和date_data2数组中位置
     };
   }
   dealDate(today_month,bool){
     
     let t_times = today_month.getTime();
-    //console.log(new Date(t_times+24*3600*1000),today_month,77777)
-    const week = today_month.getDay();
+    //start --计算每个月多少个格子，包括一号前的空白格子。
+    const week = today_month.getDay();//当前周几
     const today = parseInt(new Date().getDate());
     today_month.setMonth(today_month.getMonth() + 1);
     today_month.setDate(0);
     const day_num = today_month.getDate()+week;
+    //--end
     const data = [];
     for (var i = 0; i < day_num; i++) {
       switch (true){
@@ -115,6 +116,7 @@ export class dateData{
           
           this.all_day_num++;
           break;
+        //i取值必须从下个月1号的单元格开始，所以需要+week
         case i<(30-this.all_day_num+week)&&!bool:
           if(i%7==0||i%7==6){
             data.push({
@@ -212,26 +214,26 @@ export class dateDataPrice extends dateData{
   }
   max_num = 1;
   final_num = 1;
-  init_bool = false;
+  init_bool = [false,false];//当天19点之后，选中当天进到日历页面，删除当天的默认选中状态的值。
+  init_bool_num = 0;
   dealDataPrice(month_arr,store_data){
     let data_num = 0;
       for(let i = 0;i<store_data.length;i++){
         if(month_arr&&month_arr.length>0&&month_arr[data_num]){
           const data_day = new Date(month_arr[data_num].useTime).getDate();
-         
           if(store_data[i].day_num == data_day){
               if(this.last_btn_date == data_day){
-                
-                this.init_bool = true;
+                // 当天19点之后，选中当天进到日历页面，删除当天的默认选中状态的值
+                this.init_bool[this.init_bool_num] = true;
               }
               if(store_data[i].type&&store_data[i].type!='before'){
                   
                   store_data[i].seat = month_arr[data_num];
                   const arr_num = month_arr[data_num]['remainQuantity'];
                   if(arr_num<1){
+                    //已售罄
                     if(this.last_btn_date == data_day){
-                
-                      this.init_bool = false;
+                      this.init_bool[this.init_bool_num] = false;
                     }
                     store_data[i].type = 'before';
                     store_data[i].price_vlue = '已售罄'
@@ -239,7 +241,7 @@ export class dateDataPrice extends dateData{
                     store_data[i].price_vlue = month_arr[data_num]['promotionCost'];
                   }
                   if(this.max_num<arr_num){
-                    this.max_num = arr_num;
+                    this.max_num = arr_num;//控制所有日期散座最大数量的值
                   }
               }
               data_num++;
@@ -255,14 +257,14 @@ export class dateDataPrice extends dateData{
         }
         
       }
-    if(!this.init_bool){
+      this.init_bool_num ++;
+    if(!this.init_bool[0]&&!this.init_bool[1]&&this.init_bool_num===2){
       this.setValue([]);
+      this.init_bool_num = 0;
     }
+    
   }
   addNum(){
-
-
-   console.log(this.get_value,1111)
     if(this.final_num<this.max_num){
       this.final_num++;
       for(let i=0;i<this.date_data1.length;i++){
@@ -288,7 +290,6 @@ export class dateDataPrice extends dateData{
       for (let k = 0; k < this.get_value.length; k++) {
         let v_type = this.get_value[k]['alldata']['num'];
         let v_data = this.get_value[k]['data'];
-        console.log(this[v_data][v_type]['type'].indexOf('before'),this[v_data][v_type])
         if(this[v_data][v_type]['type'].indexOf('before')>-1){
           this.get_value.splice(k,1);
           k--;
