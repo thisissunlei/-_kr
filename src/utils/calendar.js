@@ -17,6 +17,8 @@ export class dateData{
     this.date_data2=[];
     // 不带价钱的日历数据
     this.data_list = parameter.data ;
+    //会议室日历点击不可选的日期，弹窗不关闭的标识，false:不管；true：关
+    this.pop_switch = true;
 
     const last_date_obj = this.dateChange(parameter.init_data.last_btn_num)
     this.last_btn_num = last_date_obj.num;
@@ -155,6 +157,7 @@ export class dateData{
   dateBtn(e,bool){
     if(e.target.dataset.alldata&&(e.target.dataset.alldata.type.indexOf('next')>-1||e.target.dataset.alldata.type.indexOf('now')>-1)){
       const new_data = this[e.target.dataset.data];
+      this.pop_switch = true;
       if(!this[this.last_data]&&this.btn_bool){
         this[this.last_data][this.last_btn_num]['type'] = this[this.last_data][this.last_btn_num]['type'].replace('active ','');
       }
@@ -181,6 +184,8 @@ export class dateData{
       }
       
 
+    }else{
+      this.pop_switch = false;
     }
   }
   initData(){
@@ -198,7 +203,7 @@ export class dateData{
     this[this.last_data][this.last_btn_num]['type'] = 'active ' + this[this.last_data][this.last_btn_num]['type']; 
     this.get_value = [{
       alldata:this[this.last_data][this.last_btn_num],
-      data:this.last_data
+      data:this.last_data,
     }];
   }
   checkDate(data){
@@ -227,6 +232,9 @@ export class dateData{
   }
   getValue(){
     return this.get_value;
+  }
+  getSwitch(){
+    return this.pop_switch
   }
   setValue(value){
     this.get_value = value;

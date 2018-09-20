@@ -15,6 +15,9 @@ Page({
   onReachBottom:function(){
     this.loadNext();
   },
+  stopPropagation:function(){
+    return ;
+  },
   data: {
     //数据模拟
     
@@ -202,6 +205,7 @@ Page({
       time: acticedObj.date,
       timeText: acticedObj.week
     };
+    console.log('scrollTopDate-----',orderDate)
     this.setData(
       {
         topDate: newData,
@@ -578,7 +582,8 @@ Page({
   },
   dateBtn: function(e) {
       let evlue = this.james.dateBtn(e);
-      let selecedList = this.james.getValue()
+      let selecedList = this.james.getValue();
+      let closeDialog = this.james.getSwitch();
       let timeData = selecedList[0];
       //处理日历选中日期年-月-日
       let selecedTime = timeData.alldata.date_times;
@@ -594,7 +599,11 @@ Page({
       let selecedDate = year+'-'+month+'-'+day;
       this.last_data = timeData.data
       // 结束
-      this.scrollTopDate(selecedDate);
+      
+      if(closeDialog){
+        this.scrollTopDate(selecedDate);
+        this.closeDialogDate()
+      }
   },
   closeDialogDate: function() {
     //未知，待定

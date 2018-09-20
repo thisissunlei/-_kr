@@ -252,50 +252,5 @@
   <!-- 日历选择 -->
   <view class="u-dialog" catchtap="closeDialogDate" wx:if="{{dialogDate}}">
     <template is="date" data="{{date_data1,date_next,date_now,date_data2}}"/> 
-    <!-- <view class="wrapper"> -->
-    <!-- <view class="date">
-      <view class="select-data">请选择日期</view>
-        <view class="week">
-          <text class="week-day">日</text>
-          <text class="week-day">一</text>
-          <text class="week-day">二</text>
-          <text class="week-day">三</text>
-          <text class="week-day">四</text>
-          <text class="week-day">五</text>
-          <text class="week-day">六</text>
-        </view>
-        <view class="now-date" style="padding-top:30rpx">{{date_now.value}}</view>
-        <view  catchtap="dateBtn">
-          <view wx:for="{{date_data1}}" 
-            data-value="{{i.value}}" 
-            data-bool='{{i.type}}' 
-            data-day='{{i.day}}' 
-            data-month='{{date_now.month}}' 
-            data-year='{{date_now.year}}' 
-            data-data='date_data1'
-            data-num='{{index}}'
-            data-valid-index="{{i.validDateNum}}"
-            wx:for-item="i" 
-            class='{{i.type}} day'>
-              {{i.value}}
-          </view>
-        </view>
-        <view class="now-date">{{date_next.value}}</view>
-        <view  catchtap="dateBtn">
-          <view  wx:for="{{date_data2}}" 
-            data-value="{{i.value}}" 
-            data-bool='{{i.type}}' 
-            data-day='{{i.day}}' 
-            data-month='{{date_next.month}}'
-            data-year='{{date_next.year}}' 
-            data-data='date_data2' 
-            data-num='{{index}}'  
-            data-valid-index="{{i.validDateNum}}"
-            wx:for-item="i"  
-            class='{{i.type}} day'>
-              {{i.value}}
-          </view>
-        </view>
-    </view> -->
   </view>
 </view>

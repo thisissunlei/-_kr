@@ -98,6 +98,10 @@ Page({
     let _this = this;
       let evlue = this.james.dateBtn(e);
       let selecedList = this.james.getValue()
+      let closeDialog = this.james.getSwitch();
+      if(!closeDialog){
+          return
+      }
       let topDate = this.data.topDate;
       let timeData = selecedList[0];
       //处理日历选中日期年-月-日
@@ -136,6 +140,7 @@ Page({
         totalCount:0,
         selectedTime:[],
       },function(){
+        _this.closeDialogDate()
         _this.getThemeName(_this.data.orderDate);
       })
   },
