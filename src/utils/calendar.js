@@ -13,9 +13,10 @@
 
 export class dateData{
   constructor(parameter){
-
     this.date_data1=[];
     this.date_data2=[];
+    // 不带价钱的日历数据
+    this.data_list = parameter.data ;
 
     const last_date_obj = this.dateChange(parameter.init_data.last_btn_num)
     this.last_btn_num = last_date_obj.num;
@@ -37,7 +38,6 @@ export class dateData{
     };
   }
   dealDate(today_month,bool){
-    
     let t_times = today_month.getTime();
     //start --计算每个月多少个格子，包括一号前的空白格子。
     const week = today_month.getDay();//当前周几
@@ -189,11 +189,41 @@ export class dateData{
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
     this.date_data1 = this.dealDate(today_month,true);
     this.date_data2 = this.dealDate(next_month,false);
+    // this.btn_bool:true为会议室，单选
+    // 如果是单选，则为会议室日历，单独处理数据
+    if(this.btn_bool){
+      this.checkDate(this.date_data1)
+      this.checkDate(this.date_data2)
+    }
     this[this.last_data][this.last_btn_num]['type'] = 'active ' + this[this.last_data][this.last_btn_num]['type']; 
     this.get_value = [{
       alldata:this[this.last_data][this.last_btn_num],
       data:this.last_data
     }];
+  }
+  checkDate(data){
+    let dateList = [];
+    dateList = this.data_list.map(item=>{
+      return item.date
+    })
+    let _this = this;
+    data.map(item=>{
+      if(item.date_times){
+        let day = _this.formatTime(item.date_times)
+        if(dateList.indexOf(day) == -1){
+            item.type = 'before'
+        }
+      }
+    })
+  }
+  formatTime(times){
+    let date = new Date(times);
+    const year = date.getFullYear()
+    let month = date.getMonth() + 1
+    let day = date.getDate()
+    month = month>9?month:'0'+month;
+    day = day>9?day:'0'+day;
+    return year+'-'+month+'-'+day;
   }
   getValue(){
     return this.get_value;

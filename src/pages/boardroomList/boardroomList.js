@@ -461,7 +461,6 @@ Page({
       function() {
         that.getData();
         that.getData1();
-        // that.dealDateList();
         wx.setStorageSync("nowDate", topDate[0].date);
         wx.setStorageSync("orderDate", orderDate);
         wx.setStorageSync("topDate", topDate);
@@ -593,6 +592,7 @@ Page({
         day = '0'+ day
       }
       let selecedDate = year+'-'+month+'-'+day;
+      this.last_data = timeData.data
       // 结束
       this.scrollTopDate(selecedDate);
   },
@@ -600,6 +600,7 @@ Page({
     //未知，待定
     // wx.reportAnalytics('click')
     let that = this;
+    this.dealDateList()
     that.setData({
       dialogDate: !that.data.dialogDate
     });
@@ -931,11 +932,11 @@ Page({
     var tomorrow = new Date().setDate(today.getDate() + 1);
     tomorrow = new Date(tomorrow);
     var month = today.getMonth() + 1;
-    month = month>10?month:'0'+month;
+    month = month>9?month:'0'+month;
     var t_month = tomorrow.getMonth() + 1;
-    t_month = t_month>10?t_month:'0'+t_month;
-    var day = today.getDate()>10?today.getDate():'0'+today.getDate();
-    var t_day = tomorrow.getDate()>10?tomorrow.getDate():'0'+tomorrow.getDate();
+    t_month = t_month>9?t_month:'0'+t_month;
+    var day = today.getDate()>9?today.getDate():'0'+today.getDate();
+    var t_day = tomorrow.getDate()>9?tomorrow.getDate():'0'+tomorrow.getDate();
     today = today.getFullYear()+'-'+month+'-'+day;
     tomorrow = tomorrow.getFullYear()+'-'+t_month+'-'+t_day;
     // 结束
@@ -998,6 +999,7 @@ Page({
     let init_date = this.data.nowDate;
     let topDate = this.data.topDate;
     let that = this;
+    console.log('dealDateList==',init_date)
     const today_date = new Date(init_date);
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
     let init_month = today_month.getTime()
