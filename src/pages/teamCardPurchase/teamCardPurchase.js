@@ -10,7 +10,8 @@ Page({
         list: [],
         phase: '',
         payFail: false,
-        tip: ''
+        tip: '',
+        height: 0
     },
     orderId: null,
     onLoad(options) {
@@ -23,6 +24,17 @@ Page({
                 }
             }
         });
+        wx.getSystemInfo({
+            success: (res) => {
+
+
+                console.log(res)
+                this.setData({
+                    height: res.windowHeight - res.windowWidth/750*634
+                })
+                console.log(res.windowHeight - res.windowWidth/750*634)
+            }
+        })
         this.getGoodsList()
     },
     onShow() {
