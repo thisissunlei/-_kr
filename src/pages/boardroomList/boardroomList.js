@@ -983,6 +983,7 @@ Page({
           time: dataList[0].date,
           timeText: dataList[0].week
         };
+        dataList[0].actived = true;
         this.setData(
           {
             topDate: dataList,

@@ -275,7 +275,7 @@ Page({
   closeDialogDate:function(){
     let that = this;
     wx.reportAnalytics('choosedate')
-    // this.dealDateList()
+    this.dealDateList()
     that.setData({
       dialogDate:!that.data.dialogDate
     })
