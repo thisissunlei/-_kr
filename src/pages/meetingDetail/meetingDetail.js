@@ -82,7 +82,7 @@ Page({
         });
         if (_this.data.meetingDetailData.meetingStatus === "EXPIRED") {
           QR.qrApi.draw(
-            "https://web.krspace.cn/kr_meeting_h5/index.html?inviteeId=" +
+            "https://web.krspace.cn/kr-meeting/kr_meeting_h5/index.html?inviteeId=" +
               _this.inviteeId,
             "mycanvas",
             160,
@@ -92,7 +92,7 @@ Page({
           );
         } else {
           QR.qrApi.draw(
-            "https://web.krspace.cn/kr_meeting_h5/index.html?inviteeId=" +
+            "https://web.krspace.cn/kr-meeting/kr_meeting_h5/index.html?inviteeId=" +
               _this.inviteeId,
             "mycanvas",
             160,
