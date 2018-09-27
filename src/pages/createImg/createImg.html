@@ -1,0 +1,27 @@
+<!--index.wxml-->
+<poster id="poster" hide-loading="{{true}}" config="{{jdConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
+</poster>
+
+<button bindtap="createShareCanvas">异步生成海报</button>
+<view class="shareDialog" wx:if="{{showShare}}">
+	
+	<view class="content-box">
+		<image class="close-button" src="{{KrImgUrl}}helpingActivity/share/close.png" bindtap="closeDialog"></image>
+		<view class="text">请保存图片至手机相册并</view>
+		<view class="text">分享到朋友圈</view>
+		<image src="{{imgUrl}}" alt="" class="canvas-show"></image>
+		<image class="save" src="{{KrImgUrl}}helpingActivity/share/save_button.png" bindtap="saveImg"></image>
+	</view>
+
+</view>
+<view class="successDialog" wx:if="{{showSuccess}}">
+	
+	<view class="content-box">
+		<image class="close-button" src="{{KrImgUrl}}helpingActivity/share/close.png" bindtap="closeDialog"></image>
+		<view class="text">图片已保存到您手机相册，</view>
+		<view class="text">赶快去朋友圈召唤好友助力吧！</view>
+		<image src="{{KrImgUrl}}helpingActivity/share/default.png" alt="" class="default-img"></image>
+		<image class="save" src="{{KrImgUrl}}helpingActivity/share/share_button.png" bindtap="closeDialog"></image>
+	</view>
+
+</view>
