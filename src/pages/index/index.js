@@ -38,7 +38,11 @@ Page({
       previousMargin: "26rpx",
       nextMargin: "26rpx",
       circular: false
-    }
+    },
+    KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
+    //--------------------------
+    showDiscounts: false,
+    discounts: [{ src: 1 }, { src: 2 }, { src: 3 }, { src: 4 }, { src: 5 }] //今日特惠
   },
   rq_data: {
     latitude: "",
@@ -48,6 +52,12 @@ Page({
   func_bool_l: false,
   func_bool_l2: false,
   func_bool_s: false,
+  //打开今天特惠
+  changeDiscounts: function() {
+    this.setData({
+      showDiscounts: !this.data.showDiscounts
+    });
+  },
   //活动轮播变化
   acitvityChange: function(e) {
     if (e.detail.source == "touch") {
@@ -175,9 +185,10 @@ Page({
               wx.hideLoading();
               that.func_bool_l = true;
               that.func_bool_l2 = true;
-              app.globalData.Cookie =res.header["Set-Cookie"] || res.header["set-cookie"];
+              app.globalData.Cookie =
+                res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-               // that.getActivity();
+              // that.getActivity();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;

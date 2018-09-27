@@ -3,6 +3,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  position: relative;
 }
 .idx_header {
   overflow: hidden;
@@ -132,7 +133,7 @@
   width: 680rpx;
   height: 396rpx;
   position: relative;
-  z-index: 99999;
+  z-index: 999;
   background: #ffffff;
   box-shadow: 0 6px 12px 0 rgba(149, 149, 149, 0.3);
   border-radius: 16rpx;
@@ -248,25 +249,34 @@
   width: 100%;
   position: relative;
   z-index: 99;
-  display: flex;
-  justify-content: center;
 }
-.adver2-1 image,
-.adver2-2 image {
+.adver-top,
+.adver-bottom {
+  width: 686rpx;
+  height: 170rpx;
+  margin: 0 auto;
+}
+.adver-top {
+  margin-bottom: 20rpx;
+}
+.adver-bottom {
+  display: flex;
+}
+.adver-friend,
+.adver-team {
+  width: 50%;
+  height: 100%;
+}
+.adver-friend {
+  margin-right: 20rpx;
+}
+.adver image {
+  display: block;
   width: 100%;
   height: 100%;
   border-radius: 16rpx;
 }
-.adver2-1,
-.adver2-2 {
-  width: 332rpx;
-  height: 200rpx;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 16rpx;
-}
-.adver2-1 {
-  margin-right: 22rpx;
-}
+
 .nearby_room {
   width: 100%;
   font-family: "PingFangSC-Medium";
@@ -527,6 +537,22 @@ button {
   width: 50rpx;
   height: 50rpx;
 }
+.discounts {
+  width: 100rpx;
+  height: 108rpx;
+  position: fixed;
+  right: 20rpx;
+  bottom: 250rpx;
+  z-index: 999;
+  border: none;
+}
+.discounts:after {
+  border: none;
+}
+.discounts image {
+  width: 100%;
+  height: 100%;
+}
 .activity-time {
   font-family: PingFangSC-Medium;
   font-size: 40rpx;
@@ -556,4 +582,76 @@ button {
 .activity-text > view > text:nth-child(3) {
   font-size: 28rpx;
   color: #666;
+}
+.today-discouts {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.discounts-countent {
+  width: 560rpx;
+  height: 800rpx;
+  position: relative;
+}
+.discounts-bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.discounts-close {
+  display: block;
+  width: 84rpx;
+  height: 171rpx;
+  position: absolute;
+  right: 0;
+  top: -168rpx;
+}
+.discounts-wrap {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 40rpx;
+}
+.discounts-wrap text {
+  display: block;
+  width: 100%;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 40rpx;
+  color: #624d17;
+  margin-bottom: 20rpx;
+}
+.discounts-scroll {
+  width: 100%;
+  height: 520rpx;
+  overflow: auto;
+}
+.discounts-list {
+  width: 100%;
+  height: 128rpx;
+  background: #ffffff;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+}
+.discounts-btn {
+  width: 320rpx;
+  line-height: 80rpx;
+  background: #624d17;
+  border-radius: 80rpx;
+  font-size: 30rpx;
+  color: #ffffff;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 40rpx;
 }
