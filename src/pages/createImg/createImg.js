@@ -86,21 +86,13 @@ Page({
             scene:'communityId=175'
           },
           success: res => {
-            console.log('createShareCanvas---',res.data.data)
-
             // weImg.url = res.data
             weImg.url = 'https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg'
-            // // jdConfig.images[1].url = 'https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg'
             jdConfig.images.push(weImg)
             this.setData({
                 jdConfig:jdConfig,
-                // imgUrl:res.data
             },function(){
-                console.log('jdConfig',that.data.jdConfig)
-                setTimeout(function(){
-                    Poster.create();
-                    console.log('===============')
-                },500)
+                Poster.create();
                 
             })
 
