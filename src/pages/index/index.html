@@ -186,4 +186,35 @@
       </view>
     </view>
   </view>
+  <!-- 首次助力活动弹窗 -->
+  <view class="alert-once" wx:if="{{alertOnce}}">
+    <view class="alert-content">
+      <image class="alert-bg" src="{{KrImgUrl}}helpingActivity/index/alert_join.png"></image>
+      <image class="alert-close" bindtap="alertClosed" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
+      <view class="jump-helping" bindtap="jumpHelpingActivity">
+        <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
+        <text>立即参加</text>
+      </view>
+    </view>
+
+  </view>
+  <!-- 提取礼券弹窗 -->
+  <view class="ticket-alert" wx:if="{{showCoupon}}">
+    <view class="ticket-content">
+      <image class="ticket-close" bindtap="changeCoupon" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
+      <view class="ticket-wrap">
+        <text>您可以提取以下礼券</text>
+        <view class="ticket-scroll">
+          <view wx:for="{{couponList}}" wx:key>
+            <view class="ticket-list">{{item.src}}</view>
+          </view>
+        </view>
+        <view class="jump-helping" bindtap="jumpHelpingActivity">
+          <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
+          <text>立即兑换</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
 </view>

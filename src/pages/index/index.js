@@ -41,7 +41,9 @@ Page({
     },
     KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
     //--------------------------
-    showDiscounts: false,
+    alertOnce: false, //第一次
+    showCoupon: false, //提取礼券弹窗
+    showDiscounts: false, //今日特惠
     discounts: [{ src: 1 }, { src: 2 }, { src: 3 }, { src: 4 }, { src: 5 }] //今日特惠
   },
   rq_data: {
@@ -56,6 +58,28 @@ Page({
   changeDiscounts: function() {
     this.setData({
       showDiscounts: !this.data.showDiscounts
+    });
+  },
+  //首次弹窗关闭
+  alertClosed: function() {
+    this.setData({
+      alertOnce: false
+    });
+  },
+  //提取礼券弹窗关闭
+  changeCoupon: function() {
+    this.setData({
+      showCoupon: false
+    });
+  },
+  //跳转助力活动详情页
+  jumpHelpingActivity: function() {
+    wx.navigateTo({
+      url: "../createImg/createImg"
+    });
+    this.setData({
+      alertOnce: false,
+      showCoupon: false
     });
   },
   //活动轮播变化

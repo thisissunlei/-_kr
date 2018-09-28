@@ -611,11 +611,11 @@ button {
 }
 .discounts-close {
   display: block;
-  width: 84rpx;
-  height: 171rpx;
+  width: 67rpx;
+  height: 136rpx;
   position: absolute;
-  right: 0;
-  top: -168rpx;
+  right: 30rpx;
+  top: -130rpx;
 }
 .discounts-wrap {
   box-sizing: border-box;
@@ -654,4 +654,105 @@ button {
   text-align: center;
   margin: 0 auto;
   margin-top: 40rpx;
+}
+.alert-once {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alert-content {
+  width: 574rpx;
+  height: 802rpx;
+  position: relative;
+}
+.alert-bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.jump-helping {
+  width: 330rpx;
+  height: 110rpx;
+  position: absolute;
+  left: 126rpx;
+  bottom: 40rpx;
+  z-index: 1;
+}
+.jump-helping text {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 110rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #624d17;
+}
+.jump-helping image {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+.alert-close,
+.ticket-close {
+  display: block;
+  width: 67rpx;
+  height: 136rpx;
+  position: absolute;
+  right: 30rpx;
+  top: -130rpx;
+}
+.ticket-alert {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ticket-content {
+  width: 574rpx;
+  height: 802rpx;
+  position: relative;
+  background: #9013fe;
+  border-radius: 16rpx;
+}
+.ticket-wrap {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 40rpx 60rpx;
+}
+.ticket-wrap > text {
+  display: block;
+  font-size: 36rpx;
+  color: #ffffff;
+  letter-spacing: 2rpx;
+  width: 100%;
+  line-height: 50rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.ticket-scroll {
+  width: 100%;
+  height: 500rpx;
+  overflow: auto;
+  background: #ffffff;
 }
