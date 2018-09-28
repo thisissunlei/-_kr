@@ -59,15 +59,6 @@ export class dateData{
           });
           break;
         case i>(today+week)&&bool:
-          // if(i%7==0||i%7==6){
-          //   data.push({
-          //     value:i-week+1,
-          //     day_num:i-week+1,
-          //     type:'before',
-          //     date_times:t_times+24*3600*1000*(i-week),
-          //     num:i
-          //   });
-          // }else{
             data.push({
               value:i-week+1,
               day_num:i-week+1,
@@ -75,19 +66,9 @@ export class dateData{
               date_times:t_times+24*3600*1000*(i-week),
               num:i
             });
-          // }
           this.all_day_num++;
           break;
         case i==(today+week-1)&&bool:
-          // if(i%7==0||i%7==6){
-          //   data.push({
-          //     value:'今天',
-          //     day_num:i-week+1,
-          //     type:'before',
-          //     date_times:t_times+24*3600*1000*(i-week),
-          //     num:i
-          //   });
-          // }else{
             data.push({
               value:'今天',
               day_num:i-week+1,
@@ -99,15 +80,6 @@ export class dateData{
           this.all_day_num++;
           break;
         case i==(today+week)&&bool:
-          // if(i%7==0||i%7==6){
-          //   data.push({
-          //     value:'明天',
-          //     day_num:i-week+1,
-          //     type:'before',
-          //     date_times:t_times+24*3600*1000*(i-week),
-          //     num:i
-          //   });
-          // }else{
             data.push({
               value:'明天',
               day_num:i-week+1,
@@ -115,21 +87,10 @@ export class dateData{
               date_times:t_times+24*3600*1000*(i-week),
               num:i
             });
-          // }
-          
           this.all_day_num++;
           break;
         //i取值必须从下个月1号的单元格开始，所以需要+week
         case i<(30-this.all_day_num+week)&&!bool:
-          // if(i%7==0||i%7==6){
-          //   data.push({
-          //     value:i-week+1,
-          //     day_num:i-week+1,
-          //     type:'before',
-          //     date_times:t_times+24*3600*1000*(i-week),
-          //     num:i
-          //   });
-          // }else{
             data.push({
               value:i-week+1,
               day_num:i-week+1,
@@ -137,8 +98,6 @@ export class dateData{
               date_times:t_times+24*3600*1000*(i-week),
               num:i
             });
-          // }
-  
           break;
         default:
           data.push({
