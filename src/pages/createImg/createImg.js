@@ -82,27 +82,33 @@ Page({
         app.getRequest({
           url: app.globalData.KrUrl + "api/gateway/kmbooster/promocode",
           data:{
-            page:'pages/boardroomList/boardroomList',
-            scene:'communityId=175'
+            page:'pages/activityDetails/activity',
+            scene:'8'
           },
           success: res => {
-            console.log('createShareCanvas---',res.data.data)
-
-            // weImg.url = res.data
-            weImg.url = 'https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg'
-            // // jdConfig.images[1].url = 'https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg'
-            jdConfig.images.push(weImg)
-            this.setData({
-                jdConfig:jdConfig,
-                // imgUrl:res.data
-            },function(){
-                console.log('jdConfig',that.data.jdConfig)
-                setTimeout(function(){
+            let code = res.data.code;
+            if(code===1){
+                // weImg.url = res.data.data
+                weImg.url = '/pages/images/shi.jpg'
+                jdConfig.images.push(weImg)
+                this.setData({
+                    jdConfig:jdConfig,
+                },function(){
                     Poster.create();
-                    console.log('===============')
-                },500)
-                
-            })
+                    
+                })
+            }else{
+                // weImg.url = res.data.data
+                weImg.url = 'https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg'
+                jdConfig.images.push(weImg)
+                this.setData({
+                    jdConfig:jdConfig,
+                },function(){
+                    Poster.create();
+                    
+                })
+            }
+            
 
           }
         })
