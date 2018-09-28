@@ -249,8 +249,9 @@
         立即预订
     </view>
   </view>
-  <!-- 日历选择 -->
-  <view class="u-dialog" catchtap="closeDialogDate" wx:if="{{dialogDate}}">
-    <template is="date" data="{{date_data1,date_next,date_now,date_data2}}"/> 
-  </view>
+  
 </view>
+<!-- 日历选择 -->
+  <scroll-view scroll-y class="u-dialog" catchtap="closeDialogDate" wx:if="{{dialogDate}}">
+    <template is="date" data="{{date_data1,date_next,date_now,date_data2}}"/> 
+  </scroll-view>
