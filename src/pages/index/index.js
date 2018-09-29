@@ -19,6 +19,7 @@ Page({
     };
   },
   data: {
+    number:'520',
     indicatorDots: false,
     autoplbuildAddressay: true,
     interval: 5000,

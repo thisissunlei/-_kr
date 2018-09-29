@@ -107,3 +107,22 @@
     </view>
   </view>
 </template>
+<!-- 助力活动的数字动画 -->
+<template name="numAnimate">
+  <view>
+  <!-- <view class="num-box"></view> -->
+    <view class="box-list" wx:for="{{number}}" wx:for-item="i"  wx:key='{{index}}'> 
+      <image class="num-img" src="{{KrImgUrl}}number/0.png" wx:if="{{i>=0}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/1.png" wx:if="{{i>=1}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/2.png" wx:if="{{i>=2}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/3.png" wx:if="{{i>=3}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/4.png" wx:if="{{i>=4}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/5.png" wx:if="{{i>=5}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/6.png" wx:if="{{i>=6}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/7.png" wx:if="{{i>=7}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/8.png" wx:if="{{i>=8}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/9.png" wx:if="{{i>=9}}"></image>
+        
+    </view>
+  </view>
+</template>
