@@ -649,12 +649,12 @@ Page({
   last_btn_num: "false",
   last_data: "date_data1",
   dateBtn: function(e) {
-    // console.log(e)
+    console.log('dateBtn',e)
     //亮的或者今天  明天
     if (e.target.dataset.bool == "next" || e.target.dataset.bool == "now") {
-      // console.log(e);
       const new_data = this.data[e.target.dataset.data];
       var old_data = [];
+      this.last_data = new_data;
       if (this.last_data != "false") {
         if (this.last_data == "date_data1") {
           old_data = this.data["date_data1"];
@@ -795,6 +795,7 @@ Page({
         //this.all_day_num++;
       }
     }
+    console.log('dealDate',data)
     return data;
   },
 
@@ -836,8 +837,6 @@ Page({
         // 加颜色
         if (validDateNum == 0) {
           date1[index]["type"] = "active " + date1[index]["type"];
-
-          // console.log("item",item,index);
           that.last_btn_num = index;
         }
         item.validDateNum = validDateNum++;
@@ -846,6 +845,11 @@ Page({
     });
     date2 = date2.map((item, index) => {
       if (item.value && item.type != "before") {
+        // 加颜色
+        if (validDateNum == 0) {
+          date2[index]["type"] = "active " + date2[index]["type"];
+          that.last_btn_num = index;
+        }
         item.validDateNum = validDateNum++;
       }
       return item;
