@@ -984,6 +984,7 @@ Page({
           timeText: dataList[0].week
         };
         dataList[0].actived = true;
+        that.last_data = dataList[0].type
         this.setData(
           {
             topDate: dataList,
