@@ -3,7 +3,7 @@
 <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;'></button>
 <view class="container container-wrapper">
   <navigator url="../createImg/createImg">购买团队卡</navigator>
-  <template is="numAnimate" data="{{number,KrImgUrl}}"></template>
+  <template is="numAnimate" data="{{number,KrImgUrl,numArr}}"></template>
   <!--<navigator url="../teamCardRecord/teamCardRecord?cardId=97">团队卡详情</navigator>-->
   <!-- <text  bindtap="moveToBind">shoujihao1</text> -->
   <!-- 头部信息 -->
