@@ -15,7 +15,7 @@ Page({
     let numArrs = this.data.numArrs;
     setTimeout(function(){
       // animate(numArr,'523',that)
-      animates(numArr,that)
+      animates(numArr,that,function(that){console.log('ok',that,that.aaa)})
     },1000)
   },
   moveToBind(){

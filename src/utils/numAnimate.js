@@ -55,14 +55,15 @@ var Run = function(){
 
 
 // 分享后方法
-var animates = function(numArr,_this){
+
+var animates = function(numArr,_this,callback){
 	that = _this;
 	numData = dealList(numArr)
 	that.setData({
 		numArr : numData
 	},function(){
 		c = 120*19
-		allRun()
+		allRun(callback)
 	})
 	
 }
@@ -83,7 +84,7 @@ let moveNum = 0;
 // 是否转动
 let move = true
 let moved = [];
-var allRun = function(){
+var allRun = function(callback){
 	moveNum  += 10;
 	var top = moveNum
 	let len = numData.length;
@@ -106,7 +107,6 @@ var allRun = function(){
 			numData[i].towTop = towTop
 		}
 		if(i === 2){
-			console.log('towTop',numData[i].towTop)
 		}
 		
 	}
@@ -121,15 +121,23 @@ var allRun = function(){
 			}
 		}
 		if(move){
-			requestAnimationFrame(allRun);
-			console.log(moved.length)
+			requestAnimationFrame(()=>{allRun(callback)});
 			if(moved.length == numData.length){
 				move = false
 			} 
+		}else{
+			callback(that)
 		}
 	})
 }
+var stoped = true
 var stop = function(num){
+	console.log('==========')
+	if(!stoped){
+		return
+	}
+	stoped = false;
+	console.log('---------')
 	let index =	Math.ceil(moveNum/ListHeight);
 	let box = index%2 == 1?'tow':'one';//当前所在
 	let len = num.length;
@@ -140,14 +148,6 @@ var stop = function(num){
 		numData[i].targetBox = box;
 	}
 }
-// export class animate{
-//   constructor(parameter){
-//   	console.log('animate-parameter',parameter)
-//   	this.numArr = parameter.number;
-//   }
-
-
-//  }
 module.exports = {
 	animate:animate,
 	animates:animates,
