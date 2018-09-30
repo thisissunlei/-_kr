@@ -614,98 +614,6 @@ Page({
       dialogDate: !that.data.dialogDate
     });
   },
-  // dealDate: function(today_month, bool) {
-  //   const week = today_month.getDay();
-  //   const today = parseInt(new Date().getDate());
-  //   today_month.setMonth(today_month.getMonth() + 1);
-  //   today_month.setDate(0);
-  //   const day_num = today_month.getDate() + week;
-  //   const data = [];
-  //   for (var i = 0; i < day_num; i++) {
-  //     switch (true) {
-  //       case i < week:
-  //         data.push({
-  //           value: ""
-  //         });
-  //         break;
-  //       case i > today + week && bool:
-  //         if (i % 7 == 0 || i % 7 == 6) {
-  //           data.push({
-  //             value: i - week + 1,
-  //             day: i - week + 1,
-  //             type: "before"
-  //           });
-  //         } else {
-  //           data.push({
-  //             value: i - week + 1,
-  //             day: i - week + 1,
-  //             type: "next"
-  //           });
-  //         }
-
-  //         this.all_day_num++;
-  //         break;
-  //       case i == today + week - 1 && bool:
-  //         if (i % 7 == 0 || i % 7 == 6) {
-  //           data.push({
-  //             value: "今天",
-  //             day: i - week + 1,
-  //             type: "before"
-  //           });
-  //         } else {
-  //           data.push({
-  //             value: "今天",
-  //             day: i - week + 1,
-  //             type: "now"
-  //           });
-  //         }
-  //         this.all_day_num++;
-  //         break;
-  //       case i == today + week && bool:
-  //         if (i % 7 == 0 || i % 7 == 6) {
-  //           data.push({
-  //             value: "明天",
-  //             day: i - week + 1,
-  //             type: "before"
-  //           });
-  //         } else {
-  //           data.push({
-  //             value: "明天",
-  //             day: i - week + 1,
-  //             type: "now"
-  //           });
-  //         }
-
-  //         this.all_day_num++;
-  //         break;
-  //       case i < 30 - this.all_day_num + week && !bool:
-  //         if (i % 7 == 0 || i % 7 == 6) {
-  //           data.push({
-  //             value: i - week + 1,
-  //             day: i - week + 1,
-  //             type: "before"
-  //           });
-  //         } else {
-  //           data.push({
-  //             value: i - week + 1,
-  //             day: i - week + 1,
-  //             type: "next"
-  //           });
-  //         }
-
-  //         break;
-  //       default:
-  //         data.push({
-  //           value: i - week + 1,
-  //           day: i - week + 1,
-  //           type: "before"
-  //         });
-  //       //this.all_day_num++;
-  //     }
-  //   }
-  //   return data;
-  // },
-
   onLoad: function(options) {
     wx.reportAnalytics("community");
     if (options.communityId) {
@@ -732,7 +640,6 @@ Page({
     );
     var validDateNum = 0;
     var that = this;
-
     const year_value =
       today_date.getFullYear() == new Date().getFullYear()
         ? ""
