@@ -8,6 +8,7 @@ Page({
     number:'520',
      KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
   },
+  aaa :3445,
   onLoad: function() {
     let that = this;
     let numArr = this.data.numArr;
@@ -18,7 +19,11 @@ Page({
     },1000)
   },
   moveToBind(){
+    let that = this;
     stop('59')
+  },
+  dddd(){
+    console.log('结束yiqie')
   }
   
 });
