@@ -73,9 +73,14 @@ var dealList = function(numArr){
 }
 let one = 0;
 let tow = 1200;
+// 判断当前显示的是哪个list	
 let boxIndex = 2;
+
+let moveNum = 0;
 var allRun = function(){
-	var top = Math.ceil(Tween.Quad.easeOut(t,b,c,d))
+	// var top = Math.ceil(Tween.Quad.easeOut(t,b,c,d))
+	moveNum  += 10;
+	var top = moveNum
 	let len = numData.length;
 	for (var i = 0; i < len; i++) {
 		let oneTop = one-top;
@@ -83,30 +88,33 @@ var allRun = function(){
 		let towTop = tow-top
 		numData[i].towTop = towTop
 	}
+	console.log('numData--1',numData)
 	that.setData({
 		numArr : numData
 	},function(){
-		console.log('function',t,d)
-		if(t==320){
-			one = 2400;
-			console.log('allRun',numData)
+		// checkList()
+		if(moveNum>1200){
+			let index =	Math.ceil(moveNum/1200);
+			let num = index%2 == 1?'one':'tow';//当前所在
+			console.log('当前所在高度',moveNum,'index',index,'当前所在list',num,'top',one,tow)
+			if(num === 'one'){
+				tow = (index-1) *1200
+			}else{
+				one = index * 1200
+			}
+			console.log('numData',numData)
 		}
-		if(t<d-3){ 
-			t++; 
-			setTimeout(allRun, 10); 
+		if(moveNum<=1250){
+			requestAnimationFrame(allRun); 
 		}
 	})
 }
-var setInit = function(top){
-	let len = numData.length;
-	for (var i = 0; i < len; i++) {
-		numData[i].oneTop = top-1200+120;
-		let towTop = 1200-top
-		numData[i].towTop = towTop
-	}
-	that.setData({
-		numArr : numData
-	})
+// 判断当前的top显示的是哪个list
+var checkList = function(){
+	let index =	Math.ceil(moveNum/1200);
+	let num = index%2 == 1?'one':'tow';
+	console.log('checkList',index,num)
+	
 }
 // export class animate{
 //   constructor(parameter){
