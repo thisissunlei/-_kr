@@ -6,7 +6,7 @@ var Tween = {
 		}
 	}
 }
-var b=0,c=0,d=1000,t=0;
+var b=0,c=0,d=500,t=0;
 var numData = []
 var obj = {}
 var that ;
@@ -58,7 +58,7 @@ var animates = function(numArr,_this){
 		numArr : numData
 	},function(){
 		c = 120*19;
-		// allRun()
+		allRun()
 	})
 	
 }
@@ -71,22 +71,41 @@ var dealList = function(numArr){
 	}
 	return numArr;
 }
+let one = 0;
+let tow = 1200;
+let boxIndex = 2;
 var allRun = function(){
 	var top = Math.ceil(Tween.Quad.easeOut(t,b,c,d))
 	let len = numData.length;
 	for (var i = 0; i < len; i++) {
-		// numData[i].top = top;
-		numData[i].oneTop = '-'+top;
-		let towTop = top +1200
-		numData[i].towTop = '-'+towTop
+		let oneTop = one-top;
+		numData[i].oneTop =oneTop;
+		let towTop = tow-top
+		numData[i].towTop = towTop
 	}
 	that.setData({
 		numArr : numData
 	},function(){
-		if(t<d){ 
-			t++; 
-			setTimeout(allRun, 1); 
+		console.log('function',t,d)
+		if(t==320){
+			one = 2400;
+			console.log('allRun',numData)
 		}
+		if(t<d-3){ 
+			t++; 
+			setTimeout(allRun, 10); 
+		}
+	})
+}
+var setInit = function(top){
+	let len = numData.length;
+	for (var i = 0; i < len; i++) {
+		numData[i].oneTop = top-1200+120;
+		let towTop = 1200-top
+		numData[i].towTop = towTop
+	}
+	that.setData({
+		numArr : numData
 	})
 }
 // export class animate{
