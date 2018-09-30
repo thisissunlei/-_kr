@@ -6,11 +6,12 @@ var Tween = {
 		}
 	}
 }
-var b=0,c=0,d=100,t=0;
+var b=0,c=0,d=1000,t=0;
 var numData = []
 var obj = {}
 var that ;
 var index = 0
+// 活动方法
 var animate = function(numArr,number,_this){
 	that = _this;
 	let len = number.length;
@@ -20,6 +21,7 @@ var animate = function(numArr,number,_this){
 	Run()
 
 }
+
 var dealData = function(numArr,number){
 	let len = number.length;
 	for (var i = 0; i < len; i++) {
@@ -28,6 +30,7 @@ var dealData = function(numArr,number){
 	}
 	return numArr;
 }
+
 var Run = function(){
 	obj.top = Math.ceil(Tween.Quad.easeOut(t,b,c,d));
 	that.setData({
@@ -47,6 +50,45 @@ var Run = function(){
 	
 	
 }
+// 分享后方法
+var animates = function(numArr,_this){
+	that = _this;
+	numData = dealList(numArr)
+	that.setData({
+		numArr : numData
+	},function(){
+		c = 120*19;
+		// allRun()
+	})
+	
+}
+var dealList = function(numArr){
+	let len = numArr.length;
+	for (var i = 0; i < len; i++) {
+		numArr[i].oneTop = 0;
+		numArr[i].top = 0;
+		numArr[i].towTop = 1200;
+	}
+	return numArr;
+}
+var allRun = function(){
+	var top = Math.ceil(Tween.Quad.easeOut(t,b,c,d))
+	let len = numData.length;
+	for (var i = 0; i < len; i++) {
+		// numData[i].top = top;
+		numData[i].oneTop = '-'+top;
+		let towTop = top +1200
+		numData[i].towTop = '-'+towTop
+	}
+	that.setData({
+		numArr : numData
+	},function(){
+		if(t<d){ 
+			t++; 
+			setTimeout(allRun, 1); 
+		}
+	})
+}
 // export class animate{
 //   constructor(parameter){
 //   	console.log('animate-parameter',parameter)
@@ -56,5 +98,6 @@ var Run = function(){
 
 //  }
 module.exports = {
-	animate:animate
+	animate:animate,
+	animates:animates
 }

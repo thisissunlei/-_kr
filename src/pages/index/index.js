@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp();
-import {animate} from '../../utils/numAnimate.js';
+
 
 Page({
   moveToBind: function() {
@@ -20,8 +20,6 @@ Page({
     };
   },
   data: {
-    numArr:[{label:'0'},{label:'0'},{label:'0'}],
-    number:'520',
     indicatorDots: false,
     autoplbuildAddressay: true,
     interval: 5000,
@@ -184,12 +182,6 @@ Page({
   },
   onLoad: function(options) {
     const that = this;
-
-    let numArr = this.data.numArr;
-    setTimeout(function(){
-      animate(numArr,'529',that)
-    },1000)
-    
     
     // console.log(options);
     if (options.q) {
