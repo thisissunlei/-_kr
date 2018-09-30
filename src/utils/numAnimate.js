@@ -7,6 +7,8 @@ var Tween = {
 	}
 }
 var b=0,c=0,d=500,t=0;
+var imgHeight = 120;//单独数字的高度
+var ListHeight = 1200;//循环动画的高度
 var numData = []
 var obj = {}
 var that ;
@@ -16,7 +18,7 @@ var animate = function(numArr,number,_this){
 	that = _this;
 	let len = number.length;
 	numData = dealData(numArr,number)
-	c = numData[index].label*120;
+	c = numData[index].label*imgHeight;
 	obj = numData[index];
 	Run()
 
@@ -42,7 +44,7 @@ var Run = function(){
 		}else if(t == d && index < numData.length-1){
 			index++;
 			t=0;
-			c = numData[index].label*120;
+			c = numData[index].label*imgHeight;
 			obj = numData[index];
 			Run()
 		}
@@ -50,6 +52,8 @@ var Run = function(){
 	
 	
 }
+
+
 // 分享后方法
 var animates = function(numArr,_this){
 	that = _this;
@@ -57,7 +61,7 @@ var animates = function(numArr,_this){
 	that.setData({
 		numArr : numData
 	},function(){
-		c = 120*19;
+		c = 120*19
 		allRun()
 	})
 	
@@ -67,54 +71,74 @@ var dealList = function(numArr){
 	for (var i = 0; i < len; i++) {
 		numArr[i].oneTop = 0;
 		numArr[i].top = 0;
-		numArr[i].towTop = 1200;
+		numArr[i].towTop = ListHeight;
+		numArr[i].targetTop = false;
+		numArr[i].targetBox = ''
 	}
 	return numArr;
 }
 let one = 0;
-let tow = 1200;
-// 判断当前显示的是哪个list	
-let boxIndex = 2;
-
+let tow = ListHeight;
 let moveNum = 0;
+// 是否转动
+let move = true
+let moved = [];
 var allRun = function(){
-	// var top = Math.ceil(Tween.Quad.easeOut(t,b,c,d))
 	moveNum  += 10;
 	var top = moveNum
 	let len = numData.length;
+	let index =	Math.ceil(moveNum/ListHeight);
+	let num = index%2 == 1?'one':'tow';//当前所在
 	for (var i = 0; i < len; i++) {
-		let oneTop = one-top;
-		numData[i].oneTop =oneTop;
-		let towTop = tow-top
-		numData[i].towTop = towTop
+		if(num === numData[i].targetBox && num === 'one' && moveNum >= numData[i].targetMove){
+			numData[i].oneTop = '-'+numData[i].targetTop;
+			moved[i] = true
+		}else{
+			let oneTop = one-top;
+			numData[i].oneTop =oneTop
+		}
+
+		if(num === numData[i].targetBox && num === 'tow' && moveNum >= numData[i].targetMove){
+			numData[i].towTop = '-'+numData[i].targetTop;
+			moved[i] = true
+		}else{
+			let towTop = tow-top
+			numData[i].towTop = towTop
+		}
+		if(i === 2){
+			console.log('towTop',numData[i].towTop)
+		}
+		
 	}
-	console.log('numData--1',numData)
 	that.setData({
 		numArr : numData
 	},function(){
-		// checkList()
-		if(moveNum>1200){
-			let index =	Math.ceil(moveNum/1200);
-			let num = index%2 == 1?'one':'tow';//当前所在
-			console.log('当前所在高度',moveNum,'index',index,'当前所在list',num,'top',one,tow)
+		if(moveNum>ListHeight){
 			if(num === 'one'){
-				tow = (index-1) *1200
+				tow = index *ListHeight
 			}else{
-				one = index * 1200
+				one = index * ListHeight
 			}
-			console.log('numData',numData)
 		}
-		if(moveNum<=1250){
-			requestAnimationFrame(allRun); 
+		if(move){
+			requestAnimationFrame(allRun);
+			console.log(moved.length)
+			if(moved.length == numData.length){
+				move = false
+			} 
 		}
 	})
 }
-// 判断当前的top显示的是哪个list
-var checkList = function(){
-	let index =	Math.ceil(moveNum/1200);
-	let num = index%2 == 1?'one':'tow';
-	console.log('checkList',index,num)
-	
+var stop = function(num){
+	let index =	Math.ceil(moveNum/ListHeight);
+	let box = index%2 == 1?'tow':'one';//当前所在
+	let len = num.length;
+	for (var i = 0; i < len; i++) {
+		let number = parseInt(num.slice(i,i+1));
+		numData[i].targetMove = index*ListHeight+number*imgHeight;
+		numData[i].targetTop = number*imgHeight;
+		numData[i].targetBox = box;
+	}
 }
 // export class animate{
 //   constructor(parameter){
@@ -126,5 +150,6 @@ var checkList = function(){
 //  }
 module.exports = {
 	animate:animate,
-	animates:animates
+	animates:animates,
+	stop:stop
 }
