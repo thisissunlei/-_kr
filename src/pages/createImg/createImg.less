@@ -257,7 +257,13 @@
 .notice {
   width: 72rpx;
   height: 100%;
-  background: pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.notice > image {
+  width: 36rpx;
+  height: 31rpx;
 }
 .notice-text {
   width: 80%;
@@ -420,4 +426,65 @@
   border-radius: 200rpx;
   font-size: 32rpx;
   color: #ffeb00;
+}
+.record-value {
+  font-size: 44rpx;
+  margin: 0 10rpx;
+}
+.share-fixed {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.share-bg-top {
+  width: 100%;
+  height: 70%;
+  background: rgba(0, 0, 0, 0.7);
+}
+.share-bg-bottom {
+  width: 100%;
+  height: 30%;
+  background: #fff;
+}
+.share-bg-title {
+  display: block;
+  width: 100%;
+  line-height: 44rpx;
+  text-align: center;
+  font-size: 36rpx;
+  padding: 40rpx 0;
+  color: #333333;
+}
+.share-bg-btn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.left,
+.right {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 32rpx;
+  color: #666666;
+}
+.wxfriend {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  margin-bottom: 20rpx;
+}
+.wxfriend:after {
+  border: none;
+}
+.wxfriend > image {
+  width: 100%;
+  height: 100%;
 }

@@ -36,7 +36,8 @@ Page({
         first: false,
         text: "助力文案2"
       }
-    ]
+    ],
+    showBottomBtn: false
   },
   jdConfig: {
     width: 765,
@@ -65,8 +66,29 @@ Page({
   },
   //转发分享
   onShareAppMessage: function(res) {
-    // wx.reportAnalytics("sharekrmeeting");
-    // console.log(res);
+    const that = this;
+    if (res.from === "button") {
+      // console.log("来自页面赠送按钮");
+      that.share();
+      return {
+        title: "快来帮我拿自由座礼券，点一下你也能获得礼券哦~",
+        path: "pages/createImg/createImg",
+        imageUrl: that.data.KrImgUrl + "helpingActivity/details/share1.jpg"
+      };
+    } else {
+      // console.log("来自右上角转发菜单");
+      return {
+        title: "邀请好友助力，商旅办公最高可享免单，快来参与吧~",
+        path: "pages/createImg/createImg",
+        imageUrl: that.data.KrImgUrl + "helpingActivity/details/share2.jpg"
+      };
+    }
+  },
+  share: function() {
+    console.log(1);
+    this.setData({
+      showBottomBtn: !this.data.showBottomBtn
+    });
   },
   //
   checkCurrent: function(e) {
@@ -134,6 +156,8 @@ Page({
     let weImg = this.weImg;
     let jdConfig = this.jdConfig;
     let that = this;
+    that.share();
+
     wx.showLoading({
       title: "加载中"
     });
