@@ -107,3 +107,51 @@
     </view>
   </view>
 </template>
+<!-- 助力活动的数字动画 -->
+<template name="numAnimate">
+  <view class="box-cantainer"> 
+  <!-- <view class="num-box"></view> -->
+    <view class="box-list" wx:for="{{numArr}}" wx:for-item="i"  wx:key='{{index}}' style="left:{{index*100}}rpx;top:-{{i.top}}rpx" > 
+      <image class="num-img" src="{{KrImgUrl}}number/0.png" wx:if="{{i.label>=0}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/1.png" wx:if="{{i.label>=1}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/2.png" wx:if="{{i.label>=2}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/3.png" wx:if="{{i.label>=3}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/4.png" wx:if="{{i.label>=4}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/5.png" wx:if="{{i.label>=5}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/6.png" wx:if="{{i.label>=6}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/7.png" wx:if="{{i.label>=7}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/8.png" wx:if="{{i.label>=8}}"></image>
+      <image class="num-img" src="{{KrImgUrl}}number/9.png" wx:if="{{i.label>=9}}"></image> 
+    </view>
+  </view>
+</template>
+<template name="numsAnimate">
+  <view class="box-cantainer"> 
+    <view class="box-lists" wx:for="{{numArr}}" wx:for-item="i"  wx:key='{{index}}'>
+      <view class="one" style="top:{{i.oneTop}}rpx">
+        <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/3.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/4.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/5.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/6.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/7.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/8.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/9.png" ></image> 
+      </view>
+      <view class="two" style="top:{{i.towTop}}rpx">
+        <image class="num-img" src="{{KrImgUrl}}number/0.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/1.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/2.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/3.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/4.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/5.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/6.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/7.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/8.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/9.png"></image> 
+      </view>
+    </view>
+  </view>
+</template>

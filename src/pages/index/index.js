@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp();
 
+
 Page({
   moveToBind: function() {
     wx.navigateTo({
@@ -181,6 +182,7 @@ Page({
   },
   onLoad: function(options) {
     const that = this;
+    
     // console.log(options);
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "id");
