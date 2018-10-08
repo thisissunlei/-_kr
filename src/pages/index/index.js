@@ -2,7 +2,6 @@
 //获取应用实例
 const app = getApp();
 
-
 Page({
   moveToBind: function() {
     wx.navigateTo({
@@ -182,7 +181,7 @@ Page({
   },
   onLoad: function(options) {
     const that = this;
-    
+
     // console.log(options);
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "id");
@@ -215,6 +214,8 @@ Page({
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
               // that.getActivity();
+              that.getDiscounts();
+
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
@@ -258,6 +259,15 @@ Page({
     this.getAllInfo();
     //活动入口
     // this.getActivity();
+  },
+  getDiscounts: function() {
+    const that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/today-special",
+      success: res => {
+        console.log(res);
+      }
+    });
   },
   // 首页活动接口
   getActivity: function() {

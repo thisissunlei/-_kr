@@ -12,6 +12,30 @@ Page({
       { text: "猫力大大美 3分钟前 提取了 30元礼券" },
       { text: "猫力大大美 4分钟前 提取了 50元礼券" },
       { text: "猫力大大美 5分钟前 提取了 100元礼券" }
+    ],
+    currentData: 0, //选项卡
+    recordList: [
+      {
+        thirdAvatar: "头像",
+        thirdNick: "昵称",
+        amount: "助力金额",
+        first: true,
+        text: "助力文案"
+      },
+      {
+        thirdAvatar: "头像1",
+        thirdNick: "昵称1",
+        amount: "助力金额1",
+        first: true,
+        text: "助力文案1"
+      },
+      {
+        thirdAvatar: "头像2",
+        thirdNick: "昵称2",
+        amount: "助力金额2",
+        first: false,
+        text: "助力文案2"
+      }
     ]
   },
   jdConfig: {
@@ -43,6 +67,14 @@ Page({
   onShareAppMessage: function(res) {
     // wx.reportAnalytics("sharekrmeeting");
     // console.log(res);
+  },
+  //
+  checkCurrent: function(e) {
+    // console.log(e);
+    const that = this;
+    that.setData({
+      currentData: e.currentTarget.dataset.current
+    });
   },
   //活动规则
   helpingRule: function() {
