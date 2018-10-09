@@ -4,22 +4,26 @@
 <view class="container container-wrapper">
   <!-- <navigator url="../createImg/createImg">购买团队卡</navigator> -->
   <!-- 头部信息 -->
-  <view class="idx_header">
-    <view class="title-msg">
-      <view class="E-title">
-        <view style="display: flex;flex-wrap: wrap;">
-          <text class="e-title-textt">自由座</text>
-          <text class="e-title-textb">轻松、灵活办公新方式</text>
+  <scroll-view class="scroll" scroll-y scroll-with-animation="true" style="height: 100%;" scroll-into-view="{{toView}}">
 
+    <view class="idx_header">
+      <view class="title-msg">
+        <view class="E-title">
+          <view style="display: flex;flex-wrap: wrap;">
+            <text class="e-title-textt">自由座</text>
+            <text class="e-title-textb">轻松、灵活办公新方式</text>
+
+          </view>
+        </view>
+        <view class="my" bindtap="moveToMy">
+          <view class="my-img">
+            <image src="{{avatarUrl}}"></image>
+          </view>
+          <button open-type="getUserInfo"></button>
+          <text class="my-name">我的</text>
         </view>
       </view>
-      <view class="my" bindtap="moveToMy">
-        <view class="my-img">
-          <image src="{{avatarUrl}}"></image>
-        </view>
-        <button open-type="getUserInfo"></button>
-        <text class="my-name">我的</text>
-      </view>
+      <image class="idx_banner" src="../images/indexImg/banner1.png"></image>
     </view>
     <image class="idx_banner" src="../images/indexImg/banner1.png"></image>
   </view>
@@ -44,14 +48,12 @@
                     <text class="activity-hour">{{item.last}}</text>
                   </view>
                 </view>
-                <text wx:else class="metting-time">{{item.todoTime}}</text>
-                <text class="metting-name">{{item.title}}</text>
-              </view>
-              <view class="metting-address">
-                <text class="meetingRoomName">{{item.content}}</text>
-                <view class="address-wrapper">
-                  <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
-                  <text class="metting-map">{{item.descr}}</text>
+                <view class="metting-address">
+                  <text class="meetingRoomName">{{item.content}}</text>
+                  <view class="address-wrapper">
+                    <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
+                    <text class="metting-map">{{item.descr}}</text>
+                  </view>
                 </view>
               </view>
             </view>
@@ -73,16 +75,26 @@
         </view>
       </view>
     </view>
-  </view>
 
-  <!-- 最新活动 -->
-  <view class="activity" wx:if="{{activityList.length>0}}">
-    <view class="activity-text">
-      <text class="text-bold">最新活动</text>
-      <view wx:if="{{activityList.length>1}}">
-        <text>{{preIndex+1}}</text>
-        <text>/</text>
-        <text>{{activityList.length}}</text>
+    <!-- 最新活动 -->
+    <view class="activity" wx:if="{{activityList.length>0}}">
+      <view class="activity-text">
+        <text class="text-bold">最新活动</text>
+        <view wx:if="{{activityList.length>1}}">
+          <text>{{preIndex+1}}</text>
+          <text>/</text>
+          <text>{{activityList.length}}</text>
+        </view>
+      </view>
+      <view class="activity-swiper">
+        <swiper class="activity-box" previous-margin="{{activity.previousMargin}}" current="{{activity.current}}"
+          duration="{{activity.duration}}" bindchange="acitvityChange" next-margin="{{activity.nextMargin}}" circular="{{activity.circular}}">
+          <block wx:for="{{activityList}}" wx:key>
+            <swiper-item bindtap="goActivityDetail" data-id="{{item.activityId}}" style="padding: 0 5px;box-sizing: border-box;">
+              <image src="{{item.coverPic}}" class="activity-slide" />
+            </swiper-item>
+          </block>
+        </swiper>
       </view>
     </view>
     <view class="activity-swiper">
@@ -112,24 +124,33 @@
         <view class="community_pic">
           <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50"></image>
         </view>
-        <view class='cmty_con'>
-          <view class='cmty_title'>{{item.buildName}}</view>
-          <view class='location'>
-            <view class='lct_con'>
-              <!-- <image src="../images/indexImg/icon_loation.png" class="map-icon"></image> -->
-              <text class="lct_txt">{{item.buildAddress}}</text>
-            </view>
-            <text class='lct_distance' wx:if="{{distanceShow}}">{{item.distance}}</text>
-          </view>
-          <view class='room_num'>
-            <text class="num_num" wx:if="{{item.seatCount > 0}}">{{item.seatCount}}</text>
-            <text class="num_text" style="margin-right: 62rpx;" wx:if="{{item.seatCount > 0}}">个散座</text>
-            <text class="num_arr" wx:if="{{item.meetingCount > 0}}">{{item.meetingCount}}</text>
-            <text class="num_text" wx:if="{{item.meetingCount > 0}}">个会议室</text>
-          </view>
-          <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
-        </view>
+
       </view>
+      <view class="community-wrapper">
+        <!-- 已开放大厦 -->
+        <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom"
+          wx:key>
+          <view class="community_pic">
+            <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50"></image>
+          </view>
+          <view class='cmty_con'>
+            <view class='cmty_title'>{{item.buildName}}</view>
+            <view class='location'>
+              <view class='lct_con'>
+                <!-- <image src="../images/indexImg/icon_loation.png" class="map-icon"></image> -->
+                <text class="lct_txt">{{item.buildAddress}}</text>
+              </view>
+              <text class='lct_distance' wx:if="{{distanceShow}}">{{item.distance}}</text>
+            </view>
+            <view class='room_num'>
+              <text class="num_num" wx:if="{{item.seatCount > 0}}">{{item.seatCount}}</text>
+              <text class="num_text" style="margin-right: 62rpx;" wx:if="{{item.seatCount > 0}}">个散座</text>
+              <text class="num_arr" wx:if="{{item.meetingCount > 0}}">{{item.meetingCount}}</text>
+              <text class="num_text" wx:if="{{item.meetingCount > 0}}">个会议室</text>
+            </view>
+            <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
+          </view>
+        </view>
 
       <!-- 未开放大厦 -->
       <view class='community noopen' wx:for="{{noOpenBuilding}}" data-id="{{item.communityId}}" wx:key>
@@ -151,10 +172,18 @@
             <text class="num_text color" wx:if="{{item.meetingCount > 0}}">个会议室</text>
           </view>
         </view>
+
+
+
       </view>
-
-
-
+      <!-- 客服 -->
+      <button class="contact" open-type="contact">
+        <image src="../images/indexImg/contactcopy.png"></image>
+      </button>
+      <!-- 氪空间出品图片 -->
+      <view class="more">
+        <image src="../images/indexImg/more.png"></image>
+      </view>
     </view>
     <!-- 客服 -->
     <button class="contact" open-type="contact">

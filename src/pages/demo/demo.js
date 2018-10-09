@@ -1,6 +1,5 @@
 //获取应用实例
 const app = getApp();
-import {animate,animates,stop} from '../../utils/numAnimate.js';
 import {demoAnimate,demoAnimates} from '../../utils/animate.js';
 
 Page({
@@ -22,10 +21,6 @@ Page({
           _this:that,
           callback:function(that){console.log('ok',that,that.aaa)}
         });
-    // setTimeout(function(){
-    //   // animate(numArr,'52',that)
-    //   // animates(numArr,that,function(that){console.log('ok',that,that.aaa)})
-    // },1000)
   },
   moveToBind(){
     let that = this;

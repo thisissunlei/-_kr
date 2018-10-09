@@ -111,7 +111,7 @@ Page({
     var that = this;
     if (that.data.seatStatus == "EXPIRED" || that.data.seatStatus == "USED") {
       QR.qrApi.draw(
-        "https://web.krspace.cn/kr_seat/index.html?inviteeId=" +
+        "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
         160,
@@ -123,7 +123,7 @@ Page({
       // console.log(that.data.canInvite);
     } else {
       QR.qrApi.draw(
-        "https://web.krspace.cn/kr_seat/index.html?inviteeId=" +
+        "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
           that.data.seatId,
         "mycanvas",
         160,

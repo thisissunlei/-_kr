@@ -50,6 +50,7 @@ Page({
     latitude: "",
     longitude: ""
   },
+  toView: "",
   func_bool_g: false,
   func_bool_l: false,
   func_bool_l2: false,
@@ -190,6 +191,9 @@ Page({
       });
       // console.log(channelname_v, 11111);
     }
+    if (options.fromPage == "inside") {
+      that.toView = "list";
+    }
     wx.showLoading({
       title: "加载中",
       mask: true
@@ -254,6 +258,14 @@ Page({
         }
       }
     });
+  },
+  onReady: function() {
+    var that = this;
+    setTimeout(() => {
+      that.setData({
+        toView: that.toView
+      });
+    }, 500);
   },
   onShow: function() {
     this.getAllInfo();
@@ -420,7 +432,7 @@ Page({
   point: function() {
     wx.reportAnalytics("viewguide");
     wx.navigateTo({
-      url: "../point/point"
+      url: "../point/point?fromIndex=true"
     });
   },
   jumpToTeamCard: function() {
