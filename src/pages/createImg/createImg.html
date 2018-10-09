@@ -75,11 +75,15 @@
 					<text wx:if="{{currentData == 1}}">助力好友获得<text class="record-value">1200</text>元礼券奖励</text>
 				</view>
 				<view class="record-list-content">
-					<view class="record-list-friend" wx:for="{{recordList}}" wx:key>
-						<view class="friend-list">
-							{{item.text}}
+					<scroll-view style="max-height:600rpx;" scroll-y upper-threshold="50" lower-threshold="50" bindscrolltolower="toLower">
+						<view class="record-list-friend" wx:for="{{recordList}}" wx:key>
+							<view class="friend-list">
+								{{item.text}}
+							</view>
 						</view>
-					</view>
+					</scroll-view>
+
+
 				</view>
 			</view>
 			<!-- 缺省 -->
