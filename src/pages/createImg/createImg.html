@@ -2,6 +2,8 @@
 <!-- 生成二维码 -->
 <poster id="poster" hide-loading="{{true}}" config="{{jdConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
 </poster>
+ <import src="../../utils/template/template.wxml" />
+
 
 <view class="helping-details">
 	<view class="helping">
@@ -26,9 +28,10 @@
 			</view>
 		</view>
 		<view class="helping-num">
-			<view class="num-1">4</view>
+			 <template is="numAnimate" data="{{number,KrImgUrl,numArr}}"></template>
+			<!-- <view class="num-1">4</view>
 			<view class="num-1" style="margin:0 8rpx">2</view>
-			<view class="num-1">0</view>
+			<view class="num-1">0</view> -->
 		</view>
 		<view class="helping-extract">
 			<view class="extract-top">

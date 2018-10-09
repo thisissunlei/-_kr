@@ -1,8 +1,12 @@
 //index.js
 import Poster from "../wxa-plugin-canvas/poster/poster";
+import {demoAnimate,demoAnimates} from '../../utils/animate.js';
+
 const app = getApp();
 Page({
   data: {
+    numArr:[{label:'0'},{label:'0'},{label:'0'}],
+    number:'420',
     showSuccess: false,
     KrImgUrl: app.globalData.KrImgUrl,
     imgUrl: "",
@@ -64,6 +68,12 @@ Page({
     url: "",
     zIndex: 1
   },
+  james:'',
+  onLoad: function() {
+    this.animate()
+
+  },
+
   //转发分享
   onShareAppMessage: function(res) {
     const that = this;
@@ -198,6 +208,15 @@ Page({
         }
       }
     });
+  },
+  animate(){
+    let that = this;
+    this.james = new demoAnimate({
+      numArr:that.data.numArr,
+      number:that.data.number,
+      _this:that
+    });
+
   },
 
   /**
