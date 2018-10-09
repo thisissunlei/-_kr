@@ -1,0 +1,115 @@
+<view>
+    <view class="container">
+        <!-- <view class="header">
+          <image class="default-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538053250731&di=fd877e2ffec6a3d79e472e53f58f07a4&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0117e2571b8b246ac72538120dd8a4.jpg%401280w_1l_2o_100sh.jpg"></image>
+        </view>
+        <view class="content">
+           很抱歉，活动已经结束了呢~
+        </view>
+        <view class="go-back">
+            <text class="go-back-content">去自由座首页看看</text> 
+            <image class="go-back-button" src="../../pages/images/assistance/go_to_home_page.jpg" >
+                  
+            </image>    
+        </view>   -->
+        <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;'></button>
+        <view class="assistance-header">
+              <view class="assistance-header-left">什么是自由座?</view>
+              <view class="assistance-header-right">活动规则</view>
+        </view>
+        <view class="assistance-luck">
+            <image class="assistance-user-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png">
+            </image>
+            <view class="assistance-user-name" >
+                    喵喵喵喵喵喵喵
+            </view>  
+            <image class="assistance-luck-img"  src="../../pages/images/assistance/help_bg.png">
+            </image>
+            <!-- <image class="assistance-luck-button-zhuli"  src="../../pages/images/assistance/button_zhuli.png">
+            </image> -->
+            <image class="assistance-luck-button-yizhuli"  src="../../pages/images/assistance/button_yizhuli.png">
+            </image>
+            <view class="assistance-luck-img-help">
+                <image class="assistance-luck-img-help-bottom" src="../../pages/images/assistance/help_bottom.png">
+                </image> 
+                <view class="assistance-luck-img-help-button-amount">
+                    也有一张 20 元礼券放入了你的账户，快去看看
+                </view>
+                <image class="assistance-luck-img-help-button-see" src="../../pages/images/assistance/buton_see.png">
+                </image>
+            </view>
+            <view class="assistance-luck-amount">  
+                <view class="assistance-luck-amount-content">
+                    已有 32 位好友为Ta助力 1200 元礼券
+                </view>
+            </view >
+            <view class="assistance-luck-amount-gap">
+
+            </view>
+        </view>
+        <view class="assistance-friends-list">
+            <view class="assistance-friends-item clearfix">
+                <image class="friends-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>   
+                <view class="firends-content-detail">
+                    <ivew class="firends-name">小明</ivew>
+                    <ivew class="friends-signature">个性签名</ivew>
+                </view>       
+                <view class="firends-content-amount">
+                    <view class="firends-content-top">
+                        <image class="amount-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
+                        <view class="increase" >+5元</view>
+                    </view>
+                    <view class="firends-content-bottom">
+                        <image class="news-double-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
+                        <view class="news-double-describe">新人助力翻倍</view>
+                    </view>  
+                </view>
+                </view>
+            <view class="assistance-friends-item clearfix">
+                    <image class="friends-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>   
+                    <view class="firends-content-detail">
+                        <ivew class="firends-name">小明</ivew>
+                        <ivew class="friends-signature">个性签名</ivew>
+                    </view>       
+                    <view class="firends-content-amount">
+                        <view class="firends-content-top">
+                            <image class="amount-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
+                            <view class="increase" >+5元</view>
+                        </view>
+                        <view class="firends-content-bottom">
+                            <image class="news-double-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
+                            <view class="news-double-describe">新人助力翻倍</view>
+                        </view>  
+                    </view>
+                </view>
+            <view class="assistance-friends-item clearfix">
+                        <image class="friends-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>   
+                        <view class="firends-content-detail">
+                            <ivew class="firends-name">小明</ivew>
+                            <ivew class="friends-signature">个性签名</ivew>
+                        </view>       
+                        <view class="firends-content-amount">
+                            <view class="firends-content-top">
+                                <image class="amount-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
+                                <view class="increase" >+5元</view>
+                            </view>
+                            <view class="firends-content-bottom">
+                                <image class="news-double-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
+                                <view class="news-double-describe">新人助力翻倍</view>
+                            </view>  
+                        </view>
+                </view>
+            <view class="assistance-friends-help-content" >
+                  <view class="assistance-friends-help-content-detail" >
+                      <view class="assistance-friends-help-content-detail-top">Ta的礼券池已经到上限啦！</view>
+                      <view class="assistance-friends-help-content-detail-bottom">继续助力的话Ta的礼券金也不会累积了哦~</view>
+                  </view>
+                  <image class="assistance-friends-help-content-glass" src="../../pages/images/assistance/glass.png" ></image>
+                  <image class="assistance-friends-help-content-button_isee" src="../../pages/images/assistance/button_isee.png" ></image>
+                </view>   
+            <view class="more">
+                点击加载更多
+                </view>            
+        </view >
+    </view>
+</view>

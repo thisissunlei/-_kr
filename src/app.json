@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/assistance/assistance",
     "pages/index/index",
     "pages/getTeamCard/getTeamCard",
     "pages/teamCardManage/teamCardManage",
