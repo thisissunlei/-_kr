@@ -20,9 +20,9 @@ var Tween = {
 		}
 	}
 }
-var b=0,c=0,d=500,t=0;
-var imgHeight = 120;//单独数字的高度
-var ListHeight = 1200;//循环动画的高度
+var b=0,c=0,d=100,t=0;
+var imgHeight = 100;//单独数字的高度
+var ListHeight = 1000;//循环动画的高度
 var index = 0
 var _this ;
 var _that ;
@@ -32,6 +32,8 @@ export class demoAnimate {
 		this.numArr = parameter.numArr;
 		_this = parameter._this;
 		_that = this;
+		t = 0;
+		index = 0
 
 		let len = this.number.length;
 		this.numData = this.dealData()
@@ -51,9 +53,8 @@ export class demoAnimate {
 	Run() {
 		_that.obj.top = Math.ceil(Tween.Quad.easeOut(t, b, c, d));
 		let numData = _that.numData
-		let a = 'numArr';
 		_this.setData({
-			[a]: numData
+			numArr: numData
 		}, function() {
 			if (t < d) {
 				t++;
@@ -98,7 +99,7 @@ export class demoAnimates {
 		_this.setData({
 			numArr : _that.numData
 		},function(){
-			c = 120*19
+			c = 100*19
 			_that.allRun(parameter.callback)
 		})
 	}

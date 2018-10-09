@@ -71,9 +71,7 @@ Page({
   james:'',
   onLoad: function() {
     this.animate()
-
   },
-
   //转发分享
   onShareAppMessage: function(res) {
     const that = this;
