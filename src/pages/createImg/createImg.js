@@ -1,12 +1,12 @@
 //index.js
 import Poster from "../wxa-plugin-canvas/poster/poster";
-import {demoAnimate,demoAnimates} from '../../utils/animate.js';
+import { demoAnimate, demoAnimates } from "../../utils/animate.js";
 
 const app = getApp();
 Page({
   data: {
-    numArr:[{label:'0'},{label:'0'},{label:'0'}],
-    number:'290',
+    numArr: [{ label: "0" }, { label: "0" }, { label: "0" }],
+    number: "290",
     showSuccess: false,
     KrImgUrl: app.globalData.KrImgUrl,
     imgUrl: "",
@@ -81,8 +81,10 @@ Page({
         faceValue: 8
       }
     ],
-    showBottomBtn: false
+    showBottomBtn: false,
+    hasUserInfo: false
   },
+  weChatId: null, //微信id
   jdConfig: {
     width: 765,
     height: 1068,
@@ -108,9 +110,23 @@ Page({
     url: "",
     zIndex: 1
   },
-  james:'',
+  james: "",
   onLoad: function() {
-    this.animate()
+    const that = this;
+    that.animate();
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting["scope.userInfo"]) {
+          that.setData({
+            hasUserInfo: true
+          });
+
+          that.login();
+        } else {
+          that.login();
+        }
+      }
+    });
   },
   //转发分享
   onShareAppMessage: function(res) {
@@ -247,14 +263,13 @@ Page({
       }
     });
   },
-  animate(){
+  animate() {
     let that = this;
     this.james = new demoAnimate({
-      numArr:that.data.numArr,
-      number:that.data.number,
-      _this:that
+      numArr: that.data.numArr,
+      number: that.data.number,
+      _this: that
     });
-
   },
 
   /**
@@ -262,6 +277,79 @@ Page({
    */
   onCreatePoster() {
     Poster.create();
+  },
+  //我的礼券池金额
+  getBooster: function() {
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
+      success: res => {
+        console.log(res);
+        this.weChatId = res.data.data.weChatId;
+      }
+    });
+  },
+  //登录
+  login: function() {
+    let that = this;
+    wx.login({
+      success: function(res) {
+        if (res.code) {
+          wx.request({
+            url: app.globalData.KrUrl + "api/gateway/krmting/common/login",
+            methods: "GET",
+            data: {
+              code: res.code
+            },
+            success: res => {
+              wx.hideLoading();
+              app.globalData.Cookie =
+                res.header["Set-Cookie"] || res.header["set-cookie"];
+              app.globalData.openid = res.data.data["openid"];
+              that.getBooster();
+            },
+            fail: err => {
+              console.log(err);
+            }
+          });
+        } else {
+          console.log("登录失败！" + res.errMsg);
+        }
+      }
+    });
+  },
+  //拉取授权
+  onGotUserInfo: function(e) {
+    // console.log(e);
+    if (e.detail.userInfo) {
+      this.getInfo();
+      this.setData({
+        hasUserInfo: true
+      });
+    }
+  },
+  //获取用户信息
+  getInfo: function() {
+    let that = this;
+    wx.getUserInfo({
+      success: function(res) {
+        // console.log(res);
+        wx.setStorage({
+          key: "user_info",
+          data: {
+            user_info: res.userInfo
+          }
+        });
+        app.getRequest({
+          url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
+          data: {
+            encryptedData: res.encryptedData,
+            iv: res.iv
+          },
+          success: res => {
+            // console.log(res);
+          }
+        });
+      }
+    });
   }
 });
-//我的礼券池金额 kmbooster/mybooster-pool
