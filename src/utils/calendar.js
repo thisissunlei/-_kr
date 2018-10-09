@@ -13,9 +13,12 @@
 
 export class dateData{
   constructor(parameter){
-
     this.date_data1=[];
     this.date_data2=[];
+    // 不带价钱的日历数据
+    this.data_list = parameter.data ;
+    //会议室日历点击不可选的日期，弹窗不关闭的标识，false:不管；true：关
+    this.pop_switch = true;
 
     const last_date_obj = this.dateChange(parameter.init_data.last_btn_num)
     this.last_btn_num = last_date_obj.num;
@@ -37,7 +40,6 @@ export class dateData{
     };
   }
   dealDate(today_month,bool){
-    
     let t_times = today_month.getTime();
     //start --计算每个月多少个格子，包括一号前的空白格子。
     const week = today_month.getDay();//当前周几
@@ -52,19 +54,11 @@ export class dateData{
         case i<week:
           data.push({
             value:'',
+            type:'before',
             num:i
           });
           break;
         case i>(today+week)&&bool:
-          if(i%7==0||i%7==6){
-            data.push({
-              value:i-week+1,
-              day_num:i-week+1,
-              type:'before',
-              date_times:t_times+24*3600*1000*(i-week),
-              num:i
-            });
-          }else{
             data.push({
               value:i-week+1,
               day_num:i-week+1,
@@ -72,19 +66,9 @@ export class dateData{
               date_times:t_times+24*3600*1000*(i-week),
               num:i
             });
-          }
           this.all_day_num++;
           break;
         case i==(today+week-1)&&bool:
-          if(i%7==0||i%7==6){
-            data.push({
-              value:'今天',
-              day_num:i-week+1,
-              type:'before',
-              date_times:t_times+24*3600*1000*(i-week),
-              num:i
-            });
-          }else{
             data.push({
               value:'今天',
               day_num:i-week+1,
@@ -92,19 +76,10 @@ export class dateData{
               date_times:t_times+24*3600*1000*(i-week),
               num:i
             });
-          }
+          // }
           this.all_day_num++;
           break;
         case i==(today+week)&&bool:
-          if(i%7==0||i%7==6){
-            data.push({
-              value:'明天',
-              day_num:i-week+1,
-              type:'before',
-              date_times:t_times+24*3600*1000*(i-week),
-              num:i
-            });
-          }else{
             data.push({
               value:'明天',
               day_num:i-week+1,
@@ -112,21 +87,10 @@ export class dateData{
               date_times:t_times+24*3600*1000*(i-week),
               num:i
             });
-          }
-          
           this.all_day_num++;
           break;
         //i取值必须从下个月1号的单元格开始，所以需要+week
         case i<(30-this.all_day_num+week)&&!bool:
-          if(i%7==0||i%7==6){
-            data.push({
-              value:i-week+1,
-              day_num:i-week+1,
-              type:'before',
-              date_times:t_times+24*3600*1000*(i-week),
-              num:i
-            });
-          }else{
             data.push({
               value:i-week+1,
               day_num:i-week+1,
@@ -134,8 +98,6 @@ export class dateData{
               date_times:t_times+24*3600*1000*(i-week),
               num:i
             });
-          }
-  
           break;
         default:
           data.push({
@@ -154,6 +116,7 @@ export class dateData{
   dateBtn(e,bool){
     if(e.target.dataset.alldata&&(e.target.dataset.alldata.type.indexOf('next')>-1||e.target.dataset.alldata.type.indexOf('now')>-1)){
       const new_data = this[e.target.dataset.data];
+      this.pop_switch = true;
       if(!this[this.last_data]&&this.btn_bool){
         this[this.last_data][this.last_btn_num]['type'] = this[this.last_data][this.last_btn_num]['type'].replace('active ','');
       }
@@ -180,6 +143,8 @@ export class dateData{
       }
       
 
+    }else{
+      this.pop_switch = false;
     }
   }
   initData(){
@@ -188,14 +153,47 @@ export class dateData{
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
     this.date_data1 = this.dealDate(today_month,true);
     this.date_data2 = this.dealDate(next_month,false);
+    // this.btn_bool:true为会议室，单选
+    // 如果是单选，则为会议室日历，单独处理数据
+    if(this.btn_bool){
+      this.checkDate(this.date_data1)
+      this.checkDate(this.date_data2)
+    }
     this[this.last_data][this.last_btn_num]['type'] = 'active ' + this[this.last_data][this.last_btn_num]['type']; 
     this.get_value = [{
       alldata:this[this.last_data][this.last_btn_num],
-      data:this.last_data
+      data:this.last_data,
     }];
+  }
+  checkDate(data){
+    let dateList = [];
+    dateList = this.data_list.map(item=>{
+      return item.date
+    })
+    let _this = this;
+    data.map(item=>{
+      if(item.date_times){
+        let day = _this.formatTime(item.date_times)
+        if(dateList.indexOf(day) == -1){
+            item.type = 'before'
+        }
+      }
+    })
+  }
+  formatTime(times){
+    let date = new Date(times);
+    const year = date.getFullYear()
+    let month = date.getMonth() + 1
+    let day = date.getDate()
+    month = month>9?month:'0'+month;
+    day = day>9?day:'0'+day;
+    return year+'-'+month+'-'+day;
   }
   getValue(){
     return this.get_value;
+  }
+  getSwitch(){
+    return this.pop_switch
   }
   setValue(value){
     this.get_value = value;
