@@ -17,10 +17,13 @@ var Tween = {
 	Quad: {
 		easeOut: function(t, b, c, d) {
 			return -c * (t /= d) * (t - 2) + b;
-		}
+		},
+		Linear: function(t,b,c,d){ return c*t/d + b; },
+
 	}
 }
-var b=0,c=0,d=100,t=0;
+var b=0,c=0,d=10,t=0;
+var time = 15;
 var imgHeight = 100;//单独数字的高度
 var ListHeight = 1000;//循环动画的高度
 var index = 0
@@ -34,15 +37,30 @@ export class demoAnimate {
 		_that = this;
 		t = 0;
 		index = 0
+		if(parseInt(this.number) == 0){
+			return
+		}
 
 		let len = this.number.length;
 		this.numData = this.dealData()
-		c = this.numData[index].label * imgHeight;
+		if(this.numData[index].label == '0'){
+			c = 10 * imgHeight;
+			d = 10 * time;
+
+		}else{
+			c = this.numData[index].label * imgHeight;
+			d = this.numData[index].label * time;
+		}
+		
 		this.obj = this.numData[index];
 		this.Run()
 	}
 	dealData() {
 		let len = this.number.length;
+		let showAnimate = true;
+		if(parseInt(this.number) == 0){
+		}
+		console.log('dealData',parseInt(this.number))
 		let numArr = this.numArr;
 		for (var i = 0; i < len; i++) {
 			numArr[i].label = this.number.slice(i, i + 1);
@@ -51,7 +69,7 @@ export class demoAnimate {
 		return numArr;
 	}
 	Run() {
-		_that.obj.top = Math.ceil(Tween.Quad.easeOut(t, b, c, d));
+		_that.obj.top = Math.ceil(Tween.Quad.Linear(t, b, c, d));
 		let numData = _that.numData
 		_this.setData({
 			numArr: numData
@@ -62,7 +80,14 @@ export class demoAnimate {
 			} else if (t == d && index < numData.length - 1) {
 				index++;
 				t = 0;
-				c = numData[index].label * imgHeight;
+				if(_that.numData[index].label == '0'){
+					d = 10 * time;
+					c = 10 * imgHeight;
+				}else{
+					d = _that.numData[index].label * time;
+					c = numData[index].label * imgHeight;
+				}
+				
 				_that.obj = numData[index];
 				_that.Run()
 			}

@@ -6,7 +6,7 @@ const app = getApp();
 Page({
   data: {
     numArr:[{label:'0'},{label:'0'},{label:'0'}],
-    number:'420',
+    number:'290',
     showSuccess: false,
     KrImgUrl: app.globalData.KrImgUrl,
     imgUrl: "",
@@ -63,7 +63,7 @@ Page({
   weImg: {
     width: 486,
     height: 486,
-    x: 141,
+    x: 136,
     y: 390,
     url: "",
     zIndex: 1
