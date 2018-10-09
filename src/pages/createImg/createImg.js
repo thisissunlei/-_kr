@@ -16,25 +16,65 @@ Page({
     currentData: 0, //选项卡
     recordList: [
       {
-        thirdAvatar: "头像",
+        thirdAvatar:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
         thirdNick: "昵称",
-        amount: "助力金额",
+        amount: 10,
         first: true,
         text: "助力文案"
       },
       {
-        thirdAvatar: "头像1",
+        thirdAvatar:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
         thirdNick: "昵称1",
-        amount: "助力金额1",
+        amount: 20,
         first: true,
         text: "助力文案1"
       },
       {
-        thirdAvatar: "头像2",
+        thirdAvatar:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
         thirdNick: "昵称2",
-        amount: "助力金额2",
+        amount: 5,
         first: false,
         text: "助力文案2"
+      }
+    ],
+    helpingList: [
+      {
+        amout: 15,
+        helpThirdAvatar:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
+        helpThirdNick: "昵称"
+      },
+      {
+        amout: 10,
+        helpThirdAvatar:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
+        helpThirdNick: "昵称1"
+      },
+      {
+        amout: 8,
+        helpThirdAvatar:
+          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
+        helpThirdNick: "昵称2"
+      }
+    ],
+    extractList: [
+      {
+        conditionDesc: "满100减20",
+        ctime: "2018-10-1",
+        faceValue: 10
+      },
+      {
+        conditionDesc: "满100减20",
+        ctime: "2018-10-1",
+        faceValue: 5
+      },
+      {
+        conditionDesc: "满100减20",
+        ctime: "2018-10-1",
+        faceValue: 8
       }
     ],
     showBottomBtn: false
@@ -207,3 +247,4 @@ Page({
     Poster.create();
   }
 });
+//我的礼券池金额 kmbooster/mybooster-pool

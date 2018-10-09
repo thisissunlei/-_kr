@@ -33,21 +33,46 @@
 		<view class="helping-extract">
 			<view class="extract-top">
 				<view class="extract-one">
-					<image src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
+					<view class="extract-content">
+						<view class="extract-count">￥<text style="font-size:32rpx;">30</text></view>
+						<view class="extract-desc">直减</view>
+						<view class="extract-btn">提取</view>
+					</view>
+					<image class="extract-img" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
 				</view>
 				<view class="extract-two">
-					<image src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
+					<view class="extract-content">
+						<view class="extract-count">￥<text>60</text></view>
+						<view class="extract-desc">直减</view>
+						<view class="extract-btn">提取</view>
+					</view>
+					<image class="extract-img" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
 				</view>
 				<view class="extract-three">
-					<image src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
+					<view class="extract-content">
+						<view class="extract-count">￥<text>120</text></view>
+						<view class="extract-desc">满200可用</view>
+						<view class="extract-btn">提取</view>
+					</view>
+					<image class="extract-img" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
 				</view>
 			</view>
 			<view class="extract-bottom">
 				<view class="extract-four">
-					<image src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
+					<view class="extract-content">
+						<view class="extract-count">￥<text>240</text></view>
+						<view class="extract-desc">满500可用</view>
+						<view class="extract-btn">提取</view>
+					</view>
+					<image class="extract-img" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
 				</view>
 				<view class="extract-five">
-					<image src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
+					<view class="extract-content">
+						<view class="extract-count">￥<text>480</text></view>
+						<view class="extract-desc">满800可用</view>
+						<view class="extract-btn">提取</view>
+					</view>
+					<image class="extract-img" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
 				</view>
 			</view>
 
@@ -71,16 +96,72 @@
 					<text wx:if="{{currentData == 0}}">共收到礼券<text class="record-value">1200</text>元</text>
 					<text wx:if="{{currentData == 1}}">助力好友获得<text class="record-value">1200</text>元礼券奖励</text>
 				</view>
-				<view class="record-list-content">
-					<scroll-view style="max-height:600rpx;" scroll-y upper-threshold="50" lower-threshold="50" bindscrolltolower="toLower">
-						<view class="record-list-friend" wx:for="{{recordList}}" wx:key>
-							<view class="friend-list">
-								{{item.text}}
+				<view class="record-list-content" wx:if="{{currentData == 0}}">
+					<view class="record-list-friend" wx:for="{{recordList}}" wx:key>
+						<view class="friend-list-left">
+							<view class="friend-list-avatar">
+								<image src="{{item.thirdAvatar}}"></image>
+							</view>
+							<view class="friend-list-name">
+								<view class="friend-list-thirdNick">
+									{{item.thirdNick}}
+								</view>
+								<view class="friend-list-text">
+									{{item.text}}
+								</view>
 							</view>
 						</view>
-					</scroll-view>
-
-
+						<view class="friend-list-right">
+							<view class="friend-list-new" wx:if="{{item.first}}">
+								<text>新人助力</text>
+								<text style="font-size: 30rpx;color: #FF9D00;margin-left: 12rpx;">×2</text>
+							</view>
+							<view class="friend-list-value">
+								<view class="list-value-img">
+									<image src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
+								</view>
+								<view class="list-value-count">
+									+{{item.amount}}元
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="friend-list-more">上滑加载更多</view>
+				</view>
+				<view class="record-list-content" wx:if="{{currentData == 1}}">
+					<view class="helping-list-content" wx:for="{{helpingList}}" wx:key>
+						<view class="helping-list-left">
+							<text>助力</text>
+							<view class="helping-list-img">
+								<image src="{{item.helpThirdAvatar}}"></image>
+							</view>
+							<text style="margin-right:8rpx;">{{item.helpThirdNick}}</text>
+							<text>获得礼券</text>
+						</view>
+						<view class="helping-list-right">
+							<view class="list-right-img">
+								<image src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
+							</view>
+							<view class="helping-value-count">
+								+{{item.amout}}元
+							</view>
+						</view>
+					</view>
+					<view class="friend-list-more">上滑加载更多</view>
+				</view>
+				<view class="record-list-content" wx:if="{{currentData == 2}}">
+					<view class="extract-list" wx:for="{{extractList}}" wx:key>
+						<view class="point"></view>
+						<view class="extract-list-top">
+							<text>提取</text>
+							<text style="margin:0 8rpx;">{{item.faceValue}}</text>
+							<text>元礼券（{{item.conditionDesc}}）</text>
+						</view>
+						<view class="extract-list-time">
+							{{item.ctime}}
+						</view>
+					</view>
+					<view class="friend-list-more">上拉加载更多</view>
 				</view>
 			</view>
 			<!-- 缺省 -->

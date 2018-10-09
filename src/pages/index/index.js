@@ -44,7 +44,8 @@ Page({
     alertOnce: false, //第一次
     showCoupon: false, //提取礼券弹窗
     showDiscounts: false, //今日特惠
-    discounts: [{ src: 1 }, { src: 2 }, { src: 3 }, { src: 4 }, { src: 5 }] //今日特惠
+    discounts: [], //今日特惠
+    extractList: [] //可提取礼券列表
   },
   rq_data: {
     latitude: "",
@@ -215,7 +216,8 @@ Page({
               app.globalData.openid = res.data.data["openid"];
               // that.getActivity();
               that.getDiscounts();
-
+              that.getOnecVisit();
+              that.getShowCoupon();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
@@ -260,12 +262,44 @@ Page({
     //活动入口
     // this.getActivity();
   },
+  //是否首次接口
+  getOnecVisit: function() {
+    const that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
+      success: res => {
+        console.log(res);
+        if (res.data.data) {
+          that.setData({
+            alertOnce: true
+          });
+        }
+      }
+    });
+  },
+  //今天特惠接口
   getDiscounts: function() {
     const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/today-special",
       success: res => {
+        // console.log(res);
+        that.setData({
+          discounts: res.data.data
+        });
+      }
+    });
+  },
+  //可领取礼券接口 kmbooster/show-coupon
+  getShowCoupon: function() {
+    const that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/show-coupon",
+      success: res => {
         console.log(res);
+        that.setData({
+          extractList: res.data.data
+        });
       }
     });
   },

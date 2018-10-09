@@ -104,6 +104,7 @@
   width: 100%;
   height: 110rpx;
   position: fixed;
+  z-index: 200;
   bottom: 0;
   display: flex;
   box-sizing: border-box;
@@ -315,6 +316,7 @@
   width: 164rpx;
   height: 188rpx;
   margin: 0 8rpx;
+  position: relative;
 }
 .helping-record {
   width: 670rpx;
@@ -437,6 +439,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
 }
 .share-bg-top {
   width: 100%;
@@ -487,4 +490,203 @@
 .wxfriend > image {
   width: 100%;
   height: 100%;
+}
+.record-list-content {
+  padding: 0 30rpx;
+}
+.record-list-friend {
+  width: 100%;
+  height: 72rpx;
+  display: flex;
+  margin-bottom: 46rpx;
+}
+.friend-list-left {
+  width: 75%;
+  height: 100%;
+  display: flex;
+}
+.friend-list-right {
+  width: 25%;
+  height: inherit;
+  font-size: 24rpx;
+  color: #da205f;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.friend-list-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  border: 1px solid #bb9fdd;
+  margin-right: 16rpx;
+}
+.friend-list-avatar image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.friend-list-name {
+  width: 260rpx;
+  height: 100%;
+  font-size: 30rpx;
+  color: #c392cb;
+}
+.friend-list-text {
+  font-size: 24rpx;
+  color: #796690;
+}
+.friend-list-new {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.friend-list-value {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.list-value-img {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 12rpx;
+}
+.list-value-img image {
+  width: 100%;
+  height: 100%;
+}
+.list-value-count {
+  font-size: 26rpx;
+  color: #da205f;
+}
+.friend-list-more {
+  width: 100%;
+  height: 40rpx;
+  font-size: 30rpx;
+  color: #c392cb;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.helping-list-content {
+  width: 100%;
+  height: 52rpx;
+  display: flex;
+  margin-bottom: 40rpx;
+}
+.helping-list-left {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  font-size: 24rpx;
+  color: #796690;
+}
+.helping-list-left text {
+  display: inline-flex;
+  align-items: center;
+}
+.helping-list-right {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.helping-list-img {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  margin: 0 8rpx;
+  border: 1px solid #bb9fdd;
+}
+.helping-list-img image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.list-right-img {
+  width: 28rpx;
+  height: 28rpx;
+  margin-top: -28rpx;
+  margin-right: 12rpx;
+}
+.list-right-img > image {
+  width: 100%;
+  height: 100%;
+}
+.helping-value-count {
+  width: 100rpx;
+  height: 100%;
+  font-size: 26rpx;
+  color: #da205f;
+  display: flex;
+  align-items: center;
+}
+.extract-list {
+  border-left: 1px solid #c392cb;
+  padding-left: 24rpx;
+  padding-bottom: 48rpx;
+  position: relative;
+}
+.extract-list-top {
+  font-size: 30rpx;
+  color: #c392cb;
+}
+.extract-list-time {
+  font-size: 24rpx;
+  color: #796690;
+}
+.point {
+  width: 12rpx;
+  height: 12rpx;
+  background: #210f3e;
+  border-radius: 50%;
+  border: 1px solid #c392cb;
+  position: absolute;
+  left: -7rpx;
+  top: 0;
+}
+.extract-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.extract-content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 100;
+}
+.extract-count {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #624d17;
+  text-align: center;
+  font-size: 24rpx;
+}
+.extract-count > text {
+  font-size: 32rpx;
+}
+.extract-desc {
+  width: 100%;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #624d17;
+}
+.extract-btn {
+  width: 100%;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #ffe290;
+  margin-top: 33rpx;
 }

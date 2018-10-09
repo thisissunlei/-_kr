@@ -178,7 +178,9 @@
         <text>今日特惠</text>
         <view class="discounts-scroll">
           <view wx:for="{{discounts}}" wx:key>
-            <view class="discounts-list">{{item.src}}</view>
+            <view class="discounts-list">
+              <image src="{{item.picUrl}}"></image>
+            </view>
           </view>
         </view>
         <view class="discounts-btn" bindtap="changeDiscounts">朕知道了</view>
@@ -204,8 +206,13 @@
       <view class="ticket-wrap">
         <text>您可以提取以下礼券</text>
         <view class="ticket-scroll">
-          <view wx:for="{{couponList}}" wx:key>
-            <view class="ticket-list">{{item.src}}</view>
+          <view class="ticket-itself" wx:for="{{extractList}}" wx:key>
+            <view class="ticket-list">
+              <view class="ticket-list-value">￥<text style="font-size:60rpx;">{{item.faceValue}}</text></view>
+              <view class="ticket-list-desc">{{item.conditionDesc}}</view>
+              <view class="ticket-list-btn">礼券</view>
+            </view>
+            <image class="ticket-list-img" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
           </view>
         </view>
         <view class="jump-helping" bindtap="jumpHelpingActivity">
