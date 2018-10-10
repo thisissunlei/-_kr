@@ -4,8 +4,8 @@
         <view class="u-userinfo-nickname">{{userInfo.wechatNick}}</view>
         <view class="u-userinfo-phone" wx:if="{{!!userInfo.phone.length}}">{{userInfo.phone}}</view>
         <view class="bind-box" wx:if="{{!userInfo.phone.length}}">
-            <div class="phone-button" >点击登录手机号</div>
-            <button open-type="getPhoneNumber" class="get-phone-num" bindgetphonenumber="getPhoneNumber" >点击登录手机号</button> 
+            <div class="phone-button">点击登录手机号</div>
+            <button open-type="getPhoneNumber" class="get-phone-num" bindgetphonenumber="getPhoneNumber">点击登录手机号</button>
         </view>
     </view>
     <view class="u-my-order">
@@ -67,7 +67,8 @@
             <text slot='two' class="u-meet-count" wx:if="{{count>0}}">{{count}}</text>
         </dialog>
         <view class="u-my-box-a"></view>
-        <dialog class="u-contact-service" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png' bindtap='mysan'>
+        <dialog class="u-contact-service" text='../images/my/meet.png' src='../images/public/icon_arrow-right.png'
+            bindtap='mysan'>
             <text slot='one' class="u-my-meeting-title">我的散座</text>
             <text slot='two' class="u-meet-count" wx:if="{{number>0}}"> {{number}} </text>
         </dialog>

@@ -18,18 +18,18 @@
               <view class="assistance-header-right">活动规则</view>
         </view>
         <view class="assistance-luck">
-            <image class="assistance-user-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png">
+            <image class="assistance-user-img" src="{{wechatAvatar}}">
             </image>
             <view class="assistance-user-name" >
-                    喵喵喵喵喵喵喵
+                    {{wechatNick}}     
             </view>  
             <image class="assistance-luck-img"  src="../../pages/images/assistance/help_bg.png">
             </image>
-            <!-- <image class="assistance-luck-button-zhuli"  src="../../pages/images/assistance/button_zhuli.png">
-            </image> -->
-            <image class="assistance-luck-button-yizhuli"  src="../../pages/images/assistance/button_yizhuli.png">
+            <image wx:if="{{!assistanceFlag}}" bindtap="postAssistance" class="assistance-luck-button-zhuli"  src="../../pages/images/assistance/button_zhuli.png">
             </image>
-            <view class="assistance-luck-img-help">
+            <image wx:if="{{assistanceFlag}}" class="assistance-luck-button-yizhuli"  src="../../pages/images/assistance/button_yizhuli.png">
+            </image>
+            <view wx:if="{{!assistanceFlag}}" class="assistance-luck-img-help">
                 <image class="assistance-luck-img-help-bottom" src="../../pages/images/assistance/help_bottom.png">
                 </image> 
                 <view class="assistance-luck-img-help-button-amount">
@@ -40,7 +40,7 @@
             </view>
             <view class="assistance-luck-amount">  
                 <view class="assistance-luck-amount-content">
-                    已有 32 位好友为Ta助力 1200 元礼券
+                    已有{{totalCount}} 位好友为Ta助力{{totalAmount}} 元礼券
                 </view>
             </view >
             <view class="assistance-luck-amount-gap">
@@ -48,58 +48,26 @@
             </view>
         </view>
         <view class="assistance-friends-list">
-            <view class="assistance-friends-item clearfix">
-                <image class="friends-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>   
+
+            <view wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix">
+                <image class="friends-img" src="{{item.helpThirdAvatar}}"></image>   
                 <view class="firends-content-detail">
-                    <ivew class="firends-name">小明</ivew>
-                    <ivew class="friends-signature">个性签名</ivew>
+                    <ivew class="firends-name">{{item.helpThirdNick}}</ivew>
+                    <ivew class="friends-signature">{{item.characters}}</ivew>
                 </view>       
                 <view class="firends-content-amount">
                     <view class="firends-content-top">
                         <image class="amount-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
-                        <view class="increase" >+5元</view>
+                        <view class="increase" >+{{item.amount}}</view>
                     </view>
                     <view class="firends-content-bottom">
                         <image class="news-double-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
                         <view class="news-double-describe">新人助力翻倍</view>
                     </view>  
                 </view>
-                </view>
-            <view class="assistance-friends-item clearfix">
-                    <image class="friends-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>   
-                    <view class="firends-content-detail">
-                        <ivew class="firends-name">小明</ivew>
-                        <ivew class="friends-signature">个性签名</ivew>
-                    </view>       
-                    <view class="firends-content-amount">
-                        <view class="firends-content-top">
-                            <image class="amount-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
-                            <view class="increase" >+5元</view>
-                        </view>
-                        <view class="firends-content-bottom">
-                            <image class="news-double-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
-                            <view class="news-double-describe">新人助力翻倍</view>
-                        </view>  
-                    </view>
-                </view>
-            <view class="assistance-friends-item clearfix">
-                        <image class="friends-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>   
-                        <view class="firends-content-detail">
-                            <ivew class="firends-name">小明</ivew>
-                            <ivew class="friends-signature">个性签名</ivew>
-                        </view>       
-                        <view class="firends-content-amount">
-                            <view class="firends-content-top">
-                                <image class="amount-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
-                                <view class="increase" >+5元</view>
-                            </view>
-                            <view class="firends-content-bottom">
-                                <image class="news-double-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
-                                <view class="news-double-describe">新人助力翻倍</view>
-                            </view>  
-                        </view>
-                </view>
-            <view class="assistance-friends-help-content" >
+            </view>
+           
+            <view wx:if="{{!assistanceFlag}}" class="assistance-friends-help-content" >
                   <view class="assistance-friends-help-content-detail" >
                       <view class="assistance-friends-help-content-detail-top">Ta的礼券池已经到上限啦！</view>
                       <view class="assistance-friends-help-content-detail-bottom">继续助力的话Ta的礼券金也不会累积了哦~</view>
@@ -107,8 +75,8 @@
                   <image class="assistance-friends-help-content-glass" src="../../pages/images/assistance/glass.png" ></image>
                   <image class="assistance-friends-help-content-button_isee" src="../../pages/images/assistance/button_isee.png" ></image>
                 </view>   
-            <view class="more">
-                点击加载更多
+            <view class="more" bindtap="getMore">
+                  点击加载更多
                 </view>            
         </view >
     </view>

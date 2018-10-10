@@ -3,10 +3,32 @@ Page({
     data: {
         assistance:{},
         btn_bool:true,
-        user_info:''
+        user_info:'',
+        assistanceFlag:false,
+        pageNum:1,
+        pageSize:10,
+        wechatAvatar:'',
+        wechatNick:'',
+        amount:'',
+        totalAmount:'',
+        totalCount:'',
+        items:[],
+
     },
     onLoad(options) {
       let that = this;
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting["scope.userInfo"]) {
+            that.setData({
+              hasUserInfo: true
+            });
+            that.login();
+          } else {
+            that.login();
+          }
+        }
+      });
     },
     // 下拉刷新
     onPullDownRefresh(e) {
@@ -18,9 +40,11 @@ Page({
     },
     //获取用户信息
     getInfo: function() {
+      console.log("获取用户信息");
       var that = this;
       wx.getUserInfo({
         success: function(res) {
+          console.log("获取用户信息成功!!!");
           // that.setData({
           //   avatarUrl: res.userInfo.avatarUrl
           // });
@@ -40,13 +64,48 @@ Page({
             },
             success: res => {}
           });
-          that.getAssistance();
         }
       });
     },  
   //助力详情
-  
-  getAssistance: function() {
+    //登录
+    login: function() {
+      let that = this;
+      wx.login({
+        success: function(res) {
+              console.log("登陆");
+          if (res.code) {
+            wx.request({
+              url: app.globalData.KrUrl + "api/gateway/krmting/common/login",
+              methods: "GET",
+              data: {
+                code: res.code
+              },
+              success: res => {
+                console.log("登陆成功!!");
+                that.setData({
+                  btn_bool: false
+                });
+                app.globalData.Cookie =
+                res.header["Set-Cookie"] || res.header["set-cookie"];
+                app.globalData.openid = res.data.data["openid"];
+                //that.getInfo();
+                // that.getAssistance();
+                that.sharedInf();
+                that.firendAssistanceList();
+              },
+              fail: err => {
+                console.log(err);
+              }
+            });
+          } else {
+            console.log("登录失败！" + res.errMsg);
+          }
+        }
+      });
+    },
+  // 助力
+  postAssistance: function (){
     var that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
@@ -55,15 +114,91 @@ Page({
         firstCustomer: true,
         id: 1384
       },
-      success: res => {}
+      success: res => {
+         
+      }
+    });
+  },  
+  // 分享详情接口 kmbooster/shared-info 
+  sharedInf: function(){
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/shared-info",
+      method:'GET',
+      data: {
+        wechatId: 1361
+      },
+      success: res => {
+              console.log(res.data)
+              if(res.data.code === 1){
+                that.setData({
+                wechatAvatar:res.data.data.wechatAvatar,
+                wechatNick:res.data.data.wechatNick,
+                amount:res.data.data.amount
+              })
+              if(res.data.data.booster === 1){
+                this.setData({
+                  assistanceFlag:true
+                });
+                    }else{
+                      that.setData({
+                        assistanceFlag:false
+                      })
+                }
+          }
+
+      }
+    });
+  },
+  // 加载更多
+  getMore: function(){
+    var that = this;
+    that.setData({
+      pageNum:that.data.pageNum+1
+    })
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
+      method:'GET',
+      data: {
+        page:1,
+        pageSize: that.data.pageSize*that.data.pageNum,
+        wechatId:1361
+      },
+      success: res => {
+          if(res.data.code === 1){
+            that.setData({
+                totalCount:res.data.data.totalCount,
+                totalAmount:res.data.data.totalAmount,
+                items:res.data.data.items
+            })
+          }
+      }
+    });
+  },
+  firendAssistanceList: function() {
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
+      method:'GET',
+      data: {
+        page:1,
+        pageSize: that.data.pageSize*that.data.pageNum,
+        wechatId:1361
+      },
+      success: res => {
+          if(res.data.code === 1){
+            that.setData({
+                totalCount:res.data.data.totalCount,
+                totalAmount:res.data.data.totalAmount,
+                items:res.data.data.items
+            })
+          }
+      }
     });
   },
   onGotUserInfo: function(e) {
     if (e.detail.userInfo) {
-        this.getInfo();
-        this.setData({
-          btn_bool: false
-        });
+        this.login();
     }
   }
 })

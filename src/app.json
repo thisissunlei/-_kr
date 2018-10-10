@@ -47,6 +47,7 @@
     "pages/teamCardPurchase/teamCardPurchase",
     "pages/myOrder/myOrder",
     "pages/teamCardDetails/teamCardDetails",
+    "pages/createImg/createImg",
     "pages/teamCardRecord/teamCardRecord"
   ],
   "window": {

@@ -10,7 +10,8 @@ Page({
         list: [],
         phase: '',
         payFail: false,
-        tip: ''
+        tip: '',
+        height: 0
     },
     orderId: null,
     onLoad(options) {
@@ -23,6 +24,17 @@ Page({
                 }
             }
         });
+        wx.getSystemInfo({
+            success: (res) => {
+
+
+                console.log(res)
+                this.setData({
+                    height: res.windowHeight - res.windowWidth/750*634
+                })
+                console.log(res.windowHeight - res.windowWidth/750*634)
+            }
+        })
         this.getGoodsList()
     },
     onShow() {
@@ -67,9 +79,18 @@ Page({
         }
     },
     swiperChange(e) {
-        this.setData({
-            swiperIndex: e.detail.current
-        })
+        if ( e.detail.source == "touch" ) {
+            if ( e.detail.current == 0 && this.data.swiperIndex > 1 ) {//卡死时，重置current为正确索引
+                this.setData({
+                    swiperIndex: this.data.swiperIndex
+                })
+            }  else {
+                this.setData({
+                    swiperIndex: e.detail.current
+                })
+            }
+        }
+
     },
     changeCheckbox:function(){
         this.setData({

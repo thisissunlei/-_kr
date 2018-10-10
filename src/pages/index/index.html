@@ -1,9 +1,8 @@
 <!--index.wxml-->
+
 <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;'></button>
 <view class="container container-wrapper">
-  <!--<navigator url="../teamCardDetails/teamCardDetails?cardId=129">购买团队卡</navigator>-->
-  <!--<navigator url="../teamCardRecord/teamCardRecord?cardId=97">团队卡详情</navigator>-->
-  <!-- <text  bindtap="moveToBind">shoujihao1</text> -->
+  <!-- <navigator url="../createImg/createImg">购买团队卡</navigator> -->
   <!-- 头部信息 -->
   <view class="idx_header">
     <view class="title-msg">
@@ -26,11 +25,10 @@
   </view>
   <!-- 轮播图 -->
   <view class="metting-wrap">
-
     <view class="metting" wx:if="{{myMeeting.length>0}}">
       <image src="../images/my/bg.png" style="width: 100%;height: 100%;position: relative;"></image>
-      <swiper interval="{{interval}}" autoplay="true" circular="true" indicator-dots="{{indicatorDots}}" indicator-color="#D5D8DF"
-        indicator-active-color='rgba(255,198,52,100)' class="swiper-box">
+      <swiper interval="{{interval}}" autoplay="true" circular="true" indicator-dots="{{indicatorDots}}"
+        indicator-color="#D5D8DF" indicator-active-color='rgba(255,198,52,100)' class="swiper-box">
         <block wx:for="{{myMeeting}}" wx:key>
           <swiper-item class="my-metting" data-id="{{item.targetId}}" bindtap="{{item.targetType=='SEAT'?'moveToSeatDetail':(item.targetType=='MEETING'?'moveToMeetingDetail':'moveToActivity')}}">
             <view class="metting-content">
@@ -45,7 +43,6 @@
                     <text class="activity-date">{{item.before}}</text>
                     <text class="activity-hour">{{item.last}}</text>
                   </view>
-
                 </view>
                 <text wx:else class="metting-time">{{item.todoTime}}</text>
                 <text class="metting-name">{{item.title}}</text>
@@ -61,35 +58,19 @@
           </swiper-item>
         </block>
       </swiper>
-
-      <!-- <block wx:for="{{myMeeting}}" wx:if="{{!swiper}}" wx:key="{{myMeeting}}">
-        <view class="metting-content" bindtap="jumpToMeetingDetail">
-          <view class="metting-mark {{item.meetingStatus === 'WAIT'?'wait':'already'}}">{{item.meetingStatus === 'WAIT'?'待入场':'已入场'}}</view>
-          <view class="metting-title">
-            <text class="metting-time">{{item.meetingTime}}</text>
-            <text class="metting-name">{{item.theme}}</text>
-          </view>
-
-          <view class="metting-address" style="padding-top: 40rpx;">
-            <text class="meetingRoomName">{{item.meetingRoomName}}</text>
-            <view class="address-wrapper">
-              <image src="../images/indexImg/icon_loation.png" class="map-icon"></image>
-              <text class="metting-map">{{item.address}}</text>
-            </view>
-          </view>
-        </view>
-      </block> -->
-
-
-
     </view>
     <!-- 新人引导 -->
     <view class="adver">
-      <view class="adver2-1" bindtap="point">
-        <image src="../images/indexImg/banner2.png"></image>
+      <view class="adver-top" bindtap="point">
+        <image src="{{KrImgUrl}}helpingActivity/index/new-people-guide.png"></image>
       </view>
-      <view class="adver2-2" bindtap="jumpToTeamCard">
-        <image src="../images/indexImg/banner3.png"></image>
+      <view class="adver-bottom">
+        <view class="adver-friend" bindtap="jumpHelpingActivity">
+          <image src="{{KrImgUrl}}helpingActivity/index/friend-help.png"></image>
+        </view>
+        <view class="adver-team" bindtap="jumpToTeamCard">
+          <image src="../images/indexImg/team.png"></image>
+        </view>
       </view>
     </view>
   </view>
@@ -105,8 +86,8 @@
       </view>
     </view>
     <view class="activity-swiper">
-      <swiper class="activity-box" previous-margin="{{activity.previousMargin}}" current="{{activity.current}}" duration="{{activity.duration}}"
-        bindchange="acitvityChange" next-margin="{{activity.nextMargin}}" circular="{{activity.circular}}">
+      <swiper class="activity-box" previous-margin="{{activity.previousMargin}}" current="{{activity.current}}"
+        duration="{{activity.duration}}" bindchange="acitvityChange" next-margin="{{activity.nextMargin}}" circular="{{activity.circular}}">
         <block wx:for="{{activityList}}" wx:key>
           <swiper-item bindtap="goActivityDetail" data-id="{{item.activityId}}" style="padding: 0 5px;box-sizing: border-box;">
             <image src="{{item.coverPic}}" class="activity-slide" />
@@ -117,25 +98,17 @@
   </view>
 
 
-
-
   <view class='nearby_room' wx:if="{{buildingList.length > 0}}">
     <view class='rm_title'>
       <text class="text-bold">周边大厦</text>
-      <!-- <view class="page-box" bindtap="openmap">
-        <text class="page-map">
-          <text class="page-water"></text>
-          <text class="page-point"></text>
-        </text>
-      </view> -->
       <view class="page-mapicon" bindtap="openmap">
         <image src="../images/indexImg/mapicon.png"></image>
       </view>
-
     </view>
     <view class="community-wrapper">
       <!-- 已开放大厦 -->
-      <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom" wx:key>
+      <view class='community' wx:for="{{buildingList}}" data-id="{{item.communityId}}" bindtap="moveToMeetingRoom"
+        wx:key>
         <view class="community_pic">
           <image src="{{item.buildImgUrl}}?x-oss-process=image/resize,p_50"></image>
         </view>
@@ -158,25 +131,18 @@
         </view>
       </view>
 
-
       <!-- 未开放大厦 -->
       <view class='community noopen' wx:for="{{noOpenBuilding}}" data-id="{{item.communityId}}" wx:key>
         <view class="buildImg">
           <image src="{{item.buildImgUrl}}" class="community_pic"></image>
           <image src="../images/indexImg/open.png" class="open"></image>
         </view>
-
         <view class='cmty_con'>
           <view class='cmty_title color'>{{item.buildName}}</view>
           <view class='location'>
-            <!-- <text class='lct_con color'>{{item.buildAddress}}</text>
-          <text class='lct_distance color'>{{item.distance}}</text> -->
             <view class='lct_con'>
-              <!-- <image src="../images/indexImg/icon_loation.png" class="map-icon"></image> -->
               <text class="lct_txt color">{{item.buildAddress}}</text>
             </view>
-            <!-- <text class='lct_distance color'>{{item.distance}}</text> -->
-
           </view>
           <view class='room_num'>
             <text class="num_num color" wx:if="{{item.seatCount > 0}}">{{item.seatCount}}</text>
@@ -184,8 +150,6 @@
             <text class="num_arr color" wx:if="{{item.meetingCount > 0}}">{{item.meetingCount}}</text>
             <text class="num_text color" wx:if="{{item.meetingCount > 0}}">个会议室</text>
           </view>
-          <!-- <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view> -->
-
         </view>
       </view>
 
@@ -200,5 +164,63 @@
     <view class="more">
       <image src="../images/indexImg/more.png"></image>
     </view>
+
   </view>
+  <!-- 今日特惠 -->
+  <button class="discounts" hover-class="none" bindtap="changeDiscounts">
+    <image src="{{KrImgUrl}}helpingActivity/index/today-discounts.png"></image>
+  </button>
+  <view class="today-discouts" wx:if="{{showDiscounts}}">
+    <view class="discounts-countent">
+      <image class="discounts-bg" src="{{KrImgUrl}}helpingActivity/index/alert_welfare.png"></image>
+      <image class="discounts-close" bindtap="changeDiscounts" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
+      <view class="discounts-wrap">
+        <text>今日特惠</text>
+        <view class="discounts-scroll">
+          <view wx:for="{{discounts}}" wx:key>
+            <view class="discounts-list">
+              <image src="{{item.picUrl}}"></image>
+            </view>
+          </view>
+        </view>
+        <view class="discounts-btn" bindtap="changeDiscounts">朕知道了</view>
+      </view>
+    </view>
+  </view>
+  <!-- 首次助力活动弹窗 -->
+  <view class="alert-once" wx:if="{{alertOnce}}">
+    <view class="alert-content">
+      <image class="alert-bg" src="{{KrImgUrl}}helpingActivity/index/alert_join.png"></image>
+      <image class="alert-close" bindtap="alertClosed" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
+      <view class="jump-helping" bindtap="jumpHelpingActivity">
+        <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
+        <text>立即参加</text>
+      </view>
+    </view>
+
+  </view>
+  <!-- 提取礼券弹窗 -->
+  <view class="ticket-alert" wx:if="{{showCoupon}}">
+    <view class="ticket-content">
+      <image class="ticket-close" bindtap="changeCoupon" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
+      <view class="ticket-wrap">
+        <text>您可以提取以下礼券</text>
+        <view class="ticket-scroll">
+          <view class="ticket-itself" wx:for="{{extractList}}" wx:key>
+            <view class="ticket-list">
+              <view class="ticket-list-value">￥<text style="font-size:60rpx;">{{item.faceValue}}</text></view>
+              <view class="ticket-list-desc">{{item.conditionDesc}}</view>
+              <view class="ticket-list-btn">礼券</view>
+            </view>
+            <image class="ticket-list-img" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
+          </view>
+        </view>
+        <view class="jump-helping" bindtap="jumpHelpingActivity">
+          <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
+          <text>立即兑换</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
 </view>

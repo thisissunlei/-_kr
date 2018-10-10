@@ -38,16 +38,52 @@ Page({
       previousMargin: "26rpx",
       nextMargin: "26rpx",
       circular: false
-    }
+    },
+    KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
+    //--------------------------
+    alertOnce: false, //第一次
+    showCoupon: false, //提取礼券弹窗
+    showDiscounts: false, //今日特惠
+    discounts: [], //今日特惠
+    extractList: [] //可提取礼券列表
   },
   rq_data: {
     latitude: "",
     longitude: ""
   },
+  toView: "",
   func_bool_g: false,
   func_bool_l: false,
   func_bool_l2: false,
   func_bool_s: false,
+  //打开今天特惠
+  changeDiscounts: function() {
+    this.setData({
+      showDiscounts: !this.data.showDiscounts
+    });
+  },
+  //首次弹窗关闭
+  alertClosed: function() {
+    this.setData({
+      alertOnce: false
+    });
+  },
+  //提取礼券弹窗关闭
+  changeCoupon: function() {
+    this.setData({
+      showCoupon: false
+    });
+  },
+  //跳转助力活动详情页
+  jumpHelpingActivity: function() {
+    wx.navigateTo({
+      url: "../createImg/createImg"
+    });
+    this.setData({
+      alertOnce: false,
+      showCoupon: false
+    });
+  },
   //活动轮播变化
   acitvityChange: function(e) {
     if (e.detail.source == "touch") {
@@ -147,6 +183,7 @@ Page({
   },
   onLoad: function(options) {
     const that = this;
+
     // console.log(options);
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "id");
@@ -154,6 +191,9 @@ Page({
         channelname: channelname_v
       });
       // console.log(channelname_v, 11111);
+    }
+    if (options.fromPage == "inside") {
+      that.toView = "list";
     }
     wx.showLoading({
       title: "加载中",
@@ -175,9 +215,13 @@ Page({
               wx.hideLoading();
               that.func_bool_l = true;
               that.func_bool_l2 = true;
-              app.globalData.Cookie =res.header["Set-Cookie"] || res.header["set-cookie"];
+              app.globalData.Cookie =
+                res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-               // that.getActivity();
+              // that.getActivity();
+              that.getDiscounts();
+              that.getOnecVisit();
+              that.getShowCoupon();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
@@ -217,10 +261,59 @@ Page({
       }
     });
   },
+  onReady: function() {
+    var that = this;
+    setTimeout(() => {
+      that.setData({
+        toView: that.toView
+      });
+    }, 500);
+  },
   onShow: function() {
     this.getAllInfo();
     //活动入口
     // this.getActivity();
+  },
+  //是否首次接口
+  getOnecVisit: function() {
+    const that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
+      success: res => {
+        console.log(res);
+        if (res.data.data) {
+          that.setData({
+            alertOnce: true
+          });
+        }
+      }
+    });
+  },
+  //今天特惠接口
+  getDiscounts: function() {
+    const that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/today-special",
+      success: res => {
+        // console.log(res);
+        that.setData({
+          discounts: res.data.data
+        });
+      }
+    });
+  },
+  //可领取礼券接口 kmbooster/show-coupon
+  getShowCoupon: function() {
+    const that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/show-coupon",
+      success: res => {
+        console.log(res);
+        that.setData({
+          extractList: res.data.data
+        });
+      }
+    });
   },
   // 首页活动接口
   getActivity: function() {
@@ -373,7 +466,7 @@ Page({
   point: function() {
     wx.reportAnalytics("viewguide");
     wx.navigateTo({
-      url: "../point/point"
+      url: "../point/point?fromIndex=true"
     });
   },
   jumpToTeamCard: function() {
