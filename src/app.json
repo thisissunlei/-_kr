@@ -47,7 +47,8 @@
     "pages/myOrder/myOrder",
     "pages/teamCardDetails/teamCardDetails",
     "pages/createImg/createImg",
-    "pages/teamCardRecord/teamCardRecord"
+    "pages/teamCardRecord/teamCardRecord",
+    "pages/laymanGuide/laymanGuide"
   ],
   "window": {
     "backgroundTextStyle": "light",
