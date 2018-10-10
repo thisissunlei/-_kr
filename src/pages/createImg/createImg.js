@@ -109,9 +109,14 @@ Page({
     that.setData({
       currentData: current
     });
-    if (current == 1) {
+    if (current == 0) {
+      that.page = 1;
+      that.getFriendsBooster();
+    } else if (current == 1) {
+      that.page = 1;
       that.getOwerBooster();
     } else if (current == 2) {
+      that.page = 1;
       that.getRecords();
     }
   },
@@ -121,7 +126,27 @@ Page({
   },
   //页面上拉触底事件
   onReachBottom: function() {
-    console.log(this.currentData);
+    const that = this;
+    // console.log(this.currentData);
+    if (that.currentData == 0 && that.page < that.totalPages) {
+      that.page += 1;
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
+        data: {
+          page: that.page,
+          pageSize: that.pageSize
+        },
+        success: res => {
+          // console.log(res);
+          that.setData({
+            recordList: [].concat(that.data.recordList, res.data.data.items)
+          });
+        }
+      });
+    } else if (that.currentData == 1 && that.page < that.totalPages) {
+      that.page += 1;
+      that.getOwerBooster();
+    }
   },
   //活动规则
   helpingRule: function() {
@@ -277,7 +302,8 @@ Page({
         pageSize: that.pageSize
       },
       success: res => {
-        console.log(res);
+        // console.log(res);
+        that.totalPages = res.data.data.totalPages;
         that.setData({
           recordList: res.data.data.items,
           totalAmount: res.data.data.totalAmount,
@@ -298,6 +324,8 @@ Page({
       },
       success: res => {
         // console.log(res);
+        that.totalPages = res.data.data.totalPages;
+
         that.setData({
           helpingList: res.data.data.items,
           myAmout: res.data.data.totalAmount,
@@ -313,6 +341,9 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
       success: res => {
         // console.log(res);
+        that.setData({
+          extractList: res.data.data.items
+        });
       }
     });
   },
