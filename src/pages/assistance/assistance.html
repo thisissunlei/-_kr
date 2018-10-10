@@ -1,3 +1,4 @@
+<import src="../../utils/template/template.wxml" />
 <view>
     <view class="container">
         <!-- <view class="header">
@@ -25,8 +26,11 @@
             </view>  
             <image class="assistance-luck-img"  src="../../pages/images/assistance/help_bg.png">
             </image>
-            <view class="random-num-left" >1</view>
-            <view class="random-num-right" >2</view>
+            <view class="other">
+                    <template is="numsAnimate" data="{{KrImgUrl,numArr}}"></template>
+            </view>
+            <!-- <view class="random-num-left" >1</view>
+            <view class="random-num-right" >2</view> -->
             <image wx:if="{{!assistanceFlag}}" bindtap="postAssistance" class="assistance-luck-button-zhuli"  src="../../pages/images/assistance/button_zhuli.png">
             </image>
             <image wx:if="{{assistanceFlag}}" class="assistance-luck-button-yizhuli"  src="../../pages/images/assistance/button_yizhuli.png">
