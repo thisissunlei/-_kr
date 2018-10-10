@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/demo/demo",
     "pages/index/index",
+    "pages/demo/demo",
     "pages/getTeamCard/getTeamCard",
     "pages/teamCardManage/teamCardManage",
     "pages/myTeamCard/myTeamCard",
