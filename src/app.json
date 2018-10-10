@@ -1,6 +1,9 @@
 {
   "pages": [
+<<<<<<< HEAD
     "pages/assistance/assistance",
+=======
+>>>>>>> 7acdd98794544ff40094d2c77461c489b9db508c
     "pages/demo/demo",
     "pages/index/index",
     "pages/getTeamCard/getTeamCard",
