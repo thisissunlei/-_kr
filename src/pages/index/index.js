@@ -247,6 +247,9 @@ Page({
       success(res) {
         if (!res.authSetting["scope.userInfo"]) {
           // console.log("用户没有授权：用户信息！");
+          // wx.reLaunch({
+          //   url: "../laymanGuide/laymanGuide"
+          //  });
         } else {
           that.func_bool_s = true;
           if (that.func_bool_s && that.func_bool_l2) {

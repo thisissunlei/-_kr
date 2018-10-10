@@ -1,0 +1,24 @@
+<view class='swiper-box'>
+    <swiper duration="500" class="guide" bindchange="swiperChange">
+        <block>
+            <swiper-item class="guide-box">
+                <image src="{{KrImgUrl}}helpingActivity/guide/background1.png" class="slide-image" />
+            </swiper-item>
+            <swiper-item class="guide-box">
+                <image src="{{KrImgUrl}}helpingActivity/guide/background2.png" class="slide-image" />
+            </swiper-item>
+            <swiper-item class="guide-box">
+                <image src="{{KrImgUrl}}helpingActivity/guide/background3.png" class="slide-image" />
+            </swiper-item>
+            <swiper-item class="guide-box">
+                <view class="jump-to-index" bindtap="jumpToIndex">开启办公新方式</view>
+                <image src="{{KrImgUrl}}helpingActivity/guide/background4.png" class="slide-image" />
+            </swiper-item>
+        </block>
+    </swiper>
+    <view class="dots">
+        <block wx:for="{{imgUrls}}" wx:key="unique">
+            <view class="dot {{index == swiperCurrent  ? 'active' : ''}}"></view>
+        </block>
+    </view>
+</view>

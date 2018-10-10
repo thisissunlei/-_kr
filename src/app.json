@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/assistance/assistance",
     "pages/demo/demo",
-    "pages/index/index",
+    "pages/demo/demo",
     "pages/getTeamCard/getTeamCard",
     "pages/teamCardManage/teamCardManage",
     "pages/myTeamCard/myTeamCard",
@@ -49,7 +50,8 @@
     "pages/myOrder/myOrder",
     "pages/teamCardDetails/teamCardDetails",
     "pages/createImg/createImg",
-    "pages/teamCardRecord/teamCardRecord"
+    "pages/teamCardRecord/teamCardRecord",
+    "pages/laymanGuide/laymanGuide"
   ],
   "window": {
     "backgroundTextStyle": "light",

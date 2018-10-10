@@ -19,6 +19,7 @@ Page({
     extractList: [], //提取记录
     showBottomBtn: false,
     hasUserInfo: false,
+    myBooster: 0, //礼券池总金额
     totalAmount: null, //好友助力总金额
     myAmout: null, //我的助力总金额
     page: 1,
@@ -29,6 +30,7 @@ Page({
   page: 1,
   pageSize: 10,
   totalPages: 1,
+  currentData: 0,
   jdConfig: {
     width: 765,
     height: 1068,
@@ -103,6 +105,7 @@ Page({
     // console.log(e);
     const that = this;
     let current = e.currentTarget.dataset.current;
+    that.currentData = current;
     that.setData({
       currentData: current
     });
@@ -111,6 +114,14 @@ Page({
     } else if (current == 2) {
       that.getRecords();
     }
+  },
+  //提取礼券
+  extractCoupon: function() {
+    console.log(1);
+  },
+  //页面上拉触底事件
+  onReachBottom: function() {
+    console.log(this.currentData);
   },
   //活动规则
   helpingRule: function() {
@@ -230,11 +241,16 @@ Page({
   },
   //我的礼券池金额接口
   getBooster: function() {
+    const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
       success: res => {
         // console.log(res);
-        this.weChatId = res.data.data.weChatId;
+        that.weChatId = res.data.data.weChatId;
+        that.setData({
+          myBooster: res.data.data.amount
+          // myBooster: 60
+        });
       }
     });
   },
@@ -261,7 +277,7 @@ Page({
         pageSize: that.pageSize
       },
       success: res => {
-        // console.log(res);
+        console.log(res);
         that.setData({
           recordList: res.data.data.items,
           totalAmount: res.data.data.totalAmount,
@@ -296,7 +312,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
       success: res => {
-        console.log(res);
+        // console.log(res);
       }
     });
   },
