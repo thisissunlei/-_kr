@@ -141,6 +141,7 @@ export class demoAnimates {
 		return numArr;
 	}
 	allRun(callback){
+		console.log('allRun=========')
 		moveNum  += 10;
 		var top = moveNum
 		let numData = _that.numData;
@@ -163,13 +164,12 @@ export class demoAnimates {
 				let towTop = tow-top
 				numData[i].towTop = towTop
 			}
-			if(i === 2){
-			}
 			
 		}
 		_this.setData({
 			numArr : numData
 		},function(){
+			console.log('========')
 
 			if(moveNum>ListHeight){
 				if(num === 'one'){
