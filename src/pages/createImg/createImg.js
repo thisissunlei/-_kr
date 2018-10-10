@@ -12,79 +12,23 @@ Page({
     imgUrl: "",
     showShare: false,
     showRule: false, //活动规则
-    noticeList: [
-      { text: "猫力大大美 3分钟前 提取了 30元礼券" },
-      { text: "猫力大大美 4分钟前 提取了 50元礼券" },
-      { text: "猫力大大美 5分钟前 提取了 100元礼券" }
-    ],
+    noticeList: [], //轮播信息
     currentData: 0, //选项卡
-    recordList: [
-      {
-        thirdAvatar:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
-        thirdNick: "昵称",
-        amount: 10,
-        first: true,
-        text: "助力文案"
-      },
-      {
-        thirdAvatar:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
-        thirdNick: "昵称1",
-        amount: 20,
-        first: true,
-        text: "助力文案1"
-      },
-      {
-        thirdAvatar:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
-        thirdNick: "昵称2",
-        amount: 5,
-        first: false,
-        text: "助力文案2"
-      }
-    ],
-    helpingList: [
-      {
-        amout: 15,
-        helpThirdAvatar:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
-        helpThirdNick: "昵称"
-      },
-      {
-        amout: 10,
-        helpThirdAvatar:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
-        helpThirdNick: "昵称1"
-      },
-      {
-        amout: 8,
-        helpThirdAvatar:
-          "https://wx.qlogo.cn/mmopen/vi_32/ibsL4hWribGEELUVvShThIb92ra1e5JEsg6TKsnQic4OrNTMZPic0QozC7dH2coXCo0Bu4GuFTFXkRPSoGiaYI9SMEw/132",
-        helpThirdNick: "昵称2"
-      }
-    ],
-    extractList: [
-      {
-        conditionDesc: "满100减20",
-        ctime: "2018-10-1",
-        faceValue: 10
-      },
-      {
-        conditionDesc: "满100减20",
-        ctime: "2018-10-1",
-        faceValue: 5
-      },
-      {
-        conditionDesc: "满100减20",
-        ctime: "2018-10-1",
-        faceValue: 8
-      }
-    ],
+    recordList: [], //好友助力
+    helpingList: [], //我的助力
+    extractList: [], //提取记录
     showBottomBtn: false,
-    hasUserInfo: false
+    hasUserInfo: false,
+    totalAmount: null, //好友助力总金额
+    myAmout: null, //我的助力总金额
+    page: 1,
+    totalCount: null,
+    totalPages: null
   },
   weChatId: null, //微信id
+  page: 1,
+  pageSize: 10,
+  totalPages: 1,
   jdConfig: {
     width: 765,
     height: 1068,
@@ -133,10 +77,11 @@ Page({
     const that = this;
     if (res.from === "button") {
       // console.log("来自页面赠送按钮");
+      console.log(that.weChatId);
       that.share();
       return {
         title: "快来帮我拿自由座礼券，点一下你也能获得礼券哦~",
-        path: "pages/createImg/createImg",
+        path: "pages/assistance/assistance?weChatId=" + that.weChatId,
         imageUrl: that.data.KrImgUrl + "helpingActivity/details/share1.jpg"
       };
     } else {
@@ -149,7 +94,6 @@ Page({
     }
   },
   share: function() {
-    console.log(1);
     this.setData({
       showBottomBtn: !this.data.showBottomBtn
     });
@@ -158,9 +102,15 @@ Page({
   checkCurrent: function(e) {
     // console.log(e);
     const that = this;
+    let current = e.currentTarget.dataset.current;
     that.setData({
-      currentData: e.currentTarget.dataset.current
+      currentData: current
     });
+    if (current == 1) {
+      that.getOwerBooster();
+    } else if (current == 2) {
+      that.getRecords();
+    }
   },
   //活动规则
   helpingRule: function() {
@@ -278,16 +228,88 @@ Page({
   onCreatePoster() {
     Poster.create();
   },
-  //我的礼券池金额
+  //我的礼券池金额接口
   getBooster: function() {
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
       success: res => {
-        console.log(res);
+        // console.log(res);
         this.weChatId = res.data.data.weChatId;
       }
     });
   },
+  //领取轮播信息接口
+  getBroadcast: function() {
+    const that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/broadcast",
+      success: res => {
+        // console.log(res);
+        that.setData({
+          noticeList: res.data.data
+        });
+      }
+    });
+  },
+  //好友助力接口
+  getFriendsBooster: function() {
+    const that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
+      data: {
+        page: that.page,
+        pageSize: that.pageSize
+      },
+      success: res => {
+        // console.log(res);
+        that.setData({
+          recordList: res.data.data.items,
+          totalAmount: res.data.data.totalAmount,
+          totalCount: res.data.data.totalCount,
+          totalPages: res.data.data.totalPages
+        });
+      }
+    });
+  },
+  //我的助力接口
+  getOwerBooster: function() {
+    const that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/owner-booster",
+      data: {
+        page: that.page,
+        pageSize: that.pageSize
+      },
+      success: res => {
+        // console.log(res);
+        that.setData({
+          helpingList: res.data.data.items,
+          myAmout: res.data.data.totalAmount,
+          totalCount: res.data.data.totalCount,
+          totalPages: res.data.data.totalPages
+        });
+      }
+    });
+  },
+  //提取记录接口
+  getRecords: function() {
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
+      success: res => {
+        console.log(res);
+      }
+    });
+  },
+  //查询礼券id
+  getBoosterInfo: function() {
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/booster-info",
+      success: res => {
+        console.log(res);
+      }
+    });
+  },
+
   //登录
   login: function() {
     let that = this;
@@ -306,6 +328,9 @@ Page({
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
               that.getBooster();
+              that.getBroadcast();
+              that.getFriendsBooster();
+              that.getBoosterInfo();
             },
             fail: err => {
               console.log(err);

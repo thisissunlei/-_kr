@@ -20,7 +20,11 @@
 					<swiper autoplay="true" circular="true" interval="2000" duration="500" vertical="true">
 						<block wx:for="{{noticeList}}" wx:key>
 							<swiper-item>
-								<text>{{item.text}}</text>
+								<!-- <text>{{item.text}}</text> -->
+								<view>
+									{{item.thirdNick}} {{item.randomTime}} 提取了
+									<text>{{item.faceValue}}元礼券</text>
+								</view>
 							</swiper-item>
 						</block>
 					</swiper>
@@ -94,23 +98,23 @@
 				<view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>我的助力</view>
 				<view class='tab  {{currentData == 2 ? "tabBorer" : ""}}' data-current="2" bindtap='checkCurrent'>提取记录</view>
 			</view>
-			<view class="record-list" wx:if="{{recordList.length > 0}}">
+			<view class="record-list">
 				<view class="record-list-title">
-					<text wx:if="{{currentData == 0}}">共收到礼券<text class="record-value">1200</text>元</text>
-					<text wx:if="{{currentData == 1}}">助力好友获得<text class="record-value">1200</text>元礼券奖励</text>
+					<text wx:if="{{currentData == 0 && totalAmount > 0}}">共收到礼券<text class="record-value">{{totalAmount}}</text>元</text>
+					<text wx:if="{{currentData == 1 && myAmout > 0}}">助力好友获得<text class="record-value">{{myAmout}}</text>元礼券奖励</text>
 				</view>
 				<view class="record-list-content" wx:if="{{currentData == 0}}">
 					<view class="record-list-friend" wx:for="{{recordList}}" wx:key>
 						<view class="friend-list-left">
 							<view class="friend-list-avatar">
-								<image src="{{item.thirdAvatar}}"></image>
+								<image src="{{item.helpThirdAvatar}}"></image>
 							</view>
 							<view class="friend-list-name">
 								<view class="friend-list-thirdNick">
-									{{item.thirdNick}}
+									{{item.helpThirdNick}}
 								</view>
 								<view class="friend-list-text">
-									{{item.text}}
+									{{item.helpThirdId}}
 								</view>
 							</view>
 						</view>
@@ -129,7 +133,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="friend-list-more">上滑加载更多</view>
+					<view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages >page}}">上滑加载更多</view>
 				</view>
 				<view class="record-list-content" wx:if="{{currentData == 1}}">
 					<view class="helping-list-content" wx:for="{{helpingList}}" wx:key>
@@ -150,7 +154,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="friend-list-more">上滑加载更多</view>
+					<view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages >page}}">上滑加载更多</view>
 				</view>
 				<view class="record-list-content" wx:if="{{currentData == 2}}">
 					<view class="extract-list" wx:for="{{extractList}}" wx:key>
@@ -164,17 +168,27 @@
 							{{item.ctime}}
 						</view>
 					</view>
-					<view class="friend-list-more">上拉加载更多</view>
+					<view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages >page}}">上拉加载更多</view>
 				</view>
 			</view>
 			<!-- 缺省 -->
-			<view class="record-none" wx:if="{{recordList.length === 0}}">
-				<view class="record-none-img">
-
+			<view class="record-none">
+				<view class="record-none-img" wx:if="{{currentData == 0 && recordList.length == 0}}">
+					<image src="{{KrImgUrl}}/helpingActivity/details/icon_none.png"></image>
 				</view>
-				<view class="record-none-text">
+				<view class="record-none-text" wx:if="{{currentData == 0 && recordList.length == 0}}">
 					<text wx:if="{{currentData == 0}}">新用户助力你效果更佳哦～</text>
+				</view>
+				<view class="record-none-img" wx:if="{{currentData == 1 && helpingList.length == 0}}">
+					<image src="{{KrImgUrl}}/helpingActivity/details/icon_none.png"></image>
+				</view>
+				<view class="record-none-text" wx:if="{{currentData == 1 && helpingList.length == 0}}">
 					<text wx:if="{{currentData == 1}}">助力好友，自己也能得礼券～</text>
+				</view>
+				<view class="record-none-img" wx:if="{{currentData == 2 && extractList.length == 0}}">
+					<image src="{{KrImgUrl}}/helpingActivity/details/icon_none.png"></image>
+				</view>
+				<view class="record-none-text" wx:if="{{currentData == 2 && extractList.length == 0}}">
 					<text wx:if="{{currentData == 2}}">还没有兑换过任何礼品券呢~</text>
 				</view>
 			</view>
