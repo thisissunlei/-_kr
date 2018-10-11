@@ -7,7 +7,7 @@ Page({
     numArr:[{label:'0'},{label:'0'}],
     numArrs:[{label:'0'},{label:'0'}],
     number:'520',
-     KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
+    KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
   },
   aaa :3445,
   james:'',

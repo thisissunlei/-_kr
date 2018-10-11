@@ -6,7 +6,7 @@ const app = getApp();
 Page({
   data: {
     numArr: [{ label: "0" }, { label: "0" }, { label: "0" }],
-    number: "290",
+    number: "",
     showSuccess: false,
     KrImgUrl: app.globalData.KrImgUrl,
     imgUrl: "",
@@ -19,16 +19,20 @@ Page({
     extractList: [], //提取记录
     showBottomBtn: false,
     hasUserInfo: false,
+    myBooster: 0, //礼券池总金额
     totalAmount: null, //好友助力总金额
     myAmout: null, //我的助力总金额
     page: 1,
     totalCount: null,
-    totalPages: null
+    totalPages: null,
+    leftCoupon: [],
+    rightCoupon: []
   },
   weChatId: null, //微信id
   page: 1,
   pageSize: 10,
   totalPages: 1,
+  currentData: 0,
   jdConfig: {
     width: 765,
     height: 1068,
@@ -56,6 +60,7 @@ Page({
   },
   james: "",
   onLoad: function() {
+    wx.reportAnalytics("view_power_activities");
     const that = this;
     that.animate();
     wx.getSetting({
@@ -77,7 +82,9 @@ Page({
     const that = this;
     if (res.from === "button") {
       // console.log("来自页面赠送按钮");
-      console.log(that.weChatId);
+      wx.reportAnalytics("click_call_friends");
+
+      // console.log(that.weChatId);
       that.share();
       return {
         title: "快来帮我拿自由座礼券，点一下你也能获得礼券哦~",
@@ -103,17 +110,65 @@ Page({
     // console.log(e);
     const that = this;
     let current = e.currentTarget.dataset.current;
+    that.currentData = current;
     that.setData({
       currentData: current
     });
-    if (current == 1) {
+    if (current == 0) {
+      that.page = 1;
+      that.getFriendsBooster();
+    } else if (current == 1) {
+      that.page = 1;
       that.getOwerBooster();
     } else if (current == 2) {
+      that.page = 1;
       that.getRecords();
+    }
+  },
+  //提取礼券
+  extractCoupon: function(e) {
+    const that = this;
+    console.log(e);
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
+      method: "post",
+      data: {
+        baseId: e.currentTarget.dataset.id
+      },
+      success: res => {
+        console.log(res);
+        that.getBooster();
+      }
+    });
+  },
+  //页面上拉触底事件
+  onReachBottom: function() {
+    const that = this;
+    // console.log(this.currentData);
+    if (that.currentData == 0 && that.page < that.totalPages) {
+      that.page += 1;
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
+        data: {
+          page: that.page,
+          pageSize: that.pageSize
+        },
+        success: res => {
+          // console.log(res);
+          that.setData({
+            recordList: [].concat(that.data.recordList, res.data.data.items)
+          });
+        }
+      });
+    } else if (that.currentData == 1 && that.page < that.totalPages) {
+      that.page += 1;
+      that.getOwerBooster();
     }
   },
   //活动规则
   helpingRule: function() {
+    wx.reportAnalytics("click_rule");
+
     this.setData({
       showRule: true
     });
@@ -167,6 +222,7 @@ Page({
   },
 
   createShareCanvas() {
+    wx.reportAnalytics("click_share_monments");
     let weImg = this.weImg;
     let jdConfig = this.jdConfig;
     let that = this;
@@ -230,13 +286,39 @@ Page({
   },
   //我的礼券池金额接口
   getBooster: function() {
+    const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
       success: res => {
         // console.log(res);
-        this.weChatId = res.data.data.weChatId;
+        that.weChatId = res.data.data.weChatId;
+        that.setData({
+          myBooster: res.data.data.amount
+          // myBooster: 60
+        });
+        let boosterNumber = res.data.data.amount;
+        let result = that.toStringAmount(boosterNumber);
+        // console.log(result);
+        that.setData({
+          number: result
+        });
+        that.animate();
       }
     });
+  },
+  toStringAmount: function(num) {
+    let len = num.toString().length;
+    switch (len) {
+      case 1:
+        num = "00" + num;
+        break;
+      case 2:
+        num = "0" + num;
+        break;
+      default:
+        return num;
+    }
+    return num;
   },
   //领取轮播信息接口
   getBroadcast: function() {
@@ -262,6 +344,7 @@ Page({
       },
       success: res => {
         // console.log(res);
+        that.totalPages = res.data.data.totalPages;
         that.setData({
           recordList: res.data.data.items,
           totalAmount: res.data.data.totalAmount,
@@ -282,6 +365,8 @@ Page({
       },
       success: res => {
         // console.log(res);
+        that.totalPages = res.data.data.totalPages;
+
         that.setData({
           helpingList: res.data.data.items,
           myAmout: res.data.data.totalAmount,
@@ -293,19 +378,34 @@ Page({
   },
   //提取记录接口
   getRecords: function() {
+    const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
       success: res => {
         console.log(res);
+        that.setData({
+          extractList: res.data.data.items
+        });
       }
     });
   },
   //查询礼券id
   getBoosterInfo: function() {
+    const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/booster-info",
       success: res => {
         console.log(res);
+        let newCoupon = res.data.data;
+        // console.log(newCoupon);
+        let leftCoupon = newCoupon.slice(0, 3);
+        // console.log(leftCoupon);
+        let rightCoupon = newCoupon.slice(-2);
+        // console.log(rightCoupon);
+        that.setData({
+          leftCoupon: leftCoupon,
+          rightCoupon: rightCoupon
+        });
       }
     });
   },

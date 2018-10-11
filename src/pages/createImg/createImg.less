@@ -319,6 +319,20 @@
   margin: 0 8rpx;
   position: relative;
 }
+.can-extract-btn {
+  display: block;
+  width: 100%;
+  height: 30%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 101;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+}
+.can-extract-btn:after {
+  border: none;
+}
 .helping-record {
   width: 670rpx;
   border: 2px solid #c88aff;
@@ -537,6 +551,13 @@
   font-size: 30rpx;
   color: #c392cb;
 }
+.friend-list-thirdNick {
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .friend-list-text {
   font-size: 24rpx;
   color: #796690;
@@ -615,12 +636,21 @@
 .list-right-img {
   width: 28rpx;
   height: 28rpx;
-  margin-top: -28rpx;
+  margin-top: -14rpx;
   margin-right: 12rpx;
 }
 .list-right-img > image {
   width: 100%;
   height: 100%;
+}
+.third-nick {
+  display: block;
+  max-width: 200rpx;
+  height: 52rpx;
+  margin-right: 10rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .helping-value-count {
   width: 100rpx;
@@ -746,4 +776,7 @@
   position: absolute;
   left: 0;
   transition: all;
+}
+.plus {
+  color: #cccccc;
 }

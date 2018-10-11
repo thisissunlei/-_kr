@@ -47,6 +47,7 @@ Page({
     discounts: [], //今日特惠
     extractList: [] //可提取礼券列表
   },
+  newFish: true,
   rq_data: {
     latitude: "",
     longitude: ""
@@ -195,6 +196,9 @@ Page({
     if (options.fromPage == "inside") {
       that.toView = "list";
     }
+    if (options.fromPage == "guide") {
+      that.newFish = false;
+    }
     wx.showLoading({
       title: "加载中",
       mask: true
@@ -247,6 +251,11 @@ Page({
       success(res) {
         if (!res.authSetting["scope.userInfo"]) {
           // console.log("用户没有授权：用户信息！");
+          if (that.newFish) {
+            wx.reLaunch({
+              url: "../laymanGuide/laymanGuide"
+            });
+          }
         } else {
           that.func_bool_s = true;
           if (that.func_bool_s && that.func_bool_l2) {
@@ -309,9 +318,12 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/show-coupon",
       success: res => {
         console.log(res);
-        that.setData({
-          extractList: res.data.data
-        });
+        if (res.data.data.length > 0) {
+          that.setData({
+            extractList: res.data.data,
+            showCoupon: true
+          });
+        }
       }
     });
   },
