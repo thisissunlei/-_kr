@@ -6,7 +6,7 @@ const app = getApp();
 Page({
   data: {
     numArr: [{ label: "0" }, { label: "0" }, { label: "0" }],
-    number: "290",
+    number: "",
     showSuccess: false,
     KrImgUrl: app.globalData.KrImgUrl,
     imgUrl: "",
@@ -276,8 +276,29 @@ Page({
           myBooster: res.data.data.amount
           // myBooster: 60
         });
+        let boosterNumber = res.data.data.amount;
+        let result = that.toStringAmount(boosterNumber);
+        // console.log(result);
+        that.setData({
+          number: result
+        });
+        that.animate();
       }
     });
+  },
+  toStringAmount: function(num) {
+    let len = num.toString().length;
+    switch (len) {
+      case 1:
+        num = "00" + num;
+        break;
+      case 2:
+        num = "0" + num;
+        break;
+      default:
+        return num;
+    }
+    return num;
   },
   //领取轮播信息接口
   getBroadcast: function() {
@@ -337,10 +358,11 @@ Page({
   },
   //提取记录接口
   getRecords: function() {
+    const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
       success: res => {
-        // console.log(res);
+        console.log(res);
         that.setData({
           extractList: res.data.data.items
         });
