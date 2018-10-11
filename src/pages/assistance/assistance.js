@@ -169,7 +169,8 @@ Page({
             alsoAssistanceAmount:res.data.data.boosterAamount
           })
           that.setData({
-            alsoAssistanceFlag:true
+            alsoAssistanceFlag:true,
+            assistanceFlag:false
           })
           that.firendAssistanceList();
           that.james.stop(res.data.data.boosterAamount+'')
