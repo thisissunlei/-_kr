@@ -7,14 +7,16 @@ const styleType={
     title:'嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～',
     desc:'氪空间自由座',
     imageUrl:'/insideSale/share.jpg',
-    navigationBarTitle:'自由座内部专享礼券'
+    navigationBarTitle:'自由座内部专享礼券',
+    headerBanner:app.globalData.KrImgUrl+'/insideSale/banner1.jpg'
   },
    //独立女性专享礼券
   '1':{
     title:'给你送券啦，快来领～',
     desc:'氪空间自由座',
     imageUrl:'/insideSale/share1.jpg',
-    navigationBarTitle:'“Be Pink! 2018”独立女性专享礼券'
+    navigationBarTitle:'“Be Pink! 2018”独立女性专享礼券',
+    headerBanner:app.globalData.KrImgUrl+'/insideSale/style1.jpg'
   },
 }
 
@@ -36,8 +38,10 @@ Page({
       title:'嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～',
       desc:'氪空间自由座',
       imageUrl:'/insideSale/share.jpg',
-      navigationBarTitle:'自由座内部专享礼券'
-    }
+      navigationBarTitle:'自由座内部专享礼券',
+      headerBanner:app.globalData.KrImgUrl+'/insideSale/banner1.jpg'
+    },
+    
     
   },
   onShareAppMessage: function(res) {
