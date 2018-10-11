@@ -14,7 +14,7 @@
             </image>    
         </view>   -->
         <view class="assistance-header">
-              <view class="assistance-header-left">什么是自由座?</view>
+              <view bindtap="goToPoint" class="assistance-header-left">什么是自由座?</view>
               <view class="assistance-header-right">活动规则</view>
         </view>
         <view class="assistance-luck">
@@ -37,10 +37,10 @@
             <view wx:if="{{alsoAssistanceFlag}}" class="assistance-luck-img-help">
                 <image class="assistance-luck-img-help-bottom" src="../../pages/images/assistance/help_bottom.png">
                 </image> 
-                <view class="assistance-luck-img-help-button-amount">
+                <view  class="assistance-luck-img-help-button-amount">
                     也有一张{{alsoAssistanceAmount}}元礼券放入了你的账户，快去看看
                 </view>
-                <image class="assistance-luck-img-help-button-see" src="../../pages/images/assistance/buton_see.png">
+                <image bindtap="goToCreateImg" class="assistance-luck-img-help-button-see" src="../../pages/images/assistance/buton_see.png">
                 </image>
             </view>
             <view class="assistance-luck-amount">  

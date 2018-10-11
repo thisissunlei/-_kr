@@ -118,6 +118,19 @@ Page({
         }
       });
     },
+  // 跳转自由座首页
+  goToPoint: function (){
+    wx.navigateTo({
+      url: "../point/point"
+    });
+  },  
+  // 跳转查看页
+  goToCreateImg: function (){
+    console.log('去查看');
+    wx.navigateTo({
+      url: "../createImg/createImg"
+    });
+  },  
   // 助力
   postAssistance: function (){
     console.log("助力");
@@ -147,7 +160,7 @@ Page({
             alsoAssistanceFlag:true
           })
           that.firendAssistanceList();
-          this.james.stop(res.data.data.boosterAamount)
+          that.james.stop(res.data.data.boosterAamount+'')
         }
         
       }
@@ -170,15 +183,16 @@ Page({
                   wechatAvatar:res.data.data.wechatAvatar,
                   wechatNick:res.data.data.wechatNick,
                   alsoAssistanceAmount:res.data.data.amount,
-                 
                 })
               console.log('res.data.data.booster');
               console.log(res.data.data.booster);
               if(res.data.data.booster === 1){
-                      that.setData({
+                    that.setData({
                             assistanceFlag:true,
                             alsoAssistanceFlag:true
                           });
+                    console.log(res.data.data.amount+'')
+                    that.james.stop(res.data.data.amount+'')           
                     }else{
                       that.setData({
                             assistanceFlag:false,
