@@ -13,7 +13,7 @@ Page({
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        weChatId:1383,
+        weChatId:'',
         totalAmount:'',
         totalCount:'',
         items:[],
@@ -26,9 +26,9 @@ Page({
     james:'',
     other:'',
     onLoad(options) {
-      // this.setData({
-      //   weChatId:options.weChatId
-      // })
+      this.setData({
+        weChatId:options.weChatId
+      })
       let that = this;
       let numArr = this.data.numArr;
       let numArrs = this.data.numArrs;
