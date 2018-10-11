@@ -47,6 +47,7 @@ Page({
     discounts: [], //今日特惠
     extractList: [] //可提取礼券列表
   },
+  newFish: true,
   rq_data: {
     latitude: "",
     longitude: ""
@@ -195,6 +196,9 @@ Page({
     if (options.fromPage == "inside") {
       that.toView = "list";
     }
+    if (options.fromPage == "guide") {
+      that.newFish = false;
+    }
     wx.showLoading({
       title: "加载中",
       mask: true
@@ -247,9 +251,11 @@ Page({
       success(res) {
         if (!res.authSetting["scope.userInfo"]) {
           // console.log("用户没有授权：用户信息！");
-          // wx.reLaunch({
-          //   url: "../laymanGuide/laymanGuide"
-          //  });
+          if (that.newFish) {
+            wx.reLaunch({
+              url: "../laymanGuide/laymanGuide"
+            });
+          }
         } else {
           that.func_bool_s = true;
           if (that.func_bool_s && that.func_bool_l2) {

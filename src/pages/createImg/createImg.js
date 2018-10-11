@@ -24,7 +24,9 @@ Page({
     myAmout: null, //我的助力总金额
     page: 1,
     totalCount: null,
-    totalPages: null
+    totalPages: null,
+    leftCoupon: [],
+    rightCoupon: []
   },
   weChatId: null, //微信id
   page: 1,
@@ -121,8 +123,20 @@ Page({
     }
   },
   //提取礼券
-  extractCoupon: function() {
-    console.log(1);
+  extractCoupon: function(e) {
+    const that = this;
+    console.log(e);
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
+      method: "post",
+      data: {
+        baseId: e.currentTarget.dataset.id
+      },
+      success: res => {
+        console.log(res);
+        that.getBooster();
+      }
+    });
   },
   //页面上拉触底事件
   onReachBottom: function() {
@@ -371,10 +385,21 @@ Page({
   },
   //查询礼券id
   getBoosterInfo: function() {
+    const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/booster-info",
       success: res => {
         console.log(res);
+        let newCoupon = res.data.data;
+        // console.log(newCoupon);
+        let leftCoupon = newCoupon.slice(0, 3);
+        // console.log(leftCoupon);
+        let rightCoupon = newCoupon.slice(-2);
+        // console.log(rightCoupon);
+        that.setData({
+          leftCoupon: leftCoupon,
+          rightCoupon: rightCoupon
+        });
       }
     });
   },
