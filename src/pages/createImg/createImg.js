@@ -60,6 +60,7 @@ Page({
   },
   james: "",
   onLoad: function() {
+    wx.reportAnalytics("view_power_activities");
     const that = this;
     that.animate();
     wx.getSetting({
@@ -81,7 +82,9 @@ Page({
     const that = this;
     if (res.from === "button") {
       // console.log("来自页面赠送按钮");
-      console.log(that.weChatId);
+      wx.reportAnalytics("click_call_friends");
+
+      // console.log(that.weChatId);
       that.share();
       return {
         title: "快来帮我拿自由座礼券，点一下你也能获得礼券哦~",
@@ -164,6 +167,8 @@ Page({
   },
   //活动规则
   helpingRule: function() {
+    wx.reportAnalytics("click_rule");
+
     this.setData({
       showRule: true
     });
@@ -217,6 +222,7 @@ Page({
   },
 
   createShareCanvas() {
+    wx.reportAnalytics("click_share_monments");
     let weImg = this.weImg;
     let jdConfig = this.jdConfig;
     let that = this;

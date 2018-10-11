@@ -318,9 +318,12 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/show-coupon",
       success: res => {
         console.log(res);
-        that.setData({
-          extractList: res.data.data
-        });
+        if (res.data.data.length > 0) {
+          that.setData({
+            extractList: res.data.data,
+            showCoupon: true
+          });
+        }
       }
     });
   },

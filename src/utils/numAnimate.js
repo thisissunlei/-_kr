@@ -121,7 +121,18 @@ var allRun = function(callback){
 			}
 		}
 		if(move){
-			requestAnimationFrame(()=>{allRun(callback)});
+			window.requestAnimFrame = (function () {
+	            return window.requestAnimationFrame ||
+	                window.webkitRequestAnimationFrame ||
+	                window.mozRequestAnimationFrame ||
+	                function (callback) {
+	                    window.setTimeout(callback, 6000 / 60);
+	                };
+	        })();
+
+
+
+			requestAnimFrame(()=>{allRun(callback)});
 			if(moved.length == numData.length){
 				move = false
 			} 
