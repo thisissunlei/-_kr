@@ -68,20 +68,32 @@
     <view class="m-activity-rule" wx:if="{{ruleModal}}">
         <view class="u-activity-rule">
             <image class="u-activity-rule-close" mode="widthFix" bindtap="modalHide" src="https://web.krspace.cn/kr-meeting/images/activity/close.png"></image>
-            <view class="u-rule-content">
-                <view class="u-rule-title">· 活动规则 ·</view>
-                <view class="u-rule-txt">1. 此活动仅限氪空间内部员工参与，请勿外传；</view>
-                <view class="u-rule-txt">2. 活动时间：截止至2018年9月30日24:00:00 ;</view>
-                <view class="u-rule-txt">3. 礼券领取后自动存储到您的账户 中，通过授权手机号码可查看和使用礼券；</view>
-                <view class="u-rule-txt">4. 每种礼券每人限领取1次；</view>
-                <view class="u-rule-txt">5. 活动最终解释权归氪空间自由座所有。</view>
-                <view class="u-rule-title">· 礼券使用须知 ·</view>
-                <view class="u-rule-txt">1. 此券适用于预订氪空间自由座的散座和会议室；</view>
-                <view class="u-rule-txt">2. 此券单次可用1张不找零；</view>
-                <view class="u-rule-txt">3. 请在有效期内使用，过期无效；</view>
-                <view class="u-rule-txt">4. 不与新人1元体验活动同享；</view>
-                <view class="u-rule-txt">5. 此券可转赠他人；</view>
-                <view class="u-rule-txt">6. 最终解释权归氪空间。</view>
+            <view class="u-rule-content" >
+                 <!-- 活动规则 -->
+                <view wx:if="{{!style || (style==0) }}">
+                        <view class="u-rule-title">· 活动规则 ·</view>
+                        <view class="u-rule-txt">1. 此活动仅限氪空间内部员工参与，请勿外传；</view>
+                        <view class="u-rule-txt">2. 活动时间：截止至2018年9月30日24:00:00 ;</view>
+                        <view class="u-rule-txt">3. 礼券领取后自动存储到您的账户 中，通过授权手机号码可查看和使用礼券；</view>
+                        <view class="u-rule-txt">4. 每种礼券每人限领取1次；</view>
+                        <view class="u-rule-txt">5. 活动最终解释权归氪空间自由座所有。</view>
+                </view>
+                <view wx:if="{{style==1}}">
+                        <view class="u-rule-title">· 活动规则 ·</view>
+                        <view class="u-rule-txt">1. 礼券领取后自动存储到您的账户中，通过授权手机号码或下单时可查看和使用礼券；</view>
+                        <view class="u-rule-txt">2. 每种礼券每人限领取1次;</view>
+                        <view class="u-rule-txt">3. 活动最终解释权归氪空间所有。</view>
+                </view>
+                 <!-- 礼券规则 -->
+                <view>
+                    <view class="u-rule-title">· 礼券使用须知 ·</view>
+                    <view class="u-rule-txt">1. 此券适用于预订氪空间自由座的散座和会议室；</view>
+                    <view class="u-rule-txt">2. 此券单次可用1张不找零；</view>
+                    <view class="u-rule-txt">3. 请在有效期内使用，过期无效；</view>
+                    <view class="u-rule-txt">4. 不与新人1元体验活动同享；</view>
+                    <view class="u-rule-txt">5. 此券可转赠他人；</view>
+                    <view class="u-rule-txt">6. 最终解释权归氪空间。</view>
+                </view>
             </view>
         </view>
     </view>

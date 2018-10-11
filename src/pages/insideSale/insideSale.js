@@ -1,5 +1,23 @@
 //获取应用实例
 const app = getApp();
+//活动风格
+const styleType={
+  //内部专享礼券
+  '0':{
+    title:'嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～',
+    desc:'氪空间自由座',
+    imageUrl:'/insideSale/share.jpg',
+    navigationBarTitle:'自由座内部专享礼券'
+  },
+   //独立女性专享礼券
+  '1':{
+    title:'给你送券啦，快来领～',
+    desc:'氪空间自由座',
+    imageUrl:'/insideSale/share1.jpg',
+    navigationBarTitle:'“Be Pink! 2018”独立女性专享礼券'
+  },
+}
+
 
 Page({
   data: {
@@ -14,15 +32,23 @@ Page({
     totalCount: 0,
     btn_bool: true,
     style:'',
+    styleInfo:{
+      title:'嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～',
+      desc:'氪空间自由座',
+      imageUrl:'/insideSale/share.jpg',
+      navigationBarTitle:'自由座内部专享礼券'
+    }
+    
   },
   onShareAppMessage: function(res) {
     // wx.reportAnalytics("sharekrmeeting");
-    // console.log(res);
+    let data=this.data;
+    let style=data.style || ''
     return {
-      title: "嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～",
-      desc: "氪空间自由座",
-      path: "pages/insideSale/insideSale?id=" + this.data.activityId,
-      imageUrl: app.globalData.KrImgUrl + "/insideSale/share.jpg"
+      title: data.styleInfo.title,
+      desc: data.styleInfo.desc,
+      path:`pages/insideSale/insideSale?id=${data.activityId}&style=${style}`,
+      imageUrl: app.globalData.KrImgUrl+data.styleInfo.imageUrl
     };
   },
   getURLParam: function(deal_url, paramName) {
@@ -50,15 +76,31 @@ Page({
   },
   onLoad: function(options) {
     var _this = this;
+    let styleInfo={};
     if (options.q) {
       const channelname_v = this.getURLParam(options.q, "id");
       let style=this.getURLParam(options.q, "style")
-      console.log('style---',style)
       this.setData({
         activityId: channelname_v,
         style:style || ''
+      },function(){
+       
+        if(styleType[style]){
+          styleInfo=styleType[style]
+        }else{
+          styleInfo=styleType[0]
+        }
+        _this.setData({
+          styleInfo:styleInfo
+        })
+          //修改title
+          wx.setNavigationBarTitle({
+            title: styleInfo.navigationBarTitle
+          })
       });
+      
     }
+   
     if (options.id) {
       this.setData({
         activityId: options.id
@@ -67,8 +109,25 @@ Page({
     if (options.style) {
       this.setData({
         style: options.style
+      },function(){
+        _this.setData({
+          styleInfo:styleType[options.style]
+        })
+         //修改title
+        wx.setNavigationBarTitle({
+          title: styleType[options.style].navigationBarTitle
+        })
       });
+    }else{
+        _this.setData({
+          styleInfo:styleType[0]
+        })
+        //修改title
+        wx.setNavigationBarTitle({
+          title:styleType[0].navigationBarTitle
+        })
     }
+
 
     this.goLogin();
 
@@ -83,6 +142,8 @@ Page({
         }
       }
     });
+   
+    
   },
   goLogin() {
     //页面加载
