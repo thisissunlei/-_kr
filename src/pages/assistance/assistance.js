@@ -199,6 +199,7 @@ Page({
               console.log('res.data.data.booster');
               console.log(res.data.data.booster);
               if(res.data.data.booster === 1){
+                console.log("已助力");
                     that.setData({
                             assistanceFlag:true,
                             alsoAssistanceFlag:true
