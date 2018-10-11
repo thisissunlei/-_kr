@@ -139,9 +139,11 @@ export class demoAnimates {
 		_this.setData({
 			numArr : _that.numData
 		},function(){
-			c = 100*19
+			c = 135*19
 			_that.allRun()
 		})
+		ListHeight = 134*10;
+		tow = ListHeight;
 	}
 	dealList(){
 		let len = this.numArr.length;
@@ -201,7 +203,7 @@ export class demoAnimates {
 		})
 	}
 	stop(num){
-		console.log('-----')
+		console.log('-----',num)
 		if(!stoped){
 			return
 		}
@@ -211,8 +213,8 @@ export class demoAnimates {
 		let len = num.length;
 		for (var i = 0; i < len; i++) {
 			let number = parseInt(num.slice(i,i+1));
-			_that.numData[i].targetMove = index*ListHeight+number*imgHeight;
-			_that.numData[i].targetTop = number*imgHeight;
+			_that.numData[i].targetMove = index*ListHeight+number*135;
+			_that.numData[i].targetTop = number*135;
 			_that.numData[i].targetBox = box;
 		}
 	}
