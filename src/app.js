@@ -46,7 +46,7 @@ App({
       desc: "氪空间自由座",
       path: "pages/index/index"
     },
-    KrImgUrl:"https://web.krspace.cn/kr-meeting-images/"
+    KrImgUrl: "https://web.krspace.cn/kr-meeting/kr-meeting-images/"
   },
   getRequest: function(data) {
     const that = this;

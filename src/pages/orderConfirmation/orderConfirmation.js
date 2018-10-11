@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp()
 
+import {dateData,dateDataPrice} from '../../utils/calendar.js';
 
 Page({
   /*onShareAppMessage: function() {
@@ -79,12 +80,13 @@ Page({
   },
   all_day_num:0,
   last_btn_num:'false',
-  last_data:'false',
+  last_data:'date_data1',
   choose_date:'',
   rangeTime:[],
   selectedTime:[],
   isSubTime:false,
   ifFixed:false,
+  james:'',
   
   //事件处理函数
   bindViewTap: function() {
@@ -93,229 +95,54 @@ Page({
     })
   },
   dateBtn :function(e){
-    if(e.target.dataset.bool=='next'||e.target.dataset.bool=='now'){
-      
-      const new_data = this.data[e.target.dataset.data];
-      var old_data = [];
-      if(this.last_data!='false'){
-        if(this.last_data=='date_data1'){
-          old_data = this.data['date_data1'];
-          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
-         
-          this.setData({
-            date_data1:old_data
-          });
-        }else if(this.last_data=='date_data2'){
-          old_data = this.data['date_data2'];
-          old_data[this.last_btn_num]['type'] = old_data[this.last_btn_num]['type'].replace('active ','');
-          this.setData({            
-            date_data2:old_data
-          });
-        }
-      }     
-      new_data[parseInt(e.target.dataset.num)]['type'] = 'active ' + new_data[parseInt(e.target.dataset.num)]['type'];
-      if(e.target.dataset.data=='date_data2'){
-        this.setData({
-          date_data2:new_data,         
-        });
-      }else if(e.target.dataset.data=='date_data1'){
-        this.setData({
-          date_data1:new_data,        
-        });
+    let _this = this;
+      let evlue = this.james.dateBtn(e);
+      let selecedList = this.james.getValue()
+      let closeDialog = this.james.getSwitch();
+      if(!closeDialog){
+          return
       }
-      this.last_btn_num = e.target.dataset.num;
-      this.last_data = e.target.dataset.data;
-      let dataset=e.target.dataset
-      let day_nows = dataset.value;
-      if(day_nows == '今天'){
-        day_nows = new Date().getDate();
-      }else if(day_nows == '明天'){
-        day_nows = parseInt(new Date().getDate()) + 1;
+      let topDate = this.data.topDate;
+      let timeData = selecedList[0];
+      //处理日历选中日期年-月-日
+      let selecedTime = timeData.alldata.date_times;
+      let year = new Date(selecedTime).getFullYear();
+      let month = new Date(selecedTime).getMonth()+1;
+      let day = timeData.alldata.day_num
+      if(month<10){
+        month = '0'+month
       }
-      let month=dataset.month>9?dataset.month:`0${dataset.month}`;
-      let day=day_nows>9?day_nows:`0${day_nows}`;
-      let time=`${dataset.year}-${month}-${day}`;
-      var _this=this; 
-      const time_date = new Date(time);
-      const today_date = new Date();
-      let day_con = '';
-      if(today_date.getDate() == time_date.getDate()){
-        day_con = '今天';
-      }else if(parseInt(today_date.getDate())+1 == time_date.getDate()){
-        day_con = '明天';
-      }else{
-        switch (parseInt(time_date.getDay())){
-          case 0:
-            day_con = '周日';
-          break;
-          case 1:
-            day_con = '周一';
-          break;
-          case 2:
-            day_con = '周二';
-          break;
-          case 3:
-            day_con = '周三';
-          break;
-          case 4:
-            day_con = '周四';
-          break;
-          case 5:
-            day_con = '周五';
-          break;
-          case 6:
-            day_con = '周六';
-          break;
-        }
+      if(day<10){
+        day = '0'+ day
       }
+      let selecedDate = year+'-'+month+'-'+day;
+      // 结束
+
       let Time="meeting_time.time";
+      let validIndex = 0;
+      let day_week = ''
+      topDate.forEach((item,index)=>{
+        if(selecedDate === item.date){
+          validIndex = index;
+          day_week = item.week;
+        }
+      })
       
       this.setData({
         orderDate:{
-          time:time,
-          timeText:day_con,
+          time:selecedDate,
+          timeText:day_week,
         },
-        nowDateIndex:e.target.dataset.validIndex,
+        nowDateIndex:validIndex,
         [Time]:'',
-        nowDate:time,
+        nowDate:selecedDate,
         priceCount:0,
         totalCount:0,
         selectedTime:[],
-
-        
       },function(){
-       
-        _this.closeDialogDate();
+        _this.closeDialogDate()
         _this.getThemeName(_this.data.orderDate);
-       
       })
-      
-      
-
-
-    }
-  },
-  dealDate:function(today_month,bool,choose_date){
-    
-    //const choose_
-    const week = today_month.getDay();
-    if(choose_date){
-      this.last_btn_num = parseInt(week)+parseInt(choose_date)-1;
-    }
-    
-  
-    const today = parseInt(new Date().getDate());
-    today_month.setMonth(today_month.getMonth() + 1);
-    today_month.setDate(0);
-    const day_num = today_month.getDate()+week;
-    const data = [];
-    for (var i = 0; i < day_num; i++) {
-      switch (true){
-        case i<week:
-          data.push({
-            value:''
-          });
-          break;
-        case i>(today+week)&&bool:
-          if(i%7==0||i%7==6){
-            data.push({
-              value:i-week+1,
-              type:'before'
-            });
-          }else{
-            if(i==(week+choose_date-1)){
-              data.push({
-                value:i-week+1,
-                type:'active next'
-              });
-            }else{
-              data.push({
-                value:i-week+1,
-                type:'next'
-              });
-            }
-            
-          }
-          
-          this.all_day_num++;
-          break;
-        case i==(today+week-1)&&bool:
-          if(i%7==0||i%7==6){
-            data.push({
-              value:'今天',
-              type:'before'
-            });
-          }else{
-            if(i==(week+choose_date-1)){
-              data.push({
-                value:'今天',
-                type:'now active'
-              });
-            }else{
-              data.push({
-                value:'今天',
-                type:'now'
-              });
-            }
-            
-          }
-          this.all_day_num++;
-          break;
-        case i==(today+week)&&bool:
-          if(i%7==0||i%7==6){
-            data.push({
-              value:'明天',
-              type:'before'
-            });
-          }else{
-            if(i==(week+choose_date-1)){
-              data.push({
-                value:'明天',
-                type:'now active'
-              });
-            }else{
-              data.push({
-                value:'明天',
-                type:'now'
-              });
-            }
-            
-          }
-          
-          this.all_day_num++;
-          break;
-        case i<(30-this.all_day_num+week)&&!bool:
-          if(i%7==0||i%7==6){
-            data.push({
-              value:i-week+1,
-              type:'before'
-            });
-          }else{
-            if(i==(week+choose_date-1)){
-              data.push({
-                value:i-week+1,
-                type:'active next'
-              });
-            }else{
-              data.push({
-                value:i-week+1,
-                type:'next'
-              });
-            }
-            
-          }
-
-          break;
-        default:
-          data.push({
-            value:i-week+1,
-            type:'before'
-          });
-          //this.all_day_num++;
-        }
-      }
-    return data;
-    
   },
   scrollTopEvent(e){
     let top=e.detail.scrollTop;
@@ -444,9 +271,11 @@ Page({
   getBoardroomTime:function(){
     
   },
+  // 打开日期控件
   closeDialogDate:function(){
     let that = this;
     wx.reportAnalytics('choosedate')
+    this.dealDateList()
     that.setData({
       dialogDate:!that.data.dialogDate
     })
@@ -871,6 +700,7 @@ Page({
       }
       this.setData({
         nowDateIndex:nowDateIndex-1,
+        nowDate:topDate[nowDateIndex-1].date,
         orderDate:orderDate,
         selectedTime:[],
         meeting_time:{
@@ -886,6 +716,7 @@ Page({
         that.getNowRangeTime();
         that.getPrice();
         that.getThemeName(orderDate)
+        that.dealDateList()
       })
     }
   },
@@ -906,6 +737,7 @@ Page({
       this.setData({
         nowDateIndex:nowDateIndex+1,
         orderDate:orderDate,
+        nowDate:topDate[nowDateIndex+1].date,
         selectedTime:[],
         meeting_time:{
           time:'',
@@ -920,6 +752,7 @@ Page({
         that.getNowRangeTime();
         that.getPrice();
         that.getThemeName(orderDate)
+        that.dealDateList()
       })
     }
   },
@@ -992,6 +825,8 @@ Page({
       nowDate:wx.getStorageSync('nowDate'),
       nowDateIndex:wx.getStorageSync('nowDateIndex'),
       topDate:wx.getStorageSync('topDate'),
+    },function(){
+      _this.initDate();
     })
     
   },
@@ -1014,7 +849,6 @@ Page({
           });
          
           this.choose_date = res.time
-          this.initDate();
   },
 
   initDate:function(){
@@ -1025,40 +859,38 @@ Page({
     
 
     const today_date = new Date();
-    let date1='',date2='';
+    // let date1='',date2='';
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
     const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
-    if(choose_month == today_date.getMonth()){
-      this.last_data = 'date_data1';
-      date1 = this.dealDate(today_month,true,choose_date);
-      date2 = this.dealDate(next_month,false); 
-    }else if (choose_month == next_month.getMonth()){
-      this.last_data = 'date_data2';
-      date1 = this.dealDate(today_month,true);
-      date2 = this.dealDate(next_month,false,choose_date); 
-    }else{
-      date1 = this.dealDate(today_month,true);
-      date2 = this.dealDate(next_month,false); 
-    }
+    // if(choose_month == today_date.getMonth()){
+    //   this.last_data = 'date_data1';
+    //   date1 = this.dealDate(today_month,true,choose_date);
+    //   date2 = this.dealDate(next_month,false); 
+    // }else if (choose_month == next_month.getMonth()){
+    //   this.last_data = 'date_data2';
+    //   date1 = this.dealDate(today_month,true);
+    //   date2 = this.dealDate(next_month,false,choose_date); 
+    // }else{
+    //   date1 = this.dealDate(today_month,true);
+    //   date2 = this.dealDate(next_month,false); 
+    // }
     var validDateNum = 0;
     var that = this;
-    date1 = date1.map((item,index)=>{
-      if(item.value && item.type!='before') {
-        item.validDateNum = validDateNum++;
-      }
-      return item;
-    })
-    date2 = date2.map((item,index)=>{
-      if(item.value && item.type!='before') {
-        item.validDateNum = validDateNum++;
-      }
-      return item;
-    })
-    
+    // date1 = date1.map((item,index)=>{
+    //   if(item.value && item.type!='before') {
+    //     item.validDateNum = validDateNum++;
+    //   }
+    //   return item;
+    // })
+    // date2 = date2.map((item,index)=>{
+    //   if(item.value && item.type!='before') {
+    //     item.validDateNum = validDateNum++;
+    //   }
+    //   return item;
+    // })
+    this.dealDateList()
     const year_value = today_date.getFullYear()==new Date().getFullYear() ? '' : today_date.getFullYear() + '年';
     this.setData({
-      date_data1:date1,
-      date_data2:date2,
       date_now:{
         month:today_date.getMonth()+1,
         year:today_date.getFullYear(),
@@ -1547,6 +1379,32 @@ Page({
         })
       },2000)
     })
+  },
+  dealDateList:function(){
+    let init_date = this.data.nowDate;
+    let topDate = this.data.topDate;
+    let last_data = ''
+    topDate.map(item=>{
+      if(item.date === init_date){
+        last_data = item.type
+      }
+    })
+    let that = this;
+    // const today_date = new Date(init_date);
+    // const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
+    // let init_month = today_month.getTime()
+        that.james = new dateData({
+          btn_bool:true,
+          data: topDate,
+          init_data: {
+            last_btn_num: init_date, //日期
+            last_data: last_data,
+          },
+        });
+        this.setData({
+          date_data1: that.james.date_data1,
+          date_data2: that.james.date_data2,
+        }); 
   },
   
   

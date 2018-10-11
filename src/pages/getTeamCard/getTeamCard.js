@@ -38,7 +38,7 @@ Page({
   //跳转新人引导页面
   jumpToHome: function() {
     wx.navigateTo({
-      url: "../point/point?fromTeam=true"
+      url: "../point/point"
     });
   },
   //跳转团队卡页面
