@@ -18,7 +18,7 @@ Page({
   },
   jumpToIndex: function() {
     wx.reLaunch({
-      url: "../index/index"
+      url: "../index/index?fromPage=guide"
     });
   }
 });
