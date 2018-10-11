@@ -1,7 +1,8 @@
 <view class="{{ruleModal?'g-inside-sale not-scroll':'g-inside-sale'}}">
     <view class="u-header">
         <image class="u-header-bg" src="{{styleInfo.headerBanner}}"></image>
-        <text class="u-header-txt" bindtap="modalHide">活动规则</text>
+        <text wx:if="{{!style || (style==0) }}" class="u-header-txt" bindtap="modalHide">活动规则</text>
+        <text wx:if="{{style==1}}" class="u-header-txt1" bindtap="modalHide">活动规则</text>
     </view>
     <view class="m-sale-content">
         <view class="u-nothing" wx:if="{{isExpired}}">
