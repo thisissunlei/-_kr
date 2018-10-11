@@ -22,6 +22,19 @@ var Tween = {
 
 	}
 }
+var lastFrameTime = 0;
+// 模拟 requestAnimationFrame
+var doAnimationFrame = function (callback) {
+    var currTime = new Date().getTime();
+    var timeToCall = Math.max(0, 16 - (currTime - lastFrameTime));
+    var id = setTimeout(function () { callback(currTime + timeToCall); }, timeToCall);
+    lastFrameTime = currTime + timeToCall;
+    return id;
+};
+// 模拟 cancelAnimationFrame
+var abortAnimationFrame = function (id) {
+    clearTimeout(id)
+}
 var b=0,c=0,d=10,t=0;
 var time = 15;
 var imgHeight = 100;//单独数字的高度
@@ -115,9 +128,11 @@ let moveNum = 0;
 let move = true
 let moved = [];
 var stoped = true
+// var requestAnimationFrame = function(a){return setTimeout(a,1000/60)}
 export class demoAnimates {
 	constructor(parameter) {
 		this.numArr = parameter.numArr;
+		this.callback = parameter.callback;
 		_this = parameter._this;
 		_that = this;
 		this.numData = this.dealList(parameter.numArr)
@@ -125,7 +140,7 @@ export class demoAnimates {
 			numArr : _that.numData
 		},function(){
 			c = 100*19
-			_that.allRun(parameter.callback)
+			_that.allRun()
 		})
 	}
 	dealList(){
@@ -140,8 +155,7 @@ export class demoAnimates {
 		}
 		return numArr;
 	}
-	allRun(callback){
-		console.log('allRun=========')
+	allRun(){
 		moveNum  += 10;
 		var top = moveNum
 		let numData = _that.numData;
@@ -169,8 +183,6 @@ export class demoAnimates {
 		_this.setData({
 			numArr : numData
 		},function(){
-			console.log('========')
-
 			if(moveNum>ListHeight){
 				if(num === 'one'){
 					tow = index *ListHeight
@@ -179,16 +191,17 @@ export class demoAnimates {
 				}
 			}
 			if(move){
-				requestAnimationFrame(()=>{_that.allRun(callback)});
+				doAnimationFrame(()=>{_that.allRun()});
 				if(moved.length == numData.length){
 					move = false
 				} 
 			}else{
-				callback(_this)
+				_that.callback(_this)
 			}
 		})
 	}
 	stop(num){
+		console.log('-----')
 		if(!stoped){
 			return
 		}
