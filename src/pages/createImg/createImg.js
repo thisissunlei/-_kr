@@ -381,10 +381,19 @@ Page({
     const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
+      data: {
+        page: that.page,
+        pageSize: that.pageSize
+      },
       success: res => {
-        console.log(res);
+        let recordList = res.data.data.items;
+        recordList.map(item => {
+          item.ctime = that.toDate(item.ctime);
+          return item;
+        });
+        // console.log(res);
         that.setData({
-          extractList: res.data.data.items
+          extractList: recordList
         });
       }
     });
@@ -476,5 +485,21 @@ Page({
         });
       }
     });
+  },
+  //时间戳格式化
+  toDate: function(number) {
+    var date = new Date(number);
+    var Y = date.getFullYear();
+    var M =
+      date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1;
+    var D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    var H = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+    var m =
+      date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+    var S =
+      date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+    return Y + "-" + M + "-" + D + " " + H + ":" + m + ":" + S;
   }
 });
