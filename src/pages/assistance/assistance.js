@@ -10,10 +10,11 @@ Page({
         alsoAssistanceAmount:'',
         pageNum:1,
         pageSize:10,
+        amountIsFull:false,
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        weChatId:'',
+        weChatId:1383,
         totalAmount:'',
         totalCount:'',
         items:[],
@@ -26,9 +27,9 @@ Page({
     james:'',
     other:'',
     onLoad(options) {
-      this.setData({
-        weChatId:options.weChatId
-      })
+      // this.setData({
+      //   weChatId:options.weChatId
+      // })
       let that = this;
       let numArr = this.data.numArr;
       let numArrs = this.data.numArrs;
@@ -134,14 +135,21 @@ Page({
         console.log('res')
         console.log('res.data.data.boosterAamount')
         console.log(res.data.data.boosterAamount)
-        that.setData({
-          alsoAssistanceAmount:res.data.data.boosterAamount
-        })
-        that.setData({
-          alsoAssistanceFlag:true
-        })
-        that.firendAssistanceList();
-        this.james.stop(res.data.data.boosterAamount)
+        if(res.data.data.boosterAamount === -1){
+          that.setData({
+            amountIsFull:true
+          })
+        }else{
+          that.setData({
+            alsoAssistanceAmount:res.data.data.boosterAamount
+          })
+          that.setData({
+            alsoAssistanceFlag:true
+          })
+          that.firendAssistanceList();
+          this.james.stop(res.data.data.boosterAamount)
+        }
+        
       }
     });
   },  
