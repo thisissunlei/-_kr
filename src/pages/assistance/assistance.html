@@ -65,14 +65,14 @@
                         <image class="amount-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
                         <view class="increase" >+{{item.amount}}</view>
                     </view>
-                    <view class="firends-content-bottom">
+                    <view wx:if="{{item.first}}" class="firends-content-bottom">
                         <image class="news-double-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
                         <view class="news-double-describe">新人助力翻倍</view>
                     </view>  
                 </view>
             </view>
            
-            <view wx:if="{{!assistanceFlag}}" class="assistance-friends-help-content" >
+            <view wx:if="{{amountIsFull}}" class="assistance-friends-help-content" >
                   <view class="assistance-friends-help-content-detail" >
                       <view class="assistance-friends-help-content-detail-top">Ta的礼券池已经到上限啦！</view>
                       <view class="assistance-friends-help-content-detail-bottom">继续助力的话Ta的礼券金也不会累积了哦~</view>
