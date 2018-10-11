@@ -14,6 +14,7 @@ Page({
     isExpired:false,
     totalCount:0,
     btn_bool: true,
+    style:'',
   },
   onShareAppMessage: function(res) {
     // wx.reportAnalytics("sharekrmeeting");
@@ -52,11 +53,14 @@ Page({
     var _this=this;
     if (options.q) {
       const channelname_v = this.getURLParam(options.q, "id");
+      let style=this.getURLParam(options.q, "style")
+      console.log('style---',style)
       this.setData({
         activityId:channelname_v
       })
       
     }
+    console.log('options',options)
     if(options.id){
       this.setData({
         activityId:options.id
@@ -73,6 +77,7 @@ Page({
            console.log("用户没有授权：用户信息！");
         } else {
           _this.setData({ btn_bool: false });
+          //_this.goLogin();
           
         }
       }
@@ -112,17 +117,12 @@ Page({
    //获取用户信息
    getInfo: function() {
     var that = this;
+   
     wx.getUserInfo({
       success: function(res) {
+       
         that.setData({
           avatarUrl: res.userInfo.avatarUrl
-        });
-        //保存到storage里
-        wx.setStorage({
-          key: "user_info",
-          data: {
-            user_info: res.userInfo
-          }
         });
         app.getRequest({
           url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
@@ -131,7 +131,16 @@ Page({
             encryptedData: res.encryptedData,
             iv: res.iv
           },
-          success: res => {}
+          success: res => {
+            console.log('111')
+          }
+        });
+         //保存到storage里
+         wx.setStorage({
+          key: "user_info",
+          data: {
+            user_info: res.userInfo
+          }
         });
       }
     });
