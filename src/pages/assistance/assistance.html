@@ -13,7 +13,6 @@
                   
             </image>    
         </view>   -->
-        <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style='position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;'></button>
         <view class="assistance-header">
               <view class="assistance-header-left">什么是自由座?</view>
               <view class="assistance-header-right">活动规则</view>
@@ -35,11 +34,11 @@
             </image>
             <image wx:if="{{assistanceFlag}}" class="assistance-luck-button-yizhuli"  src="../../pages/images/assistance/button_yizhuli.png">
             </image>
-            <view wx:if="{{!assistanceFlag}}" class="assistance-luck-img-help">
+            <view wx:if="{{alsoAssistanceFlag}}" class="assistance-luck-img-help">
                 <image class="assistance-luck-img-help-bottom" src="../../pages/images/assistance/help_bottom.png">
                 </image> 
                 <view class="assistance-luck-img-help-button-amount">
-                    也有一张 20 元礼券放入了你的账户，快去看看
+                    也有一张{{alsoAssistanceAmount}}元礼券放入了你的账户，快去看看
                 </view>
                 <image class="assistance-luck-img-help-button-see" src="../../pages/images/assistance/buton_see.png">
                 </image>
@@ -87,3 +86,4 @@
         </view >
     </view>
 </view>
+<button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>

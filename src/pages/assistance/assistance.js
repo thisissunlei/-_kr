@@ -2,15 +2,18 @@ const app = getApp()
 import {demoAnimate,demoAnimates} from '../../utils/animate.js';
 Page({
     data: {
+        hasUserInfo: false,
         assistance:{},
-        btn_bool:true,
         user_info:'',
         assistanceFlag:false,
+        alsoAssistanceFlag:false,
+        alsoAssistanceAmount:'',
         pageNum:1,
         pageSize:10,
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
+        weChatId:1383,
         totalAmount:'',
         totalCount:'',
         items:[],
@@ -23,13 +26,16 @@ Page({
     james:'',
     other:'',
     onLoad(options) {
+      // this.setData({
+      //   weChatId:options.weChatId
+      // })
       let that = this;
       let numArr = this.data.numArr;
       let numArrs = this.data.numArrs;
       this.james = new demoAnimates({
             numArr:numArr,
             _this:that,
-            callback:function(that){console.log('ok',that,that.aaa)}
+            callback:function(that){}
           });
       wx.getSetting({
         success: res => {
@@ -58,10 +64,6 @@ Page({
       var that = this;
       wx.getUserInfo({
         success: function(res) {
-          console.log("获取用户信息成功!!!");
-          // that.setData({
-          //   avatarUrl: res.userInfo.avatarUrl
-          // });
           //保存到storage里
           console.log(res)
           wx.setStorage({
@@ -81,7 +83,6 @@ Page({
         }
       });
     },  
-  //助力详情
     //登录
     login: function() {
       let that = this;
@@ -97,9 +98,7 @@ Page({
               },
               success: res => {
                 console.log("登陆成功!!");
-                that.setData({
-                  btn_bool: false
-                });
+                wx.hideLoading();
                 app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
                 app.globalData.openid = res.data.data["openid"];
@@ -120,16 +119,29 @@ Page({
     },
   // 助力
   postAssistance: function (){
+    console.log("助力");
     var that = this;
+    //this.james.stop('59')
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
       method:'POST',
       data: {
         firstCustomer: true,
-        id: 1384
+        id: that.data.weChatId
       },
       success: res => {
-         
+        console.log('成功!!');
+        console.log('res')
+        console.log('res.data.data.boosterAamount')
+        console.log(res.data.data.boosterAamount)
+        that.setData({
+          alsoAssistanceAmount:res.data.data.boosterAamount
+        })
+        that.setData({
+          alsoAssistanceFlag:true
+        })
+        that.firendAssistanceList();
+        this.james.stop(res.data.data.boosterAamount)
       }
     });
   },  
@@ -140,27 +152,32 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/shared-info",
       method:'GET',
       data: {
-        wechatId: 1361
+        wechatId: that.data.weChatId
       },
       success: res => {
+              console.log("分享详情接口 kmbooster/shared-info")
               console.log(res.data)
               if(res.data.code === 1){
-                that.setData({
-                wechatAvatar:res.data.data.wechatAvatar,
-                wechatNick:res.data.data.wechatNick,
-                amount:res.data.data.amount
-              })
+                  that.setData({
+                  wechatAvatar:res.data.data.wechatAvatar,
+                  wechatNick:res.data.data.wechatNick,
+                  alsoAssistanceAmount:res.data.data.amount,
+                 
+                })
+              console.log('res.data.data.booster');
+              console.log(res.data.data.booster);
               if(res.data.data.booster === 1){
-                this.setData({
-                  assistanceFlag:true
-                });
+                      that.setData({
+                            assistanceFlag:true,
+                            alsoAssistanceFlag:true
+                          });
                     }else{
                       that.setData({
-                        assistanceFlag:false
+                            assistanceFlag:false,
+                            alsoAssistanceFlag:false
                       })
                 }
           }
-
       }
     });
   },
@@ -176,7 +193,7 @@ Page({
       data: {
         page:1,
         pageSize: that.data.pageSize*that.data.pageNum,
-        wechatId:1361
+        wechatId:that.data.weChatId
       },
       success: res => {
           if(res.data.code === 1){
@@ -189,6 +206,7 @@ Page({
       }
     });
   },
+  // 获取被助力人  助力列表
   firendAssistanceList: function() {
     var that = this;
     app.getRequest({
@@ -197,7 +215,7 @@ Page({
       data: {
         page:1,
         pageSize: that.data.pageSize*that.data.pageNum,
-        wechatId:1361
+        wechatId:that.data.weChatId
       },
       success: res => {
           if(res.data.code === 1){
@@ -210,9 +228,39 @@ Page({
       }
     });
   },
+    //获取用户信息
+  getInfo: function() {
+      var that = this;
+      wx.getUserInfo({
+        success: function(res) {
+          that.setData({
+            avatarUrl: res.userInfo.avatarUrl
+          });
+          //保存到storage里
+          wx.setStorage({
+            key: "user_info",
+            data: {
+              user_info: res.userInfo
+            }
+          });
+          app.getRequest({
+            url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
+  
+            data: {
+              encryptedData: res.encryptedData,
+              iv: res.iv
+            },
+            success: res => {}
+          });
+        }
+      });
+    },
   onGotUserInfo: function(e) {
     if (e.detail.userInfo) {
-        this.login();
+      this.getInfo();
+      this.setData({
+        hasUserInfo: true
+      });
     }
   }
 })
