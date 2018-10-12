@@ -17,6 +17,7 @@
               <view bindtap="goToPoint" class="assistance-header-left">什么是自由座?</view>
               <view bindtap="rule" class="assistance-header-right">活动规则</view>
         </view>
+
         <view class="assistance-luck">
             <image class="assistance-user-img" src="{{wechatAvatar}}">
             </image>
@@ -43,6 +44,7 @@
                 <image bindtap="goToCreateImg" class="assistance-luck-img-help-button-see" src="../../pages/images/assistance/buton_see.png">
                 </image>
             </view>
+
             <view class="assistance-luck-amount">  
                 <view class="assistance-luck-amount-content">
                     已有{{totalCount}} 位好友为Ta助力{{totalAmount}} 元礼券
@@ -53,7 +55,6 @@
             </view>
         </view>
         <view class="assistance-friends-list">
-
             <view wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix">
                 <image class="friends-img" src="{{item.helpThirdAvatar}}"></image>   
                 <view class="firends-content-detail">
@@ -86,31 +87,43 @@
         </view >
     </view>
   <!-- 规则 -->
-     <!-- <view  wx:if="rule" class="rule">
-           <view>活动规则</view>
-           <view>
-            1）可以通过分享活动至微信群、将带二维码的图片分享
+     <view  wx:if="{{rule}}" class="rule">
+           <view class="rule-title">
+                <view class="rule-title-content">
+                    活动规则
+                </view>
            </view>
-           <view>
-            2）每个好友助力，可获得5-10元礼券，首次访问自由座的用户助力的礼券翻倍；
+           <view class="rule-gap">
+
            </view>
-           <view>
-            3）为好友助力后，你也可获得相应礼券金额，每天上限10次；
-           </view>
-           <view>
-            4）根据当你前已有的礼券金，可以提取出不同面额的礼券，用以抵扣订单金额，最高可享免单哦；
-           </view>
-           <view>
-            5）礼券金上限999元，每次提取礼券会消耗掉对应礼券金；
-           </view>
-           <view>
-            6）活动期间，每种礼券最多可兑换3次；
-           </view>
-           <view>
-            7）如有疑问请联系客服，活动最终解释权归氪空间所有；
-           </view>
-           <button bindtap="ruleClose">朕知道了</button>
-     </view> -->
- 
+           <view class="rule-content-text">
+               <view >
+                1）可以通过分享活动至微信群、将带二维码的图片分享
+               </view>
+               <view>
+                2）每个好友助力，可获得5-10元礼券，首次访问自由座的用户助力的礼券翻倍；
+               </view>
+               <view>
+                3）为好友助力后，你也可获得相应礼券金额，每天上限10次；
+               </view>
+               <view>
+                4）根据当你前已有的礼券金，可以提取出不同面额的礼券，用以抵扣订单金额，最高可享免单哦；
+               </view>
+               <view>
+                5）礼券金上限999元，每次提取礼券会消耗掉对应礼券金；
+               </view>
+               <view>
+                6）活动期间，每种礼券最多可兑换3次；
+               </view>
+               <view>
+                7）如有疑问请联系客服，活动最终解释权归氪空间所有；
+               </view>
+               <view class="rule-close">
+                  <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png" bindtap="ruleClose"></image>
+                  <view class="rule-close-text" >我知道了</view>
+               </view>
+               
+            </view> 
+     </view>
 </view>
 <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>

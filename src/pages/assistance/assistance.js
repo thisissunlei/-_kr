@@ -15,9 +15,10 @@ Page({
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        weChatId:'',
+        weChatId:1383,
         totalAmount:'',
         totalCount:'',
+        isNew:false,
         items:[],
         numArr:[{label:'0'},{label:'0'}],
         numArrs:[{label:'0'},{label:'0'}],
@@ -28,17 +29,10 @@ Page({
     james:'',
     other:'',
     onLoad(options) {
-      this.setData({
-        weChatId:options.weChatId
-      })
+      // this.setData({
+      //   weChatId:options.weChatId
+      // })
       let that = this;
-      let numArr = this.data.numArr;
-      let numArrs = this.data.numArrs;
-      this.james = new demoAnimates({
-            numArr:numArr,
-            _this:that,
-            callback:function(that){}
-          });
       wx.getSetting({
         success: res => {
           if (res.authSetting["scope.userInfo"]) {
@@ -51,6 +45,16 @@ Page({
           }
         }
       });
+    },
+    onReady(){
+      let that = this;
+      let numArr = this.data.numArr;
+      let numArrs = this.data.numArrs;
+      this.james = new demoAnimates({
+            numArr:numArr,
+            _this:that,
+            callback:function(that){}
+          });
     },
     // 下拉刷新
     onPullDownRefresh(e) {
@@ -90,7 +94,7 @@ Page({
       let that = this;
       wx.login({
         success: function(res) {
-              console.log("登陆");
+            console.log("登陆");
           if (res.code) {
             wx.request({
               url: app.globalData.KrUrl + "api/gateway/krmting/common/login",
@@ -148,34 +152,57 @@ Page({
     console.log("助力");
     var that = this;
     //this.james.stop('59')
+    // 是否时新人
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
-      method:'POST',
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
+      method:'GET',
       data: {
         firstCustomer: true,
         id: that.data.weChatId
       },
       success: res => {
-        console.log('成功!!');
-        console.log('res')
-        console.log('res.data.data.boosterAamount')
-        console.log(res.data.data.boosterAamount)
-        if(res.data.data.boosterAamount === -1){
-          that.setData({
-            amountIsFull:true
-          })
-        }else{
-          that.setData({
-            alsoAssistanceAmount:res.data.data.boosterAamount
-          })
-          that.setData({
-            alsoAssistanceFlag:true,
-            assistanceFlag:false
-          })
-          that.firendAssistanceList();
-          that.james.stop(res.data.data.boosterAamount+'')
-        }
-        
+        console.log('请求是否新人  成功!!');
+        console.log(res.data.data);
+            app.getRequest({
+              url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
+              method:'POST',
+              data: {
+                firstCustomer: res.data.data,
+                id: that.data.weChatId
+              },
+              success: res => {
+                console.log('成功!!');
+                console.log('res')
+                console.log(res)
+                console.log('res.data.data.boosterAamount')
+                console.log(res.data.data.boosterAamount)
+                if(res.data.data.boosterAamount === -1){
+                      console.log('已超过999');
+                      that.setData({
+                        amountIsFull:true
+                      })
+                    console.log(that.data.amountIsFull)  
+                }else{
+                      console.log('未超过999');
+                      that.setData({
+                        alsoAssistanceAmount:res.data.data.boosterAamount
+                      })
+                      that.setData({
+                        alsoAssistanceFlag:true,
+                        assistanceFlag:true
+                      })
+                      that.firendAssistanceList();
+                      if(res.data.data.boosterAamount<10){
+                        that.james.stop("0"+res.data.data.boosterAamount)
+                      }else{
+                        that.james.stop(res.data.data.boosterAamount+"")
+                      }
+                      console.log("动画该停止得金额"+res.data.data.boosterAamount);
+                      
+                }
+                
+              }
+            });
       }
     });
   },  
@@ -205,8 +232,13 @@ Page({
                             assistanceFlag:true,
                             alsoAssistanceFlag:true
                           });
+                    console.log('res.data.data.amount')      
                     console.log(res.data.data.amount+'')
-                    that.james.stop(res.data.data.amount+'')           
+                        if(res.data.data.amount < 10){
+                          that.james.stop('0'+res.data.data.amount)    
+                        }else{
+                          that.james.stop(res.data.data.amount+'')
+                        }  
                     }else{
                       that.setData({
                             assistanceFlag:false,
@@ -241,6 +273,22 @@ Page({
           }
       }
     });
+    // app.getRequest({
+    //   url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
+    //   method:'GET',
+    //   data: {
+    //     page:1,
+    //     pageSize: that.data.pageSize*that.data.pageNum,
+    //     wechatId:that.data.weChatId
+    //   },
+    //   success: res => {
+    //       if(res.data.code === 1){
+    //         that.setData({
+    //             totalAmount:amount,
+    //         })
+    //       }
+    //   }
+    // });
   },
   // 获取被助力人  助力列表
   firendAssistanceList: function() {
@@ -263,6 +311,22 @@ Page({
           }
       }
     });
+    // app.getRequest({
+    //   url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
+    //   method:'GET',
+    //   data: {
+    //     page:1,
+    //     pageSize: that.data.pageSize*that.data.pageNum,
+    //     wechatId:that.data.weChatId
+    //   },
+    //   success: res => {
+    //       if(res.data.code === 1){
+    //         that.setData({
+    //             totalAmount:res.data.data.totalAmount,
+    //         })
+    //       }
+    //   }
+    // });
   },
     //获取用户信息
   getInfo: function() {
