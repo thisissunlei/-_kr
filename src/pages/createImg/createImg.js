@@ -137,7 +137,20 @@ Page({
       },
       success: res => {
         console.log(res);
-        that.getBooster();
+        if (res.data.code == 1) {
+          wx.showToast({
+            title: "成功领取入场券",
+            icon: "success",
+            duration: 2000
+          });
+          that.getBooster();
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+        }
       }
     });
   },
@@ -162,7 +175,39 @@ Page({
       });
     } else if (that.currentData == 1 && that.page < that.totalPages) {
       that.page += 1;
-      that.getOwerBooster();
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmbooster/owner-booster",
+        data: {
+          page: that.page,
+          pageSize: that.pageSize
+        },
+        success: res => {
+          // console.log(res);
+
+          that.setData({
+            helpingList: [].concat(that.data.helpingList, res.data.data.items)
+          });
+        }
+      });
+    } else if (that.currentData == 2 && that.page < that.totalPages) {
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
+        data: {
+          page: that.page,
+          pageSize: that.pageSize
+        },
+        success: res => {
+          let recordList = res.data.data.items;
+          recordList.map(item => {
+            item.ctime = that.toDate(item.ctime);
+            return item;
+          });
+          // console.log(res);
+          that.setData({
+            extractList: [].concat(that.data.recordList, recordList)
+          });
+        }
+      });
     }
   },
   //活动规则
@@ -386,6 +431,7 @@ Page({
         pageSize: that.pageSize
       },
       success: res => {
+        that.totalPages = res.data.data.totalPages;
         let recordList = res.data.data.items;
         recordList.map(item => {
           item.ctime = that.toDate(item.ctime);
@@ -393,7 +439,9 @@ Page({
         });
         // console.log(res);
         that.setData({
-          extractList: recordList
+          extractList: recordList,
+          totalCount: res.data.data.totalCount,
+          totalPages: res.data.data.totalPages
         });
       }
     });
