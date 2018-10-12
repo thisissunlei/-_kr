@@ -6,7 +6,7 @@ const app = getApp();
 Page({
   data: {
     numArr: [{ label: "0" }, { label: "0" }, { label: "0" }],
-    number: "",
+    number: "000",
     showSuccess: false,
     KrImgUrl: app.globalData.KrImgUrl,
     imgUrl: "",
@@ -76,6 +76,9 @@ Page({
         }
       }
     });
+  },
+  onReady: function() {
+    // that.getBooster();
   },
   //转发分享
   onShareAppMessage: function(res) {
