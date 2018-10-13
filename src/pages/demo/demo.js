@@ -30,16 +30,16 @@ Page({
   onReady:function(){
     let ii = 0
     let that = this;
-    this.james = new demoAnimate({
-      _this:this
-    })
-    // this.WXAniamtion()
-    // this.james = new demoAnimates({
-    //   _this:that,
-    //   callback:function(){
-    //     console.log('callback',that.aaa)
-    //   }
+    // this.james = new demoAnimate({
+    //   _this:this
     // })
+    // this.WXAniamtion()
+    this.james = new demoAnimates({
+      _this:that,
+      callback:function(){
+        console.log('callback',that.aaa)
+      }
+    })
     
    
   },
@@ -151,15 +151,15 @@ Page({
     
   },
   stop(e){
-    if(this.run){
-      this.james.initNum('234')
-      this.run  = false
-    }else{
-      this.james.initNum('216')
-      this.run = true
-    }
+    // if(this.run){
+    //   this.james.initNum('234')
+    //   this.run  = false
+    // }else{
+    //   this.james.initNum('216')
+    //   this.run = true
+    // }
     
-     // this.james.stop('07')
+     this.james.stop('07')
     // this.number = '07'
   },
   
