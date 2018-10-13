@@ -13,6 +13,7 @@ Page({
     animationDataTwo:'',
     animationDataOne:'',
     animationCloudData:'',
+    animationDataThree:'',
     KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
   },
   aaa :3445,
@@ -29,15 +30,64 @@ Page({
   onReady:function(){
     let ii = 0
     let that = this;
-    // this.WXAniamtion()
-    this.james = new demoAnimates({
-      _this:that,
-      callback:function(){
-        console.log('callback',that.aaa)
-      }
+    this.james = new demoAnimate({
+      _this:this
     })
+    // this.WXAniamtion()
+    // this.james = new demoAnimates({
+    //   _this:that,
+    //   callback:function(){
+    //     console.log('callback',that.aaa)
+    //   }
+    // })
     
    
+  },
+  initNum(num){
+    if(parseInt(num) == 0){
+      return;
+    }
+    let one = parseInt(num.slice(0, 1));
+    let two = parseInt(num.slice(1, 2));
+    let three = parseInt(num.slice(2, 3));
+    let one_y,two_y,three_y,one_time,two_time,three_time; 
+    if(one == 0){
+      one_y = -670;
+    }else{
+      one_y = -(67*one)
+    }
+    if(two == 0){
+      two_y = -670;
+    }else{
+      two_y = -(67*two)
+    }
+    if(three == 0){
+      three_y = -670;
+    }else{
+      three_y = -(67*three)
+    }
+    console.log('inirNum',one_y,two_y,three_y)
+    var animationDataOne = wx.createAnimation({
+      duration: 400,
+    });
+     var animationDataTwo = wx.createAnimation({
+      duration: 400, 
+    });
+    // 第二个
+    var animationDataThree = wx.createAnimation({
+      duration: 400, 
+    });
+    animationDataOne.translateY(one_y).step({ duration: one_time });
+    animationDataTwo.translateY(two_y).step({ duration: two_time });
+    animationDataThree.translateY(three_y).step({ duration: three_time });
+    this.setData({
+      animationDataOne: animationDataOne.export(),
+      animationDataTwo: animationDataTwo.export(),
+      animationDataThree:animationDataThree.export()
+    })
+
+
+
   },
   WXAniamtion(){
     let that = this;
@@ -101,7 +151,15 @@ Page({
     
   },
   stop(e){
-     this.james.stop('07')
+    if(this.run){
+      this.james.initNum('234')
+      this.run  = false
+    }else{
+      this.james.initNum('216')
+      this.run = true
+    }
+    
+     // this.james.stop('07')
     // this.number = '07'
   },
   
