@@ -122,7 +122,8 @@ Page({
   postAssistance: function (){
     console.log("助力");
     var that = this;
-    //this.james.stop('59')
+    this.james.stop('59')
+    return;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
       method:'POST',

@@ -140,7 +140,7 @@
 <template name="numsAnimate">
   <view class="box-cantainer"> 
     <view class="box-lists" wx:for="{{numArr}}" wx:for-item="i"  wx:key='{{index}}'>
-      <view class="one" style="top:{{i.oneTop}}rpx">
+      <view class="one" style="transform: translateY({{i.oneTop}}rpx)">
         <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
@@ -152,7 +152,7 @@
         <image class="num-img" src="{{KrImgUrl}}number/8.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/9.png" ></image> 
       </view>
-      <view class="two" style="top:{{i.towTop}}rpx">
+      <view class="two" style="transform: translateY({{i.towTop}}rpx)">
         <image class="num-img" src="{{KrImgUrl}}number/0.png"></image>
         <image class="num-img" src="{{KrImgUrl}}number/1.png"></image>
         <image class="num-img" src="{{KrImgUrl}}number/2.png"></image>

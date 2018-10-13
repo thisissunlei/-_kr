@@ -23,26 +23,109 @@
   position:relative;
   border:1px solid red;
   width:600rpx;
-  height:100rpx;
-  overflow: hidden;
+  height:134rpx;
 }
 .num-img{
   width:90rpx;
-  height:100rpx;
+  height:134rpx;
   display: block;
   box-sizing: border-box;
   padding:20rpx;
 }
 .box-lists{
   width:80rpx;
-  height:100rpx;
+  height:134rpx;
   display: inline-block;
   vertical-align:top;
-  position: relative;
+  position: relative;  
 }
 .one,
 .two {
-  position: absolute;
-  left: 0;
-  transition: all;
+  width:60rpx;
+  height:1340rpx;
+  display:block;
+}
+.one{
+  background-color: #333;
+  z-index:-2;
+
+}
+.two {
+  background-color: red;
+  z-index:-1;
+
+}
+
+.animal{
+   border:5px solid black;
+   transition: all 1s;
+}
+
+
+.page{
+  position: relative;
+  height:20rpx;
+  border:1px solid red;
+  margin-top: 300rpx;
+}
+.stop{
+ height:300rpx;
+ width:300rpx;
+ border:1px solid red;
+}
+
+@keyframes onemove {
+    0%{ 
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-100%);
+    }
+    51%{
+        transform: translateY(100%);
+    }
+    51%{
+        transform: translateY(100%);
+    }
+    
+    100%{
+      transform: translateY(0);
+    }
+    
+    
+
+ 
+ 
+}
+@keyframes twomove {
+    0%{ 
+        transform: translateY(0%);
+    }
+    50%{
+        transform: translateY(-100%);
+    }
+    100%{
+        transform: translateY(-200%);
+    }
+    
+
+ 
+ 
+}
+@keyframes gogoone {
+    0%{
+         
+        transform: translateY(0%);
+    }
+    50%{
+        transform: translateY(-100%);
+    }
+    100%{
+        transform: translateY(100%);
+    }
+
+ 
+ 
+}
+.page view{
 }

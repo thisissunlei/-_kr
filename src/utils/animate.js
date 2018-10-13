@@ -29,6 +29,7 @@ var doAnimationFrame = function (callback) {
     var timeToCall = Math.max(0, 16 - (currTime - lastFrameTime));
     var id = setTimeout(function () { callback(currTime + timeToCall); }, timeToCall);
     lastFrameTime = currTime + timeToCall;
+
     return id;
 };
 // 模拟 cancelAnimationFrame
@@ -193,7 +194,9 @@ export class demoAnimates {
 				}
 			}
 			if(move){
-				doAnimationFrame(()=>{_that.allRun()});
+				// requestAnimationFrame(()=>{_that.allRun()});
+				// doAnimationFrame(()=>{_that.allRun()});
+				 setTimeout(()=>{_that.allRun()},1000/60);
 				if(moved.length == numData.length){
 					move = false
 				} 
