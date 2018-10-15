@@ -19,8 +19,10 @@ Page({
     animationTwo:'',
     animationOne:'',
     show:false,
-    one:'one',
-    two:'two'
+    initOne:'one',
+        initOnes:'one',
+        initTwo:'two',
+        initTwos:'two',
   },
   aaa :3445,
   james:'',
@@ -37,19 +39,21 @@ Page({
     //   _this:this
     // })
     // this.WXAniamtion()
-    // this.james = new Animates({
-    //   _this:that,
-    //   callback:function(){
-    //     console.log('callback',that.aaa)
-    //   }
-    // })
+    this.james = new Animates({
+      _this:that,
+      callback:function(){
+        console.log('callback',that.aaa)
+      }
+    })
 
     setTimeout(function(){
-      that.setData({
-        one:'one one-animation',
-        two:'two two-animation'
-      })
-    },5000)
+          that.setData({
+            initTwos:"two two-animation delay",
+            initTwo:'two two-animation',
+            initOnes:'one one-animation delay',
+            initOne:'one one-animation'
+          })
+        },1500)
     
     
     
@@ -181,7 +185,7 @@ Page({
     //   this.run = true
     // }
     console.log('stop=====')
-     this.james.stop('07')
+     this.james.stop('67')
     // this.number = '07'
   },
   
