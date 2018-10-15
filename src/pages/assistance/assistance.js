@@ -70,6 +70,7 @@ Page({
         title: "加载中",
         mask: true
       });
+        return;
         setTimeout(function(){
           that.setData({
             initTwos:"two two-animation delay",
