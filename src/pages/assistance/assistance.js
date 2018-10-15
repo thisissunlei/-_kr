@@ -1,6 +1,6 @@
 const app = getApp()
-// import {demoAnimate,demoAnimates} from '../../utils/animate.js';
-import {demoAnimate,demoAnimates} from '../../utils/numAnimate.js';
+import {demoAnimate,demoAnimates} from '../../utils/animate.js';
+// import {demoAnimate,demoAnimates} from '../../utils/numAnimate.js';
 Page({
     data: {
         hasUserInfo: false,
@@ -25,9 +25,9 @@ Page({
         numArrs:[{label:'0'},{label:'0'}],
         number:'520',
         KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
-        animationDataOne:'',
-        animationDataTwo:'',
-        animationCloudData:''
+        // animationDataOne:'',
+        // animationDataTwo:'',
+        // animationCloudData:''
     },
     aaa :3445,
     james:'',
@@ -55,6 +55,7 @@ Page({
       let numArr = this.data.numArr;
       let numArrs = this.data.numArrs;
       this.james = new demoAnimates({
+            numArr:numArr,
             _this:that,
             callback:function(that){}
           });
