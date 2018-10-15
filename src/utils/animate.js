@@ -159,7 +159,7 @@ export class demoAnimates {
 		return numArr;
 	}
 	allRun(){
-		moveNum  += 10;
+		moveNum  += 30;
 		var top = moveNum
 		let numData = _that.numData;
 		let len = numData.length;

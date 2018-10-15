@@ -138,31 +138,7 @@
 <template name='setNumber'>
    <view class="box-cantainer"> 
     <view class="box-lists">
-      <view class="one" animation='{{animationDataOne}}'>
-        <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
-        <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
-        <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
-        <image class="num-img" src="{{KrImgUrl}}number/3.png" ></image>
-        <image class="num-img" src="{{KrImgUrl}}number/4.png" ></image>
-        <image class="num-img" src="{{KrImgUrl}}number/5.png" ></image>
-        <image class="num-img" src="{{KrImgUrl}}number/6.png" ></image>
-        <image class="num-img" src="{{KrImgUrl}}number/7.png" ></image>
-        <image class="num-img" src="{{KrImgUrl}}number/8.png" ></image>
-        <image class="num-img" src="{{KrImgUrl}}number/9.png" ></image> 
-        <image class="num-img" src="{{KrImgUrl}}number/0.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/1.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/2.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/3.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/4.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/5.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/6.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/7.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/8.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/9.png"></image> 
-      </view>
-    </view>
-    <view class="box-lists" style="margin-left:20rpx">
-      <view class="one" animation='{{animationDataTwo}}'>
+      <view class="{{animationDataOne?animationDataOne+' one':'one'}}">
         <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
@@ -186,7 +162,31 @@
       </view>
     </view>
     <view class="box-lists" style="margin-left:10rpx">
-      <view class="one" animation='{{animationDataThree}}' >
+      <view class="{{animationDataTwo?animationDataTwo+' one':'one'}}">
+        <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/3.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/4.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/5.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/6.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/7.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/8.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/9.png" ></image> 
+        <image class="num-img" src="{{KrImgUrl}}number/0.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/1.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/2.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/3.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/4.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/5.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/6.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/7.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/8.png"></image>
+        <image class="num-img" src="{{KrImgUrl}}number/9.png"></image> 
+      </view>
+    </view>
+    <view class="box-lists" style="margin-left:10rpx">
+      <view class="{{animationDataThree?animationDataThree+' one':'one'}}" >
         <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>

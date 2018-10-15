@@ -66,7 +66,12 @@ Page({
   onLoad: function() {
     wx.reportAnalytics("view_power_activities");
     const that = this;
-    that.animate();
+    this.james = new demoAnimate({
+      // numArr: that.data.numArr,
+      // number: that.data.number,
+      _this: that
+    });
+    // that.animate();
     wx.getSetting({
       success: res => {
         if (res.authSetting["scope.userInfo"]) {
@@ -82,7 +87,7 @@ Page({
     });
   },
   onReady: function() {
-    // that.getBooster();
+    // this.getBooster();
   },
   //转发分享
   onShareAppMessage: function(res) {
@@ -342,7 +347,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
       success: res => {
-        // console.log(res);
+        console.log(res);
         that.weChatId = res.data.data.weChatId;
         that.setData({
           myBooster: res.data.data.amount
