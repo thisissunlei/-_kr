@@ -1,5 +1,6 @@
 const app = getApp()
-import {demoAnimate,demoAnimates} from '../../utils/animate.js';
+// import {demoAnimate,demoAnimates} from '../../utils/animate.js';
+import {demoAnimate,Animates} from '../../utils/numAnimate.js';
 Page({
     data: {
         hasUserInfo: false,
@@ -24,6 +25,9 @@ Page({
         numArrs:[{label:'0'},{label:'0'}],
         number:'520',
         KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
+        animationOne:'',
+        animationTwo:'',
+        // animationCloudData:''
     },
     aaa :3445,
     james:'',
@@ -50,8 +54,9 @@ Page({
       let that = this;
       let numArr = this.data.numArr;
       let numArrs = this.data.numArrs;
-      this.james = new demoAnimates({
-            numArr:numArr,
+      this.james = new Animates({
+      // this.james = new demoAnimates({
+            // numArr:numArr,
             _this:that,
             callback:function(that){}
           });
@@ -151,6 +156,7 @@ Page({
   postAssistance: function (){
     console.log("助力");
     var that = this;
+    that.james.stop('17')
     // 是否时新人
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
@@ -192,9 +198,9 @@ Page({
                       })
                       that.firendAssistanceList();
                       if(res.data.data.boosterAamount<10){
-                        that.james.stop("0"+res.data.data.boosterAamount)
+                        // that.james.stop("0"+res.data.data.boosterAamount)
                       }else{
-                        that.james.stop(res.data.data.boosterAamount+"")
+                        // that.james.stop(res.data.data.boosterAamount+"")
                       }
                       console.log("动画该停止得金额"+res.data.data.boosterAamount);
                       

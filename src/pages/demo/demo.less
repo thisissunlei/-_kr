@@ -24,6 +24,7 @@
   border:1px solid red;
   width:600rpx;
   height:134rpx;
+  overflow: hidden;
 }
 .num-img{
   width:90rpx;
@@ -39,11 +40,16 @@
   vertical-align:top;
   position: relative;  
 }
+
 .one,
 .two {
+  left: 0;
   width:60rpx;
   height:1340rpx;
   display:block;
+}
+.stop{
+
 }
 .one{
   background-color: #333;
@@ -55,13 +61,22 @@
   z-index:-1;
 
 }
+.stoped{
+  display: none;
+}
 
 .animal{
    border:5px solid black;
    transition: all 1s;
 }
 
+.one-animation{
+  animation:onemove 2s infinite linear
 
+}
+.two-animation{
+  animation:twomove 2s infinite linear
+}
 .page{
   position: relative;
   height:20rpx;
@@ -126,6 +141,120 @@
 
  
  
+}
+
+.move-zero{
+  animation:moveZero .2s forwards linear
+}
+.move-one{
+  animation:moveOne .3s forwards linear
+}
+.move-two{
+  animation:moveTwo .3s forwards linear
+}
+.move-three{
+  animation:moveThree .3s forwards linear
+}
+.move-four{
+  animation:moveFour .3s forwards linear
+}
+.move-five{
+  animation:moveFive .3s forwards linear
+}
+.move-six{
+  animation:moveSix .3s forwards linear
+}
+.move-seven{
+  animation:moveSeven .4s forwards linear
+}
+.move-eight{
+  animation:moveEight .4s forwards linear
+}
+.move-nine{
+  animation:moveNine .5s forwards linear
+}
+.delay{
+  animation-delay:.2s
+}
+@keyframes moveOne {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-134rpx);
+    } 
+}
+@keyframes moveZero {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-1340rpx);
+    } 
+}
+@keyframes moveTwo {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-269rpx);
+    } 
+}
+@keyframes moveThree {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-402rpx);
+    } 
+}
+@keyframes moveFour {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-536rpx);
+    } 
+}
+@keyframes moveFive {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-670rpx);
+    } 
+}
+@keyframes moveSix {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-804rpx);
+    } 
+}
+@keyframes moveSeven {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-938rpx);
+    } 
+}
+@keyframes moveEight {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-1072rpx);
+    } 
+}
+@keyframes moveNine {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-1206rpx);
+    } 
 }
 .page view{
 }
