@@ -214,7 +214,7 @@
 <template name="number">
   <view class="box-cantainer"> 
     <view class="box-lists">
-      <view class="one" animation='{{animationDataOne}}'>
+      <view class="one one-animation" class="{{animationOne?'one '+animationOne:'one one-animation'}}">
         <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
@@ -225,22 +225,24 @@
         <image class="num-img" src="{{KrImgUrl}}number/7.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/8.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/9.png" ></image> 
+        <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
+
       </view>
-      <view class="two" animation='{{animationCloudData}}'>
-        <image class="num-img" src="{{KrImgUrl}}number/0.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/1.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/2.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/3.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/4.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/5.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/6.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/7.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/8.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/9.png"></image> 
-      </view>
+      <view class="{{animationOne?'two stoped':'two two-animation'}}">
+        <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/3.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/4.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/5.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/6.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/7.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/8.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/9.png" ></image> 
+      </view> 
     </view>
     <view class="box-lists">
-      <view class="one" animation='{{animationDataTwo}}'>
+      <view class="{{animationTwo?'one '+animationTwo:'one one-animation delay'}}"  >
         <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
@@ -252,20 +254,22 @@
         <image class="num-img" src="{{KrImgUrl}}number/8.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/9.png" ></image> 
       </view>
-      <view class="two" animation='{{animationCloudData}}'>
-        <image class="num-img" src="{{KrImgUrl}}number/0.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/1.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/2.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/3.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/4.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/5.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/6.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/7.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/8.png"></image>
-        <image class="num-img" src="{{KrImgUrl}}number/9.png"></image> 
+      <view class="{{animationTwo?'two stoped':'two two-animation delay'}}" >
+        <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/3.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/4.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/5.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/6.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/7.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/8.png" ></image>
+        <image class="num-img" src="{{KrImgUrl}}number/9.png" ></image> 
+        
       </view>
     </view>
-  </view>
+    
+</view>
 </template>
 
 

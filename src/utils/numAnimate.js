@@ -114,6 +114,74 @@ export class demoAnimates {
 
 
 }
+export class Animates {
+	constructor(parameter) {
+		this.callback = parameter.callback;
+		wx_this = parameter._this;
+		wx_that = this;
+	}
+	stop(num) {
+		if (parseInt(num) == 0) {
+			return;
+		}
+		let one = num.slice(0, 1);
+		let two = num.slice(1, 2);
+		let animationDataOne = ''
+		let animationDataTwo = ''
+		animationDataOne = this.setClass(animationDataOne,one);
+		animationDataTwo = this.setClass(animationDataTwo,two);
+		console.log('stop--->>>',animationDataOne,animationDataTwo)
+		wx_this.setData({
+			animationOne: animationDataOne,
+			animationTwo: animationDataTwo,
+		},function(){
+			wx_that.callback(wx_this)
+		})
+
+	}
+	setClass(name,num){
+		console.log('set--->',num)
+		switch (num){
+			case '0':
+				name = 'move-zero'
+				break;
+			case '1':
+				name = 'move-one'
+				break;
+			case '2':
+				name = 'move-two'
+				break;
+			case '3':
+				name = 'move-three'
+				break;
+			case '4':
+				name = 'move-four'
+				break;
+			case '5':
+				name = 'move-five'
+				break;
+			case '6':
+				name = 'move-six'
+				break;
+			case '7':
+				name = 'move-seven'
+				break;
+			case '8':
+				name = 'move-eight'
+				break;
+			case '9':
+				name = 'move-nine'
+				break;
+			default:
+				name = 'move-zero'
+				break;
+		}
+		return name;
+	}
+	
+
+
+}
 
 
 // 传入数值自动转到动画
