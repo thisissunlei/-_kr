@@ -88,6 +88,7 @@ export class demoAnimates {
 		var animationData = wx.createAnimation({
 			duration: 400,
 		});
+		let time = twoTime>oneTime?twoTime:oneTime
 		// 第二个
 		var animationCloudData = wx.createAnimation({
 			duration: 400,
@@ -103,7 +104,11 @@ export class demoAnimates {
 			animationDataOne: animationData.export(),
 			animationDataTwo: animationCloudData.export(),
 		}, function() {
-			wx_that.callback(wx_this)
+			console.log('==========',time)
+			setTimeout(function(){
+				wx_that.callback(wx_this)
+			},time)
+			
 		})
 	}
 

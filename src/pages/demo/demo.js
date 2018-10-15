@@ -158,7 +158,7 @@ Page({
     //   this.james.initNum('216')
     //   this.run = true
     // }
-    
+    console.log('stop=====')
      this.james.stop('07')
     // this.number = '07'
   },
