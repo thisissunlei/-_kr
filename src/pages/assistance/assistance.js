@@ -114,6 +114,7 @@ Page({
         }
       });
     },  
+
     //登录
     login: function() {
       let that = this;
@@ -161,6 +162,12 @@ Page({
       url: "../createImg/createImg"
     });
   },  
+  // 跳转查看页 不回来
+  redirectToCreateImg:function (){
+    wx.redirectTo({
+      url: '../createImg/createImg'
+    })
+  },
   // 规则 
   rule: function (){
       this.setData({
@@ -257,7 +264,7 @@ Page({
               console.log(res.data.data.booster);
 
              if(res.data.data.ownerVisit === 1){
-                    that.goToCreateImg();
+                    that.redirectToCreateImg();
              }else{
 
               if(res.data.data.booster === 1){
