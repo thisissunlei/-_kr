@@ -26,7 +26,9 @@ Page({
     totalCount: null,
     totalPages: null,
     leftCoupon: [],
-    rightCoupon: []
+    rightCoupon: [],
+    showAnimation: false, //提取动画
+    animationStart: false
   },
   weChatId: null, //微信id
   page: 1,
@@ -141,11 +143,25 @@ Page({
       success: res => {
         console.log(res);
         if (res.data.code == 1) {
-          wx.showToast({
-            title: "成功领取入场券",
-            icon: "success",
-            duration: 2000
+          // wx.showToast({
+          //   title: "成功领取入场券",
+          //   icon: "success",
+          //   duration: 2000
+          // });
+          that.setData({
+            showAnimation: true,
+            animationStart: true
           });
+          setTimeout(() => {
+            that.setData({
+              animationStart: false
+            });
+          }, 1000);
+          setTimeout(() => {
+            that.setData({
+              showAnimation: false
+            });
+          }, 1000);
           that.getBooster();
         } else {
           wx.showToast({

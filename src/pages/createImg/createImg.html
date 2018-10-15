@@ -233,11 +233,26 @@
 	</view>
 </view>
 <!-- 提取动画 -->
-<!-- <view class="get-animation">
-	<view class="animation-content">
-
+<view class="get-animation" wx:if="{{showAnimation}}">
+	<view class="animation-content" wx:if="{{animationStart}}">
+		<image class="animation-bg" src="{{KrImgUrl}}helpingActivity/details/alert_bottom.png"></image>
+		<image class="animation-rocket" src="{{KrImgUrl}}helpingActivity/details/rocket.png"></image>
+		<image class="animation-money" src="{{KrImgUrl}}helpingActivity/details/44444.gif"></image>
+		<view class="animation-text">礼券提取中...</view>
 	</view>
-</view> -->
+	<view class="animation-content" wx:else>
+		<image class="animation-bg" src="{{KrImgUrl}}helpingActivity/details/alert_bottom.png"></image>
+		<view class="animation-coupon">
+			<image class="animation-coupon-bg" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
+			<view class="animation-coupon-text">
+				<view class="animation-coupon-top">￥<text>30</text></view>
+				<view class="animation-coupon-tpye">直减</view>
+				<view class="animation-coupon-fix">礼券</view>
+			</view>
+		</view>
+		<view class="animation-bottom">尊享礼券已放入您的账户中</view>
+	</view>
+</view>
 <!-- 生成的海报 -->
 <view class="shareDialog" wx:if="{{showShare}}">
 
