@@ -118,11 +118,14 @@ export class demoAnimates {
 
 // 传入数值自动转到动画
 let _this;
+let img_H = 50
+let img_time = 30
 export class demoAnimate {
 	constructor(parameter) {
 		_this = parameter._this;
 	}
 	initNum(num) {
+		console.log('======',num)
 		if (parseInt(num) == 0) {
 			return;
 		}
@@ -131,19 +134,25 @@ export class demoAnimate {
 		let three = parseInt(num.slice(2, 3));
 		let one_y, two_y, three_y, one_time, two_time, three_time;
 		if (one == 0) {
-			one_y = -670;
+			one_y = -(10*img_H);
+			one_time = 10*img_time;
 		} else {
-			one_y = -(67 * one)
+			one_y =  -(img_H * one);
+			one_time = img_time * one
 		}
 		if (two == 0) {
-			two_y = -670;
+			two_time = 10*img_time;
+			two_y = -(10*img_H);
 		} else {
-			two_y = -(67 * two)
+			two_time = two*img_time;
+			two_y = -(img_H * two)
 		}
 		if (three == 0) {
-			three_y = -670;
+			three_time = 10*img_time;
+			three_y = -(img_H*10);
 		} else {
-			three_y = -(67 * three)
+			three_time = img_time*three;
+			three_y = -(img_H * three)
 		}
 		var animationDataOne = wx.createAnimation({
 			duration: 400,
@@ -164,6 +173,7 @@ export class demoAnimate {
 		animationDataThree.translateY(three_y).step({
 			duration: three_time
 		});
+		console.log('init',one_y,one)
 		_this.setData({
 			animationDataOne: animationDataOne.export(),
 			animationDataTwo: animationDataTwo.export(),

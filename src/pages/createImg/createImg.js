@@ -1,6 +1,7 @@
 //index.js
 import Poster from "../wxa-plugin-canvas/poster/poster";
-import { demoAnimate, demoAnimates } from "../../utils/animate.js";
+import { demoAnimate, demoAnimates } from "../../utils/numAnimate.js";
+// import { demoAnimate, demoAnimates } from "../../utils/animate.js";
 
 const app = getApp();
 Page({
@@ -26,7 +27,10 @@ Page({
     totalCount: null,
     totalPages: null,
     leftCoupon: [],
-    rightCoupon: []
+    rightCoupon: [],
+    animationDataOne:'',
+    animationDataTwo:'',
+    animationDataThree:''
   },
   weChatId: null, //微信id
   page: 1,
@@ -320,8 +324,8 @@ Page({
   animate() {
     let that = this;
     this.james = new demoAnimate({
-      numArr: that.data.numArr,
-      number: that.data.number,
+      // numArr: that.data.numArr,
+      // number: that.data.number,
       _this: that
     });
   },
@@ -350,7 +354,9 @@ Page({
         that.setData({
           number: result
         });
-        that.animate();
+        console.log('result----',result)
+        that.james.initNum(result)
+        // that.animate();
       }
     });
   },
@@ -473,6 +479,9 @@ Page({
   //登录
   login: function() {
     let that = this;
+    setTimeout(function(){
+      that.james.initNum('003')
+    },1000)
     wx.login({
       success: function(res) {
         if (res.code) {
