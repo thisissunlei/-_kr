@@ -238,6 +238,11 @@ Page({
                 })
               console.log('res.data.data.booster');
               console.log(res.data.data.booster);
+
+             if(res.data.data.ownerVisit === 1){
+                    that.goToCreateImg();
+             }else{
+
               if(res.data.data.booster === 1){
                 console.log("已助力");
                     that.setData({
@@ -259,6 +264,7 @@ Page({
                             alsoAssistanceFlag:false
                       })
                 }
+             }
           }
       }
     });
