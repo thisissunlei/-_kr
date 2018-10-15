@@ -24,24 +24,25 @@
             <view class="assistance-user-name" >
                     {{wechatNick}}     
             </view>  
-            <image class="assistance-luck-img"  src="../../pages/images/assistance/help_bg.png">
+            <!--  -->
+            <image class="assistance-luck-img"  src="{{KrImgUrl}}helpingActivity/helping/help_bg.png">
             </image>
             <view class="other">
                     <template is="numsAnimate" data="{{KrImgUrl,numArr}}"></template>
             </view>
             <!-- <view class="random-num-left" >1</view>
             <view class="random-num-right" >2</view> -->
-            <image wx:if="{{!assistanceFlag}}" bindtap="postAssistance" class="assistance-luck-button-zhuli"  src="../../pages/images/assistance/button_zhuli.png">
+            <image wx:if="{{!assistanceFlag}}" bindtap="postAssistance" class="assistance-luck-button-zhuli"  src="{{KrImgUrl}}helpingActivity/helping/button_zhuli.png">
             </image>
-            <image wx:if="{{assistanceFlag}}" class="assistance-luck-button-yizhuli"  src="../../pages/images/assistance/button_yizhuli.png">
+            <image wx:if="{{assistanceFlag}}" class="assistance-luck-button-yizhuli"  src="{{KrImgUrl}}helpingActivity/helping/button_yizhuli.png">
             </image>
             <view wx:if="{{alsoAssistanceFlag}}" class="assistance-luck-img-help">
-                <image class="assistance-luck-img-help-bottom" src="../../pages/images/assistance/help_bottom.png">
+                <image class="assistance-luck-img-help-bottom" src="{{KrImgUrl}}helpingActivity/helping/help_bottom.png">
                 </image> 
                 <view  class="assistance-luck-img-help-button-amount">
                     也有一张{{alsoAssistanceAmount}}元礼券放入了你的账户，快去看看
                 </view>
-                <image bindtap="goToCreateImg" class="assistance-luck-img-help-button-see" src="../../pages/images/assistance/buton_see.png">
+                <image bindtap="goToCreateImg" class="assistance-luck-img-help-button-see" src="{{KrImgUrl}}helpingActivity/helping/buton_see.png">
                 </image>
             </view>
 
@@ -63,11 +64,11 @@
                 </view>       
                 <view class="firends-content-amount">
                     <view class="firends-content-top">
-                        <image class="amount-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
-                        <view class="increase" >+{{item.amount}}</view>
+                        <image class="amount-img" src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
+                        <view class="increase" >+{{item.amount}}元</view>
                     </view>
                     <view wx:if="{{item.first}}" class="firends-content-bottom">
-                        <image class="news-double-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538141665221&di=d104d275739f2fbc2b03006beebc32fa&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320143247_Efn8G.png"></image>
+                        <view class="news-double-num">x2</view>
                         <view class="news-double-describe">新人助力翻倍</view>
                     </view>  
                 </view>
@@ -78,8 +79,8 @@
                       <view class="assistance-friends-help-content-detail-top">Ta的礼券池已经到上限啦！</view>
                       <view class="assistance-friends-help-content-detail-bottom">继续助力的话Ta的礼券金也不会累积了哦~</view>
                   </view>
-                  <image class="assistance-friends-help-content-glass" src="../../pages/images/assistance/glass.png" ></image>
-                  <image class="assistance-friends-help-content-button_isee" src="../../pages/images/assistance/button_isee.png" ></image>
+                  <image class="assistance-friends-help-content-glass" src="{{KrImgUrl}}helpingActivity/helping/glass.png" ></image>
+                  <image class="assistance-friends-help-content-button_isee" src="{{KrImgUrl}}helpingActivity/helping/button_isee.png" ></image>
                 </view>   
             <view class="more" bindtap="getMore">
                   点击加载更多
