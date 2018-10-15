@@ -500,9 +500,6 @@ Page({
   //登录
   login: function() {
     let that = this;
-    setTimeout(function() {
-      that.james.initNum("003");
-    }, 1000);
     wx.login({
       success: function(res) {
         if (res.code) {
