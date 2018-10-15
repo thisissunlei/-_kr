@@ -193,6 +193,7 @@ Page({
                 id: that.data.weChatId
               },
               success: res => {
+                console.log('===========',res)
                 wx.hideLoading();
                 console.log('成功!!');
                 console.log('res')
