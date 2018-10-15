@@ -1,6 +1,6 @@
 //获取应用实例
 const app = getApp();
-import {demoAnimate,demoAnimates} from '../../utils/numAnimate.js';
+import {demoAnimate,demoAnimates,Animates} from '../../utils/numAnimate.js';
 // import {demoAnimate,demoAnimates} from '../../utils/animate.js';
 let _this 
 Page({
@@ -9,17 +9,20 @@ Page({
     numArrs:[{label:'0'},{label:'0'}],
     number:'520',
     top:0,
-    run:true,
+    run:false,
     animationDataTwo:'',
     animationDataOne:'',
     animationCloudData:'',
     animationDataThree:'',
     KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
+    show:true,
+    animationTwo:'',
+    animationOne:'',
   },
   aaa :3445,
   james:'',
   other:'',
-  run:true,
+  
   number:'00',
   onLoad: function() {
     _this = this;
@@ -34,7 +37,7 @@ Page({
     //   _this:this
     // })
     // this.WXAniamtion()
-    this.james = new demoAnimates({
+    this.james = new Animates({
       _this:that,
       callback:function(){
         console.log('callback',that.aaa)
@@ -151,6 +154,9 @@ Page({
     
   },
   stop(e){
+    this.setData({
+      run:true,
+    })
     // if(this.run){
     //   this.james.initNum('234')
     //   this.run  = false

@@ -1,5 +1,6 @@
 const app = getApp()
-import {demoAnimate,demoAnimates} from '../../utils/animate.js';
+// import {demoAnimate,demoAnimates} from '../../utils/animate.js';
+import {demoAnimate,Animates} from '../../utils/numAnimate.js';
 Page({
     data: {
         hasUserInfo: false,
@@ -24,6 +25,9 @@ Page({
         numArrs:[{label:'0'},{label:'0'}],
         number:'520',
         KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
+        animationOne:'',
+        animationTwo:'',
+        // animationCloudData:''
     },
     aaa :3445,
     james:'',
@@ -54,8 +58,9 @@ Page({
       let that = this;
       let numArr = this.data.numArr;
       let numArrs = this.data.numArrs;
-      this.james = new demoAnimates({
-            numArr:numArr,
+      this.james = new Animates({
+      // this.james = new demoAnimates({
+            // numArr:numArr,
             _this:that,
             callback:function(that){}
           });
@@ -159,6 +164,7 @@ Page({
       title: "助力中",
       mask: true
     });
+
     // 是否时新人
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
@@ -241,8 +247,10 @@ Page({
                     console.log('res.data.data.amount')      
                     console.log(res.data.data.amount+'')
                         if(res.data.data.amount < 10){
+                          console.log("小于10");
                           that.james.stop('0'+res.data.data.amount)    
                         }else{
+                          console.log("大于10");
                           that.james.stop(res.data.data.amount+'')
                         }  
                     }else{

@@ -159,7 +159,7 @@ export class demoAnimates {
 		return numArr;
 	}
 	allRun(){
-		moveNum  += 10;
+		moveNum  += 30;
 		var top = moveNum
 		let numData = _that.numData;
 		let len = numData.length;
@@ -218,6 +218,7 @@ export class demoAnimates {
 			let number = parseInt(num.slice(i,i+1));
 			_that.numData[i].targetMove = index*ListHeight+number*135;
 			_that.numData[i].targetTop = number*135;
+			console.log('_that.numData[i].targetTop=======',_that.numData[i].targetTop)
 			_that.numData[i].targetBox = box;
 		}
 	}

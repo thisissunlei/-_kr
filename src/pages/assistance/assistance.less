@@ -342,56 +342,49 @@
     position: absolute;
     left: 260.4rpx;
     top: 372.4rpx;
-    height:157.2rpx;
+    height:134.2rpx;
     width:265.2rpx;
   }
   .box-list .num-img{
     top:0;
-    height:137.2rpx;
+    height:134.2rpx;
     width:265.2rpx;
     display: block;
     box-sizing: border-box;
     padding:40rpx 30rpx;
   }
-  .box-list{
-    height:137.2rpx;
-    width:265.2rpx;
-    display: inline-block;
-    vertical-align:top;
-    position: absolute;
-    top:0;
-  }
   .box-cantainer{
     position:relative;
-    height:137.2rpx;
+    height:154.2rpx;
     width:265.2rpx;
     overflow: hidden;
   }
   .num-img{
-    height: 135.2rpx;
+    height: 134.2rpx;
     width: 103.2rpx;
     display: block;
     box-sizing: border-box;
     padding:20rpx;
   }
   .box-lists{
-    height: 155.2rpx;
-    width: 103.2rpx;
+    height: 123.2rpx;
+    width: 105.2rpx;
     margin-right: 16rpx;
     display: inline-block;
     vertical-align:top;
     position: relative;
-    border: 1rpx solid #282824;
     border-radius: 8rpx;
+    background: #7EBFAD;
   }
   .one,
   .two {
-    position: absolute;
-    left: 0;
     width: 103.2rpx;
-    background: #7EBFAD;
     transition: all;
+    width:103rpx;
+    height:1340rpx;
+    display:block;
   }
+  
 
   .rule {
       position: fixed;
@@ -466,3 +459,154 @@
     color:  #624D17;
     font-size: 30rpx;
  }
+
+
+.one-animation{
+  animation:onemove 3s infinite linear
+
+}
+.two-animation{
+  animation:twomove 3s infinite linear
+}
+ @keyframes onemove {
+    0%{ 
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-100%);
+    }
+    51%{
+        transform: translateY(100%);
+    }
+    51%{
+        transform: translateY(100%);
+    }
+    
+    100%{
+      transform: translateY(0);
+    }
+}
+@keyframes twomove {
+    0%{ 
+        transform: translateY(0%);
+    }
+    50%{
+        transform: translateY(-100%);
+    }
+    100%{
+        transform: translateY(-200%);
+    } 
+}
+.move-zero{
+  animation:moveZero .2s forwards linear
+}
+.move-one{
+  animation:moveOne .3s forwards linear
+}
+.move-two{
+  animation:moveTwo .3s forwards linear
+}
+.move-three{
+  animation:moveThree .3s forwards linear
+}
+.move-four{
+  animation:moveFour .3s forwards linear
+}
+.move-five{
+  animation:moveFive .3s forwards linear
+}
+.move-six{
+  animation:moveSix .3s forwards linear
+}
+.move-seven{
+  animation:moveSeven .4s forwards linear
+}
+.move-eight{
+  animation:moveEight .4s forwards linear
+}
+.move-nine{
+  animation:moveNine .5s forwards linear
+}
+.delay{
+  animation-delay:.2s
+}
+@keyframes moveOne {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-134rpx);
+    } 
+}
+@keyframes moveZero {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-1340rpx);
+    } 
+}
+@keyframes moveTwo {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-269rpx);
+    } 
+}
+@keyframes moveThree {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-402rpx);
+    } 
+}
+@keyframes moveFour {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-536rpx);
+    } 
+}
+@keyframes moveFive {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-670rpx);
+    } 
+}
+@keyframes moveSix {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-804rpx);
+    } 
+}
+@keyframes moveSeven {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-938rpx);
+    } 
+}
+@keyframes moveEight {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-1072rpx);
+    } 
+}
+@keyframes moveNine {
+    0%{ 
+        transform: translateY(0);
+    }
+    100%{
+      transform: translateY(-1206rpx);
+    } 
+}
