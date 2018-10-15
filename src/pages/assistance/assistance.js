@@ -70,7 +70,6 @@ Page({
         title: "加载中",
         mask: true
       });
-        return;
         setTimeout(function(){
           that.setData({
             initTwos:"two two-animation delay",
@@ -78,7 +77,6 @@ Page({
             initOnes:'one one-animation delay',
             initOne:'one one-animation'
           })
-          console.log('hideLoading=========')
           wx.hideLoading();
         },1500)
     },
