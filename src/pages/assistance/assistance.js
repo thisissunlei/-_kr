@@ -66,6 +66,10 @@ Page({
             _this:that,
             callback:function(that){}
           });
+        wx.showLoading({
+        title: "加载中",
+        mask: true
+      });
         setTimeout(function(){
           that.setData({
             initTwos:"two two-animation delay",
@@ -73,6 +77,8 @@ Page({
             initOnes:'one one-animation delay',
             initOne:'one one-animation'
           })
+          console.log('hideLoading=========')
+          wx.hideLoading();
         },1500)
     },
     // 下拉刷新
@@ -194,6 +200,7 @@ Page({
               },
               success: res => {
                 console.log('===========',res)
+
                 wx.hideLoading();
                 console.log('成功!!');
                 console.log('res')

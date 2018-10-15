@@ -193,7 +193,7 @@ export class demoAnimate {
 		_this = parameter._this;
 	}
 	initNum(num) {
-		console.log('======',num)
+		console.log('======',typeof num)
 		if (parseInt(num) == 0) {
 			return;
 		}
@@ -206,53 +206,7 @@ export class demoAnimate {
 		animationDataOne = this.setClass(animationDataOne,one);
 		animationDataTwo = this.setClass(animationDataTwo,two);
 		animationDataThree = this.setClass(animationDataThree,three);
-		console.log('initNum',animationDataThree)
-		// let one_y, two_y, three_y, one_time, two_time, three_time;
-		// if (one == 0) {
-		// 	one_y = -(10*img_H);
-		// 	one_time = 10*img_time;
-		// } else {
-		// 	one_y =  -(img_H * one);
-		// 	one_time = img_time * one
-		// }
-		// if (two == 0) {
-		// 	two_time = 10*img_time;
-		// 	two_y = -(10*img_H);
-		// } else {
-		// 	two_time = two*img_time;
-		// 	two_y = -(img_H * two)
-		// }
-		// if (three == 0) {
-		// 	three_time = 10*img_time;
-		// 	three_y = -(img_H*10);
-		// } else {
-		// 	three_time = img_time*three;
-		// 	three_y = -(img_H * three)
-		// }
-		// var animationDataOne = wx.createAnimation({
-		// 	duration: 400,
-		// });
-		// var animationDataTwo = wx.createAnimation({
-		// 	duration: 400,
-		// });
-		// // 第二个
-		// var animationDataThree = wx.createAnimation({
-		// 	duration: 400,
-		// });
-		// animationDataOne.translateY(one_y).step({
-		// 	duration: one_time
-		// });
-		// animationDataTwo.translateY(two_y).step({
-		// 	duration: two_time
-		// });
-		// animationDataThree.translateY(three_y).step({
-		// 	duration: three_time
-		// });
-		// console.log('init',one_y,one)
 		_this.setData({
-			// animationDataOne: animationDataOne.export(),
-			// animationDataTwo: animationDataTwo.export(),
-			// animationDataThree: animationDataThree.export()
 			animationDataOne: animationDataOne,
 			animationDataTwo: animationDataTwo,
 			animationDataThree: animationDataThree

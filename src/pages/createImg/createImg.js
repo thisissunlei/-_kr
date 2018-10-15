@@ -392,7 +392,7 @@ Page({
         num = "0" + num;
         break;
       default:
-        return num;
+        return num.toString();
     }
     return num;
   },
