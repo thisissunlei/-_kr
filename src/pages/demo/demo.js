@@ -18,6 +18,11 @@ Page({
     show:true,
     animationTwo:'',
     animationOne:'',
+    show:false,
+    initOne:'one',
+        initOnes:'one',
+        initTwo:'two',
+        initTwos:'two',
   },
   aaa :3445,
   james:'',
@@ -25,10 +30,7 @@ Page({
   
   number:'00',
   onLoad: function() {
-    _this = this;
     let that = this;
-    let numArr = this.data.numArr;
-    let numArrs = this.data.numArrs;
   },
   onReady:function(){
     let ii = 0
@@ -43,6 +45,17 @@ Page({
         console.log('callback',that.aaa)
       }
     })
+
+    setTimeout(function(){
+          that.setData({
+            initTwos:"two two-animation delay",
+            initTwo:'two two-animation',
+            initOnes:'one one-animation delay',
+            initOne:'one one-animation'
+          })
+        },1500)
+    
+    
     
    
   },
@@ -154,9 +167,16 @@ Page({
     
   },
   stop(e){
-    this.setData({
-      run:true,
-    })
+    let that= this
+    // this.setData({
+    //   run:true,
+    // })
+    // setTimeout(function(){
+    //   that.setData({
+    //     one:'one one-animation',
+    //     two:'two two-animation'
+    //   })
+    // },500)
     // if(this.run){
     //   this.james.initNum('234')
     //   this.run  = false
@@ -165,7 +185,7 @@ Page({
     //   this.run = true
     // }
     console.log('stop=====')
-     this.james.stop('07')
+     this.james.stop('67')
     // this.number = '07'
   },
   

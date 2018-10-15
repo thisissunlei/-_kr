@@ -166,11 +166,6 @@ Page({
               animationStart: false
             });
           }, 1000);
-          setTimeout(() => {
-            that.setData({
-              showAnimation: false
-            });
-          }, 1000);
           that.getBooster();
         } else {
           wx.showToast({
@@ -182,6 +177,12 @@ Page({
       }
     });
   },
+  closeAnimation: function() {
+    this.setData({
+      showAnimation: false
+    });
+  },
+
   //页面上拉触底事件
   onReachBottom: function() {
     const that = this;
@@ -391,7 +392,7 @@ Page({
         num = "0" + num;
         break;
       default:
-        return num;
+        return num.toString();
     }
     return num;
   },
@@ -500,9 +501,6 @@ Page({
   //登录
   login: function() {
     let that = this;
-    setTimeout(function() {
-      that.james.initNum("003");
-    }, 1000);
     wx.login({
       success: function(res) {
         if (res.code) {

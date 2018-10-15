@@ -27,6 +27,10 @@ Page({
         KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
         animationOne:'',
         animationTwo:'',
+        initOne:'one',
+        initOnes:'one',
+        initTwo:'two',
+        initTwos:'two',
         // animationCloudData:''
     },
     aaa :3445,
@@ -58,12 +62,24 @@ Page({
       let that = this;
       let numArr = this.data.numArr;
       let numArrs = this.data.numArrs;
-      this.james = new Animates({
-      // this.james = new demoAnimates({
-            // numArr:numArr,
+        this.james = new Animates({
             _this:that,
             callback:function(that){}
           });
+        wx.showLoading({
+        title: "加载中",
+        mask: true
+      });
+        setTimeout(function(){
+          that.setData({
+            initTwos:"two two-animation delay",
+            initTwo:'two two-animation',
+            initOnes:'one one-animation delay',
+            initOne:'one one-animation'
+          })
+          console.log('hideLoading=========')
+          wx.hideLoading();
+        },1500)
     },
     // 下拉刷新
     onPullDownRefresh(e) {
@@ -164,7 +180,6 @@ Page({
       title: "助力中",
       mask: true
     });
-
     // 是否时新人
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
@@ -184,6 +199,8 @@ Page({
                 id: that.data.weChatId
               },
               success: res => {
+                console.log('===========',res)
+
                 wx.hideLoading();
                 console.log('成功!!');
                 console.log('res')
