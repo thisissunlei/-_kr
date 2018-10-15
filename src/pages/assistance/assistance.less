@@ -90,6 +90,7 @@
     width: 690rpx;
     margin-left: 30rpx;
     margin-right: 30rpx;
+    z-index: 9999999;
 }
 .random-num-left {
    position: absolute;
@@ -191,8 +192,14 @@
 .assistance-friends-list {
     position: relative;
     width:  670rpx;
+    height: 1318rpx;
     border: 4rpx #C88AFF solid;
     border-radius: 16rpx;
+}
+.assistance-friends-list-content {
+    overflow:scroll;
+    width:  670rpx;
+    height: 1194rpx;
 }
 .assistance-friends-item {
     margin-top: 60rpx;
@@ -322,9 +329,10 @@
     clear: both;
 }
 .more {
-    margin-top: 40rpx;
-    margin-bottom: 42rpx;
-    margin-left: 246rpx;
+    position: absolute;
+    margin-top: 42rpx;
+    bottom: 42rpx;
+    left: 246rpx;
     width: 180rpx;
     height: 42rpx;
     color:#C392CB;
@@ -335,47 +343,41 @@
     position: absolute;
     left: 260.4rpx;
     top: 372.4rpx;
-    height:157.2rpx;
+    height:134.2rpx;
     width:265.2rpx;
   }
   .box-list .num-img{
     top:0;
-    height:137.2rpx;
+    height:134.2rpx;
     width:265.2rpx;
     display: block;
     box-sizing: border-box;
     padding:40rpx 30rpx;
   }
-  .box-list{
-    height:137.2rpx;
-    width:265.2rpx;
-    display: inline-block;
-    vertical-align:top;
-    position: absolute;
-    top:0;
-  }
   .box-cantainer{
     position:relative;
-    height:137.2rpx;
+    height:154.2rpx;
     width:265.2rpx;
     overflow: hidden;
   }
   .num-img{
-    height: 135.2rpx;
+    height: 134.2rpx;
     width: 103.2rpx;
     display: block;
     box-sizing: border-box;
     padding:20rpx;
   }
   .box-lists{
-    height: 155.2rpx;
-    width: 103.2rpx;
+    height: 123.2rpx;
+    width: 105.2rpx;
     margin-right: 16rpx;
     display: inline-block;
     vertical-align:top;
     position: relative;
-    border: 1rpx solid #282824;
     border-radius: 8rpx;
+    background: #7EBFAD;
+    overflow: hidden;
+    border: 0.5rpx solid #282824;
   }
   .one,
   .two {

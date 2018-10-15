@@ -7,7 +7,7 @@ Page({
         assistance:{},
         rule:false,
         user_info:'',
-        assistanceFlag:false,
+        assistanceFlag:true,
         alsoAssistanceFlag:false,
         alsoAssistanceAmount:'',
         pageNum:1,
@@ -41,6 +41,10 @@ Page({
         weChatId:options.weChatId
       })
       let that = this;
+      wx.showLoading({
+        title: "加载中",
+        mask: true
+      });
       wx.getSetting({
         success: res => {
           if (res.authSetting["scope.userInfo"]) {
@@ -166,7 +170,10 @@ Page({
   postAssistance: function (){
     console.log("助力");
     var that = this;
-    that.james.stop('10')
+    wx.showLoading({
+      title: "助力中",
+      mask: true
+    });
     // 是否时新人
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
@@ -186,6 +193,7 @@ Page({
                 id: that.data.weChatId
               },
               success: res => {
+                wx.hideLoading();
                 console.log('成功!!');
                 console.log('res')
                 console.log(res)
@@ -208,14 +216,12 @@ Page({
                       })
                       that.firendAssistanceList();
                       if(res.data.data.boosterAamount<10){
-                        // that.james.stop("0"+res.data.data.boosterAamount)
+                        that.james.stop("0"+res.data.data.boosterAamount)
                       }else{
-                        // that.james.stop(res.data.data.boosterAamount+"")
+                        that.james.stop(res.data.data.boosterAamount+"")
                       }
                       console.log("动画该停止得金额"+res.data.data.boosterAamount);
-                      
                 }
-                
               }
             });
       }
@@ -250,8 +256,10 @@ Page({
                     console.log('res.data.data.amount')      
                     console.log(res.data.data.amount+'')
                         if(res.data.data.amount < 10){
+                          console.log("小于10");
                           that.james.stop('0'+res.data.data.amount)    
                         }else{
+                          console.log("大于10");
                           that.james.stop(res.data.data.amount+'')
                         }  
                     }else{
