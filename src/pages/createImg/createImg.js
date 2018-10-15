@@ -28,9 +28,11 @@ Page({
     totalPages: null,
     leftCoupon: [],
     rightCoupon: [],
-    animationDataOne:'',
-    animationDataTwo:'',
-    animationDataThree:''
+    showAnimation: false, //提取动画
+    animationStart: false,
+    animationDataOne: "",
+    animationDataTwo: "",
+    animationDataThree: ""
   },
   weChatId: null, //微信id
   page: 1,
@@ -150,11 +152,25 @@ Page({
       success: res => {
         console.log(res);
         if (res.data.code == 1) {
-          wx.showToast({
-            title: "成功领取入场券",
-            icon: "success",
-            duration: 2000
+          // wx.showToast({
+          //   title: "成功领取入场券",
+          //   icon: "success",
+          //   duration: 2000
+          // });
+          that.setData({
+            showAnimation: true,
+            animationStart: true
           });
+          setTimeout(() => {
+            that.setData({
+              animationStart: false
+            });
+          }, 1000);
+          setTimeout(() => {
+            that.setData({
+              showAnimation: false
+            });
+          }, 1000);
           that.getBooster();
         } else {
           wx.showToast({
@@ -359,8 +375,8 @@ Page({
         that.setData({
           number: result
         });
-        console.log('result----',result)
-        that.james.initNum(result)
+        console.log("result----", result);
+        that.james.initNum(result);
         // that.animate();
       }
     });
@@ -484,9 +500,9 @@ Page({
   //登录
   login: function() {
     let that = this;
-    setTimeout(function(){
-      that.james.initNum('003')
-    },1000)
+    setTimeout(function() {
+      that.james.initNum("003");
+    }, 1000);
     wx.login({
       success: function(res) {
         if (res.code) {

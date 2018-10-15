@@ -512,7 +512,7 @@
 }
 .record-list-content {
   padding: 0 30rpx;
-  margin-bottom: 120rpx;
+  margin-bottom: 30rpx;
 }
 .record-list-friend {
   width: 100%;
@@ -741,7 +741,7 @@
 }
 .box-cantainer {
   position: relative;
-  width: 288rpx;
+  width: 290rpx;
   height: 100rpx;
   overflow: hidden;
 }
@@ -754,7 +754,7 @@
 }
 .box-lists {
   width: 90rpx;
-  height:100rpx;
+  height: 100rpx;
   display: inline-block;
   vertical-align: top;
   position: relative;
@@ -783,117 +783,218 @@
 .animation-content {
   width: 420rpx;
   height: 410rpx;
-  border: 1px solid #ccc;
   border-radius: 16rpx;
+  position: relative;
 }
-.move-zero{
-  animation:moveZero 1s forwards linear
+.animation-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
 }
-.move-one{
-  animation:moveOne 1.1s forwards linear
+.animation-rocket {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  right: 9%;
+  top: 6%;
+  z-index: 10;
 }
-.move-two{
-  animation:moveTwo 1.2s forwards linear
+.animation-money {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
 }
-.move-three{
-  animation:moveThree 1.3s forwards linear
+.animation-text {
+  width: 100%;
+  height: 50rpx;
+  position: absolute;
+  bottom: 4%;
+  left: 0;
+  z-index: 1000;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #fff;
 }
-.move-four{
-  animation:moveFour 1.4s forwards linear
+.animation-coupon {
+  width: 206rpx;
+  height: 236rpx;
+  position: absolute;
+  top: 54rpx;
+  left: 50%;
+  margin-left: -103rpx;
+  z-index: 10;
 }
-.move-five{
-  animation:moveFive 1.5s forwards linear
+.animation-coupon-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
 }
-.move-six{
-  animation:moveSix 1.6s forwards linear
+.animation-coupon-text {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
 }
-.move-seven{
-  animation:moveSeven 1.7s forwards linear
+.animation-coupon-top {
+  width: 100%;
+  height: 84rpx;
+  line-height: 84rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #624d17;
+  font-weight: bold;
 }
-.move-eight{
-  animation:moveEight 1.8s forwards linear
+.animation-coupon-top text {
+  font-size: 40rpx;
 }
-.move-nine{
-  animation:moveNine 1.9s forwards linear
+.animation-coupon-tpye {
+  width: 100%;
+  height: 44rpx;
+  line-height: 44rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #624d17;
+}
+.animation-coupon-fix {
+  width: 100%;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 36rpx;
+  color: #ffe291;
+  margin-top: 30rpx;
+}
+.animation-bottom {
+  width: 100%;
+  height: 110rpx;
+  line-height: 110rpx;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  color: #fff;
+  font-size: 26rpx;
+}
+.move-zero {
+  animation: moveZero 1s forwards linear;
+}
+.move-one {
+  animation: moveOne 1.1s forwards linear;
+}
+.move-two {
+  animation: moveTwo 1.2s forwards linear;
+}
+.move-three {
+  animation: moveThree 1.3s forwards linear;
+}
+.move-four {
+  animation: moveFour 1.4s forwards linear;
+}
+.move-five {
+  animation: moveFive 1.5s forwards linear;
+}
+.move-six {
+  animation: moveSix 1.6s forwards linear;
+}
+.move-seven {
+  animation: moveSeven 1.7s forwards linear;
+}
+.move-eight {
+  animation: moveEight 1.8s forwards linear;
+}
+.move-nine {
+  animation: moveNine 1.9s forwards linear;
 }
 @keyframes moveOne {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1100rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1100rpx);
+  }
 }
 @keyframes moveZero {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1000rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1000rpx);
+  }
 }
 @keyframes moveTwo {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1200rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1200rpx);
+  }
 }
 @keyframes moveThree {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1300rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1300rpx);
+  }
 }
 @keyframes moveFour {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1400rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1400rpx);
+  }
 }
 @keyframes moveFive {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1500rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1500rpx);
+  }
 }
 @keyframes moveSix {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1600rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1600rpx);
+  }
 }
 @keyframes moveSeven {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1700rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1700rpx);
+  }
 }
 @keyframes moveEight {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1800rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1800rpx);
+  }
 }
 @keyframes moveNine {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1900rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1900rpx);
+  }
 }
-
