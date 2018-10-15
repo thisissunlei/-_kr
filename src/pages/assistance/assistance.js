@@ -155,7 +155,7 @@ Page({
   postAssistance: function (){
     console.log("助力");
     var that = this;
-    that.james.stop('22')
+    that.james.stop('17')
     // 是否时新人
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",

@@ -24,6 +24,7 @@
   border:1px solid red;
   width:600rpx;
   height:134rpx;
+  overflow: hidden;
 }
 .num-img{
   width:90rpx;
@@ -39,11 +40,16 @@
   vertical-align:top;
   position: relative;  
 }
+
 .one,
 .two {
+  left: 0;
   width:60rpx;
   height:1340rpx;
   display:block;
+}
+.stop{
+
 }
 .one{
   background-color: #333;
@@ -55,13 +61,22 @@
   z-index:-1;
 
 }
+.stoped{
+  display: none;
+}
 
 .animal{
    border:5px solid black;
    transition: all 1s;
 }
 
+.one-animation{
+  animation:onemove 2s infinite linear
 
+}
+.two-animation{
+  animation:twomove 2s infinite linear
+}
 .page{
   position: relative;
   height:20rpx;
