@@ -155,6 +155,7 @@ Page({
   postAssistance: function (){
     console.log("助力");
     var that = this;
+    that.james.stop('22')
     // 是否时新人
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
@@ -196,9 +197,9 @@ Page({
                       })
                       that.firendAssistanceList();
                       if(res.data.data.boosterAamount<10){
-                        that.james.stop("0"+res.data.data.boosterAamount)
+                        // that.james.stop("0"+res.data.data.boosterAamount)
                       }else{
-                        that.james.stop(res.data.data.boosterAamount+"")
+                        // that.james.stop(res.data.data.boosterAamount+"")
                       }
                       console.log("动画该停止得金额"+res.data.data.boosterAamount);
                       
