@@ -6,7 +6,7 @@ Page({
         assistance:{},
         rule:false,
         user_info:'',
-        assistanceFlag:false,
+        assistanceFlag:true,
         alsoAssistanceFlag:false,
         alsoAssistanceAmount:'',
         pageNum:1,
@@ -15,7 +15,7 @@ Page({
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        weChatId:'',
+        weChatId:'1383',
         totalAmount:'',
         totalCount:'',
         isNew:false,
@@ -29,10 +29,14 @@ Page({
     james:'',
     other:'',
     onLoad(options) {
-      this.setData({
-        weChatId:options.weChatId
-      })
+      // this.setData({
+      //   weChatId:options.weChatId
+      // })
       let that = this;
+      wx.showLoading({
+        title: "加载中",
+        mask: true
+      });
       wx.getSetting({
         success: res => {
           if (res.authSetting["scope.userInfo"]) {
@@ -151,6 +155,10 @@ Page({
   postAssistance: function (){
     console.log("助力");
     var that = this;
+    wx.showLoading({
+      title: "助力中",
+      mask: true
+    });
     // 是否时新人
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
@@ -170,6 +178,7 @@ Page({
                 id: that.data.weChatId
               },
               success: res => {
+                wx.hideLoading();
                 console.log('成功!!');
                 console.log('res')
                 console.log(res)
@@ -197,9 +206,7 @@ Page({
                         that.james.stop(res.data.data.boosterAamount+"")
                       }
                       console.log("动画该停止得金额"+res.data.data.boosterAamount);
-                      
                 }
-                
               }
             });
       }

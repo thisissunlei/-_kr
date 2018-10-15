@@ -56,22 +56,24 @@
             </view>
         </view>
         <view class="assistance-friends-list">
-            <view wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix">
-                <image class="friends-img" src="{{item.helpThirdAvatar}}"></image>   
-                <view class="firends-content-detail">
-                    <ivew class="firends-name">{{item.helpThirdNick}}</ivew>
-                    <ivew class="friends-signature">{{item.characters}}</ivew>
-                </view>       
-                <view class="firends-content-amount">
-                    <view class="firends-content-top">
-                        <image class="amount-img" src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
-                        <view class="increase" >+{{item.amount}}元</view>
-                    </view>
-                    <view wx:if="{{item.first}}" class="firends-content-bottom">
-                        <view class="news-double-num">x2</view>
-                        <view class="news-double-describe">新人助力翻倍</view>
-                    </view>  
-                </view>
+            <view class="assistance-friends-list-content">
+                    <view wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix">
+                            <image class="friends-img" src="{{item.helpThirdAvatar}}"></image>   
+                            <view class="firends-content-detail">
+                                <ivew class="firends-name">{{item.helpThirdNick}}</ivew>
+                                <ivew class="friends-signature">{{item.characters}}</ivew>
+                            </view>       
+                            <view class="firends-content-amount">
+                                <view class="firends-content-top">
+                                    <image class="amount-img" src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
+                                    <view class="increase" >+{{item.amount}}元</view>
+                                </view>
+                                <view wx:if="{{item.first}}" class="firends-content-bottom">
+                                    <view class="news-double-num">x2</view>
+                                    <view class="news-double-describe">新人助力翻倍</view>
+                                </view>  
+                            </view>
+                        </view>
             </view>
            
             <view wx:if="{{amountIsFull}}" class="assistance-friends-help-content" >
@@ -119,8 +121,8 @@
                <view>
                 7）如有疑问请联系客服，活动最终解释权归氪空间所有；
                </view>
-               <view class="rule-close">
-                  <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png" bindtap="ruleClose"></image>
+               <view class="rule-close" bindtap="ruleClose">
+                  <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png" ></image>
                   <view class="rule-close-text" >我知道了</view>
                </view>
                
