@@ -18,6 +18,9 @@ Page({
     show:true,
     animationTwo:'',
     animationOne:'',
+    show:false,
+    one:'one',
+    two:'two'
   },
   aaa :3445,
   james:'',
@@ -25,10 +28,7 @@ Page({
   
   number:'00',
   onLoad: function() {
-    _this = this;
     let that = this;
-    let numArr = this.data.numArr;
-    let numArrs = this.data.numArrs;
   },
   onReady:function(){
     let ii = 0
@@ -37,12 +37,21 @@ Page({
     //   _this:this
     // })
     // this.WXAniamtion()
-    this.james = new Animates({
-      _this:that,
-      callback:function(){
-        console.log('callback',that.aaa)
-      }
-    })
+    // this.james = new Animates({
+    //   _this:that,
+    //   callback:function(){
+    //     console.log('callback',that.aaa)
+    //   }
+    // })
+
+    setTimeout(function(){
+      that.setData({
+        one:'one one-animation',
+        two:'two two-animation'
+      })
+    },5000)
+    
+    
     
    
   },
@@ -154,9 +163,16 @@ Page({
     
   },
   stop(e){
-    this.setData({
-      run:true,
-    })
+    let that= this
+    // this.setData({
+    //   run:true,
+    // })
+    // setTimeout(function(){
+    //   that.setData({
+    //     one:'one one-animation',
+    //     two:'two two-animation'
+    //   })
+    // },500)
     // if(this.run){
     //   this.james.initNum('234')
     //   this.run  = false
