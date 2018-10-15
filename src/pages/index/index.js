@@ -25,6 +25,8 @@ Page({
     duration: 1000,
     btn_bool: true,
     duration: 1000,
+    // avatarUrl: "",
+    userInfo: {},
     distanceShow: false, //距离显示
     buildingList: [], //周边大厦
     myMeeting: [], //会议、散座、活动轮播
@@ -230,13 +232,13 @@ Page({
                 that.func_bool_g = false;
                 that.func_bool_l = false;
                 that.getAllInfo();
-                that.getInfo();
+                // that.getInfo();
               }
               if (that.func_bool_l2 && that.func_bool_s) {
                 that.func_bool_s = false;
                 that.func_bool_l2 = false;
                 that.getAllInfo();
-                that.getInfo();
+                // that.getInfo();
               }
             }
           });
@@ -262,7 +264,7 @@ Page({
             that.func_bool_s = false;
             that.func_bool_l2 = false;
 
-            that.getInfo();
+            // that.getInfo();
           }
 
           that.setData({ btn_bool: false });
@@ -272,6 +274,19 @@ Page({
   },
   onReady: function() {
     var that = this;
+
+    wx.getStorage({
+      key: "user_info",
+      // data: {
+      //   user_info: e.detail.userInfo
+      // }
+      success: res => {
+        // console.log(res);
+        that.setData({
+          userInfo: res.data.user_info
+        });
+      }
+    });
     setTimeout(() => {
       that.setData({
         toView: that.toView
@@ -452,6 +467,7 @@ Page({
     var that = this;
     wx.getUserInfo({
       success: function(res) {
+        console.log(res);
         that.setData({
           avatarUrl: res.userInfo.avatarUrl
         });
@@ -527,9 +543,31 @@ Page({
   },
   //授权
   onGotUserInfo: function(e) {
+    // console.log(e);
+    const that = this;
+
     if (e.detail.userInfo) {
-      this.getInfo();
-      this.setData({
+      // this.getInfo();
+      that.setData({
+        // avatarUrl: e.detail.userInfo.avatarUrl,
+        userInfo: e.detail.userInfo
+      });
+      wx.setStorage({
+        key: "user_info",
+        data: {
+          user_info: e.detail.userInfo
+        }
+      });
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
+
+        data: {
+          encryptedData: e.detail.encryptedData,
+          iv: e.detail.iv
+        },
+        success: res => {}
+      });
+      that.setData({
         btn_bool: false
       });
     }
