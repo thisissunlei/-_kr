@@ -6,7 +6,7 @@ const app = getApp();
 Page({
   data: {
     numArr: [{ label: "0" }, { label: "0" }, { label: "0" }],
-    number: "",
+    number: "000",
     showSuccess: false,
     KrImgUrl: app.globalData.KrImgUrl,
     imgUrl: "",
@@ -77,6 +77,9 @@ Page({
       }
     });
   },
+  onReady: function() {
+    // that.getBooster();
+  },
   //转发分享
   onShareAppMessage: function(res) {
     const that = this;
@@ -137,7 +140,20 @@ Page({
       },
       success: res => {
         console.log(res);
-        that.getBooster();
+        if (res.data.code == 1) {
+          wx.showToast({
+            title: "成功领取入场券",
+            icon: "success",
+            duration: 2000
+          });
+          that.getBooster();
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+        }
       }
     });
   },
@@ -162,7 +178,39 @@ Page({
       });
     } else if (that.currentData == 1 && that.page < that.totalPages) {
       that.page += 1;
-      that.getOwerBooster();
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmbooster/owner-booster",
+        data: {
+          page: that.page,
+          pageSize: that.pageSize
+        },
+        success: res => {
+          // console.log(res);
+
+          that.setData({
+            helpingList: [].concat(that.data.helpingList, res.data.data.items)
+          });
+        }
+      });
+    } else if (that.currentData == 2 && that.page < that.totalPages) {
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
+        data: {
+          page: that.page,
+          pageSize: that.pageSize
+        },
+        success: res => {
+          let recordList = res.data.data.items;
+          recordList.map(item => {
+            item.ctime = that.toDate(item.ctime);
+            return item;
+          });
+          // console.log(res);
+          that.setData({
+            extractList: [].concat(that.data.recordList, recordList)
+          });
+        }
+      });
     }
   },
   //活动规则
@@ -381,10 +429,22 @@ Page({
     const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
+      data: {
+        page: that.page,
+        pageSize: that.pageSize
+      },
       success: res => {
-        console.log(res);
+        that.totalPages = res.data.data.totalPages;
+        let recordList = res.data.data.items;
+        recordList.map(item => {
+          item.ctime = that.toDate(item.ctime);
+          return item;
+        });
+        // console.log(res);
         that.setData({
-          extractList: res.data.data.items
+          extractList: recordList,
+          totalCount: res.data.data.totalCount,
+          totalPages: res.data.data.totalPages
         });
       }
     });
@@ -476,5 +536,21 @@ Page({
         });
       }
     });
+  },
+  //时间戳格式化
+  toDate: function(number) {
+    var date = new Date(number);
+    var Y = date.getFullYear();
+    var M =
+      date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1;
+    var D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    var H = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+    var m =
+      date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+    var S =
+      date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+    return Y + "-" + M + "-" + D + " " + H + ":" + m + ":" + S;
   }
 });
