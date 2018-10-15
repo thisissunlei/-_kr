@@ -166,11 +166,6 @@ Page({
               animationStart: false
             });
           }, 1000);
-          setTimeout(() => {
-            that.setData({
-              showAnimation: false
-            });
-          }, 1000);
           that.getBooster();
         } else {
           wx.showToast({
@@ -182,6 +177,12 @@ Page({
       }
     });
   },
+  closeAnimation: function() {
+    this.setData({
+      showAnimation: false
+    });
+  },
+
   //页面上拉触底事件
   onReachBottom: function() {
     const that = this;
