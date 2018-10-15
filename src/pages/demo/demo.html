@@ -3,9 +3,9 @@
  <!-- <template is="setNumber" data="{{animationDataOne,KrImgUrl,animationDataTwo,animationDataThree}}"></template> -->
  <!-- <view class="other"> -->
  	<!-- <template is="number" data="{{KrImgUrl,animationDataOne,animationDataTwo,animationCloudData}}"></template> -->
-<view class="box-cantainer"> 
+<view class="box-cantainer" > 
     <view class="box-lists">
-      <view class="one one-animation" class="{{animationOne?'one '+animationOne:'one one-animation'}}">
+      <view  class="{{animationOne?'one '+animationOne:one}}">
         <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
@@ -19,7 +19,7 @@
         <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
 
       </view>
-      <view class="{{animationOne?'two stoped':'two two-animation'}}">
+      <view class="{{animationOne?'two stoped':two}}">
         <image class="num-img" src="{{KrImgUrl}}number/0.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/1.png" ></image>
         <image class="num-img" src="{{KrImgUrl}}number/2.png" ></image>
