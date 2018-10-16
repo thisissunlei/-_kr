@@ -187,6 +187,7 @@ Page({
       mask: true
     });
     // 是否时新人
+
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
       method:'GET',
@@ -197,6 +198,7 @@ Page({
       success: res => {
         console.log('请求是否新人  成功!!');
         console.log(res.data.data);
+        console.log('请求助力数--参数',res.data.data,that.data.weChatId);
             app.getRequest({
               url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
               method:'POST',
