@@ -1,5 +1,5 @@
 <import src="../../utils/template/template.wxml" />
-<view>
+<view >
     <view class="container">
         <!-- <view class="header">
           <image class="default-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538053250731&di=fd877e2ffec6a3d79e472e53f58f07a4&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0117e2571b8b246ac72538120dd8a4.jpg%401280w_1l_2o_100sh.jpg"></image>
@@ -126,10 +126,7 @@
                   <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png" ></image>
                   <view class="rule-close-text" >我知道了</view>
                </view>
-               
             </view> 
      </view>
 </view>
-    <view class="error-message" wx:if="{{error}}">{{errorMessage}}</view>
-
 <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
