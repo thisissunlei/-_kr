@@ -75,6 +75,7 @@ Page({
         title: "加载中",
         mask: true
       });
+        console.log('Onready')
         setTimeout(function(){
           that.setData({
             initTwos:"two two-animation delay",

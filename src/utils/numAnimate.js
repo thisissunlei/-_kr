@@ -121,6 +121,7 @@ export class Animates {
 		wx_that = this;
 	}
 	stop(num) {
+		console.log('james---stop',num)
 		if (parseInt(num) == 0) {
 			return;
 		}
