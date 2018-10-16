@@ -65,29 +65,26 @@ Page({
     });
   },
   formSubmit: function(e) {
-    var that = this;
-    console.log("tag", e);
-    var formId = e.detail.formId;
-    var content = e.detail.target.dataset.name; //记录用户的操作
-    console.log("form发生了submit事件，推送码为：", formId);
-    console.log("button点击事件来自：", content);
-    // that.submintFromId(formId, content)
+    const that = this;
+    console.log(e);
+    let formId = e.detail.formId;
+    // console.log("form发生了submit事件，推送码为：", formId);
+    that.submintFromId(formId);
   },
   //提交formId，让服务器保存到数据库里
-  // submintFromId: function (formId, content) {
-  //   var that = this
-  //   wx.request({
-  //     url: app.globalData.requestUrl + 't后台地址.aspx',
-  //     data: {
-  //       requestType: "insert",
-  //       formId: formId,
-  //       content: content,
-  //     },
-
-  //     success: function (response) {
-  //     }
-  //   })
-  // },
+  submintFromId: function(formId) {
+    var that = this;
+    // console.log(formId);
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmboostermsg/collect-formId",
+      data: {
+        formId: formId
+      },
+      success: res => {
+        console.log(res);
+      }
+    });
+  },
 
   //首次弹窗关闭
   alertClosed: function() {
@@ -328,7 +325,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
       success: res => {
-        console.log(res);
+        // console.log(res);
         if (res.data.data) {
           that.setData({
             alertOnce: true

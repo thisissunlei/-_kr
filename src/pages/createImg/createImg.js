@@ -38,8 +38,8 @@ Page({
   },
   weChatId: null, //微信id
   page: 1,
-  pageSize: 10,
-  totalPages: 1,
+  pageSize: 1,
+  totalPages: 10,
   currentData: 0,
   jdConfig: {
     width: 765,

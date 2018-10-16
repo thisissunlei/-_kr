@@ -7,11 +7,6 @@
 <view class="container container-wrapper">
   <!-- <navigator url="../demo/demo">demo</navigator> -->
   <!-- <navigator url="../assistance/assistance">assistance</navigator> -->
-  <!-- <form report-submit='true' bindsubmit="formSubmit">
-    <button class='login-user' form-type='submit' data-name='个人信息'>
-      <text class="orders-text">个人信息</text>
-    </button>
-  </form> -->
   <!-- 头部信息 -->
   <view class="idx_header">
     <view class="title-msg">
@@ -201,7 +196,7 @@
     <view class="alert-content">
       <image class="alert-bg" src="{{KrImgUrl}}helpingActivity/index/alert_join.png"></image>
       <image class="alert-close" bindtap="alertClosed" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
-      <view class="jump-helping" bindtap="jumpHelpingActivity">
+      <view class="jump-new-helping" bindtap="jumpHelpingActivity">
         <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
         <text>立即参加</text>
       </view>
@@ -217,7 +212,7 @@
         <view class="ticket-scroll">
           <view class="ticket-itself" wx:for="{{extractList}}" wx:key>
             <view class="ticket-list">
-              <view class="ticket-list-value">￥<text style="font-size:60rpx;">{{item.faceValue}}</text></view>
+              <view class="ticket-list-value">￥<text>{{item.faceValue}}</text></view>
               <view class="ticket-list-desc">{{item.conditionDesc}}</view>
               <view class="ticket-list-btn">礼券</view>
             </view>
