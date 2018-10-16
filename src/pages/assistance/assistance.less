@@ -200,9 +200,20 @@ page{
 }
 .assistance-friends-list-content {
     width:  670rpx;
+    padding-bottom: 30rpx;
+}
+.friend-none-default {
+    margin-top: 168.6rpx;
+    margin-left: 262rpx;
+    margin-bottom: 99.7rpx;
+}
+.friend-none-default-img {
+    height: 102rpx;
+    width: 130rpx;
 }
 .assistance-friends-item {
-    margin-top: 60rpx;
+    margin-top: 30rpx;
+    margin-bottom: 30rpx;
     vertical-align: top;
 }
 .assistance-friends-help-content-button_isee {
@@ -229,7 +240,7 @@ page{
     height: 494rpx;
     background: #9013FE;
     border-radius: 16rpx;
-    z-index: 1000;
+    z-index: 999;
 }
 .assistance-friends-help-content-detail {
     position: absolute;
@@ -329,10 +340,7 @@ page{
     clear: both;
 }
 .more {
-    position: absolute;
-    margin-top: 42rpx;
-    bottom: 42rpx;
-    left: 246rpx;
+    margin: 0 auto 42rpx;
     width: 180rpx;
     height: 42rpx;
     color:#C392CB;
@@ -402,20 +410,34 @@ page{
       top: 0rpx;
       left: 0rpx;
       width: 750rpx;
-      height: 1344rpx;
+      height: 100%;
       background:rgba(0,0,0,0.70);
-      z-index: 1000000;
+      z-index: 999999;
+  }
+  .rule-content {
+      position: absolute;
+      top:50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      height: 926rpx;
+      width: 574rpx;
   }
   .rule-title {
+     margin: 0 auto;
      height: 80rpx; 
      width: 278rpx;
-     margin-top: 190rpx;
-     margin-left: 230rpx;
      background: #BB6DFF;
      border: 1px solid #282824;
      border-radius: 16rpx;
      padding: 8rpx;
   }
+  .rule-gap {
+    margin: 0 auto;
+    width: 178rpx;
+    height: 32rpx;
+    border-left: 4rpx solid #BB6DFF;
+    border-right: 4rpx solid #BB6DFF;
+}
   .rule-title-content {
      width: 274rpx;
      height: 76rpx;  
@@ -426,34 +448,27 @@ page{
      border-radius: 16rpx;
      color: #FFEB00;
   }
-  .rule-gap {
-      width: 178rpx;
-      height: 32rpx;
-      margin-left: 284rpx;
-      border-left: 4rpx solid #BB6DFF;
-      border-right: 4rpx solid #BB6DFF;
+  .rule-content-buttom {
+    height: 802rpx;
+    width: 574rpx;
+    background: #9013FE;
+    border-radius: 16rpx;
   }
   .rule-content-text {
-      position: relative;
-      margin-left: auto;
-      margin-right: auto;
-      width: 574rpx;
-      height: 802rpx;
+      margin: 0 auto;
+      width: 494rpx;
+      height: 586rpx;
       background: #9013FE;
       border-radius: 16rpx;
+      padding-top: 58rpx;
       color: #F6ECFF;
       font-size: 30rpx;
       line-height: 44rpx;
-      padding-top: 58rpx;
-      padding-left: 40rpx;
+      overflow: scroll;
   }
   .rule-close {
-      position: absolute;
-      margin-top: 26rpx;
-      margin-left: auto;
-      margin-right: auto;
-      bottom: 22rpx;
-      left: 126rpx;
+      position: relative;
+      margin:26rpx auto 0;
       width: 330rpx;
       height: 110rpx;
   }
@@ -463,8 +478,8 @@ page{
   }
   .rule-close-text {
     position: absolute;
-    left: 102rpx;
     top: 32rpx;
+    left: 102rpx;  
     width: 120rpx;
     height: 42rpx;
     color:  #624D17;

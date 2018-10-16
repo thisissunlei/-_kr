@@ -1,5 +1,5 @@
 <import src="../../utils/template/template.wxml" />
-<view >
+<view wx:if="{{pageOnloadFlag}}">
     <view class="container">
         <!-- <view class="header">
           <image class="default-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538053250731&di=fd877e2ffec6a3d79e472e53f58f07a4&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0117e2571b8b246ac72538120dd8a4.jpg%401280w_1l_2o_100sh.jpg"></image>
@@ -48,15 +48,17 @@
             </view>
 
             <view class="assistance-luck-amount">  
-                <view class="assistance-luck-amount-content">
+                <view wx:if="{{isAssistanceFlag}}" class="assistance-luck-amount-content">
                     已有{{totalCount}} 位好友为Ta助力{{totalAmount}} 元礼券
                 </view>
+                <view wx:if="{{!isAssistanceFlag}}" class="assistance-luck-amount-content">
+                    还没有好友为Ta助力呢~
+                 </view>
             </view >
-            <view class="assistance-luck-amount-gap">
-
+            <view wx:if="{{isAssistanceFlag}}" class="assistance-luck-amount-gap">
             </view>
         </view>
-        <view class="assistance-friends-list">
+        <view wx:if="{{isAssistanceFlag}}" class="assistance-friends-list">
             <view class="assistance-friends-list-content">
                     <view wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix">
                             <image class="friends-img" src="{{item.helpThirdAvatar}}"></image>   
@@ -76,7 +78,7 @@
                             </view>
                         </view>
             </view>
-           
+            
             <view wx:if="{{amountIsFull}}" class="assistance-friends-help-content" >
                   <view class="assistance-friends-help-content-detail" >
                       <view class="assistance-friends-help-content-detail-top">Ta的礼券池已经到上限啦！</view>
@@ -92,41 +94,47 @@
     </view>
   <!-- 规则 -->
      <view  wx:if="{{rule}}" class="rule">
-           <view class="rule-title">
-                <view class="rule-title-content">
-                    活动规则
-                </view>
-           </view>
-           <view class="rule-gap">
-
-           </view>
-           <view class="rule-content-text">
-               <view >
-                1）可以通过分享活动至微信群、将带二维码的图片分享
-               </view>
-               <view>
-                2）每个好友助力，可获得5-10元礼券，首次访问自由座的用户助力的礼券翻倍；
-               </view>
-               <view>
-                3）为好友助力后，你也可获得相应礼券金额，每天上限10次；
-               </view>
-               <view>
-                4）根据当你前已有的礼券金，可以提取出不同面额的礼券，用以抵扣订单金额，最高可享免单哦；
-               </view>
-               <view>
-                5）礼券金上限999元，每次提取礼券会消耗掉对应礼券金；
-               </view>
-               <view>
-                6）活动期间，每种礼券最多可兑换3次；
-               </view>
-               <view>
-                7）如有疑问请联系客服，活动最终解释权归氪空间所有；
-               </view>
-               <view class="rule-close" bindtap="ruleClose">
-                  <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png" ></image>
-                  <view class="rule-close-text" >我知道了</view>
-               </view>
-            </view> 
+         <view class="rule-content">
+                  <view class="rule-title">
+                        <view class="rule-title-content">
+                            活动规则
+                        </view>
+                   </view>
+                   <view class="rule-gap">
+        
+                   </view>
+                   <view class="rule-content-buttom">
+                        <view class="rule-content-text">
+                                <view >
+                                 1）可以通过分享活动至微信群、将带二维码的图片分享
+                                </view>
+                                <view>
+                                 2）每个好友助力，可获得5-10元礼券，首次访问自由座的用户助力的礼券翻倍；
+                                </view>
+                                <view>
+                                 3）为好友助力后，你也可获得相应礼券金额，每天上限10次；
+                                </view>
+                                <view>
+                                 4）根据当你前已有的礼券金，可以提取出不同面额的礼券，用以抵扣订单金额，最高可享免单哦；
+                                </view>
+                                <view>
+                                 5）礼券金上限999元，每次提取礼券会消耗掉对应礼券金；
+                                </view>
+                                <view>
+                                 6）活动期间，每种礼券最多可兑换3次；
+                                </view>
+                                <view>
+                                 7）如有疑问请联系客服，活动最终解释权归氪空间所有；
+                                </view>
+                             </view> 
+                             <view class="rule-close" bindtap="ruleClose">
+                                     <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png" ></image>
+                                     <view class="rule-close-text" >我知道了</view>
+                             </view>
+                   </view>
+                   
+         </view>
+          
      </view>
 </view>
 <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
