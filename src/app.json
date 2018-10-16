@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/assistance/assistance",
     "pages/demo/demo",
+    "pages/assistance/assistance",
     "pages/getTeamCard/getTeamCard",
     "pages/teamCardManage/teamCardManage",
     "pages/myTeamCard/myTeamCard",

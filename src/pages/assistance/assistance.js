@@ -31,6 +31,8 @@ Page({
         initOnes:'one',
         initTwo:'two',
         initTwos:'two',
+        error:false,
+        errorMessage:'',
         moreFlag:false,
         // animationCloudData:''
     },
@@ -206,21 +208,19 @@ Page({
                 id: that.data.weChatId
               },
               success: res => {
-                console.log('===========',res)
+                console.log('zhuli',res.data)
+                let code = res.data.code
+                if(code == -1){
+                  that.setError(res.data.message)
+                  return;
+                }
                 wx.hideLoading();
-                console.log('成功!!');
-                console.log('res')
-                console.log(res)
-                console.log('res.data.data.boosterAamount')
-                console.log(res.data.data.boosterAamount)
                 if(res.data.data.boosterAamount === -1){
-                      console.log('已超过999');
                       that.setData({
                         amountIsFull:true
                       })
                     console.log(that.data.amountIsFull)  
                 }else{
-                      console.log('未超过999');
                       that.setData({
                         alsoAssistanceAmount:res.data.data.boosterAamount
                       })
@@ -234,7 +234,6 @@ Page({
                       }else{
                         that.james.stop(res.data.data.boosterAamount+"")
                       }
-                      console.log("动画该停止得金额"+res.data.data.boosterAamount);
                 }
               }
             });
@@ -384,6 +383,20 @@ Page({
           });
         }
       });
+    },
+    setError(msg){
+      let that = this;
+      that.setData({
+          error:true,
+          errorMessage:msg
+      })
+      setTimeout(function(){
+        that.setData({
+          error:false,
+          errorMessage:''
+        })
+      },2000)
+
     },
   onGotUserInfo: function(e) {
     if (e.detail.userInfo) {

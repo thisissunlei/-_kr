@@ -268,19 +268,19 @@ Page({
   saveImg() {
     //保存图片到本地
     let that = this;
-    // wx.saveImageToPhotosAlbum({
-    //     filePath: that.data.imgUrl,
-    //     success:function(res){
-    //         console.log('success',res)
+    wx.saveImageToPhotosAlbum({
+        filePath: that.data.imgUrl,
+        success:function(res){
+            console.log('success',res)
     that.setData({
       showShare: false,
       showSuccess: true
     });
-    //     },
-    //     fail:function(res){
-    //         console.log('fail',res)
-    //     }
-    // }, this)
+        },
+        fail:function(res){
+            console.log('fail',res)
+        }
+    }, this)
     //保存图片到本地--end
   },
   onPosterSuccess(e) {
