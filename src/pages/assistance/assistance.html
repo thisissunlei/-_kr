@@ -85,7 +85,7 @@
                   <image class="assistance-friends-help-content-glass" src="{{KrImgUrl}}helpingActivity/helping/glass.png" ></image>
                   <image class="assistance-friends-help-content-button_isee" src="{{KrImgUrl}}helpingActivity/helping/button_isee.png" ></image>
                 </view>   
-            <view class="more" bindtap="getMore">
+            <view wx:if="{{moreFlag}}" class="more" bindtap="getMore">
                   点击加载更多
                 </view>            
         </view >
@@ -130,4 +130,6 @@
             </view> 
      </view>
 </view>
+    <view class="error-message" wx:if="{{error}}">{{errorMessage}}</view>
+
 <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>

@@ -16,7 +16,7 @@ Page({
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        weChatId:'',
+        weChatId:'1383',
         totalAmount:'',
         totalCount:'',
         isNew:false,
@@ -31,15 +31,18 @@ Page({
         initOnes:'one',
         initTwo:'two',
         initTwos:'two',
+        error:false,
+        errorMessage:'',
+        moreFlag:false,
         // animationCloudData:''
     },
     aaa :3445,
     james:'',
     other:'',
     onLoad(options) {
-      this.setData({
-        weChatId:options.weChatId
-      })
+      // this.setData({
+      //   weChatId:options.weChatId
+      // })
       let that = this;
       wx.showLoading({
         title: "加载中",
@@ -207,22 +210,19 @@ Page({
                 id: that.data.weChatId
               },
               success: res => {
-                console.log('===========',res)
-
+                console.log('zhuli',res.data)
+                let code = res.data.code
+                if(code == -1){
+                  that.setError(res.data.message)
+                  return;
+                }
                 wx.hideLoading();
-                console.log('成功!!');
-                console.log('res')
-                console.log(res)
-                console.log('res.data.data.boosterAamount')
-                console.log(res.data.data.boosterAamount)
                 if(res.data.data.boosterAamount === -1){
-                      console.log('已超过999');
                       that.setData({
                         amountIsFull:true
                       })
                     console.log(that.data.amountIsFull)  
                 }else{
-                      console.log('未超过999');
                       that.setData({
                         alsoAssistanceAmount:res.data.data.boosterAamount
                       })
@@ -236,7 +236,6 @@ Page({
                       }else{
                         that.james.stop(res.data.data.boosterAamount+"")
                       }
-                      console.log("动画该停止得金额"+res.data.data.boosterAamount);
                 }
               }
             });
@@ -263,11 +262,9 @@ Page({
                 })
               console.log('res.data.data.booster');
               console.log(res.data.data.booster);
-
              if(res.data.data.ownerVisit === 1){
                     that.redirectToCreateImg();
              }else{
-
               if(res.data.data.booster === 1){
                 console.log("已助力");
                     that.setData({
@@ -294,19 +291,19 @@ Page({
       }
     });
   },
-  // 加载更多
+  // 加载更多  
   getMore: function(){
     var that = this;
     that.setData({
-      pageNum:that.data.pageNum+1
+      pageNum:that.data.pageNum
     })
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
       method:'GET',
       data: {
         page:1,
-        pageSize: that.data.pageSize*that.data.pageNum,
-        wechatId:that.data.weChatId
+        pageSize: that.data.pageSize,
+        wechatId: that.data.weChatId
       },
       success: res => {
           if(res.data.code === 1){
@@ -315,25 +312,18 @@ Page({
                 totalAmount:res.data.data.totalAmount,
                 items:res.data.data.items
             })
+            if(res.data.data.totalPages > that.data.pageSize ){
+              that.setData({
+                   moreFlag:true
+              })
+         }else {
+              that.setData({
+                   moreFlag:false
+              }) 
+         }
           }
       }
     });
-    // app.getRequest({
-    //   url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
-    //   method:'GET',
-    //   data: {
-    //     page:1,
-    //     pageSize: that.data.pageSize*that.data.pageNum,
-    //     wechatId:that.data.weChatId
-    //   },
-    //   success: res => {
-    //       if(res.data.code === 1){
-    //         that.setData({
-    //             totalAmount:amount,
-    //         })
-    //       }
-    //   }
-    // });
   },
   // 获取被助力人  助力列表
   firendAssistanceList: function() {
@@ -343,7 +333,7 @@ Page({
       method:'GET',
       data: {
         page:1,
-        pageSize: that.data.pageSize*that.data.pageNum,
+        pageSize: that.data.pageSize+=10,
         wechatId:that.data.weChatId
       },
       success: res => {
@@ -353,25 +343,18 @@ Page({
                 totalAmount:res.data.data.totalAmount,
                 items:res.data.data.items
             })
+            if(res.data.data.totalPages > that.data.pageSize ){
+                 that.setData({
+                      moreFlag:true
+                 })
+            }else {
+                 that.setData({
+                      moreFlag:false
+                 }) 
+            }
           }
       }
     });
-    // app.getRequest({
-    //   url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
-    //   method:'GET',
-    //   data: {
-    //     page:1,
-    //     pageSize: that.data.pageSize*that.data.pageNum,
-    //     wechatId:that.data.weChatId
-    //   },
-    //   success: res => {
-    //       if(res.data.code === 1){
-    //         that.setData({
-    //             totalAmount:res.data.data.totalAmount,
-    //         })
-    //       }
-    //   }
-    // });
   },
     //获取用户信息
   getInfo: function() {
@@ -399,6 +382,20 @@ Page({
           });
         }
       });
+    },
+    setError(msg){
+      let that = this;
+      that.setData({
+          error:true,
+          errorMessage:msg
+      })
+      setTimeout(function(){
+        that.setData({
+          error:false,
+          errorMessage:''
+        })
+      },2000)
+
     },
   onGotUserInfo: function(e) {
     if (e.detail.userInfo) {
