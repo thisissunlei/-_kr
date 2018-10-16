@@ -32,7 +32,9 @@ Page({
     animationStart: false,
     animationDataOne: "",
     animationDataTwo: "",
-    animationDataThree: ""
+    animationDataThree: "",
+    couponInfo: {},
+    hasPhone: true
   },
   weChatId: null, //微信id
   page: 1,
@@ -114,6 +116,48 @@ Page({
       };
     }
   },
+  getPhoneNumber: function(e) {
+    console.log(e);
+    const that = this;
+    if (e.detail.errMsg === "getPhoneNumber:ok") {
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
+        method: "post",
+        data: {
+          baseId: e.currentTarget.dataset.id.id
+        },
+        success: res => {
+          console.log(res);
+          if (res.data.code == 1) {
+            // wx.showToast({
+            //   title: "成功领取入场券",
+            //   icon: "success",
+            //   duration: 2000
+            // });
+            that.setData({
+              showAnimation: true,
+              animationStart: true
+            });
+            setTimeout(() => {
+              that.setData({
+                animationStart: false
+              });
+            }, 1500);
+            that.getBooster();
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: "none",
+              duration: 2000
+            });
+          }
+        }
+      });
+      that.setData({
+        hasPhone: true
+      });
+    }
+  },
   share: function() {
     this.setData({
       showBottomBtn: !this.data.showBottomBtn
@@ -143,11 +187,14 @@ Page({
   extractCoupon: function(e) {
     const that = this;
     console.log(e);
+    that.setData({
+      couponInfo: e.currentTarget.dataset.id
+    });
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
       method: "post",
       data: {
-        baseId: e.currentTarget.dataset.id
+        baseId: e.currentTarget.dataset.id.id
       },
       success: res => {
         console.log(res);
@@ -268,19 +315,22 @@ Page({
   saveImg() {
     //保存图片到本地
     let that = this;
-    wx.saveImageToPhotosAlbum({
+    wx.saveImageToPhotosAlbum(
+      {
         filePath: that.data.imgUrl,
-        success:function(res){
-            console.log('success',res)
-    that.setData({
-      showShare: false,
-      showSuccess: true
-    });
+        success: function(res) {
+          console.log("success", res);
+          that.setData({
+            showShare: false,
+            showSuccess: true
+          });
         },
-        fail:function(res){
-            console.log('fail',res)
+        fail: function(res) {
+          console.log("fail", res);
         }
-    }, this)
+      },
+      this
+    );
     //保存图片到本地--end
   },
   onPosterSuccess(e) {
@@ -367,7 +417,8 @@ Page({
         console.log(res);
         that.weChatId = res.data.data.weChatId;
         that.setData({
-          myBooster: res.data.data.amount
+          myBooster: res.data.data.amount,
+          hasPhone: res.data.data.flag
           // myBooster: 60
         });
         let boosterNumber = res.data.data.amount;
@@ -420,6 +471,7 @@ Page({
       },
       success: res => {
         // console.log(res);
+        that.getBooster();
         that.totalPages = res.data.data.totalPages;
         that.setData({
           recordList: res.data.data.items,
@@ -441,6 +493,8 @@ Page({
       },
       success: res => {
         // console.log(res);
+        that.getBooster();
+
         that.totalPages = res.data.data.totalPages;
 
         that.setData({
