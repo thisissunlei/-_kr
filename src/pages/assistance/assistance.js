@@ -16,7 +16,7 @@ Page({
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        weChatId:'1383',
+        weChatId:'',
         totalAmount:'',
         totalCount:'',
         isNew:false,
@@ -38,9 +38,9 @@ Page({
     james:'',
     other:'',
     onLoad(options) {
-      // this.setData({
-      //   weChatId:options.weChatId
-      // })
+      this.setData({
+        weChatId:options.weChatId
+      })
       let that = this;
       wx.showLoading({
         title: "加载中",
@@ -130,7 +130,6 @@ Page({
               },
               success: res => {
                 console.log("登陆成功!!");
-                wx.hideLoading();
                 app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
                 app.globalData.openid = res.data.data["openid"];
@@ -188,7 +187,6 @@ Page({
       mask: true
     });
     // 是否时新人
-
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
       method:'GET',
@@ -263,9 +261,12 @@ Page({
                 })
               console.log('res.data.data.booster');
               console.log(res.data.data.booster);
+              console.log("res.data.data.ownerVisit");
+              console.log(res.data.data.ownerVisit)
              if(res.data.data.ownerVisit === 1){
                     that.redirectToCreateImg();
              }else{
+              wx.hideLoading();
               if(res.data.data.booster === 1){
                 console.log("已助力");
                     that.setData({
