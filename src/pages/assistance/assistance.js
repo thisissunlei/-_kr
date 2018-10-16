@@ -16,7 +16,7 @@ Page({
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        weChatId:'',
+        weChatId:'1383',
         totalAmount:'',
         totalCount:'',
         isNew:false,
@@ -32,16 +32,17 @@ Page({
         initTwo:'two',
         initTwos:'two',
         error:false,
-        errorMessage:''
+        errorMessage:'',
+        moreFlag:false,
         // animationCloudData:''
     },
     aaa :3445,
     james:'',
     other:'',
     onLoad(options) {
-      this.setData({
-        weChatId:options.weChatId
-      })
+      // this.setData({
+      //   weChatId:options.weChatId
+      // })
       let that = this;
       wx.showLoading({
         title: "加载中",
@@ -209,7 +210,6 @@ Page({
                 id: that.data.weChatId
               },
               success: res => {
-                console.log('===========',res)
                 let code = res.data.code
                 if(code == -1){
                   that.setError(res.data.message)
@@ -261,11 +261,9 @@ Page({
                 })
               console.log('res.data.data.booster');
               console.log(res.data.data.booster);
-
              if(res.data.data.ownerVisit === 1){
                     that.redirectToCreateImg();
              }else{
-
               if(res.data.data.booster === 1){
                 console.log("已助力");
                     that.setData({
@@ -292,19 +290,19 @@ Page({
       }
     });
   },
-  // 加载更多
+  // 加载更多  
   getMore: function(){
     var that = this;
     that.setData({
-      pageNum:that.data.pageNum+1
+      pageNum:that.data.pageNum
     })
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
       method:'GET',
       data: {
         page:1,
-        pageSize: that.data.pageSize*that.data.pageNum,
-        wechatId:that.data.weChatId
+        pageSize: that.data.pageSize,
+        wechatId: that.data.weChatId
       },
       success: res => {
           if(res.data.code === 1){
@@ -313,25 +311,18 @@ Page({
                 totalAmount:res.data.data.totalAmount,
                 items:res.data.data.items
             })
+            if(res.data.data.totalPages > that.data.pageSize ){
+              that.setData({
+                   moreFlag:true
+              })
+         }else {
+              that.setData({
+                   moreFlag:false
+              }) 
+         }
           }
       }
     });
-    // app.getRequest({
-    //   url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
-    //   method:'GET',
-    //   data: {
-    //     page:1,
-    //     pageSize: that.data.pageSize*that.data.pageNum,
-    //     wechatId:that.data.weChatId
-    //   },
-    //   success: res => {
-    //       if(res.data.code === 1){
-    //         that.setData({
-    //             totalAmount:amount,
-    //         })
-    //       }
-    //   }
-    // });
   },
   // 获取被助力人  助力列表
   firendAssistanceList: function() {
@@ -341,7 +332,7 @@ Page({
       method:'GET',
       data: {
         page:1,
-        pageSize: that.data.pageSize*that.data.pageNum,
+        pageSize: that.data.pageSize+=10,
         wechatId:that.data.weChatId
       },
       success: res => {
@@ -351,25 +342,18 @@ Page({
                 totalAmount:res.data.data.totalAmount,
                 items:res.data.data.items
             })
+            if(res.data.data.totalPages > that.data.pageSize ){
+                 that.setData({
+                      moreFlag:true
+                 })
+            }else {
+                 that.setData({
+                      moreFlag:false
+                 }) 
+            }
           }
       }
     });
-    // app.getRequest({
-    //   url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
-    //   method:'GET',
-    //   data: {
-    //     page:1,
-    //     pageSize: that.data.pageSize*that.data.pageNum,
-    //     wechatId:that.data.weChatId
-    //   },
-    //   success: res => {
-    //       if(res.data.code === 1){
-    //         that.setData({
-    //             totalAmount:res.data.data.totalAmount,
-    //         })
-    //       }
-    //   }
-    // });
   },
     //获取用户信息
   getInfo: function() {
