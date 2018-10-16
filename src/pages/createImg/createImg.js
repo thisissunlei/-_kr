@@ -69,8 +69,6 @@ Page({
     wx.reportAnalytics("view_power_activities");
     const that = this;
     this.james = new demoAnimate({
-      // numArr: that.data.numArr,
-      // number: that.data.number,
       _this: that
     });
     // that.animate();
