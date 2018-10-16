@@ -210,6 +210,7 @@ Page({
                 id: that.data.weChatId
               },
               success: res => {
+                console.log('zhuli',res.data)
                 let code = res.data.code
                 if(code == -1){
                   that.setError(res.data.message)
