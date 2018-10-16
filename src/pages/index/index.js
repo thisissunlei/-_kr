@@ -64,6 +64,31 @@ Page({
       showDiscounts: !this.data.showDiscounts
     });
   },
+  formSubmit: function(e) {
+    var that = this;
+    console.log("tag", e);
+    var formId = e.detail.formId;
+    var content = e.detail.target.dataset.name; //记录用户的操作
+    console.log("form发生了submit事件，推送码为：", formId);
+    console.log("button点击事件来自：", content);
+    // that.submintFromId(formId, content)
+  },
+  //提交formId，让服务器保存到数据库里
+  // submintFromId: function (formId, content) {
+  //   var that = this
+  //   wx.request({
+  //     url: app.globalData.requestUrl + 't后台地址.aspx',
+  //     data: {
+  //       requestType: "insert",
+  //       formId: formId,
+  //       content: content,
+  //     },
+
+  //     success: function (response) {
+  //     }
+  //   })
+  // },
+
   //首次弹窗关闭
   alertClosed: function() {
     this.setData({

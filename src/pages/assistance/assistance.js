@@ -11,7 +11,7 @@ Page({
         alsoAssistanceFlag:false,
         alsoAssistanceAmount:'',
         pageNum:1,
-        pageSize:10,
+        pageSize:2,
         amountIsFull:false,
         wechatAvatar:'',
         wechatNick:'',
@@ -34,6 +34,8 @@ Page({
         error:false,
         errorMessage:'',
         moreFlag:false,
+        pageOnloadFlag:false,
+        isAssistanceFlag:false
         // animationCloudData:''
     },
     aaa :3445,
@@ -117,7 +119,6 @@ Page({
         }
       });
     },  
-
     //登录
     login: function() {
       let that = this;
@@ -136,8 +137,6 @@ Page({
                 app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
                 app.globalData.openid = res.data.data["openid"];
-                //that.getInfo();
-                // that.getAssistance();
                 that.sharedInf();
                 that.firendAssistanceList();
               },
@@ -253,12 +252,7 @@ Page({
       success: res => {
               console.log("分享详情接口 kmbooster/shared-info")
               console.log(res.data)
-              if(res.data.code === 1){
-                  that.setData({
-                  wechatAvatar:res.data.data.wechatAvatar,
-                  wechatNick:res.data.data.wechatNick,
-                  alsoAssistanceAmount:res.data.data.amount,
-                })
+        if(res.data.code === 1){
               console.log('res.data.data.booster');
               console.log(res.data.data.booster);
               console.log("res.data.data.ownerVisit");
@@ -267,6 +261,13 @@ Page({
                     that.redirectToCreateImg();
              }else{
               wx.hideLoading();
+               
+              that.setData({
+                pageOnloadFlag:true,
+                wechatAvatar:res.data.data.wechatAvatar,
+                wechatNick:res.data.data.wechatNick,
+                alsoAssistanceAmount:res.data.data.amount,
+              })
               if(res.data.data.booster === 1){
                 console.log("已助力");
                     that.setData({
@@ -297,7 +298,7 @@ Page({
   getMore: function(){
     var that = this;
     that.setData({
-      pageNum:that.data.pageNum
+      pageSize:that.data.pageSize+=2
     })
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
@@ -314,7 +315,7 @@ Page({
                 totalAmount:res.data.data.totalAmount,
                 items:res.data.data.items
             })
-            if(res.data.data.totalPages > that.data.pageSize ){
+            if(res.data.data.totalCount > that.data.pageSize ){
               that.setData({
                    moreFlag:true
               })
@@ -327,7 +328,7 @@ Page({
       }
     });
   },
-  // 获取被助力人  助力列表
+  // 获取被助力人  助力列表 分页
   firendAssistanceList: function() {
     var that = this;
     app.getRequest({
@@ -335,17 +336,28 @@ Page({
       method:'GET',
       data: {
         page:1,
-        pageSize: that.data.pageSize+=10,
+        pageSize: that.data.pageSize,
         wechatId:that.data.weChatId
       },
       success: res => {
+        console.log('res.data.data.totalCount')
+        console.log(res.data.data.totalCount)
           if(res.data.code === 1){
+            if(res.data.data.totalCount >0){
+                that.setData({
+                  isAssistanceFlag:true
+                 })
+            }else{
+              that.setData({
+                isAssistanceFlag:false
+               })
+            }
             that.setData({
                 totalCount:res.data.data.totalCount,
                 totalAmount:res.data.data.totalAmount,
                 items:res.data.data.items
             })
-            if(res.data.data.totalPages > that.data.pageSize ){
+            if(res.data.data.totalCount > that.data.pageSize ){
                  that.setData({
                       moreFlag:true
                  })
@@ -375,7 +387,6 @@ Page({
           });
           app.getRequest({
             url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
-  
             data: {
               encryptedData: res.encryptedData,
               iv: res.iv

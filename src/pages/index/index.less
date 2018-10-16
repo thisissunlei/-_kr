@@ -688,10 +688,15 @@ button {
 .jump-helping {
   width: 330rpx;
   height: 110rpx;
-  position: absolute;
-  left: 126rpx;
-  bottom: 40rpx;
+  position: relative;
   z-index: 1;
+  margin: 0 auto;
+  margin-top: 30rpx;
+}
+.jump-helping image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 .jump-helping text {
   display: block;
@@ -733,7 +738,6 @@ button {
 }
 .ticket-content {
   width: 574rpx;
-  height: 802rpx;
   position: relative;
   background: #9013fe;
   border-radius: 16rpx;
@@ -756,9 +760,10 @@ button {
 }
 .ticket-scroll {
   width: 100%;
-  height: 500rpx;
+  max-height: 514rpx;
   overflow: auto;
   display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 .ticket-itself {
