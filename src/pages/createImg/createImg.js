@@ -355,16 +355,17 @@ Page({
     });
 
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmbooster/promocode",
+
+      url: "https://i.krspace.cn/api/gateway/kmbooster-qr/promocode",
+      // url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
       data: {
         page: "pages/activityDetails/activity",
-        scene: "8"
+        scene: "id=8"
       },
       success: res => {
         let code = res.data.code;
         if (code === 1) {
-          // weImg.url = res.data.data
-          weImg.url = "/pages/images/shi.jpg";
+          weImg.url = res.data.data
           jdConfig.images.push(weImg);
           this.setData(
             {

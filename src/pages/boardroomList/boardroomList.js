@@ -320,6 +320,7 @@ Page({
   },
   //切换日期后重载数据(会议室的时间刻度的状态处理)
   reloadData: function() {
+    console.log('reloadData')
     var boardroomList = this.data.boardroomList;
 
     //过滤已过去的时间
