@@ -18,8 +18,8 @@ Page({
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        weChatId:'1383',
-        // weChatId:'',
+        // weChatId:'1383',
+        weChatId:'',
         totalAmount:'',
         totalCount:'',
         isNew:false,
@@ -47,9 +47,9 @@ Page({
     james:'',
     other:'',
     onLoad(options) {
-      // this.setData({
-      //   weChatId:options.weChatId
-      // })
+      this.setData({
+        weChatId:options.weChatId
+      })
       let that = this;
       wx.showLoading({
         title: "加载中",
