@@ -39,11 +39,11 @@
                 <image class="new-user-amount-double-num" src="{{KrImgUrl}}helpingActivity/helping/newlogo.png"></image>
             </view>
             <!-- 钱 1-5 -->
-                <image class="assistance-luck-img-money1" src="{{KrImgUrl}}helpingActivity/helping/money5.png"></image>
-                <image class="assistance-luck-img-money2" src="{{KrImgUrl}}helpingActivity/helping/money4.png"></image>
-                <image class="assistance-luck-img-money3" src="{{KrImgUrl}}helpingActivity/helping/money3.png"></image>
-                <image class="assistance-luck-img-money4" src="{{KrImgUrl}}helpingActivity/helping/money2.png"></image>
-                <image class="assistance-luck-img-money5" src="{{KrImgUrl}}helpingActivity/helping/money1.png"></image>
+                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money1" src="{{KrImgUrl}}helpingActivity/helping/money5.png"></image>
+                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money2" src="{{KrImgUrl}}helpingActivity/helping/money4.png"></image>
+                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money3" src="{{KrImgUrl}}helpingActivity/helping/money3.png"></image>
+                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money4" src="{{KrImgUrl}}helpingActivity/helping/money2.png"></image>
+                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money5" src="{{KrImgUrl}}helpingActivity/helping/money1.png"></image>
             <view class="other">
                     <!-- <template is="numsAnimate" data="{{KrImgUrl,numArr}}"></template> -->
                     <template is="number" data="{{KrImgUrl,animationOne,animationTwo,initOne,initOnes,initTwo,initTwos}}"></template>
@@ -95,6 +95,10 @@
                             </view>
                         </view>
             </view>
+             <!-- 助力人每天点击超过10次 -->
+             <view wx:if="{{amountIsFullTen}}" class="assistance-friends-help-is-full">
+                     <view class="assistance-friends-help-content-ten-times">每天只能助力十次哦！</view>  
+                </view>
             <!-- 被助力人 礼券池已满 弹框 -->
             <view wx:if="{{amountIsFull}}" class="assistance-friends-help-is-full">
                 <view  class="assistance-friends-help-content" >
