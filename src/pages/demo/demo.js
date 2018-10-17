@@ -35,25 +35,25 @@ Page({
   onReady:function(){
     let ii = 0
     let that = this;
-    // this.james = new demoAnimate({
-    //   _this:this
-    // })
-    // this.WXAniamtion()
-    this.james = new Animates({
-      _this:that,
-      callback:function(){
-        console.log('callback',that.aaa)
-      }
+    this.james = new demoAnimate({
+      _this:this
     })
+    // this.WXAniamtion()
+    // this.james = new Animates({
+    //   _this:that,
+    //   callback:function(){
+    //     console.log('callback',that.aaa)
+    //   }
+    // })
 
-    setTimeout(function(){
-          that.setData({
-            initTwos:"two two-animation delay",
-            initTwo:'two two-animation',
-            initOnes:'one one-animation delay',
-            initOne:'one one-animation'
-          })
-        },1500)
+    // setTimeout(function(){
+    //       that.setData({
+    //         initTwos:"two two-animation delay",
+    //         initTwo:'two two-animation',
+    //         initOnes:'one one-animation delay',
+    //         initOne:'one one-animation'
+    //       })
+    //     },1500)
     
     
     
@@ -177,15 +177,15 @@ Page({
     //     two:'two two-animation'
     //   })
     // },500)
-    // if(this.run){
-    //   this.james.initNum('234')
-    //   this.run  = false
-    // }else{
-    //   this.james.initNum('216')
-    //   this.run = true
-    // }
+    if(this.run){
+      this.james.initNum('000')
+      this.run  = false
+    }else{
+      this.james.initNum('789')
+      this.run = true
+    }
     console.log('stop=====')
-     this.james.stop('67')
+     // this.james.initNum('999')
     // this.number = '07'
   },
   

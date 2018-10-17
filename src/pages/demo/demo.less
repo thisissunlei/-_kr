@@ -10,21 +10,19 @@
   display: block;
   box-sizing: border-box;
   padding:40rpx 30rpx;
+  
 }
-.box-list{
-  width:80rpx;
-  height:100rpx;
-  display: inline-block;
-  vertical-align:top;
-  position: absolute;
-  top:0;
+page{
+  height:5000rpx;
+
 }
+
 .box-cantainer{
+  margin-top: 300rpx;
   position:relative;
   border:1px solid red;
   width:600rpx;
   height:134rpx;
-  overflow: hidden;
 }
 .num-img{
   width:90rpx;
@@ -38,14 +36,12 @@
   height:134rpx;
   display: inline-block;
   vertical-align:top;
-  position: relative;  
+  position: relative; 
 }
 
 .one,
 .two {
-  left: 0;
   width:60rpx;
-  height:1340rpx;
   display:block;
 }
 .stop{
@@ -53,12 +49,12 @@
 }
 .one{
   background-color: #333;
-  z-index:-2;
+
 
 }
 .two {
   background-color: red;
-  z-index:-1;
+
 
 }
 .stoped{
@@ -131,22 +127,25 @@
   animation:moveThree 400ms forwards linear
 }
 .move-four{
-  animation:moveFour 500ms forwards linear
+  animation:moveFour 3s forwards linear
 }
 .move-five{
-  animation:moveFive 600ms forwards linear
+  animation:moveFive 3s forwards linear
 }
 .move-six{
-  animation:moveSix 700ms forwards linear
+  animation:moveSix 3s forwards linear
 }
 .move-seven{
-  animation:moveSeven 800ms forwards linear
+  animation:moveSeven 5s forwards linear
 }
 .move-eight{
-  animation:moveEight 900ms forwards linear
+  animation:moveEight 5s forwards linear
 }
 .move-nine{
-  animation:moveNine 1s forwards linear
+  
+
+  transition:transform 10s linear;
+  transform: translateY(-2072rpx);
 }
 .delay{
   animation-delay:.2s
@@ -227,8 +226,11 @@
     0%{ 
         transform: translateY(0);
     }
+    50%{
+      transform: translateY(-792rpx);
+    }
     100%{
-      transform: translateY(-1206rpx);
+      transform: translateY(-2072rpx);
     } 
 }
 .page view{

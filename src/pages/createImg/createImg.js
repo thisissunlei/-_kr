@@ -70,9 +70,12 @@ Page({
   onLoad: function() {
     wx.reportAnalytics("viewpoweractivities");
     const that = this;
-    this.james = new demoAnimate({
-      _this: that
-    });
+    setTimeout(function(){
+      that.james = new demoAnimate({
+        _this: that
+      });
+    },1000)
+    
     // that.animate();
     wx.getSetting({
       success: res => {
@@ -431,7 +434,10 @@ Page({
           number: result
         });
         console.log("result----", result);
-        that.james.initNum(result);
+        setTimeout(function(){
+          // that.james.initNum(result);
+          that.james.initNum('999');
+        },1000)
         // that.animate();
       }
     });

@@ -746,6 +746,13 @@
   height: 100rpx;
   overflow: hidden;
 }
+.box-list .num-img {
+  top: 0;
+  width: 90rpx;
+  height: 100rpx;
+  display: block;
+  box-sizing: border-box;
+}
 .num-img {
   width: 90rpx;
   height: 100rpx;
@@ -763,6 +770,7 @@
 .one,
 .two {
   transition: all;
+  height:1000rpx;
 }
 .plus {
   color: #cccccc;
@@ -917,14 +925,14 @@
   animation: moveEight 1.8s forwards linear;
 }
 .move-nine {
-  animation: moveNine 1.9s forwards linear;
+  animation: moveNine 3s forwards linear;
 }
 @keyframes moveOne {
   0% {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-55%);
+    transform: translateY(-10%);
   }
 }
 @keyframes moveZero {
@@ -932,7 +940,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-50%);
+    transform: translateY(-100%);
   }
 }
 @keyframes moveTwo {
@@ -940,7 +948,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-60%);
+    transform: translateY(-20%);
   }
 }
 @keyframes moveThree {
@@ -948,7 +956,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-65%);
+    transform: translateY(-30%);
   }
 }
 @keyframes moveFour {
@@ -956,7 +964,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-70%);
+    transform: translateY(-40%);
   }
 }
 @keyframes moveFive {
@@ -964,7 +972,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-75%);
+    transform: translateY(-50%);
   }
 }
 @keyframes moveSix {
@@ -972,7 +980,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-80%);
+    transform: translateY(-60%);
   }
 }
 @keyframes moveSeven {
@@ -980,7 +988,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-85%);
+    transform: translateY(-70%);
   }
 }
 @keyframes moveEight {
@@ -988,7 +996,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-90%);
+    transform: translateY(-80%);
   }
 }
 @keyframes moveNine {
@@ -996,6 +1004,6 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-95%);
+    transform: translateY(-90%);
   }
 }
