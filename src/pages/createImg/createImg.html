@@ -14,7 +14,7 @@
 		<view class="helping-notice">
 			<view class="notice-content">
 				<view class="notice">
-					<image src="{{KrImgUrl}}helpingActivity/details/icon_adio.png"></image>
+					<image wx:if="{{noticeList.length > 0}}" src="{{KrImgUrl}}helpingActivity/details/icon_adio.png"></image>
 				</view>
 				<view class="notice-text">
 					<swiper autoplay="true" circular="true" interval="2000" duration="500" vertical="true">
@@ -22,7 +22,7 @@
 							<swiper-item>
 								<view>
 									{{item.thirdNick}} {{item.randomTime}} 提取了
-									<text>{{item.faceValue}}元礼券</text>
+									<text class="random-blod">{{item.faceValue}}元礼券</text>
 								</view>
 							</swiper-item>
 						</block>
@@ -44,7 +44,7 @@
 					 data-id="{{item}}"></button>
 					<button class="can-extract-btn" wx:if="{{hasPhone && myBooster >= item.amount}}" bindtap="extractCoupon" data-id="{{item}}"></button>
 					<view class="extract-content">
-						<view class="extract-count">￥<text style="font-size:32rpx;">{{item.amount}}</text></view>
+						<view class="extract-count">￥<text style="font-size:32rpx;font-weight: bold;">{{item.amount}}</text></view>
 						<view class="extract-desc" wx:if="{{item.ruleType == 'NO_THRESHOLD'}}">直减</view>
 						<view class="extract-desc" wx:else>满{{item.frAmount}}可用</view>
 						<view class="extract-btn {{(myBooster < item.amount)? 'plus' : '' }}">提取</view>
