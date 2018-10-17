@@ -14,7 +14,7 @@
 		<view class="helping-notice">
 			<view class="notice-content">
 				<view class="notice">
-					<image src="{{KrImgUrl}}helpingActivity/details/icon_adio.png"></image>
+					<image wx:if="{{noticeList.length > 0}}" src="{{KrImgUrl}}helpingActivity/details/icon_adio.png"></image>
 				</view>
 				<view class="notice-text">
 					<swiper autoplay="true" circular="true" interval="2000" duration="500" vertical="true">
@@ -22,7 +22,7 @@
 							<swiper-item>
 								<view>
 									{{item.thirdNick}} {{item.randomTime}} 提取了
-									<text>{{item.faceValue}}元礼券</text>
+									<text class="random-blod">{{item.faceValue}}元礼券</text>
 								</view>
 							</swiper-item>
 						</block>
@@ -40,9 +40,11 @@
 		<view class="helping-extract">
 			<view class="extract-top">
 				<view class="extract-one" wx:for="{{leftCoupon}}" wx:key>
-					<button class="can-extract-btn" wx:if="{{myBooster >= item.amount}}" bindtap="extractCoupon" data-id="{{item.id}}"></button>
+					<button open-type="getPhoneNumber" wx:if="{{!hasPhone}}" class="can-extract-btn" bindgetphonenumber="getPhoneNumber"
+					 data-id="{{item}}"></button>
+					<button class="can-extract-btn" wx:if="{{hasPhone && myBooster >= item.amount}}" bindtap="extractCoupon" data-id="{{item}}"></button>
 					<view class="extract-content">
-						<view class="extract-count">￥<text style="font-size:32rpx;">{{item.amount}}</text></view>
+						<view class="extract-count">￥<text style="font-size:32rpx;font-weight: bold;">{{item.amount}}</text></view>
 						<view class="extract-desc" wx:if="{{item.ruleType == 'NO_THRESHOLD'}}">直减</view>
 						<view class="extract-desc" wx:else>满{{item.frAmount}}可用</view>
 						<view class="extract-btn {{(myBooster < item.amount)? 'plus' : '' }}">提取</view>
@@ -53,7 +55,9 @@
 			</view>
 			<view class="extract-bottom">
 				<view class="extract-four" wx:for="{{rightCoupon}}" wx:key>
-					<button class="can-extract-btn" wx:if="{{myBooster >= item.amount}}" bindtap="extractCoupon" data-id="{{item.id}}"></button>
+					<button open-type="getPhoneNumber" wx:if="{{!hasPhone}}" class="can-extract-btn" bindgetphonenumber="getPhoneNumber"
+					 data-id="{{item}}"></button>
+					<button class="can-extract-btn" wx:if="{{hasPhone && myBooster >= item.amount}}" bindtap="extractCoupon" data-id="{{item}}"></button>
 					<view class="extract-content">
 						<view class="extract-count">￥<text>{{item.amount}}</text></view>
 						<view class="extract-desc" wx:if="{{item.ruleType == 'NO_THRESHOLD'}}">直减</view>
@@ -136,7 +140,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages >page}}">上滑加载更多</view>
+					<view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages > page}}">上滑加载更多</view>
 				</view>
 				<view class="record-list-content" wx:if="{{currentData == 2}}">
 					<view class="extract-list" wx:for="{{extractList}}" wx:key>
@@ -192,13 +196,13 @@
 		<text class="share-bg-title">分享至</text>
 		<view class="share-bg-btn">
 			<view class="left">
-				<button class="wxfriend" open-type="share">
+				<button class="wxfriend" id="all-friend" open-type="share">
 					<image src="{{KrImgUrl}}helpingActivity/details/wxfriend.png"></image>
 				</button>
 				<text>微信好友</text>
 			</view>
 			<view class="right">
-				<button class="wxfriend" bindtap="createShareCanvas">
+				<button class="wxfriend" id="share-friend" bindtap="createShareCanvas">
 					<image src="{{KrImgUrl}}helpingActivity/details/wxcricle.png"></image>
 				</button>
 				<text>朋友圈</text>
@@ -246,8 +250,8 @@
 		<view class="animation-coupon">
 			<image class="animation-coupon-bg" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
 			<view class="animation-coupon-text">
-				<view class="animation-coupon-top">￥<text>30</text></view>
-				<view class="animation-coupon-tpye">直减</view>
+				<view class="animation-coupon-top">￥<text>{{couponInfo.amount}}</text></view>
+				<view class="animation-coupon-tpye">{{couponInfo.frAmount}}</view>
 				<view class="animation-coupon-fix">礼券</view>
 			</view>
 		</view>

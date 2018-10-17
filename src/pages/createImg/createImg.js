@@ -32,7 +32,9 @@ Page({
     animationStart: false,
     animationDataOne: "",
     animationDataTwo: "",
-    animationDataThree: ""
+    animationDataThree: "",
+    couponInfo: {},
+    hasPhone: true
   },
   weChatId: null, //微信id
   page: 1,
@@ -66,13 +68,14 @@ Page({
   },
   james: "",
   onLoad: function() {
-    wx.reportAnalytics("view_power_activities");
+    wx.reportAnalytics("viewpoweractivities");
     const that = this;
-    this.james = new demoAnimate({
-      // numArr: that.data.numArr,
-      // number: that.data.number,
-      _this: that
-    });
+    setTimeout(function(){
+      that.james = new demoAnimate({
+        _this: that
+      });
+    },1000)
+    
     // that.animate();
     wx.getSetting({
       success: res => {
@@ -96,7 +99,7 @@ Page({
     const that = this;
     if (res.from === "button") {
       // console.log("来自页面赠送按钮");
-      wx.reportAnalytics("click_call_friends");
+      wx.reportAnalytics("clickcallfriends");
 
       // console.log(that.weChatId);
       that.share();
@@ -112,6 +115,48 @@ Page({
         path: "pages/createImg/createImg",
         imageUrl: that.data.KrImgUrl + "helpingActivity/details/share2.jpg"
       };
+    }
+  },
+  getPhoneNumber: function(e) {
+    console.log(e);
+    const that = this;
+    if (e.detail.errMsg === "getPhoneNumber:ok") {
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
+        method: "post",
+        data: {
+          baseId: e.currentTarget.dataset.id.id
+        },
+        success: res => {
+          console.log(res);
+          if (res.data.code == 1) {
+            // wx.showToast({
+            //   title: "成功领取入场券",
+            //   icon: "success",
+            //   duration: 2000
+            // });
+            that.setData({
+              showAnimation: true,
+              animationStart: true
+            });
+            setTimeout(() => {
+              that.setData({
+                animationStart: false
+              });
+            }, 1500);
+            that.getBooster();
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: "none",
+              duration: 2000
+            });
+          }
+        }
+      });
+      that.setData({
+        hasPhone: true
+      });
     }
   },
   share: function() {
@@ -143,11 +188,14 @@ Page({
   extractCoupon: function(e) {
     const that = this;
     console.log(e);
+    that.setData({
+      couponInfo: e.currentTarget.dataset.id
+    });
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
       method: "post",
       data: {
-        baseId: e.currentTarget.dataset.id
+        baseId: e.currentTarget.dataset.id.id
       },
       success: res => {
         console.log(res);
@@ -241,7 +289,7 @@ Page({
   },
   //活动规则
   helpingRule: function() {
-    wx.reportAnalytics("click_rule");
+    wx.reportAnalytics("clickrule");
 
     this.setData({
       showRule: true
@@ -268,19 +316,22 @@ Page({
   saveImg() {
     //保存图片到本地
     let that = this;
-    wx.saveImageToPhotosAlbum({
+    wx.saveImageToPhotosAlbum(
+      {
         filePath: that.data.imgUrl,
-        success:function(res){
-            console.log('success',res)
-    that.setData({
-      showShare: false,
-      showSuccess: true
-    });
+        success: function(res) {
+          console.log("success", res);
+          that.setData({
+            showShare: false,
+            showSuccess: true
+          });
         },
-        fail:function(res){
-            console.log('fail',res)
+        fail: function(res) {
+          console.log("fail", res);
         }
-    }, this)
+      },
+      this
+    );
     //保存图片到本地--end
   },
   onPosterSuccess(e) {
@@ -296,7 +347,7 @@ Page({
   },
 
   createShareCanvas() {
-    wx.reportAnalytics("click_share_monments");
+    wx.reportAnalytics("clicksharemonments");
     let weImg = this.weImg;
     let jdConfig = this.jdConfig;
     let that = this;
@@ -307,16 +358,17 @@ Page({
     });
 
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmbooster/promocode",
+
+      url: "https://i.krspace.cn/api/gateway/kmbooster-qr/promocode",
+      // url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
       data: {
         page: "pages/activityDetails/activity",
-        scene: "8"
+        scene: "id=8"
       },
       success: res => {
         let code = res.data.code;
         if (code === 1) {
-          // weImg.url = res.data.data
-          weImg.url = "/pages/images/shi.jpg";
+          weImg.url = res.data.data
           jdConfig.images.push(weImg);
           this.setData(
             {
@@ -327,18 +379,22 @@ Page({
             }
           );
         } else {
+          wx.showToast({
+            icon:'none',
+            title:res.data.message
+          })
           // weImg.url = res.data.data
-          weImg.url =
-            "https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg";
-          jdConfig.images.push(weImg);
-          this.setData(
-            {
-              jdConfig: jdConfig
-            },
-            function() {
-              Poster.create();
-            }
-          );
+          // weImg.url =
+          //   "https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg";
+          // jdConfig.images.push(weImg);
+          // this.setData(
+          //   {
+          //     jdConfig: jdConfig
+          //   },
+          //   function() {
+          //     Poster.create();
+          //   }
+          // );
         }
       }
     });
@@ -367,7 +423,8 @@ Page({
         console.log(res);
         that.weChatId = res.data.data.weChatId;
         that.setData({
-          myBooster: res.data.data.amount
+          myBooster: res.data.data.amount,
+          hasPhone: res.data.data.flag
           // myBooster: 60
         });
         let boosterNumber = res.data.data.amount;
@@ -377,7 +434,10 @@ Page({
           number: result
         });
         console.log("result----", result);
-        that.james.initNum(result);
+        setTimeout(function(){
+          // that.james.initNum(result);
+          that.james.initNum('999');
+        },1000)
         // that.animate();
       }
     });
@@ -420,6 +480,7 @@ Page({
       },
       success: res => {
         // console.log(res);
+        that.getBooster();
         that.totalPages = res.data.data.totalPages;
         that.setData({
           recordList: res.data.data.items,
@@ -441,6 +502,8 @@ Page({
       },
       success: res => {
         // console.log(res);
+        that.getBooster();
+
         that.totalPages = res.data.data.totalPages;
 
         that.setData({
