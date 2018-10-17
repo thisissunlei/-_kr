@@ -205,7 +205,6 @@ Page({
       time: acticedObj.date,
       timeText: acticedObj.week
     };
-    console.log('scrollTopDate-----',orderDate)
     this.setData(
       {
         topDate: newData,
@@ -229,6 +228,7 @@ Page({
       title: "加载中"
     });
     let arr = [];
+
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krmting/room/list",
       methods: "GET",
@@ -299,7 +299,7 @@ Page({
               scoll_arr:res.data.data.cmtImgUrls
             },
             function() {
-              that.reloadData();
+              // that.reloadData();
               wx.hideLoading();
             }
           );
@@ -623,8 +623,8 @@ Page({
     }
     //清除散座订单相关优惠信息
     wx.setStorageSync("seat_sale_info", {sale:false,card:false})
-    this.getData();
-    this.getData1();
+    // this.getData();
+    // this.getData1();
     //日历相关
     const today_date = new Date();
 
@@ -890,14 +890,20 @@ Page({
           time: dataList[0].date,
           timeText: dataList[0].week
         };
+        var isToday = false
         dataList[0].actived = true;
         that.last_data = dataList[0].type
+        if(dataList[0].week == '今天'){
+          isToday = true
+        }
+
         this.setData(
           {
             topDate: dataList,
             nowDate: dataList[0].date,
             allDays: dataList,
-            nowDateIndex: 0
+            nowDateIndex: 0,
+            isToday:isToday
           },
           function() {
             that.getData();
@@ -917,7 +923,6 @@ Page({
     let init_date = this.data.nowDate;
     let topDate = this.data.topDate;
     let that = this;
-    console.log('dealDateList==',init_date)
     const today_date = new Date(init_date);
     const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1);
     let init_month = today_month.getTime()
