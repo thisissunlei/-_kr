@@ -159,22 +159,22 @@
 			</view>
 			<!-- 缺省 -->
 			<view class="record-none">
-				<view class="record-none-img" wx:if="{{currentData == 0 && recordList.length == 0}}">
+				<view class="record-none-img" wx:if="{{currentData == 0 && recordList.length == 0 && friendBoosterNone}}">
 					<image src="{{KrImgUrl}}/helpingActivity/details/icon_none.png"></image>
 				</view>
-				<view class="record-none-text" wx:if="{{currentData == 0 && recordList.length == 0}}">
+				<view class="record-none-text" wx:if="{{currentData == 0 && recordList.length == 0 & friendBoosterNone}}">
 					<text wx:if="{{currentData == 0}}">新用户助力你效果更佳哦～</text>
 				</view>
-				<view class="record-none-img" wx:if="{{currentData == 1 && helpingList.length == 0}}">
+				<view class="record-none-img" wx:if="{{currentData == 1 && helpingList.length == 0 && myBoosterNone}}">
 					<image src="{{KrImgUrl}}/helpingActivity/details/icon_none.png"></image>
 				</view>
-				<view class="record-none-text" wx:if="{{currentData == 1 && helpingList.length == 0}}">
+				<view class="record-none-text" wx:if="{{currentData == 1 && helpingList.length == 0 && myBoosterNone}}">
 					<text wx:if="{{currentData == 1}}">助力好友，自己也能得礼券～</text>
 				</view>
-				<view class="record-none-img" wx:if="{{currentData == 2 && extractList.length == 0}}">
+				<view class="record-none-img" wx:if="{{currentData == 2 && extractList.length == 0 && boosterRecordNone}}">
 					<image src="{{KrImgUrl}}/helpingActivity/details/icon_none.png"></image>
 				</view>
-				<view class="record-none-text" wx:if="{{currentData == 2 && extractList.length == 0}}">
+				<view class="record-none-text" wx:if="{{currentData == 2 && extractList.length == 0 && boosterRecordNone}}">
 					<text wx:if="{{currentData == 2}}">还没有兑换过任何礼品券呢~</text>
 				</view>
 			</view>
@@ -251,7 +251,8 @@
 			<image class="animation-coupon-bg" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
 			<view class="animation-coupon-text">
 				<view class="animation-coupon-top">￥<text>{{couponInfo.amount}}</text></view>
-				<view class="animation-coupon-tpye">{{couponInfo.frAmount}}</view>
+				<view class="animation-coupon-tpye" wx:if="{{couponInfo.ruleType == 'NO_THRESHOLD'}}">直减</view>
+				<view class="animation-coupon-tpye" wx:else>满{{couponInfo.frAmount}}可用</view>
 				<view class="animation-coupon-fix">礼券</view>
 			</view>
 		</view>
@@ -281,5 +282,19 @@
 		<image class="save" src="{{KrImgUrl}}helpingActivity/share/share_button.png" bindtap="closeDialog"></image>
 	</view>
 
+</view>
+<view wx:if="{{activityFlag}}" class="container">
+	<view class="header">
+		<image class="default-img" src="{{KrImgUrl}}helpingActivity/helping/none.png"></image>
+	</view>
+	<view class="content">
+		很抱歉，活动已经结束了呢~
+	</view>
+	<view class="go-back" bindtap="goToHome">
+		<text class="go-back-content">去自由座首页看看</text>
+		<image class="go-back-button" src="{{KrImgUrl}}helpingActivity/helping/goIndex.png">
+
+		</image>
+	</view>
 </view>
 <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
