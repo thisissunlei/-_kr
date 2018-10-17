@@ -376,18 +376,22 @@ Page({
             }
           );
         } else {
+          wx.showToast({
+            icon:'none',
+            title:res.data.message
+          })
           // weImg.url = res.data.data
-          weImg.url =
-            "https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg";
-          jdConfig.images.push(weImg);
-          this.setData(
-            {
-              jdConfig: jdConfig
-            },
-            function() {
-              Poster.create();
-            }
-          );
+          // weImg.url =
+          //   "https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg";
+          // jdConfig.images.push(weImg);
+          // this.setData(
+          //   {
+          //     jdConfig: jdConfig
+          //   },
+          //   function() {
+          //     Poster.create();
+          //   }
+          // );
         }
       }
     });
