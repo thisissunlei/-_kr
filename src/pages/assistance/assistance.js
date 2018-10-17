@@ -43,6 +43,8 @@ Page({
     james:'',
     other:'',
     onLoad(options) {
+      wx.reportAnalytics("viewassis");
+
       this.setData({
         weChatId:options.weChatId
       })

@@ -68,7 +68,7 @@ Page({
   },
   james: "",
   onLoad: function() {
-    wx.reportAnalytics("view_power_activities");
+    wx.reportAnalytics("viewpoweractivities");
     const that = this;
     this.james = new demoAnimate({
       _this: that
@@ -96,7 +96,7 @@ Page({
     const that = this;
     if (res.from === "button") {
       // console.log("来自页面赠送按钮");
-      wx.reportAnalytics("click_call_friends");
+      wx.reportAnalytics("clickcallfriends");
 
       // console.log(that.weChatId);
       that.share();
@@ -286,7 +286,7 @@ Page({
   },
   //活动规则
   helpingRule: function() {
-    wx.reportAnalytics("click_rule");
+    wx.reportAnalytics("clickrule");
 
     this.setData({
       showRule: true
@@ -344,7 +344,7 @@ Page({
   },
 
   createShareCanvas() {
-    wx.reportAnalytics("click_share_monments");
+    wx.reportAnalytics("clicksharemonments");
     let weImg = this.weImg;
     let jdConfig = this.jdConfig;
     let that = this;
