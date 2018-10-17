@@ -12,7 +12,9 @@ Page({
         alsoAssistanceAmount:'',
         pageNum:1,
         pageSize:2,
-        amountIsFull:false,
+        amountIsFull:false,// 被助力人礼券池已满弹框
+        assistantAmountIsFull:false,// 助力人礼券池已满
+        amountIsFullTen:true,// 每天助力超过10次 限制
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
@@ -35,8 +37,10 @@ Page({
         error:false,
         errorMessage:'',
         moreFlag:false,
-        pageOnloadFlag:false,
-        isAssistanceFlag:false
+        pageOnloadFlag:false,//页面加载前 判断 跳转状态
+        activityFlag:false, // 判断活动 是否 结束
+        isAssistanceFlag:false,
+        isNewUser:false,// 判断是都是新用户
         // animationCloudData:''
     },
     aaa :3445,
@@ -53,18 +57,39 @@ Page({
         title: "加载中",
         mask: true
       });
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting["scope.userInfo"]) {
-            that.setData({
-              hasUserInfo: true
-            });
-            that.login();
-          } else {
-            that.login();
+        // 判断活动是否结束
+        app.getRequest({
+          url: app.globalData.KrUrl + "api/gateway/kmbooster/ovedue",
+          method:'GET',
+          data: {
+            activityId: 1
+          },
+          success: res => {
+              console.log('res123');
+              console.log(res);
+              if(res.data.data){
+                that.setData({
+                  activityFlag:true
+                })
+              }else{
+                that.setData({
+                  activityFlag:false
+                })
+                wx.getSetting({
+                  success: res => {
+                    if (res.authSetting["scope.userInfo"]) {
+                      that.setData({
+                        hasUserInfo: true
+                      });
+                      that.login();
+                    } else {
+                      that.login();
+                    }
+                  }
+                });
+              }
           }
-        }
-      });
+        });  
     },
     onReady(){
       let that = this;
@@ -153,7 +178,12 @@ Page({
         }
       });
     },
-  // 跳转自由座首页
+  goToHome: function (){
+    wx.redirectTo({
+      url: '../index/index'
+    })    
+  },
+  // 跳转新人引导页
   goToPoint: function (){
     wx.navigateTo({
       url: "../point/point"
@@ -195,14 +225,15 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
       method:'GET',
-      data: {
-        firstCustomer: true,
-        id: that.data.weChatId
-      },
+      data: {},
       success: res => {
         console.log('请求是否新人  成功!!');
         console.log(res.data.data);
         console.log('请求助力数--参数',res.data.data,that.data.weChatId);
+            // 判断 是否是新人 弹出新人双倍 提示框 
+            that.setData({
+              isNewUser:res.data.data
+            })
             app.getRequest({
               url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
               method:'POST',
@@ -222,9 +253,30 @@ Page({
                       that.setData({
                         amountIsFull:true
                       })
-                    console.log(that.data.amountIsFull)  
-                }else{
-                      that.setData({
+                      return ;
+                }
+                if(res.data.data.boosterAamount === -2){
+                  that.setData({
+                    assistantAmountIsFull:true
+                  })
+                  return ;
+                }
+                if(res.data.data.boosterAamount === -3){
+                      wx.showModal({
+                        title: '提示',
+                        content: '每天只能助力十次哦！',
+                        success: function (res) {
+                            if (res.confirm) {
+                                console.log('用户点击确定')
+                            }else{
+                              console.log('用户点击取消')
+                            }
+                  
+                        }
+                    })
+                    return ;
+                }
+                that.setData({
                         alsoAssistanceAmount:res.data.data.boosterAamount
                       })
                       that.setData({
@@ -237,7 +289,6 @@ Page({
                       }else{
                         that.james.stop(res.data.data.boosterAamount+"")
                       }
-                }
               }
             });
       }
@@ -296,6 +347,40 @@ Page({
           }
       }
     });
+  },
+  // test:function() {
+  //   wx.showModal({
+  //     title: '提示',
+  //     content: '每天只能助力十次哦！',
+  //     success: function (res) {
+  //         if (res.confirm) {
+  //             console.log('用户点击确定')
+  //         }else{
+  //            console.log('用户点击取消')
+  //         }
+
+  //     }
+  // })
+  //   wx.showToast({
+  //     title: '每天只能助力十次哦！',
+  //     duration: 10000
+  //   })
+  //   setTimeout(function(){
+  //     wx.hideToast()
+  //   },2000)
+  // },
+  // 关闭 助力人礼券已满 弹框
+  closeknow: function(){
+    console.log("closeknow!!!");
+      this.setData({
+        assistantAmountIsFull:false
+      })
+  },
+  // 关闭  提示被助力人礼券池已满 的弹框
+  closeButtonIsee: function(){
+       this.setData({
+        amountIsFull:false
+      })
   },
   // 加载更多  
   getMore: function(){

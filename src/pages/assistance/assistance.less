@@ -69,13 +69,15 @@ page{
 }
 .assistance-user-name {
     position: absolute;
-    text-align: center;
     top: 98rpx; 
     left: 50%;
     transform: translate(-50%,0);
     height: 50rpx;
     color:  #FFFFFF;
     font-size: 36rpx;
+    letter-spacing: 0;
+    text-align: center;
+    font-weight:bold
 }
 .assistance-user-img {
     z-index: 100;
@@ -147,6 +149,62 @@ page{
     height: 297.8rpx;
     width: 590rpx;
 }
+@keyframes scaleDraw
+{
+    0%{
+        transform: scale(1);  /*开始为原始大小*/
+    }
+    25%{
+        transform: scale(1.6); /*放大1.1倍*/
+    }
+    50%{
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(1.6);
+    }
+}
+.assistance-luck-img-money1 {
+   position: absolute;
+   top: 450.4rpx;
+   left: 353.8rpx; 
+   width: 41.4rpx;
+   height: 39.4rpx;
+   z-index: 9999999;
+   animation: scaleDraw 5s ease-in-out infinite;
+}
+.assistance-luck-img-money2 {
+    position: absolute;
+    top: 511.4rpx;
+    left: 202.4rpx;
+    width: 55.2rpx;
+    height: 55.2rpx; 
+    animation: scaleDraw 5s ease-in-out infinite;
+}
+.assistance-luck-img-money3 {
+   position: absolute;
+   top: 442.4rpx;
+   right: 199.4rpx;
+   width: 57.4rpx;
+   height: 49.2rpx;
+   animation: scaleDraw 5s ease-in-out infinite;
+}
+.assistance-luck-img-money4 {
+   position: absolute;
+   top: 582.4rpx;
+   left: 187.2rpx;
+   width: 55.2rpx;
+   height: 55.2rpx;
+   animation: scaleDraw 5s ease-in-out infinite;
+}
+.assistance-luck-img-money5 {
+   position: absolute;
+   top: 523.4rpx;
+   right: 170.6rpx;
+   width: 100.6rpx;
+   height: 100.6rpx;
+   animation: scaleDraw 5s infinite;
+}
 .assistance-luck-img-help-bottom {
     height: 297.8rpx;
     width: 590rpx;
@@ -197,7 +255,10 @@ page{
     width:  670rpx;
     border: 4rpx #C88AFF solid;
     border-radius: 16rpx;
-    margin-bottom: 60rpx;
+    font-size: 28rpx;
+    color:  #F0DFFF;
+    line-height: 44rpx;
+    margin-bottom: 112rpx;
 }
 .assistance-friends-list-content {
     width:  670rpx;
@@ -212,10 +273,14 @@ page{
     height: 102rpx;
     width: 130rpx;
 }
-.assistance-friends-item {
-    margin-top: 30rpx;
-    margin-bottom: 30rpx;
-    vertical-align: top;
+.assistance-friends-help-is-full {
+    position: fixed;
+    top: 0rpx;
+    left: 0rpx;
+    width: 750rpx;
+    height: 100%;
+    background:rgba(0,0,0,0.70);
+    z-index: 999999;
 }
 .assistance-friends-help-content-button_isee {
     position: absolute;
@@ -231,6 +296,25 @@ page{
     right: -28rpx;
     width: 252rpx; 
     height: 313.2rpx; 
+}
+.assistance-friends-help-content-button_konow_and_extract {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    bottom: 60rpx;
+    height: 110rpx;
+    width: 480rpx;
+}
+.assistance-friends-help-content-button_know {
+    display: inline-block;
+    width: 230rpx;
+    height: 110rpx;
+    margin-right: 16rpx;
+}
+.assistance-friends-help-content-button_extract {
+    display: inline-block;
+    width: 230rpx; 
+    height: 110rpx;
 }
 .assistance-friends-help-content {
     position: absolute;
@@ -263,10 +347,72 @@ page{
     color: #F6ECFF;
     font-size: 30rpx;
 }
+
+
+
+.assistance-friends-item {
+    margin-top: 46rpx;
+    vertical-align: top;
+}
+
+.new-user-amount-double {
+    position: absolute;
+    top: 228rpx;
+    left: 220rpx;
+    display: inline-block;
+}
+.new-user-amount-double-content {
+    display: inline-block;
+    height: 80rpx;
+    width: 314rpx;
+    background:rgba(0, 0, 0, 0.6);
+    border-radius: 40rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    color: #F5A623;
+    letter-spacing: 1px;
+    line-height: 80rpx;
+    text-align: center;
+}
+.new-user-amount-double-img {
+    position: absolute;
+    left: 160;
+    top: 0;
+    height: 64rpx;
+    width: 64rpx;
+    vertical-align: top;
+}
+.new-user-amount-double-num {
+    margin-left: 12rpx;
+    height: 33.8rpx;
+    width: 50.2rpx;
+    vertical-align: middle；
+}
+.friends-count {
+   display: inline-block; 
+   height: 44rpx;
+   padding: 0 8rpx 0 0;
+   font-size:  32rpx;
+   line-height: 44rpx;
+   color:  #FFFFFF;
+   letter-spacing: 0;
+   text-align: center;
+}
+.friends-count-amount {
+    display: inline-block; 
+    height: 44rpx;
+    padding: 0 8rpx 0 0;
+    font-size:  32rpx;
+    line-height: 44rpx;
+    color:  #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+}
 .friends-img {
     float: left;
     width: 72rpx;
     height: 72rpx;
+    border: 1px solid #BB9FDD;
     border-radius: 36rpx;
     margin-right: 16rpx;
     margin-left: 30rpx;
@@ -281,6 +427,7 @@ page{
     width: 254rpx;
     color: #C392CB;
     font-size: 30rpx;
+    letter-spacing: 0;
 }
 .friends-signature {
     display: block;
@@ -317,6 +464,7 @@ page{
     height: 36rpx;
     font-size: 26rpx;
     color: #DA205F;
+    font-weight:bold;
 }
 .news-double-num {
     display: inline-block;
@@ -448,6 +596,17 @@ page{
      border: 1px solid #282824;
      border-radius: 16rpx;
      color: #FFEB00;
+  }
+  .font-yellow-num {
+    font-size: 34rpx;  
+    color: #FFEB00;
+    font-weight:bold;
+    padding: 0 8rpx 0 8rpx;
+  }
+  .font-yellow-word {
+    font-size: 34rpx;  
+    color: #FFEB00;
+    font-weight:bold;
   }
   .rule-content-buttom {
     height: 802rpx;
