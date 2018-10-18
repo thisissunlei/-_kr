@@ -14,6 +14,7 @@ Page({
         pageNum:1,
         pageSize:2,
         totalPages:1,
+        isMoreFlag:false,
         amountIsFull:false,// 被助力人礼券池已满弹框
         assistantAmountIsFull:false,// 助力人礼券池已满
         amountIsFullTen:false,// 每天助力超过10次 限制
@@ -153,7 +154,6 @@ Page({
     console.log(that.data.totalPages )
     if (that.data.page < that.data.totalPages) {
       console.log("上拉刷新!!!2222");
-      that.page += 1;
       that.setData({
         page:that.data.page+=1,
         pageLoadFlag:false
@@ -176,6 +176,15 @@ Page({
             page: that.page,
             pageLoadFlag:true
           });
+          if(res.data.data.totalPages > that.data.page){
+                  that.setData({
+                  isMoreFlag:true
+                  })
+            }else {
+                  that.setData({
+                  isMoreFlag:false
+                  }) 
+            }
         }
       });
     } 
@@ -293,7 +302,12 @@ Page({
         console.log('请求助力数--参数',res.data.data,that.data.weChatId);
             // 判断 是否是新人 弹出新人双倍 提示框 
             that.setData({
-              isNewUser:res.data.data
+               isNewUser:res.data.data
+            })
+            setTimeout(function(){
+              that.setData({
+                isNewUser:false
+              })
             })
             app.getRequest({
               url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
@@ -460,15 +474,15 @@ Page({
                 totalAmount:res.data.data.totalAmount,
                 items:res.data.data.items
             })
-            // if(res.data.data.totalCount > that.data.pageSize ){
-            //      that.setData({
-            //           moreFlag:true
-            //      })
-            // }else {
-            //      that.setData({
-            //           moreFlag:false
-            //      }) 
-            // }
+            if(res.data.data.totalPages > that.data.page){
+                 that.setData({
+                  isMoreFlag:true
+                 })
+            }else {
+                 that.setData({
+                  isMoreFlag:false
+                 }) 
+            }
           }
       }
     });

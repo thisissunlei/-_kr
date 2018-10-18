@@ -15,10 +15,9 @@
 <view wx:if="{{pageOnloadFlag}}">
     <view class="container">
         <view class="assistance-header">
-              <view bindtap="goToPoint" class="assistance-header-left">什么是自由座?</view>
-              <view bindtap="rule" class="assistance-header-right">活动规则</view>
+              <view bindtap="rule" class="assistance-header-left">活动规则</view>
+              <view bindtap="goToPoint" class="assistance-header-right">什么是自由座?</view>
         </view>
-
         <view class="assistance-luck">
             <image class="assistance-user-img" src="{{wechatAvatar}}">
             </image>
@@ -83,15 +82,24 @@
                                 <ivew class="friends-signature">{{item.characters}}</ivew>
                             </view>       
                             <view class="firends-content-amount">
-                                <view class="firends-content-top">
+                                <!-- <view class="firends-content-top">
                                     <image class="amount-img" src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
                                     <view class="increase" >+{{item.amount}}元</view>
                                 </view>
                                 <view wx:if="{{item.first}}" class="firends-content-bottom">
                                     <view class="news-double-num">x2</view>
                                     <view class="news-double-describe">新人助力翻倍</view>
-                                </view>  
-                            </view>
+                                </view>   -->
+                                   
+                                    <view wx:if="{{item.first}}" class="firends-content-top">
+                                        <view class="news-double-describe">新人助力</view>
+                                        <view class="news-double-num">x2</view>
+                                    </view> 
+                                    <view class="firends-content-bottom">
+                                        <image class="amount-img" src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
+                                        <view class="increase">+{{item.amount}}元</view>
+                                    </view>
+                                </view>
                         </view>
             </view>
              <!-- 助力人每天点击超过10次 -->
@@ -123,9 +131,9 @@
                       </view>
                     </view>   
                 </view>
-                <!-- <view  wx:if="{{!pageLoadFlag}}" class="more" >
-                        加载中... 
-                  </view>  -->
+                <view  wx:if="{{isMoreFlag}}" class="more" >
+                        上滑加载更多
+                  </view> 
         </view >
     </view>
 </view>
