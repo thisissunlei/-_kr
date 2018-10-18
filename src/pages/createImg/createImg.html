@@ -96,12 +96,8 @@
 								<image src="{{item.helpThirdAvatar}}"></image>
 							</view>
 							<view class="friend-list-name">
-								<view class="friend-list-thirdNick">
-									{{item.helpThirdNick}}
-								</view>
-								<view class="friend-list-text">
-									{{item.characters}}
-								</view>
+								<view class="friend-list-thirdNick">{{item.helpThirdNick}}</view>
+								<view class="friend-list-text">{{item.characters}}</view>
 							</view>
 						</view>
 						<view class="friend-list-right">
@@ -124,11 +120,11 @@
 				<view class="record-list-content" wx:if="{{currentData == 1}}">
 					<view class="helping-list-content" wx:for="{{helpingList}}" wx:key>
 						<view class="helping-list-left">
-							<text>助力</text>
+							<view class="zhuli">助力</view>
 							<view class="helping-list-img">
 								<image src="{{item.thirdAvatar}}"></image>
 							</view>
-							<text class="third-nick">{{item.thirdNick}}</text>
+							<view class="third-nick">{{item.thirdNick}}</view>
 							<text>获得礼券</text>
 						</view>
 						<view class="helping-list-right">
