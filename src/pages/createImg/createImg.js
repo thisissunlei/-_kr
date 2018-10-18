@@ -504,6 +504,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
       success: res => {
+        console.log("1111111", res);
         console.log("shoujiehao", res.data.data.flag);
         that.weChatId = res.data.data.weChatId;
         that.setData({
