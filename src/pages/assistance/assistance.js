@@ -16,6 +16,7 @@ Page({
         assistantAmountIsFull:false,// 助力人礼券池已满
         amountIsFullTen:false,// 每天助力超过10次 限制
         animateMoneyFlag:false,//钱动画
+        pageLoadFlag:false,//页面加载
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
@@ -49,9 +50,9 @@ Page({
     other:'',
     onLoad(options) {
       wx.reportAnalytics("viewassis");
-      this.setData({
-        weChatId:options.weChatId
-      })
+      // this.setData({
+      //   weChatId:options.weChatId
+      // })
       let that = this;
       wx.showLoading({
         title: "加载中",
@@ -116,11 +117,11 @@ Page({
     },
     // 下拉刷新
     onPullDownRefresh(e) {
-        
+      
     },
     // 上拉加载
     onReachBottom() {
-      
+      this.getMore();
     },
     //获取用户信息
     getInfo: function() {
@@ -205,11 +206,14 @@ Page({
   // 规则 
   rule: function (){
       this.setData({
+        pageOnloadFlag:false,
         rule:true
       })
   },
+  // 关闭规则显示
   ruleClose: function (){
       this.setData({
+        pageOnloadFlag:true,
         rule:false
       }) 
   },
@@ -394,7 +398,8 @@ Page({
   getMore: function(){
     var that = this;
     that.setData({
-      pageSize:that.data.pageSize+=2
+      pageSize:that.data.pageSize+=2,
+      pageLoadFlag:false
     })
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
@@ -409,17 +414,18 @@ Page({
             that.setData({
                 totalCount:res.data.data.totalCount,
                 totalAmount:res.data.data.totalAmount,
-                items:res.data.data.items
+                items:res.data.data.items,
+                pageLoadFlag:true
             })
-            if(res.data.data.totalCount > that.data.pageSize ){
-              that.setData({
-                   moreFlag:true
-              })
-         }else {
-              that.setData({
-                   moreFlag:false
-              }) 
-         }
+        //     if(res.data.data.totalCount > that.data.pageSize ){
+        //       that.setData({
+        //            moreFlag:true
+        //       })
+        //  }else {
+        //       that.setData({
+        //            moreFlag:false
+        //       }) 
+        //  }
           }
       }
     });

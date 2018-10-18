@@ -7,9 +7,7 @@
                 很抱歉，活动已经结束了呢~
                 </view>
                 <view class="go-back" bindtap="goToHome">
-                    <text class="go-back-content">去自由座首页看看</text> 
                     <image class="go-back-button" src="{{KrImgUrl}}helpingActivity/helping/goIndex.png" >
-                        
                     </image>    
                 </view>  
     </view>        
@@ -58,7 +56,7 @@
                 <image class="assistance-luck-img-help-bottom" src="{{KrImgUrl}}helpingActivity/helping/help_bottom.png">
                 </image> 
                 <view  class="assistance-luck-img-help-button-amount">
-                    也有一张{{alsoAssistanceAmount}}元礼券放入了你的账户，快去看看
+                    也有一张 <view class="assistance-luck-img-help-button-amount-detail">{{alsoAssistanceAmount}}</view>元礼券放入了你的账户，快去看看
                 </view>
                 <image bindtap="goToCreateImg" class="assistance-luck-img-help-button-see" src="{{KrImgUrl}}helpingActivity/helping/buton_see.png">
                 </image>
@@ -77,7 +75,7 @@
         </view>
         <view wx:if="{{isAssistanceFlag}}" class="assistance-friends-list">
             <view class="assistance-friends-list-content">
-                    <view wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix">
+                    <view wx:if="{{pageLoadFlag}}"   wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix">
                             <image class="friends-img" src="{{item.helpThirdAvatar}}"></image>   
                             <view class="firends-content-detail">
                                 <ivew class="firends-name">{{item.helpThirdNick}}</ivew>
@@ -124,53 +122,55 @@
                       </view>
                     </view>   
                 </view>
-             
-            <view wx:if="{{moreFlag}}" class="more" bindtap="getMore">
+                <view  wx:if="{{!pageLoadFlag}}" class="more" >
+                        加载中... 
+                  </view> 
+            <!-- <view wx:if="{{moreFlag}}" class="more" bindtap="getMore">
                   点击加载更多
-                </view>            
+                </view>             -->
         </view >
     </view>
-  <!-- 规则 -->
-     <view  wx:if="{{rule}}" class="rule">
-         <view class="rule-content">
-                  <view class="rule-title">
-                        <view class="rule-title-content">
-                            活动规则
-                        </view>
-                   </view>
-                   <view class="rule-gap">
-        
-                   </view>
-                   <view class="rule-content-buttom">
-                        <view class="rule-content-text">
-                                <view >
-                                    1）可以通过分享活动至微信群、将带二维码的图片分享至朋友圈的方式主动发起活动；
-                                </view>
-                                <view>
-                                    2）每个好友助力，可获得<text class="font-yellow-num">5-10</text>元礼券，首次访问自由座的用户助力的礼券<text class="font-yellow-word">翻倍</text> 
-                                </view>
-                                <view>
-                                    3）为好友助力后，你也会获得相应金额礼券，每天上限<text class="font-yellow-num">10</text>次；
-                                </view>
-                                <view>
-                                    4）根据您当前已有的礼券金，可以提取出不同面额的礼券，用以抵扣订单金额，最高可享免单哦；
-                                </view>
-                                <view>
-                                    5）礼券金上限<text class="font-yellow-num">999</text>元，每次提取礼券会消耗掉对应礼券金；
-                                </view>
-                                <view>
-                                    6）活动期间，每种礼券最多可兑换<text class="font-yellow-num">3</text>次；
-                                </view>
-                                <view>
-                                    7）如有疑问请联系客服，活动最终解释权归氪空间所有；
-                                </view>
-                             </view> 
-                             <view class="rule-close" bindtap="ruleClose">
-                                     <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png" ></image>
-                                     <view class="rule-close-text" >我知道了</view>
-                             </view>
-                   </view>
-         </view>
-     </view>
 </view>
 <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
+  <!-- 规则 -->
+<view  wx:if="{{rule}}" class="rule">
+        <view class="rule-content">
+                 <view class="rule-title">
+                       <view class="rule-title-content">
+                           活动规则
+                       </view>
+                  </view>
+                  <view class="rule-gap">
+       
+                  </view>
+                  <view class="rule-content-buttom">
+                       <view class="rule-content-text">
+                               <view >
+                                   1）可以通过分享活动至微信群、将带二维码的图片分享至朋友圈的方式主动发起活动；
+                               </view>
+                               <view>
+                                   2）每个好友助力，可获得<text class="font-yellow-num">5-10</text>元礼券，首次访问自由座的用户助力的礼券<text class="font-yellow-word">翻倍</text> 
+                               </view>
+                               <view>
+                                   3）为好友助力后，你也会获得相应金额礼券，每天上限<text class="font-yellow-num">10</text>次；
+                               </view>
+                               <view>
+                                   4）根据您当前已有的礼券金，可以提取出不同面额的礼券，用以抵扣订单金额，最高可享免单哦；
+                               </view>
+                               <view>
+                                   5）礼券金上限<text class="font-yellow-num">999</text>元，每次提取礼券会消耗掉对应礼券金；
+                               </view>
+                               <view>
+                                   6）活动期间，每种礼券最多可兑换<text class="font-yellow-num">3</text>次；
+                               </view>
+                               <view>
+                                   7）如有疑问请联系客服，活动最终解释权归氪空间所有；
+                               </view>
+                            </view> 
+                            <view class="rule-close" bindtap="ruleClose">
+                                    <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png" ></image>
+                                    <view class="rule-close-text" >我知道了</view>
+                            </view>
+                  </view>
+        </view>
+    </view>
