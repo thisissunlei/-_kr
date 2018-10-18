@@ -5,7 +5,7 @@
 <import src="../../utils/template/template.wxml" />
 
 
-<view class="helping-details">
+<view class="helping-details" wx:if="{{!activityFlag}}">
 	<view class="helping">
 		<text bindtap="helpingRule">活动规则</text>
 	</view>
@@ -183,7 +183,7 @@
 </view>
 
 
-<view class="helping-fixed">
+<view class="helping-fixed" wx:if="{{!activityFlag}}">
 	<text bindtap="jumpMyCoupon">我的礼券</text>
 	<!-- <button class="share-btn" bindtap="createShareCanvas">邀请好友助力</button> -->
 	<button class="share-btn" bindtap="share">邀请好友助力</button>
