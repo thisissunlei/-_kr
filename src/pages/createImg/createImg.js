@@ -42,7 +42,7 @@ Page({
   },
   weChatId: null, //微信id
   page: 1,
-  pageSize: 2,
+  pageSize: 5,
   totalPages: 1,
   currentData: 0,
   jdConfig: {
