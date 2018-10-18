@@ -119,7 +119,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages >page}}">上滑加载更多</view>
+					<view class="friend-list-more" wx:if="{{totalCount > 2 && totalPages >page}}">上滑加载更多</view>
 				</view>
 				<view class="record-list-content" wx:if="{{currentData == 1}}">
 					<view class="helping-list-content" wx:for="{{helpingList}}" wx:key>
@@ -140,7 +140,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages > page}}">上滑加载更多</view>
+					<view class="friend-list-more" wx:if="{{totalCount > 2 && totalPages > page}}">上滑加载更多</view>
 				</view>
 				<view class="record-list-content" wx:if="{{currentData == 2}}">
 					<view class="extract-list" wx:for="{{extractList}}" wx:key>
@@ -154,7 +154,7 @@
 							{{item.ctime}}
 						</view>
 					</view>
-					<view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages >page}}">上拉加载更多</view>
+					<view class="friend-list-more" wx:if="{{totalCount > 2 && totalPages > page}}">上拉加载更多</view>
 				</view>
 			</view>
 			<!-- 缺省 -->

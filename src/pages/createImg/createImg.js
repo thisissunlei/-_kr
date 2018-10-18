@@ -42,7 +42,7 @@ Page({
   },
   weChatId: null, //微信id
   page: 1,
-  pageSize: 10,
+  pageSize: 2,
   totalPages: 1,
   currentData: 0,
   jdConfig: {
@@ -193,12 +193,21 @@ Page({
     });
     if (current == 0) {
       that.page = 1;
+      that.setData({
+        page: 1
+      });
       that.getFriendsBooster();
     } else if (current == 1) {
       that.page = 1;
+      that.setData({
+        page: 1
+      });
       that.getOwerBooster();
-    } else if (current == 2) {
+    } else {
       that.page = 1;
+      that.setData({
+        page: 1
+      });
       that.getRecords();
     }
   },
@@ -295,7 +304,11 @@ Page({
         success: res => {
           // console.log(res);
           that.setData({
-            recordList: [].concat(that.data.recordList, res.data.data.items)
+            recordList: [].concat(that.data.recordList, res.data.data.items),
+            totalAmount: res.data.data.totalAmount,
+            totalCount: res.data.data.totalCount,
+            totalPages: res.data.data.totalPages,
+            page: that.page
           });
         }
       });
@@ -311,11 +324,15 @@ Page({
           // console.log(res);
 
           that.setData({
-            helpingList: [].concat(that.data.helpingList, res.data.data.items)
+            helpingList: [].concat(that.data.helpingList, res.data.data.items),
+            totalCount: res.data.data.totalCount,
+            totalPages: res.data.data.totalPages,
+            page: that.page
           });
         }
       });
     } else if (that.currentData == 2 && that.page < that.totalPages) {
+      that.page += 1;
       app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
         data: {
@@ -323,6 +340,7 @@ Page({
           pageSize: that.pageSize
         },
         success: res => {
+          // that.totalPages = res.data.data.totalPages;
           let recordList = res.data.data.items;
           recordList.map(item => {
             item.ctime = that.toDate(item.ctime);
@@ -330,7 +348,10 @@ Page({
           });
           // console.log(res);
           that.setData({
-            extractList: [].concat(that.data.recordList, recordList)
+            extractList: [].concat(that.data.extractList, recordList),
+            totalCount: res.data.data.totalCount,
+            totalPages: res.data.data.totalPages,
+            page: that.page
           });
         }
       });
