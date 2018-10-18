@@ -1,88 +1,88 @@
 <import src="../../utils/template/template.wxml" />
-  <view  wx:if="{{activityFlag}}" class="container">
-        <view class="header">
-                <image class="default-img" src="{{KrImgUrl}}helpingActivity/helping/none.png"></image>
-                </view>
-                <view class="content">
-                很抱歉，活动已经结束了呢~
-                </view>
-                <view class="go-back" bindtap="goToHome">
-                    <image class="go-back-button" src="{{KrImgUrl}}helpingActivity/helping/goIndex.png" >
-                    </image>    
-                </view>  
-        </view>        
+<view wx:if="{{activityFlag}}" class="container">
+    <view class="header">
+        <image class="default-img" src="{{KrImgUrl}}helpingActivity/helping/none.png"></image>
+    </view>
+    <view class="content">
+        很抱歉，活动已经结束了呢~
+    </view>
+    <view class="go-back" bindtap="goToHome">
+        <image class="go-back-button" src="{{KrImgUrl}}helpingActivity/helping/goIndex.png">
+        </image>
+    </view>
+</view>
 <!-- <view wx:if="{{pageOnloadFlag}}"> -->
 <view wx:if="{{pageOnloadFlag}}">
     <view class="container">
         <view class="assistance-header">
-              <view bindtap="rule" class="assistance-header-left">活动规则</view>
-              <view bindtap="goToPoint" class="assistance-header-right">什么是自由座?</view>
+            <view bindtap="rule" class="assistance-header-left">活动规则</view>
+            <view bindtap="goToPoint" class="assistance-header-right">什么是自由座?</view>
         </view>
         <view class="assistance-luck">
             <image class="assistance-user-img" src="{{wechatAvatar}}">
             </image>
-            <view class="assistance-user-name" >
-                    {{wechatNick}}     
-            </view>  
+            <view class="assistance-user-name">
+                {{wechatNick}}
+            </view>
             <!--  -->
-            <image class="assistance-luck-img"  src="{{KrImgUrl}}helpingActivity/helping/help_bg.png">
+            <image class="assistance-luck-img" src="{{KrImgUrl}}helpingActivity/helping/help_bg.png">
             </image>
             <!-- 新人双倍弹框 -->
-            <view wx:if="{{isNewUser}}" class="new-user-amount-double" >
+            <view wx:if="{{isNewUser}}" class="new-user-amount-double">
                 <view class="new-user-amount-double-content">
-                        新用户助力翻倍
-                    <image class="new-user-amount-double-img" src="{{KrImgUrl}}helpingActivity/helping/star.png"></image>    
+                    新用户助力翻倍
+                    <image class="new-user-amount-double-img" src="{{KrImgUrl}}helpingActivity/helping/star.png"></image>
                 </view>
                 <image class="new-user-amount-double-num" src="{{KrImgUrl}}helpingActivity/helping/newlogo.png"></image>
             </view>
             <!-- 钱 1-5 -->
-                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money1" src="{{KrImgUrl}}helpingActivity/helping/money5.png"></image>
-                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money2" src="{{KrImgUrl}}helpingActivity/helping/money4.png"></image>
-                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money3" src="{{KrImgUrl}}helpingActivity/helping/money3.png"></image>
-                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money4" src="{{KrImgUrl}}helpingActivity/helping/money2.png"></image>
-                <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money5" src="{{KrImgUrl}}helpingActivity/helping/money1.png"></image>
+            <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money1" src="{{KrImgUrl}}helpingActivity/helping/money5.png"></image>
+            <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money2" src="{{KrImgUrl}}helpingActivity/helping/money4.png"></image>
+            <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money3" src="{{KrImgUrl}}helpingActivity/helping/money3.png"></image>
+            <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money4" src="{{KrImgUrl}}helpingActivity/helping/money2.png"></image>
+            <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money5" src="{{KrImgUrl}}helpingActivity/helping/money1.png"></image>
             <view class="other">
-                    <!-- <template is="numsAnimate" data="{{KrImgUrl,numArr}}"></template> -->
-                    <template is="number" data="{{KrImgUrl,animationOne,animationTwo,initOne,initOnes,initTwo,initTwos}}"></template>
+                <!-- <template is="numsAnimate" data="{{KrImgUrl,numArr}}"></template> -->
+                <template is="number" data="{{KrImgUrl,animationOne,animationTwo,initOne,initOnes,initTwo,initTwos}}"></template>
             </view>
             <!-- <view class="random-num-left" >1</view>
             <view class="random-num-right" >2</view> -->
-            <image wx:if="{{!assistanceFlag}}" bindtap="postAssistance" class="assistance-luck-button-zhuli"  src="{{KrImgUrl}}helpingActivity/helping/button_zhuli.png">
+            <image wx:if="{{!assistanceFlag}}" bindtap="postAssistance" class="assistance-luck-button-zhuli" src="{{KrImgUrl}}helpingActivity/helping/button_zhuli.png">
             </image>
-            <image wx:if="{{assistanceFlag}}"  bindtap="test" class="assistance-luck-button-yizhuli"  src="{{KrImgUrl}}helpingActivity/helping/button_yizhuli.png">
+            <image wx:if="{{assistanceFlag}}" bindtap="test" class="assistance-luck-button-yizhuli" src="{{KrImgUrl}}helpingActivity/helping/button_yizhuli.png">
             </image>
             <view wx:if="{{alsoAssistanceFlag}}" class="assistance-luck-img-help">
                 <image class="assistance-luck-img-help-bottom" src="{{KrImgUrl}}helpingActivity/helping/help_bottom.png">
-                </image> 
-                <view  class="assistance-luck-img-help-button-amount">
+                </image>
+                <view class="assistance-luck-img-help-button-amount">
                     也有一张 <view class="assistance-luck-img-help-button-amount-detail">{{alsoAssistanceAmount}}</view>元礼券放入了你的账户，快去看看
                 </view>
                 <image bindtap="goToCreateImg" class="assistance-luck-img-help-button-see" src="{{KrImgUrl}}helpingActivity/helping/buton_see.png">
                 </image>
             </view>
 
-            <view class="assistance-luck-amount">  
+            <view class="assistance-luck-amount">
                 <view wx:if="{{isAssistanceFlag}}" class="assistance-luck-amount-content">
                     已有 <text class="friends-count">{{totalCount}}</text>位好友为Ta助力 <text class="friends-count-amount">{{totalAmount}}</text>元礼券
                 </view>
                 <view wx:if="{{!isAssistanceFlag}}" class="assistance-luck-amount-content">
                     还没有好友为Ta助力呢~
-                 </view>
-            </view >
+                </view>
+            </view>
             <view wx:if="{{isAssistanceFlag}}" class="assistance-luck-amount-gap">
             </view>
         </view>
         <view wx:if="{{isAssistanceFlag}}" class="assistance-friends-list">
             <view class="assistance-friends-list-content">
-                    <!-- <view wx:if="{{pageLoadFlag}}"   wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix"> -->
-                    <view wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix">
-                            <image class="friends-img" src="{{item.helpThirdAvatar}}"></image>   
-                            <view class="firends-content-detail">
-                                <ivew class="firends-name">{{item.helpThirdNick}}</ivew>
-                                <ivew class="friends-signature">{{item.characters}}</ivew>
-                            </view>       
-                            <view class="firends-content-amount">
-                                <!-- <view class="firends-content-top">
+                <!-- <view wx:if="{{pageLoadFlag}}"   wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix"> -->
+                <view wx:for="{{items}}" wx:key="{{index}}" class="assistance-friends-item clearfix">
+                    <image class="friends-img" src="{{item.helpThirdAvatar}}"></image>
+                    <view class="firends-content-detail">
+                        <ivew class="firends-name">{{item.helpThirdNick}}</ivew>
+                        <ivew class="friends-signature">{{item.characters}}</ivew>
+                    </view>
+                    <view class="firends-content-amount">
+                        <!-- <view class="firends-content-top">
                                     <image class="amount-img" src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
                                     <view class="increase" >+{{item.amount}}元</view>
                                 </view>
@@ -90,93 +90,97 @@
                                     <view class="news-double-num">x2</view>
                                     <view class="news-double-describe">新人助力翻倍</view>
                                 </view>   -->
-                                   
-                                    <view wx:if="{{item.first}}" class="firends-content-top">
-                                        <view class="news-double-describe">新人助力</view>
-                                        <view class="news-double-num">x2</view>
-                                    </view> 
-                                    <view class="firends-content-bottom">
-                                        <image class="amount-img" src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
-                                        <view class="increase">+{{item.amount}}元</view>
-                                    </view>
-                                </view>
+
+                        <view wx:if="{{item.first}}" class="firends-content-top">
+                            <view class="news-double-describe">新人助力</view>
+                            <view class="news-double-num">x2</view>
                         </view>
-            </view>
-             <!-- 助力人每天点击超过10次 -->
-             <view wx:if="{{amountIsFullTen}}" class="assistance-friends-help-is-full">
-                     <view class="assistance-friends-help-content-ten-times">每天只能助力十次哦！</view>  
+                        <view class="firends-content-bottom">
+                            <image class="amount-img" src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
+                            <view class="increase">+{{item.amount}}元</view>
+                        </view>
+                    </view>
                 </view>
+            </view>
+            <!-- 助力人每天点击超过10次 -->
+            <view wx:if="{{amountIsFullTen}}" class="assistance-friends-help-is-full">
+                <view class="assistance-friends-help-content-ten-times">每天只能助力十次哦！</view>
+            </view>
             <!-- 被助力人 礼券池已满 弹框 -->
             <view wx:if="{{amountIsFull}}" class="assistance-friends-help-is-full">
-                <view  class="assistance-friends-help-content" >
-                  <view class="assistance-friends-help-content-detail" >
-                      <view class="assistance-friends-help-content-detail-top">Ta的礼券池已经到上限啦！</view>
-                      <view class="assistance-friends-help-content-detail-bottom">继续助力的话Ta的礼券金也不会累积了哦~</view>
-                  </view>
-                  <image class="assistance-friends-help-content-glass" src="{{KrImgUrl}}helpingActivity/helping/glass.png" ></image>
-                  <image bindtap="closeButtonIsee" class="assistance-friends-help-content-button_isee" src="{{KrImgUrl}}helpingActivity/helping/button_isee.png" ></image>
-                </view>   
+                <view class="assistance-friends-help-content">
+                    <view class="assistance-friends-help-content-detail">
+                        <view class="assistance-friends-help-content-detail-top">Ta的礼券池已经到上限啦！</view>
+                        <view class="assistance-friends-help-content-detail-bottom">继续助力的话Ta的礼券金也不会累积了哦~</view>
+                    </view>
+                    <image class="assistance-friends-help-content-glass" src="{{KrImgUrl}}helpingActivity/helping/glass.png"></image>
+                    <image bindtap="closeButtonIsee" class="assistance-friends-help-content-button_isee" src="{{KrImgUrl}}helpingActivity/helping/button_isee.png"></image>
+                </view>
             </view>
             <!-- 助力人 礼券池已满 弹框 -->
             <view wx:if="{{assistantAmountIsFull}}" class="assistance-friends-help-is-full">
-                    <view  class="assistance-friends-help-content" >
-                      <view class="assistance-friends-help-content-detail" >
-                          <view class="assistance-friends-help-content-detail-top">您的礼券池已经到上限啦！</view>
-                          <view class="assistance-friends-help-content-detail-bottom">继续助力的话您的礼券金也不会累积了哦~</view>
-                      </view>
-                      <image class="assistance-friends-help-content-glass" src="{{KrImgUrl}}helpingActivity/helping/glass.png" ></image>
-                      <view class="assistance-friends-help-content-button_konow_and_extract">
-                            <image bindtap="closeknow" class="assistance-friends-help-content-button_know" src="{{KrImgUrl}}helpingActivity/helping/knew.png" ></image>
-                            <image bindtap="goToCreateImg" class="assistance-friends-help-content-button_extract" src="{{KrImgUrl}}helpingActivity/helping/submit.png" ></image>  
-                      </view>
-                    </view>   
+                <view class="assistance-friends-help-content">
+                    <view class="assistance-friends-help-content-detail">
+                        <view class="assistance-friends-help-content-detail-top">您的礼券池已经到上限啦！</view>
+                        <view class="assistance-friends-help-content-detail-bottom">继续助力的话您的礼券金也不会累积了哦~</view>
+                    </view>
+                    <image class="assistance-friends-help-content-glass" src="{{KrImgUrl}}helpingActivity/helping/glass.png"></image>
+                    <view class="assistance-friends-help-content-button_konow_and_extract">
+                        <image bindtap="closeknow" class="assistance-friends-help-content-button_know" src="{{KrImgUrl}}helpingActivity/helping/knew.png"></image>
+                        <image bindtap="goToCreateImg" class="assistance-friends-help-content-button_extract" src="{{KrImgUrl}}helpingActivity/helping/submit.png"></image>
+                    </view>
                 </view>
-                <view  wx:if="{{isMoreFlag}}" class="more" >
-                        上滑加载更多
-                  </view> 
-        </view >
-    </view>
-</view>
-<button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
-  <!-- 规则 -->
-<view  wx:if="{{rule}}" class="rule">
-        <view class="rule-content">
-                 <view class="rule-title">
-                       <view class="rule-title-content">
-                           活动规则
-                       </view>
-                  </view>
-                  <view class="rule-gap">
-       
-                  </view>
-                  <view class="rule-content-buttom">
-                       <view class="rule-content-text">
-                               <view >
-                                   1）可以通过分享活动至微信群、将带二维码的图片分享至朋友圈的方式主动发起活动；
-                               </view>
-                               <view>
-                                   2）每个好友助力，可获得<text class="font-yellow-num">5-10</text>元礼券，首次访问自由座的用户助力的礼券<text class="font-yellow-word">翻倍</text> 
-                               </view>
-                               <view>
-                                   3）为好友助力后，你也会获得相应金额礼券，每天上限<text class="font-yellow-num">10</text>次；
-                               </view>
-                               <view>
-                                   4）根据您当前已有的礼券金，可以提取出不同面额的礼券，用以抵扣订单金额，最高可享免单哦；
-                               </view>
-                               <view>
-                                   5）礼券金上限<text class="font-yellow-num">999</text>元，每次提取礼券会消耗掉对应礼券金；
-                               </view>
-                               <view>
-                                   6）活动期间，每种礼券最多可兑换<text class="font-yellow-num">3</text>次；
-                               </view>
-                               <view>
-                                   7）如有疑问请联系客服，活动最终解释权归氪空间所有；
-                               </view>
-                            </view> 
-                            <view class="rule-close" bindtap="ruleClose">
-                                    <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png" ></image>
-                                    <view class="rule-close-text" >我知道了</view>
-                            </view>
-                  </view>
+            </view>
+            <view wx:if="{{isMoreFlag}}" class="more">
+                上滑加载更多
+            </view>
         </view>
     </view>
+</view>
+<form report-submit='true' bindsubmit="formSubmit">
+    <button wx:if="{{!hasUserInfo}}" form-type='submit' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo"
+        style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
+</form>
+
+<!-- 规则 -->
+<view wx:if="{{rule}}" class="rule">
+    <view class="rule-content">
+        <view class="rule-title">
+            <view class="rule-title-content">
+                活动规则
+            </view>
+        </view>
+        <view class="rule-gap">
+
+        </view>
+        <view class="rule-content-buttom">
+            <view class="rule-content-text">
+                <view>
+                    1）可以通过分享活动至微信群、将带二维码的图片分享至朋友圈的方式主动发起活动；
+                </view>
+                <view>
+                    2）每个好友助力，可获得<text class="font-yellow-num">5-10</text>元礼券，首次访问自由座的用户助力的礼券<text class="font-yellow-word">翻倍</text>
+                </view>
+                <view>
+                    3）为好友助力后，你也会获得相应金额礼券，每天上限<text class="font-yellow-num">10</text>次；
+                </view>
+                <view>
+                    4）根据您当前已有的礼券金，可以提取出不同面额的礼券，用以抵扣订单金额，最高可享免单哦；
+                </view>
+                <view>
+                    5）礼券金上限<text class="font-yellow-num">999</text>元，每次提取礼券会消耗掉对应礼券金；
+                </view>
+                <view>
+                    6）活动期间，每种礼券最多可兑换<text class="font-yellow-num">3</text>次；
+                </view>
+                <view>
+                    7）如有疑问请联系客服，活动最终解释权归氪空间所有；
+                </view>
+            </view>
+            <view class="rule-close" bindtap="ruleClose">
+                <image class="rule-close-img" src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
+                <view class="rule-close-text">我知道了</view>
+            </view>
+        </view>
+    </view>
+</view>
