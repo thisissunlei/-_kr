@@ -103,6 +103,9 @@ Page({
   onReady: function() {
     // this.getBooster();
   },
+  onShow: function() {
+    this.getBooster();
+  },
   //转发分享
   onShareAppMessage: function(res) {
     const that = this;
@@ -156,6 +159,11 @@ Page({
                 animationStart: false
               });
             }, 1500);
+            setTimeout(() => {
+              that.setData({
+                showAnimation: false
+              });
+            }, 3500);
             that.getBooster();
           } else {
             wx.showToast({
@@ -496,7 +504,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
       success: res => {
-        console.log(res);
+        console.log("shoujiehao", res.data.data.flag);
         that.weChatId = res.data.data.weChatId;
         that.setData({
           myBooster: res.data.data.amount,
