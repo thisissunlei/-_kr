@@ -1,25 +1,32 @@
 //获取应用实例
 const app = getApp();
 //活动风格
-const styleType={
+const styleType = {
   //内部专享礼券
-  '0':{
-    title:'嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～',
-    desc:'氪空间自由座',
-    imageUrl:'/insideSale/share.jpg',
-    navigationBarTitle:'自由座内部专享礼券',
-    headerBanner:app.globalData.KrImgUrl+'/insideSale/banner1.jpg'
+  "0": {
+    title: "嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/share.jpg",
+    navigationBarTitle: "自由座内部专享礼券",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/banner1.jpg"
   },
-   //独立女性专享礼券
-  '1':{
-    title:'给你送券啦，快来领～',
-    desc:'氪空间自由座',
-    imageUrl:'/insideSale/share1.jpg',
-    navigationBarTitle:'“Be Pink! 2018”独立女性专享礼券',
-    headerBanner:app.globalData.KrImgUrl+'/insideSale/style1.jpg'
+  //独立女性专享礼券
+  "1": {
+    title: "给你送券啦，快来领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/share1.jpg",
+    navigationBarTitle: "“Be Pink! 2018”独立女性专享礼券",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/style1.jpg"
   },
-}
-
+  //三国礼券
+  "2": {
+    title: "看《三国新说唱》赢创业专享礼券 快来吧！",
+    desc: "氪空间自由座",
+    imageUrl: "/insideSale/share3.jpg",
+    navigationBarTitle: "自由座创业专享礼券",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/banner2.jpg"
+  }
+};
 
 Page({
   data: {
@@ -29,30 +36,28 @@ Page({
     ruleModal: false,
     activityId: "",
     recordList: [],
-    pageSize: 5,
+    pageSize: 10,
     isExpired: false,
     totalCount: 0,
     btn_bool: true,
-    style:'',
-    styleInfo:{
-      title:'嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～',
-      desc:'氪空间自由座',
-      imageUrl:'/insideSale/share.jpg',
-      navigationBarTitle:'自由座内部专享礼券',
-      headerBanner:app.globalData.KrImgUrl+'/insideSale/banner1.jpg'
-    },
-    
-    
+    style: "",
+    styleInfo: {
+      title: "嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～",
+      desc: "氪空间自由座",
+      imageUrl: "/insideSale/share.jpg",
+      navigationBarTitle: "自由座内部专享礼券",
+      headerBanner: app.globalData.KrImgUrl + "insideSale/banner1.jpg"
+    }
   },
   onShareAppMessage: function(res) {
     // wx.reportAnalytics("sharekrmeeting");
-    let data=this.data;
-    let style=data.style || ''
+    let data = this.data;
+    let style = data.style || "";
     return {
       title: data.styleInfo.title,
       desc: data.styleInfo.desc,
-      path:`pages/insideSale/insideSale?id=${data.activityId}&style=${style}`,
-      imageUrl: app.globalData.KrImgUrl+data.styleInfo.imageUrl
+      path: `pages/insideSale/insideSale?id=${data.activityId}&style=${style}`,
+      imageUrl: app.globalData.KrImgUrl + data.styleInfo.imageUrl
     };
   },
   getURLParam: function(deal_url, paramName) {
@@ -80,58 +85,61 @@ Page({
   },
   onLoad: function(options) {
     var _this = this;
-    let styleInfo={};
+    let styleInfo = {};
     if (options.q) {
       const channelname_v = this.getURLParam(options.q, "id");
-      let style=this.getURLParam(options.q, "style")
-      this.setData({
-        activityId: channelname_v,
-        style:style || ''
-      },function(){
-       
-        if(styleType[style]){
-          styleInfo=styleType[style]
-        }else{
-          styleInfo=styleType[0]
-        }
-        _this.setData({
-          styleInfo:styleInfo
-        })
+      let style = this.getURLParam(options.q, "style");
+      this.setData(
+        {
+          activityId: channelname_v,
+          style: style || ""
+        },
+        function() {
+          if (styleType[style]) {
+            styleInfo = styleType[style];
+          } else {
+            styleInfo = styleType[0];
+          }
+          _this.setData({
+            styleInfo: styleInfo
+          });
           //修改title
           wx.setNavigationBarTitle({
             title: styleInfo.navigationBarTitle
-          })
-      });
-      
+          });
+        }
+      );
     }
-   
+
     if (options.id) {
       this.setData({
         activityId: options.id
       });
     }
     if (options.style) {
-      this.setData({
-        style: options.style
-      },function(){
-        _this.setData({
-          styleInfo:styleType[options.style]
-        })
-         //修改title
-        wx.setNavigationBarTitle({
-          title: styleType[options.style].navigationBarTitle
-        })
+      this.setData(
+        {
+          style: options.style
+        },
+        function() {
+          _this.setData({
+            styleInfo: styleType[options.style]
+          });
+          //修改title
+          wx.setNavigationBarTitle({
+            title: styleType[options.style].navigationBarTitle
+          });
+        }
+      );
+    } else {
+      _this.setData({
+        styleInfo: styleType[0]
       });
-    }else{
-        _this.setData({
-          styleInfo:styleType[0]
-        })
-        //修改title
-        wx.setNavigationBarTitle({
-          title:styleType[0].navigationBarTitle
-        })
+      //修改title
+      wx.setNavigationBarTitle({
+        title: styleType[0].navigationBarTitle
+      });
     }
-
 
     this.goLogin();
 
@@ -146,8 +154,6 @@ Page({
         }
       }
     });
-   
-    
   },
   goLogin() {
     //页面加载
@@ -181,10 +187,9 @@ Page({
   //获取用户信息
   getInfo: function() {
     var that = this;
-   
+
     wx.getUserInfo({
       success: function(res) {
-       
         that.setData({
           avatarUrl: res.userInfo.avatarUrl
         });
@@ -196,11 +201,11 @@ Page({
             iv: res.iv
           },
           success: res => {
-            console.log('111')
+            console.log("111");
           }
         });
-         //保存到storage里
-         wx.setStorage({
+        //保存到storage里
+        wx.setStorage({
           key: "user_info",
           data: {
             user_info: res.userInfo
@@ -331,7 +336,7 @@ Page({
   },
   getMore() {
     let pageSize = this.data.pageSize;
-    pageSize += 5;
+    pageSize += 10;
 
     this.getRecordList(pageSize);
     this.setData({
