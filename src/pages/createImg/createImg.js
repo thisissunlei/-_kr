@@ -410,8 +410,9 @@ Page({
       url: "https://i.krspace.cn/api/gateway/kmbooster-qr/promocode",
       // url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
       data: {
+        // page: "pages/assistance/assistance",
         page: "pages/activityDetails/activity",
-        scene: "id=8"
+        scene: "weChatId=" + that.weChatId
       },
       success: res => {
         let code = res.data.code;
@@ -483,8 +484,7 @@ Page({
         });
         console.log("result----", result);
         setTimeout(function() {
-          // that.james.initNum(result);
-          that.james.initNum("999");
+          that.james.initNum(result);
         }, 1000);
         // that.animate();
       }
