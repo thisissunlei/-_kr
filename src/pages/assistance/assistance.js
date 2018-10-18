@@ -308,7 +308,7 @@ Page({
               that.setData({
                 isNewUser:false
               })
-            })
+            },2000)
             app.getRequest({
               url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
               method:'POST',
