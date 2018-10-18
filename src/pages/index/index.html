@@ -192,7 +192,7 @@
     </view>
   </view>
   <!-- 首次助力活动弹窗 -->
-  <view class="alert-once" wx:if="{{alertOnce}}">
+  <view class="alert-once" wx:if="{{alertOnce && !activityFlag}}">
     <view class="alert-content">
       <image class="alert-bg" src="{{KrImgUrl}}helpingActivity/index/alert_join.png"></image>
       <image class="alert-close" bindtap="alertClosed" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
@@ -204,7 +204,7 @@
 
   </view>
   <!-- 提取礼券弹窗 -->
-  <view class="ticket-alert" wx:if="{{showCoupon}}">
+  <view class="ticket-alert" wx:if="{{showCoupon && !activityFlag}}">
     <view class="ticket-content">
       <image class="ticket-close" bindtap="changeCoupon" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
       <view class="ticket-wrap">

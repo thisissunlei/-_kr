@@ -46,7 +46,8 @@ Page({
     showCoupon: false, //提取礼券弹窗
     showDiscounts: false, //今日特惠
     discounts: [], //今日特惠
-    extractList: [] //可提取礼券列表
+    extractList: [], //可提取礼券列表
+    activityFlag: false
   },
   newFish: true,
   rq_data: {
@@ -249,6 +250,7 @@ Page({
               that.getDiscounts();
               that.getOnecVisit();
               that.getShowCoupon();
+              that.getActivityFlag();
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
@@ -318,6 +320,26 @@ Page({
     this.getAllInfo();
     //活动入口
     // this.getActivity();
+  },
+  //活动是否结束
+  getActivityFlag: function() {
+    let that = this;
+    // 判断活动是否结束
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/ovedue",
+      method: "GET",
+      data: {
+        activityId: 1
+      },
+      success: res => {
+        console.log("活动是否过期", res);
+        if (res.data.data) {
+          that.setData({
+            activityFlag: true
+          });
+        }
+      }
+    });
   },
   //是否首次接口
   getOnecVisit: function() {

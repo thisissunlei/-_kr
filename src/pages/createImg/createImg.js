@@ -204,6 +204,7 @@ Page({
   },
   //活动是否结束
   getActivityFlag: function() {
+    let that = this;
     // 判断活动是否结束
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/ovedue",
@@ -216,10 +217,6 @@ Page({
         if (res.data.data) {
           that.setData({
             activityFlag: true
-          });
-        } else {
-          that.setData({
-            activityFlag: false
           });
         }
       }
@@ -636,6 +633,7 @@ Page({
               that.getBroadcast();
               that.getFriendsBooster();
               that.getBoosterInfo();
+              that.getActivityFlag();
             },
             fail: err => {
               console.log(err);
