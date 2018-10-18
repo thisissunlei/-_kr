@@ -38,7 +38,7 @@ Page({
     friendBoosterNone: false,
     myBoosterNone: false,
     boosterRecordNone: false,
-    activityFlag: false // 判断活动 是否 结束
+    activityFlag: null // 判断活动 是否 结束
   },
   weChatId: null, //微信id
   page: 1,
@@ -226,6 +226,10 @@ Page({
         if (res.data.data) {
           that.setData({
             activityFlag: true
+          });
+        } else {
+          that.setData({
+            activityFlag: false
           });
         }
       }
