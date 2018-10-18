@@ -38,7 +38,8 @@ Page({
     friendBoosterNone: false,
     myBoosterNone: false,
     boosterRecordNone: false,
-    activityFlag: null // 判断活动 是否 结束
+    activityFlag: false, // 判断活动 是否 结束
+    activityOnline: false
   },
   weChatId: null, //微信id
   page: 1,
@@ -102,6 +103,9 @@ Page({
   onReady: function() {
     // this.getBooster();
   },
+  onShow: function() {
+    this.getBooster();
+  },
   //转发分享
   onShareAppMessage: function(res) {
     const that = this;
@@ -155,6 +159,11 @@ Page({
                 animationStart: false
               });
             }, 1500);
+            setTimeout(() => {
+              that.setData({
+                showAnimation: false
+              });
+            }, 3500);
             that.getBooster();
           } else {
             wx.showToast({
@@ -228,17 +237,15 @@ Page({
         activityId: 1
       },
       success: res => {
-        console.log("活动是否过期", res);
+        // console.log("活动是否过期", res);
         if (res.data.data) {
           that.setData({
             activityFlag: true
           });
         } else {
-          that.setData({ activityFlag: false });
-          that.getBooster();
-          that.getBroadcast();
-          that.getFriendsBooster();
-          that.getBoosterInfo();
+          that.setData({
+            activityOnline: true
+          });
         }
       }
     });
@@ -497,7 +504,8 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
       success: res => {
-        console.log(res);
+        console.log("1111111", res);
+        console.log("shoujiehao", res.data.data.flag);
         that.weChatId = res.data.data.weChatId;
         that.setData({
           myBooster: res.data.data.amount,
@@ -657,10 +665,10 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-              // that.getBooster();
-              // that.getBroadcast();
-              // that.getFriendsBooster();
-              // that.getBoosterInfo();
+              that.getBooster();
+              that.getBroadcast();
+              that.getFriendsBooster();
+              that.getBoosterInfo();
               that.getActivityFlag();
               wx.hideLoading();
             },
