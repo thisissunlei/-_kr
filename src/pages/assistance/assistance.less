@@ -41,20 +41,20 @@ page{
     width: 750rpx;
 }
 .assistance-header-left {
-    width: 238rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    font-size: 28rpx;
+    width: 130rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    font-size: 24rpx;
     color: #C788FF;
     background: rgba(220,180,255,0.20);
     border-radius: 0 37rpx 37rpx 0;
     text-align: center;
 }
 .assistance-header-right {
-    width: 168rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    font-size: 28rpx;
+    width: 200rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    font-size: 24rpx;
     color: #C788FF;
     background: rgba(220,180,255,0.20);
     border-radius: 37rpx 0 0 37rpx;
@@ -151,17 +151,19 @@ page{
 {
     0%{
         transform: scale(1);  /*开始为原始大小*/
-        transform: rotate(30deg);
+        transform: rotate(10deg);
     }
     25%{
         transform: scale(1.1); /*放大1.1倍*/
+        transform: rotate(-10deg);
     }
     50%{
         transform: scale(1);
-        transform: rotate(-30deg);
+        transform: rotate(10deg);
     }
     75%{
         transform: scale(1.1);
+        transform: rotate(-10deg);
     }
 }
 .assistance-luck-img-money1 {
@@ -171,7 +173,7 @@ page{
    width: 41.4rpx;
    height: 39.4rpx;
    z-index: 9999999;
-   animation: scaleDraw 5s ease-in-out infinite;
+   animation: scaleDraw 3s ease-in-out infinite;
 }
 .assistance-luck-img-money2 {
     position: absolute;
@@ -179,7 +181,7 @@ page{
     left: 202.4rpx;
     width: 55.2rpx;
     height: 55.2rpx; 
-    animation: scaleDraw 5s ease-in-out infinite;
+    animation: scaleDraw 3s ease-in-out infinite;
 }
 .assistance-luck-img-money3 {
    position: absolute;
@@ -187,7 +189,7 @@ page{
    right: 199.4rpx;
    width: 57.4rpx;
    height: 49.2rpx;
-   animation: scaleDraw 5s ease-in-out infinite;
+   animation: scaleDraw 3s ease-in-out infinite;
 }
 .assistance-luck-img-money4 {
    position: absolute;
@@ -195,15 +197,15 @@ page{
    left: 187.2rpx;
    width: 55.2rpx;
    height: 55.2rpx;
-   animation: scaleDraw 5s ease-in-out infinite;
+   animation: scaleDraw 3s ease-in-out infinite;
 }
 .assistance-luck-img-money5 {
    position: absolute;
    top: 523.4rpx;
-   right: 170.6rpx;
+   right: 150.6rpx;
    width: 100.6rpx;
    height: 100.6rpx;
-   animation: scaleDraw 5s infinite;
+   animation: scaleDraw 3s infinite;
 }
 .assistance-luck-img-help-bottom {
     height: 297.8rpx;
@@ -268,7 +270,7 @@ page{
 }
 .assistance-friends-list-content {
     width:  670rpx;
-    padding-bottom: 30rpx;
+    padding-bottom: 46rpx;
 }
 .friend-none-default {
     margin-top: 168.6rpx;
@@ -400,7 +402,7 @@ page{
 }
 .new-user-amount-double-num {
     position: absolute;
-    top: 30rpx;
+    top: 25rpx;
     margin-left: 12rpx;
     height: 37rpx;
     width: 55rpx;
@@ -462,34 +464,31 @@ page{
 .firends-content-top {
     text-align: right;
     height: 36rpx;
-    height: 36rpx;
+    margin-right: 32rpx;
 }
 .firends-content-bottom {
     text-align: right;
     height: 42rpx;
-    border: 8rpx 
+    margin-right: 32rpx;
 }
 .amount-img {
     display: inline-block;
     vertical-align: top;
-    width: 34rpx;
-    height: 34rpx;
+    width: 36rpx;
+    height: 36rpx;
 }
 .increase {
     display: inline-block;
     vertical-align: top;
-    margin-right: 30rpx;
-    margin-left: 12rpx;
     height: 36rpx;
     font-size: 26rpx;
     color: #DA205F;
     font-weight:bold;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 .news-double-num {
     display: inline-block;
     vertical-align: top;
-    height: 34rpx;
+    height: 36rpx;
     width: 36rpx;
     color:  #FF9D00;
     font-size: 26rpx;
@@ -497,8 +496,6 @@ page{
 .news-double-describe {
     display: inline-block;
     vertical-align: top;
-    margin-right: 30rpx;
-    margin-left: 8rpx;
     height: 34rpx;
     font-size: 24rpx;
     color: #DA205F;
