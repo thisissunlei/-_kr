@@ -10,13 +10,15 @@ Page({
         assistanceFlag:true,
         alsoAssistanceFlag:false,
         alsoAssistanceAmount:'',
+        page:1,
         pageNum:1,
         pageSize:2,
+        totalPages:1,
         amountIsFull:false,// 被助力人礼券池已满弹框
         assistantAmountIsFull:false,// 助力人礼券池已满
         amountIsFullTen:false,// 每天助力超过10次 限制
         animateMoneyFlag:false,//钱动画
-        pageLoadFlag:false,//页面加载
+        pageLoadFlag:true,//页面加载
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
@@ -115,14 +117,69 @@ Page({
           wx.hideLoading();
         },1500)
     },
-    // 下拉刷新
-    onPullDownRefresh(e) {
-      
-    },
-    // 上拉加载
-    onReachBottom() {
-      this.getMore();
-    },
+    // // 加载更多  
+    // getMore: function(){
+    //   var that = this;
+    //   that.setData({
+    //     pageSize:that.data.pageSize+=2,
+    //     pageLoadFlag:false
+    //   })
+    //   app.getRequest({
+    //     url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
+    //     method:'GET',
+    //     data: {
+    //       page:1,
+    //       pageSize: that.data.pageSize,
+    //       wechatId: that.data.weChatId
+    //     },
+    //     success: res => {
+    //         if(res.data.code === 1){
+    //           that.setData({
+    //               totalCount:res.data.data.totalCount,
+    //               totalAmount:res.data.data.totalAmount,
+    //               items:res.data.data.items,
+    //               pageLoadFlag:true
+    //           })
+    //         }
+    //     }
+    //   });
+    // },
+  //页面上拉触底事件
+  onReachBottom: function() {
+    console.log("上拉刷新!!!");
+    const that = this;
+    // console.log(this.currentData);
+    console.log(that.data.page )
+    console.log(that.data.totalPages )
+    if (that.data.page < that.data.totalPages) {
+      console.log("上拉刷新!!!2222");
+      that.page += 1;
+      that.setData({
+        page:that.data.page+=1,
+        pageLoadFlag:false
+      })
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
+        data: {
+          page: that.page,
+          pageSize: that.pageSize,
+          wechatId: that.data.weChatId
+        },
+        success: res => {
+          console.log("下拉分页");
+          console.log(res);
+          that.setData({
+            items: [].concat(that.data.items, res.data.data.items),
+            totalAmount: res.data.data.totalAmount,
+            totalCount: res.data.data.totalCount,
+            totalPages: res.data.data.totalPages,
+            page: that.page,
+            pageLoadFlag:true
+          });
+        }
+      });
+    } 
+  },
     //获取用户信息
     getInfo: function() {
       console.log("获取用户信息");
@@ -206,14 +263,14 @@ Page({
   // 规则 
   rule: function (){
       this.setData({
-        pageOnloadFlag:false,
+        // pageOnloadFlag:false,
         rule:true
       })
   },
   // 关闭规则显示
   ruleClose: function (){
       this.setData({
-        pageOnloadFlag:true,
+        // pageOnloadFlag:true,
         rule:false
       }) 
   },
@@ -353,27 +410,6 @@ Page({
       }
     });
   },
-  // test:function() {
-  //   wx.showModal({
-  //     title: '提示',
-  //     content: '每天只能助力十次哦！',
-  //     success: function (res) {
-  //         if (res.confirm) {
-  //             console.log('用户点击确定')
-  //         }else{
-  //            console.log('用户点击取消')
-  //         }
-
-  //     }
-  // })
-  //   wx.showToast({
-  //     title: '每天只能助力十次哦！',
-  //     duration: 10000
-  //   })
-  //   setTimeout(function(){
-  //     wx.hideToast()
-  //   },2000)
-  // },
   // 每天助力超过10次提示
   showIsTenTimes: function(){
     console.log("closeknow!!!");
@@ -393,42 +429,6 @@ Page({
        this.setData({
         amountIsFull:false
       })
-  },
-  // 加载更多  
-  getMore: function(){
-    var that = this;
-    that.setData({
-      pageSize:that.data.pageSize+=2,
-      pageLoadFlag:false
-    })
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
-      method:'GET',
-      data: {
-        page:1,
-        pageSize: that.data.pageSize,
-        wechatId: that.data.weChatId
-      },
-      success: res => {
-          if(res.data.code === 1){
-            that.setData({
-                totalCount:res.data.data.totalCount,
-                totalAmount:res.data.data.totalAmount,
-                items:res.data.data.items,
-                pageLoadFlag:true
-            })
-        //     if(res.data.data.totalCount > that.data.pageSize ){
-        //       that.setData({
-        //            moreFlag:true
-        //       })
-        //  }else {
-        //       that.setData({
-        //            moreFlag:false
-        //       }) 
-        //  }
-          }
-      }
-    });
   },
   // 获取被助力人  助力列表 分页
   firendAssistanceList: function() {
@@ -455,19 +455,20 @@ Page({
                })
             }
             that.setData({
+                totalPages:res.data.data.totalPages,
                 totalCount:res.data.data.totalCount,
                 totalAmount:res.data.data.totalAmount,
                 items:res.data.data.items
             })
-            if(res.data.data.totalCount > that.data.pageSize ){
-                 that.setData({
-                      moreFlag:true
-                 })
-            }else {
-                 that.setData({
-                      moreFlag:false
-                 }) 
-            }
+            // if(res.data.data.totalCount > that.data.pageSize ){
+            //      that.setData({
+            //           moreFlag:true
+            //      })
+            // }else {
+            //      that.setData({
+            //           moreFlag:false
+            //      }) 
+            // }
           }
       }
     });
