@@ -42,7 +42,7 @@ Page({
   },
   weChatId: null, //微信id
   page: 1,
-  pageSize: 5,
+  pageSize: 10,
   totalPages: 1,
   currentData: 0,
   jdConfig: {
@@ -243,7 +243,7 @@ Page({
       }
     });
   },
-  //去拉萨
+  //去首页
   goToHome: function() {
     wx.reLaunch({
       url: "../index/index"
@@ -265,11 +265,6 @@ Page({
       success: res => {
         console.log(res);
         if (res.data.code == 1) {
-          // wx.showToast({
-          //   title: "成功领取入场券",
-          //   icon: "success",
-          //   duration: 2000
-          // });
           that.setData({
             showAnimation: true,
             animationStart: true
