@@ -161,8 +161,8 @@ Page({
       app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
         data: {
-          page: that.page,
-          pageSize: that.pageSize,
+          page: that.data.page,
+          pageSize: that.data.pageSize,
           wechatId: that.data.weChatId
         },
         success: res => {
