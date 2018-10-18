@@ -14,7 +14,8 @@ Page({
         pageSize:2,
         amountIsFull:false,// 被助力人礼券池已满弹框
         assistantAmountIsFull:false,// 助力人礼券池已满
-        amountIsFullTen:true,// 每天助力超过10次 限制
+        amountIsFullTen:false,// 每天助力超过10次 限制
+        animateMoneyFlag:false,//钱动画
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
@@ -48,7 +49,6 @@ Page({
     other:'',
     onLoad(options) {
       wx.reportAnalytics("viewassis");
-
       this.setData({
         weChatId:options.weChatId
       })
@@ -262,27 +262,29 @@ Page({
                   return ;
                 }
                 if(res.data.data.boosterAamount === -3){
-                      wx.showModal({
-                        title: '提示',
-                        content: '每天只能助力十次哦！',
-                        success: function (res) {
-                            if (res.confirm) {
-                                console.log('用户点击确定')
-                            }else{
-                              console.log('用户点击取消')
-                            }
-                  
-                        }
+                    that.setData({
+                      amountIsFullTen:true
                     })
+                      setTimeout(function(){
+                        that.setData({
+                          amountIsFullTen:false
+                        })
+                      },1500)
                     return ;
                 }
-                that.setData({
+                      that.setData({
+                        animateMoneyFlag:true,
                         alsoAssistanceAmount:res.data.data.boosterAamount
                       })
                       that.setData({
                         alsoAssistanceFlag:true,
                         assistanceFlag:true
                       })
+                      setTimeout(function(){
+                        that.setData({
+                          animateMoneyFlag:false,
+                        })
+                      },2000)
                       that.firendAssistanceList();
                       if(res.data.data.boosterAamount<10){
                         that.james.stop("0"+res.data.data.boosterAamount)
@@ -315,7 +317,6 @@ Page({
                     that.redirectToCreateImg();
              }else{
               wx.hideLoading();
-               
               that.setData({
                 pageOnloadFlag:true,
                 wechatAvatar:res.data.data.wechatAvatar,
@@ -369,6 +370,13 @@ Page({
   //     wx.hideToast()
   //   },2000)
   // },
+  // 每天助力超过10次提示
+  showIsTenTimes: function(){
+    console.log("closeknow!!!");
+      this.setData({
+        assistantAmountIsFull:false
+      })
+  },
   // 关闭 助力人礼券已满 弹框
   closeknow: function(){
     console.log("closeknow!!!");

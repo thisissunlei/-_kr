@@ -34,7 +34,11 @@ Page({
     animationDataTwo: "",
     animationDataThree: "",
     couponInfo: {},
-    hasPhone: true
+    hasPhone: true, //是否有手机号
+    friendBoosterNone: false,
+    myBoosterNone: false,
+    boosterRecordNone: false,
+    activityFlag: false // 判断活动 是否 结束
   },
   weChatId: null, //微信id
   page: 1,
@@ -70,12 +74,12 @@ Page({
   onLoad: function() {
     wx.reportAnalytics("viewpoweractivities");
     const that = this;
-    setTimeout(function(){
+    setTimeout(function() {
       that.james = new demoAnimate({
         _this: that
       });
-    },1000)
-    
+    }, 1000);
+
     // that.animate();
     wx.getSetting({
       success: res => {
@@ -157,7 +161,21 @@ Page({
       that.setData({
         hasPhone: true
       });
+      let data = {
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv
+      };
+      that.bindwxPhone(data);
     }
+  },
+  bindwxPhone(data) {
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krmting/wx/auth/bind-phone",
+      methods: "GET",
+      data: data,
+      success: res => {},
+      fail: res => {}
+    });
   },
   share: function() {
     this.setData({
@@ -183,6 +201,35 @@ Page({
       that.page = 1;
       that.getRecords();
     }
+  },
+  //活动是否结束
+  getActivityFlag: function() {
+    // 判断活动是否结束
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmbooster/ovedue",
+      method: "GET",
+      data: {
+        activityId: 1
+      },
+      success: res => {
+        console.log("活动是否过期", res);
+        if (res.data.data) {
+          that.setData({
+            activityFlag: true
+          });
+        } else {
+          that.setData({
+            activityFlag: false
+          });
+        }
+      }
+    });
+  },
+  //去拉萨
+  goToHome: function() {
+    wx.reLaunch({
+      url: "../index/index"
+    });
   },
   //提取礼券
   extractCoupon: function(e) {
@@ -213,7 +260,12 @@ Page({
             that.setData({
               animationStart: false
             });
-          }, 1000);
+          }, 1500);
+          setTimeout(() => {
+            that.setData({
+              showAnimation: false
+            });
+          }, 3500);
           that.getBooster();
         } else {
           wx.showToast({
@@ -358,7 +410,6 @@ Page({
     });
 
     app.getRequest({
-
       url: "https://i.krspace.cn/api/gateway/kmbooster-qr/promocode",
       // url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
       data: {
@@ -368,7 +419,7 @@ Page({
       success: res => {
         let code = res.data.code;
         if (code === 1) {
-          weImg.url = res.data.data
+          weImg.url = res.data.data;
           jdConfig.images.push(weImg);
           this.setData(
             {
@@ -380,9 +431,9 @@ Page({
           );
         } else {
           wx.showToast({
-            icon:'none',
-            title:res.data.message
-          })
+            icon: "none",
+            title: res.data.message
+          });
           // weImg.url = res.data.data
           // weImg.url =
           //   "https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg";
@@ -434,10 +485,10 @@ Page({
           number: result
         });
         console.log("result----", result);
-        setTimeout(function(){
+        setTimeout(function() {
           // that.james.initNum(result);
-          that.james.initNum('999');
-        },1000)
+          that.james.initNum("999");
+        }, 1000);
         // that.animate();
       }
     });
@@ -486,7 +537,8 @@ Page({
           recordList: res.data.data.items,
           totalAmount: res.data.data.totalAmount,
           totalCount: res.data.data.totalCount,
-          totalPages: res.data.data.totalPages
+          totalPages: res.data.data.totalPages,
+          friendBoosterNone: true
         });
       }
     });
@@ -510,7 +562,8 @@ Page({
           helpingList: res.data.data.items,
           myAmout: res.data.data.totalAmount,
           totalCount: res.data.data.totalCount,
-          totalPages: res.data.data.totalPages
+          totalPages: res.data.data.totalPages,
+          myBoosterNone: true
         });
       }
     });
@@ -535,7 +588,8 @@ Page({
         that.setData({
           extractList: recordList,
           totalCount: res.data.data.totalCount,
-          totalPages: res.data.data.totalPages
+          totalPages: res.data.data.totalPages,
+          boosterRecordNone: true
         });
       }
     });
