@@ -74,6 +74,10 @@ Page({
   onLoad: function() {
     wx.reportAnalytics("viewpoweractivities");
     const that = this;
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
     setTimeout(function() {
       that.james = new demoAnimate({
         _this: that
@@ -124,6 +128,9 @@ Page({
   getPhoneNumber: function(e) {
     console.log(e);
     const that = this;
+    that.setData({
+      couponInfo: e.currentTarget.dataset.id
+    });
     if (e.detail.errMsg === "getPhoneNumber:ok") {
       app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
@@ -214,7 +221,6 @@ Page({
   //活动是否结束
   getActivityFlag: function() {
     let that = this;
-    // 判断活动是否结束
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/ovedue",
       method: "GET",
@@ -228,9 +234,11 @@ Page({
             activityFlag: true
           });
         } else {
-          that.setData({
-            activityFlag: false
-          });
+          that.setData({ activityFlag: false });
+          that.getBooster();
+          that.getBroadcast();
+          that.getFriendsBooster();
+          that.getBoosterInfo();
         }
       }
     });
@@ -654,11 +662,12 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-              that.getBooster();
-              that.getBroadcast();
-              that.getFriendsBooster();
-              that.getBoosterInfo();
+              // that.getBooster();
+              // that.getBroadcast();
+              // that.getFriendsBooster();
+              // that.getBoosterInfo();
               that.getActivityFlag();
+              wx.hideLoading();
             },
             fail: err => {
               console.log(err);
