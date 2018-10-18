@@ -38,7 +38,8 @@ Page({
     friendBoosterNone: false,
     myBoosterNone: false,
     boosterRecordNone: false,
-    activityFlag: null // 判断活动 是否 结束
+    activityFlag: false, // 判断活动 是否 结束
+    activityOnline: false
   },
   weChatId: null, //微信id
   page: 1,
@@ -228,17 +229,15 @@ Page({
         activityId: 1
       },
       success: res => {
-        console.log("活动是否过期", res);
+        // console.log("活动是否过期", res);
         if (res.data.data) {
           that.setData({
             activityFlag: true
           });
         } else {
-          that.setData({ activityFlag: false });
-          that.getBooster();
-          that.getBroadcast();
-          that.getFriendsBooster();
-          that.getBoosterInfo();
+          that.setData({
+            activityOnline: true
+          });
         }
       }
     });
@@ -657,10 +656,10 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-              // that.getBooster();
-              // that.getBroadcast();
-              // that.getFriendsBooster();
-              // that.getBoosterInfo();
+              that.getBooster();
+              that.getBroadcast();
+              that.getFriendsBooster();
+              that.getBoosterInfo();
               that.getActivityFlag();
               wx.hideLoading();
             },
