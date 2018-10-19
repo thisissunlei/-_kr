@@ -703,6 +703,11 @@ Page({
             iv: res.iv
           },
           success: res => {
+            that.getBooster();
+            that.getBroadcast();
+            that.getFriendsBooster();
+            that.getBoosterInfo();
+            that.getActivityFlag();
             // console.log(res);
           }
         });
