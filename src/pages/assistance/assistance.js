@@ -9,7 +9,7 @@ Page({
         user_info:'',
         assistanceFlag:true,
         alsoAssistanceFlag:false,
-        alsoAssistanceAmount:0,
+        alsoAssistanceAmount:'',
         page:1,
         pageNum:1,
         pageSize:10,
@@ -342,7 +342,7 @@ Page({
                 pageOnloadFlag:true,
                 wechatAvatar:res.data.data.wechatAvatar,
                 wechatNick:res.data.data.wechatNick,
-                // alsoAssistanceAmount:res.data.data.amount,
+                alsoAssistanceAmount:res.data.data.amount,
               })
               if(res.data.data.booster === 1){
                 console.log("已助力");
