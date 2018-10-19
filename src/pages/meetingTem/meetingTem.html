@@ -5,7 +5,7 @@
             <!-- 已过期 -->
             <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{meetingDetailData.meetingStatus==='EXPIRED'}}"></image>
             <!-- 已入场 -->
-            <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{meetingDetailData.meetingStatus==='ARRVING'}}"></image>
+            <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{meetingDetailData.meetingStatus==='ARRVING'}}"></image>
             <view class="content">
                 <view class='title'>
                     <text class='meetingTime'>{{meetingDetailData.meetingTime}}</text>
@@ -15,7 +15,8 @@
                     <view class="shade">
                         <view class="code-pic">
                             <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{meetingDetailData.meetingStatus==='EXPIRED'}}"></image>
-                            <image src="../images/indexImg/code.png" wx:if="{{meetingDetailData.meetingStatus!=='EXPIRED'}}" class="img"></image>
+                            <image src="../images/indexImg/code.png" wx:if="{{meetingDetailData.meetingStatus!=='EXPIRED'}}"
+                                class="img"></image>
                             <view class="img-box">
                                 <canvas bindtap="previewImg" hidden="{{canvasHidden}}" canvas-id="mycanvas" class="mycanvas" />
                                 <!-- <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image> -->
