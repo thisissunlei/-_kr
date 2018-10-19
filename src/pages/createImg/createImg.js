@@ -55,7 +55,7 @@ Page({
       {
         width: 765,
         height: 1068,
-        x: 1,
+        x: 0,
         y: 0,
         borderRadius: 16,
         url: "/pages/images/shareBg.png",
