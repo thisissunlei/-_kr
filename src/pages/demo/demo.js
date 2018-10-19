@@ -181,7 +181,7 @@ Page({
       this.james.initNum('000')
       this.run  = false
     }else{
-      this.james.initNum('789')
+      this.james.initNum('090')
       this.run = true
     }
     console.log('stop=====')

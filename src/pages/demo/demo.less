@@ -22,18 +22,17 @@ page{
   position:relative;
   border:1px solid red;
   width:600rpx;
-  height:134rpx;
+  height:100rpx;
 }
 .num-img{
   width:90rpx;
-  height:134rpx;
+  height:100rpx;
   display: block;
   box-sizing: border-box;
-  padding:20rpx;
 }
 .box-lists{
   width:80rpx;
-  height:134rpx;
+  height:100rpx;
   display: inline-block;
   vertical-align:top;
   position: relative; 
@@ -45,11 +44,6 @@ page{
   display:block;
 }
 .stop{
-
-}
-.one{
-  background-color: #333;
-
 
 }
 .two {
@@ -103,6 +97,9 @@ page{
       transform: translateY(0);
     }
 }
+.twoAnimation{
+  animation:moveZero 100ms forwards linear
+}
 @keyframes twomove {
     0%{ 
         transform: translateY(0%);
@@ -111,7 +108,7 @@ page{
         transform: translateY(-100%);
     }
     100%{
-        transform: translateY(-200%);
+        transform: translateY(-110%);
     } 
 }
 .move-zero{
@@ -143,95 +140,91 @@ page{
 }
 .move-nine{
   
+  animation:moveNine 5s forwards linear
 
-  transition:transform 10s linear;
-  transform: translateY(-2072rpx);
 }
 .delay{
   animation-delay:.2s
 }
 @keyframes moveOne {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-134rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10%);
+  }
 }
 @keyframes moveZero {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1340rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }
 @keyframes moveTwo {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-269rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20%);
+  }
 }
 @keyframes moveThree {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-402rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-30%);
+  }
 }
 @keyframes moveFour {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-536rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-40%);
+  }
 }
 @keyframes moveFive {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-670rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
 }
 @keyframes moveSix {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-804rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-60%);
+  }
 }
 @keyframes moveSeven {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-938rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-70%);
+  }
 }
 @keyframes moveEight {
-    0%{ 
-        transform: translateY(0);
-    }
-    100%{
-      transform: translateY(-1072rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-80%);
+  }
 }
 @keyframes moveNine {
-    0%{ 
-        transform: translateY(0);
-    }
-    50%{
-      transform: translateY(-792rpx);
-    }
-    100%{
-      transform: translateY(-2072rpx);
-    } 
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-90%);
+  }
 }
 .page view{
 }
