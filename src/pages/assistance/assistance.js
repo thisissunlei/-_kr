@@ -52,9 +52,17 @@ Page({
     james:'',
     other:'',
     onLoad(options) {
+      let weChatId;
+      console.log('assistance--onLoad',options)
+
+      if(options.scene){
+        weChatId = decodeURIComponent(options.scene);
+      }else if(options.weChatId){
+        weChatId = options.weChatId
+      }
       wx.reportAnalytics("viewassis");
       this.setData({
-        weChatId:options.weChatId
+        weChatId:weChatId
       })
       let that = this;
       wx.showLoading({
