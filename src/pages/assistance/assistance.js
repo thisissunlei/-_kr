@@ -23,8 +23,8 @@ Page({
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        weChatId:'1383',
-        // weChatId:'',
+        // weChatId:'1383',
+        weChatId:'',
         totalAmount:'',
         totalCount:'',
         isNew:false,
@@ -60,9 +60,9 @@ Page({
         weChatId = options.weChatId
       }
       wx.reportAnalytics("viewassis");
-      // this.setData({
-      //   weChatId:weChatId
-      // })
+      this.setData({
+        weChatId:weChatId
+      })
       let that = this;
       wx.showLoading({
         title: "加载中",
@@ -177,6 +177,7 @@ Page({
                 app.globalData.openid = res.data.data["openid"];
                 that.sharedInf();
                 that.firendAssistanceList();
+                that.getInfo();
               },
               fail: err => {
               }
