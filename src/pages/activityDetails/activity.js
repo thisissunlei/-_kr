@@ -84,6 +84,7 @@ Page({
     return paramValue;
   },
   onLoad(options) {
+    console.log('activity--onLoad',options)
     let that = this;
     let id = 0
     if (options.q) {
