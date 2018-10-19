@@ -12,7 +12,7 @@ Page({
         alsoAssistanceAmount:'',
         page:1,
         pageNum:1,
-        pageSize:2,
+        pageSize:10,
         totalPages:1,
         isMoreFlag:false,
         amountIsFull:false,// 被助力人礼券池已满弹框
