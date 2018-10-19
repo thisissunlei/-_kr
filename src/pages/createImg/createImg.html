@@ -293,7 +293,8 @@
 		</image>
 	</view>
 </view>
-<button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
+<button wx:if="{{!hasUserInfo}}" catchtouchmove="ture" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo"
+ style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
 <view wx:if="{{!hasUserInfo}}" class="masking-out" catchtouchmove="ture">
 	<image class="masking-img" src="{{KrImgUrl}}helpingActivity/index/prompt.png"></image>
 </view>
