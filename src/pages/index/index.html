@@ -63,6 +63,7 @@
         </block>
       </swiper>
     </view>
+
     <!-- 新人引导 -->
     <view class="adver">
       <view class="adver-top" bindtap="point">
@@ -71,6 +72,9 @@
       <view class="adver-bottom">
         <view class="adver-friend" bindtap="jumpHelpingActivity">
           <image src="{{KrImgUrl}}helpingActivity/index/friend-help.png"></image>
+          <form report-submit='true' bindsubmit="formSubmit">
+            <button class="form-id" form-type='submit'></button>
+          </form>
         </view>
         <view class="adver-team" bindtap="jumpToTeamCard">
           <image src="../images/indexImg/team.png"></image>
