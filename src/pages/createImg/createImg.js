@@ -135,63 +135,56 @@ Page({
     that.setData({
       couponInfo: e.currentTarget.dataset.id
     });
+    let data = {
+      encryptedData: e.detail.encryptedData,
+      iv: e.detail.iv
+    };
     if (e.detail.errMsg === "getPhoneNumber:ok") {
       app.getRequest({
-        url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
-        method: "post",
-        data: {
-          baseId: e.currentTarget.dataset.id.id
-        },
+        url: app.globalData.KrUrl + "api/gateway/krmting/wx/auth/bind-phone",
+        methods: "GET",
+        data: data,
         success: res => {
-          console.log(res);
-          if (res.data.code == 1) {
-            // wx.showToast({
-            //   title: "成功领取入场券",
-            //   icon: "success",
-            //   duration: 2000
-            // });
-            that.setData({
-              showAnimation: true,
-              animationStart: true
-            });
-            setTimeout(() => {
-              that.setData({
-                animationStart: false
-              });
-            }, 1500);
-            setTimeout(() => {
-              that.setData({
-                showAnimation: false
-              });
-            }, 3500);
-            that.getBooster();
-          } else {
-            wx.showToast({
-              title: res.data.message,
-              icon: "none",
-              duration: 2000
-            });
-          }
-        }
+          app.getRequest({
+            url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
+            method: "post",
+            data: {
+              baseId: e.currentTarget.dataset.id.id
+            },
+            success: res => {
+              console.log(res);
+              if (res.data.code == 1) {
+                that.setData({
+                  showAnimation: true,
+                  animationStart: true
+                });
+                setTimeout(() => {
+                  that.setData({
+                    animationStart: false
+                  });
+                }, 1500);
+                setTimeout(() => {
+                  that.setData({
+                    showAnimation: false
+                  });
+                }, 3500);
+                that.getBooster();
+              } else {
+                wx.showToast({
+                  title: res.data.message,
+                  icon: "none",
+                  duration: 2000
+                });
+              }
+            }
+          });
+          that.setData({
+            hasPhone: true
+          });
+        },
+        fail: res => {}
       });
-      that.setData({
-        hasPhone: true
-      });
-      let data = {
-        encryptedData: e.detail.encryptedData,
-        iv: e.detail.iv
-      };
-      that.bindwxPhone(data);
     }
-  },
-  bindwxPhone(data) {
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/krmting/wx/auth/bind-phone",
-      methods: "GET",
-      data: data,
-      success: res => {},
-      fail: res => {}
-    });
   },
   share: function() {
     this.setData({
