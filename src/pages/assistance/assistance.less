@@ -151,20 +151,25 @@ page{
 {
     0%{
         transform: scale(1);  /*开始为原始大小*/
-        transform: rotate(10deg);
     }
-    25%{
-        transform: scale(1.1); /*放大1.1倍*/
-        transform: rotate(-10deg);
+    20%{
+        transform: scale(1.2);  /*开始为原始大小*/
     }
-    50%{
-        transform: scale(1);
-        transform: rotate(10deg);
+    40%{
+        transform: scale(1);  /*开始为原始大小*/
     }
-    75%{
-        transform: scale(1.1);
-        transform: rotate(-10deg);
+    60%{
+        transform: scale(1.2);  /*开始为原始大小*/
     }
+    80%{
+        transform: scale(1); 
+        opacity:1;
+    }
+    100%{
+         /*开始为原始大小*/
+         opacity:0;
+    }
+    
 }
 .assistance-luck-img-money1 {
    position: absolute;
@@ -173,7 +178,7 @@ page{
    width: 41.4rpx;
    height: 39.4rpx;
    z-index: 9999999;
-   animation: scaleDraw 3s ease-in-out infinite;
+   animation: scaleDraw 2s ;
 }
 .assistance-luck-img-money2 {
     position: absolute;
@@ -181,7 +186,7 @@ page{
     left: 202.4rpx;
     width: 55.2rpx;
     height: 55.2rpx; 
-    animation: scaleDraw 3s ease-in-out infinite;
+    animation: scaleDraw 2s ;
 }
 .assistance-luck-img-money3 {
    position: absolute;
@@ -189,7 +194,7 @@ page{
    right: 199.4rpx;
    width: 57.4rpx;
    height: 49.2rpx;
-   animation: scaleDraw 3s ease-in-out infinite;
+   animation: scaleDraw 2s ;
 }
 .assistance-luck-img-money4 {
    position: absolute;
@@ -197,7 +202,7 @@ page{
    left: 187.2rpx;
    width: 55.2rpx;
    height: 55.2rpx;
-   animation: scaleDraw 3s ease-in-out infinite;
+   animation: scaleDraw 2s;
 }
 .assistance-luck-img-money5 {
    position: absolute;
@@ -205,7 +210,7 @@ page{
    right: 150.6rpx;
    width: 100.6rpx;
    height: 100.6rpx;
-   animation: scaleDraw 3s infinite;
+   animation: scaleDraw 2s ;
 }
 .assistance-luck-img-help-bottom {
     height: 297.8rpx;

@@ -54,7 +54,6 @@ Page({
     other:'',
     onLoad(options) {
       let weChatId;
-      console.log('assistance--onLoad',options)
       if(options.scene){
         weChatId = decodeURIComponent(options.scene);
       }else if(options.weChatId){
@@ -77,8 +76,6 @@ Page({
             activityId: 1
           },
           success: res => {
-              console.log('res123');
-              console.log(res);
               if(res.data.data){
                 that.setData({
                   activityFlag:true
@@ -115,7 +112,6 @@ Page({
         title: "加载中",
         mask: true
       });
-        console.log('Onready')
         setTimeout(function(){
           that.setData({
             initTwos:"two two-animation delay",
@@ -128,13 +124,8 @@ Page({
     },
   //页面上拉触底事件
   onReachBottom: function() {
-    console.log("上拉刷新!!!");
     const that = this;
-    // console.log(this.currentData);
-    console.log(that.data.page )
-    console.log(that.data.totalPages )
     if (that.data.page < that.data.totalPages) {
-      console.log("上拉刷新!!!2222");
       that.setData({
         page:that.data.page+=1,
         pageLoadFlag:false
@@ -147,8 +138,6 @@ Page({
           wechatId: that.data.weChatId
         },
         success: res => {
-          console.log("下拉分页");
-          console.log(res);
           that.setData({
             items: [].concat(that.data.items, res.data.data.items),
             totalAmount: res.data.data.totalAmount,
@@ -175,7 +164,6 @@ Page({
       let that = this;
       wx.login({
         success: function(res) {
-            console.log("登陆");
           if (res.code) {
             wx.request({
               url: app.globalData.KrUrl + "api/gateway/krmting/common/login",
@@ -184,7 +172,6 @@ Page({
                 code: res.code
               },
               success: res => {
-                console.log("登陆成功!!");
                 app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
                 app.globalData.openid = res.data.data["openid"];
@@ -192,11 +179,9 @@ Page({
                 that.firendAssistanceList();
               },
               fail: err => {
-                console.log(err);
               }
             });
           } else {
-            console.log("登录失败！" + res.errMsg);
           }
         }
       });
@@ -214,7 +199,6 @@ Page({
   },  
   // 跳转查看页
   goToCreateImg: function (){
-    console.log('去查看');
     wx.navigateTo({
       url: "../createImg/createImg"
     });
@@ -241,7 +225,6 @@ Page({
   },
   // 助力
   postAssistance: function (){
-    console.log("助力");
     var that = this;
     wx.showLoading({
       title: "助力中",
@@ -264,7 +247,6 @@ Page({
                 id: that.data.weChatId
               },
               success: res => {
-                console.log('zhuli',res.data)
                 let code = res.data.code
                 if(code == -1){
                   that.setError(res.data.message)
@@ -327,13 +309,7 @@ Page({
         wechatId: that.data.weChatId
       },
       success: res => {
-              console.log("分享详情接口 kmbooster/shared-info")
-              console.log(res.data)
         if(res.data.code === 1){
-              console.log('res.data.data.booster');
-              console.log(res.data.data.booster);
-              console.log("res.data.data.ownerVisit");
-              console.log(res.data.data.ownerVisit)
              if(res.data.data.ownerVisit === 1){
                     that.redirectToCreateImg();
              }else{
@@ -345,18 +321,13 @@ Page({
                 alsoAssistanceAmount:res.data.data.amount,
               })
               if(res.data.data.booster === 1){
-                console.log("已助力");
                     that.setData({
                             assistanceFlag:true,
                             alsoAssistanceFlag:true
                           });
-                    console.log('res.data.data.amount')      
-                    console.log(res.data.data.amount+'')
                         if(res.data.data.amount < 10){
-                          console.log("小于10");
                           that.james.stop('0'+res.data.data.amount)    
                         }else{
-                          console.log("大于10");
                           that.james.stop(res.data.data.amount+'')
                         }  
                     }else{
@@ -372,14 +343,12 @@ Page({
   },
   // 每天助力超过10次提示
   showIsTenTimes: function(){
-    console.log("closeknow!!!");
       this.setData({
         assistantAmountIsFull:false
       })
   },
   // 关闭 助力人礼券已满 弹框
   closeknow: function(){
-    console.log("closeknow!!!");
       this.setData({
         assistantAmountIsFull:false
       })
@@ -402,8 +371,6 @@ Page({
         wechatId:that.data.weChatId
       },
       success: res => {
-        console.log('res.data.data.totalCount')
-        console.log(res.data.data.totalCount)
           if(res.data.code === 1){
             if(res.data.data.totalCount >0){
                 that.setData({
@@ -455,11 +422,7 @@ Page({
               iv: res.iv
             },
             success: res => {
-
-              console.log('save');
               if(res.data.code === 1){
-                console.log('save123');
-                console.log(res.data.data.firstCustomer);
               }
               that.setData({
                 isNewUserFlag:res.data.data.firstCustomer

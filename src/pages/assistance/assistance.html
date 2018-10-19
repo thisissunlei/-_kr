@@ -11,7 +11,6 @@
         </image>
     </view>
 </view>
-<!-- <view wx:if="{{pageOnloadFlag}}"> -->
 <view wx:if="{{pageOnloadFlag}}">
     <view class="container">
         <view class="assistance-header">
@@ -42,14 +41,13 @@
             <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money4" src="{{KrImgUrl}}helpingActivity/helping/money2.png"></image>
             <image wx:if="{{animateMoneyFlag}}" class="assistance-luck-img-money5" src="{{KrImgUrl}}helpingActivity/helping/money1.png"></image>
             <view class="other">
-                <!-- <template is="numsAnimate" data="{{KrImgUrl,numArr}}"></template> -->
+             
                 <template is="number" data="{{KrImgUrl,animationOne,animationTwo,initOne,initOnes,initTwo,initTwos}}"></template>
             </view>
-            <!-- <view class="random-num-left" >1</view>
-            <view class="random-num-right" >2</view> -->
+           
             <image wx:if="{{!assistanceFlag}}" bindtap="postAssistance" class="assistance-luck-button-zhuli" src="{{KrImgUrl}}helpingActivity/helping/button_zhuli.png">
             </image>
-            <image wx:if="{{assistanceFlag}}" bindtap="test" class="assistance-luck-button-yizhuli" src="{{KrImgUrl}}helpingActivity/helping/button_yizhuli.png">
+            <image wx:if="{{assistanceFlag}}" class="assistance-luck-button-yizhuli" src="{{KrImgUrl}}helpingActivity/helping/button_yizhuli.png">
             </image>
             <view wx:if="{{alsoAssistanceFlag}}" class="assistance-luck-img-help">
                 <image class="assistance-luck-img-help-bottom" src="{{KrImgUrl}}helpingActivity/helping/help_bottom.png">
@@ -74,7 +72,7 @@
         </view>
         <view wx:if="{{isAssistanceFlag}}" class="assistance-friends-list">
             <view class="assistance-friends-list-content">
-                <!-- <view wx:if="{{pageLoadFlag}}"   wx:for="{{items}}"  wx:key="{{index}}" class="assistance-friends-item clearfix"> -->
+              
                 <view wx:for="{{items}}" wx:key="{{index}}" class="assistance-friends-item clearfix">
                     <image class="friends-img" src="{{item.helpThirdAvatar}}"></image>
                     <view class="firends-content-detail">
@@ -82,15 +80,7 @@
                         <ivew class="friends-signature">{{item.characters}}</ivew>
                     </view>
                     <view class="firends-content-amount">
-                        <!-- <view class="firends-content-top">
-                                    <image class="amount-img" src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
-                                    <view class="increase" >+{{item.amount}}元</view>
-                                </view>
-                                <view wx:if="{{item.first}}" class="firends-content-bottom">
-                                    <view class="news-double-num">x2</view>
-                                    <view class="news-double-describe">新人助力翻倍</view>
-                                </view>   -->
-
+                    
                         <view wx:if="{{item.first}}" class="firends-content-top">
                             <view class="news-double-describe">新人助力</view>
                             <view class="news-double-num">x2</view>
@@ -172,7 +162,7 @@
                         5）礼券池上限<text class="font-yellow-num">999</text>元。每次提取礼券，均会消耗掉礼券池的总金额；
                 </view>
                 <view>
-                        6）活动期间，每种礼券最多可提取<text class="font-yellow-num">3</text>次；；
+                        6）活动期间，每种礼券最多可提取<text class="font-yellow-num">3</text>次；
                 </view>
                 <view>
                         7）如有疑问请联系客服，活动最终解释权归氪空间所有；
