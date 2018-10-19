@@ -440,9 +440,12 @@ Page({
       data: {
         // page: "pages/assistance/assistance",
         page: "pages/activityDetails/activity",
-        scene: "weChatId=" + that.weChatId
+        scene: that.weChatId
+        // scene: 11
+
       },
       success: res => {
+
         let code = res.data.code;
         if (code === 1) {
           weImg.url = res.data.data;
