@@ -442,10 +442,8 @@ Page({
         page: "pages/activityDetails/activity",
         scene: that.weChatId
         // scene: 11
-
       },
       success: res => {
-
         let code = res.data.code;
         if (code === 1) {
           weImg.url = res.data.data;
@@ -667,6 +665,7 @@ Page({
               that.getBoosterInfo();
               that.getActivityFlag();
               wx.hideLoading();
+              that.getInfo();
             },
             fail: err => {
               console.log(err);

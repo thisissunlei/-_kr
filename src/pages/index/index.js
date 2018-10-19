@@ -252,11 +252,12 @@ Page({
               that.getOnecVisit();
               that.getShowCoupon();
               that.getActivityFlag();
+              that.getInfo();
+
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
                 that.getAllInfo();
-                // that.getInfo();
               }
               if (that.func_bool_l2 && that.func_bool_s) {
                 that.func_bool_s = false;
