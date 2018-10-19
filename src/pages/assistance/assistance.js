@@ -23,8 +23,8 @@ Page({
         wechatAvatar:'',
         wechatNick:'',
         amount:'',
-        // weChatId:'1383',
-        weChatId:'',
+        weChatId:'1383',
+        // weChatId:'',
         totalAmount:'',
         totalCount:'',
         isNew:false,
@@ -60,9 +60,9 @@ Page({
         weChatId = options.weChatId
       }
       wx.reportAnalytics("viewassis");
-      this.setData({
-        weChatId:weChatId
-      })
+      // this.setData({
+      //   weChatId:weChatId
+      // })
       let that = this;
       wx.showLoading({
         title: "加载中",
@@ -349,6 +349,7 @@ Page({
   },
   // 关闭 助力人礼券已满 弹框
   closeknow: function(){
+    console.log("closeknow!!!");
       this.setData({
         assistantAmountIsFull:false
       })
@@ -371,6 +372,8 @@ Page({
         wechatId:that.data.weChatId
       },
       success: res => {
+        console.log('res.data.data.totalCount')
+        console.log(res.data.data.totalCount)
           if(res.data.code === 1){
             if(res.data.data.totalCount >0){
                 that.setData({
@@ -422,7 +425,11 @@ Page({
               iv: res.iv
             },
             success: res => {
+
+              console.log('save');
               if(res.data.code === 1){
+                console.log('save123');
+                console.log(res.data.data.firstCustomer);
               }
               that.setData({
                 isNewUserFlag:res.data.data.firstCustomer
