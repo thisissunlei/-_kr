@@ -9,7 +9,7 @@ Page({
         user_info:'',
         assistanceFlag:true,
         alsoAssistanceFlag:false,
-        alsoAssistanceAmount:'',
+        alsoAssistanceAmount:0,
         page:1,
         pageNum:1,
         pageSize:10,
@@ -45,7 +45,8 @@ Page({
         pageOnloadFlag:false,//页面加载前 判断 跳转状态
         activityFlag:false, // 判断活动 是否 结束
         isAssistanceFlag:false,
-        isNewUser:false,// 判断是都是新用户
+        isNewUser:false,// 切换 新人双倍 弹框状态
+        isNewUserFlag:false,// 调用SAVA接口后  保存 是否是新人判断
         // animationCloudData:''
     },
     aaa :3445,
@@ -54,7 +55,6 @@ Page({
     onLoad(options) {
       let weChatId;
       console.log('assistance--onLoad',options)
-
       if(options.scene){
         weChatId = decodeURIComponent(options.scene);
       }else if(options.weChatId){
@@ -126,33 +126,6 @@ Page({
           wx.hideLoading();
         },1500)
     },
-    // // 加载更多  
-    // getMore: function(){
-    //   var that = this;
-    //   that.setData({
-    //     pageSize:that.data.pageSize+=2,
-    //     pageLoadFlag:false
-    //   })
-    //   app.getRequest({
-    //     url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
-    //     method:'GET',
-    //     data: {
-    //       page:1,
-    //       pageSize: that.data.pageSize,
-    //       wechatId: that.data.weChatId
-    //     },
-    //     success: res => {
-    //         if(res.data.code === 1){
-    //           that.setData({
-    //               totalCount:res.data.data.totalCount,
-    //               totalAmount:res.data.data.totalAmount,
-    //               items:res.data.data.items,
-    //               pageLoadFlag:true
-    //           })
-    //         }
-    //     }
-    //   });
-    // },
   //页面上拉触底事件
   onReachBottom: function() {
     console.log("上拉刷新!!!");
@@ -197,31 +170,6 @@ Page({
       });
     } 
   },
-    //获取用户信息
-    getInfo: function() {
-      console.log("获取用户信息");
-      var that = this;
-      wx.getUserInfo({
-        success: function(res) {
-          //保存到storage里
-          console.log(res)
-          wx.setStorage({
-            key: "user_info",
-            data: {
-              user_info: res.userInfo
-            }
-          });
-          app.getRequest({
-            url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
-            data: {
-              encryptedData: res.encryptedData,
-              iv: res.iv
-            },
-            success: res => {}
-          });
-        }
-      });
-    },  
     //登录
     login: function() {
       let that = this;
@@ -299,18 +247,9 @@ Page({
       title: "助力中",
       mask: true
     });
-    // 是否时新人
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
-      method:'GET',
-      data: {},
-      success: res => {
-        console.log('请求是否新人  成功!!');
-        console.log(res.data.data);
-        console.log('请求助力数--参数',res.data.data,that.data.weChatId);
             // 判断 是否是新人 弹出新人双倍 提示框 
             that.setData({
-               isNewUser:res.data.data
+               isNewUser:that.data.isNewUserFlag
             })
             setTimeout(function(){
               that.setData({
@@ -321,7 +260,7 @@ Page({
               url: app.globalData.KrUrl + "api/gateway/kmbooster/booster",
               method:'POST',
               data: {
-                firstCustomer: res.data.data,
+                firstCustomer: that.data.isNewUserFlag,
                 id: that.data.weChatId
               },
               success: res => {
@@ -376,8 +315,7 @@ Page({
                       }
               }
             });
-      }
-    });
+
   },  
   // 分享详情接口 kmbooster/shared-info 
   sharedInf: function(){
@@ -404,7 +342,7 @@ Page({
                 pageOnloadFlag:true,
                 wechatAvatar:res.data.data.wechatAvatar,
                 wechatNick:res.data.data.wechatNick,
-                alsoAssistanceAmount:res.data.data.amount,
+                // alsoAssistanceAmount:res.data.data.amount,
               })
               if(res.data.data.booster === 1){
                 console.log("已助力");
@@ -516,7 +454,17 @@ Page({
               encryptedData: res.encryptedData,
               iv: res.iv
             },
-            success: res => {}
+            success: res => {
+
+              console.log('save');
+              if(res.data.code === 1){
+                console.log('save123');
+                console.log(res.data.data.firstCustomer);
+              }
+              that.setData({
+                isNewUserFlag:res.data.data.firstCustomer
+              })
+            }
           });
         }
       });
