@@ -435,13 +435,10 @@ Page({
     });
 
     app.getRequest({
-      url: "https://i.krspace.cn/api/gateway/kmbooster-qr/promocode",
-      // url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
+      url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
       data: {
-        // page: "pages/assistance/assistance",
-        page: "pages/activityDetails/activity",
+        page: "pages/assistance/assistance",
         scene: that.weChatId
-        // scene: 11
       },
       success: res => {
         let code = res.data.code;
