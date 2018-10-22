@@ -22,9 +22,17 @@ const styleType = {
   "2": {
     title: "看《三国新说唱》赢创业专享礼券 快来吧！",
     desc: "氪空间自由座",
-    imageUrl: "/insideSale/share3.jpg",
+    imageUrl: "insideSale/share3.jpg",
     navigationBarTitle: "自由座创业专享礼券",
     headerBanner: app.globalData.KrImgUrl + "insideSale/banner2.jpg"
+  },
+  //行政锦鲤礼券
+  "3": {
+    title: "快来和我一起拆100元红包，名额有限，先到先得！",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/fancy_carp_share.jpg",
+    navigationBarTitle: "寻找行政圈锦鲤",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/fancy_carp_bg.jpg"
   }
 };
 
