@@ -4,7 +4,7 @@
 <view class="container container-wrapper">
   <!-- <navigator url="../demo/demo">demo</navigator> -->
   <!-- <navigator url="../assistance/assistance">assistance</navigator> -->
-  <scroll-view class="scroll" scroll-y scroll-with-animation="true" style="height: 100%;" scroll-into-view="{{toView}}">
+  <scroll-view class="scroll" scroll-y scroll-with-animation="true" style="height:100%;" scroll-into-view="{{toView}}">
     <!-- 头部信息 -->
     <view class="idx_header">
       <view class="title-msg">
@@ -172,61 +172,62 @@
       </view>
 
     </view>
-    <!-- 今日特惠 -->
-    <button class="discounts" hover-class="none" bindtap="changeDiscounts">
-      <image src="{{KrImgUrl}}helpingActivity/index/today-discounts.png"></image>
-    </button>
-    <view class="today-discouts" wx:if="{{showDiscounts}}">
-      <view class="discounts-countent">
-        <image class="discounts-bg" src="{{KrImgUrl}}helpingActivity/index/alert_welfare.png"></image>
-        <image class="discounts-close" bindtap="changeDiscounts" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
-        <view class="discounts-wrap">
-          <text>今日特惠</text>
-          <view class="discounts-scroll">
-            <view wx:for="{{discounts}}" wx:key>
-              <view class="discounts-list">
-                <image src="{{item.picUrl}}"></image>
-              </view>
-            </view>
-          </view>
-          <view class="discounts-btn" bindtap="changeDiscounts">朕知道了</view>
-        </view>
-      </view>
-    </view>
-    <!-- 首次助力活动弹窗 -->
-    <view class="alert-once" wx:if="{{alertOnce && !activityFlag}}">
-      <view class="alert-content">
-        <image class="alert-bg" src="{{KrImgUrl}}helpingActivity/index/alert_join.png"></image>
-        <image class="alert-close" bindtap="alertClosed" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
-        <view class="jump-new-helping" bindtap="jumpHelpingActivity">
-          <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
-          <text>立即参加</text>
-        </view>
-      </view>
-
-    </view>
-    <!-- 提取礼券弹窗 -->
-    <view class="ticket-alert" wx:if="{{showCoupon && !activityFlag}}">
-      <view class="ticket-content">
-        <image class="ticket-close" bindtap="changeCoupon" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
-        <view class="ticket-wrap">
-          <text>您可以提取以下礼券</text>
-          <view class="ticket-scroll">
-            <view class="ticket-itself" wx:for="{{extractList}}" wx:key>
-              <view class="ticket-list">
-                <view class="ticket-list-value">￥<text>{{item.faceValue}}</text></view>
-                <view class="ticket-list-desc">{{item.conditionDesc}}</view>
-                <view class="ticket-list-btn">礼券</view>
-              </view>
-              <image class="ticket-list-img" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
-            </view>
-          </view>
-          <view class="jump-helping" bindtap="jumpHelpingActivity">
-            <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
-            <text>立即提取</text>
-          </view>
-        </view>
-      </view>
-    </view>
   </scroll-view>
+
+  <!-- 今日特惠 -->
+  <button class="discounts" hover-class="none" bindtap="changeDiscounts">
+    <image src="{{KrImgUrl}}helpingActivity/index/today-discounts.png"></image>
+  </button>
+  <view class="today-discouts" wx:if="{{showDiscounts}}">
+    <view class="discounts-countent">
+      <image class="discounts-bg" src="{{KrImgUrl}}helpingActivity/index/alert_welfare.png"></image>
+      <image class="discounts-close" bindtap="changeDiscounts" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
+      <view class="discounts-wrap">
+        <text>今日特惠</text>
+        <view class="discounts-scroll">
+          <view wx:for="{{discounts}}" wx:key>
+            <view class="discounts-list">
+              <image src="{{item.picUrl}}"></image>
+            </view>
+          </view>
+        </view>
+        <view class="discounts-btn" bindtap="changeDiscounts">朕知道了</view>
+      </view>
+    </view>
+  </view>
+  <!-- 首次助力活动弹窗 -->
+  <view class="alert-once" wx:if="{{alertOnce && !activityFlag}}">
+    <view class="alert-content">
+      <image class="alert-bg" src="{{KrImgUrl}}helpingActivity/index/alert_join.png"></image>
+      <image class="alert-close" bindtap="alertClosed" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
+      <view class="jump-new-helping" bindtap="jumpHelpingActivity">
+        <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
+        <text>立即参加</text>
+      </view>
+    </view>
+
+  </view>
+  <!-- 提取礼券弹窗 -->
+  <view class="ticket-alert" wx:if="{{showCoupon && !activityFlag}}">
+    <view class="ticket-content">
+      <image class="ticket-close" bindtap="changeCoupon" src="{{KrImgUrl}}helpingActivity/index/close.png"></image>
+      <view class="ticket-wrap">
+        <text>您可以提取以下礼券</text>
+        <view class="ticket-scroll">
+          <view class="ticket-itself" wx:for="{{extractList}}" wx:key>
+            <view class="ticket-list">
+              <view class="ticket-list-value">￥<text>{{item.faceValue}}</text></view>
+              <view class="ticket-list-desc">{{item.conditionDesc}}</view>
+              <view class="ticket-list-btn">礼券</view>
+            </view>
+            <image class="ticket-list-img" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
+          </view>
+        </view>
+        <view class="jump-helping" bindtap="jumpHelpingActivity">
+          <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
+          <text>立即提取</text>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>
