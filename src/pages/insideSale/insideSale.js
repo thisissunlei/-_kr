@@ -33,6 +33,14 @@ const styleType = {
     imageUrl: "insideSale/fancy_carp_share.jpg",
     navigationBarTitle: "寻找行政圈锦鲤",
     headerBanner: app.globalData.KrImgUrl + "insideSale/fancy_carp_bg.jpg"
+  },
+  //设计招聘活动
+  "4": {
+    title: "给你送券啦，快来领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/max_share.jpg",
+    navigationBarTitle: "2018 MAX中国社交招聘年度雇主评选",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/max_background.jpg"
   }
 };
 
