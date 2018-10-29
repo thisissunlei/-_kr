@@ -41,6 +41,14 @@ const styleType = {
     imageUrl: "insideSale/max_share.jpg",
     navigationBarTitle: "2018 MAX中国社交招聘年度雇主评选",
     headerBanner: app.globalData.KrImgUrl + "insideSale/max_background.jpg"
+  },
+  //企业专享活动
+  "5": {
+    title: "给你送券啦，快来领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/company_share.jpg",
+    navigationBarTitle: "氪空间企业专享礼包",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/company_bg.jpg"
   }
 };
 

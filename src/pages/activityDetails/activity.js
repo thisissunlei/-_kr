@@ -20,7 +20,7 @@ Page({
       companyName: "", // 公司
       name: "", // 姓名
       phone: "", // 手机号
-      role:"",
+      role: ""
     },
     canJoin: true, // 是否可以报名
     full: false, // 人数已满
@@ -28,35 +28,35 @@ Page({
     exist: false, // 是否已经报名
     btn_bool: true, // 授权
     textShow: false,
-    userType:false,
-    roleList:[
+    userType: false,
+    roleList: [
       {
-        value:'IUSER',
-        label:'意向用户'
+        value: "IUSER",
+        label: "意向用户"
       },
       {
-        value:'AGENT',
-        label:'中介'
+        value: "AGENT",
+        label: "中介"
       },
       {
-        value:'COBRAND',
-        label:'合作品牌'
+        value: "COBRAND",
+        label: "合作品牌"
       },
       {
-        value:'PROGOV',
-        label:'物业或政府'
+        value: "PROGOV",
+        label: "物业或政府"
       },
       {
-        value:'MEDIA',
-        label:'媒体'
+        value: "MEDIA",
+        label: "媒体"
       },
       {
-        value:'OTHER',
-        label:'其他'
-      },
+        value: "OTHER",
+        label: "其他"
+      }
     ],
     SelectIndex: 0,
-    roleName:'',
+    roleName: ""
   },
   singUpBtn: true,
   getURLParam: function(deal_url, paramName) {
@@ -84,32 +84,32 @@ Page({
     return paramValue;
   },
   onLoad(options) {
-    console.log('activity--onLoad',options)
+    console.log("activity--onLoad", options);
     let that = this;
-    let id = 0
+    let id = 0;
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "activityId");
-      id = channelname_v || 8
+      id = channelname_v || 8;
       that.setData({
         activityId: channelname_v || 8,
         ["signUpData.activityId"]: channelname_v || 8
       });
     } else if (options.activityId) {
-        id = options.activityId || 8
+      id = options.activityId || 8;
       that.setData({
         activityId: options.activityId || 8,
         ["signUpData.activityId"]: options.activityId || 8
       });
     } else {
-        id = 8
+      id = 8;
       that.setData({
         activityId: 8,
         ["signUpData.activityId"]: 8
       });
     }
-      wx.reportAnalytics("activity_channel", {
-          activity_channel: id
-      })
+    wx.reportAnalytics("activity_channel", {
+      activity_channel: id
+    });
     wx.showLoading({
       title: "加载中",
       mask: true
@@ -126,7 +126,7 @@ Page({
     });
   },
   onShow() {
-      this.loginAgain();
+    this.loginAgain();
   },
   //获取地理位置
   getLocation: function() {
@@ -193,9 +193,11 @@ Page({
               code: res.code
             },
             success: logRes => {
-              app.globalData.Cookie = logRes.header["Set-Cookie"] || logRes.header["set-cookie"];
+              app.globalData.Cookie =
+                logRes.header["Set-Cookie"] || logRes.header["set-cookie"];
               app.globalData.openid = logRes.data.data["openid"];
               this.getDetail();
+              this.getInfo();
             },
             fail: logRes => {
               this.setTip(
@@ -254,7 +256,7 @@ Page({
               full = true;
             }
           }
-         
+
           this.setData({
             info: res.data.data,
             canJoin: res.data.data.canJoin, // 是否可以报名
@@ -267,7 +269,7 @@ Page({
               companyName: res.data.data.companyName, // 公司
               name: res.data.data.name, // 姓名
               phone: res.data.data.phone, // 手机号
-              role:'',
+              role: ""
             }
           });
         }
@@ -368,8 +370,8 @@ Page({
     }
 
     let phoneTest = util.phone(this.data.signUpData.phone);
-    let roleTest=this.data.userType || '';
-   
+    let roleTest = this.data.userType || "";
+
     if (!this.data.signUpData.name.trim()) {
       this.setTip("tip", "请输入姓名");
       return;
@@ -379,10 +381,10 @@ Page({
     } else if (!phoneTest) {
       this.setTip("tip", "手机号格式错误");
       return;
-    } else if (roleTest ==2 && (!this.data.signUpData.role.trim())) {
+    } else if (roleTest == 2 && !this.data.signUpData.role.trim()) {
       this.setTip("tip", "请选择用户身份");
       return;
-    }else if (!this.data.signUpData.companyName.trim()) {
+    } else if (!this.data.signUpData.companyName.trim()) {
       this.setTip("tip", "请输入公司名称");
       return;
     }
@@ -546,21 +548,19 @@ Page({
       ["info." + e.target.id]: ""
     });
   },
-  bindKeyRole(e){
-    let index=e.detail.value
-    let value=this.data.roleList[index].value;
-    let roleName=this.data.roleList[index].label;
+  bindKeyRole(e) {
+    let index = e.detail.value;
+    let value = this.data.roleList[index].value;
+    let roleName = this.data.roleList[index].label;
     this.setData({
       ["signUpData.role"]: value,
-      roleName:roleName
+      roleName: roleName
     });
-  
   },
-  clearRole(){
+  clearRole() {
     this.setData({
       ["signUpData.role"]: "",
-      roleName:''
+      roleName: ""
     });
   }
- 
 });
