@@ -106,7 +106,15 @@
 
     <view id="list" class='nearby_room' wx:if="{{buildingList.length > 0}}">
       <view class='rm_title'>
-        <text class="text-bold">周边大厦</text>
+        <!-- <text class="text-bold">周边大厦</text> -->
+        <view class="text-bold">
+          <picker bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}">
+            <view class="picker">
+              {{pickerArray[pickerIndex]}}
+            </view>
+          </picker>
+          <view class="picker-san"></view>
+        </view>
         <view class="page-mapicon" bindtap="openmap">
           <image src="../images/indexImg/mapicon.png"></image>
         </view>
@@ -133,7 +141,10 @@
               <text class="num_arr" wx:if="{{item.meetingCount > 0}}">{{item.meetingCount}}</text>
               <text class="num_text" wx:if="{{item.meetingCount > 0}}">个会议室</text>
             </view>
-            <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
+            <view class="promotion-descr">
+              <view class='price' wx:if="{{item.promotionAddDesc}}">{{item.promotionAddDesc}}</view>
+              <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
+            </view>
           </view>
         </view>
 

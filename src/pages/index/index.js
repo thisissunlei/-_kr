@@ -47,9 +47,13 @@ Page({
     showDiscounts: false, //今日特惠
     discounts: [], //今日特惠
     extractList: [], //可提取礼券列表
-    activityFlag: false
+    activityFlag: false,
+    pickerArray: [], //城市选择器
+    objectPickerArray: [], //城市社区详情
+    pickerIndex: 0
   },
   newFish: true,
+  cityId: 0,
   rq_data: {
     latitude: "",
     longitude: ""
@@ -59,6 +63,19 @@ Page({
   func_bool_l: false,
   func_bool_l2: false,
   func_bool_s: false,
+  bindPickerChange: function(e) {
+    // console.log(this.data.objectPickerArray[e.detail.value].cityId);
+    // console.log("picker发送选择改变，携带值为", e.detail.value);
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
+    this.cityId = this.data.objectPickerArray[e.detail.value].cityId;
+    this.getCitybyId();
+    this.setData({
+      pickerIndex: e.detail.value
+    });
+  },
   //打开今天特惠
   changeDiscounts: function() {
     this.setData({
@@ -253,6 +270,8 @@ Page({
               that.getShowCoupon();
               that.getActivityFlag();
               that.getInfo();
+              that.getCityList();
+              // that.getCitybyId();
 
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
@@ -323,6 +342,70 @@ Page({
     //活动入口
     // this.getActivity();
   },
+  //城市列表接口
+  getCityList: function() {
+    var that = this;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/krmting/citys",
+      success: function(res) {
+        let cityList = Object.assign({}, res);
+        console.log(cityList, "城市列表");
+        let cityListName = cityList.data.data;
+        let newCityList = ["全部城市"];
+        let newCityDetail = [
+          {
+            cityId: 0,
+            cityName: "全部城市"
+          }
+        ];
+        cityListName.map(value => {
+          console.log(value.cityName);
+          newCityList.push(value.cityName);
+          newCityDetail.push(value);
+        });
+        that.setData({
+          objectPickerArray: newCityDetail,
+          pickerArray: newCityList
+        });
+      }
+    });
+  },
+  //大厦城市id接口
+  getCitybyId: function() {
+    var that = this;
+    app.getRequest({
+      url:
+        app.globalData.KrUrl + "api/gateway/krmting/room/find-cmts-by-cityid",
+      data: {
+        cityId: that.cityId,
+        latitude: that.rq_data.latitude,
+        longitude: that.rq_data.longitude
+      },
+      success: function(res) {
+        wx.hideLoading();
+
+        let cityById = Object.assign({}, res);
+        let buildingList = cityById.data.data;
+
+        console.log(cityById, "城市id");
+        //开放大厦
+        let newBuildingList = buildingList.filter((item, index) => {
+          if (item.published) {
+            if (item.distance > 1000) {
+              item.distance = (item.distance / 1000).toFixed(1) + "km";
+            } else {
+              item.distance = Math.round(item.distance * 10) / 10 + "m";
+            }
+            return true;
+          }
+          return false;
+        });
+        that.setData({
+          buildingList: newBuildingList
+        });
+      }
+    });
+  },
   //活动是否结束
   getActivityFlag: function() {
     let that = this;
@@ -334,7 +417,7 @@ Page({
         activityId: 1
       },
       success: res => {
-        console.log("活动是否过期", res);
+        // console.log("活动是否过期", res);
         if (res.data.data) {
           that.setData({
             activityFlag: true
@@ -377,7 +460,7 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/show-coupon",
       success: res => {
-        console.log(res);
+        // console.log(res);
         if (res.data.data.length > 0) {
           that.setData({
             extractList: res.data.data,
@@ -512,7 +595,7 @@ Page({
     var that = this;
     wx.getUserInfo({
       success: function(res) {
-        console.log(res);
+        // console.log(res);
         that.setData({
           avatarUrl: res.userInfo.avatarUrl
         });
