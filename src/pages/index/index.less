@@ -293,8 +293,21 @@ page {
   font-family: "PingFangSC-Medium";
 }
 .text-bold {
+  width: 30%;
+  height: inherit;
+  line-height: 80rpx;
   font-weight: bold;
   margin-left: 40rpx;
+  display: flex;
+  align-items: center;
+}
+.picker-san {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 4rpx solid #333;
+  border-right: 4rpx solid #333;
+  transform: rotate(135deg);
+  margin-left: 12rpx;
 }
 .rm_title {
   width: 100%;
@@ -444,18 +457,24 @@ page {
   line-height: 26rpx;
   position: relative;
 }
+.promotion-descr {
+  display: flex;
+}
 .price {
   display: inline-block;
+  max-width: 51%;
   height: 48rpx;
   margin-top: 32rpx;
   font-size: 26rpx;
   color: #ff6868;
   background-color: #ffeeee;
-  padding: 0 20rpx;
+  padding: 0 12rpx;
   line-height: 48rpx;
   border-radius: 8rpx;
   text-align: center;
-  font-family: PingFangSC-Regular;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .more {
   width: 100%;
