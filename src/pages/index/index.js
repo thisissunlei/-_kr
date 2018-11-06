@@ -191,9 +191,7 @@ Page({
           _this.getAllInfo();
         }
       },
-      fail: function(res) {
-        // _this.getAllInfo();
-      }
+      fail: function(res) {}
     });
   },
   getURLParam: function(deal_url, paramName) {
@@ -258,7 +256,6 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-              // that.getActivity();
               that.getDiscounts();
               that.getOnecVisit();
               // that.getShowCoupon();
@@ -300,8 +297,6 @@ Page({
             that.func_bool_s = false;
             that.func_bool_l2 = false;
           }
-          that.getInfo();
-
           that.setData({ btn_bool: false });
         }
       }
