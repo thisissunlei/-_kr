@@ -8,8 +8,7 @@ Page({
     });
   },
   onShareAppMessage: function(res) {
-    // wx.reportAnalytics("sharekrmeeting");
-    // console.log(res);
+    wx.reportAnalytics("sharekrmeeting");
     return {
       title: "开启轻松、灵活办公新方式",
       desc: "氪空间自由座",
@@ -24,7 +23,7 @@ Page({
     duration: 1000,
     btn_bool: true,
     duration: 1000,
-    // avatarUrl: "",
+    avatarUrl: "",
     userInfo: {},
     distanceShow: false, //距离显示
     buildingList: [], //周边大厦
@@ -41,7 +40,6 @@ Page({
       circular: false
     },
     KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
-    //--------------------------
     alertOnce: false, //第一次
     showCoupon: false, //提取礼券弹窗
     showDiscounts: false, //今日特惠
@@ -52,7 +50,7 @@ Page({
     objectPickerArray: [], //城市社区详情
     pickerIndex: 0
   },
-  newFish: true,
+  newFish: true, //首次进入小程序
   cityId: 0,
   rq_data: {
     latitude: "",
@@ -63,16 +61,16 @@ Page({
   func_bool_l: false,
   func_bool_l2: false,
   func_bool_s: false,
+  //城市选择器
   bindPickerChange: function(e) {
-    // console.log(this.data.objectPickerArray[e.detail.value].cityId);
-    // console.log("picker发送选择改变，携带值为", e.detail.value);
+    const that = this;
     wx.showLoading({
       title: "加载中",
       mask: true
     });
-    this.cityId = this.data.objectPickerArray[e.detail.value].cityId;
-    this.getCitybyId();
-    this.setData({
+    that.cityId = this.data.objectPickerArray[e.detail.value].cityId;
+    that.getCitybyId();
+    that.setData({
       pickerIndex: e.detail.value
     });
   },
@@ -82,24 +80,24 @@ Page({
       showDiscounts: !this.data.showDiscounts
     });
   },
+  //提交formId，让服务器保存到数据库里
   formSubmit: function(e) {
     const that = this;
-    console.log(e);
     let formId = e.detail.formId;
-    // console.log("form发生了submit事件，推送码为：", formId);
     that.submintFromId(formId);
   },
-  //提交formId，让服务器保存到数据库里
+  /**
+   *
+   * @param {string} formId 用于发送模板消息
+   */
   submintFromId: function(formId) {
-    var that = this;
-    // console.log(formId);
+    let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmboostermsg/collect-formId",
       data: {
         formId: formId
       },
       success: res => {
-        console.log(res);
         that.jumpHelpingActivity();
       }
     });
@@ -144,10 +142,9 @@ Page({
   },
   //打开地图
   openmap: function() {
-    var that = this;
+    let that = this;
     wx.getSetting({
       success: function(res) {
-        // console.log(res);
         if (res.authSetting["scope.userLocation"]) {
           wx.navigateTo({
             url: "../map/map"
@@ -160,7 +157,6 @@ Page({
             showCancel: false,
             success: function(res) {
               if (res.confirm) {
-                console.log("用户点击确定");
                 that.getLocation();
               }
             }
@@ -171,11 +167,10 @@ Page({
   },
   //获取地理位置
   getLocation: function() {
-    var _this = this;
+    let _this = this;
     wx.getLocation({
       type: "wgs84",
       success: function(res) {
-        // console.log(res);
         _this.rq_data = {
           latitude: res.latitude,
           longitude: res.longitude
@@ -202,8 +197,8 @@ Page({
     });
   },
   getURLParam: function(deal_url, paramName) {
-    var paramValue = "";
-    var isFound = false;
+    let paramValue = "";
+    let isFound = false;
     deal_url = decodeURIComponent(deal_url)
       .substring(1, deal_url.length)
       .split("?")[1];
@@ -226,18 +221,18 @@ Page({
   },
   onLoad: function(options) {
     const that = this;
-
     // console.log(options);
     if (options.q) {
       const channelname_v = that.getURLParam(options.q, "id");
       wx.reportAnalytics("idx_channel", {
         channelname: channelname_v
       });
-      // console.log(channelname_v, 11111);
     }
+    //内部礼券页面进入首页
     if (options.fromPage == "inside") {
       that.toView = "list";
     }
+    //新人引导页进入首页
     if (options.fromPage == "guide") {
       that.newFish = false;
     }
@@ -251,7 +246,6 @@ Page({
     wx.login({
       success: function(res) {
         if (res.code) {
-          //发起网络请求
           wx.request({
             url: app.globalData.KrUrl + "api/gateway/krmting/common/login",
             data: {
@@ -271,7 +265,6 @@ Page({
               that.getActivityFlag();
               that.getInfo();
               that.getCityList();
-              // that.getCitybyId();
 
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
@@ -282,7 +275,6 @@ Page({
                 that.func_bool_s = false;
                 that.func_bool_l2 = false;
                 that.getAllInfo();
-                // that.getInfo();
               }
             }
           });
@@ -307,9 +299,8 @@ Page({
           if (that.func_bool_s && that.func_bool_l2) {
             that.func_bool_s = false;
             that.func_bool_l2 = false;
-
-            // that.getInfo();
           }
+          that.getInfo();
 
           that.setData({ btn_bool: false });
         }
@@ -317,20 +308,8 @@ Page({
     });
   },
   onReady: function() {
-    var that = this;
-
-    wx.getStorage({
-      key: "user_info",
-      // data: {
-      //   user_info: e.detail.userInfo
-      // }
-      success: res => {
-        // console.log(res);
-        that.setData({
-          userInfo: res.data.user_info
-        });
-      }
-    });
+    let that = this;
+    //从内部礼券页面进入首页滑动至锚点
     setTimeout(() => {
       that.setData({
         toView: that.toView
@@ -344,12 +323,11 @@ Page({
   },
   //城市列表接口
   getCityList: function() {
-    var that = this;
+    let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krmting/citys",
       success: function(res) {
         let cityList = Object.assign({}, res);
-        console.log(cityList, "城市列表");
         let cityListName = cityList.data.data;
         let newCityList = ["全部城市"];
         let newCityDetail = [
@@ -359,7 +337,6 @@ Page({
           }
         ];
         cityListName.map(value => {
-          // console.log(value.cityName);
           newCityList.push(value.cityName);
           newCityDetail.push(value);
         });
@@ -372,7 +349,7 @@ Page({
   },
   //大厦城市id接口
   getCitybyId: function() {
-    var that = this;
+    let that = this;
     app.getRequest({
       url:
         app.globalData.KrUrl + "api/gateway/krmting/room/find-cmts-by-cityid",
@@ -387,7 +364,6 @@ Page({
         let cityById = Object.assign({}, res);
         let buildingList = cityById.data.data;
 
-        console.log(cityById, "城市id");
         //开放大厦
         let newBuildingList = buildingList.filter((item, index) => {
           if (item.published) {
@@ -417,7 +393,6 @@ Page({
   //活动是否结束
   getActivityFlag: function() {
     let that = this;
-    // 判断活动是否结束
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/ovedue",
       method: "GET",
@@ -425,7 +400,6 @@ Page({
         activityId: 1
       },
       success: res => {
-        // console.log("活动是否过期", res);
         if (res.data.data) {
           that.setData({
             activityFlag: true
@@ -440,7 +414,6 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/first-page",
       success: res => {
-        // console.log(res);
         if (res.data.data) {
           that.setData({
             alertOnce: true
@@ -455,20 +428,18 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/today-special",
       success: res => {
-        // console.log(res);
         that.setData({
           discounts: res.data.data
         });
       }
     });
   },
-  //可领取礼券接口 kmbooster/show-coupon
+  //可领取礼券接口
   getShowCoupon: function() {
     const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/show-coupon",
       success: res => {
-        // console.log(res);
         if (res.data.data.length > 0) {
           that.setData({
             extractList: res.data.data,
@@ -493,7 +464,7 @@ Page({
   },
   //首页接口
   getAllInfo: function() {
-    var that = this;
+    let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krmting/home",
       data: {
@@ -501,11 +472,10 @@ Page({
         longitude: that.rq_data.longitude
       },
       success: res => {
-        if (res.data.code == 1) {
-          var mansion = Object.assign({}, res);
-          // console.log(mansion, "列表");
-          var buildingList = mansion.data.data.buildingList;
-          var myMeeting = mansion.data.data.myTodo.slice(0, 5);
+        if (res.data.code > 0) {
+          let mansion = Object.assign({}, res);
+          let buildingList = mansion.data.data.buildingList;
+          let myMeeting = mansion.data.data.myTodo.slice(0, 5);
           //未授权地理信息不显示距离
           let resture = buildingList.some(value => {
             return value.distance == 0;
@@ -523,7 +493,6 @@ Page({
           myMeeting.map(value => {
             if (value.targetType == "ACTIVITY") {
               if (value.todoTime.includes("至")) {
-                // console.log(1);
                 value.before = value.todoTime.split("#")[0];
                 value.last = value.todoTime.split("#")[1];
                 value.single = false;
@@ -574,40 +543,15 @@ Page({
         }
       }
     });
-    //白屏问题代码-------
-    // if (that.data.myMeeting.length == 0) {
-    //   that.setData({
-    //     metting: false
-    //   });
-    // } else if (that.data.myMeeting.length == 1) {
-    //   that.setData({
-    //     metting: true,
-    //     indicatorDots: false
-    //     noSwiper: true,
-    //     swiper: false
-    //   });
-    // } else {
-    //   that.setData({
-    //     metting: true
-    //     noSwiper: false,
-    //     swiper: true
-    //   });
-    // }
-    //-------白屏问题代码
-    // console.log(that.data.metting);
-    //   }
-    // });
   },
   //获取用户信息
   getInfo: function() {
-    var that = this;
+    let that = this;
     wx.getUserInfo({
       success: function(res) {
-        // console.log(res);
         that.setData({
           avatarUrl: res.userInfo.avatarUrl
         });
-        //保存到storage里
         wx.setStorage({
           key: "user_info",
           data: {
@@ -633,6 +577,7 @@ Page({
       url: "../point/point?fromIndex=true"
     });
   },
+  //跳转团队卡页面
   jumpToTeamCard: function() {
     wx.navigateTo({
       url: "../teamCardPurchase/teamCardPurchase"
@@ -640,24 +585,21 @@ Page({
   },
   //点击会议card
   moveToMeetingDetail: function(e) {
-    // console.log(e);
-    var inviteeId = e.currentTarget.dataset.id;
+    let inviteeId = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../meetingDetail/meetingDetail?inviteeId=" + inviteeId
     });
   },
   //点击散座card
   moveToSeatDetail: res => {
-    // console.log(res);
-    var seatId = res.currentTarget.dataset.id;
+    let seatId = res.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../seatDetail/seatDetail?seatId=" + seatId
     });
   },
   //点击活动card
   moveToActivity: res => {
-    // console.log(res);
-    var targetId = res.currentTarget.dataset.id;
+    let targetId = res.currentTarget.dataset.id;
     wx.navigateTo({
       url: "../activityQuickMark/activityQuickMark?joinId=" + targetId
     });
@@ -679,30 +621,10 @@ Page({
   },
   //授权
   onGotUserInfo: function(e) {
-    // console.log(e);
     const that = this;
 
     if (e.detail.userInfo) {
-      // this.getInfo();
-      that.setData({
-        // avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
-      });
-      wx.setStorage({
-        key: "user_info",
-        data: {
-          user_info: e.detail.userInfo
-        }
-      });
-      app.getRequest({
-        url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
-
-        data: {
-          encryptedData: e.detail.encryptedData,
-          iv: e.detail.iv
-        },
-        success: res => {}
-      });
+      that.getInfo();
       that.setData({
         btn_bool: false
       });
