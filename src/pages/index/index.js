@@ -267,7 +267,7 @@ Page({
               // that.getActivity();
               that.getDiscounts();
               that.getOnecVisit();
-              that.getShowCoupon();
+              // that.getShowCoupon();
               that.getActivityFlag();
               that.getInfo();
               that.getCityList();
@@ -359,7 +359,7 @@ Page({
           }
         ];
         cityListName.map(value => {
-          console.log(value.cityName);
+          // console.log(value.cityName);
           newCityList.push(value.cityName);
           newCityDetail.push(value);
         });
@@ -400,8 +400,16 @@ Page({
           }
           return false;
         });
+        //未开放大厦
+        let noOpenBuilding = buildingList.filter((item, index) => {
+          if (item.published) {
+            return false;
+          }
+          return true;
+        });
         that.setData({
-          buildingList: newBuildingList
+          buildingList: newBuildingList || [],
+          noOpenBuilding: noOpenBuilding || []
         });
       }
     });
