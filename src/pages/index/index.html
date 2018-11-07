@@ -104,7 +104,7 @@
     </view>
 
 
-    <view id="list" class='nearby_room' wx:if="{{buildingList.length > 0}}">
+    <view id="list" class='nearby_room'>
       <view class='rm_title'>
         <!-- <text class="text-bold">周边大厦</text> -->
         <view class="text-bold">
@@ -141,8 +141,8 @@
               <text class="num_text" wx:if="{{item.meetingCount > 0}}">个会议室</text>
             </view>
             <view class="promotion-descr">
-              <view class='price' wx:if="{{item.promotionAddDesc}}">{{item.promotionAddDesc}}</view>
               <view class='price' wx:if="{{item.promotionDescr}}">{{item.promotionDescr}}</view>
+              <view class='price' wx:if="{{item.promotionAddDesc}}">{{item.promotionAddDesc}}</view>
             </view>
           </view>
         </view>

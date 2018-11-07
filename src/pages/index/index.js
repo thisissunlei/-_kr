@@ -262,6 +262,7 @@ Page({
               that.getActivityFlag();
               that.getInfo();
               that.getCityList();
+              that.getCitybyId();
 
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
@@ -358,7 +359,23 @@ Page({
 
         let cityById = Object.assign({}, res);
         let buildingList = cityById.data.data;
-
+        //未授权地理信息不显示距离
+        let resture = buildingList.some(value => {
+          return value.distance == 0;
+        });
+        if (resture) {
+          that.setData({
+            distanceShow: false
+          });
+        } else {
+          that.setData({
+            distanceShow: true
+          });
+        }
+        //排序
+        buildingList.sort(function(a, b) {
+          return a.distance - b.distance;
+        });
         //开放大厦
         let newBuildingList = buildingList.filter((item, index) => {
           if (item.published) {
@@ -469,21 +486,8 @@ Page({
       success: res => {
         if (res.data.code > 0) {
           let mansion = Object.assign({}, res);
-          let buildingList = mansion.data.data.buildingList;
           let myMeeting = mansion.data.data.myTodo.slice(0, 5);
-          //未授权地理信息不显示距离
-          let resture = buildingList.some(value => {
-            return value.distance == 0;
-          });
-          if (resture) {
-            that.setData({
-              distanceShow: false
-            });
-          } else {
-            that.setData({
-              distanceShow: true
-            });
-          }
+
           //活动时间分割
           myMeeting.map(value => {
             if (value.targetType == "ACTIVITY") {
@@ -500,34 +504,8 @@ Page({
             return value;
           });
 
-          //排序
-          buildingList.sort(function(a, b) {
-            return a.distance - b.distance;
-          });
-          //未开放大厦
-          let noOpenBuilding = buildingList.filter((item, index) => {
-            if (item.published) {
-              return false;
-            }
-            return true;
-          });
-
-          //开放大厦
-          let newBuildingList = buildingList.filter((item, index) => {
-            if (item.published) {
-              if (item.distance > 1000) {
-                item.distance = (item.distance / 1000).toFixed(1) + "km";
-              } else {
-                item.distance = Math.round(item.distance * 10) / 10 + "m";
-              }
-              return true;
-            }
-            return false;
-          });
           that.setData({
-            buildingList: newBuildingList || [],
-            myMeeting: myMeeting || [],
-            noOpenBuilding: noOpenBuilding || []
+            myMeeting: myMeeting || []
           });
           //如果只有一张card 不显示小圆点
           if (myMeeting.length > 1) {
