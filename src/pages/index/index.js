@@ -57,10 +57,9 @@ Page({
     longitude: ""
   },
   toView: "",
-  func_bool_g: false,
-  func_bool_l: false,
-  func_bool_l2: false,
-  func_bool_s: false,
+  loginStatus: false, //登录状态
+  authorStatus: false, //授权状态
+  locationStatus: false, //地理信息状态
   //城市选择器
   bindPickerChange: function(e) {
     const that = this;
@@ -184,12 +183,7 @@ Page({
             }
           }
         });
-        _this.func_bool_g = true;
-        // if (_this.func_bool_g && _this.func_bool_l) {
-        //   _this.func_bool_g = false;
-        //   _this.func_bool_l = false;
-        //   _this.getAllInfo();
-        // }
+        _this.locationStatus = true;
       },
       fail: function(res) {}
     });
@@ -251,30 +245,18 @@ Page({
             },
             success: function(res) {
               wx.hideLoading();
-              that.func_bool_l = true;
-              that.func_bool_l2 = true;
+              that.loginStatus = true;
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
+              that.getAllInfo();
               that.getDiscounts();
               that.getOnecVisit();
               // that.getShowCoupon();
               that.getActivityFlag();
               that.getInfo();
               that.getCityList();
-
-              if (that.func_bool_g && that.func_bool_l) {
-                that.func_bool_g = false;
-                that.func_bool_l = false;
-                that.getAllInfo();
-                that.getCitybyId();
-              }
-              if (that.func_bool_l2 && that.func_bool_s) {
-                that.func_bool_s = false;
-                that.func_bool_l2 = false;
-                that.getAllInfo();
-                that.getCitybyId();
-              }
+              that.getCitybyId();
             }
           });
         } else {
@@ -294,12 +276,10 @@ Page({
             });
           }
         } else {
-          that.func_bool_s = true;
-          // if (that.func_bool_s && that.func_bool_l2) {
-          //   that.func_bool_s = false;
-          //   that.func_bool_l2 = false;
-          // }
-          that.setData({ btn_bool: false });
+          that.authorStatus = true;
+          that.setData({
+            btn_bool: false
+          });
         }
       }
     });
@@ -314,8 +294,13 @@ Page({
     }, 500);
   },
   onShow: function() {
-    this.getAllInfo();
-    this.getCitybyId();
+    const that = this;
+    if (that.loginStatus && that.authorStatus) {
+      that.getAllInfo();
+    }
+    if (that.locationStatus && that.loginStatus) {
+      that.getCitybyId();
+    }
     //活动入口
     // this.getActivity();
   },
