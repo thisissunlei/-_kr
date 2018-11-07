@@ -52,6 +52,14 @@
     "pages/teamCardRecord/teamCardRecord",
     "pages/laymanGuide/laymanGuide"
   ],
+  "subPackages":[
+    {
+        "root":"activities",
+        "pages":[
+            "pages/assistancess/assistance"
+        ]
+    }
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff"
