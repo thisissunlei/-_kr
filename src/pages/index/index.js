@@ -185,11 +185,11 @@ Page({
           }
         });
         _this.func_bool_g = true;
-        if (_this.func_bool_g && _this.func_bool_l) {
-          _this.func_bool_g = false;
-          _this.func_bool_l = false;
-          _this.getAllInfo();
-        }
+        // if (_this.func_bool_g && _this.func_bool_l) {
+        //   _this.func_bool_g = false;
+        //   _this.func_bool_l = false;
+        //   _this.getAllInfo();
+        // }
       },
       fail: function(res) {}
     });
@@ -262,17 +262,18 @@ Page({
               that.getActivityFlag();
               that.getInfo();
               that.getCityList();
-              that.getCitybyId();
 
               if (that.func_bool_g && that.func_bool_l) {
                 that.func_bool_g = false;
                 that.func_bool_l = false;
                 that.getAllInfo();
+                that.getCitybyId();
               }
               if (that.func_bool_l2 && that.func_bool_s) {
                 that.func_bool_s = false;
                 that.func_bool_l2 = false;
                 that.getAllInfo();
+                that.getCitybyId();
               }
             }
           });
@@ -294,10 +295,10 @@ Page({
           }
         } else {
           that.func_bool_s = true;
-          if (that.func_bool_s && that.func_bool_l2) {
-            that.func_bool_s = false;
-            that.func_bool_l2 = false;
-          }
+          // if (that.func_bool_s && that.func_bool_l2) {
+          //   that.func_bool_s = false;
+          //   that.func_bool_l2 = false;
+          // }
           that.setData({ btn_bool: false });
         }
       }
@@ -314,6 +315,7 @@ Page({
   },
   onShow: function() {
     this.getAllInfo();
+    this.getCitybyId();
     //活动入口
     // this.getActivity();
   },
