@@ -245,17 +245,13 @@ Page({
             },
             success: function(res) {
               wx.hideLoading();
-              that.loginStatus = true;
+
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-              // that.getAllInfo();
-              // that.getDiscounts();
-              // that.getOnecVisit();
-              // // that.getShowCoupon();
-              // that.getActivityFlag();
               that.getInfo();
-              // that.getCityList();
+              that.getCityList();
+              that.getCitybyId();
             }
           });
         } else {
@@ -526,12 +522,13 @@ Page({
             iv: res.iv
           },
           success: function(res) {
+            that.loginStatus = true;
+
             that.getAllInfo();
             that.getDiscounts();
             that.getOnecVisit();
             // that.getShowCoupon();
             that.getActivityFlag();
-            // that.getInfo();
             that.getCityList();
             that.getCitybyId();
           }
