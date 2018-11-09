@@ -50,7 +50,8 @@
     "pages/teamCardDetails/teamCardDetails",
     "pages/createImg/createImg",
     "pages/teamCardRecord/teamCardRecord",
-    "pages/laymanGuide/laymanGuide"
+    "pages/laymanGuide/laymanGuide",
+    "pages/bargain/bargain"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,261 @@
+<!--index.wxml-->
+<!-- 生成二维码 -->
+<poster id="poster" hide-loading="{{true}}" config="{{jdConfig}}" bind:success="onPosterSuccess"
+        bind:fail="onPosterFail">
+</poster>
+<import src="../../utils/template/template.wxml"/>
+
+
+<view class="bargain-details" wx:if="{{activityFlag}}">
+  <view class="bg">
+    <image src="{{KrImgUrl}}/bargainActivity/bg1.png"></image>
+  </view>
+  <view class="bargain-rule-text" bindtap="helpingRule">活动规则</view>
+  <view class="bargain-notice">
+    <swiper autoplay="true" circular="true" interval="3000" duration="500" vertical="true">
+      <block wx:for="{{noticeList}}" wx:key>
+        <swiper-item>
+          <view class="notice">
+            <image wx:if="{{noticeList.length > 0}}" src="{{KrImgUrl}}helpingActivity/details/icon_adio.png"></image>
+            <view class="notice-text">
+              {{item.thirdNick}} {{item.randomTime}} 提取了
+              <text class="random-blod">{{item.faceValue}}元礼券</text>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class="bargain-main">
+    <view class="content-wrap">
+      <view class="content-topbg">
+        <image src="{{KrImgUrl}}/bargainActivity/wrap_bg.png"></image>
+      </view>
+      <view class="bargain-content">
+        <view class="content-top">
+          <image src="{{userInfo.avatar}}"></image>
+          <text class="content-name">{{userInfo.name}}</text>
+        </view>
+        <view class="content-dis">
+          <view>当前折扣
+            <text class="current-dis">{{disInfo.current}}</text>
+            折
+          </view>
+        </view>
+        <view class="content-pro-wrap">
+          <view class="content-pro" style="width:{{disInfo.disNum / 5 * 520}}rpx"></view>
+          <image src="{{KrImgUrl}}/bargainActivity/gold.png" class="gold-image"
+                 style="left:{{disInfo.disNum/5 * 520-30}}rpx"></image>
+        </view>
+        <view class="content-text">
+          <text>标准价</text>
+          <text>5折</text>
+        </view>
+      </view>
+      <view class="content-bottombg">
+        <image src="{{KrImgUrl}}/bargainActivity/wrap_bg.png"></image>
+      </view>
+    </view>
+
+    <view class="cut-text">我先砍一刀</view>
+
+
+  </view>
+
+  <view class="record-content">
+    <view class="record-top">
+      <text>好友助力</text>
+    </view>
+    <view class="record-list">
+      <view class="record-list-title">
+        <text wx:if="{{totalAmount > 0}}">共收到礼券
+          <text class="record-value">{{totalAmount}}</text>
+          元
+        </text>
+        <text wx:if="{{myAmout > 0}}">助力好友获得
+          <text class="record-value">{{myAmout}}</text>
+          元礼券奖励
+        </text>
+      </view>
+      <view class="record-list-content" wx:if="{{currentData == 0}}">
+        <view class="record-list-friend" wx:for="{{recordList}}" wx:key>
+          <view class="friend-list-left">
+            <view class="friend-list-avatar">
+              <image src="{{item.helpThirdAvatar}}"></image>
+            </view>
+            <view class="friend-list-name">
+              <view class="friend-list-thirdNick">{{item.helpThirdNick}}</view>
+              <view class="friend-list-text">{{item.characters}}</view>
+            </view>
+          </view>
+          <view class="friend-list-right">
+            <view class="friend-list-new" wx:if="{{item.first}}">
+              <text>新人助力</text>
+              <text style="font-size: 30rpx;color: #FF9D00;margin-left: 12rpx;">×2</text>
+            </view>
+            <view class="friend-list-value">
+              <view class="list-value-img">
+                <image src="{{KrImgUrl}}helpingActivity/details/rmb.png"></image>
+              </view>
+              <view class="list-value-count">
+                +{{item.amount}}元
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages >page}}">上滑加载更多</view>
+      </view>
+    </view>
+    <!-- 缺省 -->
+    <view class="record-none">
+      <view class="record-none-img" wx:if="{{recordList.length == 0 && friendBoosterNone}}">
+        <image src="{{KrImgUrl}}/bargainActivity/icon_null.png"></image>
+      </view>
+      <view class="record-none-text">
+        <text>人多力量大，快喊小伙伴来助力吧~</text>
+      </view>
+    </view>
+  </view>
+
+
+</view>
+
+
+<!--<view class="bargain-fixed" wx:if="{{activityFlag}}">-->
+  <!--<text bindtap="jumpMyCoupon">我的礼券</text>-->
+  <!--&lt;!&ndash; <button class="share-btn" bindtap="createShareCanvas">邀请好友助力</button> &ndash;&gt;-->
+  <!--<button class="share-btn" bindtap="shareView">邀请好友助力</button>-->
+
+<!--</view>-->
+<!-- 分享朋友圈 -->
+<view class="share-fixed" wx:if="{{showBottomBtn}}">
+  <view class="share-bg-top" bindtap="share"></view>
+  <view class="share-bg-bottom">
+    <text class="share-bg-title">分享至</text>
+    <view class="share-bg-btn">
+      <view class="left">
+        <button class="wxfriend" id="all-friend" open-type="share">
+          <image src="{{KrImgUrl}}helpingActivity/details/wxfriend.png"></image>
+        </button>
+        <text>微信好友</text>
+      </view>
+      <view class="right">
+        <button class="wxfriend" id="share-friend" bindtap="createShareCanvas">
+          <image src="{{KrImgUrl}}helpingActivity/details/wxcricle.png"></image>
+        </button>
+        <text>朋友圈</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 活动规则 -->
+<view class="bargain-rule" wx:if="{{showRule}}">
+  <view class="rule-content">
+    <view class="rule-top">
+      <view>
+        <view class="rule-one">活动规则</view>
+      </view>
+      <view></view>
+    </view>
+    <view class="rule-scoll">
+      <view>1）可以通过分享活动至微信群、朋友圈的方式主动发起活动；</view>
+      <view>2）每个好友助力，可获得
+        <text class="size">5-10</text>
+        元礼券，首次访问自由座的用户助力的礼券
+        <text class="size">翻倍</text>
+        ；
+      </view>
+      <view>3）为好友助力后，你也可获得相应礼券金额，每天上限
+        <text class="size">10</text>
+        次；
+      </view>
+      <view>4）根据你当前礼券池的总金额，可以提取出不同面额的礼券，礼券可以抵扣订单金额，最高可享免单哦；</view>
+      <view>5）礼券池上限
+        <text class="size">999</text>
+        元，每次提取礼券均会消耗掉礼券池的总金额；
+      </view>
+      <view>6）活动期间，每种礼券最多可提取
+        <text class="size">3</text>
+        次；
+      </view>
+      <view>7）如有疑问请联系客服，活动最终解释权归氪空间所有。</view>
+    </view>
+    <view class="rule-text" bindtap="closeRule">
+      <image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>
+      <text>我知道了</text>
+    </view>
+  </view>
+</view>
+
+
+
+<!-- 提取动画 -->
+<view class="get-animation" wx:if="{{showAnimation}}" bindtap="closeAnimation">
+  <view class="animation-content" wx:if="{{animationStart}}">
+    <image class="animation-bg" src="{{KrImgUrl}}helpingActivity/details/alert_bottom.png"></image>
+    <image class="animation-rocket" src="{{KrImgUrl}}helpingActivity/details/rocket.png"></image>
+    <image class="animation-money" src="{{KrImgUrl}}helpingActivity/details/44444.gif"></image>
+    <view class="animation-text">礼券提取中...</view>
+  </view>
+  <view class="animation-content" wx:else>
+    <image class="animation-bg" src="{{KrImgUrl}}helpingActivity/details/alert_bottom.png"></image>
+    <view class="animation-coupon">
+      <image class="animation-coupon-bg" src="{{KrImgUrl}}helpingActivity/details/pic_yes.png"></image>
+      <view class="animation-coupon-text">
+        <view class="animation-coupon-top">￥
+          <text>{{couponInfo.amount}}</text>
+        </view>
+        <view class="animation-coupon-tpye" wx:if="{{couponInfo.ruleType == 'NO_THRESHOLD'}}">直减</view>
+        <view class="animation-coupon-tpye" wx:else>满{{couponInfo.frAmount}}可用</view>
+        <view class="animation-coupon-fix">礼券</view>
+      </view>
+    </view>
+    <view class="animation-bottom">尊享礼券已放入您的账户中</view>
+  </view>
+</view>
+<!-- 生成的海报 -->
+<view class="shareDialog" wx:if="{{showShare}}">
+
+  <view class="content-box">
+    <image class="close-button" src="{{KrImgUrl}}helpingActivity/share/close.png" bindtap="closeDialog"></image>
+    <view class="text">请保存图片至手机相册并</view>
+    <view class="text">分享到朋友圈</view>
+    <image src="{{imgUrl}}" alt="" class="canvas-show"></image>
+    <image class="save" src="{{KrImgUrl}}helpingActivity/share/save_button.png" bindtap="saveImg"></image>
+  </view>
+
+</view>
+<!-- 海报生成成功 -->
+<view class="successDialog" wx:if="{{showSuccess}}">
+
+  <view class="content-box">
+    <image class="close-button" src="{{KrImgUrl}}helpingActivity/share/close.png" bindtap="closeDialog"></image>
+    <view class="text">图片已保存到您手机相册，</view>
+    <view class="text">赶快去朋友圈召唤好友助力吧！</view>
+    <image src="{{KrImgUrl}}helpingActivity/share/default.png" alt="" class="default-img"></image>
+    <image class="save" src="{{KrImgUrl}}helpingActivity/share/share_know.png" bindtap="closeDialog"></image>
+  </view>
+
+</view>
+<view wx:if="{{!activityFlag}}" class="container">
+  <view class="header">
+    <image class="default-img" src="{{KrImgUrl}}helpingActivity/helping/none.png"></image>
+  </view>
+  <view class="content">
+    很抱歉，活动已经结束了呢~
+  </view>
+  <view class="go-back" bindtap="goToHome">
+    <text class="go-back-content">去自由座首页看看</text>
+    <image class="go-back-button" src="{{KrImgUrl}}helpingActivity/details/button_goindex.png">
+
+    </image>
+  </view>
+</view>
+<button wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"
+        lang="zh_CN"
+        bindgetuserinfo="onGotUserInfo"
+        style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
+<view wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" class="masking-out" catchtouchmove="ture">
+  <image class="masking-img" src="{{KrImgUrl}}helpingActivity/index/prompt.png"></image>
+</view>
