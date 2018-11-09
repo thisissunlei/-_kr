@@ -47,6 +47,7 @@ Page({
   pageSize: 10,
   totalPages: 1,
   currentData: 0,
+  executeOnshow: false,
   jdConfig: {
     width: 765,
     height: 1068,
@@ -105,7 +106,9 @@ Page({
     // this.getBooster();
   },
   onShow: function() {
-    this.getBooster();
+    if (this.executeOnshow) {
+      this.getBooster();
+    }
   },
   //转发分享
   onShareAppMessage: function(res) {
@@ -658,6 +661,7 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
+              that.executeOnshow = true;
               that.getBooster();
               that.getBroadcast();
               that.getFriendsBooster();
