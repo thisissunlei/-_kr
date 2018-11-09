@@ -249,14 +249,13 @@ Page({
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
-              that.getAllInfo();
-              that.getDiscounts();
-              that.getOnecVisit();
-              // that.getShowCoupon();
-              that.getActivityFlag();
+              // that.getAllInfo();
+              // that.getDiscounts();
+              // that.getOnecVisit();
+              // // that.getShowCoupon();
+              // that.getActivityFlag();
               that.getInfo();
-              that.getCityList();
-              that.getCitybyId();
+              // that.getCityList();
             }
           });
         } else {
@@ -307,18 +306,19 @@ Page({
   //城市列表接口
   getCityList: function() {
     let that = this;
+    let newCityList = ["全部城市"];
+    let newCityDetail = [
+      {
+        cityId: 0,
+        cityName: "全部城市"
+      }
+    ];
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krmting/citys",
       success: function(res) {
         let cityList = Object.assign({}, res);
         let cityListName = cityList.data.data;
-        let newCityList = ["全部城市"];
-        let newCityDetail = [
-          {
-            cityId: 0,
-            cityName: "全部城市"
-          }
-        ];
+
         cityListName.map(value => {
           newCityList.push(value.cityName);
           newCityDetail.push(value);
@@ -525,7 +525,16 @@ Page({
             encryptedData: res.encryptedData,
             iv: res.iv
           },
-          success: res => {}
+          success: function(res) {
+            that.getAllInfo();
+            that.getDiscounts();
+            that.getOnecVisit();
+            // that.getShowCoupon();
+            that.getActivityFlag();
+            // that.getInfo();
+            that.getCityList();
+            that.getCitybyId();
+          }
         });
       }
     });
