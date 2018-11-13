@@ -1,38 +1,92 @@
 //index.js
 import Poster from "../wxa-plugin-canvas/poster/poster";
-import { demoAnimate, demoAnimates } from "../../utils/numAnimate.js";
+import {demoAnimate, demoAnimates} from "../../utils/numAnimate.js";
 // import { demoAnimate, demoAnimates } from "../../utils/animate.js";
 
 const app = getApp();
 Page({
   data: {
     userInfo: {
-      avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
-      name: 'test test test test test test ',
+      // 用户信息
+      avatarUrl: '',
+      nickName: '',
       weChatId: ''
-    }, // 用户信息
-    disInfo: {
-      current: '10',
-      disNum: 3
     },
+    disInfo: {
+      id: '',
+      hasDis: true, // 是否已砍价
+      current: '10', // 当前折扣
+      disNum: 3, // 当前已砍几折
+      selfDisNum: 1.8, // 自己砍了几折
+      code: 'TEST01', // 折扣码
+      hasUsed: false // 优惠码是否已用
+    },
+    selfSuccess: false,
+    showShareFriend: false,
+    showShare: false,
+    showSuccess: false,
+    recordList: [
+      {
+        avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
+        name: '哈哈',
+        time: '2018-11-05 13:00:09',
+        dis: '0.28'
+      },
+      {
+        avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
+        name: '哈哈',
+        time: '2018-11-05 13:00:09',
+        dis: '0.2'
+      },
+      {
+        avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
+        name: '哈哈',
+        time: '2018-11-05 13:00:09',
+        dis: '0.10'
+      },
+      {
+        avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
+        name: '哈哈',
+        time: '2018-11-05 13:00:09',
+        dis: '0.06'
+      }
+    ], //好友助力
+    KrImgUrl: app.globalData.KrImgUrl,
+    noticeList: [], //轮播信息
+    hasUserInfo: false, // 是否授权用户信息
+    hasPhone: true, //是否有手机号
+    comList: ['美国', '中国', '巴西', '日本'],
+    objectList: [
+      {
+        id: 22,
+        name: '美国'
+      },
+      {
+        id: 133,
+        name: '中国'
+      },
+      {
+        id: 244,
+        name: '巴西'
+      },
+      {
+        id: 355,
+        name: '日本'
+      }
+    ],
+    comIndex: '',
+    comId: '',
+
+
 
 
 
     number: "000",
-    showSuccess: false,
-    KrImgUrl: app.globalData.KrImgUrl,
     imgUrl: "",
-    showShare: false,
     showRule: false, //活动规则
-    noticeList: [], //轮播信息
     currentData: 0, //选项卡
-    recordList: [], //好友助力
-    showBottomBtn: false,
-    hasUserInfo: false,
     hasLoadUserInfo: false,
     myBooster: 0, //礼券池总金额
-    totalAmount: null, //好友助力总金额
-    myAmout: null, //我的助力总金额
     page: 1,
     totalCount: null,
     totalPages: null,
@@ -42,16 +96,25 @@ Page({
     animationDataTwo: "",
     animationDataThree: "",
     couponInfo: {},
-    hasPhone: true, //是否有手机号
     friendBoosterNone: false,
     boosterRecordNone: false,
     activityFlag: true, // 判断活动 是否 结束
     hasLogin: false
   },
+
+  recordParams: {
+    page: 1,
+    pageSize: 5,
+    cutId: ''
+  },
+  totalPages: 1,
+
+
+
+
   weChatId: null, //微信id
   page: 1,
   pageSize: 10,
-  totalPages: 1,
   currentData: 0,
   jdConfig: {
     width: 765,
@@ -78,20 +141,21 @@ Page({
     url: "",
     zIndex: 1
   },
-  james: "",
-  onLoad: function() {
+  // james: "",
+  onLoad: function (options) {
+    console.log('options', options);
+    if (options.id) {
+      this.setData({
+        ['disInfo.id']: options.id
+      })
+    }
     // wx.reportAnalytics("viewpoweractivities");
     wx.showLoading({
       title: "加载中",
       mask: true
     });
-    setTimeout(() => {
-      this.james = new demoAnimate({
-        _this: this
-      });
-    }, 1000);
 
-    // this.animate();
+
     wx.getSetting({
       success: res => {
         if (res.authSetting["scope.userInfo"]) {
@@ -106,17 +170,17 @@ Page({
       }
     });
   },
-  onReady: function() {
+  onReady: function () {
     // this.getDiscount();
   },
-  onShow: function() {
+  onShow: function () {
     if (this.data.hasLogin) {
       this.getDiscount();
     }
   },
 
   // 登录
-  login: function() {
+  login: function () {
     wx.login({
       success: (res) => {
         if (res.code) {
@@ -153,7 +217,7 @@ Page({
   },
 
   // 获取用户信息
-  getInfo: function() {
+  getInfo: function () {
     wx.getUserInfo({
       success: (res) => {
         // console.log(res);
@@ -163,6 +227,10 @@ Page({
             user_info: res.userInfo
           }
         });
+        this.setData({
+          ['userInfo.avatarUrl']: res.userInfo.avatarUrl,
+          ['userInfo.nickName']: res.userInfo.nickName
+        });
         app.getRequest({
           url: app.globalData.KrUrl + "api/gateway/krmting/user/save",
           data: {
@@ -170,11 +238,31 @@ Page({
             iv: res.iv
           },
           success: res => {
+            // console.log('disId', this.data.disInfo)
+            // app.getRequest({
+            //   url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
+            //   methods: "GET",
+            //   header: {
+            //     'content-type': "appication/json"
+            //   },
+            //   success: (res) => {
+            //     let userInfo = Object.assign({}, res.data.data);
+            //     let linkPhone = _this.data.linkPhone;
+            //     this.setData({
+            //       linkPhone: userInfo.phone || linkPhone
+            //     })
+            //   }
+            // })
+            if (this.data.disInfo.id) {
+              this.recordParams.cutId = this.data.disInfo.id;
+              this.getDiscount();
+              this.getFriendsBooster();
+            } else {
+              this.createCutId();
+            }
+            // this.getUserInfo();
             this.getActivityFlag();
-            this.getUserInfo();
-            this.getDiscount();
             this.getBroadcast();
-            this.getFriendsBooster();
             wx.hideLoading();
             // console.log(res);
           }
@@ -184,7 +272,7 @@ Page({
   },
 
   //活动是否结束
-  getActivityFlag: function() {
+  getActivityFlag: function () {
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/ovedue",
       method: "GET",
@@ -205,9 +293,9 @@ Page({
       }
     });
   },
-  
+
   // 获取用户昵称头像信息
-  getUserInfo: function() {
+  getUserInfo: function () {
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/booster-info",
       success: res => {
@@ -218,9 +306,10 @@ Page({
   },
 
   // 获取折扣
-  getDiscount: function() {
+  getDiscount: function () {
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/mybooster-pool",
+      data: {cutId: this.data.disInfo.id},
       success: res => {
         console.log("1111111", res);
         console.log("shoujiehao", res.data.data.flag);
@@ -237,16 +326,31 @@ Page({
           number: result
         });
         console.log("result----", result);
-        setTimeout(() => {
-          this.james.initNum(result);
-        }, 1000);
+        // setTimeout(() => {
+        //   this.james.initNum(result);
+        // }, 1000);
         // that.animate();
       }
     });
   },
 
+  // 创建 cutId
+  createCutId: function () {
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/op/kmseatcut/create-new",
+      success: res => {
+        this.setData({
+          ['disInfo.id']: res.data.data || '233test'
+        }, () => {
+          this.getDiscount();
+          this.getFriendsBooster();
+        });
+      }
+    });
+  },
+
   // 领取轮播信息接口
-  getBroadcast: function() {
+  getBroadcast: function () {
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/broadcast",
       success: res => {
@@ -259,22 +363,15 @@ Page({
   },
 
   // 好友助力接口
-  getFriendsBooster: function() {
-    const that = this;
+  getFriendsBooster: function () {
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/friends-booster",
-      data: {
-        page: that.page,
-        pageSize: that.pageSize
-      },
+      data: this.recordParams,
       success: res => {
         // console.log(res);
-        that.getDiscount();
-        that.totalPages = res.data.data.totalPages;
-        that.setData({
-          recordList: res.data.data.items,
-          totalAmount: res.data.data.totalAmount,
-          totalCount: res.data.data.totalCount,
+        this.totalPages = res.data.data.totalPages;
+        this.setData({
+          // recordList: res.data.data.items,
           totalPages: res.data.data.totalPages,
           friendBoosterNone: true
         });
@@ -282,39 +379,51 @@ Page({
     });
   },
 
-  // 自己砍价接口
-  reduce: function(e) {
-    console.log(e);
+  selfReduce: function () {
+    if (this.data.disInfo.hasUsed) {
+
+    } else if(this.data.disInfo.hasDis) {
+      // 喊朋友来补刀
+      this.shareView();
+    } else {
+      // this.reduce();
+    }
+  },
+
+  bindPickerChange: function(e) {
+    console.log('picker发送选择改变，携带值为', this.data.objectList[e.detail.value].id)
     this.setData({
-      couponInfo: e.currentTarget.dataset.id
-    });
+      comId: this.data.objectList[e.detail.value].id
+    }, () => {
+      this.reduce();
+    })
+  },
+
+  // 自己砍价接口
+  reduce: function (e) {
+    // console.log(e);
+    // this.setData({
+    //   couponInfo: e.currentTarget.dataset.id
+    // });
+    this.setData({
+      selfSuccess: true
+    })
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmbooster/take-coupons",
-      method: "post",
+      url: app.globalData.KrUrl + "api/op/kmseatcut/boost",
+      method: "get",
       data: {
-        baseId: e.currentTarget.dataset.id.id
+        communityId: this.data.comId,
+        cutId: this.data.disInfo.id
       },
       success: res => {
         console.log(res);
         if (res.data.code == 1) {
           this.setData({
-            showAnimation: true,
-            animationStart: true
-          });
-          setTimeout(() => {
-            this.setData({
-              animationStart: false
-            });
-          }, 1500);
-          setTimeout(() => {
-            this.setData({
-              showAnimation: false
-            });
-          }, 3500);
-          this.getDiscount();
+            selfSuccess: true
+          })
         } else {
           wx.showToast({
-            title: res.data.message,
+            title: res.data.message || '',
             icon: "none",
             duration: 2000
           });
@@ -323,38 +432,40 @@ Page({
     });
   },
 
+  callFriend() {
+    this.closeDialog();
+    this.shareView();
+  },
   // 喊朋友来助力按钮
-  shareView: function() {
+  shareView: function () {
     this.setData({
-      showBottomBtn: !this.data.showBottomBtn
+      showShareFriend: !this.data.showShareFriend
     });
   },
 
   //转发分享
-  onShareAppMessage: function(res) {
-    const that = this;
+  onShareAppMessage: function (res) {
     if (res.from === "button") {
       // console.log("来自页面赠送按钮");
-      wx.reportAnalytics("clickcallfriends");
-
+      // wx.reportAnalytics("clickcallfriends");
       // console.log(that.weChatId);
-      that.share();
+      this.shareView();
       return {
         title: "快来帮我拿自由座礼券，点一下你也能获得礼券哦~",
-        path: "pages/assistance/assistance?weChatId=" + that.weChatId,
-        imageUrl: that.data.KrImgUrl + "helpingActivity/details/share1.jpg"
+        path: "pages/assistance/assistance?weChatId=" + this.weChatId,
+        imageUrl: this.data.KrImgUrl + "helpingActivity/details/share1.jpg"
       };
     } else {
       // console.log("来自右上角转发菜单");
       return {
         title: "邀请好友助力，商旅办公最高可享免单，快来参与吧~",
         path: "pages/createImg/createImg",
-        imageUrl: that.data.KrImgUrl + "helpingActivity/details/share2.jpg"
+        imageUrl: this.data.KrImgUrl + "helpingActivity/details/share2.jpg"
       };
     }
   },
 
-  getPhoneNumber: function(e) {
+  getPhoneNumber: function (e) {
     console.log(e);
     const that = this;
     that.setData({
@@ -407,42 +518,26 @@ Page({
             hasPhone: true
           });
         },
-        fail: res => {}
+        fail: res => {
+        }
       });
     }
   },
 
-  //
-  checkCurrent: function(e) {
-    // console.log(e);
-    const that = this;
-    let current = e.currentTarget.dataset.current;
-    that.currentData = current;
-    that.setData({
-      currentData: current
-    });
-    if (current == 0) {
-      that.page = 1;
-      that.setData({
-        page: 1
-      });
-      that.getFriendsBooster();
-    }
-  },
   //去首页
-  goToHome: function() {
+  goToHome: function () {
     wx.reLaunch({
       url: "../index/index"
     });
   },
-  closeAnimation: function() {
+  closeAnimation: function () {
     this.setData({
       showAnimation: false
     });
   },
 
   //页面上拉触底事件
-  onReachBottom: function() {
+  onReachBottom: function () {
     const that = this;
     // console.log(this.currentData);
     if (that.page < that.totalPages) {
@@ -467,7 +562,7 @@ Page({
     }
   },
   //活动规则
-  helpingRule: function() {
+  helpingRule: function () {
     wx.reportAnalytics("clickrule");
 
     this.setData({
@@ -475,13 +570,13 @@ Page({
     });
   },
   //关闭活动规则
-  closeRule: function() {
+  closeRule: function () {
     this.setData({
       showRule: false
     });
   },
   //跳转我的礼品券
-  jumpMyCoupon: function() {
+  jumpMyCoupon: function () {
     wx.navigateTo({
       url: "../myCoupon/myCoupon"
     });
@@ -489,32 +584,33 @@ Page({
   closeDialog() {
     this.setData({
       showShare: false,
-      showSuccess: false
+      showSuccess: false,
+      selfSuccess: false
     });
   },
   saveImg() {
     //保存图片到本地
     let that = this;
     wx.saveImageToPhotosAlbum(
-      {
-        filePath: that.data.imgUrl,
-        success: function(res) {
-          console.log("success", res);
-          that.setData({
-            showShare: false,
-            showSuccess: true
-          });
+        {
+          filePath: that.data.imgUrl,
+          success: function (res) {
+            console.log("success", res);
+            that.setData({
+              showShare: false,
+              showSuccess: true
+            });
+          },
+          fail: function (res) {
+            console.log("fail", res);
+          }
         },
-        fail: function(res) {
-          console.log("fail", res);
-        }
-      },
-      this
+        this
     );
     //保存图片到本地--end
   },
   onPosterSuccess(e) {
-    const { detail } = e;
+    const {detail} = e;
     wx.hideLoading();
     this.setData({
       imgUrl: detail,
@@ -526,11 +622,10 @@ Page({
   },
 
   createShareCanvas() {
-    wx.reportAnalytics("clicksharemonments");
+    // wx.reportAnalytics("clicksharemonments");
     let weImg = this.weImg;
     let jdConfig = this.jdConfig;
-    let that = this;
-    that.share();
+    this.shareView();
 
     wx.showLoading({
       title: "加载中"
@@ -540,7 +635,7 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
       data: {
         page: "pages/assistance/assistance",
-        scene: that.weChatId
+        scene: this.weChatId
       },
       success: res => {
         let code = res.data.code;
@@ -548,12 +643,12 @@ Page({
           weImg.url = res.data.data;
           jdConfig.images.push(weImg);
           this.setData(
-            {
-              jdConfig: jdConfig
-            },
-            function() {
-              Poster.create();
-            }
+              {
+                jdConfig: jdConfig
+              },
+              function () {
+                Poster.create();
+              }
           );
         } else {
           wx.showToast({
@@ -592,7 +687,7 @@ Page({
     Poster.create();
   },
 
-  toStringAmount: function(num) {
+  toStringAmount: function (num) {
     let len = num.toString().length;
     switch (len) {
       case 1:
@@ -608,7 +703,7 @@ Page({
   },
 
   //提取记录接口
-  getRecords: function() {
+  getRecords: function () {
     const that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
@@ -635,7 +730,7 @@ Page({
 
 
   //拉取授权
-  onGotUserInfo: function(e) {
+  onGotUserInfo: function (e) {
     console.log(e);
     if (e.detail.userInfo) {
       this.getInfo();
@@ -646,19 +741,19 @@ Page({
   },
 
   //时间戳格式化
-  toDate: function(number) {
+  toDate: function (number) {
     var date = new Date(number);
     var Y = date.getFullYear();
     var M =
-      date.getMonth() + 1 < 10
-        ? "0" + (date.getMonth() + 1)
-        : date.getMonth() + 1;
+        date.getMonth() + 1 < 10
+            ? "0" + (date.getMonth() + 1)
+            : date.getMonth() + 1;
     var D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
     var H = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
     var m =
-      date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
     var S =
-      date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
     return Y + "-" + M + "-" + D + " " + H + ":" + m + ":" + S;
   }
 });
