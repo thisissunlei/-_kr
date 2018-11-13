@@ -225,7 +225,7 @@ Page({
             couponIds: [],
             list: list
         })
-        if ( next == 'ok' ) {
+        // if ( next == 'ok' ) {
             wx.showLoading({
                 title: "加载中",
                 mask: true
@@ -242,7 +242,7 @@ Page({
             },() => {
                 this.getList()
             })
-        }
+        // }
     },
     selectTab(e) {
         if ( !this.data.changeShow ) return
