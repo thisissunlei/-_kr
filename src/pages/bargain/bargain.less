@@ -20,7 +20,7 @@
   height: 52rpx;
   padding: 0 21rpx;
   position: absolute;
-  top: 14rpx;
+  top: 40rpx;
   left: 0;
   z-index: 10;
   border-radius: 8px;
@@ -47,6 +47,10 @@
   padding: 0 12rpx;
   background: rgba(0,0,0,0.70);
   border-radius: 0 8rpx 8rpx 0;
+  max-width: 400rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis
 }
 
 .bargain-rule-text {
@@ -1274,117 +1278,4 @@
   bottom: 320rpx;
   left: 50%;
   margin-left: -251rpx;
-}
-.twoAnimation{
-  animation:moveZero 1s forwards linear
-}
-.move-zero {
-  animation: moveZero 1s forwards linear;
-}
-.move-one {
-  animation: moveOne 1.1s forwards linear;
-}
-.move-two {
-  animation: moveTwo 1.2s forwards linear;
-}
-.move-three {
-  animation: moveThree 1.3s forwards linear;
-}
-.move-four {
-  animation: moveFour 1.4s forwards linear;
-}
-.move-five {
-  animation: moveFive 1.5s forwards linear;
-}
-.move-six {
-  animation: moveSix 1.6s forwards linear;
-}
-.move-seven {
-  animation: moveSeven 1.7s forwards linear;
-}
-.move-eight {
-  animation: moveEight 1.8s forwards linear;
-}
-.move-nine {
-  animation: moveNine 1.9s forwards linear;
-}
-@keyframes moveOne {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-10%);
-  }
-}
-@keyframes moveZero {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-@keyframes moveTwo {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-20%);
-  }
-}
-@keyframes moveThree {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-30%);
-  }
-}
-@keyframes moveFour {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-40%);
-  }
-}
-@keyframes moveFive {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-50%);
-  }
-}
-@keyframes moveSix {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-60%);
-  }
-}
-@keyframes moveSeven {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-70%);
-  }
-}
-@keyframes moveEight {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-80%);
-  }
-}
-@keyframes moveNine {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-90%);
-  }
 }
