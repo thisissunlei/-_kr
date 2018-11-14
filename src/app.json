@@ -51,7 +51,8 @@
     "pages/createImg/createImg",
     "pages/teamCardRecord/teamCardRecord",
     "pages/laymanGuide/laymanGuide",
-    "pages/bargain/bargain"
+    "pages/bargain/bargain",
+    "pages/bargainFriend/bargainFriend"
   ],
   "window": {
     "backgroundTextStyle": "light",

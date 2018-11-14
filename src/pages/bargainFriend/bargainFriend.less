@@ -11,7 +11,7 @@
 
 .bg > image {
   width: 100%;
-  height: 1225rpx;
+  height: 1020rpx;
 }
 
 .bargain-notice {
@@ -64,49 +64,75 @@
   color: #FE992D;
 }
 
-.know-kr-wrap {
-  position: absolute;
-  top: 274rpx;
-  left: 261rpx;
-  z-index: 20;
-  width: 228rpx;
-  height: 58rpx;
-}
-
-.know-kr-wrap > image {
-  width: 228rpx;
-  height: 58rpx;
-}
-.know-kr-wrap > text {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 228rpx;
-  height: 58rpx;
-  line-height: 52rpx;
-  font-size: 28rpx;
-  color: #FE992D;
-  text-align: center;
+.know-kr {
+  display: inline-block;
+  height: 48rpx;
+  line-height: 48rpx;
+  padding: 0 20rpx;
+  margin: 0 auto 30rpx;
+  background: rgba(255,216,159,0.20);
+  border: 1px solid #FFD99B;
+  border-radius: 4rpx;
+  font-size: 24rpx;
+  color: #FC8822;
 }
 
 .bargain-main {
   position: absolute;
-  top: 599rpx;
-  left: 36rpx;
+  top: 154rpx;
+  left: 31rpx;
 }
 
-.content-wrap {
-  padding: 24rpx;
-  margin-bottom: 30rpx;
-  background: rgba(255,255,255,0.20);
-  border-radius: 4rpx;
-}
 
 .bargain-content {
-  width: 638rpx;
+  width: 688rpx;
   margin: 0 auto;
   background: #FFFFFF;
+  border-radius: 8rpx;
+  position: relative;
+  padding: 110rpx 0 32rpx;
+  text-align: center;
+}
+
+.bargain-content .avatar {
+  position: absolute;
+  top: -78rpx;
+  left: 264rpx;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.ad {
+  position: relative;
+  height: 100rpx;
+  margin-bottom: 20rpx;
+  padding: 0 90rpx;
+  font-size: 36rpx;
+  color: #333333;
+  text-align: center;
+}
+
+.quoat-left {
+  position: absolute;
+  top: 0;
+  left: 30rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.quoat-right {
+  position: absolute;
+  top: 30rpx;
+  right: 20rpx;
+  width: 30rpx;
+  height: 30rpx;
+  transform:rotate(180deg);
+}
+
+.avatar > image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .bargain-content .dis-num {
@@ -203,19 +229,22 @@
 }
 
 .content-name {
-  display: inline-block;
-  width: 380rpx;
-  height: 45rpx;
-  line-height: 45rpx;
-  margin-top: 22rpx;
+  width: 400rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin: 0 auto 28rpx;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666666;
 }
 
 .content-dis {
-  height: 116rpx;
-  line-height: 116rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-bottom: 32rpx;
   text-align: center;
   font-size: 36rpx;
   color: #333333;
@@ -255,15 +284,15 @@
 
 
 .cut-text {
-  width: 636rpx;
+  width: 600rpx;
   height: 100rpx;
   line-height: 100rpx;
-  margin: 0 auto 50rpx;
+  margin: 0 auto 40rpx;
   text-align: center;
   font-size: 36rpx;
   color: #724500;
   background: #FFDF29;
-  box-shadow: 0 8rpx 16rpx 0 #E7351D;
+  box-shadow: 0 4px 16px 0 #FEA32F;
   border-radius: 50px;
 }
 
@@ -287,7 +316,7 @@
   height: 56rpx;
   line-height: 56rpx;
   text-align: center;
-  margin:0 auto 30rpx;
+  margin:0 auto 20rpx;
   background: #FA593B;
   border-radius: 28rpx;
   font-size: 28rpx;
@@ -397,42 +426,80 @@
 }
 
 .bargainDialog .content-box {
-  height: auto;
-  width: 574rpx;
+  height: 666rpx;
+  width: 590rpx;
   border-radius: 16rpx;
   background-color: #fff;
   position: relative;
   margin: auto;
   margin-top: 50vh;
   transform: translateY(-50%);
-  padding: 120rpx 30rpx 48rpx;
+  padding: 52rpx 24rpx 50rpx;
   box-sizing: border-box;
 }
 
+.dialog-avatar-wrap {
+  position: relative;
+  z-index: 20;
+  text-align: center;
+  height: 100rpx;
+}
+
 .dialog-avatar {
-  position: absolute;
-  top: -80rpx;
-  left: 210rpx;
-  width: 160rpx;
-  height: 160rpx;
-  border: 2rpx solid #EEEEEE;
+  width: 100rpx;
+  height: 100rpx;
+  border: 1px solid #EEEEEE;
   border-radius: 50%;
 }
 
-.bargainDialog .self-text {
-  height: 60rpx;
-  line-height: 60rpx;
-  margin-bottom: 28rpx;
-  font-size: 36rpx;
+.crown {
+  position: absolute;
+  left: 198rpx;
+  top: -18rpx;
+  width: 70rpx;
+  height: 40rpx;
+}
+
+.btn-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.desc-text {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.dialog-name {
+  position: relative;
+  top: -10rpx;
+  width: 440rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: 0 auto 56rpx;
+  background: #F6F6F6;
+  border-radius: 8px;
+  font-size: 28rpx;
   color: #333333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bargainDialog .self-text {
+  height: 36rpx;
+  line-height: 36rpx;
+  margin-bottom: 28rpx;
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: bold;
 }
 
 .bargainDialog .self-dis {
   display: inline-block;
   height: 60rpx;
   line-height: 60rpx;
-  margin-bottom: 32rpx;
-  margin-right: 10rpx;
+  margin: 0 10rpx 36rpx;
   font-size: 68rpx;
   font-weight: 500;
   color: #FF6868;
@@ -446,23 +513,57 @@
 }
 
 .bargainDialog .dis-text {
-  margin-bottom: 32rpx;
-  font-size: 32rpx;
+  width: 542rpx;
+  padding-top: 32rpx;
+  margin:0 auto 42rpx;
+  font-size: 28rpx;
   color: #666666;
   line-height: 32rpx;
+  border-top: 1px solid #F6F6F6;
 }
 
-.bargainDialog .call {
-  width: 478rpx;
+.call, .self-cut{
+  width: 260rpx;
   height: 78rpx;
   line-height: 78rpx;
-  margin: 50rpx auto 0;
+  margin: 0 auto;
   text-align: center;
   font-size: 32rpx;
   color: #724500;
   background: #FFDF29;
   border-radius: 50px;
 }
+
+.self-cut {
+  background: #FF6868;
+  color: #FFFFFF;
+}
+
+.out-box {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  width: 688rpx;
+  margin: 0 auto 42rpx;
+}
+
+.bubble {
+  position: absolute;
+  top: -70rpx;
+  left: 20rpx;
+  width: 324rpx;
+  height: 56rpx;
+}
+
+.out-box .call {
+  box-shadow: 0 8px 16px 0 #E7351D;
+}
+
+.out-box .self-cut{
+  background: #F64B2B;
+  box-shadow: 0 8px 16px 0 #E7351D;
+}
+
 
 
 .dialog-star {
@@ -491,6 +592,15 @@
 .record-list {
   width: 100%;
   height: auto;
+}
+
+.friend-num {
+  height: 40rpx;
+  line-height: 40rpx;
+  margin-bottom: 26rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #FFFFFF;
 }
 
 .record-list-content {
@@ -581,50 +691,6 @@
   color: #c392cb;
   text-align: center;
   margin-bottom: 40rpx;
-}
-
-.comPickerWrap {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 30;
-  background: rgba(0,0,0,0.70);
-}
-
-.wrap-top {
-  width: 100%;
-  height: 40%;
-}
-
-.comPicker {
-  width: 100%;
-  height: 60%;
-  background: #fff;
-}
-
-.picker-title {
-  position: relative;
-  height: 80rpx;
-  line-height: 80rpx;
-  padding-left: 26rpx;
-  background: #F0F0F0;
-  text-align: left;
-  font-size: 32rpx;
-  color: #333333;
-}
-
-.btn-sure {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 140rpx;
-  height: 80rpx;
-  line-height: 80rpx;
-  font-size: 28rpx;
-  color: #4A90E2;
-  text-align: center;
 }
 
 

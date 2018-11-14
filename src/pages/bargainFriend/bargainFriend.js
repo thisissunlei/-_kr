@@ -6,112 +6,82 @@ import {demoAnimate, demoAnimates} from "../../utils/numAnimate.js";
 const app = getApp();
 Page({
   data: {
-    userInfo: {
-      // 用户信息
+    // 发起人用户信息
+    originInfo: {
       avatarUrl: '',
       nickName: '',
-      wechatId: '',
-      hasPhone: true
+      wechatId: ''
+    },
+    // 当前用户信息
+    userInfo: {
+      avatarUrl: '',
+      nickName: '',
+      wechatId: ''
     },
     disInfo: {
       cutId: '',
-      hasDis: false, // 是否已砍价
+      hasHelpDis: false, // 是否已帮助过砍价
       hasUsed: false, // 优惠码是否已用
       current: '', // 当前折扣
       disNum: '', // 当前已砍几折
-      code: '', // 折扣码
-      selfDisNum: '', // 自己砍了几折
+      deductAmount: '', // 已帮砍几折
     },
-    selfSuccess: false,
+    helpSuccess: false,
     showShareFriend: false,
     showShare: false,
     showSuccess: false,
     recordList: [
-      // {
-      //   avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
-      //   name: '哈哈',
-      //   time: '2018-11-05 13:00:09',
-      //   dis: '0.28'
-      // },
-      // {
-      //   avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
-      //   name: '哈哈',
-      //   time: '2018-11-05 13:00:09',
-      //   dis: '0.2'
-      // },
-      // {
-      //   avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
-      //   name: '哈哈',
-      //   time: '2018-11-05 13:00:09',
-      //   dis: '0.10'
-      // },
-      // {
-      //   avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
-      //   name: '哈哈',
-      //   time: '2018-11-05 13:00:09',
-      //   dis: '0.06'
-      // }
+      {
+        avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
+        name: '哈哈',
+        time: '2018-11-05 13:00:09',
+        dis: '0.28'
+      },
+      {
+        avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
+        name: '哈哈',
+        time: '2018-11-05 13:00:09',
+        dis: '0.2'
+      },
+      {
+        avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
+        name: '哈哈',
+        time: '2018-11-05 13:00:09',
+        dis: '0.10'
+      },
+      {
+        avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
+        name: '哈哈',
+        time: '2018-11-05 13:00:09',
+        dis: '0.06'
+      }
     ], //好友助力
     KrImgUrl: app.globalData.KrImgUrl,
-    noticeList: [], //轮播信息
     hasUserInfo: false, // 是否授权用户信息
-    // comList: ['霄云路社区', '王府井银泰社区', '人民广场海洋大厦', '延安西路嘉宁国际', '人民广场中区广场',  '外滩中心',  '华山路御华山',  '浦东宝钢大厦',  '钱江新城平安金融中心',  '世茂海峡国际',  '创新科技广场',  '协鑫广场'],
-    showPicker: false,
+    hasPhone: true, //是否有手机号
+    comList: ['美国', '中国', '巴西', '日本'],
     objectList: [
       {
-        id: 215,
-        name: '霄云路社区'
+        id: 22,
+        name: '美国'
       },
       {
-        id: 179,
-        name: '王府井银泰社区'
+        id: 133,
+        name: '中国'
       },
       {
-        id: 181,
-        name: '人民广场海洋大厦'
+        id: 244,
+        name: '巴西'
       },
       {
-        id: 200,
-        name: '延安西路嘉宁国际'
-      },
-      {
-        id: 203,
-        name: '人民广场中区广场'
-      },
-      {
-        id: 202,
-        name: '外滩中心'
-      },
-      {
-        id: 185,
-        name: '华山路御华山'
-      },
-      {
-        id: 205,
-        name: '浦东宝钢大厦'
-      },
-      {
-        id: 188,
-        name: '钱江新城平安金融中心'
-      },
-      {
-        id: 206,
-        name: '世茂海峡国际'
-      },
-      {
-        id: 208,
-        name: '创新科技广场'
-      },
-      {
-        id: 207,
-        name: '协鑫广场'
-      },
+        id: 355,
+        name: '日本'
+      }
     ],
     comIndex: '',
-    tempComId: '215',
     comId: '',
-    totalCount: 0,
-    totalPages: 1,
+    helpNum: 18,
+
 
 
 
@@ -123,33 +93,33 @@ Page({
     hasLoadUserInfo: false,
     myBooster: 0, //礼券池总金额
     page: 1,
-
+    totalCount: null,
+    totalPages: null,
     showAnimation: false, //提取动画
     animationStart: false,
     animationDataOne: "",
     animationDataTwo: "",
     animationDataThree: "",
     couponInfo: {},
+    friendBoosterNone: false,
     boosterRecordNone: false,
     activityFlag: true, // 判断活动 是否 结束
-    hasLogin: false,
-    recordParams: {
-      page: 1,
-      pageSize: 5,
-    },
+    hasLogin: false
   },
 
+  recordParams: {
+    page: 1,
+    pageSize: 5,
+  },
+  totalPages: 1,
+  wechatId: null, //微信id
 
 
 
 
-  // totalPages: 1,
 
-
-
-
-  // page: 1,
-  // pageSize: 10,
+  page: 1,
+  pageSize: 10,
   currentData: 0,
   jdConfig: {
     width: 765,
@@ -178,12 +148,21 @@ Page({
   },
   // james: "",
   onLoad: function (options) {
+    console.log('options', options);
+    if (options.cutId && options.wechatId) {
+      this.setData({
+        ['disInfo.cutId']: options.cutId,
+        ['originInfo.wechatId']: options.wechatId
+      });
+      this.wechatId = options.wechatId;
+    } else {
+      
+    }
     wx.showLoading({
       title: "加载中",
       mask: true
     });
-
-
+    
     wx.getSetting({
       success: res => {
         if (res.authSetting["scope.userInfo"]) {
@@ -260,15 +239,18 @@ Page({
             iv: res.iv
           },
           success: res => {
-            this.setData({
-              ['userInfo.wechatId']: res.data.data.wechatId || ''
-            });
-            this.getMoreUserInfo();
-            this.getActivityFlag();
-            this.getBroadcast();
-            this.getCutId();
-            wx.hideLoading();
-            // console.log(res);
+            // if (res.data.data.wechatId == this.wechatId) {
+              // wx.redirectTo({
+              //   url: "../bargain/bargain"
+              // });
+            // } else {
+              this.getActivityFlag();
+              this.getMoreUserInfo();
+              this.getDiscount();
+              this.getFriendsBooster();
+              wx.hideLoading();
+            // }
+
           }
         });
       }
@@ -298,10 +280,13 @@ Page({
     });
   },
 
-  // 获取用户wechatId，是否绑定手机号等信息
+  // 获取用户(发起人)头像、昵称等信息
   getMoreUserInfo: function () {
     app.getRequest({
       url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
+      data: {
+        wechatId: this.wechatId
+      },
       methods: "GET",
       header: {
         'content-type': "appication/json"
@@ -310,61 +295,33 @@ Page({
         let userInfo = Object.assign({}, res.data.data);
         console.log('userInfo', userInfo)
         this.setData({
-          ['userInfo.hasPhone']: (userInfo.phone && userInfo.phone.length > 0) ? true : false,
-          // todo wechatId可在save接口中获取
-          // ['userInfo.wechatId']: userInfo.wechatId || ''
+          ['originInfo.avatarUrl']: userInfo.wechatAvatar || '',
+          ['originInfo.nickName']: userInfo.wechatNick || ''
         })
       }
     })
   },
-
-
-  // 创建 cutId 或查询 cutId
-  getCutId: function () {
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmseatcut/create-new",
-      success: res => {
-        this.setData({
-          ['disInfo.cutId']: res.data.data || ''
-        }, () => {
-          this.getDiscount();
-          this.getFriendsBooster();
-        });
-      }
-    });
-  },
+  
 
   // 获取折扣
   getDiscount: function () {
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/coupon-view",
-      data: {cutId: this.data.disInfo.cutId},
+      data: {cutId: this.data.disInfo.cutId, boosterId: this.wechatId},
       success: res => {
         console.log('res', res)
         const data = res.data.data || {}
         this.setData({
           ['disInfo.current']: data.amount || '',
-          ['disInfo.hasDis']: data.status === 'CUTSELF' ? false : true,
+          ['disInfo.hasHelpDis']: data.boosterFlag,
           ['disInfo.hasUsed']: data.status === 'FINISH' ? true : false,
           ['disInfo.disNum']: data.deductAmount || '',
-          ['disInfo.code']: data.code || ''
+          ['disInfo.deductAmount']: data.deductAmount || ''
         });
       }
     });
   },
-
-  // 领取轮播信息接口
-  getBroadcast: function () {
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmseatcut/booster-record-marquee",
-      success: res => {
-        // console.log(res);
-        this.setData({
-          noticeList: res.data.data
-        });
-      }
-    });
-  },
+  
 
   // 好友助力接口
   getFriendsBooster: function () {
@@ -385,53 +342,26 @@ Page({
   selfReduce: function () {
     if (this.data.disInfo.hasUsed) {
 
-    } else if(this.data.disInfo.hasDis) {
+    } else if(this.data.disInfo.hasHelpDis) {
       // 喊朋友来补刀
-      this.shareView();
+      // this.shareView();
     } else {
-      // this.reduce();
-      this.setData({
-        tempComId: 215,
-        showPicker: true
-      })
+      this.reduce();
     }
   },
 
-  closePicker() {
-    this.setData({
-      showPicker: false
-    })
-  },
-
-  bindPickerChange: function(e) {
-    console.log('picker发送选择改变，携带值为', this.data.objectList[e.detail.value].id)
-    this.setData({
-      tempComId: this.data.objectList[e.detail.value].id
-    })
-  },
-
-  selectCom() {
-    this.setData({
-      comId: this.data.tempComId
-    }, () => {
-      this.closePicker();
-      this.reduce();
-    })
-  },
-
-  // 自己砍价接口
+  // 砍价接口
   reduce: function (e) {
     // console.log(e);
     this.setData({
-      selfSuccess: true
+      helpSuccess: true
     })
     console.log(this.data.userInfo)
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/boost",
       method:"POST",
       data: {
-        boosterId: this.data.userInfo.wechatId,
-        communityId: this.data.comId,
+        boosterId: this.wechatId,
         cutId: this.data.disInfo.cutId
       },
       success: res => {
@@ -439,8 +369,8 @@ Page({
         if (res.data.code == 1) {
           const data = res.data.data || {};
           this.setData({
-            selfSuccess: true,
-            ['disInfo.hasDis']: true,
+            helpSuccess: true,
+            ['disInfo.hasHelpDis']: true,
             ['disInfo.current']: data.amount,
             ['disInfo.disNum']: data.deductAmount,
             ['disInfo.selfDisNum']: data.deductAmount,
@@ -570,7 +500,7 @@ Page({
     this.setData({
       showShare: false,
       showSuccess: false,
-      selfSuccess: false
+      helpSuccess: false
     });
   },
   saveImg() {
@@ -642,18 +572,18 @@ Page({
         //   });
 
 
-          weImg.url = res.data.data
-          weImg.url =
+        weImg.url = res.data.data
+        weImg.url =
             "https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg";
-          jdConfig.images.push(weImg);
-          this.setData(
+        jdConfig.images.push(weImg);
+        this.setData(
             {
               jdConfig: jdConfig
             },
             function() {
               Poster.create();
             }
-          );
+        );
         // }
       }
     });
