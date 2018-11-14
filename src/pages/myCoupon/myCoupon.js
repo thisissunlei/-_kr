@@ -24,7 +24,7 @@ Page({
         })
         let from = option.from || 'none';
         this.setData({
-            from:'from'
+            from:from
         })
 
         console.log('onload',option.from)

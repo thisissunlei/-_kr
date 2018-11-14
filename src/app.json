@@ -1,7 +1,9 @@
 {
   "pages": [
+    
     "pages/index/index", 
     "pages/assistance/assistance",
+    "pages/bargainIndex/bargainIndex",
     "pages/demo/demo",
     "pages/getTeamCard/getTeamCard",
     "pages/teamCardManage/teamCardManage",
