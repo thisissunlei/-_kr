@@ -17,11 +17,17 @@ Page({
     couponIds: [],
     shareNo: 0,
     couponAmount: 0,
-    onLoad() {
+    onLoad(option) {
         wx.showLoading({
             title: "加载中",
             mask: true
         })
+        let from = option.from || 'none';
+        this.setData({
+            from:from
+        })
+
+        console.log('onload',option.from)
         if ( this.data.couponTabType === 'SHARE' ) {
             this.getShareList()
         } else {
@@ -293,6 +299,11 @@ Page({
         this.setData({
             shardModal: false
         })
+    },
+    changeBack(){
+        wx.navigateTo({
+          url: "../index/index"
+        });
     },
     onShareAppMessage(res) {
         if (res.from === 'button') {
