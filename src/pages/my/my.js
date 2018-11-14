@@ -91,7 +91,7 @@ Page({
   },
   jumpMyCoupon() {
     wx.navigateTo({
-      url: "../myCoupon/myCoupon"
+      url: "../myCoupon/myCoupon?from=myself"
     });
   },
   closeTip: function() {

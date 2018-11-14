@@ -23,7 +23,14 @@
 </view>
 <view wx:if="{{list.length > 0 && !loading && couponTabType == 'USABLE'}}" style="height: 224rpx;"></view>
 <view wx:if="{{list.length > 0 && !loading && couponTabType == 'USABLE'}}" class="usable">
-    <view class="usable-btn" bindtap="changeCard" wx:if="{{!changeShow}}">转赠礼品券</view>
+    <view wx:if="{{!changeShow}}">  
+        <view class="usable-btn" bindtap="changeCard" wx:if="{{from=='myself'}}">转赠礼品券</view>
+        <view class="useble-bths" wx:else="{{from=='myself'}}">
+            
+            <view class="usable-btn" bindtap="changeCard">转赠礼品券</view>
+            <view class="usable-btn usable-back" bindtap="changeBack">返回首页</view>
+        </view>
+    </view>
     <view class="usable-btn-warp" wx:else>
         <view class="left" bindtap="changeCardCancel">取消</view>
         <view class="right" bindtap="getShareForwarding" wx:if="{{couponIds.length > 0}}"
