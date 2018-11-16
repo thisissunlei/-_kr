@@ -6,18 +6,17 @@
 <import src="../../utils/template/template.wxml"/>
 <wxs module="filter">
   var filter = {
-    subPrice: function (value) {
-      console.log('value', value)
-      if (value > 1) {
-        return value;
-      } else {
-        return value.substring(2)
-      }
-    }
+  subPrice: function (value) {
+  console.log('value', value)
+  if (value > 1) {
+  return value;
+  } else {
+  return value.substring(2)
+  }
+  }
   };
-
   module.exports = {
-    subPrice: filter.subPrice
+  subPrice: filter.subPrice
   };
 </wxs>
 
@@ -32,7 +31,7 @@
       <block wx:for="{{noticeList}}" wx:key>
         <swiper-item>
           <view class="notice">
-            <image wx:if="{{noticeList.length > 0}}" src="{{KrImgUrl}}helpingActivity/details/icon_adio.png"></image>
+            <image wx:if="{{noticeList.length > 0}}" src="{{item.thirdAvatar}}"></image>
             <view class="notice-text">
               {{item.thirdNick}}已砍到{{item.amount}}折啦
             </view>
@@ -63,10 +62,13 @@
           </view>
         </view>
         <view class="dis-num" wx:if="{{disInfo.hasDis}}">
-          <text class="dis-num-text" style="left:{{disInfo.disNum/5*520-68}}rpx">已砍{{disInfo.disNum}}折</text>
+          <view class="dis-num-text"
+                style="left:{{(disInfo.disNum/5*520-70) > (520 - 70) ? 520 : (disInfo.disNum/5*520-70)}}rpx">
+            已砍{{disInfo.disNum}}折
+          </view>
         </view>
         <view class="content-pro-wrap">
-          <view class="content-pro" style="width:{{disInfo.disNum / 5 * 520}}rpx"></view>
+          <view class="content-pro" style="width:{{disInfo.disNum / 5 * 520}}rpx; max-width: 100%"></view>
           <image src="{{KrImgUrl}}/bargainActivity/gold.png" class="gold-image"
                  style="left:{{disInfo.disNum/5 * 520-30}}rpx"></image>
         </view>
@@ -86,26 +88,28 @@
     </view>
 
     <!--<view class="cut-text {{disInfo.hasUsed  ? 'has-used': ''}}"-->
-          <!--bindtap="selfReduce">-->
-      <!--{{disInfo.hasUsed ? '砍价已结束，再砍一个' : (disInfo.hasDis ? '喊朋友来补刀' : '我先砍一刀')}}-->
+    <!--bindtap="selfReduce">-->
+    <!--{{disInfo.hasUsed ? '砍价已结束，再砍一个' : (disInfo.hasDis ? '喊朋友来补刀' : '我先砍一刀')}}-->
     <!--</view>-->
     <!--<view class="comSection">-->
-      <!--<picker bindchange="bindPickerChange" value="{{comIndex}}" range="{{comList}}"-->
-              <!--disabled="{{disInfo.hasUsed || disInfo.hasDis}}">-->
-        <!--<view class="picker">-->
-          <!--<view class="cut-text {{disInfo.hasUsed  ? 'has-used': ''}}"-->
-                <!--bindtap="selfReduce">-->
-            <!--{{disInfo.hasUsed ? '砍价已结束，再砍一个' : (disInfo.hasDis ? '喊朋友来补刀' : '我先砍一刀')}}-->
-          <!--</view>-->
-          <!--{{comList[comIndex]}}-->
-        <!--</view>-->
-      <!--</picker>-->
+    <!--<picker bindchange="bindPickerChange" value="{{comIndex}}" range="{{comList}}"-->
+    <!--disabled="{{disInfo.hasUsed || disInfo.hasDis}}">-->
+    <!--<view class="picker">-->
+    <!--<view class="cut-text {{disInfo.hasUsed  ? 'has-used': ''}}"-->
+    <!--bindtap="selfReduce">-->
+    <!--{{disInfo.hasUsed ? '砍价已结束，再砍一个' : (disInfo.hasDis ? '喊朋友来补刀' : '我先砍一刀')}}-->
     <!--</view>-->
-
-    <view class="cut-text {{disInfo.hasUsed  ? 'has-used': ''}}"
-          bindtap="selfReduce">
-      {{disInfo.hasUsed ? '砍价已结束，再砍一个' : (disInfo.hasDis ? '喊朋友来补刀' : '我先砍一刀')}}
-    </view>
+    <!--{{comList[comIndex]}}-->
+    <!--</view>-->
+    <!--</picker>-->
+    <!--</view>-->
+    <form report-submit='true' bindsubmit="formSubmit">
+      <button class="cut-text form-id {{disInfo.hasUsed  ? 'has-used': ''}} {{canShowBtn ? '' : 'notShow'}}"
+              bindtap="selfReduce" open-type="{{userInfo.hasPhone ? '' : 'getPhoneNumber'}}"
+              bindgetphonenumber="getPhoneNumber" form-type='submit'>
+        {{disInfo.hasUsed ? '砍价已结束，再砍一个' : (disInfo.hasDis ? '喊朋友来补刀' : '我先砍一刀')}}
+      </button>
+    </form>
 
     <view class="comPickerWrap" wx:if="{{showPicker}}">
       <view class="wrap-top" bindtap="closePicker"></view>
@@ -149,7 +153,9 @@
               </view>
               <view class="list-value-count">
                 <!-- 不用 ''+ 的话页面显示不正常-->
-                砍掉 {{item.amount > 1 ? '' : '0.'}}<text class="item-dis">{{(filter.subPrice(('' + item.amount)))}}</text> 折
+                砍掉 {{item.amount > 1 ? '' : '0.'}}
+                <text class="item-dis">{{(filter.subPrice(('' + item.amount)))}}</text>
+                折
               </view>
             </view>
           </view>
@@ -163,7 +169,7 @@
         <image src="{{KrImgUrl}}/bargainActivity/icon_null.png"></image>
       </view>
       <view class="record-none-text {{recordList && recordList.length ? 'has-record-text':''}}">
-        <text>人多力量大，快喊小伙伴来助力吧~</text>
+        <text>{{recordList && recordList.length ? '人多力量大，快喊小伙伴来助力吧~' : '人在江湖飘哪能不挨刀，快喊小伙伴来补刀吧~'}}</text>
       </view>
     </view>
   </view>
@@ -185,7 +191,9 @@
         <text class="size">0.08-0.2</text>
         折；
       </view>
-      <view>3）为好友助力后，你也可获得<text class="size">10-20</text>元礼券；
+      <view>3）为好友助力后，你也可获得
+        <text class="size">10-20</text>
+        元礼券；
       </view>
       <view>4）如下社区不支持该活动：朝阳公园社区；</view>
       <view>5）砍价结束后，可再次发起砍价，但已助力过的朋友不能再次助力；
@@ -280,9 +288,9 @@
     </image>
   </view>
 </view>
-<button open-type="getPhoneNumber" wx:if="{{!userInfo.hasPhone}}"
-        bindgetphonenumber="getPhoneNumber"
-        style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9998;"></button>
+<!--<button open-type="getPhoneNumber" wx:if="{{!userInfo.hasPhone && btnClick}}"-->
+<!--bindgetphonenumber="getPhoneNumber"-->
+<!--style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9998;"></button>-->
 <button wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"
         lang="zh_CN"
         bindgetuserinfo="onGotUserInfo"

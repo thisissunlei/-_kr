@@ -10,7 +10,6 @@ Page({
       // 用户信息
       avatarUrl: '',
       nickName: '',
-      wechatId: '',
       hasPhone: true
     },
     disInfo: {
@@ -26,91 +25,60 @@ Page({
     showShareFriend: false,
     showShare: false,
     showSuccess: false,
-    recordList: [
-      // {
-      //   avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
-      //   name: '哈哈',
-      //   time: '2018-11-05 13:00:09',
-      //   dis: '0.28'
-      // },
-      // {
-      //   avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
-      //   name: '哈哈',
-      //   time: '2018-11-05 13:00:09',
-      //   dis: '0.2'
-      // },
-      // {
-      //   avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
-      //   name: '哈哈',
-      //   time: '2018-11-05 13:00:09',
-      //   dis: '0.10'
-      // },
-      // {
-      //   avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1541749815&di=c7a50db92e6268c348643536c01d227b&src=http://file29.mafengwo.net/M00/7B/34/wKgBpVYdGOiAS71LAABuKaLQB_887.groupinfo.w600.jpeg',
-      //   name: '哈哈',
-      //   time: '2018-11-05 13:00:09',
-      //   dis: '0.06'
-      // }
-    ], //好友助力
+    recordList: [], //好友助力
     KrImgUrl: app.globalData.KrImgUrl,
-    noticeList: [
-      {'thirdNick': 'test1'},
-      {'thirdNick': 'test2'},
-      {'thirdNick': 'test3'},
-      {'thirdNick': 'test4'},
-      {'thirdNick': 'test5'},
-    ], //轮播信息
+    noticeList: [], //轮播信息
     hasUserInfo: false, // 是否授权用户信息
     // comList: ['霄云路社区', '王府井银泰社区', '人民广场海洋大厦', '延安西路嘉宁国际', '人民广场中区广场',  '外滩中心',  '华山路御华山',  '浦东宝钢大厦',  '钱江新城平安金融中心',  '世茂海峡国际',  '创新科技广场',  '协鑫广场'],
     showPicker: false,
     objectList: [
       {
         id: 215,
-        name: '霄云路社区'
+        name: '北京·霄云路社区'
       },
       {
         id: 179,
-        name: '王府井银泰社区'
+        name: '北京·王府井银泰社区'
       },
       {
         id: 181,
-        name: '人民广场海洋大厦'
+        name: '上海·人民广场海洋大厦'
       },
       {
         id: 200,
-        name: '延安西路嘉宁国际'
+        name: '上海·延安西路嘉宁国际'
       },
       {
         id: 203,
-        name: '人民广场中区广场'
+        name: '上海·人民广场中区广场'
       },
       {
         id: 202,
-        name: '外滩中心'
+        name: '上海·外滩中心'
       },
       {
         id: 185,
-        name: '华山路御华山'
+        name: '上海·华山路御华山'
       },
       {
         id: 205,
-        name: '浦东宝钢大厦'
+        name: '上海·浦东宝钢大厦'
       },
       {
         id: 188,
-        name: '钱江新城平安金融中心'
+        name: '杭州·钱江新城平安金融中心'
       },
       {
         id: 206,
-        name: '世茂海峡国际'
+        name: '厦门·世茂海峡国际'
       },
       {
         id: 208,
-        name: '创新科技广场'
+        name: '合肥·创新科技广场'
       },
       {
         id: 207,
-        name: '协鑫广场'
+        name: '苏州·协鑫广场'
       },
     ],
     comIndex: '',
@@ -118,23 +86,10 @@ Page({
     comId: '',
     totalCount: 0,
     totalPages: 1,
-
-
-    number: "000",
+    canShowBtn: false,
     imgUrl: "",
     showRule: false, //活动规则
-    currentData: 0, //选项卡
     hasLoadUserInfo: false,
-    myBooster: 0, //礼券池总金额
-    page: 1,
-
-    showAnimation: false, //提取动画
-    animationStart: false,
-    animationDataOne: "",
-    animationDataTwo: "",
-    animationDataThree: "",
-    couponInfo: {},
-    boosterRecordNone: false,
     activityFlag: true, // 判断活动 是否 结束
     hasLogin: false,
     recordParams: {
@@ -142,14 +97,7 @@ Page({
       pageSize: 10,
     },
   },
-
-
-  // totalPages: 1,
-
-
-  // page: 1,
-  // pageSize: 10,
-  currentData: 0,
+  wechatId: null, // 发起人微信id
   jdConfig: {
     width: 765,
     height: 1068,
@@ -175,7 +123,6 @@ Page({
     url: "",
     zIndex: 1
   },
-  // james: "",
   onLoad: function (options) {
     wx.showLoading({
       title: "加载中",
@@ -203,6 +150,7 @@ Page({
   onShow: function () {
     if (this.data.hasLogin) {
       this.getDiscount();
+      this.getFriendsBooster();
     }
   },
 
@@ -227,6 +175,7 @@ Page({
               this.getInfo();
             },
             fail: err => {
+              wx.hideLoading();
               console.log(err);
             }
           });
@@ -259,14 +208,12 @@ Page({
             iv: res.iv
           },
           success: res => {
-            this.setData({
-              ['userInfo.wechatId']: res.data.data.wechatId || ''
-            });
+            this.wechatId = res.data.data.wechatId || '';
             this.getMoreUserInfo();
             this.getActivityFlag();
             this.getBroadcast();
             this.getCutId();
-            wx.hideLoading();
+            // wx.hideLoading();
             // console.log(res);
           }
         });
@@ -280,13 +227,13 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmbooster/ovedue",
       method: "GET",
       data: {
-        activityId: 1
+        activityId: 2
       },
       success: res => {
         // console.log("活动是否过期", res);
         if (res.data.data) {
           this.setData({
-            activityFlag: true
+            activityFlag: false
           });
         } else {
           this.setData({
@@ -310,8 +257,6 @@ Page({
         console.log('userInfo', userInfo)
         this.setData({
           ['userInfo.hasPhone']: (userInfo.phone && userInfo.phone.length > 0) ? true : false,
-          // todo wechatId可在save接口中获取
-          // ['userInfo.wechatId']: userInfo.wechatId || ''
         })
       }
     })
@@ -340,14 +285,19 @@ Page({
       data: {cutId: this.data.disInfo.cutId},
       success: res => {
         console.log('res', res)
+        wx.hideLoading();
         const data = res.data.data || {}
         this.setData({
           ['disInfo.current']: data.amount || '',
           ['disInfo.hasDis']: data.status === 'CUTSELF' ? false : true,
           ['disInfo.hasUsed']: data.status === 'FINISH' ? true : false,
           ['disInfo.disNum']: data.totalDeductAmount || '',
-          ['disInfo.code']: data.code || ''
+          ['disInfo.code']: data.code || '',
+          canShowBtn: true
         });
+      },
+      fail: res => {
+        wx.hideLoading();
       }
     });
   },
@@ -355,12 +305,12 @@ Page({
   // 领取轮播信息接口
   getBroadcast: function () {
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmseatcut/booster-record-marquee",
+      url: app.globalData.KrUrl + "api/gateway/kmseatcut/booster/marquee",
       success: res => {
         // console.log(res);
         console.log('marquee', res.data)
         this.setData({
-          // noticeList: res.data.data.items
+          noticeList: res.data.data
         });
       }
     });
@@ -374,14 +324,17 @@ Page({
       app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
         data: Object.assign({}, this.data.recordParams, {
-          boosterId: this.data.userInfo.wechatId,
+          boosterId: this.wechatId,
           cutId: this.data.disInfo.cutId
         }),
         success: res => {
           // console.log(res);
           // this.totalPages = res.data.data.totalPages;
           this.setData({
-            recordList: res.data.data.items,
+            recordList: res.data.data.items.map(item => {
+              item.ctime = this.toDate(item.ctime);
+              return item;
+            }),
             totalCount: res.data.data.totalCount,
             totalPages: res.data.data.totalPages,
           });
@@ -392,16 +345,24 @@ Page({
 
   selfReduce: function () {
     if (this.data.disInfo.hasUsed) {
-
+      this.getInfo();
     } else if (this.data.disInfo.hasDis) {
       // 喊朋友来补刀
       this.shareView();
     } else {
       // this.reduce();
-      this.setData({
-        tempComId: 215,
-        showPicker: true
-      })
+      console.log(1111)
+      if (this.data.userInfo.hasPhone) {
+        this.setData({
+          // btnClick: true,
+          tempComId: 215,
+          showPicker: true
+        })
+      } else {
+        // this.setData({
+        //   btnClick: true
+        // })
+      }
     }
   },
 
@@ -438,7 +399,7 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/boost",
       method: "POST",
       data: {
-        boosterId: this.data.userInfo.wechatId,
+        boosterId: this.wechatId,
         communityId: this.data.comId,
         cutId: this.data.disInfo.cutId
       },
@@ -485,23 +446,22 @@ Page({
       // console.log(that.wechatId);
       this.shareView();
       return {
-        title: "跪求补刀！帮砍5折工位券，点一下你也能获得礼券哦~",
-        path: "pages/bargainFriend/bargainFriend?wechatId=" + this.data.userInfo.wechatId + "cutId=" + this.data.disInfo.cut,
-        imageUrl: this.data.KrImgUrl + "helpingActivity/details/share1.jpg"
+        title: "跪求补刀！帮砍5折工位券，点一下s你也能获得礼券哦~",
+        path: "pages/bargainFriend/bargainFriend?wechatId=" + this.wechatId + "&cutId=" + this.data.disInfo.cutId,
+        imageUrl: this.data.KrImgUrl + "bargainActivity/share_help.png"
       };
     } else {
       // console.log("来自右上角转发菜单");
       return {
-        title: "邀请好友助力，商旅办公最高可享免单，快来参与吧~",
-        path: "pages/createImg/createImg",
-        imageUrl: this.data.KrImgUrl + "helpingActivity/details/share2.jpg"
+        title: "氪空间可以5折租工位啦，一起来砍价抢特惠~",
+        path: "pages/bargainIndex/bargainIndex",
+        imageUrl: this.data.KrImgUrl + "bargainActivity/share_wx.png"
       };
     }
   },
 
   getPhoneNumber: function (e) {
     console.log(e);
-    const that = this;
     let data = {
       encryptedData: e.detail.encryptedData,
       iv: e.detail.iv
@@ -512,10 +472,19 @@ Page({
         methods: "GET",
         data: data,
         success: res => {
-
-          that.setData({
-            ['userInfo.hasPhone']: true
-          });
+          if (res.data.code == 1) {
+            this.setData({
+              ['userInfo.hasPhone']: true
+            }, () => {
+              this.selfReduce();
+            });
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: "none",
+              duration: 2000
+            });
+          }
         },
         fail: res => {
         }
@@ -536,15 +505,29 @@ Page({
     });
   },
 
+  // 绑定模板消息
+  formSubmit(e) {
+  let formId = e.detail.formId;
+  console.log('formId', formId);
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmboostermsg/collect-formId",
+      data: {
+        formId: formId
+      },
+      success: res => {
+        console.log(res);
+      }
+    });
+},
+
   //页面上拉触底事件
   onReachBottom: function () {
     // const that = this;
-    // console.log(this.currentData);
     if (this.data.recordParams.page < this.data.totalPages) {
       app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
         data: Object.assign({}, this.recordParams, {
-          boosterId: this.data.userInfo.wechatId,
+          boosterId: this.wechatId,
           cutId: this.data.disInfo.cutId
         }, {page: this.data.recordParams.page + 1}),
         success: res => {
@@ -633,7 +616,7 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
       data: {
         page: "pages/assistance/assistance",
-        scene: this.data.userInfo.wechatId
+        scene: this.wechatId
       },
       success: res => {
         // let code = res.data.code;
@@ -731,7 +714,6 @@ Page({
 
   //拉取授权
   onGotUserInfo: function (e) {
-    console.log(e);
     if (e.detail.userInfo) {
       this.getInfo();
       this.setData({

@@ -1,6 +1,7 @@
 {
-  "navigationBarBackgroundColor": "#000000",
+  "navigationBarBackgroundColor": "#21282C",
   "backgroundTextStyle": "light",
   "navigationBarTextStyle": "white",
-  "navigationBarTitleText":"砍价特惠租工位"
+  "navigationBarTitleText":"砍价特惠租工位",
+  "backgroundColor": "#FFB62D"
 }
