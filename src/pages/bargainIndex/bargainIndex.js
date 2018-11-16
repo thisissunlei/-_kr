@@ -98,6 +98,8 @@ Page({
             this.setData({
               ['userInfo.wechatId']: res.data.data.wechatId || ''
             });
+            console.log('getInfo======')
+            // this.goActivity()
             // wx.hideLoading();
           }
         });
@@ -128,9 +130,10 @@ Page({
 
   //拉取授权
   onGotUserInfo: function (e) {
-    console.log(e);
+    console.log('拉取授权',e);
     if (e.detail.userInfo) {
       this.getInfo();
+      this.goActivity()
       this.setData({
         hasUserInfo: true
       });
