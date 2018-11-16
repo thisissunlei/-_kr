@@ -1,8 +1,5 @@
 {
-  "usingComponents": {
-    "poster": "/pages/wxa-plugin-canvas/poster/index"
-  },
-  "navigationBarBackgroundColor": "#210F3E",
+  "navigationBarBackgroundColor": "#21282C",
   "backgroundTextStyle": "light",
   "navigationBarTextStyle": "white",
   "backgroundColor": "#FC3839"

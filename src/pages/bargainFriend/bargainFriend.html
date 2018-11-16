@@ -1,27 +1,24 @@
 <!--index.wxml-->
 <!-- 生成二维码 -->
-<poster id="poster" hide-loading="{{true}}" config="{{jdConfig}}" bind:success="onPosterSuccess"
-        bind:fail="onPosterFail">
-</poster>
 <import src="../../utils/template/template.wxml"/>
 <wxs module="filter">
   var filter = {
-    subPrice: function (value) {
-      console.log('value', value)
-      if (value > 1) {
-        return value;
-      } else {
-        return value.substring(2)
-      }
-    }
+  subPrice: function (value) {
+  console.log('value', value)
+  if (value > 1) {
+  return value;
+  } else {
+  return value.substring(2)
+  }
+  }
   };
 
   module.exports = {
-    subPrice: filter.subPrice
+  subPrice: filter.subPrice
   };
 </wxs>
 
-<view class="bargain-details" wx:if="{{activityFlag}}">
+<view class="bargain-details {{canShow ? '' : 'notShow'}}" wx:if="{{activityFlag}}">
   <view class="bg">
     <image src="{{KrImgUrl}}/bargainActivity/page_bg2.png"></image>
   </view>
@@ -31,7 +28,7 @@
   <!--<text>了解氪空间</text>-->
   <!--</view>-->
 
-  <view class="bargain-main">
+  <view class="bargain-main" >
     <view>
       <view class="bargain-content">
         <view class="avatar">
@@ -50,7 +47,7 @@
         <view class="know-kr" bindtap="goKrSpace">
           了解氪空间
         </view>
-        <view class="cut-text {{disInfo.hasUsed  ? 'has-used': ''}}"
+        <view class="cut-text {{disInfo.hasHelpDis && !disInfo.hasUsed ? 'has-help' : ''}} {{disInfo.hasUsed ? 'has-used': ''}} {{canShowBtn ? '' : 'notShow'}}"
               bindtap="selfReduce">
           {{disInfo.hasUsed ? '砍价结束啦' : (disInfo.hasHelpDis ? ('已帮砍' + disInfo.deductAmount + '折') : '是朋友就补他一刀')}}
         </view>
@@ -62,10 +59,10 @@
         </view>
         <!--<view class="dis-num" wx:if="{{disInfo.hasDis}}">-->
         <view class="dis-num">
-          <text class="dis-num-text" style="left:{{disInfo.disNum/5*520-68}}rpx">已砍{{disInfo.disNum}}折</text>
+          <view class="dis-num-text" style="left:{{(disInfo.disNum/5*520-70) > (520 - 70) ? 520 : (disInfo.disNum/5*520-70)}}rpx">已砍{{disInfo.disNum}}折</view>
         </view>
         <view class="content-pro-wrap">
-          <view class="content-pro" style="width:{{disInfo.disNum / 5 * 520}}rpx"></view>
+          <view class="content-pro" style="width:{{disInfo.disNum / 5 * 520}}rpx; max-width: 100%"></view>
           <image src="{{KrImgUrl}}/bargainActivity/gold.png" class="gold-image"
                  style="left:{{disInfo.disNum/5 * 520-30}}rpx"></image>
         </view>
@@ -110,7 +107,9 @@
                 <image src="{{KrImgUrl}}/bargainActivity/icon_gold.png"></image>
               </view>
               <view class="list-value-count">
-                砍掉 {{item.amount > 1 ? '' : '0.'}}<text class="item-dis">{{(filter.subPrice(('' + item.amount)))}}</text> 折
+                砍掉 {{item.amount > 1 ? '' : '0.'}}
+                <text class="item-dis">{{(filter.subPrice(('' + item.amount)))}}</text>
+                折
               </view>
             </view>
           </view>
@@ -120,10 +119,7 @@
     </view>
     <!-- 缺省 -->
     <view class="record-none">
-      <view class="record-none-img" wx:if="{{recordList.length == 0 && friendBoosterNone}}">
-        <image src="{{KrImgUrl}}/bargainActivity/icon_null.png"></image>
-      </view>
-      <view class="record-none-text {{recordList && recordList.length ? 'has-record-text':''}}">
+      <view class="record-none-text has-record-text">
         <text>人多力量大，快喊小伙伴来助力吧~</text>
       </view>
     </view>
@@ -146,7 +142,9 @@
         <text class="size">0.08-0.2</text>
         折；
       </view>
-      <view>3）为好友助力后，你也可获得<text class="size">10-20</text>元礼券；
+      <view>3）为好友助力后，你也可获得
+        <text class="size">10-20</text>
+        元礼券；
       </view>
       <view>4）如下社区不支持该活动：朝阳公园社区；</view>
       <view>5）砍价结束后，可再次发起砍价，但已助力过的朋友不能再次助力；
@@ -177,7 +175,7 @@
     </view>
     <view class="text">
       <text class="desc-text">砍掉了</text>
-      <text class="self-dis">{{disInfo.selfDisNum}}</text>
+      <text class="self-dis">{{disInfo.deductAmount}}</text>
       <text class="self-dis-text">折</text>
       <image class="dialog-star" src="{{KrImgUrl}}/bargainActivity/star.png"></image>
     </view>
@@ -189,7 +187,14 @@
       <view class="self-cut" bindtap="goBargain">我也发起砍价</view>
     </view>
   </view>
+</view>
 
+<!-- 已经帮砍过 -->
+<view class="hasHelpDialog" wx:if="{{hasHelpSuccess}}">
+  <view class="content-box">
+    <image class="has-help-img" src="{{KrImgUrl}}/bargainActivity/gift.png"></image>
+    <image class="close-button" src="{{KrImgUrl}}helpingActivity/share/close.png" bindtap="closeDialog"></image>
+  </view>
 </view>
 
 <!-- 分享朋友圈 -->
@@ -252,6 +257,13 @@
     </image>
   </view>
 </view>
+<!--<button wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"-->
+        <!--lang="zh_CN"-->
+        <!--bindgetuserinfo="onGotUserInfo"-->
+        <!--style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>-->
+<!--<view wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" class="masking-out" catchtouchmove="ture">-->
+  <!--<image class="masking-img" src="{{KrImgUrl}}helpingActivity/index/prompt.png"></image>-->
+<!--</view>-->
 <button wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"
         lang="zh_CN"
         bindgetuserinfo="onGotUserInfo"

@@ -5,6 +5,10 @@
   overflow: auto;
 }
 
+.notShow {
+  visibility: hidden;
+}
+
 .bg {
   width: 100%;
 }
@@ -128,7 +132,7 @@
   display: inline-block;
   height: 40rpx;
   line-height: 40rpx;
-  padding: 0 12rpx;
+  padding: 0 14rpx;
   background: #FA593B;
   border-radius: 8px;
   font-size: 24rpx;
@@ -149,8 +153,9 @@
 
 .bargain-code {
   margin: 24rpx 48rpx 0;
-  border-top: 2rpx solid #F6F6F6;
+  border-top: 1px solid #F6F6F6;
   padding-top:24rpx;
+  padding-bottom: 4rpx;
 }
 
 .code-content {
@@ -170,17 +175,18 @@
 
 .content-topbg {
   width: 100%;
-  height: 36rpx;
+  height: 34rpx;
 }
 
 .content-topbg > image {
   width: 100%;
   height: 36rpx;
+  display: block;
 }
 
 .content-bottombg {
   width: 100%;
-  height: 36rpx;
+  height: 34rpx;
   //transform: rotateX(180);
   transform:rotate(180deg);
 }
@@ -188,6 +194,7 @@
 .content-bottombg > image{
   width: 100%;
   height: 36rpx;
+  display: block;
 }
 
 .content-top {
@@ -461,7 +468,7 @@
   width: 478rpx;
   height: 78rpx;
   line-height: 78rpx;
-  margin: 50rpx auto 0;
+  margin: 0 auto;
   text-align: center;
   font-size: 32rpx;
   color: #724500;
@@ -583,7 +590,7 @@
   width: 100%;
   height: 40rpx;
   font-size: 30rpx;
-  color: #c392cb;
+  color: #c2c5cb;
   text-align: center;
   margin-bottom: 40rpx;
 }
@@ -709,7 +716,6 @@
 .rule-content {
   box-sizing: border-box;
   width: 574rpx;
-  height: 640rpx;
   position: relative;
   background: #FFEB00;
   border-radius: 16rpx;
@@ -755,7 +761,6 @@
 }
 .rule-scoll {
   width: 100%;
-  height: 586rpx;
   overflow: auto;
   font-size: 30rpx;
   color: #724500;
@@ -766,10 +771,12 @@
   font-weight: bold;
 }
 .rule-text {
+  position: absolute;
+  z-index: -1;
+  left: 240rpx;
+  bottom: -100rpx;
   width:76rpx;
   height:76rpx;
-  margin:40rpx auto;
-  position: relative;
 }
 .rule-text image {
   position: absolute;
