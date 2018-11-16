@@ -18,7 +18,7 @@
   };
 </wxs>
 
-<view class="bargain-details {{canShow ? '' : 'notShow'}}" wx:if="{{activityFlag}}">
+<view class="bargain-details {{canShow ? '' : 'notShow'}}">
   <view class="bg">
     <image src="{{KrImgUrl}}/bargainActivity/page_bg2.png"></image>
   </view>
@@ -47,9 +47,9 @@
         <view class="know-kr" bindtap="goKrSpace">
           了解氪空间
         </view>
-        <view class="cut-text {{disInfo.hasHelpDis && !disInfo.hasUsed ? 'has-help' : ''}} {{disInfo.hasUsed ? 'has-used': ''}} {{canShowBtn ? '' : 'notShow'}}"
+        <view class="cut-text {{disInfo.hasHelpDis && !disInfo.hasUsed ? 'has-help' : ''}} {{(disInfo.hasUsed || !activityFlag) ? 'has-used': ''}} {{canShowBtn ? '' : 'notShow'}}"
               bindtap="selfReduce">
-          {{disInfo.hasUsed ? '砍价结束啦' : (disInfo.hasHelpDis ? ('已帮砍' + disInfo.deductAmount + '折') : '是朋友就补他一刀')}}
+          {{(disInfo.hasUsed || !activityFlag) ? '砍价结束啦' : (disInfo.hasHelpDis ? ('已帮砍' + disInfo.deductAmount + '折') : '是朋友就补他一刀')}}
         </view>
         <view class="content-dis">
           <view>当前折扣
@@ -132,7 +132,7 @@
   <view class="rule-content">
     <view class="rule-top">
       <view>
-        <view class="rule-one">活动规则</view>
+        <view class="rule-one">活动说明</view>
       </view>
       <view></view>
     </view>
@@ -165,16 +165,16 @@
 <!-- 帮忙砍价成功 -->
 <view class="bargainDialog" wx:if="{{helpSuccess}}">
   <view class="content-box">
-    <view class="text self-text">你已成功帮</view>
+    <!--<view class="text self-text">你已成功帮</view>-->
     <view class="dialog-avatar-wrap">
       <image class="dialog-avatar" src="{{originInfo.avatarUrl}}"></image>
       <image class="crown" src="{{KrImgUrl}}/bargainActivity/crown.png"></image>
     </view>
     <view class="dialog-name">
-      {{originInfo.nickName}}
+      你已成功帮 “<view class="name-nick">{{originInfo.nickName}}</view>” 砍掉了
     </view>
     <view class="text">
-      <text class="desc-text">砍掉了</text>
+      <text class="desc-text"></text>
       <text class="self-dis">{{disInfo.deductAmount}}</text>
       <text class="self-dis-text">折</text>
       <image class="dialog-star" src="{{KrImgUrl}}/bargainActivity/star.png"></image>
@@ -243,20 +243,20 @@
   </view>
 
 </view>
-<view wx:if="{{!activityFlag}}" class="container">
-  <view class="header">
-    <image class="default-img" src="{{KrImgUrl}}helpingActivity/helping/none.png"></image>
-  </view>
-  <view class="content">
-    很抱歉，活动已经结束了呢~
-  </view>
-  <view class="go-back" bindtap="goToHome">
-    <text class="go-back-content">去自由座首页看看</text>
-    <image class="go-back-button" src="{{KrImgUrl}}helpingActivity/details/button_goindex.png">
+<!--<view wx:if="{{!activityFlag}}" class="container">-->
+  <!--<view class="header">-->
+    <!--<image class="default-img" src="{{KrImgUrl}}helpingActivity/helping/none.png"></image>-->
+  <!--</view>-->
+  <!--<view class="content">-->
+    <!--很抱歉，活动已经结束了呢~-->
+  <!--</view>-->
+  <!--<view class="go-back" bindtap="goToHome">-->
+    <!--<text class="go-back-content">去自由座首页看看</text>-->
+    <!--<image class="go-back-button" src="{{KrImgUrl}}helpingActivity/details/button_goindex.png">-->
 
-    </image>
-  </view>
-</view>
+    <!--</image>-->
+  <!--</view>-->
+<!--</view>-->
 <!--<button wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"-->
         <!--lang="zh_CN"-->
         <!--bindgetuserinfo="onGotUserInfo"-->
@@ -264,10 +264,10 @@
 <!--<view wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" class="masking-out" catchtouchmove="ture">-->
   <!--<image class="masking-img" src="{{KrImgUrl}}helpingActivity/index/prompt.png"></image>-->
 <!--</view>-->
-<button wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"
+<button wx:if="{{!hasUserInfo && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"
         lang="zh_CN"
         bindgetuserinfo="onGotUserInfo"
         style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>
-<view wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" class="masking-out" catchtouchmove="ture">
+<view wx:if="{{!hasUserInfo && hasLoadUserInfo}}" class="masking-out" catchtouchmove="ture">
   <image class="masking-img" src="{{KrImgUrl}}helpingActivity/index/prompt.png"></image>
 </view>

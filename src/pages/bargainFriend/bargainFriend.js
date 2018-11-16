@@ -85,8 +85,13 @@ Page({
         ['originInfo.wechatId']: options.wechatId
       });
       this.wechatId = options.wechatId;
-    } else {
-
+    } else if (options.scene){
+      let allCode = decodeURIComponent(options.scene).split('&');
+      this.setData({
+        ['disInfo.cutId']: allCode[1],
+        ['originInfo.wechatId']: allCode[0]
+      });
+      this.wechatId = allCode[0];
     }
     wx.showLoading({
       title: "加载中",
@@ -292,17 +297,13 @@ Page({
   },
 
   selfReduce: function () {
-    if (!this.data.disInfo.hasUsed && !this.data.disInfo.hasHelpDis) {
+    if (this.activityFlag && !this.data.disInfo.hasUsed && !this.data.disInfo.hasHelpDis) {
       this.reduce();
     }
   },
 
   // 砍价接口
   reduce: function (e) {
-    // console.log(e);
-    // this.setData({
-    //   helpSuccess: true
-    // })
     console.log(this.data.userInfo)
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/boost",

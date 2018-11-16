@@ -344,25 +344,17 @@ Page({
   },
 
   selfReduce: function () {
+    if (!this.activityFlag) return;
     if (this.data.disInfo.hasUsed) {
       this.getInfo();
     } else if (this.data.disInfo.hasDis) {
       // 喊朋友来补刀
       this.shareView();
-    } else {
-      // this.reduce();
-      console.log(1111)
-      if (this.data.userInfo.hasPhone) {
-        this.setData({
-          // btnClick: true,
-          tempComId: 215,
-          showPicker: true
-        })
-      } else {
-        // this.setData({
-        //   btnClick: true
-        // })
-      }
+    } else if (this.data.userInfo.hasPhone) {
+      this.setData({
+        tempComId: 215,
+        showPicker: true
+      })
     }
   },
 
@@ -446,7 +438,7 @@ Page({
       // console.log(that.wechatId);
       this.shareView();
       return {
-        title: "跪求补刀！帮砍5折工位券，点一下s你也能获得礼券哦~",
+        title: "跪求补刀！帮砍5折工位券，点一下你也能获得礼券哦~",
         path: "pages/bargainFriend/bargainFriend?wechatId=" + this.wechatId + "&cutId=" + this.data.disInfo.cutId,
         imageUrl: this.data.KrImgUrl + "bargainActivity/share_help.png"
       };
@@ -507,8 +499,8 @@ Page({
 
   // 绑定模板消息
   formSubmit(e) {
-  let formId = e.detail.formId;
-  console.log('formId', formId);
+    let formId = e.detail.formId;
+    console.log('formId', formId);
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmboostermsg/collect-formId",
       data: {
@@ -518,7 +510,7 @@ Page({
         console.log(res);
       }
     });
-},
+  },
 
   //页面上拉触底事件
   onReachBottom: function () {
@@ -615,10 +607,11 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
       data: {
-        page: "pages/assistance/assistance",
-        scene: this.wechatId
+        page: "pages/bargainFriend/bargainFriend",
+        scene: this.wechatId + '&' + this.data.disInfo.cutId
       },
       success: res => {
+        // todo: check
         // let code = res.data.code;
         // if (code === 1) {
         //   weImg.url = res.data.data;
