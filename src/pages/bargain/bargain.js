@@ -53,7 +53,13 @@ Page({
       // }
     ], //好友助力
     KrImgUrl: app.globalData.KrImgUrl,
-    noticeList: [], //轮播信息
+    noticeList: [
+      {'thirdNick': 'test1'},
+      {'thirdNick': 'test2'},
+      {'thirdNick': 'test3'},
+      {'thirdNick': 'test4'},
+      {'thirdNick': 'test5'},
+    ], //轮播信息
     hasUserInfo: false, // 是否授权用户信息
     // comList: ['霄云路社区', '王府井银泰社区', '人民广场海洋大厦', '延安西路嘉宁国际', '人民广场中区广场',  '外滩中心',  '华山路御华山',  '浦东宝钢大厦',  '钱江新城平安金融中心',  '世茂海峡国际',  '创新科技广场',  '协鑫广场'],
     showPicker: false,
@@ -114,8 +120,6 @@ Page({
     totalPages: 1,
 
 
-
-
     number: "000",
     imgUrl: "",
     showRule: false, //活动规则
@@ -135,17 +139,12 @@ Page({
     hasLogin: false,
     recordParams: {
       page: 1,
-      pageSize: 5,
+      pageSize: 10,
     },
   },
 
 
-
-
-
   // totalPages: 1,
-
-
 
 
   // page: 1,
@@ -346,7 +345,7 @@ Page({
           ['disInfo.current']: data.amount || '',
           ['disInfo.hasDis']: data.status === 'CUTSELF' ? false : true,
           ['disInfo.hasUsed']: data.status === 'FINISH' ? true : false,
-          ['disInfo.disNum']: data.deductAmount || '',
+          ['disInfo.disNum']: data.totalDeductAmount || '',
           ['disInfo.code']: data.code || ''
         });
       }
@@ -359,8 +358,9 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/booster-record-marquee",
       success: res => {
         // console.log(res);
+        console.log('marquee', res.data)
         this.setData({
-          noticeList: res.data.data
+          // noticeList: res.data.data.items
         });
       }
     });
@@ -368,24 +368,32 @@ Page({
 
   // 好友助力接口
   getFriendsBooster: function () {
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
-      data: Object.assign({}, this.data.recordParams, {boosterId: this.data.userInfo.wechatId, cutId: this.data.disInfo.cutId}),
-      success: res => {
-        // console.log(res);
-        // this.totalPages = res.data.data.totalPages;
-        this.setData({
-          recordList: res.data.data.items,
-          totalPages: res.data.data.totalPages,
-        });
-      }
-    });
+    this.setData({
+      ['recordParams.page']: 1
+    }, () => {
+      app.getRequest({
+        url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
+        data: Object.assign({}, this.data.recordParams, {
+          boosterId: this.data.userInfo.wechatId,
+          cutId: this.data.disInfo.cutId
+        }),
+        success: res => {
+          // console.log(res);
+          // this.totalPages = res.data.data.totalPages;
+          this.setData({
+            recordList: res.data.data.items,
+            totalCount: res.data.data.totalCount,
+            totalPages: res.data.data.totalPages,
+          });
+        }
+      });
+    })
   },
 
   selfReduce: function () {
     if (this.data.disInfo.hasUsed) {
 
-    } else if(this.data.disInfo.hasDis) {
+    } else if (this.data.disInfo.hasDis) {
       // 喊朋友来补刀
       this.shareView();
     } else {
@@ -403,7 +411,7 @@ Page({
     })
   },
 
-  bindPickerChange: function(e) {
+  bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', this.data.objectList[e.detail.value].id)
     this.setData({
       tempComId: this.data.objectList[e.detail.value].id
@@ -422,13 +430,13 @@ Page({
   // 自己砍价接口
   reduce: function (e) {
     // console.log(e);
-    this.setData({
-      selfSuccess: true
-    })
+    // this.setData({
+    //   selfSuccess: true
+    // })
     console.log(this.data.userInfo)
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/boost",
-      method:"POST",
+      method: "POST",
       data: {
         boosterId: this.data.userInfo.wechatId,
         communityId: this.data.comId,
@@ -442,10 +450,11 @@ Page({
             selfSuccess: true,
             ['disInfo.hasDis']: true,
             ['disInfo.current']: data.amount,
-            ['disInfo.disNum']: data.deductAmount,
-            ['disInfo.selfDisNum']: data.deductAmount,
+            ['disInfo.disNum']: data.totalDeductAmount,
+            ['disInfo.selfDisNum']: data.myCutAmount,
             ['disInfo.code']: data.code
-          })
+          });
+          this.getFriendsBooster();
         } else {
           wx.showToast({
             title: res.data.message || '',
@@ -514,15 +523,16 @@ Page({
     }
   },
 
+  goKrSpace() {
+    wx.navigateTo({
+      url: "../krSpace/krSpace"
+    });
+  },
+
   //去首页
   goToHome: function () {
     wx.reLaunch({
       url: "../index/index"
-    });
-  },
-  closeAnimation: function () {
-    this.setData({
-      showAnimation: false
     });
   },
 
@@ -531,16 +541,19 @@ Page({
     // const that = this;
     // console.log(this.currentData);
     if (this.data.recordParams.page < this.data.totalPages) {
-      this.recordParams.page += 1;
       app.getRequest({
-        url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-recordr",
-        data: Object.assign({}, this.recordParams, {boosterId: this.data.userInfo.wechatId, cutId: this.data.disInfo.cutId}, {page: this.data.recordParams.page + 1}),
+        url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
+        data: Object.assign({}, this.recordParams, {
+          boosterId: this.data.userInfo.wechatId,
+          cutId: this.data.disInfo.cutId
+        }, {page: this.data.recordParams.page + 1}),
         success: res => {
           // console.log(res);
           this.setData({
             recordList: [].concat(this.data.recordList, res.data.data.items),
             totalCount: res.data.data.totalCount,
             totalPages: res.data.data.totalPages,
+            ['recordParams.page']: this.data.recordParams.page + 1
           });
         }
       });
@@ -642,18 +655,18 @@ Page({
         //   });
 
 
-          weImg.url = res.data.data
-          weImg.url =
+        weImg.url = res.data.data
+        weImg.url =
             "https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg";
-          jdConfig.images.push(weImg);
-          this.setData(
+        jdConfig.images.push(weImg);
+        this.setData(
             {
               jdConfig: jdConfig
             },
-            function() {
+            function () {
               Poster.create();
             }
-          );
+        );
         // }
       }
     });

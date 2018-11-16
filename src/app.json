@@ -1,7 +1,9 @@
 {
   "pages": [
+    
     "pages/index/index", 
     "pages/assistance/assistance",
+    "pages/bargainIndex/bargainIndex",
     "pages/getTeamCard/getTeamCard",
     "pages/teamCardManage/teamCardManage",
     "pages/myTeamCard/myTeamCard",
@@ -51,7 +53,8 @@
     "pages/teamCardRecord/teamCardRecord",
     "pages/laymanGuide/laymanGuide",
     "pages/bargain/bargain",
-    "pages/bargainFriend/bargainFriend"
+    "pages/bargainFriend/bargainFriend",
+    "pages/krSpace/krSpace"
   ],
   "window": {
     "backgroundTextStyle": "light",

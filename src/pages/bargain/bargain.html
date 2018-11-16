@@ -6,9 +6,13 @@
 <import src="../../utils/template/template.wxml"/>
 <wxs module="filter">
   var filter = {
-  subPrice: function (value) {
-    console.log('value', value)
-    return value.substring(2)
+    subPrice: function (value) {
+      console.log('value', value)
+      if (value > 1) {
+        return value;
+      } else {
+        return value.substring(2)
+      }
     }
   };
 
@@ -30,15 +34,14 @@
           <view class="notice">
             <image wx:if="{{noticeList.length > 0}}" src="{{KrImgUrl}}helpingActivity/details/icon_adio.png"></image>
             <view class="notice-text">
-              {{item.thirdNick}} {{item.randomTime}} 提取了
-              <text class="random-blod">{{item.faceValue}}元礼券</text>
+              {{item.thirdNick}}已砍到{{item.amount}}折啦
             </view>
           </view>
         </swiper-item>
       </block>
     </swiper>
   </view>
-  <view class="know-kr-wrap">
+  <view class="know-kr-wrap" bindtap="goKrSpace">
     <image src="{{KrImgUrl}}/bargainActivity/know.png"></image>
     <text>了解氪空间</text>
   </view>
@@ -60,7 +63,7 @@
           </view>
         </view>
         <view class="dis-num" wx:if="{{disInfo.hasDis}}">
-          <text class="dis-num-text" style="left:{{disInfo.disNum/5*520-60}}rpx">已砍{{disInfo.disNum}}折</text>
+          <text class="dis-num-text" style="left:{{disInfo.disNum/5*520-68}}rpx">已砍{{disInfo.disNum}}折</text>
         </view>
         <view class="content-pro-wrap">
           <view class="content-pro" style="width:{{disInfo.disNum / 5 * 520}}rpx"></view>
@@ -146,12 +149,12 @@
               </view>
               <view class="list-value-count">
                 <!-- 不用 ''+ 的话页面显示不正常-->
-                砍掉 0.<text class="item-dis">{{(filter.subPrice(('' + item.amount)))}}</text> 折
+                砍掉 {{item.amount > 1 ? '' : '0.'}}<text class="item-dis">{{(filter.subPrice(('' + item.amount)))}}</text> 折
               </view>
             </view>
           </view>
         </view>
-        <view class="friend-list-more" wx:if="{{totalCount > 5 && totalPages >page}}">上滑加载更多</view>
+        <view class="friend-list-more" wx:if="{{totalCount > 10 && totalPages > recordParams.page}}">上滑加载更多</view>
       </view>
     </view>
     <!-- 缺省 -->
