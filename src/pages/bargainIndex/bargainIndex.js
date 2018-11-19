@@ -4,12 +4,12 @@ const app = getApp();
 Page({
   data: {
     userInfo: {},
-    hasLogin:false,
+    hasLogin: false,
     KrImgUrl: app.globalData.KrImgUrl,
-    hasUserInfo:false,
-    hasLoadUserInfo:false
+    hasUserInfo: false,
+    hasLoadUserInfo: false
 
-    },
+  },
   onLoad: function (options) {
     wx.showLoading({
       title: "加载中",
@@ -36,10 +36,19 @@ Page({
   },
   onShow: function () {
   },
-  goActivity:function(){
+  goActivity: function () {
     wx.navigateTo({
       url: "../bargain/bargain"
     });
+  },
+
+  //转发分享
+  onShareAppMessage: function (res) {
+    return {
+      title: "暖冬不寒心，氪空间工位五折感恩回馈，一起砍价抢优惠~",
+      path: "pages/bargainIndex/bargainIndex",
+      imageUrl: this.data.KrImgUrl + "bargainActivity/share_wx.png"
+    };
   },
 
   // 登录
@@ -130,7 +139,7 @@ Page({
 
   //拉取授权
   onGotUserInfo: function (e) {
-    console.log('拉取授权',e);
+    console.log('拉取授权', e);
     if (e.detail.userInfo) {
       this.getInfo();
       this.goActivity()

@@ -445,7 +445,7 @@ Page({
     } else {
       // console.log("来自右上角转发菜单");
       return {
-        title: "氪空间可以5折租工位啦，一起来砍价抢特惠~",
+        title: "暖冬不寒心，氪空间工位五折感恩回馈，一起砍价抢优惠~",
         path: "pages/bargainIndex/bargainIndex",
         imageUrl: this.data.KrImgUrl + "bargainActivity/share_wx.png"
       };
