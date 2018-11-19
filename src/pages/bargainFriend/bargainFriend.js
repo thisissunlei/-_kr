@@ -80,6 +80,7 @@ Page({
   },
   onLoad: function (options) {
     console.log('options', options);
+    wx.reportAnalytics("view_fridens_assist");
     if (options.cutId && options.wechatId) {
       this.setData({
         ['disInfo.cutId']: options.cutId,
@@ -307,6 +308,7 @@ Page({
   reduce: function () {
     if (!this.reduceFlag) return;
     this.reduceFlag = false;
+    wx.reportAnalytics("click_help_bargain");
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/boost",
       method: "POST",
@@ -359,6 +361,7 @@ Page({
   },
 
   goBargain() {
+    wx.reportAnalytics("click_bargain_too");
     this.closeDialog();
     wx.navigateTo({
       url: "../bargain/bargain"
