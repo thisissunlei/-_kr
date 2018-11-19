@@ -28,7 +28,7 @@
   <!--<text>了解氪空间</text>-->
   <!--</view>-->
 
-  <view class="bargain-main" >
+  <view class="bargain-main">
     <view>
       <view class="bargain-content">
         <view class="avatar">
@@ -47,9 +47,11 @@
         <view class="know-kr" bindtap="goKrSpace">
           了解氪空间
         </view>
-        <view class="cut-text {{disInfo.hasHelpDis && !disInfo.hasUsed ? 'has-help' : ''}} {{(disInfo.hasUsed || !activityFlag) ? 'has-used': ''}} {{canShowBtn ? '' : 'notShow'}}"
-              bindtap="selfReduce">
-          {{(disInfo.hasUsed || !activityFlag) ? '砍价结束啦' : (disInfo.hasHelpDis ? ('已帮砍' + disInfo.deductAmount + '折') : '是朋友就补他一刀')}}
+        <view
+            class="cut-text {{disInfo.hasHelpDis && !disInfo.hasUsed ? 'has-help' : ''}} {{(disInfo.hasUsed || !activityFlag) ? 'has-used': ''}} {{canShowBtn ? '' : 'notShow'}}"
+            bindtap="selfReduce">
+          {{(disInfo.hasUsed || !activityFlag) ? '砍价结束啦' : (disInfo.hasHelpDis ? ('已帮砍' + disInfo.deductAmount + '折') :
+          '是朋友就补他一刀')}}
         </view>
         <view class="content-dis">
           <view>当前折扣
@@ -59,7 +61,10 @@
         </view>
         <!--<view class="dis-num" wx:if="{{disInfo.hasDis}}">-->
         <view class="dis-num">
-          <view class="dis-num-text" style="left:{{(disInfo.disNum/5*520-70) > (520 - 70) ? 520 : (disInfo.disNum/5*520-70)}}rpx">已砍{{disInfo.disNum}}折</view>
+          <view class="dis-num-text"
+                style="left:{{(disInfo.disNum/5*520-70) > (520 - 70) ? 520 : (disInfo.disNum/5*520-70)}}rpx">
+            已砍{{disInfo.disNum}}折
+          </view>
         </view>
         <view class="content-pro-wrap">
           <view class="content-pro" style="width:{{disInfo.disNum / 5 * 520}}rpx; max-width: 100%"></view>
@@ -75,14 +80,16 @@
   </view>
 
   <view class="btn-box out-box" wx:if="{{disInfo.hasHelpDis}}">
-    <view class="self-cut" bindtap="goCoupon">查看礼品券</view>
-    <view class="call" bindtap="goBargain">我也发起砍价</view>
+    <view class="btn-wrap-auto">
+      <view class="self-cut" bindtap="goCoupon">查看礼品券</view>
+      <view class="call" bindtap="goBargain">我也发起砍价</view>
+    </view>
     <image class="bubble" src="{{KrImgUrl}}/bargainActivity/bubble.png"></image>
   </view>
 
   <view class="record-content">
     <view class="record-top">
-      <text>好友助力</text>
+      <text>好友补刀</text>
       <view class="left-circle"></view>
       <view class="right-circle"></view>
     </view>
@@ -107,7 +114,7 @@
                 <image src="{{KrImgUrl}}/bargainActivity/icon_gold.png"></image>
               </view>
               <view class="list-value-count">
-                砍掉 {{item.amount > 1 ? '' : '0.'}}
+                <text>砍掉{{item.amount > 1 ? '' : '0.'}}</text>
                 <text class="item-dis">{{(filter.subPrice(('' + item.amount)))}}</text>
                 折
               </view>
@@ -127,7 +134,7 @@
 
 </view>
 
-<!-- 活动规则 -->
+<!-- 活动说明 -->
 <view class="bargain-rule" wx:if="{{showRule}}">
   <view class="rule-content">
     <view class="rule-top">
@@ -144,15 +151,26 @@
       <view>折扣使用：2018年11月22日0点至2019年1月21日24点。</view>
 
       <view class="rule-type">发起人：</view>
-      <view>1.邀请好友助力砍价，每次可得随机折扣，参与的好友越多得到的折扣越大，最高可获得<text class="size">5</text>折的签约折扣用于入驻氪空间；</view>
+      <view>1.邀请好友助力砍价，每次可得随机折扣，参与的好友越多得到的折扣越大，最高可获得
+        <text class="size">5</text>
+        折的签约折扣用于入驻氪空间；
+      </view>
       <view>2.签约时凭折扣码和手机号，可享受相应折扣的签约价；折扣码不可叠加；</view>
       <view>3.每个折扣码只能使用一次（使用后可再发起一轮砍价）；</view>
-      <view>4.折扣码仅限氪空间指定社区（霄云路社区、王府井银泰社区、人民广场海洋大厦社区、延安西路嘉宁国际社区、人民广场中区广场社区、外滩中心社区社区、华山路御华山社区、浦东宝钢大厦社区、钱江新城平安金融中心社区、世茂海峡国际社区、创新科技广场社区、协鑫广场社区）且签约不超过一年时使用；</view>
+      <view>
+        4.折扣码仅限氪空间指定社区（霄云路社区、王府井银泰社区、人民广场海洋大厦社区、延安西路嘉宁国际社区、人民广场中区广场社区、外滩中心社区社区、华山路御华山社区、浦东宝钢大厦社区、钱江新城平安金融中心社区、世茂海峡国际社区、创新科技广场社区、协鑫广场社区）且签约不超过一年时使用；
+      </view>
       <view>5.折扣码仅对新用户（未在氪空间任何渠道预约参观过）有效。</view>
 
       <view class="rule-type">助力人：</view>
-      <view>1.帮好友砍价，每次都可获得<text class="size">50</text>元礼品券（直减），用于预订会议室或散座（无须入驻）；</view>
-      <view>2.帮砍后可在氪空间公众号领取更多大礼包（价值<text class="size">1000</text>元）；</view>
+      <view>1.帮好友砍价，每次都可获得
+        <text class="size">50</text>
+        元礼品券（直减），用于预订会议室或散座（无须入驻）；
+      </view>
+      <view>2.帮砍后可在氪空间公众号领取更多大礼包（价值
+        <text class="size">1000</text>
+        元）；
+      </view>
       <view>3.帮砍不限总次数，但对每个发起人仅限帮砍一次</view>
       <view>4.助力人也可以发起砍价活动。</view>
       <view>如有作弊、扰乱系统、网络攻击等违规行为，氪空间有权取消其活动所得并终止其参与资格；疑问请联系客服，活动最终解释权归氪空间所有。</view>
@@ -173,7 +191,9 @@
       <image class="crown" src="{{KrImgUrl}}/bargainActivity/crown.png"></image>
     </view>
     <view class="dialog-name">
-      你已成功帮 “<view class="name-nick">{{originInfo.nickName}}</view>” 砍掉了
+      你已成功帮 “
+      <view class="name-nick">{{originInfo.nickName}}</view>
+      ” 砍掉了
     </view>
     <view class="text">
       <text class="desc-text"></text>
@@ -253,25 +273,25 @@
 
 </view>
 <!--<view wx:if="{{!activityFlag}}" class="container">-->
-  <!--<view class="header">-->
-    <!--<image class="default-img" src="{{KrImgUrl}}helpingActivity/helping/none.png"></image>-->
-  <!--</view>-->
-  <!--<view class="content">-->
-    <!--很抱歉，活动已经结束了呢~-->
-  <!--</view>-->
-  <!--<view class="go-back" bindtap="goToHome">-->
-    <!--<text class="go-back-content">去自由座首页看看</text>-->
-    <!--<image class="go-back-button" src="{{KrImgUrl}}helpingActivity/details/button_goindex.png">-->
+<!--<view class="header">-->
+<!--<image class="default-img" src="{{KrImgUrl}}helpingActivity/helping/none.png"></image>-->
+<!--</view>-->
+<!--<view class="content">-->
+<!--很抱歉，活动已经结束了呢~-->
+<!--</view>-->
+<!--<view class="go-back" bindtap="goToHome">-->
+<!--<text class="go-back-content">去自由座首页看看</text>-->
+<!--<image class="go-back-button" src="{{KrImgUrl}}helpingActivity/details/button_goindex.png">-->
 
-    <!--</image>-->
-  <!--</view>-->
+<!--</image>-->
+<!--</view>-->
 <!--</view>-->
 <!--<button wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"-->
-        <!--lang="zh_CN"-->
-        <!--bindgetuserinfo="onGotUserInfo"-->
-        <!--style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>-->
+<!--lang="zh_CN"-->
+<!--bindgetuserinfo="onGotUserInfo"-->
+<!--style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9999;"></button>-->
 <!--<view wx:if="{{!hasUserInfo && activityFlag && hasLoadUserInfo}}" class="masking-out" catchtouchmove="ture">-->
-  <!--<image class="masking-img" src="{{KrImgUrl}}helpingActivity/index/prompt.png"></image>-->
+<!--<image class="masking-img" src="{{KrImgUrl}}helpingActivity/index/prompt.png"></image>-->
 <!--</view>-->
 <button wx:if="{{!hasUserInfo && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"
         lang="zh_CN"

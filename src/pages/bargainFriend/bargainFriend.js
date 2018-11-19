@@ -328,7 +328,7 @@ Page({
             ['disInfo.deductAmount']: data.myCutAmount
           });
           this.getFriendsBooster();
-        } else if (res.data.code == -2) {
+        } else if (res.data.code == -3) {
           this.setData({
             hasHelpSuccess: true
           })

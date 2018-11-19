@@ -99,6 +99,7 @@ Page({
   },
   wechatId: null, // 发起人微信id
   reduceFlag: true, // 砍价拦截
+  createFlag: true, // 创建新 cutId 拦截
   jdConfig: {
     width: 765,
     height: 1068,
@@ -265,7 +266,7 @@ Page({
   },
 
 
-  // 创建 cutId 或查询 cutId
+  // 初始创建 cutId 或查询 cutId
   getCutId: function () {
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/create-new",
@@ -276,6 +277,27 @@ Page({
           this.getDiscount();
           this.getFriendsBooster();
         });
+      }
+    });
+  },
+
+  // 结束点击再砍一次 创建新的 cutId
+  createNew() {
+    if (!this.createFlag) return;
+    this.createFlag = false;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmseatcut/create-other",
+      success: res => {
+        this.setData({
+          ['disInfo.cutId']: res.data.data || ''
+        }, () => {
+          this.getDiscount();
+          this.getFriendsBooster();
+          this.createFlag = true;
+        });
+      },
+      fail() {
+        this.createFlag = true;
       }
     });
   },
@@ -348,7 +370,7 @@ Page({
   selfReduce: function () {
     if (!this.data.activityFlag) return;
     if (this.data.disInfo.hasUsed) {
-      this.getInfo();
+      this.createNew();
     } else if (this.data.disInfo.hasDis) {
       // 喊朋友来补刀
       this.shareView();
@@ -636,6 +658,7 @@ Page({
         //     icon: "none",
         //     title: res.data.message
         //   });
+        // }
 
 
         weImg.url = res.data.data
@@ -650,7 +673,8 @@ Page({
               Poster.create();
             }
         );
-        // }
+
+
       }
     });
   },

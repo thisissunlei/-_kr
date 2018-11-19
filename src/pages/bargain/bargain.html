@@ -131,7 +131,7 @@
 
   <view class="record-content" style="margin-top:{{disInfo.hasDis ? 186 : 0}}rpx">
     <view class="record-top">
-      <text>好友助力</text>
+      <text>好友补刀</text>
       <view class="left-circle"></view>
       <view class="right-circle"></view>
     </view>
@@ -154,7 +154,7 @@
               </view>
               <view class="list-value-count">
                 <!-- 不用 ''+ 的话页面显示不正常-->
-                砍掉{{item.amount > 1 ? '' : '0.'}}
+                <text>砍掉{{item.amount > 1 ? '' : '0.'}}</text>
                 <text class="item-dis">{{(filter.subPrice(('' + item.amount)))}}</text>
                 折
               </view>
@@ -177,12 +177,12 @@
 
 </view>
 
-<!-- 活动规则 -->
+<!-- 活动说明 -->
 <view class="bargain-rule" wx:if="{{showRule}}">
   <view class="rule-content">
     <view class="rule-top">
       <view>
-        <view class="rule-one">活动规则</view>
+        <view class="rule-one">活动说明</view>
       </view>
       <view></view>
     </view>
