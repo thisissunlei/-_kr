@@ -297,7 +297,7 @@ Page({
   },
 
   selfReduce: function () {
-    if (this.activityFlag && !this.data.disInfo.hasUsed && !this.data.disInfo.hasHelpDis) {
+    if (this.data.activityFlag && !this.data.disInfo.hasUsed && !this.data.disInfo.hasHelpDis) {
       this.reduce();
     }
   },
