@@ -22,7 +22,7 @@
   <view class="bg">
     <image src="{{KrImgUrl}}/bargainActivity/page_bg2.png"></image>
   </view>
-  <view class="bargain-rule-text" bindtap="helpingRule">活动规则</view>
+  <view class="bargain-rule-text" bindtap="helpingRule">活动说明</view>
   <!--<view class="know-kr-wrap">-->
   <!--<image src="{{KrImgUrl}}/bargainActivity/know.png"></image>-->
   <!--<text>了解氪空间</text>-->
@@ -183,10 +183,17 @@
     </view>
     <image class="close-button" src="{{KrImgUrl}}helpingActivity/share/close.png" bindtap="closeDialog"></image>
 
-    <view class="text dis-text">你也获得了一张50元礼品券已存入账户中</view>
+    <view class="text dis-coupon">
+      <image src="{{KrImgUrl}}/bargainActivity/coupon.png"></image>
+      <view class="dis-coupon-text">
+        你也获得了一张50元礼品券已存入账户中
+      </view>
+    </view>
+    <view class="kr-text">
+      关注氪空间公众号回复“感恩节”，还可获得千元礼包
+    </view>
     <view class="btn-box">
-      <view class="call" bindtap="goCoupon">查看礼品券</view>
-      <view class="self-cut" bindtap="goBargain">我也发起砍价</view>
+      <view class="call bigCall" bindtap="goCoupon">查看礼品券</view>
     </view>
   </view>
 </view>

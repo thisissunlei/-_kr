@@ -98,6 +98,7 @@ Page({
     },
   },
   wechatId: null, // 发起人微信id
+  reduceFlag: true, // 砍价拦截
   jdConfig: {
     width: 765,
     height: 1068,
@@ -381,12 +382,9 @@ Page({
   },
 
   // 自己砍价接口
-  reduce: function (e) {
-    // console.log(e);
-    // this.setData({
-    //   selfSuccess: true
-    // })
-    console.log(this.data.userInfo)
+  reduce: function () {
+    if (!this.reduceFlag) return;
+    this.reduceFlag = false;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/boost",
       method: "POST",
@@ -396,7 +394,7 @@ Page({
         cutId: this.data.disInfo.cutId
       },
       success: res => {
-        console.log(res);
+        this.reduceFlag = true;
         if (res.data.code == 1) {
           const data = res.data.data || {};
           this.setData({
@@ -415,6 +413,9 @@ Page({
             duration: 2000
           });
         }
+      },
+      fail: res => {
+        this.reduceFlag = true;
       }
     });
   },
@@ -445,7 +446,7 @@ Page({
     } else {
       // console.log("来自右上角转发菜单");
       return {
-        title: "氪空间可以5折租工位啦，一起来砍价抢特惠~",
+        title: "暖冬不寒心，氪空间工位五折感恩回馈，一起砍价抢优惠~",
         path: "pages/bargainIndex/bargainIndex",
         imageUrl: this.data.KrImgUrl + "bargainActivity/share_wx.png"
       };
@@ -518,14 +519,17 @@ Page({
     if (this.data.recordParams.page < this.data.totalPages) {
       app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
-        data: Object.assign({}, this.recordParams, {
+        data: Object.assign({}, this.data.recordParams, {
           boosterId: this.wechatId,
           cutId: this.data.disInfo.cutId
         }, {page: this.data.recordParams.page + 1}),
         success: res => {
           // console.log(res);
           this.setData({
-            recordList: [].concat(this.data.recordList, res.data.data.items),
+            recordList: [].concat(this.data.recordList, res.data.data.items.map(item => {
+              item.ctime = this.toDate(item.ctime);
+              return item;
+            })),
             totalCount: res.data.data.totalCount,
             totalPages: res.data.data.totalPages,
             ['recordParams.page']: this.data.recordParams.page + 1
