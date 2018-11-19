@@ -98,6 +98,7 @@ Page({
     },
   },
   wechatId: null, // 发起人微信id
+  reduceFlag: true, // 砍价拦截
   jdConfig: {
     width: 765,
     height: 1068,
@@ -381,12 +382,9 @@ Page({
   },
 
   // 自己砍价接口
-  reduce: function (e) {
-    // console.log(e);
-    // this.setData({
-    //   selfSuccess: true
-    // })
-    console.log(this.data.userInfo)
+  reduce: function () {
+    if (!this.reduceFlag) return;
+    this.reduceFlag = false;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/boost",
       method: "POST",
@@ -396,7 +394,7 @@ Page({
         cutId: this.data.disInfo.cutId
       },
       success: res => {
-        console.log(res);
+        this.reduceFlag = true;
         if (res.data.code == 1) {
           const data = res.data.data || {};
           this.setData({
@@ -415,6 +413,9 @@ Page({
             duration: 2000
           });
         }
+      },
+      fail: res => {
+        this.reduceFlag = true;
       }
     });
   },
