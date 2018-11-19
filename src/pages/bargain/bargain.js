@@ -344,7 +344,7 @@ Page({
   },
 
   selfReduce: function () {
-    if (!this.activityFlag) return;
+    if (!this.data.activityFlag) return;
     if (this.data.disInfo.hasUsed) {
       this.getInfo();
     } else if (this.data.disInfo.hasDis) {
