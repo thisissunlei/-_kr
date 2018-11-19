@@ -125,6 +125,7 @@ Page({
     zIndex: 1
   },
   onLoad: function (options) {
+    wx.reportAnalytics("view_bargain_sponsor");
     wx.showLoading({
       title: "加载中",
       mask: true
@@ -352,6 +353,7 @@ Page({
       // 喊朋友来补刀
       this.shareView();
     } else if (this.data.userInfo.hasPhone) {
+      wx.reportAnalytics("click_my_bargain");
       this.setData({
         tempComId: 215,
         showPicker: true
@@ -426,6 +428,7 @@ Page({
   },
   // 喊朋友来助力按钮
   shareView: function () {
+    wx.reportAnalytics("click_share_fridens");
     this.setData({
       showShareFriend: !this.data.showShareFriend
     });

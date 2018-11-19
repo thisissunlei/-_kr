@@ -11,6 +11,7 @@ Page({
 
   },
   onLoad: function (options) {
+    wx.reportAnalytics("view_bargain_sponsor");
     wx.showLoading({
       title: "加载中",
       mask: true
@@ -37,6 +38,7 @@ Page({
   onShow: function () {
   },
   goActivity: function () {
+    wx.reportAnalytics("click_bargain");
     wx.navigateTo({
       url: "../bargain/bargain"
     });

@@ -105,7 +105,7 @@
     <!--</view>-->
     <form report-submit='true' bindsubmit="formSubmit">
       <button
-          class="cut-text form-id {{disInfo.hasUsed || !activityFlag  ? 'has-used': ''}} {{canShowBtn ? '' : 'notShow'}}"
+          class="cut-text cut-up form-id {{disInfo.hasUsed || !activityFlag  ? 'has-used': ''}} {{canShowBtn ? '' : 'notShow'}}"
           bindtap="selfReduce" open-type="{{userInfo.hasPhone ? '' : 'getPhoneNumber'}}"
           bindgetphonenumber="getPhoneNumber" form-type='submit'>
         {{activityFlag ? (disInfo.hasUsed ? '砍价已结束，再砍一个' : (disInfo.hasDis ? '喊朋友来补刀' : '我先砍一刀')) : '砍价活动已结束'}}
@@ -122,7 +122,7 @@
         <picker-view indicator-style="height: 800rpx;" style="width: 100%; height: 800rpx;" value="{{comIndex}}"
                      bindchange="bindPickerChange">
           <picker-view-column>
-            <view wx:for="{{objectList}}" style="line-height: 100rpx; text-align: center" wx:key>{{item.name}}</view>
+            <view wx:for="{{objectList}}" style="line-height: 72rpx; height: 72rpx; text-align: center; font-size: 32rpx; color: #333;" wx:key>{{item.name}}</view>
           </picker-view-column>
         </picker-view>
       </view>
@@ -237,7 +237,7 @@
       <image class="dialog-star" src="{{KrImgUrl}}/bargainActivity/star.png"></image>
     </view>
     <!--<view class="text dis-text">砍价文案</view>-->
-    <view class="call" bindtap="callFriend">喊朋友来补刀</view>
+    <view class="call cut-up" bindtap="callFriend">喊朋友来补刀</view>
   </view>
 
 </view>
