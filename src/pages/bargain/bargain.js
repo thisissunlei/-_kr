@@ -518,14 +518,17 @@ Page({
     if (this.data.recordParams.page < this.data.totalPages) {
       app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
-        data: Object.assign({}, this.recordParams, {
+        data: Object.assign({}, this.data.recordParams, {
           boosterId: this.wechatId,
           cutId: this.data.disInfo.cutId
         }, {page: this.data.recordParams.page + 1}),
         success: res => {
           // console.log(res);
           this.setData({
-            recordList: [].concat(this.data.recordList, res.data.data.items),
+            recordList: [].concat(this.data.recordList, res.data.data.items.map(item => {
+              item.ctime = this.toDate(item.ctime);
+              return item;
+            })),
             totalCount: res.data.data.totalCount,
             totalPages: res.data.data.totalPages,
             ['recordParams.page']: this.data.recordParams.page + 1
