@@ -434,12 +434,12 @@ Page({
   },
 
   callFriend() {
+    wx.reportAnalytics("click_share_fridens");
     this.closeDialog();
     this.shareView();
   },
   // 喊朋友来助力按钮
   shareView: function () {
-    wx.reportAnalytics("click_share_fridens");
     this.setData({
       showShareFriend: !this.data.showShareFriend
     });
