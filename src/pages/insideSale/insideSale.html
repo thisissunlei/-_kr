@@ -2,9 +2,9 @@
     <view class="u-header">
         <image class="u-header-bg" src="{{styleInfo.headerBanner}}"></image>
         <text wx:if="{{!style || (style==0) }}" class="u-header-txt" bindtap="modalHide">活动规则</text>
-        <text wx:if="{{style==1 || style == 4 || style == 5}}" class="u-header-txt1" bindtap="modalHide">活动规则</text>
+        <text wx:if="{{style==1 || style == 4 || style == 5 || style == 8 || style == 9 || style == 10 || style == 11}}" class="u-header-txt1" bindtap="modalHide">活动规则</text>
         <text wx:if="{{style==2 || style == 3}}" class="u-header-txt2" bindtap="modalHide">活动规则</text>
-
+            
     </view>
     <view class="m-sale-content">
         <view class="u-nothing" wx:if="{{isExpired}}">
@@ -21,7 +21,8 @@
                         <text class="u-sale-rule" wx:if="{{item.ruleType=='FULL_REDUCTION'}}">满{{item.quota}}使用</text>
                     </view>
                     <view class="u-sale-name">{{item.couponName}}</view>
-                    <view class="u-sale-time">使用期限：{{item.startTime}}-{{item.endTime}}</view>
+                    <view class="u-sale-time" wx:if="{{item.effectAt}}">使用期限：{{item.startTime}}-{{item.endTime}}</view>
+                    <view class="u-sale-time" wx:if="{{item.effectDay}}">使用期限：{{item.effectDay}}天</view>
                 </view>
                 <view class="u-sale-status">
                     <view class="u-sale-get-btn u-get-sale" wx:if="{{item.allowance==1}}">
@@ -87,12 +88,13 @@
                     <view class="u-rule-txt">2. 每种礼券每人限领取1次;</view>
                     <view class="u-rule-txt">3. 活动最终解释权归氪空间所有。</view>
                 </view>
-                <view wx:if="{{style == 2 || style == 3 || style == 4 || style == 5}}">
+                <view wx:if="{{style == 2 || style == 3 || style == 4 || style == 5 || style == 8 || style == 9 || style == 10 || style == 11}}">
                     <view class="u-rule-title">· 活动规则 ·</view>
                     <view class="u-rule-txt" wx:if="{{style == 2}}">1. 活动时间：截至到2018年11月17日 24:00:00;</view>
                     <view class="u-rule-txt" wx:if="{{style == 3}}">1. 活动时间：截至到2018年11月15日 24:00:00;</view>
                     <view class="u-rule-txt" wx:if="{{style == 4}}">1. 活动时间：截至到2018年11月20日 24:00:00;</view>
                     <view class="u-rule-txt" wx:if="{{style == 5}}">1. 活动时间：截至到2018年12月31日 24:00:00;</view>
+                    <view class="u-rule-txt" wx:if="{{style == 8 || style == 9 || style == 10 || style == 11}}">1. 活动时间：截至到2019年5月31日 24:00:00;</view>
                     <view class="u-rule-txt">2. 礼券领取后自动存储到您的账户中，通过授权手机号码可查看和使用礼券;</view>
                     <view class="u-rule-txt">3. 每种礼券每人限领取1次;</view>
                     <view class="u-rule-txt">4. 活动最终解释权归氪空间所有。</view>
