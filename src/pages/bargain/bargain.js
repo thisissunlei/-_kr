@@ -632,39 +632,38 @@ Page({
         scene: this.wechatId + '_' + this.data.disInfo.cutId
       },
       success: res => {
-        // todo: check
-        // let code = res.data.code;
-        // if (code === 1) {
-        //   weImg.url = res.data.data;
-        //   jdConfig.images.push(weImg);
-        //   this.setData(
-        //       {
-        //         jdConfig: jdConfig
-        //       },
-        //       function () {
-        //         Poster.create();
-        //       }
-        //   );
-        // } else {
-        //   wx.showToast({
-        //     icon: "none",
-        //     title: res.data.message
-        //   });
-        // }
+        let code = res.data.code;
+        if (code === 1) {
+          weImg.url = res.data.data;
+          jdConfig.images.push(weImg);
+          this.setData(
+              {
+                jdConfig: jdConfig
+              },
+              function () {
+                Poster.create();
+              }
+          );
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: res.data.message
+          });
+        }
 
 
-        weImg.url = res.data.data
-        weImg.url =
-            "https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg";
-        jdConfig.images.push(weImg);
-        this.setData(
-            {
-              jdConfig: jdConfig
-            },
-            function () {
-              Poster.create();
-            }
-        );
+        // weImg.url = res.data.data
+        // weImg.url =
+        //     "https://img.krspace.cn/activity/image/0/2018/09/25/115630761C2e8epT.jpg";
+        // jdConfig.images.push(weImg);
+        // this.setData(
+        //     {
+        //       jdConfig: jdConfig
+        //     },
+        //     function () {
+        //       Poster.create();
+        //     }
+        // );
 
 
       }

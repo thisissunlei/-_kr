@@ -133,8 +133,6 @@ Page({
         console.log('userInfo', userInfo)
         this.setData({
           ['userInfo.hasPhone']: (userInfo.phone && userInfo.phone.length > 0) ? true : false,
-          // todo wechatId可在save接口中获取
-          // ['userInfo.wechatId']: userInfo.wechatId || ''
         })
       }
     })
