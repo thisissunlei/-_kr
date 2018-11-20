@@ -576,22 +576,31 @@ Page({
   },
   saveImg() {
     //保存图片到本地
-    let that = this;
     wx.saveImageToPhotosAlbum(
         {
-          filePath: that.data.imgUrl,
-          success: function (res) {
+          filePath: this.data.imgUrl,
+          success: (res) => {
             console.log("success", res);
-            that.setData({
+            this.setData({
               showShare: false,
               showSuccess: true
             });
           },
-          fail: function (res) {
+          fail: (res) => {
             console.log("fail", res);
+            if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+              wx.openSetting({
+                success(settingdata) {
+                  if (settingdata.authSetting["scope.writePhotosAlbum"]) {
+                    console.log("获取权限成功，再次点击图片保存到相册")
+                  } else {
+                    console.log("获取权限失败")
+                  }
+                }
+              })
+            }
           }
         },
-        this
     );
     //保存图片到本地--end
   },
