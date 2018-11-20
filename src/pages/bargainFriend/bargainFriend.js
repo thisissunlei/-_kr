@@ -268,7 +268,6 @@ Page({
         });
       },
       fail: res => {
-        wx.hideLoading();
       }
     });
   },
@@ -309,6 +308,10 @@ Page({
   reduce: function () {
     if (!this.reduceFlag) return;
     this.reduceFlag = false;
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
     wx.reportAnalytics("click_help_bargain");
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/boost",
@@ -318,6 +321,7 @@ Page({
         cutId: this.data.disInfo.cutId
       },
       success: res => {
+        wx.hideLoading();
         this.reduceFlag = true;
         if (res.data.code == 1) {
           const data = res.data.data || {};
@@ -342,6 +346,7 @@ Page({
         }
       },
       fail: res => {
+        wx.hideLoading();
         this.reduceFlag = true;
       }
     });
