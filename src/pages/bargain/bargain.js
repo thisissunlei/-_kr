@@ -466,14 +466,16 @@ Page({
       return {
         title: "跪求补刀！帮砍5折工位券，点一下你也能获得礼券哦~",
         path: "pages/bargainFriend/bargainFriend?wechatId=" + this.wechatId + "&cutId=" + this.data.disInfo.cutId,
-        imageUrl: this.data.KrImgUrl + "bargainActivity/share_help.png"
+        // imageUrl: this.data.KrImgUrl + "bargainActivity/share_help.png"
+        imageUrl: "/pages/images/share/share_help.png"
       };
     } else {
       // console.log("来自右上角转发菜单");
       return {
         title: "暖冬不寒心，氪空间工位五折感恩回馈，一起砍价抢优惠~",
         path: "pages/bargainIndex/bargainIndex",
-        imageUrl: this.data.KrImgUrl + "bargainActivity/share_wx.png"
+        // imageUrl: this.data.KrImgUrl + "bargainActivity/share_wx.png"
+        imageUrl: "/pages/images/share/share_wx.png"
       };
     }
   },
@@ -637,7 +639,7 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmbooster-qr/promocode",
       data: {
         page: "pages/bargainFriend/bargainFriend",
-        scene: this.wechatId + '&' + this.data.disInfo.cutId
+        scene: this.wechatId + '_' + this.data.disInfo.cutId
       },
       success: res => {
         // todo: check

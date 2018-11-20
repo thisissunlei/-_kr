@@ -49,7 +49,8 @@ Page({
     return {
       title: "暖冬不寒心，氪空间工位五折感恩回馈，一起砍价抢优惠~",
       path: "pages/bargainIndex/bargainIndex",
-      imageUrl: this.data.KrImgUrl + "bargainActivity/share_wx.png"
+      // imageUrl: this.data.KrImgUrl + "bargainActivity/share_wx.png"
+      imageUrl: "/pages/images/share/share_wx.png"
     };
   },
 

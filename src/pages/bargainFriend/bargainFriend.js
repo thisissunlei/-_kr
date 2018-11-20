@@ -88,7 +88,8 @@ Page({
       });
       this.wechatId = options.wechatId;
     } else if (options.scene){
-      let allCode = decodeURIComponent(options.scene).split('&');
+      let allCode = decodeURIComponent(options.scene).split('_');
+      console.log('sceneCode', allCode)
       this.setData({
         ['disInfo.cutId']: allCode[1],
         ['originInfo.wechatId']: allCode[0]
