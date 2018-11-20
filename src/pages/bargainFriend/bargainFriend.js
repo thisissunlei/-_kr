@@ -1,8 +1,3 @@
-//index.js
-import Poster from "../wxa-plugin-canvas/poster/poster";
-import {demoAnimate, demoAnimates} from "../../utils/numAnimate.js";
-// import { demoAnimate, demoAnimates } from "../../utils/animate.js";
-
 const app = getApp();
 Page({
   data: {
@@ -27,16 +22,10 @@ Page({
       deductAmount: '', // 已帮砍几折
     },
     helpSuccess: false, // 帮砍成功
-    showShareFriend: false,
-    showShare: false,
-    showSuccess: false,
     hasHelpSuccess: false, // 已经帮好友砍过
     recordList: [], //好友助力
     KrImgUrl: app.globalData.KrImgUrl,
     hasUserInfo: false, // 是否授权用户信息
-    hasPhone: true, //是否有手机号
-    comIndex: '',
-    comId: '',
     totalCount: 0,
     totalPages: 1,
     canShow: false, // 判断判断是否是用户本人结束，可以展现页面或重定向
@@ -44,7 +33,7 @@ Page({
     imgUrl: "",
     showRule: false, //活动规则
     hasLoadUserInfo: false,
-    activityFlag: true, // 判断活动 是否 结束
+    activityFlag: true, // 判断活动是否结束
     hasLogin: false,
     recordParams: {
       page: 1,
@@ -78,6 +67,7 @@ Page({
     url: "",
     zIndex: 1
   },
+
   onLoad: function (options) {
     console.log('options', options);
     wx.reportAnalytics("view_fridens_assist");
@@ -87,7 +77,7 @@ Page({
         ['originInfo.wechatId']: options.wechatId
       });
       this.wechatId = options.wechatId;
-    } else if (options.scene){
+    } else if (options.scene) {
       let allCode = decodeURIComponent(options.scene).split('_');
       console.log('sceneCode', allCode)
       this.setData({
@@ -116,7 +106,6 @@ Page({
     });
   },
   onReady: function () {
-    // this.getDiscount();
   },
   onShow: function () {
     if (this.data.hasLogin) {
@@ -161,7 +150,6 @@ Page({
   getInfo: function () {
     wx.getUserInfo({
       success: (res) => {
-        // console.log(res);
         wx.setStorage({
           key: "user_info",
           data: {
@@ -192,7 +180,6 @@ Page({
               this.getMoreUserInfo();
               this.getDiscount();
               this.getFriendsBooster();
-              // wx.hideLoading();
             }
           },
           fail: () => {
@@ -212,7 +199,6 @@ Page({
         activityId: 2
       },
       success: res => {
-        // console.log("活动是否过期", res);
         if (res.data.data) {
           this.setData({
             activityFlag: false
@@ -239,7 +225,6 @@ Page({
       },
       success: (res) => {
         let userInfo = Object.assign({}, res.data.data);
-        console.log('userInfo', userInfo)
         this.setData({
           ['originInfo.avatarUrl']: userInfo.wechatAvatar || '',
           ['originInfo.nickName']: userInfo.wechatNick || ''
@@ -255,7 +240,6 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/coupon-view",
       data: {cutId: this.data.disInfo.cutId, boosterId: this.wechatId},
       success: res => {
-        console.log('res', res)
         wx.hideLoading();
         const data = res.data.data || {}
         this.setData({
@@ -282,8 +266,6 @@ Page({
         url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
         data: Object.assign({}, this.data.recordParams, {boosterId: this.wechatId, cutId: this.data.disInfo.cutId}),
         success: res => {
-          // console.log(res);
-          // this.totalPages = res.data.data.totalPages;
           this.setData({
             recordList: res.data.data.items.map(item => {
               item.ctime = this.toDate(item.ctime);
@@ -383,7 +365,6 @@ Page({
 
   //页面上拉触底事件
   onReachBottom: function () {
-    // const that = this;
     if (this.data.recordParams.page < this.data.totalPages) {
       app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
@@ -392,7 +373,6 @@ Page({
           cutId: this.data.disInfo.cutId
         }, {page: this.data.recordParams.page + 1}),
         success: res => {
-          // console.log(res);
           this.setData({
             recordList: [].concat(this.data.recordList, res.data.data.items.map(item => {
               item.ctime = this.toDate(item.ctime);
@@ -408,8 +388,6 @@ Page({
   },
   //活动规则
   helpingRule: function () {
-    // wx.reportAnalytics("clickrule");
-
     this.setData({
       showRule: true
     });
@@ -422,13 +400,10 @@ Page({
   },
   closeDialog() {
     this.setData({
-      showShare: false,
-      showSuccess: false,
       helpSuccess: false,
       hasHelpSuccess: false
     });
   },
-
 
   //拉取授权
   onGotUserInfo: function (e) {

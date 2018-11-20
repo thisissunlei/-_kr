@@ -1,7 +1,4 @@
-//index.js
 import Poster from "../wxa-plugin-canvas/poster/poster";
-import {demoAnimate, demoAnimates} from "../../utils/numAnimate.js";
-// import { demoAnimate, demoAnimates } from "../../utils/animate.js";
 
 const app = getApp();
 Page({
@@ -29,7 +26,6 @@ Page({
     KrImgUrl: app.globalData.KrImgUrl,
     noticeList: [], //轮播信息
     hasUserInfo: false, // 是否授权用户信息
-    // comList: ['霄云路社区', '王府井银泰社区', '人民广场海洋大厦', '延安西路嘉宁国际', '人民广场中区广场',  '外滩中心',  '华山路御华山',  '浦东宝钢大厦',  '钱江新城平安金融中心',  '世茂海峡国际',  '创新科技广场',  '协鑫广场'],
     showPicker: false,
     objectList: [
       {
@@ -90,7 +86,7 @@ Page({
     imgUrl: "",
     showRule: false, //活动规则
     hasLoadUserInfo: false,
-    activityFlag: true, // 判断活动 是否 结束
+    activityFlag: true, // 判断活动是否结束
     hasLogin: false,
     recordParams: {
       page: 1,
@@ -112,7 +108,7 @@ Page({
         x: 0,
         y: 0,
         borderRadius: 16,
-        url: "/pages/images/shareBg.png",
+        url: "/pages/images/share/code_bg.png",
         zIndex: 2
       }
     ]
@@ -125,14 +121,13 @@ Page({
     url: "",
     zIndex: 1
   },
+
   onLoad: function (options) {
     wx.reportAnalytics("view_bargain_sponsor");
     wx.showLoading({
       title: "加载中",
       mask: true
     });
-
-
     wx.getSetting({
       success: res => {
         if (res.authSetting["scope.userInfo"]) {
@@ -148,7 +143,6 @@ Page({
     });
   },
   onReady: function () {
-    // this.getDiscount();
   },
   onShow: function () {
     if (this.data.hasLogin) {
@@ -193,7 +187,6 @@ Page({
   getInfo: function () {
     wx.getUserInfo({
       success: (res) => {
-        // console.log(res);
         wx.setStorage({
           key: "user_info",
           data: {
@@ -216,8 +209,6 @@ Page({
             this.getActivityFlag();
             this.getBroadcast();
             this.getCutId();
-            // wx.hideLoading();
-            // console.log(res);
           }
         });
       }
@@ -233,7 +224,6 @@ Page({
         activityId: 2
       },
       success: res => {
-        // console.log("活动是否过期", res);
         if (res.data.data) {
           this.setData({
             activityFlag: false
@@ -257,7 +247,6 @@ Page({
       },
       success: (res) => {
         let userInfo = Object.assign({}, res.data.data);
-        console.log('userInfo', userInfo)
         this.setData({
           ['userInfo.hasPhone']: (userInfo.phone && userInfo.phone.length > 0) ? true : false,
         })
@@ -308,9 +297,8 @@ Page({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/coupon-view",
       data: {cutId: this.data.disInfo.cutId},
       success: res => {
-        console.log('res', res)
         wx.hideLoading();
-        const data = res.data.data || {}
+        const data = res.data.data || {};
         this.setData({
           ['disInfo.current']: data.amount || '',
           ['disInfo.hasDis']: data.status === 'CUTSELF' ? false : true,
@@ -330,8 +318,6 @@ Page({
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/kmseatcut/booster/marquee",
       success: res => {
-        // console.log(res);
-        console.log('marquee', res.data)
         this.setData({
           noticeList: res.data.data
         });
@@ -351,8 +337,6 @@ Page({
           cutId: this.data.disInfo.cutId
         }),
         success: res => {
-          // console.log(res);
-          // this.totalPages = res.data.data.totalPages;
           this.setData({
             recordList: res.data.data.items.map(item => {
               item.ctime = this.toDate(item.ctime);
@@ -464,9 +448,6 @@ Page({
   //转发分享
   onShareAppMessage: function (res) {
     if (res.from === "button") {
-      // console.log("来自页面赠送按钮");
-      // wx.reportAnalytics("clickcallfriends");
-      // console.log(that.wechatId);
       this.shareView();
       return {
         title: "跪求补刀！帮砍5折工位券，点一下你也能获得礼券哦~",
@@ -547,7 +528,6 @@ Page({
 
   //页面上拉触底事件
   onReachBottom: function () {
-    // const that = this;
     if (this.data.recordParams.page < this.data.totalPages) {
       app.getRequest({
         url: app.globalData.KrUrl + "api/gateway/kmseatcut/friends-booster-record",
@@ -556,7 +536,6 @@ Page({
           cutId: this.data.disInfo.cutId
         }, {page: this.data.recordParams.page + 1}),
         success: res => {
-          // console.log(res);
           this.setData({
             recordList: [].concat(this.data.recordList, res.data.data.items.map(item => {
               item.ctime = this.toDate(item.ctime);
@@ -572,8 +551,6 @@ Page({
   },
   //活动规则
   helpingRule: function () {
-    // wx.reportAnalytics("clickrule");
-
     this.setData({
       showRule: true
     });
@@ -631,7 +608,6 @@ Page({
   },
 
   createShareCanvas() {
-    // wx.reportAnalytics("clicksharemonments");
     let weImg = this.weImg;
     let jdConfig = this.jdConfig;
     this.shareView();
@@ -685,14 +661,6 @@ Page({
       }
     });
   },
-  // animate() {
-  //   let that = this;
-  //   this.james = new demoAnimate({
-  //     // numArr: that.data.numArr,
-  //     // number: that.data.number,
-  //     _this: that
-  //   });
-  // },
 
   /**
    * 异步生成海报
@@ -714,32 +682,6 @@ Page({
         return num.toString();
     }
     return num;
-  },
-
-  //提取记录接口
-  getRegetRecordscords: function () {
-    const that = this;
-    app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/kmbooster/take-records",
-      data: {
-        page: that.page,
-        pageSize: that.pageSize
-      },
-      success: res => {
-        // that.totalPages = res.data.data.totalPages;
-        let recordList = res.data.data.items;
-        recordList.map(item => {
-          item.ctime = that.toDate(item.ctime);
-          return item;
-        });
-        // console.log(res);
-        that.setData({
-          totalCount: res.data.data.totalCount,
-          totalPages: res.data.data.totalPages,
-          boosterRecordNone: true
-        });
-      }
-    });
   },
 
 

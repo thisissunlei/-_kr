@@ -87,22 +87,6 @@
       </view>
     </view>
 
-    <!--<view class="cut-text {{disInfo.hasUsed  ? 'has-used': ''}}"-->
-    <!--bindtap="selfReduce">-->
-    <!--{{disInfo.hasUsed ? '砍价已结束，再砍一个' : (disInfo.hasDis ? '喊朋友来补刀' : '我先砍一刀')}}-->
-    <!--</view>-->
-    <!--<view class="comSection">-->
-    <!--<picker bindchange="bindPickerChange" value="{{comIndex}}" range="{{comList}}"-->
-    <!--disabled="{{disInfo.hasUsed || disInfo.hasDis}}">-->
-    <!--<view class="picker">-->
-    <!--<view class="cut-text {{disInfo.hasUsed  ? 'has-used': ''}}"-->
-    <!--bindtap="selfReduce">-->
-    <!--{{disInfo.hasUsed ? '砍价已结束，再砍一个' : (disInfo.hasDis ? '喊朋友来补刀' : '我先砍一刀')}}-->
-    <!--</view>-->
-    <!--{{comList[comIndex]}}-->
-    <!--</view>-->
-    <!--</picker>-->
-    <!--</view>-->
     <form report-submit='true' bindsubmit="formSubmit">
       <button
           class="cut-text cut-up form-id {{disInfo.hasUsed || !activityFlag  ? 'has-used': ''}} {{canShowBtn ? '' : 'notShow'}}"
@@ -122,7 +106,10 @@
         <picker-view indicator-style="height: 800rpx;" style="width: 100%; height: 800rpx;" value="{{comIndex}}"
                      bindchange="bindPickerChange">
           <picker-view-column>
-            <view wx:for="{{objectList}}" style="line-height: 72rpx; height: 72rpx; text-align: center; font-size: 32rpx; color: #333;" wx:key>{{item.name}}</view>
+            <view wx:for="{{objectList}}"
+                  style="line-height: 72rpx; height: 72rpx; text-align: center; font-size: 32rpx; color: #333;" wx:key>
+              {{item.name}}
+            </view>
           </picker-view-column>
         </picker-view>
       </view>
@@ -220,7 +207,6 @@
     </view>
     <view class="rule-text" bindtap="closeRule">
       我知道了
-      <!-- <image src="../images/public/error.png"></image> -->
     </view>
   </view>
 </view>
@@ -237,7 +223,6 @@
       <text class="self-dis-text">折</text>
       <image class="dialog-star" src="{{KrImgUrl}}/bargainActivity/star.png"></image>
     </view>
-    <!--<view class="text dis-text">砍价文案</view>-->
     <view class="call cut-up" bindtap="callFriend">喊朋友来补刀</view>
   </view>
 
@@ -267,7 +252,6 @@
 
 <!-- 生成的海报 -->
 <view class="shareDialog" wx:if="{{showShare}}">
-
   <view class="content-box">
     <image class="close-button" src="{{KrImgUrl}}helpingActivity/share/close.png" bindtap="closeDialog"></image>
     <view class="text">请保存图片至手机相册并</view>
@@ -289,23 +273,7 @@
   </view>
 
 </view>
-<!--<view wx:if="{{!activityFlag}}" class="container">-->
-<!--<view class="header">-->
-<!--<image class="default-img" src="{{KrImgUrl}}helpingActivity/helping/none.png"></image>-->
-<!--</view>-->
-<!--<view class="content">-->
-<!--很抱歉，活动已经结束了呢~-->
-<!--</view>-->
-<!--<view class="go-back" bindtap="goToHome">-->
-<!--<text class="go-back-content">去自由座首页看看</text>-->
-<!--<image class="go-back-button" src="{{KrImgUrl}}helpingActivity/details/button_goindex.png">-->
 
-<!--</image>-->
-<!--</view>-->
-<!--</view>-->
-<!--<button open-type="getPhoneNumber" wx:if="{{!userInfo.hasPhone && btnClick}}"-->
-<!--bindgetphonenumber="getPhoneNumber"-->
-<!--style="position:fixed;left:0;top:0;bottom:0;right:0;opacity:0;z-index: 9998;"></button>-->
 <button wx:if="{{!hasUserInfo && hasLoadUserInfo}}" catchtouchmove="ture" open-type="getUserInfo"
         lang="zh_CN"
         bindgetuserinfo="onGotUserInfo"
