@@ -74,8 +74,8 @@
                  style="left:{{disInfo.disNum/5 * 520-30}}rpx"></image>
         </view>
         <view class="content-text mb0">
-          <text>标准价</text>
-          <text>5折</text>
+          <text class="relative-left">标准价</text>
+          <text class="relative-right">5折</text>
         </view>
         <view class="bargain-code" wx:if="{{disInfo.hasDis}}">
           <view class="code-content">
@@ -117,7 +117,7 @@
     </view>
   </view>
 
-  <view class="record-content" style="margin-top:{{disInfo.hasDis ? 186 : 0}}rpx">
+  <view class="record-content" style="margin-top:{{disInfo.hasDis ? 190 : 0}}rpx">
     <view class="record-top">
       <text>好友补刀</text>
       <view class="left-circle"></view>
@@ -219,7 +219,7 @@
     <image class="dialog-avatar" src="{{userInfo.avatarUrl}}"></image>
     <image class="close-button" src="{{KrImgUrl}}helpingActivity/share/close.png" bindtap="closeDialog"></image>
     <view class="text self-text">你自己成功砍掉了</view>
-    <view class="text">
+    <view class="text" style="position: relative; left: 30rpx">
       <text class="self-dis">{{disInfo.selfDisNum}}</text>
       <text class="self-dis-text">折</text>
       <image class="dialog-star" src="{{KrImgUrl}}/bargainActivity/star.png"></image>
