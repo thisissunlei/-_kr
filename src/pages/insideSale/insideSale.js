@@ -49,7 +49,39 @@ const styleType = {
     imageUrl: "insideSale/company_share.jpg",
     navigationBarTitle: "氪空间企业专享礼包",
     headerBanner: app.globalData.KrImgUrl + "insideSale/company_bg.jpg"
-  }
+  },
+   //远行地产专享活动
+   "8": {
+    title: "给你送券啦，快来领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/yuanxing_share.jpg",
+    navigationBarTitle: "远行地产VIP专享礼包",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/yuanxing_bg.jpg"
+  },
+   //点点租专享活动
+   "9": {
+    title: "给你送券啦，快来领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/diandian_share.jpg",
+    navigationBarTitle: "点点租VIP专享礼包",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/diandian_bg.jpg"
+  },
+   //好租专享活动
+   "10": {
+    title: "给你送券啦，快来领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/haozu_share.jpg",
+    navigationBarTitle: "好租VIP专享礼包",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/haozu_bg.jpg"
+  },
+   //国贸专享活动
+   "11": {
+    title: "给你送券啦，快来领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/guomao_share.jpg",
+    navigationBarTitle: "中海VIP专享礼包",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/guomao_bg.jpg"
+  },
 };
 
 Page({
