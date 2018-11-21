@@ -16,7 +16,7 @@ Page({
   },
   onLoad: function(options) {
     let that = this;
-    // console.log(options);
+    console.log(options);
     if (options.fromIndex == "true") {
       that.setData({
         showButton: false

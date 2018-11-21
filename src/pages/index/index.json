@@ -2,5 +2,7 @@
   "navigationBarTitleText": "氪空间",
   "navigationBarBackgroundColor": "#3E3B51",
   "backgroundTextStyle": "light",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#3E3B51"
+
 }
