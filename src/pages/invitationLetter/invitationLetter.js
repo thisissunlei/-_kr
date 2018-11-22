@@ -59,7 +59,7 @@ Page({
   },
   //邀请函接口
   getInvitation: function() {
-    var that = this;
+    let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/ticket/card/detail",
       data: {
@@ -86,7 +86,7 @@ Page({
   },
   //领取入场券接口
   invitation: function() {
-    var that = this;
+    let that = this;
     app.getRequest({
       url: app.globalData.KrUrl + "api/gateway/krseat/ticket/receiveTicket",
       data: {
@@ -154,7 +154,7 @@ Page({
   },
   //登陆
   login: function() {
-    var that = this;
+    let that = this;
     wx.login({
       success: function(res) {
         if (res.code) {
@@ -169,10 +169,8 @@ Page({
               console.log(res, "登陆接口成功");
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
-              // console.log(app.globalData.Cookie, "cookie");
               app.globalData.openid = res.data.data["openid"];
-              // console.log(app.globalData.openid);
-              // that.getInvitation();
+              that.getUserInfo();
             },
             fail: function(res) {
               console.log(res, 8888887777);

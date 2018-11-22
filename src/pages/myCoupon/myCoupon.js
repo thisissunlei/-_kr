@@ -307,17 +307,19 @@ Page({
     },
     onShareAppMessage(res) {
         if (res.from === 'button') {
+            this.changeCardCancel()
+
             // 赠送给你300元礼品券，快来领取呀~
             return {
                 title: '赠送给你'+this.couponAmount+'元礼品券，快来领取呀~',
                 path: 'pages/getCoupon/getCoupon?shareNo='+this.shareNo,
                 imageUrl:'../images/coupon/share-bg.jpg',
-                success:(res) => {
-                    this.changeCardCancel('ok')
-                },
-                fail:(res) => {
-                    this.changeCardCancel('no')
-                }
+                // success:(res) => {
+                //     this.changeCardCancel('ok')
+                // },
+                // fail:(res) => {
+                //     this.changeCardCancel('no')
+                // }
             }
         } else {
             return app.globalData.share_data

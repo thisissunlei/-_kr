@@ -184,6 +184,7 @@ Page({
           }
         });
         _this.locationStatus = true;
+        // _this.getCitybyId()
       },
       fail: function(res) {}
     });

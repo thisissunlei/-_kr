@@ -438,6 +438,7 @@ Page({
   onGotUserInfo: function(e) {
     let pageSize = this.data.pageSize;
     if (e.detail.userInfo) {
+      this.getInfo();
       this.getSaleList();
       this.getRecordList(pageSize);
       this.setData({
