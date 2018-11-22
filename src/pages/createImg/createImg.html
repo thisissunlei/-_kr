@@ -5,9 +5,9 @@
 <import src="../../utils/template/template.wxml" />
 
 
-<view class="helping-details" wx:if="{{activityOnline}}">
+<view class="helping-details {{showRule ? 'not-scroll' : ''}}" wx:if="{{activityOnline}}">
 	<view class="helping">
-		<view class="helping-text" bindtap="helpingRule">活动规则</view>
+		<view class="helping-text" bindtap="helpingRule">活动说明</view>
 	</view>
 	<view class="helping-top">
 		<image src="{{KrImgUrl}}helpingActivity/details/pic_background.png"></image>
@@ -214,18 +214,27 @@
 	<view class="rule-content">
 		<view class="rule-top">
 			<view>
-				<view class="rule-one">活动规则</view>
+				<view class="rule-one">活动说明</view>
 			</view>
 			<view></view>
 		</view>
 		<view class="rule-scoll">
-			<view>1）可以通过分享活动至微信群、朋友圈的方式主动发起活动；</view>
+			<view>您可以邀请好友助力或助力他人，以获得自由座礼券，用于租用氪空间的会议室和散座。</view>
+			<view>1.  每被一名好友助力，您都会获得随机的礼券金额，金额是会累积的（最多累积到999元，提取后可以继续累积）；</view>
+			<view>2.  您也可以助力他人，助力时自己也会获得同样的礼券金额，与被助力获得的金额一同累积；</view>
+			<view>3.  您可以随时提取指定金额的礼券（不限次数），提取的礼券可在“我的-我的礼品券”中查看；</view>
+			<view>4.  礼券可以在预订氪空间自由座的任意会议室或散座时，直接抵扣使用；</view>
+			<view>5.  礼券不可多张叠加使用，不可与1元体验活动同时使用，但可与团队套餐同时使用；</view>
+			<view>6.  礼券不可兑现、不找零、过期失效；</view>
+			<view>如遇问题请咨询在线客服（首页右下角）；活动最终解释权归氪空间所有。</view>
+
+			<!-- <view>1）可以通过分享活动至微信群、朋友圈的方式主动发起活动；</view>
 			<view>2）每个好友助力，可获得 <text class="size">5-10</text> 元礼券，首次访问自由座的用户助力的礼券 <text class="size">翻倍</text>；</view>
 			<view>3）为好友助力后，你也可获得相应礼券金额，每天上限 <text class="size">10</text> 次；</view>
 			<view>4）根据你当前礼券池的总金额，可以提取出不同面额的礼券，礼券可以抵扣订单金额，最高可享免单哦；</view>
 			<view>5）礼券池上限 <text class="size">999</text> 元，每次提取礼券均会消耗掉礼券池的总金额；</view>
 			<view>6）活动期间，每种礼券最多可提取 <text class="size">3</text> 次；</view>
-			<view>7）如有疑问请联系客服，活动最终解释权归氪空间所有。</view>
+			<view>7）如有疑问请联系客服，活动最终解释权归氪空间所有。</view> -->
 		</view>
 		<view class="rule-text" bindtap="closeRule">
 			<image src="{{KrImgUrl}}helpingActivity/index/btn_index.png"></image>

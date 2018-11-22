@@ -30,7 +30,6 @@ Page({
           that.setData({
             hasUserInfo: true
           });
-          // wx.hideLoading();
 
           that.login();
         } else {
@@ -48,7 +47,7 @@ Page({
         shareNo: that.data.shareNo
       },
       success: res => {
-        console.log(res);
+        // console.log(res);
         wx.hideLoading();
 
         if (res.data.code == 1) {
@@ -96,27 +95,25 @@ Page({
       success: res => {
         console.log(res);
         if (res.data.code == 1) {
-          wx.showToast({
-            title: "领取成功",
-            image: "../images/public/success.png",
-            duration: 2000
-          });
+          that.getCouponList();
+          setTimeout(function(){
+            wx.showToast({
+              title: "领取成功",
+              image: "../images/public/success.png",
+              duration: 2000
+            });
+          },500)
+          
           that.setData({
             buttonShow: false,
             showHint: true
           });
-          setTimeout(function() {
-            that.getCouponList();
-          }, 2000);
         } else if (res.data.code < 0) {
           wx.showToast({
             title: res.data.message,
             icon: "none",
             duration: 2000
           });
-          setTimeout(function() {
-            that.getCouponList();
-          }, 2000);
         } else {
           console.log(res.data.code);
         }
@@ -144,13 +141,11 @@ Page({
               code: res.code
             },
             success: res => {
-              // wx.hideLoading();
-              //   console.log(res);
               app.globalData.Cookie =
                 res.header["Set-Cookie"] || res.header["set-cookie"];
               app.globalData.openid = res.data.data["openid"];
               that.getCouponList();
-              this.getInfo();
+              that.getInfo();
             },
             fail: err => {
               console.log(err);
