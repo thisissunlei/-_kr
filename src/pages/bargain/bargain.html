@@ -78,8 +78,8 @@
           <text class="relative-right">5折</text>
         </view>
         <view class="bargain-code" wx:if="{{disInfo.hasDis}}">
-          <view class="code-content">
-            折扣码：{{disInfo.code}}
+          <view class="code-content" bindtap="copyCode">
+            折扣码：<text>{{disInfo.code}}</text>
           </view>
         </view>
       </view>

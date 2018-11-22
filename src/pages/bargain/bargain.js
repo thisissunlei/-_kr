@@ -350,6 +350,14 @@ Page({
     })
   },
 
+  copyCode() {
+    wx.setClipboardData({
+      data: this.data.disInfo.code,
+      success(res) {
+      }
+    })
+  },
+
   selfReduce: function () {
     if (!this.data.activityFlag) return;
     if (this.data.disInfo.hasUsed) {
