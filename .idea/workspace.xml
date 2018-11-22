@@ -16,13 +16,27 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="myCoupon.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.json">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="myCoupon.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="31" lean-forward="false" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
-              <folding />
+            <state relative-caret-position="205">
+              <caret line="21" column="31" lean-forward="false" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#476#848#0" expanded="false" />
+                <element signature="e#867#1502#0" expanded="false" />
+                <element signature="e#1518#2310#0" expanded="false" />
+                <element signature="e#2331#3073#0" expanded="false" />
+                <element signature="e#3093#3957#0" expanded="false" />
+                <element signature="e#3979#4867#0" expanded="false" />
+                <element signature="e#4891#5196#0" expanded="false" />
+                <element signature="e#5217#5571#0" expanded="false" />
+                <element signature="e#5592#5946#0" expanded="false" />
+                <element signature="e#5965#6035#0" expanded="false" />
+                <element signature="e#6064#6906#0" expanded="false" />
+                <element signature="e#6925#7622#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -30,23 +44,13 @@
       <file leaf-file-name="myCoupon.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="46" column="15" lean-forward="false" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
+            <state relative-caret-position="197">
+              <caret line="48" column="63" lean-forward="false" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="63" />
               <folding>
+                <element signature="n#style#0;n#view#4;n#view#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#view#1;n#view#1;n#view#3;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#view#2;n#view#1;n#view#3;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="myCoupon.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="244" column="12" lean-forward="true" selection-start-line="244" selection-start-column="12" selection-end-line="244" selection-end-column="12" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <marker date="1542866263186" expanded="false" signature="2448:2479" ph="..." />
               </folding>
             </state>
           </provider>
@@ -55,19 +59,11 @@
       <file leaf-file-name="activity.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/activityDetails/activity.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1628">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="41" column="35" lean-forward="false" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
-              <folding />
+            <state relative-caret-position="220">
+              <caret line="409" column="27" lean-forward="false" selection-start-line="409" selection-start-column="27" selection-end-line="409" selection-end-column="27" />
+              <folding>
+                <element signature="e#83#1228#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,24 +73,32 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>礼品券</find>
-      <find>getShareForwarding</find>
       <find>选好了</find>
       <find>setData</find>
       <find>shardModal</find>
       <find>closeShardModal</find>
       <find>onShareAppMessage</find>
+      <find>session</find>
+      <find>用户未登录</find>
+      <find>getInfo</find>
       <find>changeCardCancel</find>
+      <find>getShareForwarding</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="REBASE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js" />
         <option value="$PROJECT_DIR$/src/app.js" />
+        <option value="$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js" />
       </list>
     </option>
   </component>
@@ -156,9 +160,10 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="height" value="826" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -205,26 +210,6 @@
               <item name="kr-meeting" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="kr-meeting" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kr-meeting" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kr-meeting" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kr-meeting" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="activityDetails" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kr-meeting" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kr-meeting" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="myCoupon" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -240,6 +225,158 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/node_modules/gulp" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/node_modules/eslint" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/app.json</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/index/index.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/my/my.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/myCoupon/myCoupon.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/myCoupon/myCoupon.less</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargain/bargain.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargain/bargain.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargain/bargain.json</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargain/bargain.less</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargainFriend/bargainFriend.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargainFriend/bargainFriend.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargainFriend/bargainFriend.json</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargainFriend/bargainFriend.less</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargainIndex/bargainIndex.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargainIndex/bargainIndex.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargainIndex/bargainIndex.json</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/bargainIndex/bargainIndex.less</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/share/code_bg.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/share/share_help.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/share/share_wx.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/krSpace/krSpace.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/krSpace/krSpace.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/krSpace/krSpace.json</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/krSpace/krSpace.less</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/demo/demo.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/demo/demo.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/demo/demo.json</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/demo/demo.less</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/buton_see.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/button_isee.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/button_yizhuli.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/button_zhuli.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/glass.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/go_to_home_page.jpg</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/help_bg.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/help_bottom.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/start.jpg</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/images/assistance/user_img.jpg</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -288,33 +425,38 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1540795836253</updated>
-      <workItem from="1541992227410" duration="2306000" />
+      <workItem from="1541992227410" duration="2914000" />
+      <workItem from="1542165067201" duration="496000" />
+      <workItem from="1542714008937" duration="353000" />
+      <workItem from="1542769421267" duration="530000" />
+      <workItem from="1542855809049" duration="4892000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2306000" />
+    <option name="totallyTimeSpent" value="9185000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="826" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.09189189" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.9081081" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.12867647" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.8713235" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32889965" sideWeight="0.50528544" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5081043" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.4947146" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25581396" sideWeight="0.4918957" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32889965" sideWeight="0.4947146" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37122127" sideWeight="0.4918957" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -329,13 +471,62 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/app.json">
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="20" lean-forward="false" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+        <state relative-caret-position="15">
+          <caret line="1" column="31" lean-forward="false" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="15" lean-forward="false" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
           <folding>
-            <marker date="1541992880063" expanded="true" signature="13:1808" ph="[...]" />
+            <element signature="n#style#0;n#view#4;n#view#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#1;n#view#1;n#view#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#2;n#view#1;n#view#3;n#!!top" expanded="true" />
+            <marker date="1542866263186" expanded="false" signature="2448:2479" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3630">
+          <caret line="243" column="14" lean-forward="false" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#476#848#0" expanded="false" />
+            <element signature="e#867#1502#0" expanded="false" />
+            <element signature="e#1518#2310#0" expanded="false" />
+            <element signature="e#2331#3073#0" expanded="false" />
+            <element signature="e#3093#3957#0" expanded="false" />
+            <element signature="e#3979#4867#0" expanded="false" />
+            <element signature="e#4891#5196#0" expanded="false" />
+            <element signature="e#5217#5571#0" expanded="false" />
+            <element signature="e#5592#5946#0" expanded="false" />
+            <element signature="e#5965#6035#0" expanded="false" />
+            <element signature="e#6064#6906#0" expanded="false" />
+            <element signature="e#6925#7622#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/activityDetails/activity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="35" lean-forward="false" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -347,28 +538,148 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="15" lean-forward="false" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
+          <folding>
+            <element signature="n#style#0;n#view#4;n#view#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#1;n#view#1;n#view#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#2;n#view#1;n#view#3;n#!!top" expanded="true" />
+            <marker date="1542866263186" expanded="false" signature="2448:2479" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3630">
+          <caret line="243" column="14" lean-forward="false" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#476#848#0" expanded="false" />
+            <element signature="e#867#1502#0" expanded="false" />
+            <element signature="e#1518#2310#0" expanded="false" />
+            <element signature="e#2331#3073#0" expanded="false" />
+            <element signature="e#3093#3957#0" expanded="false" />
+            <element signature="e#3979#4867#0" expanded="false" />
+            <element signature="e#4891#5196#0" expanded="false" />
+            <element signature="e#5217#5571#0" expanded="false" />
+            <element signature="e#5592#5946#0" expanded="false" />
+            <element signature="e#5965#6035#0" expanded="false" />
+            <element signature="e#6064#6906#0" expanded="false" />
+            <element signature="e#6925#7622#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/activityDetails/activity.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1628">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="33" lean-forward="false" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="31" lean-forward="false" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
+        <state relative-caret-position="690">
           <caret line="46" column="15" lean-forward="false" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
           <folding>
+            <element signature="n#style#0;n#view#4;n#view#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#view#1;n#view#1;n#view#3;n#!!top" expanded="true" />
             <element signature="n#style#0;n#view#2;n#view#1;n#view#3;n#!!top" expanded="true" />
+            <marker date="1542866263186" expanded="false" signature="2448:2479" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3630">
+          <caret line="243" column="14" lean-forward="false" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#476#848#0" expanded="false" />
+            <element signature="e#867#1502#0" expanded="false" />
+            <element signature="e#1518#2310#0" expanded="false" />
+            <element signature="e#2331#3073#0" expanded="false" />
+            <element signature="e#3093#3957#0" expanded="false" />
+            <element signature="e#3979#4867#0" expanded="false" />
+            <element signature="e#4891#5196#0" expanded="false" />
+            <element signature="e#5217#5571#0" expanded="false" />
+            <element signature="e#5592#5946#0" expanded="false" />
+            <element signature="e#5965#6035#0" expanded="false" />
+            <element signature="e#6064#6906#0" expanded="false" />
+            <element signature="e#6925#7622#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/activityDetails/activity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
+        <state relative-caret-position="615">
+          <caret line="41" column="33" lean-forward="false" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="31" lean-forward="false" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="15" lean-forward="false" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
+          <folding>
+            <element signature="n#style#0;n#view#4;n#view#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#1;n#view#1;n#view#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#2;n#view#1;n#view#3;n#!!top" expanded="true" />
+            <marker date="1542866263186" expanded="false" signature="2448:2479" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/activityDetails/activity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
           <caret line="41" column="35" lean-forward="false" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
           <folding />
         </state>
@@ -376,10 +687,123 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="244" column="12" lean-forward="true" selection-start-line="244" selection-start-column="12" selection-end-line="244" selection-end-column="12" />
+        <state relative-caret-position="3630">
+          <caret line="243" column="14" lean-forward="false" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <element signature="e#476#848#0" expanded="false" />
+            <element signature="e#867#1502#0" expanded="false" />
+            <element signature="e#1518#2310#0" expanded="false" />
+            <element signature="e#2331#3073#0" expanded="false" />
+            <element signature="e#3093#3957#0" expanded="false" />
+            <element signature="e#3979#4867#0" expanded="false" />
+            <element signature="e#4891#5196#0" expanded="false" />
+            <element signature="e#5217#5571#0" expanded="false" />
+            <element signature="e#5592#5946#0" expanded="false" />
+            <element signature="e#5965#6035#0" expanded="false" />
+            <element signature="e#6064#6906#0" expanded="false" />
+            <element signature="e#6925#7622#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="20" lean-forward="false" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="31" lean-forward="false" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="41" column="35" lean-forward="false" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/activityDetails/activity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="409" column="27" lean-forward="false" selection-start-line="409" selection-start-column="27" selection-end-line="409" selection-end-column="27" />
+          <folding>
+            <element signature="e#83#1228#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/getCoupon/getCoupon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="175" column="23" lean-forward="true" selection-start-line="175" selection-start-column="23" selection-end-line="175" selection-end-column="23" />
+          <folding>
+            <marker date="1542874208290" expanded="true" signature="28:4618" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="337:711" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="567:711" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="591:711" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="640:711" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="3660:3685" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="3660:3771" ph="{&quot;methods&quot;: &quot;GET&quot;...}" />
+            <marker date="1542874208290" expanded="true" signature="3660:3783" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="3660:3853" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="3660:3859" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="3660:3865" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="3712:3759" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="3789:3845" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="3905:4047" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="3957:4043" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="4000:4035" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="4082:4616" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="4124:4610" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="4155:4604" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="4208:4313" ph="{&quot;key&quot;: &quot;user_info&quot;...}" />
+            <marker date="1542874208290" expanded="true" signature="4254:4303" ph="{&quot;user_info&quot;: res.userInfo...}" />
+            <marker date="1542874208290" expanded="true" signature="4339:4594" ph="{...}" />
+            <marker date="1542874208290" expanded="true" signature="4428:4510" ph="{&quot;encryptedData&quot;: res.encryptedData...}" />
+            <marker date="1542874208290" expanded="true" signature="4538:4584" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="48" column="63" lean-forward="false" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="63" />
+          <folding>
+            <element signature="n#style#0;n#view#4;n#view#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#1;n#view#1;n#view#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#2;n#view#1;n#view#3;n#!!top" expanded="true" />
+            <marker date="1542866263186" expanded="false" signature="2448:2479" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/myCoupon/myCoupon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="21" column="31" lean-forward="false" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#476#848#0" expanded="false" />
+            <element signature="e#867#1502#0" expanded="false" />
+            <element signature="e#1518#2310#0" expanded="false" />
+            <element signature="e#2331#3073#0" expanded="false" />
+            <element signature="e#3093#3957#0" expanded="false" />
+            <element signature="e#3979#4867#0" expanded="false" />
+            <element signature="e#4891#5196#0" expanded="false" />
+            <element signature="e#5217#5571#0" expanded="false" />
+            <element signature="e#5592#5946#0" expanded="false" />
+            <element signature="e#5965#6035#0" expanded="false" />
+            <element signature="e#6064#6906#0" expanded="false" />
+            <element signature="e#6925#7622#0" expanded="false" />
           </folding>
         </state>
       </provider>

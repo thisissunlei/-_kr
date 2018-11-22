@@ -17,6 +17,12 @@ Page({
     couponIds: [],
     shareNo: 0,
     couponAmount: 0,
+    resetData: false,
+    onShow() {
+      if ( !!this.resetData ) {
+        this.changeCardCancel()
+      }
+    },
     onLoad(option) {
         wx.showLoading({
             title: "加载中",
@@ -288,6 +294,7 @@ Page({
                 this.setData({
                     shardModal: true
                 })
+                this.resetData = true
                 wx.hideLoading()
             },
             fail:(res)=>{
@@ -299,6 +306,7 @@ Page({
         this.setData({
             shardModal: false
         })
+        this.resetData = false
     },
     changeBack(){
         wx.navigateTo({
@@ -307,7 +315,7 @@ Page({
     },
     onShareAppMessage(res) {
         if (res.from === 'button') {
-            this.changeCardCancel()
+            // this.changeCardCancel()
 
             // 赠送给你300元礼品券，快来领取呀~
             return {
