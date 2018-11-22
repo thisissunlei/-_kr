@@ -5,7 +5,7 @@
 <import src="../../utils/template/template.wxml" />
 
 
-<view class="helping-details" wx:if="{{activityOnline}}">
+<view class="helping-details {{showRule ? 'not-scroll' : ''}}" wx:if="{{activityOnline}}">
 	<view class="helping">
 		<view class="helping-text" bindtap="helpingRule">活动规则</view>
 	</view>
