@@ -56,6 +56,15 @@
     "pages/bargainFriend/bargainFriend",
     "pages/krSpace/krSpace"
   ],
+  "subPackages":[
+    {
+        "root":"activities",
+        "pages":[
+            "pages/assistancess/assistance",
+            "pages/insideSale/insideSale"
+        ]
+    }
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff"
