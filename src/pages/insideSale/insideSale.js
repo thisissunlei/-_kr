@@ -100,11 +100,11 @@ const styleType = {
   },
   // 行动
   "14": {
-    title: "给你送券啦，快来领～",
+    title: "快来和我一起疯狂拆礼包！560元礼包等你来抢！",
     desc: "氪空间自由座",
-    imageUrl: "insideSale/guomao_share.jpg",
-    navigationBarTitle: "中海VIP专享礼包",
-    headerBanner: app.globalData.KrImgUrl + "insideSale/guomao_bg.jpg"
+    imageUrl: "insideSale/bg14.jpg",
+    navigationBarTitle: "京东会员专享礼包",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/banner14.jpg"
   },
 };
 
