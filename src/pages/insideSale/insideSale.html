@@ -43,7 +43,7 @@
 
         </view>
     </view>
-    <view class="u-get-sale-info {{(style == 2) ? 'green' : ''}} {{(style == 3) ? 'fancy-carp' : ''}}" wx:if="{{recordList.length>0}}">
+    <view class="u-get-sale-info {{(style == 2) ? 'green' : ''}} {{(style == 3) ? 'fancy-carp' : ''}} {{style == 12 ? 'bg12' : ''}} {{style == 13 ? 'bg13' : ''}} {{style == 14 ? 'bg14' : ''}}" wx:if="{{recordList.length>0}}">
         <view class="u-get-info-content">
             <view class="u-get-title">领取记录</view>
             <image class="u-sale-info-bg" src="{{imgUrl}}/insideSale/info_bg.png"></image>
