@@ -64,9 +64,11 @@ Page({
 
     ]
   },
+  fun:'',
    button_boolean:true,
   onLoad: function (options) {
     console.log('options.value',options.value)
+    this.fun = options.fun;
     this.setData({
       activeTab: options.value
     })
@@ -87,7 +89,7 @@ Page({
       })
       setTimeout(function(){
         wx.navigateTo({
-          url: '../bindPhone/bindPhone?city='+target.city,
+          url: '../bindPhone/bindPhone?city='+target.city+'&fun='+that.fun,
           success:function(){
             that.button_boolean = true;
           }

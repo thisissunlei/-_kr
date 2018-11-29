@@ -1,15 +1,17 @@
 //获取应用实例
 const app = getApp();
+// 模拟数据
 const defaultStyle= {
   backgroudColor:'#b3cef5',
   name:'自由座内部专享礼券',//标题
   headPic:app.globalData.KrImgUrl + "insideSale/banner1.jpg",//头图
   fontColor:'#333',//活动规则字体颜色
-  noticeTitle:'活动规则',//使用规则文案
-  noticeDescr:'',//使用须知
+  // noticeTitle:'使用规则文案',//使用规则文案
+  noticeTitle:'',//使用规则文案
+  noticeDescr:'1. 此活动仅限氪空间内部员工参与，请勿外传；#2. 活动时间：截止至2018年9月30日24:00:00 ;#3. 礼券领取后自动存储到您的账户 中，通过授权手机号码可查看和使用礼券；#4. 每种礼券每人限领取1次',//使用须知
   ruleTitle:'领券规则标题',//领券规则标题
   ruleDescr:'领券规则',//领券规则
-  sharePic:"/insideSale/share.jpg",//分享配图
+  sharePic:app.globalData.KrImgUrl + "/insideSale/share.jpg",//分享配图
   shareDescr:'分享文案',//分享文案
 }
 Page({
@@ -17,29 +19,33 @@ Page({
     imgUrl: app.globalData.KrImgUrl,
     saleList: [],
     ruleModal: false,
-    activityId: "",
     recordList: [],
     pageSize: 10,
+    page:1,
     isExpired: false,
-    totalCount: 0,
+    totalPages: 0,
     btn_bool: true,
-    style: "",
     styleInfo: {
-      title: "嘿，最优秀的人，自由座内部员工专享礼券来啦，快领～",
-      desc: "氪空间自由座",
-      imageUrl: "/insideSale/share.jpg",
-      navigationBarTitle: "自由座内部专享礼券",
-      headerBanner: app.globalData.KrImgUrl + "insideSale/banner1.jpg"
+      headerBanner: app.globalData.KrImgUrl + "insideSale/banner1.jpg",
+      fontColor:'#333',
+      noticeTitle:'',//使用规则文案
+      noticeDescr:'',//使用须知
+      ruleTitle:'活动说明',//领券规则标题
+      ruleDescr:'',//领券规则
+      backgroudColor:'#b3cef5',
     }
   },
+  defaultStyle:{},
+  activityId:'',
   onShareAppMessage: function(res) {
-    // wx.reportAnalytics("sharekrmeeting");
-    let data = this.data;
+    let data = this.defaultStyle;
+    let activityId = this.activityId
+    console.log('onShareAppMessage',data)
     return {
-      title: data.styleInfo.title,
-      desc: data.styleInfo.desc,
-      path: `activities/pages/insideSale/insideSale?id=${data.activityId}`,
-      imageUrl: app.globalData.KrImgUrl + data.styleInfo.imageUrl
+      title: data.shareDescr,
+      desc: data.name,
+      path: `activities/pages/insideSale/insideSale?id=${activityId}`,
+      imageUrl: data.sharePic
     };
   },
   getURLParam: function(deal_url, paramName) {
@@ -72,20 +78,11 @@ Page({
     console.log('onload',options)
     if (options.q) {
       const channelname_v = this.getURLParam(options.q, "id");
-      let style = this.getURLParam(options.q, "style");
-      this.setData(
-        {
-          activityId: channelname_v,
-          style: style || ""
-        },
-        function() {}
-      );
+      this.activityId = channelname_v;
     }
 
     if (options.id) {
-      this.setData({
-        activityId: options.id
-      });
+        this.activityId =  options.id
     }
     // //
     //   _this.setData({
@@ -98,7 +95,8 @@ Page({
     //   //
 
     this.goLogin();
-
+    // 获取活动基本信息
+    this.getBasicInfo()
     //查看是否授权
     wx.getSetting({
       success(res) {
@@ -108,6 +106,66 @@ Page({
         } else {
           _this.setData({ btn_bool: false });
         }
+      }
+    });
+  },
+  getBasicInfo(){
+    let that = this;
+    let activityId = this.activityId;
+    app.getRequest({
+      url: app.globalData.KrUrl + "api/gateway/kmcoupon/takeactivity/info",
+      methods: "GET",
+      header: {
+        "content-type": "appication/json"
+      },
+      data: {
+        activityId: activityId
+      },
+      success: res => {
+        if (res.data.code > 0) {
+          let data = res.data.data;
+          // let data = defaultStyle;
+          that.defaultStyle = data;
+          let ruleList = []
+          let noticeList = []
+          if(data.noticeDescr){
+            noticeList = data.noticeDescr.split("#")
+          }
+          if(data.ruleDescr){
+            ruleList = data.ruleDescr.split("#")
+          }
+          let style= {
+            headerBanner: data.headPic,
+            fontColor:data.fontColor,
+            noticeTitle:data.noticeTitle,//使用规则文案
+            noticeDescr:data.noticeDescr,//使用须知
+            ruleTitle:data.ruleTitle,//领券规则标题
+            ruleDescr:data.ruleDescr,//领券规则
+            backgroudColor:data.backgroudColor,
+            ruleList:ruleList,
+            noticeList:noticeList
+          }
+          that.setData({
+            styleInfo:style
+          })
+          wx.setNavigationBarTitle({
+            title: data.name
+          });
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: "none",
+            duration: 2000
+          });
+        }
+      },
+      fail:err =>{
+        let data = defaultStyle;
+          that.defaultStyle = data;
+          that.setData({
+            headerBanner:data.headPic
+          })
+        console.log(err)
       }
     });
   },
@@ -130,7 +188,7 @@ Page({
               app.globalData.openid = res.data.data["openid"];
               that.getInfo();
               that.getSaleList();
-              that.getRecordList(that.data.pageSize);
+              that.getRecordList(that.data.page);
             }
           });
         } else {
@@ -174,10 +232,10 @@ Page({
   },
   // 获取优惠券列表
   getSaleList() {
-    let activityId = this.data.activityId;
+    let activityId = this.activityId;
     var _this = this;
     app.getRequest({
-      url: app.globalData.KrUrl + "api/gateway/krcertificate/certificate/list",
+      url: app.globalData.KrUrl + 'api/gateway/kmcoupon/takeactivity/coupon-list',
       methods: "GET",
       header: {
         "content-type": "appication/json"
@@ -212,31 +270,33 @@ Page({
     });
   },
   // 获取领取记录
-  getRecordList(pageSize) {
-    let activityId = this.data.activityId;
+  getRecordList(page) {
+    let activityId = this.activityId;
     var _this = this;
     app.getRequest({
       url:
-        app.globalData.KrUrl + "api/gateway/krcertificate/certificate/record",
+        app.globalData.KrUrl + "api/gateway/kmcoupon/takeactivity/record-by-page",
       methods: "GET",
       header: {
         "content-type": "appication/json"
       },
       data: {
         activityId: activityId,
-        pageSize: pageSize
+        pageSize: 10,
+        page:page 
       },
       success: res => {
         if (res.data.code > 0) {
           let data = res.data.data;
-          data.items.map(item => {
+          let list = [].concat(this.data.recordList,data.items)
+          list = list.map(item => {
             item.time = _this.changeTime(item.ctime, ".", true);
             return item;
           });
 
           this.setData({
-            recordList: data.items,
-            totalCount: data.totalCount
+            recordList:list,
+            totalPages: data.totalPages
           });
         } else {
           wx.showToast({
@@ -294,39 +354,39 @@ Page({
     return n[1] ? n : "0" + n;
   },
   getMore() {
-    let pageSize = this.data.pageSize;
-    pageSize += 10;
+    let page = this.data.page;
+    page+= 1;
 
-    this.getRecordList(pageSize);
+    this.getRecordList(page);
     this.setData({
-      pageSize: pageSize
+      page: page
     });
   },
   getSale(e,id) {
     var _this = this;
-    var pageSize = this.data.pageSize;
+    let page = this.data.page;
     let couponBaseId = id ||  e.currentTarget.dataset.id;
     console.log("点击领取",couponBaseId);
     app.getRequest({
       url:
-        app.globalData.KrUrl + "api/gateway/krcertificate/certificate/receive",
+        app.globalData.KrUrl + "api/gateway/kmcoupon/takeactivity/coupon/take",
       method: "POST",
       header: {
         "content-type": "appication/json"
       },
       data: {
-        couponBaseId: couponBaseId
+        couponBaseId: couponBaseId,
+        activityId:_this.activityId
       },
       success: res => {
-        console.log("res---", res);
         if (res.data.code == 1) {
           wx.showToast({
             title: "领取成功",
-            image: "../images/public/success.png",
+            image: "../images/success.png",
             duration: 2000
           });
           _this.getSaleList();
-          _this.getRecordList(pageSize);
+          _this.getRecordList(page);
         } else {
           wx.showToast({
             title: res.data.message,
@@ -340,13 +400,13 @@ Page({
   //授权
   onGotUserInfo: function(e) {
     console.log('e.currentTarget.dataset.id',e)
-    let pageSize = this.data.pageSize;
+    let page = this.data.page;
     let id = e.currentTarget.dataset.id
     if (e.detail.userInfo) {
       this.getInfo();
       this.getSaleList();
       this.getSale('',id)
-      this.getRecordList(pageSize);
+      this.getRecordList(page);
       this.setData({
         btn_bool: false
       });
