@@ -145,8 +145,17 @@ Page({
             ruleList:ruleList,
             noticeList:noticeList
           }
+          let isExpired = data.published?false:true;
+          if(data.published){
+            isExpired = data.isExpired?true:false
+          }
+
+
+
+
           that.setData({
-            styleInfo:style
+            styleInfo:style,
+            isExpired: isExpired
           })
           wx.setNavigationBarTitle({
             title: data.name
@@ -245,7 +254,6 @@ Page({
       },
       success: res => {
         if (res.data.code > 0) {
-          let isExpired = res.data.code == 2 ? true : false;
           let data = res.data.data;
           if (Object.keys(data).length > 0) {
             data.map(item => {
@@ -257,13 +265,8 @@ Page({
 
           this.setData({
             saleList: data,
-            isExpired: isExpired
           });
         } else {
-          let isExpired = true;
-          this.setData({
-            isExpired: isExpired
-          });
           wx.showToast({
             title: res.data.message,
             icon: "none",
