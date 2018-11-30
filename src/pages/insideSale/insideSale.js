@@ -82,6 +82,30 @@ const styleType = {
     navigationBarTitle: "中海VIP专享礼包",
     headerBanner: app.globalData.KrImgUrl + "insideSale/guomao_bg.jpg"
   },
+  // 36氪*元璟
+  "12": {
+    title: "给你送券啦，快来领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/bg12.jpg",
+    navigationBarTitle: "36氪X元璟沙龙专享福利券 ",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/banner12.png",
+  },
+  // 暖冬行动
+  "13": {
+    title: "给你送券啦，快来领～",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/bg13.jpg",
+    navigationBarTitle: "暖冬行动专享礼券",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/banner13.jpg",
+  },
+  // 行动
+  "14": {
+    title: "快来和我一起疯狂拆礼包！560元礼包等你来抢！",
+    desc: "氪空间自由座",
+    imageUrl: "insideSale/bg14.jpg",
+    navigationBarTitle: "京东会员专享礼包",
+    headerBanner: app.globalData.KrImgUrl + "insideSale/banner14.jpg"
+  },
 };
 
 Page({

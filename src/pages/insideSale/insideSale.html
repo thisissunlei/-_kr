@@ -1,10 +1,13 @@
-<view class="{{ruleModal?'g-inside-sale not-scroll':'g-inside-sale'}} {{(style == 2) ? 'green' : ''}} {{(style == 3) ? 'fancy-carp' : ''}}">
+<view
+    class="{{ruleModal?'g-inside-sale not-scroll':'g-inside-sale'}} {{(style == 2) ? 'green' : ''}} {{(style == 3) ? 'fancy-carp' : ''}} {{style == 12 ? 'bg12' : ''}} {{style == 13 ? 'bg13' : ''}} {{style == 14 ? 'bg14' : ''}}">
     <view class="u-header">
         <image class="u-header-bg" src="{{styleInfo.headerBanner}}"></image>
         <text wx:if="{{!style || (style==0) }}" class="u-header-txt" bindtap="modalHide">活动规则</text>
-        <text wx:if="{{style==1 || style == 4 || style == 5 || style == 8 || style == 9 || style == 10 || style == 11}}" class="u-header-txt1" bindtap="modalHide">活动规则</text>
-        <text wx:if="{{style==2 || style == 3}}" class="u-header-txt2" bindtap="modalHide">活动规则</text>
-            
+        <text
+            wx:if="{{style==1 || style == 4 || style == 5 || style == 8 || style == 9 || style == 10 || style == 11 || style == 13}}" class="u-header-txt1" bindtap="modalHide">活动规则</text>
+        <text wx:if="{{style==2 || style == 3 || style == 12 || style == 14}}" class="u-header-txt2"
+              bindtap="modalHide">活动规则</text>
+
     </view>
     <view class="m-sale-content">
         <view class="u-nothing" wx:if="{{isExpired}}">
@@ -40,7 +43,7 @@
 
         </view>
     </view>
-    <view class="u-get-sale-info {{(style == 2) ? 'green' : ''}} {{(style == 3) ? 'fancy-carp' : ''}}" wx:if="{{recordList.length>0}}">
+    <view class="u-get-sale-info {{(style == 2) ? 'green' : ''}} {{(style == 3) ? 'fancy-carp' : ''}} {{style == 12 ? 'bg12' : ''}} {{style == 13 ? 'bg13' : ''}} {{style == 14 ? 'bg14' : ''}}" wx:if="{{recordList.length>0}}">
         <view class="u-get-info-content">
             <view class="u-get-title">领取记录</view>
             <image class="u-sale-info-bg" src="{{imgUrl}}/insideSale/info_bg.png"></image>
@@ -88,16 +91,27 @@
                     <view class="u-rule-txt">2. 每种礼券每人限领取1次;</view>
                     <view class="u-rule-txt">3. 活动最终解释权归氪空间所有。</view>
                 </view>
-                <view wx:if="{{style == 2 || style == 3 || style == 4 || style == 5 || style == 8 || style == 9 || style == 10 || style == 11}}">
+                <view
+                    wx:if="{{style == 2 || style == 3 || style == 4 || style == 5 || style == 8 || style == 9 || style == 10 || style == 11 || style == 12 || style == 13}}">
                     <view class="u-rule-title">· 活动规则 ·</view>
                     <view class="u-rule-txt" wx:if="{{style == 2}}">1. 活动时间：截至到2018年11月17日 24:00:00;</view>
                     <view class="u-rule-txt" wx:if="{{style == 3}}">1. 活动时间：截至到2018年11月15日 24:00:00;</view>
                     <view class="u-rule-txt" wx:if="{{style == 4}}">1. 活动时间：截至到2018年11月20日 24:00:00;</view>
                     <view class="u-rule-txt" wx:if="{{style == 5}}">1. 活动时间：截至到2018年12月31日 24:00:00;</view>
-                    <view class="u-rule-txt" wx:if="{{style == 8 || style == 9 || style == 10 || style == 11}}">1. 活动时间：截至到2019年5月31日 24:00:00;</view>
+                    <view class="u-rule-txt"
+                          wx:if="{{style == 8 || style == 9 || style == 10 || style == 11 || style == 12 || style == 13}}">1. 活动时间：截至到2019年5月31日 24:00:00;</view>
                     <view class="u-rule-txt">2. 礼券领取后自动存储到您的账户中，通过授权手机号码可查看和使用礼券;</view>
                     <view class="u-rule-txt">3. 每种礼券每人限领取1次;</view>
                     <view class="u-rule-txt">4. 活动最终解释权归氪空间所有。</view>
+                </view>
+                <view
+                    wx:if="{{style == 14}}">
+                    <view class="u-rule-title">· 活动规则 ·</view>
+                    <view class="u-rule-txt">1. 此礼包可在氪空间自由座中使用，没有满减门槛，下单立减礼券金额；</view>
+                    <view class="u-rule-txt">2. 京东企业会员可以按天/小时，预定全国8个城市中7000多个座位和500多个会议室；</view>
+                    <view class="u-rule-txt">3. 不限使用方式（预定会议室/移动工位），无需签订协议和支付押金；</view>
+                    <view class="u-rule-txt">4. 预定即享共享区和会议室内附带的办公设施，WIFI、咖啡/茶饮、白板、投屏、无线电视等；</view>
+                    <view class="u-rule-txt">5. 使用有效期至2019年2月28日前，活动最终解释权归氪空间所有。</view>
                 </view>
                 <!-- 礼券规则 -->
                 <view>
