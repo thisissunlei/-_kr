@@ -24,6 +24,8 @@ Page({
       title: "加载中",
       mask: true
     });
+    wx.reportAnalytics("enter_get_coupon");
+    
     wx.getSetting({
       success: res => {
         if (res.authSetting["scope.userInfo"]) {

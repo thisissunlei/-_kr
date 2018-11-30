@@ -79,6 +79,9 @@ Page({
     if (options.q) {
       const channelname_v = this.getURLParam(options.q, "id");
       this.activityId = channelname_v;
+      wx.reportAnalytics("coupon_channel", {
+        coupon_id: channelname_v
+      });
     }
 
     if (options.id) {

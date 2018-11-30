@@ -50,6 +50,7 @@ Page({
         type: options.type
       });
     }
+    wx.reportAnalytics("enter_invitation_letter");
     wx.showLoading({
       title: "加载中",
       mask: true
