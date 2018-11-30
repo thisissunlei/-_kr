@@ -74,8 +74,7 @@
                 <!-- 活动规则 -->
                 <view>
                     <view class="u-rule-title">· {{styleInfo.ruleTitle}} ·</view>
-                    <view class="u-rule-txt" wx:for="{{styleInfo.noticeList}}" wx:key >{{item}}</view>
-                    <!-- <view class="u-rule-txt" wx:for="{{styleInfo.ruleList}}" wx:key >{{item}}</view> -->
+                    <view class="u-rule-txt" wx:for="{{styleInfo.ruleList}}" wx:key >{{item}}</view>
                 </view>
                 <!-- 礼券规则 -->
                 <view wx:if="{{styleInfo.noticeTitle}}">

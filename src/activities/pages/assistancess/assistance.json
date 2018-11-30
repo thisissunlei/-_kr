@@ -1,8 +1,0 @@
-{
-    "navigationBarTitleText": "助力领取礼品券",
-    "navigationBarBackgroundColor": "#210F3E",
-    "backgroundColor":"#210F3E",
-    "navigationBarTextStyle":"#FFFFFF",
-    "enablePullDownRefresh": false,
-    "onReachBottomDistance": 10
-}

@@ -260,6 +260,10 @@ Page({
             isExpired: isExpired
           });
         } else {
+          let isExpired = true;
+          this.setData({
+            isExpired: isExpired
+          });
           wx.showToast({
             title: res.data.message,
             icon: "none",

@@ -60,7 +60,6 @@
     {
         "root":"activities",
         "pages":[
-            "pages/assistancess/assistance",
             "pages/insideSale/insideSale"
         ]
     }
