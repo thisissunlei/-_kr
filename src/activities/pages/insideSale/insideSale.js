@@ -23,7 +23,7 @@ Page({
     pageSize: 10,
     page:1,
     isExpired: false,
-    totalPages: 0,
+    totalCount: 0,
     btn_bool: true,
     styleInfo: {
       headerBanner: app.globalData.KrImgUrl + "insideSale/banner1.jpg",
@@ -200,7 +200,7 @@ Page({
               app.globalData.openid = res.data.data["openid"];
               that.getInfo();
               that.getSaleList();
-              that.getRecordList(that.data.page);
+              that.getRecordList(that.data.pageSize);
             }
           });
         } else {
@@ -280,7 +280,7 @@ Page({
     });
   },
   // 获取领取记录
-  getRecordList(page) {
+  getRecordList(pageSize) {
     let activityId = this.activityId;
     var _this = this;
     app.getRequest({
@@ -292,21 +292,20 @@ Page({
       },
       data: {
         activityId: activityId,
-        pageSize: 10,
-        page:page 
+        pageSize: pageSize, 
       },
       success: res => {
         if (res.data.code > 0) {
           let data = res.data.data;
-          let list = [].concat(this.data.recordList,data.items)
-          list = list.map(item => {
+          let list = []
+          list = data.items.map(item => {
             item.time = _this.changeTime(item.ctime, ".", true);
             return item;
           });
 
           this.setData({
             recordList:list,
-            totalPages: data.totalPages
+            totalCount: data.totalCount
           });
         } else {
           wx.showToast({
@@ -364,17 +363,17 @@ Page({
     return n[1] ? n : "0" + n;
   },
   getMore() {
-    let page = this.data.page;
-    page+= 1;
+    let pageSize = this.data.pageSize;
+    pageSize+= 10;
 
-    this.getRecordList(page);
+    this.getRecordList(pageSize);
     this.setData({
-      page: page
+      pageSize: pageSize
     });
   },
   getSale(e,id) {
     var _this = this;
-    let page = this.data.page;
+    let pageSize = this.data.pageSize;
     let couponBaseId = id ||  e.currentTarget.dataset.id;
     console.log("点击领取",couponBaseId);
     app.getRequest({
@@ -396,7 +395,7 @@ Page({
             duration: 2000
           });
           _this.getSaleList();
-          _this.getRecordList(page);
+          _this.getRecordList(pageSize);
         } else {
           wx.showToast({
             title: res.data.message,
@@ -410,13 +409,13 @@ Page({
   //授权
   onGotUserInfo: function(e) {
     console.log('e.currentTarget.dataset.id',e)
-    let page = this.data.page;
+    let pageSize = this.data.pageSize;
     let id = e.currentTarget.dataset.id
     if (e.detail.userInfo) {
       this.getInfo();
       this.getSaleList();
       this.getSale('',id)
-      this.getRecordList(page);
+      this.getRecordList(pageSize);
       this.setData({
         btn_bool: false
       });

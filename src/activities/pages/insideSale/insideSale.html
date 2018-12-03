@@ -53,7 +53,7 @@
                     领取了<text class="u-red-salse">{{item.faceValue}}元礼券</text>
                 </view>
             </view>
-            <view class="u-list-more" wx:if="{{totalPages>page}}" bindtap="getMore">点击加载更多</view>
+            <view class="u-list-more" wx:if="{{totalCount>5 && totalCount>pageSize}}" bindtap="getMore">点击加载更多</view>
 
         </view>
     </view>
@@ -67,26 +67,10 @@
     </view>
 
     <!-- 活动规则 -->
-    <view class="m-activity-rule" wx:if="{{ruleModal}}" wx:show="false">
-        <image class="u-activity-rule-close" mode="widthFix" bindtap="modalHide" src="https://web.krspace.cn/kr-meeting/images/activity/close.png"></image>
-        <view class="u-activity-rule">
-            <view class="u-rule-content">
-                <!-- 活动规则 -->
-                <view>
-                    <view class="u-rule-title">· {{styleInfo.ruleTitle}} ·</view>
-                    <view class="u-rule-txt" wx:for="{{styleInfo.ruleList}}" wx:key >{{item}}</view>
-                </view>
-                <!-- 礼券规则 -->
-                <view wx:if="{{styleInfo.noticeTitle}}">
-                    <view class="u-rule-title">· {{styleInfo.noticeTitle}} ·</view>
-                    <view class="u-rule-txt" wx:for="{{styleInfo.noticeList}}" wx:key >{{item}}</view>
-                </view>
-            </view>
-        </view>
-    </view> 
     <view class="m-activity-rule" wx:if="{{ruleModal}}">
-        <image class="u-activity-rule-close" mode="widthFix" bindtap="modalHide" src="https://web.krspace.cn/kr-meeting/images/activity/close.png"></image>
+        
         <view class="u-activity-rules">
+            <image class="u-activity-rule-closes" mode="widthFix" bindtap="modalHide" src="https://web.krspace.cn/kr-meeting/images/activity/close.png"></image>
             <view class="u-rule-contents">
                 <!-- 活动规则 -->
                 <view>
