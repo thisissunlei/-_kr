@@ -194,17 +194,29 @@ Page({
               code: res.code
             },
             success: function(res) {
-              wx.hideLoading();
-              app.globalData.Cookie =
-                res.header["Set-Cookie"] || res.header["set-cookie"];
-              app.globalData.openid = res.data.data["openid"];
-              that.getInfo();
-              that.getSaleList();
-              that.getRecordList(that.data.pageSize);
+              if(res.data.data){
+                wx.hideLoading();
+                app.globalData.Cookie =
+                  res.header["Set-Cookie"] || res.header["set-cookie"];
+                app.globalData.openid = res.data.data["openid"];
+                that.getInfo();
+                that.getSaleList();
+                that.getRecordList(that.data.pageSize);
+              }else{
+                wx.showToast({
+                  title: '登录失败',
+                  icon: "none",
+                  duration: 2000
+                });
+              }
+              
+            },
+            fail:function(err){
+              console.log('err',err)
             }
           });
         } else {
-          // console.log("登录失败！" + res.errMsg);
+          console.log("登录失败！" + res.errMsg);
         }
       }
     });
