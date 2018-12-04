@@ -19,8 +19,8 @@
                         <text class="u-sale-rule" wx:if="{{item.ruleType=='FULL_REDUCTION'}}">满{{item.quota}}使用</text>
                     </view>
                     <view class="u-sale-name">{{item.couponName}}</view>
-                    <view class="u-sale-time" wx:if="{{item.effectAt}}">使用期限：{{item.startTime}}-{{item.endTime}}</view>
-                    <view class="u-sale-time" wx:if="{{item.effectDay}}">使用期限：{{item.effectDay}}天</view>
+                    <view class="u-sale-time" wx:if="{{item.expireType == 'START_END_TIME'}}">使用期限：{{item.startTime}}-{{item.endTime}}</view>
+                    <view class="u-sale-time" wx:if="{{item.expireType == 'VALID_DATE'}}">使用期限：{{item.effectDay}}天</view>
                 </view>
                 <view class="u-sale-status">
                     <view class="u-sale-get-btn u-get-sale" wx:if="{{item.allowance==1}}">

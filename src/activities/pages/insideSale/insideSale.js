@@ -40,7 +40,7 @@ Page({
   onShareAppMessage: function(res) {
     let data = this.defaultStyle;
     let activityId = this.activityId
-    console.log('onShareAppMessage',data)
+    console.log('onShareAppMessage',data.sharePic)
     return {
       title: data.shareDescr,
       desc: data.name,
