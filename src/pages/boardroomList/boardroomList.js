@@ -645,18 +645,21 @@ Page({
       today_date.getFullYear() == new Date().getFullYear()
         ? ""
         : today_date.getFullYear() + "年";
-    
+    var next_val_year = today_date.getMonth()+2 <= 12 ? today_date.getFullYear() : today_date.getFullYear()+1;
+    var next_val_month = today_date.getMonth()+2 <= 12 ? (today_date.getMonth()+2) : 1;
     this.setData({
       date_now: {
         month: today_date.getMonth() + 1,
         year: today_date.getFullYear(),
-        value: year_value + (parseInt(today_date.getMonth()) + 1) + "月",
+        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+1) + '月',  //年月
+        //value: year_value + (parseInt(today_date.getMonth()) + 1) + "月",
         choose: ""
       },
       date_next: {
-        month: today_date.getMonth() + 2,
-        year: today_date.getFullYear(),
-        value: year_value + (parseInt(today_date.getMonth()) + 2) + "月",
+        month: next_val_month,
+        year: next_val_year,
+        value:next_val_year+'年'+ next_val_month + '月',
+        //value: year_value + next_val_month + "月",
         choose: ""
       }
     });

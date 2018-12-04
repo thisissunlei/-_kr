@@ -504,6 +504,10 @@ Page({
      const today_date = new Date();
      const today_month = new Date(today_date.getFullYear(),today_date.getMonth(),1)
      const next_month = new Date(today_date.getFullYear(),today_date.getMonth()+1,1)
+     
+    var next_val_year = today_date.getMonth()+2 <= 12 ? today_date.getFullYear() : today_date.getFullYear()+1;
+    var next_val_month = today_date.getMonth()+2 <= 12 ? (today_date.getMonth()+2) : 1;
+
      this.dealDate(this.nowDate);
      this.setData({
       
@@ -514,9 +518,9 @@ Page({
         choose:''
       },
       date_next:{
-        month:today_date.getMonth()+2,
-        year:today_date.getFullYear(),
-        value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
+        month:next_val_month,
+        year:next_val_year,
+        value:next_val_year+'年'+next_val_month + '月',
         choose:''
       }
     });

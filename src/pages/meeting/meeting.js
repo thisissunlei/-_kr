@@ -208,7 +208,10 @@ Page({
                 });
               this.date_data1 = that.james.date_data1;
               this.date_data2 = that.james.date_data2; 
-           
+              console.log(parseInt(today_date.getMonth())+2,999999)
+              var next_val_month = today_date.getMonth()+2 <= 12 ? today_date.getMonth()+2 : 1;
+              var next_val_year = today_date.getMonth()+2 <= 12 ? today_date.getFullYear() : today_date.getFullYear()+1
+              console.log(next_val_month,88888,next_val_year)
               this.setData({
                 date_data1:this.date_data1,
                 date_data2:this.date_data2,
@@ -219,9 +222,9 @@ Page({
                   choose:''
                 },
                 date_next:{
-                  month:today_date.getMonth()+2,
-                  year:today_date.getFullYear(),
-                  value:today_date.getFullYear()+'年'+(parseInt(today_date.getMonth())+2) + '月',
+                  month:next_val_month+2,
+                  year:next_val_year,
+                  value:next_year+'年'+ next_val_month + '月',
                   choose:''
                 }
               });
