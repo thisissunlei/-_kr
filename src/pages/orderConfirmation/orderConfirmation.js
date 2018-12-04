@@ -87,13 +87,6 @@ Page({
   isSubTime:false,
   ifFixed:false,
   james:'',
-  
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
   dateBtn :function(e){
     let _this = this;
       let evlue = this.james.dateBtn(e);

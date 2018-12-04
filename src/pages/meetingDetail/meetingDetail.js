@@ -52,13 +52,6 @@ Page({
   },
   inviteeId: "",
   status: "",
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: "../logs/logs"
-    });
-  },
-
   onLoad: function(options) {
     wx.showLoading({
       title: "加载中",

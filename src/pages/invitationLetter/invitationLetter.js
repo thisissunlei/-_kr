@@ -7,6 +7,7 @@ Page({
     bookUserName: "",
     adress: "",
     bookUserAvatar: "",
+    KrImgUrl: app.globalData.KrImgUrl,
     hint: [
       {
         title: "Q：到了大厦怎么进去呀，有门禁吗？",

@@ -11,7 +11,6 @@
     "pages/activityDetails/activity",
     "pages/activityQuickMark/activityQuickMark",
     "pages/invitationLetter/invitationLetter",
-    "pages/meeting/meeting",
     "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
     "pages/my/my",
