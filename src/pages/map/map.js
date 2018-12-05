@@ -26,7 +26,6 @@ Page({
     wx.getLocation({
       type: "gcj02",
       success: res => {
-        // console.log(res);
         that.setData({
           longitude: res.longitude,
           latitude: res.latitude
@@ -176,7 +175,8 @@ Page({
           markers: makArr,
           [str]: "../images/map/mark.png",
           [strWidth]: 32,
-          [strHeight]: 45
+          [strHeight]: 45,
+          cityName:cityNearby.data.data.cityName
         });
       }
     });

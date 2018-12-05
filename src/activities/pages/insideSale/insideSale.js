@@ -222,7 +222,7 @@ Page({
     });
   },
   //获取用户信息
-  getInfo: function() {
+  getInfo: function(bool) {
     var that = this;
 
     wx.getUserInfo({
@@ -239,6 +239,10 @@ Page({
           },
           success: res => {
             console.log("111");
+            if(bool){
+              that.getSale('',that.data.couponId)
+            }
+            
           }
         });
         //保存到storage里
@@ -420,16 +424,18 @@ Page({
   },
   //授权
   onGotUserInfo: function(e) {
-    console.log('e.currentTarget.dataset.id',e)
     let pageSize = this.data.pageSize;
-    let id = e.currentTarget.dataset.id
+    let id = e.currentTarget.dataset.id;
+    let _this = this;
     if (e.detail.userInfo) {
-      this.getInfo();
       this.getSaleList();
-      this.getSale('',id)
+      // this.getSale('',id)
       this.getRecordList(pageSize);
       this.setData({
-        btn_bool: false
+        btn_bool: false,
+        couponId:id
+      },function(){
+        _this.getInfo(true);
       });
     }
   }

@@ -1,6 +1,7 @@
 //app.js
 App({
   onLaunch: function() {
+    console.log('app.js----onLaunch')
     // 展示本地存储能力
     var that = this;
     var logs = wx.getStorageSync("logs") || [];
@@ -39,7 +40,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    KrUrl: "https://i.krspace.cn/test08/",
+    KrUrl: "https://i.krspace.cn/",
     Cookie: "",
     share_data: {
       title: "开启轻松、灵活办公新方式",
