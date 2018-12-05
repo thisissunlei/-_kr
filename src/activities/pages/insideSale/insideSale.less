@@ -1,0 +1,376 @@
+page {
+  width: 100%;
+  height: 100%;
+  font-family: "PingFangSC";
+  overflow-y: auto;
+}
+.g-inside-sale {
+  width: 100%;
+  min-height: 100%;
+  display: inline-block;
+  padding-bottom: 130rpx;
+}
+
+.u-header {
+  width: 100%;
+  height: 402rpx;
+  position: relative;
+  margin-bottom: 50rpx;
+}
+.u-header-bg {
+  width: 100%;
+  height: 402rpx;
+}
+.u-header-txt1 {
+  position: absolute;
+  font-size: 24rpx;
+  color: #3d5b87;
+  width: 96rpx;
+  height: 34rpx;
+  bottom: 14rpx;
+  right: 52rpx;
+}
+.u-header-txt2 {
+  position: absolute;
+  font-size: 24rpx;
+  color: #fff;
+  height: 34rpx;
+  bottom: 14rpx;
+  right: 52rpx;
+}
+.m-sale-content {
+  width: 100%;
+  min-height: 218rpx;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+}
+.u-sale-content {
+  width: 100%;
+  min-height: 218rpx;
+  display: inline-block;
+}
+.u-sale-list {
+  width: 100%;
+  height: 218rpx;
+  border-radius: 16rpx;
+  margin-bottom: 32rpx;
+  position: relative;
+}
+.u-sale-list:last-child {
+  margin-bottom: 0;
+}
+.u-sale-bg {
+  width: 100%;
+  height: 218rpx;
+  border-radius: 16rpx;
+}
+.u-sale-info {
+  width: 470rpx;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-left: 32rpx;
+  box-sizing: border-box;
+}
+.u-sale-no-expired {
+  border-right: 1px dashed #eabd71;
+  color: #eabd71;
+}
+.u-sale-expired {
+  border-right: 1px dashed #ffffff;
+  color: #ffffff;
+}
+.u-sale-status {
+  width: 180rpx;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.u-sale-get-btn {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 100% 100%;
+  margin: 60rpx auto;
+  font-size: 28rpx;
+  text-align: center;
+}
+.u-get-sale {
+  background: #eabd71;
+  color: #624d17;
+  padding-top: 20rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.u-get-user {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: 9999;
+}
+
+.u-get-sale .u-sale-txt {
+  line-height: 32rpx;
+}
+.u-no-get-sale {
+  background: #6d5c40;
+  color: #a88d42;
+  line-height: 100rpx;
+}
+.u-footer {
+  width: 100%;
+  height: 110rpx;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  text-align: center;
+  box-shadow: 0 0 4px 0 rgba(78, 65, 20, 0.1);
+  z-index: 100;
+}
+.u-only-btn {
+  width: 100%;
+  height: 100%;
+  line-height: 110rpx;
+  background: #ffeb00;
+  font-size: 36rpx;
+  color: #624d17;
+}
+.u-footer view {
+  flex: 1;
+  font-size: 34rpx;
+  text-align: center;
+  color: #624d17;
+  line-height: 110rpx;
+}
+.u-seat {
+  border-right: 1px solid #f3f3f3;
+  background: #ffffff;
+}
+.u-view-sale {
+  background: #ffffff;
+}
+.u-use-sale {
+  background: #ffeb00;
+}
+.u-nothing {
+  height: 468rpx;
+  width: 100%;
+}
+.u-nothing-img {
+  width: 260rpx;
+  height: 266rpx;
+  display: block;
+  margin: 0 auto 40rpx;
+}
+.u-nothing-text {
+  font-size: 32rpx;
+  color: #505d6e;
+  text-align: center;
+}
+.u-expired-img {
+  width: 170rpx;
+  height: 160rpx;
+  display: block;
+  margin-top: 30rpx;
+  margin-left: -10rpx;
+}
+.u-sale-amount {
+  font-size: 24rpx;
+  margin-top: 18rpx;
+}
+.u-sale-num {
+  font-size: 72rpx;
+  font-weight: 600;
+}
+.u-sale-name {
+  opacity: 0.7;
+  font-size: 26rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-weight: 600;
+}
+.u-sale-rule {
+  display: inline-block;
+  font-size: 24rpx;
+  padding-left: 32rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.u-sale-time {
+  opacity: 0.7;
+  font-size: 24rpx;
+}
+.u-get-sale-info {
+  width: 100%;
+  display: inline-block;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  margin: 40rpx 0;
+}
+.u-get-info-content {
+  width: 100%;
+  display: inline-block;
+  border-radius: 16rpx;
+  background: rgba(255, 255, 255, 0.4);
+  position: relative;
+  padding: 40rpx 24rpx;
+  box-sizing: border-box;
+}
+.u-sale-info-bg {
+  width: 618rpx;
+  height: 174rpx;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.u-get-title {
+  font-size: 32rpx;
+  color: #505d6e;
+  margin-bottom: 28rpx;
+  font-weight: 600;
+  text-align: center;
+}
+.u-sale-info-list {
+  display: flex;
+  margin-bottom: 46rpx;
+}
+.u-person-img {
+  width: 70rpx;
+  height: 70rpx;
+  border: 1px solid #eabd71;
+  border-radius: 100% 100%;
+  margin-right: 16rpx;
+}
+.u-person-info {
+  display: inline-block;
+  width: 260rpx;
+}
+.u-person-name {
+  font-size: 30rpx;
+  color: #3e4957;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.u-get-time {
+  font-size: 24rpx;
+  color: #778aa3;
+}
+.u-person-sale-info {
+  font-size: 26rpx;
+  color: #3e4957;
+  width: 312rpx;
+  text-align: right;
+  display: inline-block;
+  line-height: 72rpx;
+}
+.u-red-salse {
+  color: #ff3434;
+  font-weight: 600;
+}
+.u-list-more {
+  width: 180rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  font-size: 30rpx;
+  color: #666666;
+  text-align: center;
+  margin: -18rpx auto 20rpx;
+  position: relative;
+  z-index: 20;
+}
+.m-activity-rule {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+}
+.u-activity-rule {
+  width: 560rpx;
+  height: 700rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  overflow-y: auto;
+  border-radius: 16rpx;
+}
+.u-activity-rules {
+  width: 560rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  border-radius: 16rpx;
+  padding: 50rpx 40rpx;
+  background: #fff;
+  max-height: 700rpx;
+}
+.u-rule-content {
+  padding: 50rpx 40rpx ;
+  background-color: #fff;
+  border-radius: 16rpx;
+}
+.u-rule-contents{
+  max-height: 600rpx;
+  overflow-y: auto;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+}
+.u-rule-title {
+  text-align: center;
+  margin: 20rpx 0;
+}
+
+.u-rule-txt {
+  font-size: 30rpx;
+  line-height: 43rpx;
+  color: #666666;
+}
+.u-activity-rule-close {
+  position: absolute;
+  height: 120rpx;
+  width: 60rpx;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin:-400rpx 0 0 250rpx;
+}
+.u-activity-rule-closes {
+  height: 120rpx;
+  width: 60rpx;
+  position: absolute;
+  top: -110rpx;
+  right: 0;
+}
+
+.not-scroll {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 0;
+}
+.green {
+  background: #b0d3c9;
+}
+.fancy-carp {
+  background: #f2ca61;
+}

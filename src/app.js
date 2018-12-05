@@ -1,6 +1,7 @@
 //app.js
 App({
   onLaunch: function() {
+    console.log('app.js----onLaunch')
     // 展示本地存储能力
     var that = this;
     var logs = wx.getStorageSync("logs") || [];

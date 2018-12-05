@@ -11,7 +11,6 @@
     "pages/activityDetails/activity",
     "pages/activityQuickMark/activityQuickMark",
     "pages/invitationLetter/invitationLetter",
-    "pages/meeting/meeting",
     "pages/seatorderConfirmation/seatorderConfirmation",
     "pages/orderseatDetail/orderseatDetail",
     "pages/my/my",
@@ -22,7 +21,6 @@
     "pages/meetingDetail/meetingDetail",
     "pages/mysanzuo/mysanzuo",
     "pages/cityList/cityList",
-    "pages/logs/logs",
     "pages/meetingTem/meetingTem",
     "pages/orderConfirmation/orderConfirmation",
     "pages/meetingTheme/meetingTheme",
@@ -55,6 +53,14 @@
     "pages/bargain/bargain",
     "pages/bargainFriend/bargainFriend",
     "pages/krSpace/krSpace"
+  ],
+  "subPackages":[
+    {
+        "root":"activities",
+        "pages":[
+            "pages/insideSale/insideSale"
+        ]
+    }
   ],
   "window": {
     "backgroundTextStyle": "light",

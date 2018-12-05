@@ -1,0 +1,91 @@
+<view class="{{ruleModal?'g-inside-sale not-scroll':'g-inside-sale'}}" style="background: #{{styleInfo.backgroudColor}}">
+    <view class="u-header">
+        <image class="u-header-bg" src="{{styleInfo.headerBanner}}"></image>
+        <text class="u-header-txt2" bindtap="modalHide" style="color:#{{styleInfo.fontColor}}">{{styleInfo.ruleTitle}}</text>
+            
+    </view>
+    <view class="m-sale-content">
+        <view class="u-nothing" wx:if="{{isExpired}}">
+            <image class="u-nothing-img" src="{{imgUrl}}/insideSale/nothing.png"></image>
+            <view class="u-nothing-text">很抱歉，活动已结束</view>
+        </view>
+        <view class="u-sale-content" wx:if="{{!isExpired}}">
+            <view class="u-sale-list" wx:for="{{saleList}}" wx:key>
+                <image class="u-sale-bg" wx:if="{{item.allowance!=3}}" src="{{imgUrl}}/insideSale/Mask.jpg"></image>
+                <image class="u-sale-bg" wx:if="{{item.allowance==3}}" src="{{imgUrl}}/insideSale/expired.jpg"></image>
+                <view class="u-sale-info {{item.allowance!=3?'u-sale-no-expired':'u-sale-expired'}} ">
+                    <view class="u-sale-amount">
+                        ￥<text class="u-sale-num">{{item.amount}}</text>
+                        <text class="u-sale-rule" wx:if="{{item.ruleType=='FULL_REDUCTION'}}">满{{item.quota}}使用</text>
+                    </view>
+                    <view class="u-sale-name">{{item.couponName}}</view>
+                    <view class="u-sale-time" wx:if="{{item.expireType == 'START_END_TIME'}}">使用期限：{{item.startTime}}-{{item.endTime}}</view>
+                    <view class="u-sale-time" wx:if="{{item.expireType == 'VALID_DATE'}}">使用期限：{{item.effectDay}}天</view>
+                </view>
+                <view class="u-sale-status">
+                    <view class="u-sale-get-btn u-get-sale" wx:if="{{item.allowance==1}}">
+                        <view class="u-sale-txt" data-id="{{item.couponBaseId}}" bindtap="getSale">立即</view>
+                        <view class="u-sale-txt" data-id="{{item.couponBaseId}}" bindtap="getSale">领取</view>
+                        <button wx:if="{{btn_bool}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" data-id="{{item.couponBaseId}}"
+                            class="u-get-user"></button>
+                    </view>
+                    <view class="u-sale-get-btn u-no-get-sale" wx:if="{{item.allowance==2}}">
+                        已领取
+                    </view>
+                    <image class="u-expired-img" wx:if="{{item.allowance==3}}" src="{{imgUrl}}/insideSale/loot.png"></image>
+                </view>
+            </view>
+
+        </view>
+    </view>
+    <view class="u-get-sale-info" wx:if="{{recordList.length>0}}">
+        <view class="u-get-info-content">
+            <view class="u-get-title">领取记录</view>
+            <image class="u-sale-info-bg" src="{{imgUrl}}/insideSale/info_bg.png"></image>
+
+            <view class="u-sale-info-list" wx:for="{{recordList}}" wx:key>
+                <image class="u-person-img" src="{{item.donatorAvatar}}"></image>
+                <view class="u-person-info">
+                    <view class="u-person-name">{{item.donatorThirdNick}}</view>
+                    <view class="u-get-time">{{item.time}}</view>
+                </view>
+                <view class="u-person-sale-info">
+                    领取了<text class="u-red-salse">{{item.faceValue}}元礼券</text>
+                </view>
+            </view>
+            <view class="u-list-more" wx:if="{{totalCount>5 && totalCount>pageSize}}" bindtap="getMore">点击加载更多</view>
+
+        </view>
+    </view>
+    <view class="u-footer" wx:if="{{btn_bool}}">
+        <view class="u-only-btn" bindtap="goToIndex">了解自由座</view>
+    </view>
+    <view class="u-footer" wx:if="{{!btn_bool}}">
+        <view class="u-seat" bindtap="goToPoint">了解自由座</view>
+        <view class="u-view-sale" bindtap="goToSale">查看礼券</view>
+        <view class="u-use-sale" bindtap="goToIndex">使用礼券</view>
+    </view>
+
+    <!-- 活动规则 -->
+    <view class="m-activity-rule" wx:if="{{ruleModal}}">
+        
+        <view class="u-activity-rules">
+            <image class="u-activity-rule-closes" mode="widthFix" bindtap="modalHide" src="https://web.krspace.cn/kr-meeting/images/activity/close.png"></image>
+            <view class="u-rule-contents">
+                <!-- 活动规则 -->
+                <view>
+                    <view class="u-rule-title">· {{styleInfo.ruleTitle}} ·</view>
+                    <view class="u-rule-txt" wx:for="{{styleInfo.ruleList}}" wx:key >{{item}}</view>
+                </view>
+                <!-- 礼券规则 -->
+                <view wx:if="{{styleInfo.noticeTitle}}">
+                    <view class="u-rule-title">· {{styleInfo.noticeTitle}} ·</view>
+                    <view class="u-rule-txt" wx:for="{{styleInfo.noticeList}}" wx:key >{{item}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+
+
+</view>

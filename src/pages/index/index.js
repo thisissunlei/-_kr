@@ -13,7 +13,7 @@ Page({
       title: "开启轻松、灵活办公新方式",
       desc: "氪空间自由座",
       path: "pages/index/index",
-      imageUrl: "../images/share_pic.jpg"
+      imageUrl: app.globalData.KrImgUrl+"share_pic.jpg"
     };
   },
   data: {
