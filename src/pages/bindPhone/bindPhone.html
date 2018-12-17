@@ -3,6 +3,7 @@
 	<view class="input-box">
 		<view class="city-box" bindtap="opencity">
 			<text style="margin-right:6px">+{{phoneRange}}</text>
+			<view class="triangle"></view>
 			<text><image bindtap="clearValue" style="height:8.5px;width:5px;margin-bottom:2px" src="../images/public/right-arrow.png" ></image></text>
 		</view>
 		<view class="phone-box">
@@ -18,8 +19,14 @@
 		<view class="button" wx:if="{{inputValue.length}}" bindtap="formSubmit">确 定</view>
 		<!-- <view class="button"  bindtap="create">生 成</view> -->
 	</view>
+	<view class="notice">
+		已阅读并同意<text bindtap="goNotice">氪空间自由座服务须知</text>
+	</view>
 	<view class="bind-box">
-		<div class="phone-button">微信授权手机号</div>
+		<view class="phone-button">
+			<image class="weixin" src="{{KrImgUrl}}scanCode/weixin.png"></image>
+			使用微信绑定的手机号
+		</view>
 		<button open-type="getPhoneNumber" class="get-phone-num" bindgetphonenumber="getPhoneNumber">微信授权手机号</button> 
 	</view>
 	<view class="last-view">

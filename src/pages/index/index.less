@@ -145,6 +145,37 @@
   margin: auto;
   margin-bottom: 40rpx;
 }
+
+.scan {
+  position: absolute;
+  z-index: 9;
+  width: 120rpx;
+  height: 120rpx;
+  top: 148rpx;
+  left: -26rpx;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 10px 20px 0 rgba(128,118,150,0.50);
+}
+
+.scan > image, .qrcode > image {
+  width: 60rpx;
+  height: 60rpx;
+  margin: 30rpx;
+}
+
+.qrcode {
+  position: absolute;
+  z-index: 9;
+  width: 120rpx;
+  height: 120rpx;
+  top: 148rpx;
+  right: -26rpx;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 10px 20px 0 rgba(128,118,150,0.50);
+}
+
 .metting .my-metting {
   width: 100%;
   height: 396rpx;
@@ -882,4 +913,160 @@ button {
 }
 .form-id:after {
   border: none;
+}
+
+.qr-detail-dialog {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.70);
+  z-index: 1000;
+}
+
+.qr-detail-dialog .content-box {
+  position: absolute;
+  top: 150rpx;
+  left: 96rpx;
+  width: 574rpx;
+  height: 632rpx;
+  background: #FFFFFF;
+  border-radius: 16px;
+}
+
+.close-button {
+  width: 44rpx;
+  height: 90rpx;
+  position: absolute;
+  top: -88rpx;
+  right: 40rpx;
+}
+
+.mycanvas {
+  display: block;
+  position: absolute;
+  margin: 8px;
+  padding: 0;
+  width: 160px;
+  height: 160px;
+  top: 0;
+  left: 0;
+}
+
+.code-pic {
+  position: relative;
+  width: 352rpx;
+  margin: 104rpx auto 0;
+}
+
+.code-pic > image {
+  width: 352rpx;
+  height: 352rpx;
+}
+
+.qr-text {
+  text-align: center;
+  height: 32rpx;
+  line-height: 32rpx;
+  margin-top: 40rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.u-dialog {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+}
+.u-dialog-content {
+  width: 560rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -280rpx;
+  margin-top: -240rpx;
+  padding-top: 60rpx;
+}
+
+.u-dialog-title {
+  font-size: 40rpx;
+  color: #000000;
+  text-align: center;
+  height: 108rpx;
+  line-height: 108rpx;
+}
+.u-dialog-container {
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e5e5e5;
+}
+.u-dialog-p {
+  padding-left: 24rpx;
+  padding-bottom: 20rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  color: #333;
+  line-height: 48rpx;
+  margin-bottom: 30rpx;
+  position: relative;
+  font-weight: 400;
+  text-align: center;
+}
+.u-dialog-style {
+  position: absolute;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 100% 100%;
+  background: #666666;
+  left: 0;
+  top: 18rpx;
+}
+.u-dialog-footer {
+  height: 100rpx;
+}
+.u-dialog-btn {
+  text-align: center;
+  line-height: 100rpx;
+  float: left;
+  font-size: 34rpx;
+  width: 50%;
+}
+
+.u-dialog-cancal {
+  color: #000000;
+  border-right: 1px solid #e5e5e5;
+  box-sizing: border-box;
+}
+.u-dialog-yes {
+  color: #f5a623;
+}
+.password-dialog .u-dialog-content {
+  padding-top: 20rpx;
+}
+
+.password-dialog .u-dialog-p {
+  font-size: 38rpx;
+  margin-top: 14rpx;
+  color: #f5a623;
+  padding-left: 0;
+  margin-bottom: 20rpx;
+}
+
+.password-dialog .u-dialog-btn {
+  width: 100%;
+}
+
+.password-dialog .u-dialog-cancal {
+  color: #000000;
+  box-sizing: border-box;
+  border: 0;
 }

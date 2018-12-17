@@ -40,7 +40,10 @@ Page({
       { text: "❊ 不可改变社区任何设施，如有损坏需赔偿哦！" },
       { text: "❊ 不可吸烟哦！" },
       { text: "❊ 不可进行违反法律规定的任何事项哦！" }
-    ]
+    ],
+    phoneDialog: false,
+    passwordDialog: false,
+    password: ''
   },
   onLoad: function(options) {
     var that = this;
@@ -205,5 +208,38 @@ Page({
         // console.log(888, err);
       }
     });
+  },
+
+  moveToBind() {
+    this.setData({
+      phoneDialog: false,
+    });
+    wx.setStorage({
+      key: 'bind_phone_url',
+      data: "../mysanzuo/mysanzuo",
+      success: (res) => {
+        wx.navigateTo({
+          url: "../bindPhone/bindPhone?fun=goStorageUrl"
+        });
+      }
+    });
+  },
+
+  closeDialog() {
+    this.setData({
+      phoneDialog: false,
+      passwordDialog: false
+    })
+  },
+
+  closeDialogAndGo() {
+    this.setData({
+      phoneDialog: false,
+      passwordDialog: false
+    }, () => {
+      wx.redirectTo({
+        url: `../mysanzuo/mysanzuo`
+      });
+    })
   }
 });

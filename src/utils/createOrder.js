@@ -355,9 +355,26 @@ var backCard = function(){
     url: '../teamCardPurchase/teamCardPurchase'
   })
 }
+
+const goStorageUrl = () => {
+  setTimeout(() => {
+    wx.getStorage({
+      key: 'bind_phone_url',
+      success: function(res) {
+        if (res.data) {
+          wx.redirectTo({
+            url: res.data || '../index/index'
+          })
+        }
+      }
+    })
+  }, 1000);
+};
+
 module.exports = {
     getSeatData:getSeatData,
     navBack:navBack,
     getOrderData:getOrderData,
-    getGoodsData: getGoodsData
+    getGoodsData: getGoodsData,
+    goStorageUrl
 }

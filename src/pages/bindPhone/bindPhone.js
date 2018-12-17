@@ -9,6 +9,7 @@ const app = getApp()
 
 Page({
   data: {
+    KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
     inputValue:'',
     inputValues:'',
     phoneRange:'+86',
@@ -146,11 +147,12 @@ Page({
         url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
         methods:"GET",
         data:{
-          "phone":that.data.inputValue
+          "phone":that.data.inputValue,
+          areaCode: this.data.phoneRange
         },
         success:(res)=>{
           that.submit_buttom = true
-          if(res.data.code>0 ){
+          if(res.data.code<0 ){
                wx.hideLoading();
               wx.navigateTo({
                 url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from+'&fun='+this.data.fun
@@ -190,6 +192,12 @@ Page({
         }
       })
   },
+
+  goNotice() {
+    wx.navigateTo({
+      url: '../guide/guide'
+    });
+  }
 
 
 })

@@ -39,6 +39,41 @@
       </view>
     </view>
   </view>
+
+  <!-- 绑定手机号提示框 -->
+  <view class="u-dialog" wx:if="{{phoneDialog}}" catchtouchmove="ture">
+    <view class="u-dialog-content">
+      <!--<view class="u-dialog-title">提示</view>-->
+      <view class="u-dialog-container">
+        <view class="u-dialog-p">
+          <view class="u-dialog-text">
+            绑定手机号开通自助入场
+          </view>
+        </view>
+      </view>
+      <view class="u-dialog-footer">
+        <view class="u-dialog-btn u-dialog-cancal" bindtap="closeDialog">暂不开通</view>
+        <view class="u-dialog-btn u-dialog-yes" bindtap="moveToBind">开通自助入场</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 口令码提示框 -->
+  <view class="u-dialog password-dialog" wx:if="{{passwordDialog}}" catchtouchmove="ture">
+    <view class="u-dialog-content">
+      <view class="u-dialog-title">请输入下列口令码开门</view>
+      <view class="u-dialog-container">
+        <view class="u-dialog-p">
+          <view class="u-dialog-text">
+            {{password}}
+          </view>
+        </view>
+      </view>
+      <view class="u-dialog-footer">
+        <view class="u-dialog-btn u-dialog-cancal" bindtap="closeDialog">我知道了</view>
+      </view>
+    </view>
+  </view>
 </view>
 
 

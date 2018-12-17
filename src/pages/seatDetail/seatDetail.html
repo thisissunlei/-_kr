@@ -4,26 +4,37 @@
         <view class='top'>
             <view class="top-banner">
                 <!-- 背景大图 -->
-                <image src="../images/indexImg/card.png" class="img"></image>
+                <image src="../images/indexImg/card2.png" class="img"></image>
                 <!-- 已过期png -->
                 <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{seatStatus==='EXPIRED'}}"></image>
                 <!-- 已入场 -->
-                <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='USED'}}"></image>
+                <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='USED' }}"></image>
                 <view class="content">
                     <view class='title'>
                         <text class='meetingTime'>{{detail.useTime}}</text>
                         <text class="themeName">{{detail.buildFloorDescr}}</text>
                     </view>
-                    <view class='pics'>
-                        <view class="code-pic code-pics">
-                            <!-- 已过期边框 -->
-                            <image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus!=='TOUSE'}}"></image>
-                            <!-- 未过期边框 -->
-                            <image src="../images/indexImg/code.png" wx:if="{{seatStatus==='TOUSE'}}" class="img"></image>
-                            <canvas canvas-id="mycanvas" class="mycanvas" />
+                    <view class="features">
+                        <view class="scan" bindtap="scanCode">
+                            <image class="discounts-bg"
+                                   src="{{KrImgUrl}}scanCode/{{seatStatus === 'EXPIRED' ? 'scan_grey' : 'scan'}}.png"></image>
+                            <text class="{{seatStatus === 'EXPIRED' ? 'grey' : ''}}">扫一扫开门</text>
                         </view>
-                        <view class="code-desc">请入场时出示此二维码</view>
+                        <view class="qrcode" bindtap="scaleCode">
+                            <image class="discounts-bg" src="{{KrImgUrl}}scanCode/qrcode.png"></image>
+                            <text>查看二维码</text>
+                        </view>
                     </view>
+                    <!--<view class='pics'>-->
+                        <!--<view class="code-pic code-pics">-->
+                            <!--&lt;!&ndash; 已过期边框 &ndash;&gt;-->
+                            <!--<image src="../images/indexImg/erweima_hui.png" class="img" wx:if="{{seatStatus!=='TOUSE'}}"></image>-->
+                            <!--&lt;!&ndash; 未过期边框 &ndash;&gt;-->
+                            <!--<image src="../images/indexImg/code.png" wx:if="{{seatStatus==='TOUSE'}}" class="img"></image>-->
+                            <!--<canvas canvas-id="mycanvas" class="mycanvas" />-->
+                        <!--</view>-->
+                        <!--<view class="code-desc">请入场时出示此二维码</view>-->
+                    <!--</view>-->
                     <view class='bottom_text'>
                         <view class='icons'>
                             <image src='../images/indexImg/dizhi2.png'></image>
@@ -92,5 +103,57 @@
             </view>
         </view>
 
+    </view>
+
+
+    <!--二维码弹窗-->
+    <view class="qr-detail-dialog" wx:if="{{qrDialog}}" catchtouchmove="ture">
+        <view class="content-box">
+            <image class="close-button" src="{{KrImgUrl}}helpingActivity/share/close.png" bindtap="closeDialog"></image>
+            <view class="code-pic code-pics">
+                <image src="../images/indexImg/code.png" class="img"></image>
+                <canvas canvas-id="mycanvas" class="mycanvas" />
+            </view>
+            <view class="qr-text">请入场时出示此二维码</view>
+            <!-- 已过期 -->
+            <image src="../images/orderimg/order-b.png" class="overdue" wx:if="{{seatStatus==='EXPIRED'}}"></image>
+            <!-- 已入场 -->
+            <image src="../images/orderimg/order-a.png" class="overdue" wx:if="{{seatStatus==='USED' }}"></image>
+        </view>
+    </view>
+
+    <!-- 绑定手机号提示框 -->
+    <view class="u-dialog" wx:if="{{phoneDialog}}" catchtouchmove="ture">
+        <view class="u-dialog-content">
+            <!--<view class="u-dialog-title">提示</view>-->
+            <view class="u-dialog-container">
+                <view class="u-dialog-p">
+                    <view class="u-dialog-text">
+                        绑定手机号开通自助入场
+                    </view>
+                </view>
+            </view>
+            <view class="u-dialog-footer">
+                <view class="u-dialog-btn u-dialog-cancal" bindtap="closeDialog">暂不开通</view>
+                <view class="u-dialog-btn u-dialog-yes" bindtap="moveToBind">开通自助入场</view>
+            </view>
+        </view>
+    </view>
+
+    <!-- 口令码提示框 -->
+    <view class="u-dialog password-dialog" wx:if="{{passwordDialog}}" catchtouchmove="ture">
+        <view class="u-dialog-content">
+            <view class="u-dialog-title">请输入下列口令码开门</view>
+            <view class="u-dialog-container">
+                <view class="u-dialog-p">
+                    <view class="u-dialog-text">
+                        {{password}}
+                    </view>
+                </view>
+            </view>
+            <view class="u-dialog-footer">
+                <view class="u-dialog-btn u-dialog-cancal" bindtap="closeDialog">我知道了</view>
+            </view>
+        </view>
     </view>
 </view>

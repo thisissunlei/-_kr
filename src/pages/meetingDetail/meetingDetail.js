@@ -9,6 +9,7 @@ Page({
     return app.globalData.share_data;
   },
   data: {
+    KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
     meetingDetailData: {},
     inviteers: [],
     hint: [
@@ -48,7 +49,10 @@ Page({
         text:
           "所订时段结束后的10分钟内可以在大厅休整啦，之后前台小姐姐会依依不舍的送亲离开哦！"
       }
-    ]
+    ],
+    phoneDialog: false,
+    passwordDialog: false,
+    password: ''
   },
   inviteeId: "",
   status: "",
@@ -73,25 +77,25 @@ Page({
           meetingDetailData: meetingObj.meetingDetailData,
           inviteers: meetingObj.inviteers
         });
-        if (_this.data.meetingDetailData.meetingStatus === "EXPIRED") {
-          QR.qrApi.draw(
-            "https://web.krspace.cn/kr-meeting/kr_meeting_h5/index.html?inviteeId=" +
-              _this.inviteeId,
-            "mycanvas",
-            160,
-            160,
-            null,
-            "rgba(0,0,0,0.3)"
-          );
-        } else {
-          QR.qrApi.draw(
-            "https://web.krspace.cn/kr-meeting/kr_meeting_h5/index.html?inviteeId=" +
-              _this.inviteeId,
-            "mycanvas",
-            160,
-            160
-          );
-        }
+        // if (_this.data.meetingDetailData.meetingStatus === "EXPIRED") {
+        //   QR.qrApi.draw(
+        //     "https://web.krspace.cn/kr-meeting/kr_meeting_h5/index.html?inviteeId=" +
+        //       _this.inviteeId,
+        //     "mycanvas",
+        //     160,
+        //     160,
+        //     null,
+        //     "rgba(0,0,0,0.3)"
+        //   );
+        // } else {
+        //   QR.qrApi.draw(
+        //     "https://web.krspace.cn/kr-meeting/kr_meeting_h5/index.html?inviteeId=" +
+        //       _this.inviteeId,
+        //     "mycanvas",
+        //     160,
+        //     160
+        //   );
+        // }
         // if (_this.data.meetingDetailData.meetingStatus === 'EXPIRED') {
         //   QR.qrApi.draw("http://cdntest01.krspace.cn/kr_meeting/index.html?inviteeId=" + _this.inviteeId, "mycanvas", 150, 150, null, "rgba(0,0,0,0.6)");
         // } else {
@@ -212,5 +216,107 @@ Page({
     //     }
     //   }
     // })
-  }
+  },
+
+  closeDialog() {
+    this.setData({
+      qrDialog: false,
+      phoneDialog: false,
+      passwordDialog: false
+    })
+  },
+
+  scanCode() {
+    if (this.data.meetingDetailData.meetingStatus === "EXPIRED") {
+      return;
+    }
+    wx.scanCode({
+      success (res) {
+        wx.request({
+          url: res.result,
+          method: "get",
+          header: {
+            "content-type": "application/x-www-form-urlencoded",
+            "accept": "application/json",
+            Cookie: wx.getStorageSync("Cookie")
+          },
+          success: (data_new) => {
+            let url = app.globalData.KrUrl + "api/gateway/wx/qrcode/wx-open-door" + data_new.data.url.split('?')[1];
+            wx.request({
+              url: url,
+              method: "get",
+              header: {
+                "content-type": "application/x-www-form-urlencoded",
+                "accept": "application/json",
+                // Cookie: wx.getStorageSync("Cookie")
+              },
+              success: (res) => {
+                if (res.code === 0 ) {
+                  debugger;
+                  wx.showToast({
+                    title: res.message,
+                    icon: 'none',
+                    duration: 2000
+                  })
+
+                } else if (res.code === -2) {
+                  // this.showMsg(res.data.msg,'none');
+                } else if (res.code === -3) {
+
+                } else {
+                  wx.showToast({
+                    title: res.message,
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
+              }
+            })
+          },
+        })
+      }
+    })
+  },
+
+  scaleCode() {
+    this.setData({
+      qrDialog: true,
+    }, () => {
+      if (this.data.meetingDetailData.meetingStatus === "EXPIRED") {
+        QR.qrApi.draw(
+            "https://web.krspace.cn/kr-meeting/kr_meeting_h5/index.html?inviteeId=" +
+            this.inviteeId,
+            "mycanvas",
+            160,
+            160,
+            null,
+            "rgba(0,0,0,0.3)"
+        );
+      } else {
+        QR.qrApi.draw(
+            "https://web.krspace.cn/kr-meeting/kr_meeting_h5/index.html?inviteeId=" +
+            this.inviteeId,
+            "mycanvas",
+            160,
+            160
+        );
+      }
+    });
+
+  },
+
+  moveToBind() {
+    this.setData({
+      phoneDialog: false,
+    });
+    wx.setStorage({
+      key: 'bind_phone_url',
+      data: "../meetingDetail/meetingDetail?inviteeId=" + this.inviteeId,
+      success: (res) => {
+        wx.navigateTo({
+          url: "../bindPhone/bindPhone?fun=goStorageUrl"
+        });
+      }
+    });
+  },
 });

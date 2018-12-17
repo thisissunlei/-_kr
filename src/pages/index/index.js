@@ -1,12 +1,9 @@
 //index.js
 //获取应用实例
 const app = getApp();
+var QR = require("../../utils/qrcode.js");
+const scanCode = require("../../utils/scanCode");
 Page({
-  moveToBind: function() {
-    wx.navigateTo({
-      url: "../bindPhone/bindPhone"
-    });
-  },
   onShareAppMessage: function(res) {
     wx.reportAnalytics("sharekrmeeting");
     return {
@@ -22,7 +19,6 @@ Page({
     interval: 5000,
     duration: 1000,
     btn_bool: true,
-    duration: 1000,
     avatarUrl: "",
     userInfo: {},
     distanceShow: false, //距离显示
@@ -48,7 +44,14 @@ Page({
     activityFlag: false,
     pickerArray: [], //城市选择器
     objectPickerArray: [], //城市社区详情
-    pickerIndex: 0
+    pickerIndex: 0,
+    qrDialog: false,
+    seatId: 1,
+    currentTodo: 0,
+    todoAuto: true,
+    phoneDialog: false,
+    passwordDialog: false,
+    password: ''
   },
   newFish: true, //首次进入小程序
   cityId: 0,
@@ -131,6 +134,11 @@ Page({
         preIndex: e.detail.current
       });
     }
+  },
+  todoChange(e) {
+    this.setData({
+      currentTodo: e.detail.current
+    });
   },
   //活动详情页
   goActivityDetail: function(e) {
@@ -229,6 +237,13 @@ Page({
     if (options.fromPage == "guide") {
       that.newFish = false;
     }
+
+    // 首页小程序码渠道统计
+    if (options.id) {
+      wx.reportAnalytics("idx_channel", {
+        channelname: options.id
+      });
+    }
     wx.showLoading({
       title: "加载中",
       mask: true
@@ -299,6 +314,33 @@ Page({
     }
     //活动入口
     // this.getActivity();
+  },
+
+  createQrCode: function(url, canvasId, cavW, cavH) {
+    //调用插件中的draw方法，绘制二维码图片
+  },
+  readyQR: function() {
+    // if (this.data.seatStatus == "EXPIRED" || this.data.seatStatus == "USED") {
+    //   QR.qrApi.draw(
+    //       "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
+    //       th.data.seatId,
+    //       "mycanvas",
+    //       160,
+    //       160,
+    //       null,
+    //       "rgba(0,0,0,0.3)"
+    //   );
+    //   this.setData({ canInvite: false });
+    //   // console.log(that.data.canInvite);
+    // } else {
+    //   QR.qrApi.draw(
+    //       "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
+    //       this.data.seatId,
+    //       "mycanvas",
+    //       160,
+    //       160
+    //   );
+    // }
   },
   //城市列表接口
   getCityList: function() {
@@ -596,5 +638,69 @@ Page({
         btn_bool: false
       });
     }
-  }
+  },
+
+  closeDialog() {
+    this.setData({
+      qrDialog: false,
+      todoAuto: true,
+      phoneDialog: false,
+      passwordDialog: false
+    })
+  },
+
+  scanCode() {
+    if (this.data.myMeeting[this.data.currentTodo].targetType === 'MEETING' || this.data.myMeeting[this.data.currentTodo].targetType === 'SEAT') {
+      scanCode.scanCode(this.data.myMeeting[this.data.currentTodo].targetType, this.data.myMeeting[this.data.currentTodo].targetId, this);
+    }
+  },
+
+  scaleCode() {
+    console.log('currentTodo', this.data.currentTodo)
+    console.log('currentId', this.data.myMeeting[this.data.currentTodo].targetId)
+    this.setData({
+      qrDialog: true,
+      todoAuto: false
+    }, () => {
+      let typeUrl = "kr_seat";
+      if (this.data.myMeeting[this.data.currentTodo].targetType === 'MEETING') {
+        typeUrl = 'kr_meeting_h5';
+      } else if (this.data.myMeeting[this.data.currentTodo].targetType === 'ACTIVITY') {
+        typeUrl = 'kr_meeting_activity';
+      }
+      QR.qrApi.draw(
+          "https://web.krspace.cn/kr-meeting/" + typeUrl + "/index.html?inviteeId=" + this.data.myMeeting[this.data.currentTodo].targetId,
+          "mycanvas",
+          160,
+          160
+      );
+    });
+  },
+
+  moveToBind() {
+    this.setData({
+      phoneDialog: false,
+    });
+    wx.setStorage({
+      key: 'bind_phone_url',
+      data: "../index/index",
+      success: (res) => {
+        wx.navigateTo({
+          url: "../bindPhone/bindPhone?fun=goStorageUrl"
+        });
+      }
+    });
+  },
+
+  // showPhone() {
+  //   this.setData({
+  //     phoneDialog: true
+  //   })
+  // },
+
+  // showPassword() {
+  //   this.setData({
+  //     passwordDialog: true
+  //   })
+  // }
 });

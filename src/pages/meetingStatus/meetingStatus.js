@@ -48,7 +48,10 @@ Page({
         'title':'8. 大厅环境太好了，开完会想多待会儿可以吗？',
         'text':'所订时段结束后的10分钟内可以在大厅休整啦，之后前台小姐姐会依依不舍的送亲离开哦！'
       },
-    ]
+    ],
+    phoneDialog: true,
+    passwordDialog: false,
+    password: ''
   },
   flag:true,
   join:true,
@@ -277,5 +280,28 @@ Page({
     wx.redirectTo({
       url:"../index/index"
     })
-  }
+  },
+
+
+  moveToBind() {
+    this.setData({
+      phoneDialog: false,
+    });
+    wx.setStorage({
+      key: 'bind_phone_url',
+      data: '../meetingDetail/meetingDetail?inviteeId=' + this.inviteeId,
+      success: (res) => {
+        wx.navigateTo({
+          url: "../bindPhone/bindPhone?fun=goStorageUrl"
+        });
+      }
+    });
+  },
+
+  closeDialog() {
+    this.setData({
+      phoneDialog: false,
+      passwordDialog: false
+    })
+  },
 })

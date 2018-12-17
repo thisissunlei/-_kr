@@ -1,9 +1,11 @@
 //获取应用实例
 var QR = require("../../utils/qrcode.js");
+const scanCode = require("../../utils/scanCode");
 
 const app = getApp();
 Page({
   data: {
+    KrImgUrl: app.globalData.KrImgUrl, //CDN图片路径
     seatId: 0, //我的散座传过来的id
     seatStatus: "",
     canInvite: "",
@@ -42,7 +44,11 @@ Page({
       { text: "❊ 不可改变社区任何设施，如有损坏需赔偿哦！" },
       { text: "❊ 不可吸烟哦！" },
       { text: "❊ 不可进行违反法律规定的任何事项哦！" }
-    ]
+    ],
+    qrDialog: false,
+    phoneDialog: false,
+    passwordDialog: false,
+    password: ''
   },
   //分享
   onShareAppMessage: function(res) {
@@ -104,33 +110,33 @@ Page({
     }
     this.getSeatInfo();
   },
-  createQrCode: function(url, canvasId, cavW, cavH) {
-    //调用插件中的draw方法，绘制二维码图片
-  },
-  readyQR: function() {
-    var that = this;
-    if (that.data.seatStatus == "EXPIRED" || that.data.seatStatus == "USED") {
-      QR.qrApi.draw(
-        "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
-          that.data.seatId,
-        "mycanvas",
-        160,
-        160,
-        null,
-        "rgba(0,0,0,0.3)"
-      );
-      that.setData({ canInvite: false });
-      // console.log(that.data.canInvite);
-    } else {
-      QR.qrApi.draw(
-        "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
-          that.data.seatId,
-        "mycanvas",
-        160,
-        160
-      );
-    }
-  },
+  // createQrCode: function(url, canvasId, cavW, cavH) {
+  //   //调用插件中的draw方法，绘制二维码图片
+  // },
+  // readyQR: function() {
+  //   var that = this;
+  //   if (that.data.seatStatus == "EXPIRED" || that.data.seatStatus == "USED") {
+  //     QR.qrApi.draw(
+  //       "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
+  //         that.data.seatId,
+  //       "mycanvas",
+  //       160,
+  //       160,
+  //       null,
+  //       "rgba(0,0,0,0.3)"
+  //     );
+  //     that.setData({ canInvite: false });
+  //     // console.log(that.data.canInvite);
+  //   } else {
+  //     QR.qrApi.draw(
+  //       "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
+  //         that.data.seatId,
+  //       "mycanvas",
+  //       160,
+  //       160
+  //     );
+  //   }
+  // },
   //我的散座详情接口
   getSeatInfo: function() {
     var that = this;
@@ -152,8 +158,66 @@ Page({
           canInvite: seatInfo.data.data.canInvite,
           ticketId: seatInfo.data.data.ticketId
         });
-        that.readyQR();
+        // that.readyQR();
       }
     });
-  }
+  },
+
+  closeDialog() {
+    this.setData({
+      qrDialog: false,
+      phoneDialog: false,
+      passwordDialog: false
+    })
+  },
+
+  scanCode() {
+    if (this.data.seatStatus === 'EXPIRED') {
+      return;
+    }
+    scanCode.scanCode('SEAT', this.data.seatId, this);
+  },
+
+  scaleCode() {
+    this.setData({
+      qrDialog: true,
+    }, () => {
+      if (this.data.seatStatus == "EXPIRED" || this.data.seatStatus == "USED") {
+        QR.qrApi.draw(
+          "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
+            this.data.seatId,
+          "mycanvas",
+          160,
+          160,
+          null,
+          "rgba(0,0,0,0.3)"
+        );
+        this.setData({ canInvite: false });
+      } else {
+        QR.qrApi.draw(
+          "https://web.krspace.cn/kr-meeting/kr_seat/index.html?inviteeId=" +
+            this.data.seatId,
+          "mycanvas",
+          160,
+          160
+        );
+      }
+    });
+
+  },
+
+  moveToBind() {
+    this.setData({
+      phoneDialog: false,
+    });
+    wx.setStorage({
+      key: 'bind_phone_url',
+      data: "../seatDetail/seatDetail?seatId=" + this.data.seatId,
+      success: (res) => {
+        wx.navigateTo({
+          url: "../bindPhone/bindPhone?fun=goStorageUrl"
+        });
+      }
+    });
+  },
 });
