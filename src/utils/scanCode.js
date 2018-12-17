@@ -8,7 +8,6 @@ const scanCode = function (targetType, targetId, self) {
       //   password: '3454',
       //   passwordDialog: true
       // })
-
       wx.request({
         url: res.result,
         method: "get",
@@ -17,13 +16,14 @@ const scanCode = function (targetType, targetId, self) {
           "accept": "application/json",
         },
         success: (data_new) => {
-          let url = app.globalData.KrUrl + "api/gateway/wx/qrcode/wx-open-door" + data_new.data.url.split('?')[1];
+          let url = app.globalData.KrUrl + "api/gateway/kmqrcode/km-open-door?" + data_new.data.url.split('?')[1] + '&targetType=' + targetType + '&targetId=' + targetId;
           wx.request({
             url: url,
             method: "get",
             header: {
               "content-type": "application/x-www-form-urlencoded",
               "accept": "application/json",
+              Cookie: app.globalData.Cookie
             },
             success: (res) => {
               if (res.code === 0) {
@@ -44,8 +44,9 @@ const scanCode = function (targetType, targetId, self) {
                   passwordDialog: true
                 })
               } else {
+                console.log('res', res)
                 wx.showToast({
-                  title: res.message,
+                  title: res.data.message,
                   icon: 'none',
                   duration: 2000
                 })
