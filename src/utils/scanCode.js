@@ -40,11 +40,10 @@ const scanCode = function (targetType, targetId, self) {
                 })
               } else if (res.code === -3) {
                 self.setData({
-                  password: res.data.code,
+                  password: res.data.message,
                   passwordDialog: true
                 })
               } else {
-                console.log('res', res)
                 wx.showToast({
                   title: res.data.message,
                   icon: 'none',

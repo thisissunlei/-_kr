@@ -110,11 +110,25 @@ Page({
             icon: "success",
             duration: 2000
           });
-          setTimeout(() => {
-            wx.redirectTo({
-              url: `../mysanzuo/mysanzuo`
-            });
-          }, 2000);
+          app.getRequest({
+            url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
+            methods: "GET",
+            header: {
+              'content-type': "appication/json"
+            },
+            success: (res) => {
+              let userInfo = Object.assign({}, res.data.data);
+              if (userInfo.phone && userInfo.phone.length > 0) {
+                setTimeout(() => {
+                  this.goSanZuo();
+                }, 2000);
+              } else {
+                this.setData({
+                  phoneDialog: true,
+                })
+              }
+            }
+          });
         } else if (res.data.code == -2) {
           if (that.data.type == "ORDER") {
             wx.showToast({
@@ -232,14 +246,18 @@ Page({
     })
   },
 
+  goSanZuo() {
+    wx.redirectTo({
+      url: `../mysanzuo/mysanzuo`
+    });
+  },
+
   closeDialogAndGo() {
     this.setData({
       phoneDialog: false,
       passwordDialog: false
     }, () => {
-      wx.redirectTo({
-        url: `../mysanzuo/mysanzuo`
-      });
+      this.goSanZuo();
     })
   }
 });

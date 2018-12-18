@@ -49,7 +49,7 @@ Page({
         'text':'所订时段结束后的10分钟内可以在大厅休整啦，之后前台小姐姐会依依不舍的送亲离开哦！'
       },
     ],
-    phoneDialog: true,
+    phoneDialog: false,
     passwordDialog: false,
     password: ''
   },
@@ -232,24 +232,23 @@ Page({
         success:(res)=>{
           console.log(res,"确认参加")
           if(res.data.code==1){
-            console.log( _this.data.inviteers)
-            _this.data.meetingDetailData.inviteers.push(_this.data.wechatInfo)
-            _this.data.inviteers.push(_this.data.wechatInfo)
-            _this.setData({
-              meetingDetailData: _this.data.meetingDetailData,
-              inviteers:_this.data.inviteers
-            })
-            
-            _this.flag = false
-            if(_this.join===true){
-              _this.setData({
-                myjion:false,
-              })
-            }
-          console.log(_this.inviteeId,'传到metail的inviteeId11111')
-          wx.navigateTo({
-            url:'../meetingDetail/meetingDetail?inviteeId='+_this.inviteeId+'&status=1'
-          })
+            app.getRequest({
+              url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
+              methods: "GET",
+              header: {
+                'content-type': "appication/json"
+              },
+              success: (res) => {
+                let userInfo = Object.assign({}, res.data.data);
+                if (userInfo.phone && userInfo.phone.length > 0) {
+                  this.goMeetingDetail();
+                } else {
+                  this.setData({
+                    phoneDialog: true,
+                  })
+                }
+              }
+            });
           }else{
             wx.showToast({
               title: res.data.message,
@@ -298,10 +297,43 @@ Page({
     });
   },
 
+  goMeetingDetail() {
+    let _this = this;
+    console.log( _this.data.inviteers)
+    _this.data.meetingDetailData.inviteers.push(_this.data.wechatInfo)
+    _this.data.inviteers.push(_this.data.wechatInfo)
+    _this.setData({
+      meetingDetailData: _this.data.meetingDetailData,
+      inviteers:_this.data.inviteers
+    })
+
+    _this.flag = false
+    if(_this.join===true){
+      _this.setData({
+        myjion:false,
+      })
+    }
+    console.log(_this.inviteeId,'传到metail的inviteeId11111')
+    wx.navigateTo({
+      url:'../meetingDetail/meetingDetail?inviteeId='+_this.inviteeId+'&status=1'
+    })
+  },
+
   closeDialog() {
     this.setData({
       phoneDialog: false,
       passwordDialog: false
     })
   },
+
+  closeDialogAndGo() {
+    this.setData({
+      phoneDialog: false,
+      passwordDialog: false
+    }, () => {
+      this.goMeetingDetail();
+    })
+  }
+
+
 })
