@@ -2,6 +2,7 @@
 // 获取应用实例
 var QR = require("../../utils/qrcode.js");
 var meetingData = require("../../utils/meeting.js");
+const scanCode = require("../../utils/scanCode");
 const app = getApp();
 
 Page({
@@ -230,52 +231,7 @@ Page({
     if (this.data.meetingDetailData.meetingStatus === "EXPIRED") {
       return;
     }
-    wx.scanCode({
-      success (res) {
-        wx.request({
-          url: res.result,
-          method: "get",
-          header: {
-            "content-type": "application/x-www-form-urlencoded",
-            "accept": "application/json",
-            Cookie: wx.getStorageSync("Cookie")
-          },
-          success: (data_new) => {
-            let url = app.globalData.KrUrl + "api/gateway/wx/qrcode/wx-open-door" + data_new.data.url.split('?')[1];
-            wx.request({
-              url: url,
-              method: "get",
-              header: {
-                "content-type": "application/x-www-form-urlencoded",
-                "accept": "application/json",
-                // Cookie: wx.getStorageSync("Cookie")
-              },
-              success: (res) => {
-                if (res.code === 0 ) {
-                  debugger;
-                  wx.showToast({
-                    title: res.message,
-                    icon: 'none',
-                    duration: 2000
-                  })
-
-                } else if (res.code === -2) {
-                  // this.showMsg(res.data.msg,'none');
-                } else if (res.code === -3) {
-
-                } else {
-                  wx.showToast({
-                    title: res.message,
-                    icon: 'none',
-                    duration: 2000
-                  })
-                }
-              }
-            })
-          },
-        })
-      }
-    })
+    scanCode.scanCode('MEETING', this.inviteeId, this);
   },
 
   scaleCode() {
