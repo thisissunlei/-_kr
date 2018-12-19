@@ -71,19 +71,17 @@ Page({
         id: that.data.seatId,
         type: that.data.type
       },
-      // data: {
-      //   id: 3,
-      //   type: "TICKET"
-      // },
       success: function(res) {
         wx.hideLoading();
-        console.log(res);
+        
         if (res.data.code == 1) {
+          let data = res.data.data;
+          console.log(data);
           that.setData({
-            bookUserName: res.data.data.bookUserName,
-            usedTime: res.data.data.usedTime,
-            adress: res.data.data.adress,
-            bookUserAvatar: res.data.data.bookUserAvatar
+            bookUserName: data.bookUserName,
+            usedTime: data.usedTime,
+            adress: data.adress,
+            bookUserAvatar: data.bookUserAvatar || ''
           });
         }
       }
