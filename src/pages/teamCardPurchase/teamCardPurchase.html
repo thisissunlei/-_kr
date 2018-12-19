@@ -37,7 +37,7 @@
                         </view>
                         <view class="tsc-bottom">
                             <view class="tsc-bottom-left">
-                                <text style="font-size: 24rpx;">用卡: </text>
+                                <text style="font-size: 24rpx;">用卡人数: </text>
                                 <text style="font-size: 36rpx;">{{item.limitCount}}</text>
                                 <text style="font-size: 18rpx;">人</text>
                             </view>
@@ -63,29 +63,32 @@
     <view class="teamCard-scroll">
         <view class="{{list.length > 0? 'note-tit': 'note-tit select'}}">什么是团队套餐？</view>
         <!--<view class="note-tit">什么是团队套餐？</view>-->
-        <view class="note-con">团队套餐专为多人、多次使用会议室或散座需求的客户提供解决方案。购买团队套餐后，团队成员在套餐有效期内可共享余额，轻松预订自由座内会议室和散座。详情如下：</view>
+        <view class="note-con">团队套餐专为一人或多人多次使用会议室或散座的情况提供解决方案。购买团队套餐后，购买人可授权他人共享卡内余额，所有团队成员都可使用余额预订自由座的会议室和散座。详情如下：</view>
         <view class="note-con">面额：套餐可用额度；</view>
-        <view class="note-con">用卡：使用套餐的人数；</view>
-        <view class="note-con">有效期：套餐有效的天数，有效期自购买日开始计算。例：您在2018年9月10日购买了一种有效期30天的团队套餐，该套餐会在2018年10月10日失效。</view>
+        <view class="note-con">用卡人数：可授权使用套餐的人数；</view>
+        <view class="note-con">有效期：套餐有效天数自购买当天开始计算。</view>
 
-        <view class="note-tit">如何购买团队套餐？</view>
-        <view class="note-con">1.按您的会议室或散座使用频次及使用人数选择您需要的套餐购买即可；</view>
+
+        <view class="note-tit">团队套餐如何使用？</view>
+        <view class="note-con">1.团队套餐可用于购买任意地点的散座和会议室；</view>
+        <view class="note-con">2.购买散座或会议室时，支付方式选择团队套餐即可；</view>
+        <view class="note-con">3.团队套餐面额不支持充值，如下单时卡内余额不足，剩余金额可使用微信支付；</view>
+        <view class="note-con">4.购买人可选择或取消与他人共享团队套餐。</view>
+        <view class="note-con">共享方法：在团队卡“用卡人”中点击“添加用卡人”。取消共享方法：在“用卡人”中调整即可；</view>
+        <view class="note-con">5.购买成功后团队成员可在“我的团队卡-消费记录”中查看使用记录。</view>
+
+        <view class="note-tit">团队套餐如何购买？</view>
+        <view class="note-con">1.选择您需要的套餐直接线上购买，购买后不可退换，不可延期；</view>
         <view class="note-con">2.团队套餐仅支持微信支付；</view>
         <view class="note-con">3.可同时为多个团队购买多份套餐，套餐支持修改名称；</view>
-        <view class="note-con">4.团队套餐为电子商品，购买成功后可到“我的团队卡”中查看；</view>
-        <view class="note-con">5.如需开发票，可联系在线客服，时间为工作日10:00——19:00。</view>
+        <view class="note-con">4.如现有套餐种类与您的需求不匹配，可根据您的使用频次和使用时长，联系在线客服定制您的专属套餐，客服在线时间为工作日10:00——19:00；</view>
+        <view class="note-con">5.如需开发票，可联系在线客服，客服在线时间为工作日10:00——19:00。</view>
 
-        <view class="note-tit">如何使用团队套餐？</view>
-        <view class="note-con">1.每种套餐可在使用人数范围内同时授权多人使用；</view>
-        <view class="note-con">2.团队成员可使用套餐余额预订自由座内的会议室和散座，如套餐内余额不足，剩余金额可使用微信支付；</view>
-        <view class="note-con">3.购买后请在有效期内用完，套餐不支持充值，不能退换，不可延期；</view>
-        <view class="note-con">4.团队成员可在团队卡“消费记录”中实时查看使用记录。</view>
+        <!--<view class="note-tit">如何授权给多人使用团队套餐？</view>-->
+        <!--<view class="note-con">购买团队套餐后在套餐详情页微信转发给需要授权的人即可</view>-->
 
-        <view class="note-tit">如何授权给多人使用团队套餐？</view>
-        <view class="note-con">购买团队套餐后在套餐详情页微信转发给需要授权的人即可</view>
-
-        <view class="note-tit">如何定制团队套餐？</view>
-        <view class="note-con">如您有更多会议室及散座使用需求，可联系在线客服定制您的专属套餐，客服在线时间为工作日10:00——19:00。</view>
+        <!--<view class="note-tit">如何定制团队套餐？</view>-->
+        <!--<view class="note-con">如您有更多会议室及散座使用需求，可联系在线客服定制您的专属套餐，客服在线时间为工作日10:00——19:00。</view>-->
 
         <view class="u-protocol">
             <view class="u-protocol-content">
