@@ -27,7 +27,6 @@ const scanCode = function (targetType, targetId, self) {
             },
             success: (res) => {
               if (res.code === 0) {
-                debugger;
                 wx.showToast({
                   title: res.message,
                   icon: 'none',
