@@ -4,10 +4,6 @@ const scanCode = function (targetType, targetId, self) {
 
   wx.scanCode({
     success(res) {
-      // self.setData({
-      //   password: '3454',
-      //   passwordDialog: true
-      // })
       wx.request({
         url: res.result,
         method: "get",
@@ -26,6 +22,7 @@ const scanCode = function (targetType, targetId, self) {
               Cookie: app.globalData.Cookie
             },
             success: (res) => {
+              console.log('openRes', res);
               if (res.code === 0) {
                 wx.showToast({
                   title: res.message,

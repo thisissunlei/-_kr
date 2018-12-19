@@ -310,7 +310,7 @@ Page({
       that.getAllInfo();
     }
     if (that.locationStatus && that.loginStatus) {
-      that.getCitybyId();
+      that.getCitybyId(false);
     }
     //活动入口
     // this.getActivity();
@@ -370,7 +370,7 @@ Page({
     });
   },
   //大厦城市id接口
-  getCitybyId: function() {
+  getCitybyId: function(hide = true) {
     let that = this;
     app.getRequest({
       url:
@@ -381,8 +381,9 @@ Page({
         longitude: that.rq_data.longitude
       },
       success: function(res) {
-        wx.hideLoading();
-
+        if (hide) {
+          wx.hideLoading();
+        }
         let cityById = Object.assign({}, res);
         let buildingList = cityById.data.data;
         //未授权地理信息不显示距离
