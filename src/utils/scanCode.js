@@ -66,14 +66,6 @@ const scanCode = function (targetType, targetId, self) {
           });
         }
       })
-
-    },
-    fail() {
-      wx.showToast({
-        title: '无效的二维码',
-        icon: 'none',
-        duration: 2000
-      });
     }
   })
 
