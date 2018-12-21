@@ -27,8 +27,8 @@ Page({
     success:false,
     areaCode:'',
     form:'order',
-    fun:''
-    
+    fun:'',
+    auth: false
   },
   onShareAppMessage: function() {
     return app.globalData.share_data;
@@ -55,7 +55,8 @@ Page({
       phone: options.phone,
       areaCode: options.region,
       time:60,
-      fun:options.fun || ''
+      fun:options.fun || '',
+      auth: options.auth || false
     })
     this.countDown()
     
@@ -94,21 +95,33 @@ Page({
     })
   },
   formSubmit(e){
+    let authData = {};
+    const value = wx.getStorageSync('bind_phone_auth')
+    if (value) {
+      authData = value || {};
+      console.log('authData', authData);
+    }
     let that = this;
     let fun = this.data.fun;
     // createOrder[fun](that,2)
     // return;
+    let data = {
+      "code":that.data.inputValue,
+      "phone":that.data.phone,
+      'areaCode':that.data.areaCode
+    };
+    if (this.data.auth) {
+      Object.assign(data, authData)
+      console.log('newData', data)
+    }
+    console.log('data', data)
       app.getRequest({
-        url:app.globalData.KrUrl+'/api/gateway/krmting/bind/phone',
+        url:app.globalData.KrUrl+ (this.data.auth ? 'api/gateway/krmting/bind/phone-grant' : '/api/gateway/krmting/bind/phone'),
         methods:"GET",
         header:{
           'content-type':"appication/json"
         },
-        data:{
-          "code":that.data.inputValue,
-          "phone":that.data.phone,
-          'areaCode':that.data.areaCode
-        },
+        data: data,
         success:(res)=>{
 
 

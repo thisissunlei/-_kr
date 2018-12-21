@@ -683,11 +683,18 @@ Page({
       phoneDialog: false,
     });
     wx.setStorage({
+      key: 'bind_phone_auth',
+      data: {
+        KmTargetId: this.data.myMeeting[this.data.currentTodo].targetId,
+        KmTodoType: this.data.myMeeting[this.data.currentTodo].targetType
+      }
+    });
+    wx.setStorage({
       key: 'bind_phone_url',
       data: "../index/index",
       success: (res) => {
         wx.navigateTo({
-          url: "../bindPhone/bindPhone?fun=goStorageUrl"
+          url: "../bindPhone/bindPhone?fun=goStorageUrl&auth=true"
         });
       }
     });

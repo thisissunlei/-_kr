@@ -32,6 +32,7 @@ const scanCode = function (targetType, targetId, self) {
             },
             success: (res) => {
               console.log('openRes', res);
+              res = res.data || {};
               if (res.code === 0) {
                 wx.showToast({
                   title: res.message,
@@ -45,12 +46,12 @@ const scanCode = function (targetType, targetId, self) {
                 })
               } else if (res.code === -3) {
                 self.setData({
-                  password: res.data.message,
+                  password: res.message,
                   passwordDialog: true
                 })
               } else {
                 wx.showToast({
-                  title: res.data.message,
+                  title: res.message,
                   icon: 'none',
                   duration: 2000
                 })

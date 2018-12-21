@@ -287,11 +287,18 @@ Page({
       phoneDialog: false,
     });
     wx.setStorage({
+      key: 'bind_phone_auth',
+      data: {
+        KmTargetId: this.inviteeId,
+        KmTodoType: 'MEETING'
+      }
+    });
+    wx.setStorage({
       key: 'bind_phone_url',
       data: '../meetingDetail/meetingDetail?inviteeId=' + this.inviteeId,
       success: (res) => {
         wx.navigateTo({
-          url: "../bindPhone/bindPhone?fun=goStorageUrl"
+          url: "../bindPhone/bindPhone?fun=goStorageUrl&auth=true"
         });
       }
     });

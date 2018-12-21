@@ -17,7 +17,8 @@ Page({
     phoneRepeat:true,
     phoneError:true,
     errorMessage:'',
-    fun:''
+    fun:'',
+    auth: false
   },
   submit_buttom:true,
   getPhoneNumber: function(e) { 
@@ -36,8 +37,18 @@ Page({
   bindwxPhone(data){
     let fun = this.data.fun;
     let that = this;
+    let authData = {};
+    const value = wx.getStorageSync('bind_phone_auth')
+    if (value) {
+      authData = value || {};
+      console.log('authData', authData);
+    }
+    if (this.data.auth) {
+      Object.assign(data, authData)
+      console.log('newData', data)
+    }
     app.getRequest({
-        url:app.globalData.KrUrl+'api/gateway/krmting/wx/auth/bind-phone',
+        url:app.globalData.KrUrl+ (this.data.auth ? 'api/gateway/krmting/wx/auth/bind-phone-grant' : 'api/gateway/krmting/wx/auth/bind-phone'),
         methods:"GET",
         data:data,
         success:(res)=>{
@@ -85,12 +96,13 @@ Page({
       inputValue: options.value || '',
       inputValues: options.value || '',
       phoneRange:options.city || '86',
-      fun : options.fun
+      fun : options.fun,
+      auth: options.auth || false
     })
   },
   opencity(){
     wx.navigateTo({
-      url: '../regionList/regionList?value=中国&fun='+this.data.fun
+      url: '../regionList/regionList?value=中国&fun='+this.data.fun+'&auth='+this.data.auth
     });
   },
   bindKeyInput:function(e){
@@ -148,14 +160,14 @@ Page({
         methods:"GET",
         data:{
           "phone":that.data.inputValue,
-          areaCode: this.data.phoneRange
+          // areaCode: this.data.phoneRange
         },
         success:(res)=>{
           that.submit_buttom = true
-          if(res.data.code<0 ){
+          if(res.data.code>0 ){
                wx.hideLoading();
               wx.navigateTo({
-                url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from+'&fun='+this.data.fun
+                url: '../provingCode/provingCode?phone='+that.data.inputValue+'&region='+that.data.phoneRange+'&from='+this.data.from+'&fun='+this.data.fun+'&auth='+this.data.auth
               }); 
 
           }else{

@@ -211,11 +211,18 @@ Page({
       phoneDialog: false,
     });
     wx.setStorage({
+      key: 'bind_phone_auth',
+      data: {
+        KmTargetId: this.data.seatId,
+        KmTodoType: 'SEAT'
+      }
+    });
+    wx.setStorage({
       key: 'bind_phone_url',
       data: "../seatDetail/seatDetail?seatId=" + this.data.seatId,
       success: (res) => {
         wx.navigateTo({
-          url: "../bindPhone/bindPhone?fun=goStorageUrl"
+          url: "../bindPhone/bindPhone?fun=goStorageUrl&auth=true"
         });
       }
     });
