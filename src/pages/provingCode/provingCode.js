@@ -328,7 +328,8 @@ Page({
         url:app.globalData.KrUrl+'api/gateway/krmting/common/get-verify-code',
         methods:"GET",
         data:{
-          "phone":that.data.phone 
+          "phone":that.data.phone,
+          areaCode: this.data.areaCode.padStart(4, 0)
         },
         success:(res)=>{
           if(res.data.code>0){

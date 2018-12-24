@@ -164,7 +164,7 @@ Page({
         methods:"GET",
         data:{
           "phone":that.data.inputValue,
-          // areaCode: this.data.phoneRange
+          areaCode: this.data.phoneRange.padStart(4, 0)
         },
         success:(res)=>{
           that.submit_buttom = true
