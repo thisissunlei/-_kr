@@ -133,7 +133,11 @@ Page({
   },
   formSubmit(e){
     let that = this;
-    var phoneTest = util.phone(this.data.inputValue)
+    let phoneTest = true;
+    const l = this.data.inputValue.length;
+    if (l <= 0 || l > 20) {
+      phoneTest = false;
+    }
     this.setData({
       phoneTest:phoneTest
     })
