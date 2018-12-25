@@ -56,6 +56,7 @@ Page({
   flag:true,
   join:true,
   inviteeId:'',
+  new_inviteeId: '',
   onLoad: function (options) {
     wx.showLoading({
       title: '加载中',
@@ -231,6 +232,8 @@ Page({
         },
         success:(res)=>{
           console.log(res,"确认参加")
+          this.new_inviteeId = res.data.data.inviteeId;
+          console.log('new_inviteeId', this.new_inviteeId)
           if(res.data.code==1){
             app.getRequest({
               url: app.globalData.KrUrl + 'api/gateway/krmting/getWecharUser',
@@ -322,7 +325,7 @@ Page({
     }
     console.log(_this.inviteeId,'传到metail的inviteeId11111')
     wx.navigateTo({
-      url:'../meetingDetail/meetingDetail?inviteeId='+_this.inviteeId+'&status=1'
+      url:'../meetingDetail/meetingDetail?inviteeId='+_this.new_inviteeId+'&status=1'
     })
   },
 
