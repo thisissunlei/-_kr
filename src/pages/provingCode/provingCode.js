@@ -56,7 +56,7 @@ Page({
       areaCode: options.region,
       time:60,
       fun:options.fun || '',
-      auth: options.auth || false
+      auth: (options.auth === true || options.auth === 'true') ? true : false
     })
     this.countDown()
     

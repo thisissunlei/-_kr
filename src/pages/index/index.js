@@ -700,15 +700,4 @@ Page({
     });
   },
 
-  // showPhone() {
-  //   this.setData({
-  //     phoneDialog: true
-  //   })
-  // },
-
-  // showPassword() {
-  //   this.setData({
-  //     passwordDialog: true
-  //   })
-  // }
 });

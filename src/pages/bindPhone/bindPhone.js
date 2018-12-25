@@ -97,7 +97,7 @@ Page({
       inputValues: options.value || '',
       phoneRange:options.city || '86',
       fun : options.fun,
-      auth: options.auth || false
+      auth: (options.auth === true || options.auth === 'true') ? true : false
     })
   },
   opencity(){
