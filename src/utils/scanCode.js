@@ -5,7 +5,7 @@ const scanCode = function (targetType, targetId, self) {
   wx.scanCode({
     success(res) {
       if (res.result.includes('http://')) {
-        res.result = res.result.replace(/http:/, 'https');
+        res.result = res.result.replace(/http:/, 'https:');
       }
       wx.request({
         url: res.result,
